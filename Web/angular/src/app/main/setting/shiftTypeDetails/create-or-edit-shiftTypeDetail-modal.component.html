@@ -1,0 +1,79 @@
+﻿<div bsModal #createOrEditModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="createOrEditModal" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form *ngIf="active" #shiftTypeDetailForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="shiftTypeDetail.id">{{l("EditShiftTypeDetail")}}</span>
+                        <span *ngIf="!shiftTypeDetail.id">{{l("CreateNewShiftTypeDetail")}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close" [disabled]="saving">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                 
+
+					<div class="form-group m-form__group">
+                        <label for="ShiftTypeDescriptionAr">{{l("ShiftType")}}</label>
+                        <div class="input-group">
+                            <input class="form-control" id="ShiftTypeDescriptionAr" name="shiftTypeDescriptionAr" [(ngModel)]="shiftTypeDescriptionAr" type="text" disabled>     
+                            <div class="input-group-append">
+                                <button class="btn btn-primary blue" (click)="openSelectShiftTypeModal()" type="button"><i class="fa fa-search"></i> {{l("Pick")}}</button>
+                            </div> <div class="input-group-prepend">
+                                <button class="btn btn-danger btn-icon" type="button" (click)="setShiftTypeIdNull()"><i class="fa fa-times"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <input class="form-control" name="shiftTypeDetail.shiftTypeId" [(ngModel)]="shiftTypeDetail.shiftTypeId" type="text" required hidden>
+		 
+
+								<br/><div class="m-checkbox-list">
+									<label for="ShiftTypeDetail_InTimeFirstScan" class="kt-checkbox">
+										<input id="ShiftTypeDetail_InTimeFirstScan" type="checkbox" name="InTimeFirstScan" [(ngModel)]="shiftTypeDetail.inTimeFirstScan"> 
+										{{l("InTimeFirstScan")}}
+										<span></span>
+									</label>
+								</div>
+					
+								<br/><div class="m-checkbox-list">
+									<label for="ShiftTypeDetail_InTimeLastScan" class="kt-checkbox">
+										<input id="ShiftTypeDetail_InTimeLastScan" type="checkbox" name="InTimeLastScan" [(ngModel)]="shiftTypeDetail.inTimeLastScan"> 
+										{{l("InTimeLastScan")}}
+										<span></span>
+									</label>
+								</div>
+					
+								<br/><div class="m-checkbox-list">
+									<label for="ShiftTypeDetail_OutTimeFirstScan" class="kt-checkbox">
+										<input id="ShiftTypeDetail_OutTimeFirstScan" type="checkbox" name="OutTimeFirstScan" [(ngModel)]="shiftTypeDetail.outTimeFirstScan"> 
+										{{l("OutTimeFirstScan")}}
+										<span></span>
+									</label>
+								</div>
+					
+								<br/><div class="m-checkbox-list">
+									<label for="ShiftTypeDetail_OutTimeLastScan" class="kt-checkbox">
+										<input id="ShiftTypeDetail_OutTimeLastScan" type="checkbox" name="OutTimeLastScan" [(ngModel)]="shiftTypeDetail.outTimeLastScan"> 
+										{{l("OutTimeLastScan")}}
+										<span></span>
+									</label>
+								</div>
+					
+								<div class="form-group">
+									<label for="ShiftTypeDetail_NoDuty">{{l("NoDuty")}}</label>
+									<input type="number" id="ShiftTypeDetail_NoDuty" class="form-control" [(ngModel)]="shiftTypeDetail.noDuty" name="NoDuty"  />
+								</div>
+					
+
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-default" (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!shiftTypeDetailForm.form.valid" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i> <span>{{l("Save")}}</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+<shiftTypeDetailShiftTypeLookupTableModal #shiftTypeDetailShiftTypeLookupTableModal (modalSave)="getNewShiftTypeId()"></shiftTypeDetailShiftTypeLookupTableModal>
+		 
+</div>

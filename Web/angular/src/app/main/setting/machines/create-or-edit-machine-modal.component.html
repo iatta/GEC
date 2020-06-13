@@ -1,0 +1,83 @@
+﻿<div bsModal #createOrEditModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="createOrEditModal" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form *ngIf="active" #machineForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="machine.id">{{l("EditMachine")}}</span>
+                        <span *ngIf="!machine.id">{{l("CreateNewMachine")}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close" [disabled]="saving">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                 
+
+					<div class="form-group m-form__group">
+                        <label for="OrganizationUnitDisplayName">{{l("OrganizationUnit")}}</label>
+                        <div class="input-group">
+                            <input class="form-control" id="OrganizationUnitDisplayName" name="organizationUnitDisplayName" [(ngModel)]="organizationUnitDisplayName" type="text" disabled>     
+                            <div class="input-group-append">
+                                <button class="btn btn-primary blue" (click)="openSelectOrganizationUnitModal()" type="button"><i class="fa fa-search"></i> {{l("Pick")}}</button>
+                            </div> <div class="input-group-prepend">
+                                <button class="btn btn-danger btn-icon" type="button" (click)="setOrganizationUnitIdNull()"><i class="fa fa-times"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <input class="form-control" name="machine.organizationUnitId" [(ngModel)]="machine.organizationUnitId" type="text"  hidden>
+		 
+
+								<div class="form-group">
+									<label for="Machine_NameAr">{{l("NameAr")}}</label>
+									<input type="text" id="Machine_NameAr" class="form-control" [(ngModel)]="machine.nameAr" name="NameAr"    />
+								</div>
+					
+								<div class="form-group">
+									<label for="Machine_NameEn">{{l("NameEn")}}</label>
+									<input type="text" id="Machine_NameEn" class="form-control" [(ngModel)]="machine.nameEn" name="NameEn"    />
+								</div>
+					
+								<div class="form-group">
+									<label for="Machine_IpAddress">{{l("IpAddress")}}</label>
+									<input type="text" id="Machine_IpAddress" class="form-control" [(ngModel)]="machine.ipAddress" name="IpAddress"    />
+								</div>
+					
+								<div class="form-group">
+									<label for="Machine_SubNet">{{l("SubNet")}}</label>
+									<input type="text" id="Machine_SubNet" class="form-control" [(ngModel)]="machine.subNet" name="SubNet"    />
+								</div>
+					
+								<br/><div class="m-checkbox-list">
+									<label for="Machine_Status" class="kt-checkbox">
+										<input id="Machine_Status" type="checkbox" name="Status" [(ngModel)]="machine.status"> 
+										{{l("Status")}}
+										<span></span>
+									</label>
+								</div>
+					
+								<div class="form-group">
+									<label for="Machine_Port">{{l("Port")}}</label>
+									<input type="text" id="Machine_Port" class="form-control" [(ngModel)]="machine.port" name="Port"    />
+								</div>
+					
+								<br/><div class="m-checkbox-list">
+									<label for="Machine_Online" class="kt-checkbox">
+										<input id="Machine_Online" type="checkbox" name="Online" [(ngModel)]="machine.online"> 
+										{{l("Online")}}
+										<span></span>
+									</label>
+								</div>
+					
+
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-default" (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!machineForm.form.valid" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i> <span>{{l("Save")}}</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+<machineOrganizationUnitLookupTableModal #machineOrganizationUnitLookupTableModal (modalSave)="getNewOrganizationUnitId()"></machineOrganizationUnitLookupTableModal>
+		 
+</div>

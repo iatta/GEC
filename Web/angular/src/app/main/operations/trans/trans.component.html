@@ -1,0 +1,634 @@
+﻿<div [@routerTransition]>
+  <div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor">
+    <div class="kt-subheader kt-grid__item">
+      <div [class]="containerClass">
+        <div class="kt-subheader__main">
+            <h3 class="kt-subheader__title">
+                <span>{{l("Trans")}}</span>
+            </h3>
+            <span class="kt-subheader__separator kt-subheader__separator--v"></span>
+            <span class="kt-subheader__desc">
+                {{l("TransHeaderInfo")}}
+            </span>
+        </div>
+        <div class="kt-subheader__toolbar">
+            <div class="kt-subheader__wrapper">
+				<button (click)="exportToExcel()" class="btn btn-outline-success"><i class="fa fa-file-excel"></i> {{l("ExportToExcel")}}</button>
+                <button *ngIf="isGranted('Pages.Trans.Create')" (click)="createTran()" 
+			class="btn btn-primary blue"><i class="fa fa-plus"></i> {{l("CreateNewTran")}}</button>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div [class]="containerClass + ' kt-grid__item kt-grid__item--fluid'">
+        <div class="kt-portlet kt-portlet--mobile">
+            <div class="kt-portlet__body">
+                <form class="kt-form" autocomplete="off">
+                    <div>
+                        <div class="row align-items-center">
+                            <div class="col-xl-12">
+                                <div class="form-group m-form__group align-items-center">
+                                    <div class="input-group">
+                                        <input [(ngModel)]="filterText" name="filterText" autoFocus class="form-control m-input" [placeholder]="l('SearchWithThreeDot')" type="text">
+                                        <span class="input-group-btn">
+                                            <button (click)="getTrans()" class="btn btn-primary" type="submit"><i class="flaticon-search-1"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+						 <div class="row" [hidden]="!advancedFiltersAreShown">
+						 	<div class="col-md-12">
+						         <div class="kt-separator kt-separator--border-dashed"></div>
+						     </div>
+
+
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="Scan1Filter">{{l("Scan1")}}</label>
+									<input type="text" class="form-control" id="Scan1Filter" name="scan1Filter" [(ngModel)]="scan1Filter">
+								</div>
+                            </div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="Scan2Filter">{{l("Scan2")}}</label>
+									<input type="text" class="form-control" id="Scan2Filter" name="scan2Filter" [(ngModel)]="scan2Filter">
+								</div>
+                            </div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="Scan3Filter">{{l("Scan3")}}</label>
+									<input type="text" class="form-control" id="Scan3Filter" name="scan3Filter" [(ngModel)]="scan3Filter">
+								</div>
+                            </div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="Scan4Filter">{{l("Scan4")}}</label>
+									<input type="text" class="form-control" id="Scan4Filter" name="scan4Filter" [(ngModel)]="scan4Filter">
+								</div>
+                            </div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="Scan5Filter">{{l("Scan5")}}</label>
+									<input type="text" class="form-control" id="Scan5Filter" name="scan5Filter" [(ngModel)]="scan5Filter">
+								</div>
+                            </div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="Scan6Filter">{{l("Scan6")}}</label>
+									<input type="text" class="form-control" id="Scan6Filter" name="scan6Filter" [(ngModel)]="scan6Filter">
+								</div>
+                            </div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="Scan8Filter">{{l("Scan8")}}</label>
+									<input type="text" class="form-control" id="Scan8Filter" name="scan8Filter" [(ngModel)]="scan8Filter">
+								</div>
+                            </div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="ScanLocation1Filter">{{l("ScanLocation1")}}</label>
+									<input type="text" class="form-control" id="ScanLocation1Filter" name="scanLocation1Filter" [(ngModel)]="scanLocation1Filter">
+								</div>
+                            </div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="ScanLocation2Filter">{{l("ScanLocation2")}}</label>
+									<input type="text" class="form-control" id="ScanLocation2Filter" name="scanLocation2Filter" [(ngModel)]="scanLocation2Filter">
+								</div>
+                            </div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="ScanLocation3Filter">{{l("ScanLocation3")}}</label>
+									<input type="text" class="form-control" id="ScanLocation3Filter" name="scanLocation3Filter" [(ngModel)]="scanLocation3Filter">
+								</div>
+                            </div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="ScanLocation4Filter">{{l("ScanLocation4")}}</label>
+									<input type="text" class="form-control" id="ScanLocation4Filter" name="scanLocation4Filter" [(ngModel)]="scanLocation4Filter">
+								</div>
+                            </div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="ScanLocation5Filter">{{l("ScanLocation5")}}</label>
+									<input type="text" class="form-control" id="ScanLocation5Filter" name="scanLocation5Filter" [(ngModel)]="scanLocation5Filter">
+								</div>
+                            </div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="ScanLocation6Filter">{{l("ScanLocation6")}}</label>
+									<input type="text" class="form-control" id="ScanLocation6Filter" name="scanLocation6Filter" [(ngModel)]="scanLocation6Filter">
+								</div>
+                            </div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="ScanLocation7Filter">{{l("ScanLocation7")}}</label>
+									<input type="text" class="form-control" id="ScanLocation7Filter" name="scanLocation7Filter" [(ngModel)]="scanLocation7Filter">
+								</div>
+                            </div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="ScanLocation8Filter">{{l("ScanLocation8")}}</label>
+									<input type="text" class="form-control" id="ScanLocation8Filter" name="scanLocation8Filter" [(ngModel)]="scanLocation8Filter">
+								</div>
+                            </div>	
+							<div class="col-md-3">
+								<label for="HasHolidayFilterSelect">{{l("HasHoliday")}}</label>
+								<select class="form-control" name="HasHolidayFilter" id="HasHolidayFilterSelect" [(ngModel)]="hasHolidayFilter">
+								<option value="-1">{{l("All")}}</option>
+								<option value="0">{{l("False")}}</option>
+								<option value="1">{{l("True")}}</option>
+								</select>
+                            </div>	
+							<div class="col-md-3">
+								<label for="HasVacationFilterSelect">{{l("HasVacation")}}</label>
+								<select class="form-control" name="HasVacationFilter" id="HasVacationFilterSelect" [(ngModel)]="hasVacationFilter">
+								<option value="-1">{{l("All")}}</option>
+								<option value="0">{{l("False")}}</option>
+								<option value="1">{{l("True")}}</option>
+								</select>
+                            </div>	
+							<div class="col-md-3">
+								<label for="HasOffDayFilterSelect">{{l("HasOffDay")}}</label>
+								<select class="form-control" name="HasOffDayFilter" id="HasOffDayFilterSelect" [(ngModel)]="hasOffDayFilter">
+								<option value="-1">{{l("All")}}</option>
+								<option value="0">{{l("False")}}</option>
+								<option value="1">{{l("True")}}</option>
+								</select>
+                            </div>	
+							<div class="col-md-3">
+								<label for="IsAbsentFilterSelect">{{l("IsAbsent")}}</label>
+								<select class="form-control" name="IsAbsentFilter" id="IsAbsentFilterSelect" [(ngModel)]="isAbsentFilter">
+								<option value="-1">{{l("All")}}</option>
+								<option value="0">{{l("False")}}</option>
+								<option value="1">{{l("True")}}</option>
+								</select>
+                            </div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="LeaveCodeFilter">{{l("LeaveCode")}}</label>
+									<input type="text" class="form-control" id="LeaveCodeFilter" name="leaveCodeFilter" [(ngModel)]="leaveCodeFilter">
+								</div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+									<label for="MinDesignationIDFilter">{{l("MinMax")}} {{l("DesignationID")}}</label>
+									<div class="input-group">
+                                        <input type="number" class="form-control" id="MinDesignationIDFilter" [(ngModel)]="minDesignationIDFilter" placeholder="{{l('MinValue')}}" name="minDesignationIDFilter" />
+                                        <input type="number" class="form-control" [(ngModel)]="maxDesignationIDFilter" placeholder="{{l('MaxValue')}}" name="maxDesignationIDFilter" />
+									</div>
+                                </div>
+                            </div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="LeaveRemarkFilter">{{l("LeaveRemark")}}</label>
+									<input type="text" class="form-control" id="LeaveRemarkFilter" name="leaveRemarkFilter" [(ngModel)]="leaveRemarkFilter">
+								</div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+									<label for="MinNoShiftsFilter">{{l("MinMax")}} {{l("NoShifts")}}</label>
+									<div class="input-group">
+                                        <input type="number" class="form-control" id="MinNoShiftsFilter" [(ngModel)]="minNoShiftsFilter" placeholder="{{l('MinValue')}}" name="minNoShiftsFilter" />
+                                        <input type="number" class="form-control" [(ngModel)]="maxNoShiftsFilter" placeholder="{{l('MaxValue')}}" name="maxNoShiftsFilter" />
+									</div>
+                                </div>
+                            </div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="ShiftNameFilter">{{l("ShiftName")}}</label>
+									<input type="text" class="form-control" id="ShiftNameFilter" name="shiftNameFilter" [(ngModel)]="shiftNameFilter">
+								</div>
+                            </div>	
+							<div class="col-md-3">
+								<label for="ScanManual1FilterSelect">{{l("ScanManual1")}}</label>
+								<select class="form-control" name="ScanManual1Filter" id="ScanManual1FilterSelect" [(ngModel)]="scanManual1Filter">
+								<option value="-1">{{l("All")}}</option>
+								<option value="0">{{l("False")}}</option>
+								<option value="1">{{l("True")}}</option>
+								</select>
+                            </div>	
+							<div class="col-md-3">
+								<label for="ScanManual2FilterSelect">{{l("ScanManual2")}}</label>
+								<select class="form-control" name="ScanManual2Filter" id="ScanManual2FilterSelect" [(ngModel)]="scanManual2Filter">
+								<option value="-1">{{l("All")}}</option>
+								<option value="0">{{l("False")}}</option>
+								<option value="1">{{l("True")}}</option>
+								</select>
+                            </div>	
+							<div class="col-md-3">
+								<label for="ScanManual3FilterSelect">{{l("ScanManual3")}}</label>
+								<select class="form-control" name="ScanManual3Filter" id="ScanManual3FilterSelect" [(ngModel)]="scanManual3Filter">
+								<option value="-1">{{l("All")}}</option>
+								<option value="0">{{l("False")}}</option>
+								<option value="1">{{l("True")}}</option>
+								</select>
+                            </div>	
+							<div class="col-md-3">
+								<label for="ScanManual4FilterSelect">{{l("ScanManual4")}}</label>
+								<select class="form-control" name="ScanManual4Filter" id="ScanManual4FilterSelect" [(ngModel)]="scanManual4Filter">
+								<option value="-1">{{l("All")}}</option>
+								<option value="0">{{l("False")}}</option>
+								<option value="1">{{l("True")}}</option>
+								</select>
+                            </div>	
+							<div class="col-md-3">
+								<label for="ScanManual5FilterSelect">{{l("ScanManual5")}}</label>
+								<select class="form-control" name="ScanManual5Filter" id="ScanManual5FilterSelect" [(ngModel)]="scanManual5Filter">
+								<option value="-1">{{l("All")}}</option>
+								<option value="0">{{l("False")}}</option>
+								<option value="1">{{l("True")}}</option>
+								</select>
+                            </div>	
+							<div class="col-md-3">
+								<label for="ScanManual6FilterSelect">{{l("ScanManual6")}}</label>
+								<select class="form-control" name="ScanManual6Filter" id="ScanManual6FilterSelect" [(ngModel)]="scanManual6Filter">
+								<option value="-1">{{l("All")}}</option>
+								<option value="0">{{l("False")}}</option>
+								<option value="1">{{l("True")}}</option>
+								</select>
+                            </div>	
+							<div class="col-md-3">
+								<label for="ScanManual7FilterSelect">{{l("ScanManual7")}}</label>
+								<select class="form-control" name="ScanManual7Filter" id="ScanManual7FilterSelect" [(ngModel)]="scanManual7Filter">
+								<option value="-1">{{l("All")}}</option>
+								<option value="0">{{l("False")}}</option>
+								<option value="1">{{l("True")}}</option>
+								</select>
+                            </div>	
+							<div class="col-md-3">
+								<label for="ScanManual8FilterSelect">{{l("ScanManual8")}}</label>
+								<select class="form-control" name="ScanManual8Filter" id="ScanManual8FilterSelect" [(ngModel)]="scanManual8Filter">
+								<option value="-1">{{l("All")}}</option>
+								<option value="0">{{l("False")}}</option>
+								<option value="1">{{l("True")}}</option>
+								</select>
+                            </div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="UserNameFilter">({{l("User")}}) {{l("Name")}}</label>
+									<input type="text" class="form-control" id="UserNameFilter" name="userNameFilter" [(ngModel)]="userNameFilter">
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-sm-12">
+                                <span class="clickable-item text-muted" *ngIf="!advancedFiltersAreShown" (click)="advancedFiltersAreShown=!advancedFiltersAreShown"><i class="fa fa-angle-down"></i> {{l("ShowAdvancedFilters")}}</span>
+                                <span class="clickable-item text-muted" *ngIf="advancedFiltersAreShown" (click)="advancedFiltersAreShown=!advancedFiltersAreShown"><i class="fa fa-angle-up"></i> {{l("HideAdvancedFilters")}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="row align-items-center">
+                    <!--<Primeng-Datatable-Start>-->
+                    <div class="primeng-datatable-container col-12"
+                         [busyIf]="primengTableHelper.isLoading">
+                        <p-table #dataTable
+                                     (onLazyLoad)="getTrans($event)"
+                                     [value]="primengTableHelper.records"
+                                     rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
+                                     [paginator]="false"
+                                     [lazy]="true"
+                                     [scrollable]="true"
+                                     ScrollWidth="100%"
+                                     [responsive]="primengTableHelper.isResponsive"
+                                     [resizableColumns]="primengTableHelper.resizableColumns">
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th style="width: 130px" [hidden]="!isGrantedAny('Pages.Trans.Edit', 'Pages.Trans.Delete')">{{l('Actions')}}</th>
+                                    <th style="width: 150px" pSortableColumn="userFk.name">
+                                        {{l('Name')}}
+                                        <p-sortIcon field="userName"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="scan1">
+                                        {{l('Scan1')}}
+                                        <p-sortIcon field="tran.scan1"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="scan2">
+                                        {{l('Scan2')}}
+                                        <p-sortIcon field="tran.scan2"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="scan3">
+                                        {{l('Scan3')}}
+                                        <p-sortIcon field="tran.scan3"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="scan4">
+                                        {{l('Scan4')}}
+                                        <p-sortIcon field="tran.scan4"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="scan5">
+                                        {{l('Scan5')}}
+                                        <p-sortIcon field="tran.scan5"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="scan6">
+                                        {{l('Scan6')}}
+                                        <p-sortIcon field="tran.scan6"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="scan8">
+                                        {{l('Scan8')}}
+                                        <p-sortIcon field="tran.scan8"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="scanLocation1">
+                                        {{l('ScanLocation1')}}
+                                        <p-sortIcon field="tran.scanLocation1"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="scanLocation2">
+                                        {{l('ScanLocation2')}}
+                                        <p-sortIcon field="tran.scanLocation2"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="scanLocation3">
+                                        {{l('ScanLocation3')}}
+                                        <p-sortIcon field="tran.scanLocation3"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="scanLocation4">
+                                        {{l('ScanLocation4')}}
+                                        <p-sortIcon field="tran.scanLocation4"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="scanLocation5">
+                                        {{l('ScanLocation5')}}
+                                        <p-sortIcon field="tran.scanLocation5"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="scanLocation6">
+                                        {{l('ScanLocation6')}}
+                                        <p-sortIcon field="tran.scanLocation6"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="scanLocation7">
+                                        {{l('ScanLocation7')}}
+                                        <p-sortIcon field="tran.scanLocation7"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="scanLocation8">
+                                        {{l('ScanLocation8')}}
+                                        <p-sortIcon field="tran.scanLocation8"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="hasHoliday">
+                                        {{l('HasHoliday')}}
+                                        <p-sortIcon field="tran.hasHoliday"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="hasVacation">
+                                        {{l('HasVacation')}}
+                                        <p-sortIcon field="tran.hasVacation"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="hasOffDay">
+                                        {{l('HasOffDay')}}
+                                        <p-sortIcon field="tran.hasOffDay"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="isAbsent">
+                                        {{l('IsAbsent')}}
+                                        <p-sortIcon field="tran.isAbsent"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="leaveCode">
+                                        {{l('LeaveCode')}}
+                                        <p-sortIcon field="tran.leaveCode"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="designationID">
+                                        {{l('DesignationID')}}
+                                        <p-sortIcon field="tran.designationID"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="leaveRemark">
+                                        {{l('LeaveRemark')}}
+                                        <p-sortIcon field="tran.leaveRemark"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="noShifts">
+                                        {{l('NoShifts')}}
+                                        <p-sortIcon field="tran.noShifts"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="shiftName">
+                                        {{l('ShiftName')}}
+                                        <p-sortIcon field="tran.shiftName"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="scanManual1">
+                                        {{l('ScanManual1')}}
+                                        <p-sortIcon field="tran.scanManual1"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="scanManual2">
+                                        {{l('ScanManual2')}}
+                                        <p-sortIcon field="tran.scanManual2"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="scanManual3">
+                                        {{l('ScanManual3')}}
+                                        <p-sortIcon field="tran.scanManual3"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="scanManual4">
+                                        {{l('ScanManual4')}}
+                                        <p-sortIcon field="tran.scanManual4"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="scanManual5">
+                                        {{l('ScanManual5')}}
+                                        <p-sortIcon field="tran.scanManual5"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="scanManual6">
+                                        {{l('ScanManual6')}}
+                                        <p-sortIcon field="tran.scanManual6"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="scanManual7">
+                                        {{l('ScanManual7')}}
+                                        <p-sortIcon field="tran.scanManual7"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="scanManual8">
+                                        {{l('ScanManual8')}}
+                                        <p-sortIcon field="tran.scanManual8"></p-sortIcon>
+                                    </th>
+
+                                </tr>
+                            </ng-template>                           
+							<ng-template pTemplate="body" let-record="$implicit">
+                                <tr>
+                                    <td style="width: 130px"
+                                        [hidden]="!isGrantedAny('Pages.Trans.Edit', 'Pages.Trans.Delete')">
+                                       <div class="btn-group dropdown" dropdown container="body">
+                                            <button class="dropdown-toggle btn btn-sm btn-primary" dropdownToggle>
+                                                <i class="fa fa-cog"></i><span class="caret"></span> {{l("Actions")}}
+                                            </button>
+												<ul class="dropdown-menu"  *dropdownMenu>
+												<li>
+													<a href="javascript:;"
+														(click)="viewTranModal.show(record)">{{l('View')}}</a>
+												</li>
+												<li>
+													<a href="javascript:;" *ngIf="permission.isGranted('Pages.Trans.Edit')"
+														(click)="createOrEditTranModal.show(record.tran.id)">{{l('Edit')}}</a>
+												</li>
+												<li>
+											        <a href="javascript:;" *ngIf="permission.isGranted('Pages.Trans.Delete')"
+														(click)="deleteTran(record.tran)">{{l('Delete')}}</a>
+												</li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                    <td style="width:150px">
+												<span class="ui-column-title"> {{l('Name')}}</span>
+												{{record.userName}}
+											</td>
+                                    <td style="width:150px">
+											<span class="ui-column-title"> {{l('Scan1')}}</span>
+											{{record.tran.scan1}}
+										</td>
+                                    <td style="width:150px">
+											<span class="ui-column-title"> {{l('Scan2')}}</span>
+											{{record.tran.scan2}}
+										</td>
+                                    <td style="width:150px">
+											<span class="ui-column-title"> {{l('Scan3')}}</span>
+											{{record.tran.scan3}}
+										</td>
+                                    <td style="width:150px">
+											<span class="ui-column-title"> {{l('Scan4')}}</span>
+											{{record.tran.scan4}}
+										</td>
+                                    <td style="width:150px">
+											<span class="ui-column-title"> {{l('Scan5')}}</span>
+											{{record.tran.scan5}}
+										</td>
+                                    <td style="width:150px">
+											<span class="ui-column-title"> {{l('Scan6')}}</span>
+											{{record.tran.scan6}}
+										</td>
+                                    <td style="width:150px">
+											<span class="ui-column-title"> {{l('Scan8')}}</span>
+											{{record.tran.scan8}}
+										</td>
+                                    <td style="width:150px">
+											<span class="ui-column-title"> {{l('ScanLocation1')}}</span>
+											{{record.tran.scanLocation1}}
+										</td>
+                                    <td style="width:150px">
+											<span class="ui-column-title"> {{l('ScanLocation2')}}</span>
+											{{record.tran.scanLocation2}}
+										</td>
+                                    <td style="width:150px">
+											<span class="ui-column-title"> {{l('ScanLocation3')}}</span>
+											{{record.tran.scanLocation3}}
+										</td>
+                                    <td style="width:150px">
+											<span class="ui-column-title"> {{l('ScanLocation4')}}</span>
+											{{record.tran.scanLocation4}}
+										</td>
+                                    <td style="width:150px">
+											<span class="ui-column-title"> {{l('ScanLocation5')}}</span>
+											{{record.tran.scanLocation5}}
+										</td>
+                                    <td style="width:150px">
+											<span class="ui-column-title"> {{l('ScanLocation6')}}</span>
+											{{record.tran.scanLocation6}}
+										</td>
+                                    <td style="width:150px">
+											<span class="ui-column-title"> {{l('ScanLocation7')}}</span>
+											{{record.tran.scanLocation7}}
+										</td>
+                                    <td style="width:150px">
+											<span class="ui-column-title"> {{l('ScanLocation8')}}</span>
+											{{record.tran.scanLocation8}}
+										</td>
+                                    <td style="width:150px">
+										<span class="ui-column-title"> {{l('HasHoliday')}}</span>
+                                        <div *ngIf="record.tran.hasHoliday" class="text-center"><i class="fa fa-check-circle kt--font-success" title="True"></i></div>
+										<div *ngIf="!record.tran.hasHoliday" class="text-center"><i class="fa fa-times-circle" title="False"></i></div>
+                                    </td>
+                                    <td style="width:150px">
+										<span class="ui-column-title"> {{l('HasVacation')}}</span>
+                                        <div *ngIf="record.tran.hasVacation" class="text-center"><i class="fa fa-check-circle kt--font-success" title="True"></i></div>
+										<div *ngIf="!record.tran.hasVacation" class="text-center"><i class="fa fa-times-circle" title="False"></i></div>
+                                    </td>
+                                    <td style="width:150px">
+										<span class="ui-column-title"> {{l('HasOffDay')}}</span>
+                                        <div *ngIf="record.tran.hasOffDay" class="text-center"><i class="fa fa-check-circle kt--font-success" title="True"></i></div>
+										<div *ngIf="!record.tran.hasOffDay" class="text-center"><i class="fa fa-times-circle" title="False"></i></div>
+                                    </td>
+                                    <td style="width:150px">
+										<span class="ui-column-title"> {{l('IsAbsent')}}</span>
+                                        <div *ngIf="record.tran.isAbsent" class="text-center"><i class="fa fa-check-circle kt--font-success" title="True"></i></div>
+										<div *ngIf="!record.tran.isAbsent" class="text-center"><i class="fa fa-times-circle" title="False"></i></div>
+                                    </td>
+                                    <td style="width:150px">
+											<span class="ui-column-title"> {{l('LeaveCode')}}</span>
+											{{record.tran.leaveCode}}
+										</td>
+                                    <td style="width:150px">
+											<span class="ui-column-title"> {{l('DesignationID')}}</span>
+											{{record.tran.designationID}}
+										</td>
+                                    <td style="width:150px">
+											<span class="ui-column-title"> {{l('LeaveRemark')}}</span>
+											{{record.tran.leaveRemark}}
+										</td>
+                                    <td style="width:150px">
+											<span class="ui-column-title"> {{l('NoShifts')}}</span>
+											{{record.tran.noShifts}}
+										</td>
+                                    <td style="width:150px">
+											<span class="ui-column-title"> {{l('ShiftName')}}</span>
+											{{record.tran.shiftName}}
+										</td>
+                                    <td style="width:150px">
+										<span class="ui-column-title"> {{l('ScanManual1')}}</span>
+                                        <div *ngIf="record.tran.scanManual1" class="text-center"><i class="fa fa-check-circle kt--font-success" title="True"></i></div>
+										<div *ngIf="!record.tran.scanManual1" class="text-center"><i class="fa fa-times-circle" title="False"></i></div>
+                                    </td>
+                                    <td style="width:150px">
+										<span class="ui-column-title"> {{l('ScanManual2')}}</span>
+                                        <div *ngIf="record.tran.scanManual2" class="text-center"><i class="fa fa-check-circle kt--font-success" title="True"></i></div>
+										<div *ngIf="!record.tran.scanManual2" class="text-center"><i class="fa fa-times-circle" title="False"></i></div>
+                                    </td>
+                                    <td style="width:150px">
+										<span class="ui-column-title"> {{l('ScanManual3')}}</span>
+                                        <div *ngIf="record.tran.scanManual3" class="text-center"><i class="fa fa-check-circle kt--font-success" title="True"></i></div>
+										<div *ngIf="!record.tran.scanManual3" class="text-center"><i class="fa fa-times-circle" title="False"></i></div>
+                                    </td>
+                                    <td style="width:150px">
+										<span class="ui-column-title"> {{l('ScanManual4')}}</span>
+                                        <div *ngIf="record.tran.scanManual4" class="text-center"><i class="fa fa-check-circle kt--font-success" title="True"></i></div>
+										<div *ngIf="!record.tran.scanManual4" class="text-center"><i class="fa fa-times-circle" title="False"></i></div>
+                                    </td>
+                                    <td style="width:150px">
+										<span class="ui-column-title"> {{l('ScanManual5')}}</span>
+                                        <div *ngIf="record.tran.scanManual5" class="text-center"><i class="fa fa-check-circle kt--font-success" title="True"></i></div>
+										<div *ngIf="!record.tran.scanManual5" class="text-center"><i class="fa fa-times-circle" title="False"></i></div>
+                                    </td>
+                                    <td style="width:150px">
+										<span class="ui-column-title"> {{l('ScanManual6')}}</span>
+                                        <div *ngIf="record.tran.scanManual6" class="text-center"><i class="fa fa-check-circle kt--font-success" title="True"></i></div>
+										<div *ngIf="!record.tran.scanManual6" class="text-center"><i class="fa fa-times-circle" title="False"></i></div>
+                                    </td>
+                                    <td style="width:150px">
+										<span class="ui-column-title"> {{l('ScanManual7')}}</span>
+                                        <div *ngIf="record.tran.scanManual7" class="text-center"><i class="fa fa-check-circle kt--font-success" title="True"></i></div>
+										<div *ngIf="!record.tran.scanManual7" class="text-center"><i class="fa fa-times-circle" title="False"></i></div>
+                                    </td>
+                                    <td style="width:150px">
+										<span class="ui-column-title"> {{l('ScanManual8')}}</span>
+                                        <div *ngIf="record.tran.scanManual8" class="text-center"><i class="fa fa-check-circle kt--font-success" title="True"></i></div>
+										<div *ngIf="!record.tran.scanManual8" class="text-center"><i class="fa fa-times-circle" title="False"></i></div>
+                                    </td>
+
+                                </tr>
+                            </ng-template>
+                        </p-table>
+						<div class="primeng-no-data" *ngIf="primengTableHelper.totalRecordsCount == 0">
+                            {{l('NoData')}}
+                        </div>
+                        <div class="primeng-paging-container">
+                            <p-paginator [rows]="primengTableHelper.defaultRecordsCountPerPage"
+                                         #paginator
+                                         (onPageChange)="getTrans($event)"
+                                         [totalRecords]="primengTableHelper.totalRecordsCount"
+                                         [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage">
+                            </p-paginator>
+                            <span class="total-records-count">
+                                {{l('TotalRecordsCount', primengTableHelper.totalRecordsCount)}}
+                            </span>
+                        </div>
+                    </div>
+                    <!--<Primeng-Datatable-End>-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <createOrEditTranModal #createOrEditTranModal (modalSave)="getTrans()"></createOrEditTranModal>
+    <viewTranModal #viewTranModal></viewTranModal>
+    
+  </div>
+</div>

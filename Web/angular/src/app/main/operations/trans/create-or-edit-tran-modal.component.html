@@ -1,0 +1,238 @@
+﻿<div bsModal #createOrEditModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="createOrEditModal" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form *ngIf="active" #tranForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="tran.id">{{l("EditTran")}}</span>
+                        <span *ngIf="!tran.id">{{l("CreateNewTran")}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close" [disabled]="saving">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                 
+
+					<div class="form-group m-form__group">
+                        <label for="UserName">{{l("User")}}</label>
+                        <div class="input-group">
+                            <input class="form-control" id="UserName" name="userName" [(ngModel)]="userName" type="text" disabled>     
+                            <div class="input-group-append">
+                                <button class="btn btn-primary blue" (click)="openSelectUserModal()" type="button"><i class="fa fa-search"></i> {{l("Pick")}}</button>
+                            </div> <div class="input-group-prepend">
+                                <button class="btn btn-danger btn-icon" type="button" (click)="setUserIdNull()"><i class="fa fa-times"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <input class="form-control" name="tran.userId" [(ngModel)]="tran.userId" type="text"  hidden>
+		 
+
+								<div class="form-group">
+									<label for="Tran_Scan1">{{l("Scan1")}}</label>
+									<input type="text" id="Tran_Scan1" class="form-control" [(ngModel)]="tran.scan1" name="Scan1"    />
+								</div>
+					
+								<div class="form-group">
+									<label for="Tran_Scan2">{{l("Scan2")}}</label>
+									<input type="text" id="Tran_Scan2" class="form-control" [(ngModel)]="tran.scan2" name="Scan2"    />
+								</div>
+					
+								<div class="form-group">
+									<label for="Tran_Scan3">{{l("Scan3")}}</label>
+									<input type="text" id="Tran_Scan3" class="form-control" [(ngModel)]="tran.scan3" name="Scan3"    />
+								</div>
+					
+								<div class="form-group">
+									<label for="Tran_Scan4">{{l("Scan4")}}</label>
+									<input type="text" id="Tran_Scan4" class="form-control" [(ngModel)]="tran.scan4" name="Scan4"    />
+								</div>
+					
+								<div class="form-group">
+									<label for="Tran_Scan5">{{l("Scan5")}}</label>
+									<input type="text" id="Tran_Scan5" class="form-control" [(ngModel)]="tran.scan5" name="Scan5"    />
+								</div>
+					
+								<div class="form-group">
+									<label for="Tran_Scan6">{{l("Scan6")}}</label>
+									<input type="text" id="Tran_Scan6" class="form-control" [(ngModel)]="tran.scan6" name="Scan6"    />
+								</div>
+					
+								<div class="form-group">
+									<label for="Tran_Scan8">{{l("Scan8")}}</label>
+									<input type="text" id="Tran_Scan8" class="form-control" [(ngModel)]="tran.scan8" name="Scan8"    />
+								</div>
+					
+								<div class="form-group">
+									<label for="Tran_ScanLocation1">{{l("ScanLocation1")}}</label>
+									<input type="text" id="Tran_ScanLocation1" class="form-control" [(ngModel)]="tran.scanLocation1" name="ScanLocation1"    />
+								</div>
+					
+								<div class="form-group">
+									<label for="Tran_ScanLocation2">{{l("ScanLocation2")}}</label>
+									<input type="text" id="Tran_ScanLocation2" class="form-control" [(ngModel)]="tran.scanLocation2" name="ScanLocation2"    />
+								</div>
+					
+								<div class="form-group">
+									<label for="Tran_ScanLocation3">{{l("ScanLocation3")}}</label>
+									<input type="text" id="Tran_ScanLocation3" class="form-control" [(ngModel)]="tran.scanLocation3" name="ScanLocation3"    />
+								</div>
+					
+								<div class="form-group">
+									<label for="Tran_ScanLocation4">{{l("ScanLocation4")}}</label>
+									<input type="text" id="Tran_ScanLocation4" class="form-control" [(ngModel)]="tran.scanLocation4" name="ScanLocation4"    />
+								</div>
+					
+								<div class="form-group">
+									<label for="Tran_ScanLocation5">{{l("ScanLocation5")}}</label>
+									<input type="text" id="Tran_ScanLocation5" class="form-control" [(ngModel)]="tran.scanLocation5" name="ScanLocation5"    />
+								</div>
+					
+								<div class="form-group">
+									<label for="Tran_ScanLocation6">{{l("ScanLocation6")}}</label>
+									<input type="text" id="Tran_ScanLocation6" class="form-control" [(ngModel)]="tran.scanLocation6" name="ScanLocation6"    />
+								</div>
+					
+								<div class="form-group">
+									<label for="Tran_ScanLocation7">{{l("ScanLocation7")}}</label>
+									<input type="text" id="Tran_ScanLocation7" class="form-control" [(ngModel)]="tran.scanLocation7" name="ScanLocation7"    />
+								</div>
+					
+								<div class="form-group">
+									<label for="Tran_ScanLocation8">{{l("ScanLocation8")}}</label>
+									<input type="text" id="Tran_ScanLocation8" class="form-control" [(ngModel)]="tran.scanLocation8" name="ScanLocation8"    />
+								</div>
+					
+								<br/><div class="m-checkbox-list">
+									<label for="Tran_HasHoliday" class="kt-checkbox">
+										<input id="Tran_HasHoliday" type="checkbox" name="HasHoliday" [(ngModel)]="tran.hasHoliday"> 
+										{{l("HasHoliday")}}
+										<span></span>
+									</label>
+								</div>
+					
+								<br/><div class="m-checkbox-list">
+									<label for="Tran_HasVacation" class="kt-checkbox">
+										<input id="Tran_HasVacation" type="checkbox" name="HasVacation" [(ngModel)]="tran.hasVacation"> 
+										{{l("HasVacation")}}
+										<span></span>
+									</label>
+								</div>
+					
+								<br/><div class="m-checkbox-list">
+									<label for="Tran_HasOffDay" class="kt-checkbox">
+										<input id="Tran_HasOffDay" type="checkbox" name="HasOffDay" [(ngModel)]="tran.hasOffDay"> 
+										{{l("HasOffDay")}}
+										<span></span>
+									</label>
+								</div>
+					
+								<br/><div class="m-checkbox-list">
+									<label for="Tran_IsAbsent" class="kt-checkbox">
+										<input id="Tran_IsAbsent" type="checkbox" name="IsAbsent" [(ngModel)]="tran.isAbsent"> 
+										{{l("IsAbsent")}}
+										<span></span>
+									</label>
+								</div>
+					
+								<div class="form-group">
+									<label for="Tran_LeaveCode">{{l("LeaveCode")}}</label>
+									<input type="text" id="Tran_LeaveCode" class="form-control" [(ngModel)]="tran.leaveCode" name="LeaveCode"    />
+								</div>
+					
+								<div class="form-group">
+									<label for="Tran_DesignationID">{{l("DesignationID")}}</label>
+									<input type="number" id="Tran_DesignationID" class="form-control" [(ngModel)]="tran.designationID" name="DesignationID"  />
+								</div>
+					
+								<div class="form-group">
+									<label for="Tran_LeaveRemark">{{l("LeaveRemark")}}</label>
+									<input type="text" id="Tran_LeaveRemark" class="form-control" [(ngModel)]="tran.leaveRemark" name="LeaveRemark"    />
+								</div>
+					
+								<div class="form-group">
+									<label for="Tran_NoShifts">{{l("NoShifts")}}</label>
+									<input type="number" id="Tran_NoShifts" class="form-control" [(ngModel)]="tran.noShifts" name="NoShifts"  />
+								</div>
+					
+								<div class="form-group">
+									<label for="Tran_ShiftName">{{l("ShiftName")}}</label>
+									<input type="text" id="Tran_ShiftName" class="form-control" [(ngModel)]="tran.shiftName" name="ShiftName"    />
+								</div>
+					
+								<br/><div class="m-checkbox-list">
+									<label for="Tran_ScanManual1" class="kt-checkbox">
+										<input id="Tran_ScanManual1" type="checkbox" name="ScanManual1" [(ngModel)]="tran.scanManual1"> 
+										{{l("ScanManual1")}}
+										<span></span>
+									</label>
+								</div>
+					
+								<br/><div class="m-checkbox-list">
+									<label for="Tran_ScanManual2" class="kt-checkbox">
+										<input id="Tran_ScanManual2" type="checkbox" name="ScanManual2" [(ngModel)]="tran.scanManual2"> 
+										{{l("ScanManual2")}}
+										<span></span>
+									</label>
+								</div>
+					
+								<br/><div class="m-checkbox-list">
+									<label for="Tran_ScanManual3" class="kt-checkbox">
+										<input id="Tran_ScanManual3" type="checkbox" name="ScanManual3" [(ngModel)]="tran.scanManual3"> 
+										{{l("ScanManual3")}}
+										<span></span>
+									</label>
+								</div>
+					
+								<br/><div class="m-checkbox-list">
+									<label for="Tran_ScanManual4" class="kt-checkbox">
+										<input id="Tran_ScanManual4" type="checkbox" name="ScanManual4" [(ngModel)]="tran.scanManual4"> 
+										{{l("ScanManual4")}}
+										<span></span>
+									</label>
+								</div>
+					
+								<br/><div class="m-checkbox-list">
+									<label for="Tran_ScanManual5" class="kt-checkbox">
+										<input id="Tran_ScanManual5" type="checkbox" name="ScanManual5" [(ngModel)]="tran.scanManual5"> 
+										{{l("ScanManual5")}}
+										<span></span>
+									</label>
+								</div>
+					
+								<br/><div class="m-checkbox-list">
+									<label for="Tran_ScanManual6" class="kt-checkbox">
+										<input id="Tran_ScanManual6" type="checkbox" name="ScanManual6" [(ngModel)]="tran.scanManual6"> 
+										{{l("ScanManual6")}}
+										<span></span>
+									</label>
+								</div>
+					
+								<br/><div class="m-checkbox-list">
+									<label for="Tran_ScanManual7" class="kt-checkbox">
+										<input id="Tran_ScanManual7" type="checkbox" name="ScanManual7" [(ngModel)]="tran.scanManual7"> 
+										{{l("ScanManual7")}}
+										<span></span>
+									</label>
+								</div>
+					
+								<br/><div class="m-checkbox-list">
+									<label for="Tran_ScanManual8" class="kt-checkbox">
+										<input id="Tran_ScanManual8" type="checkbox" name="ScanManual8" [(ngModel)]="tran.scanManual8"> 
+										{{l("ScanManual8")}}
+										<span></span>
+									</label>
+								</div>
+					
+
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-default" (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!tranForm.form.valid" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i> <span>{{l("Save")}}</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+<tranUserLookupTableModal #tranUserLookupTableModal (modalSave)="getNewUserId()"></tranUserLookupTableModal>
+		 
+</div>

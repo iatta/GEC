@@ -1,0 +1,219 @@
+﻿<div [@routerTransition]>
+  <div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor">
+    <div class="kt-subheader kt-grid__item">
+      <div [class]="containerClass">
+        <div class="kt-subheader__main">
+            <h3 class="kt-subheader__title">
+                <span>{{l("ShiftTypes")}}</span>
+            </h3>
+            <span class="kt-subheader__separator kt-subheader__separator--v"></span>
+            <span class="kt-subheader__desc">
+                {{l("ShiftTypesHeaderInfo")}}
+            </span>
+        </div>
+        <div class="kt-subheader__toolbar">
+            <div class="kt-subheader__wrapper">
+				<button (click)="exportToExcel()" class="btn btn-outline-success"><i class="fa fa-file-excel"></i> {{l("ExportToExcel")}}</button>
+                <button *ngIf="isGranted('Pages.ShiftTypes.Create')" (click)="createShiftType()" 
+			class="btn btn-primary blue"><i class="fa fa-plus"></i> {{l("CreateNewShiftType")}}</button>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div [class]="containerClass + ' kt-grid__item kt-grid__item--fluid'">
+        <div class="kt-portlet kt-portlet--mobile">
+            <div class="kt-portlet__body">
+                <form class="kt-form" autocomplete="off">
+                    <div>
+                        <div class="row align-items-center">
+                            <div class="col-xl-12">
+                                <div class="form-group m-form__group align-items-center">
+                                    <div class="input-group">
+                                        <input [(ngModel)]="filterText" name="filterText" autoFocus class="form-control m-input" [placeholder]="l('SearchWithThreeDot')" type="text">
+                                        <span class="input-group-btn">
+                                            <button (click)="getShiftTypes()" class="btn btn-primary" type="submit"><i class="flaticon-search-1"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+						 <div class="row" [hidden]="!advancedFiltersAreShown">
+						 	<div class="col-md-12">
+						         <div class="kt-separator kt-separator--border-dashed"></div>
+						     </div>
+
+
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="DescriptionEnFilter">{{l("DescriptionEn")}}</label>
+									<input type="text" class="form-control" id="DescriptionEnFilter" name="descriptionEnFilter" [(ngModel)]="descriptionEnFilter">
+								</div>
+                            </div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="DescriptionArFilter">{{l("DescriptionAr")}}</label>
+									<input type="text" class="form-control" id="DescriptionArFilter" name="descriptionArFilter" [(ngModel)]="descriptionArFilter">
+								</div>
+                            </div>
+
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-sm-12">
+                                <span class="clickable-item text-muted" *ngIf="!advancedFiltersAreShown" (click)="advancedFiltersAreShown=!advancedFiltersAreShown"><i class="fa fa-angle-down"></i> {{l("ShowAdvancedFilters")}}</span>
+                                <span class="clickable-item text-muted" *ngIf="advancedFiltersAreShown" (click)="advancedFiltersAreShown=!advancedFiltersAreShown"><i class="fa fa-angle-up"></i> {{l("HideAdvancedFilters")}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="row align-items-center">
+                    <!--<Primeng-Datatable-Start>-->
+                    <div class="primeng-datatable-container col-12"
+                         [busyIf]="primengTableHelper.isLoading">
+                        <p-table #dataTable
+                                     (onLazyLoad)="getShiftTypes($event)"
+                                     [value]="primengTableHelper.records"
+                                     rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
+                                     [paginator]="false"
+                                     [lazy]="true"
+                                     [scrollable]="true"
+                                     ScrollWidth="100%"
+                                     [responsive]="primengTableHelper.isResponsive"
+                                     [resizableColumns]="primengTableHelper.resizableColumns">
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th style="width: 130px" [hidden]="!isGrantedAny('Pages.ShiftTypes.Edit', 'Pages.ShiftTypes.Delete')">{{l('Actions')}}</th>
+                                    <th style="width: 150px" pSortableColumn="descriptionEn">
+                                        {{l('DescriptionEn')}}
+                                        <p-sortIcon field="shiftType.descriptionEn"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="descriptionAr">
+                                        {{l('DescriptionAr')}}
+                                        <p-sortIcon field="shiftType.descriptionAr"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="numberOfDuties">
+                                        {{l('NumberOfDuties')}}
+                                        <p-sortIcon field="shiftType.numberOfDuties"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="inScan">
+                                        {{l('InScan')}}
+                                        <p-sortIcon field="shiftType.inScan"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="outScan">
+                                        {{l('OutScan')}}
+                                        <p-sortIcon field="shiftType.outScan"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="crossDay">
+                                        {{l('CrossDay')}}
+                                        <p-sortIcon field="shiftType.crossDay"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="alwaysAttend">
+                                        {{l('AlwaysAttend')}}
+                                        <p-sortIcon field="shiftType.alwaysAttend"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="open">
+                                        {{l('Open')}}
+                                        <p-sortIcon field="shiftType.open"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="maxBoundryTime">
+                                        {{l('MaxBoundryTime')}}
+                                        <p-sortIcon field="shiftType.maxBoundryTime"></p-sortIcon>
+                                    </th>
+
+                                </tr>
+                            </ng-template>                           
+							<ng-template pTemplate="body" let-record="$implicit">
+                                <tr>
+                                    <td style="width: 130px"
+                                        [hidden]="!isGrantedAny('Pages.ShiftTypes.Edit', 'Pages.ShiftTypes.Delete')">
+                                       <div class="btn-group dropdown" dropdown container="body">
+                                            <button class="dropdown-toggle btn btn-sm btn-primary" dropdownToggle>
+                                                <i class="fa fa-cog"></i><span class="caret"></span> {{l("Actions")}}
+                                            </button>
+												<ul class="dropdown-menu"  *dropdownMenu>
+												<li>
+													<a href="javascript:;"
+														(click)="viewShiftTypeModal.show(record)">{{l('View')}}</a>
+												</li>
+												<li>
+													<a href="javascript:;" *ngIf="permission.isGranted('Pages.ShiftTypes.Edit')"
+														(click)="createOrEditShiftTypeModal.show(record.shiftType.id)">{{l('Edit')}}</a>
+												</li>
+												<li>
+											        <a href="javascript:;" *ngIf="permission.isGranted('Pages.ShiftTypes.Delete')"
+														(click)="deleteShiftType(record.shiftType)">{{l('Delete')}}</a>
+												</li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                    <td style="width:150px">
+											<span class="ui-column-title"> {{l('DescriptionEn')}}</span>
+											{{record.shiftType.descriptionEn}}
+										</td>
+                                    <td style="width:150px">
+											<span class="ui-column-title"> {{l('DescriptionAr')}}</span>
+											{{record.shiftType.descriptionAr}}
+										</td>
+                                    <td style="width:150px">
+											<span class="ui-column-title"> {{l('NumberOfDuties')}}</span>
+											{{record.shiftType.numberOfDuties}}
+										</td>
+                                    <td style="width:150px">
+										<span class="ui-column-title"> {{l('InScan')}}</span>
+                                        <div *ngIf="record.shiftType.inScan" class="text-center"><i class="fa fa-check-circle kt--font-success" title="True"></i></div>
+										<div *ngIf="!record.shiftType.inScan" class="text-center"><i class="fa fa-times-circle" title="False"></i></div>
+                                    </td>
+                                    <td style="width:150px">
+										<span class="ui-column-title"> {{l('OutScan')}}</span>
+                                        <div *ngIf="record.shiftType.outScan" class="text-center"><i class="fa fa-check-circle kt--font-success" title="True"></i></div>
+										<div *ngIf="!record.shiftType.outScan" class="text-center"><i class="fa fa-times-circle" title="False"></i></div>
+                                    </td>
+                                    <td style="width:150px">
+										<span class="ui-column-title"> {{l('CrossDay')}}</span>
+                                        <div *ngIf="record.shiftType.crossDay" class="text-center"><i class="fa fa-check-circle kt--font-success" title="True"></i></div>
+										<div *ngIf="!record.shiftType.crossDay" class="text-center"><i class="fa fa-times-circle" title="False"></i></div>
+                                    </td>
+                                    <td style="width:150px">
+										<span class="ui-column-title"> {{l('AlwaysAttend')}}</span>
+                                        <div *ngIf="record.shiftType.alwaysAttend" class="text-center"><i class="fa fa-check-circle kt--font-success" title="True"></i></div>
+										<div *ngIf="!record.shiftType.alwaysAttend" class="text-center"><i class="fa fa-times-circle" title="False"></i></div>
+                                    </td>
+                                    <td style="width:150px">
+										<span class="ui-column-title"> {{l('Open')}}</span>
+                                        <div *ngIf="record.shiftType.open" class="text-center"><i class="fa fa-check-circle kt--font-success" title="True"></i></div>
+										<div *ngIf="!record.shiftType.open" class="text-center"><i class="fa fa-times-circle" title="False"></i></div>
+                                    </td>
+                                    <td style="width:150px">
+											<span class="ui-column-title"> {{l('MaxBoundryTime')}}</span>
+											{{record.shiftType.maxBoundryTime | minutesToTime}}
+										</td>
+
+                                </tr>
+                            </ng-template>
+                        </p-table>
+						<div class="primeng-no-data" *ngIf="primengTableHelper.totalRecordsCount == 0">
+                            {{l('NoData')}}
+                        </div>
+                        <div class="primeng-paging-container">
+                            <p-paginator [rows]="primengTableHelper.defaultRecordsCountPerPage"
+                                         #paginator
+                                         (onPageChange)="getShiftTypes($event)"
+                                         [totalRecords]="primengTableHelper.totalRecordsCount"
+                                         [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage">
+                            </p-paginator>
+                            <span class="total-records-count">
+                                {{l('TotalRecordsCount', primengTableHelper.totalRecordsCount)}}
+                            </span>
+                        </div>
+                    </div>
+                    <!--<Primeng-Datatable-End>-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <createOrEditShiftTypeModal #createOrEditShiftTypeModal (modalSave)="getShiftTypes()"></createOrEditShiftTypeModal>
+    <viewShiftTypeModal #viewShiftTypeModal></viewShiftTypeModal>
+    
+  </div>
+</div>

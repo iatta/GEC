@@ -1,0 +1,32 @@
+﻿<div bsModal #organizationUnitsHorizontalTreeModal="bs-modal"  class="modal fade" tabindex="-1" role="dialog" aria-labelledby="organizationUnitsHorizontalTreeModal" aria-hidden="true" [config]="{backdrop: 'static'}">
+            <div class="modal-dialog modal-lg" style="margin-top: 10%;">
+                <div class="modal-content">
+                    <div class="modal-header" style="background-color: lightgray;">
+                        <h4 class="modal-title">
+                            <span>{{l("PickUnit")}}</span>
+                        </h4>
+                        <button type="button" class="close" (click)="close()" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                            <div class="kt-portlet">
+                                <div class="kt-portlet__body">
+                                    <div class='form-group'>
+                                    </div>
+                                     <p-tree [value]="treeData"
+                                     (onNodeUnselect)="onNodeUnselect($event)"
+                                     [propagateSelectionUp]="false"
+                                     [propagateSelectionDown]="cascadeSelectEnabled"
+                                     (onNodeSelect)="nodeSelect($event)"
+                                     layout="horizontal"
+                                     [(selection)]="selectedNode"
+                                     selectionMode="single" ></p-tree>
+                                </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button  type="button" class="btn btn-primary blue" (click)="close()">{{l("Close")}}</button>
+                    </div>
+                </div>
+            </div>
+        </div>

@@ -1,0 +1,78 @@
+﻿<div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor">
+    <div class="kt-subheader kt-grid__item">
+        <div [class]="containerClass">
+
+        </div>
+    </div>
+<div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="kt-portlet">
+                <div class="kt-portlet__head">
+                    <div class="kt-portlet__head-label">
+                        <h3 class="kt-portlet__head-title">
+                            {{l('ManageLocation')}}
+                        </h3>
+                    </div>
+                </div>
+
+
+                <form class="kt-form kt-form--label-right" *ngIf="active"  #manageLocationForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                    <div class="kt-portlet__body">
+                         <div class="row">
+                             <div class="col-lg-6">
+                                <!-- <div class="form-group row">
+                                    <label for=""></label>
+                                    <input type="text" class="form-control" (keydown.enter)="$event.preventDefault()" placeholder="Search Nearest Location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
+                                  </div> -->
+
+                                 <div class="form-group row">
+                                    <label for="Location_TitleAr">{{l("TitleAr")}}</label>
+									<input type="text" id="Location_TitleAr" class="form-control" [(ngModel)]="location.titleAr" name="TitleAr"  required  />
+                                 </div>
+                                 <div class="form-group row">
+                                    <label for="Location_TitleEn">{{l("TitleEn")}}</label>
+									<input type="text" id="Location_TitleEn" class="form-control" [(ngModel)]="location.titleEn" name="TitleEn"  required  />
+                                 </div>
+                                <div class="form-group row">
+                                    <table class="table table-striped- table-bordered table-hover table-checkable dataTable no-footer dtr-inline">
+                                        <thead>
+                                            <tr>
+                                                <th>{{l('latitude')}}</th>
+                                                <th>{{l('longitude')}}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr  *ngFor="let item of location.locationCredentials" >
+                                                <td>{{item.latitude}}</td>
+                                                <td>{{item.longitude}}</td>
+
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                             </div>
+                             <div class="col-lg-6">
+                                <div id="map" style="width: 100%;height: 100%;"></div>
+                                <!-- <button type="button" (click)="newLocationCredential()"  class="btn btn-success"> New </button> -->
+                                <!-- <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom"></agm-map> -->
+                             </div>
+                         </div>
+
+                    </div>
+                    <div class="kt-portlet__foot">
+                        <div class="kt-form__actions">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <button [disabled]="saving" type="button" class="btn btn-default" (click)="close()">{{l("Back")}}</button>
+                                    <button type="submit" class="btn btn-primary blue" [disabled]="!manageLocationForm.form.valid" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i> <span>{{l("Save")}}</span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

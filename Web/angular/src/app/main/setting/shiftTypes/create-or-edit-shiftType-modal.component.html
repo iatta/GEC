@@ -1,0 +1,114 @@
+﻿<div bsModal #createOrEditModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="createOrEditModal" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form *ngIf="active" #shiftTypeForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="shiftType.id">{{l("EditShiftType")}}</span>
+                        <span *ngIf="!shiftType.id">{{l("CreateNewShiftType")}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close" [disabled]="saving">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+
+                                <div class="for-group row">
+                                    <div class="col-lg-6">
+                                        <label for="ShiftType_DescriptionEn">{{l("DescriptionEn")}}</label>
+									<input type="text" id="ShiftType_DescriptionEn" class="form-control" [(ngModel)]="shiftType.descriptionEn" name="DescriptionEn"    />
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label for="ShiftType_DescriptionAr">{{l("DescriptionAr")}}</label>
+									<input type="text" id="ShiftType_DescriptionAr" class="form-control" [(ngModel)]="shiftType.descriptionAr" name="DescriptionAr"    />
+                                    </div>
+                                </div>
+                                <br/>
+                                <div class="form-group row">
+                                    <div class="col-lg-2">
+                                        <div class="m-checkbox-list">
+                                            <label for="ShiftType_InScan" class="kt-checkbox">
+                                                <input id="ShiftType_InScan" type="checkbox" name="InScan" [(ngModel)]="shiftType.inScan">
+                                                {{l("InScan")}}
+                                                <span></span>
+                                            </label>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="m-checkbox-list">
+                                            <label for="ShiftType_OutScan" class="kt-checkbox">
+                                                <input id="ShiftType_OutScan" type="checkbox" name="OutScan" [(ngModel)]="shiftType.outScan">
+                                                {{l("OutScan")}}
+                                                <span></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="m-checkbox-list">
+                                            <label for="ShiftType_CrossDay" class="kt-checkbox">
+                                                <input id="ShiftType_CrossDay" type="checkbox" name="CrossDay" [(ngModel)]="shiftType.crossDay">
+                                                {{l("CrossDay")}}
+                                                <span></span>
+                                            </label>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="m-checkbox-list">
+                                            <label for="ShiftType_AlwaysAttend" class="kt-checkbox">
+                                                <input id="ShiftType_AlwaysAttend" type="checkbox" name="AlwaysAttend" [(ngModel)]="shiftType.alwaysAttend">
+                                                {{l("AlwaysAttend")}}
+                                                <span></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="m-checkbox-list">
+                                            <label for="ShiftType_Open" class="kt-checkbox">
+                                                <input id="ShiftType_Open" type="checkbox" name="Open" [(ngModel)]="shiftType.open">
+                                                {{l("Open")}}
+                                                <span></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-lg-6" style="direction: rtl;">
+                                        <label for="MaxBoundryTime">{{l("MaxBoundryTime")}}</label>
+                                        <timepicker [disabled]="!shiftType.open" [(ngModel)]="TimeObj"  name="TimeObj"></timepicker>
+                                    </div>
+                                </div>
+                                <br/>
+                                <div class="row">
+                                    <button class="btn btn-success" type="button" (click)="addDuties()" >{{l('AddDuties')}}</button>
+                                </div>
+                                <br/>
+                                <div class="row" *ngIf="shiftType.shiftTypeDetails.length > 0" >
+                                    <div class="ui-g-12" *ngFor="let shiftTypeDetail of shiftType.shiftTypeDetails;let i = index" >
+                                        <div class="ui-g-5" >
+                                            <p-radioButton name="inTimeFirstScan_{{i}}" [disabled]="!shiftType.inScan"  [label]="l('inTimeFirstScan')" value="inTimeFirstScan"  [(ngModel)]="shiftType.shiftTypeDetails[i].selectedInTime"></p-radioButton>
+                                            <p-radioButton name="inTimeFirstScan_{{i}}" [disabled]="!shiftType.inScan"  [label]="l('inTimeLastScan')"   value="inTimeLastScan"    [(ngModel)]="shiftType.shiftTypeDetails[i].selectedInTime"></p-radioButton>
+                                        </div>
+                                        <div class="ui-g-5">
+                                            <p-radioButton name="outTimeLastScan_{{i}}" [disabled]="!shiftType.outScan" [label]="l('outTimeFirstScan')" value="outTimeFirstScan"    [(ngModel)]="shiftType.shiftTypeDetails[i].selectedOutTime">{{l("outTimeFirstScan")}}</p-radioButton>
+                                            <p-radioButton name="outTimeLastScan_{{i}}" [disabled]="!shiftType.outScan" [label]="l('outTimeLastScan')" value="outTimeLastScan"     [(ngModel)]="shiftType.shiftTypeDetails[i].selectedOutTime">{{l("outTimeLastScan")}}</p-radioButton>
+                                        </div>
+                                        <div class="ui-g-2">
+                                            <button class="btn btn-danger" (click)="deleteDutie(shiftTypeDetail)" type="button">{{l("Remove")}}</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-default" (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!shiftTypeForm.form.valid" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i> <span>{{l("Save")}}</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>

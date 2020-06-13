@@ -1,0 +1,69 @@
+﻿<div bsModal #createOrEditModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="createOrEditModal" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form *ngIf="active" #employeePermitForm="ngForm" novalidate (ngSubmit)="save(employeePermitForm)" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="employeePermit.id">{{l("EditEmployeePermit")}}</span>
+                        <span *ngIf="!employeePermit.id">{{l("CreateNewEmployeePermit")}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close" [disabled]="saving">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+					<div class="form-group m-form__group">
+                        <label for="PermitDescriptionAr">{{l("Permit")}}</label>
+                        <div class="input-group"  >
+                            <input class="form-control" [ngClass]="{ 'is-invalid': employeePermitForm.submitted && permitId.invalid}" id="PermitDescriptionAr" name="permitDescriptionAr" [(ngModel)]="permitDescriptionAr" type="text" disabled>
+                            <div class="input-group-append">
+                                <button class="btn btn-primary blue" (click)="openSelectPermitModal()" type="button"><i class="fa fa-search"></i> {{l("Pick")}}</button>
+                            </div> <div class="input-group-prepend">
+                                <button class="btn btn-danger btn-icon" type="button" (click)="setPermitIdNull()"><i class="fa fa-times"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <input class="form-control" name="employeePermit.permitId" #permitId="ngModel" [(ngModel)]="employeePermit.permitId" type="text"  hidden  required>
+
+                            <div class="form-group row">
+                                <div class="col-lg-6">
+                                    <label for="Shift_TimeOutRangeFrom">{{l("FromTime")}}</label>
+                                        <timepicker validateTime="toTimeObjInput" [(ngModel)]="fromTimeObj" id="fromTimeObjInput" name="fromTimeObjInput" #fromTimeObjInput="ngModel" [showMeridian]="meridian"></timepicker>
+                                        
+                                </div>
+                                <div class="col-lg-6">
+                                    <label for="Shift_TimeOutRangeTo">{{l("ToTime")}}</label>
+                                    <timepicker validateTime="fromTimeObjInput" reverse ="true" id="toTimeObjInput" [(ngModel)]="toTimeObj" #toTimeObjInput="ngModel"  name="toTimeObjInput" [showMeridian]="meridian"></timepicker>
+                                </div>
+                            </div>
+                          
+                            <div class="form-group row" [hidden]="employeePermitForm.controls['fromTimeObjInput'].valid &&  employeePermitForm.controls['toTimeObjInput'].valid">
+                                <span class="form-control-feedback" >
+                                    {{l("to Time must be greater than from time")}}
+                                </span>
+                            </div>
+                            
+								<div class="form-group">
+									<label for="EmployeePermit_PermitDate">{{l("PermitDate")}}</label>
+									 <input required class="form-control m-input" type="datetime" bsDatepicker [(ngModel)]="employeePermit.permitDate._d" id="EmployeePermit_PermitDate" name="EmployeePermit_PermitDate">
+								</div>
+
+								<div class="form-group">
+									<label for="EmployeePermit_Description">{{l("Description")}}</label>
+                                    <input type="text" #descInput="ngModel" id="EmployeePermit_Description" #description="ngModel" [ngClass]="{ 'is-invalid': employeePermitForm.submitted && description.invalid}" class="form-control" [(ngModel)]="employeePermit.description" name="Description"    required/>
+                                    <validation-messages [formCtrl]="descInput" [frm]="employeePermitForm"></validation-messages>
+								</div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-default" (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i> <span>{{l("Save")}}</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+<employeePermitUserLookupTableModal #employeePermitUserLookupTableModal (modalSave)="getNewUserId()"></employeePermitUserLookupTableModal>
+		 <employeePermitPermitLookupTableModal #employeePermitPermitLookupTableModal (modalSave)="getNewPermitId()"></employeePermitPermitLookupTableModal>
+         <organizationUnitsHorizontalTreeModal  #organizationUnitsHorizontalTreeModal    (ouSelected)="ouSelected($event)"></organizationUnitsHorizontalTreeModal>
+</div>

@@ -1,0 +1,44 @@
+.option-right{
+    float: right !important;
+    padding: 8px;
+}
+
+.timeGroup{
+    border: solid 2px;
+    border-radius: 15px;
+    box-shadow: 1px 1px;
+    display: inline-flex;
+    height: 150px;
+    padding-top: 1%;
+    margin-bottom: 25px;
+    direction: ltr;
+    text-align: center;
+    padding-left: 4%;
+
+}
+
+.timeGroupEn{
+    border: solid 2px;
+    border-radius: 15px;
+    box-shadow: 1px 1px;
+    display: inline-flex;
+    height: 150px;
+    padding-top: 1%;
+    margin-bottom: 25px;
+    direction: ltr;
+    text-align: center;
+    padding-left: 4%;
+
+}
+.marginRight{
+    margin-right: 17%;
+}
+.marginLeft{
+    margin-left: 17%;
+}
+@media (min-width: 1024px) {
+    .col-lg-2 {
+        max-width: 50.66667%;
+        padding-right: 50px;
+    }
+}

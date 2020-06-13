@@ -1,0 +1,62 @@
+﻿<div bsModal #createOrEditModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="createOrEditModal" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form *ngIf="active" #officialTaskTypeForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="officialTaskType.id">{{l("EditOfficialTaskType")}}</span>
+                        <span *ngIf="!officialTaskType.id">{{l("CreateNewOfficialTaskType")}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close" [disabled]="saving">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+
+
+								<div class="form-group">
+									<label for="OfficialTaskType_NameAr">{{l("NameAr")}}</label>
+									<input type="text" id="OfficialTaskType_NameAr" class="form-control" [(ngModel)]="officialTaskType.nameAr" name="NameAr"    />
+								</div>
+
+								<div class="form-group">
+									<label for="OfficialTaskType_NameEn">{{l("NameEn")}}</label>
+									<input type="text" id="OfficialTaskType_NameEn" class="form-control" [(ngModel)]="officialTaskType.nameEn" name="NameEn"    />
+								</div>
+
+								<br/><div class="m-checkbox-list">
+									<label for="OfficialTaskType_TypeIn" class="kt-checkbox">
+										<input id="OfficialTaskType_TypeIn" type="checkbox" (change)="checkBoxChanged($event)" name="TypeIn" [(ngModel)]="officialTaskType.typeIn">
+										{{l("TypeIn")}}
+										<span></span>
+									</label>
+								</div>
+
+								<br/><div class="m-checkbox-list">
+									<label for="OfficialTaskType_TypeOut" class="kt-checkbox">
+										<input id="OfficialTaskType_TypeOut" type="checkbox" (change)="checkBoxChanged($event)" name="TypeOut" [(ngModel)]="officialTaskType.typeOut">
+										{{l("TypeOut")}}
+										<span></span>
+									</label>
+								</div>
+
+								<br/><div class="m-checkbox-list">
+									<label for="OfficialTaskType_TypeInOut" class="kt-checkbox">
+										<input id="OfficialTaskType_TypeInOut" type="checkbox" (change)="checkBoxChanged($event)" name="TypeInOut" [(ngModel)]="officialTaskType.typeInOut">
+										{{l("TypeInOut")}}
+										<span></span>
+									</label>
+								</div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-default" (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!officialTaskTypeForm.form.valid" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i> <span>{{l("Save")}}</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>

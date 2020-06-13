@@ -1,0 +1,125 @@
+﻿<div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="kt-portlet">
+                <div class="kt-portlet__head">
+                    <div class="kt-portlet__head-label">
+                        <h3 class="kt-portlet__head-title">
+                            {{l('ManageTimeProfile')}}
+                        </h3>
+                    </div>
+                </div>
+                <!--begin::Form-->
+                <form class="kt-form kt-form--fit kt-form--label-right" *ngIf="active" #timeProfileForm="ngForm" novalidate (ngSubmit)="save(timeProfileForm)" autocomplete="off">
+                    <div class="kt-portlet__body">
+
+                                <div class="form-group row">
+                                    <div class="col-lg-6" [hidden]="!usersList.length > 0">
+                                        <label for="selectedUsers">{{l("User")}}</label>
+                                        <p-multiSelect styleClass="form-control"   (onChange)="onUserChange($event)" [required]="true" #selectedUsersInput="ngModel"  [options]="usersList" name="selectedUsers" [(ngModel)]="selectedUsers"></p-multiSelect>
+                                        <validation-messages [formCtrl]="selectedUsersInput" [frm]="timeProfileForm"></validation-messages>
+
+                                    </div>
+                                    <div class="col-lg-6" style="margin-top: 27px;">
+                                        <button class="btn btn-warning" type="button" (click)="openUnitModal()" >{{l('ChooseUnit')}}</button>
+                                    </div>
+                                </div>
+                                            <div class="form-group row">
+                                                <div class="col-lg-6">
+                                                    <label for="TimeProfile_StartDate">{{l("StartDate")}}</label>
+                                                    <input required class="form-control m-input" type="datetime" bsDatepicker [(ngModel)]="timeProfile.startDate._d" id="TimeProfile_StartDate" name="TimeProfile_StartDate">
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <label for="TimeProfile_EndDate">{{l("EndDate")}}</label>
+                                                    <input required class="form-control m-input" type="datetime" bsDatepicker [(ngModel)]="timeProfile.endDate._d" id="TimeProfile_EndDate" name="TimeProfile_EndDate">
+                                                </div>
+
+                                            </div>
+
+                                            <br/>
+                                            <br/>
+                                            <div class="ui-rtl" dir="rtl">
+                                                <p-tabView>
+                                                    <p-tabPanel  [selected]="i == 0" [header]="l(day.header)" *ngFor="let day of days;let i = index" >
+                                                        <div class="row">
+                                                            <div class="col-lg-6">
+                                                                <p-dropdown styleClass="form-control" [options]="shiftypesDropdown" name="{{i}}_shiftTypeId" [(ngModel)]="day.shiftTypeId"></p-dropdown>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <button class="btn btn-success" style="margin-left: 20px;" type="button" (click)="applyToAllDays(day)" >{{l('ApplyToAllDays')}}</button>
+                                                            </div>
+                                                        </div>
+                                                        <br/>
+                                                        <div class="row">
+                                                            <p-table [value]="shiftList" selectionMode="multiple"  [(selection)]="day.selectedShifts">
+                                                                <ng-template pTemplate="header">
+                                                                    <tr>
+                                                                        <th style="width: 3em">
+                                                                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                                                                        </th>
+                                                                        <th>{{l('NameAr')}}</th>
+                                                                        <th> {{l('TimeIn')}}</th>
+                                                                        <th>  {{l('TimeOut')}}</th>
+                                                                        <th> {{l('EarlyIn')}}</th>
+
+                                                                        <th>  {{l('LateIn')}}</th>
+                                                                        <th>   {{l('EarlyOut')}}</th>
+                                                                        <th>  {{l('LateOut')}}</th>
+                                                                        <th>   {{l('TimeInRangeFrom')}}</th>
+                                                                        <th>{{l('TimeInRangeTo')}}</th>
+                                                                        <th>   {{l('TimeOutRangeFrom')}}</th>
+                                                                        <th>  {{l('TimeOutRangeTo')}}</th>
+
+                                                                    </tr>
+                                                                </ng-template>
+                                                                <ng-template pTemplate="body" let-shift>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <p-tableCheckbox [value]="shift"></p-tableCheckbox>
+                                                                        </td>
+                                                                        <td>{{shift.shift.nameAr}}</td>
+                                                                        <td>{{shift.shift.timeIn | minutesToTime}}</td>
+                                                                        <td>{{shift.shift.timeOut | minutesToTime}}</td>
+                                                                        <td>{{shift.shift.earlyIn | minutesToTime}}</td>
+
+                                                                        <td>{{shift.shift.lateIn | minutesToTime}}</td>
+                                                                        <td>{{shift.shift.earlyOut | minutesToTime}}</td>
+                                                                        <td>{{shift.shift.lateOut | minutesToTime}}</td>
+                                                                        <td>{{shift.shift.timeInRangeFrom | minutesToTime}}</td>
+                                                                        <td>{{shift.shift.timeInRangeTo | minutesToTime}}</td>
+                                                                        <td>{{shift.shift.timeOutRangeFrom | minutesToTime}}</td>
+                                                                        <td>{{shift.shift.timeOutRangeTo | minutesToTime}}</td>
+                                                                    </tr>
+                                                                </ng-template>
+                                                            </p-table>
+                                                        </div>
+                                                    </p-tabPanel>
+
+                                                </p-tabView>
+                                            </div>
+                    </div>
+
+                    <div class="kt-portlet__foot">
+                        <div class="kt-form__actions">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <!-- <button [disabled]="saving" type="button" class="btn btn-default" (click)="close()">{{l("Cancel")}}</button> -->
+                                    <button type="submit" class="btn btn-primary blue" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i> <span>{{l("Save")}}</span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!--end::Form-->
+                <!-- <timeProfileUserLookupTableModal #timeProfileUserLookupTableModal (modalSave)="getNewUserId()"></timeProfileUserLookupTableModal> -->
+                <organizationUnitsHorizontalTreeModal  #organizationUnitsHorizontalTreeModal    (ouSelected)="ouSelected($event)"></organizationUnitsHorizontalTreeModal>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+

@@ -1,0 +1,50 @@
+﻿<div bsModal #createOrEditModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="createOrEditModal" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form *ngIf="active" #holidayForm="ngForm" novalidate (ngSubmit)="save(holidayForm)" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="holiday.id">{{l("Editholiday")}}</span>
+                        <span *ngIf="!holiday.id">{{l("CreateNewholiday")}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close" [disabled]="saving">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+
+
+								<div class="form-group">
+									<label for="holiday_NameAr">{{l("NameAr")}} *</label>
+                                    <input type="text" id="holiday_NameAr" class="form-control" [ngClass]="{'is-invalid' :holidayForm.submitted && nameArInput.invalid }" #nameArInput="ngModel" [(ngModel)]="holiday.nameAr" name="NameAr"     required/>
+                                    <validation-messages [formCtrl]="nameArInput" [frm]="holidayForm"></validation-messages>
+								</div>
+
+								<div class="form-group">
+									<label for="holiday_NameEn">{{l("NameEn")}} *</label>
+                                    <input type="text" id="holiday_NameEn" class="form-control" [ngClass]="{'is-invalid' :holidayForm.submitted && nameEnInput.invalid }" #nameEnInput="ngModel"  [(ngModel)]="holiday.nameEn" name="NameEn"     required/>
+                                    <validation-messages [formCtrl]="nameEnInput" [frm]="holidayForm"></validation-messages>
+								</div>
+
+								<div class="form-group">
+									<label for="holiday_StartDate">{{l("StartDate")}}</label>
+									 <input required class="form-control m-input" type="datetime" bsDatepicker [(ngModel)]="holiday.startDate._d" id="holiday_StartDate" name="holiday_StartDate">
+								</div>
+
+								<div class="form-group">
+									<label for="holiday_EndDate">{{l("EndDate")}}</label>
+									 <input required class="form-control m-input" type="datetime" bsDatepicker [(ngModel)]="holiday.endDate._d" id="holiday_EndDate" name="holiday_EndDate">
+								</div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-default" (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue"  [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i> <span>{{l("Save")}}</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>

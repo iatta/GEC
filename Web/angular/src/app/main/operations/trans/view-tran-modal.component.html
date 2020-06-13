@@ -1,0 +1,158 @@
+﻿<div bsModal #createOrEditModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="createOrEditModal" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    <span>{{l("Details")}}</span>
+                </h4>
+                <button type="button" class="close" (click)="close()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="row">
+                    <div class="col-6 mb-3">
+                        <h6>{{l("Scan1")}} :</h6>
+                        {{ item.tran.scan1 }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("Scan2")}} :</h6>
+                        {{ item.tran.scan2 }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("Scan3")}} :</h6>
+                        {{ item.tran.scan3 }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("Scan4")}} :</h6>
+                        {{ item.tran.scan4 }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("Scan5")}} :</h6>
+                        {{ item.tran.scan5 }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("Scan6")}} :</h6>
+                        {{ item.tran.scan6 }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("Scan8")}} :</h6>
+                        {{ item.tran.scan8 }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("ScanLocation1")}} :</h6>
+                        {{ item.tran.scanLocation1 }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("ScanLocation2")}} :</h6>
+                        {{ item.tran.scanLocation2 }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("ScanLocation3")}} :</h6>
+                        {{ item.tran.scanLocation3 }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("ScanLocation4")}} :</h6>
+                        {{ item.tran.scanLocation4 }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("ScanLocation5")}} :</h6>
+                        {{ item.tran.scanLocation5 }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("ScanLocation6")}} :</h6>
+                        {{ item.tran.scanLocation6 }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("ScanLocation7")}} :</h6>
+                        {{ item.tran.scanLocation7 }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("ScanLocation8")}} :</h6>
+                        {{ item.tran.scanLocation8 }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("HasHoliday")}} :</h6>
+                        {{ item.tran.hasHoliday }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("HasVacation")}} :</h6>
+                        {{ item.tran.hasVacation }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("HasOffDay")}} :</h6>
+                        {{ item.tran.hasOffDay }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("IsAbsent")}} :</h6>
+                        {{ item.tran.isAbsent }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("LeaveCode")}} :</h6>
+                        {{ item.tran.leaveCode }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("DesignationID")}} :</h6>
+                        {{ item.tran.designationID }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("LeaveRemark")}} :</h6>
+                        {{ item.tran.leaveRemark }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("NoShifts")}} :</h6>
+                        {{ item.tran.noShifts }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("ShiftName")}} :</h6>
+                        {{ item.tran.shiftName }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("ScanManual1")}} :</h6>
+                        {{ item.tran.scanManual1 }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("ScanManual2")}} :</h6>
+                        {{ item.tran.scanManual2 }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("ScanManual3")}} :</h6>
+                        {{ item.tran.scanManual3 }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("ScanManual4")}} :</h6>
+                        {{ item.tran.scanManual4 }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("ScanManual5")}} :</h6>
+                        {{ item.tran.scanManual5 }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("ScanManual6")}} :</h6>
+                        {{ item.tran.scanManual6 }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("ScanManual7")}} :</h6>
+                        {{ item.tran.scanManual7 }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("ScanManual8")}} :</h6>
+                        {{ item.tran.scanManual8 }}
+                    </div>
+
+                    <div class="col-6 mb-3">
+                        <h6>({{l("User")}}) {{l("Name")}} :</h6>
+                        {{item.userName}}
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button [disabled]="saving" type="button" class="btn btn-primary blue" (click)="close()">{{l("Close")}}</button>
+            </div>
+        </div>
+    </div>
+
+</div>

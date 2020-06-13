@@ -1,0 +1,67 @@
+﻿<div bsModal #createOrEditModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="createOrEditModal" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form *ngIf="active" #employeeOfficialTaskForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="employeeOfficialTask.id">{{l("EditEmployeeOfficialTask")}}</span>
+                        <span *ngIf="!employeeOfficialTask.id">{{l("CreateNewEmployeeOfficialTask")}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close" [disabled]="saving">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                 
+
+					<div class="form-group m-form__group">
+                        <label for="OfficialTaskTypeNameAr">{{l("OfficialTaskType")}}</label>
+                        <div class="input-group">
+                            <input class="form-control" id="OfficialTaskTypeNameAr" name="officialTaskTypeNameAr" [(ngModel)]="officialTaskTypeNameAr" type="text" disabled>     
+                            <div class="input-group-append">
+                                <button class="btn btn-primary blue" (click)="openSelectOfficialTaskTypeModal()" type="button"><i class="fa fa-search"></i> {{l("Pick")}}</button>
+                            </div> <div class="input-group-prepend">
+                                <button class="btn btn-danger btn-icon" type="button" (click)="setOfficialTaskTypeIdNull()"><i class="fa fa-times"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <input class="form-control" name="employeeOfficialTask.officialTaskTypeId" [(ngModel)]="employeeOfficialTask.officialTaskTypeId" type="text"  hidden>
+		 
+
+								<div class="form-group">
+									<label for="EmployeeOfficialTask_FromDate">{{l("FromDate")}}</label>
+									 <input required class="form-control m-input" type="datetime" bsDatepicker [(ngModel)]="employeeOfficialTask.fromDate._d" id="EmployeeOfficialTask_FromDate" name="EmployeeOfficialTask_FromDate">
+								</div>
+					
+								<div class="form-group">
+									<label for="EmployeeOfficialTask_ToDate">{{l("ToDate")}}</label>
+									 <input required class="form-control m-input" type="datetime" bsDatepicker [(ngModel)]="employeeOfficialTask.toDate._d" id="EmployeeOfficialTask_ToDate" name="EmployeeOfficialTask_ToDate">
+								</div>
+					
+								<div class="form-group">
+									<label for="EmployeeOfficialTask_Remarks">{{l("Remarks")}}</label>
+									<input type="text" id="EmployeeOfficialTask_Remarks" class="form-control" [(ngModel)]="employeeOfficialTask.remarks" name="Remarks"    />
+								</div>
+					
+								<div class="form-group">
+									<label for="EmployeeOfficialTask_DescriptionAr">{{l("DescriptionAr")}}</label>
+									<input type="text" id="EmployeeOfficialTask_DescriptionAr" class="form-control" [(ngModel)]="employeeOfficialTask.descriptionAr" name="DescriptionAr"    />
+								</div>
+					
+								<div class="form-group">
+									<label for="EmployeeOfficialTask_DescriptionEn">{{l("DescriptionEn")}}</label>
+									<input type="text" id="EmployeeOfficialTask_DescriptionEn" class="form-control" [(ngModel)]="employeeOfficialTask.descriptionEn" name="DescriptionEn"    />
+								</div>
+					
+
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-default" (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!employeeOfficialTaskForm.form.valid" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i> <span>{{l("Save")}}</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+<employeeOfficialTaskOfficialTaskTypeLookupTableModal #employeeOfficialTaskOfficialTaskTypeLookupTableModal (modalSave)="getNewOfficialTaskTypeId()"></employeeOfficialTaskOfficialTaskTypeLookupTableModal>
+		 
+</div>

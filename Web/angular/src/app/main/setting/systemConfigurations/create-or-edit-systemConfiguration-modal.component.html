@@ -1,0 +1,74 @@
+﻿<div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor">
+    <div class="kt-subheader kt-grid__item">
+        <div [class]="containerClass">
+
+        </div>
+    </div>
+<div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="kt-portlet">
+                <div class="kt-portlet__head">
+                    <div class="kt-portlet__head-label">
+                        <h3 class="kt-portlet__head-title">
+                           {{l('SystemConfiguration')}}
+                        </h3>
+                    </div>
+                </div>
+                <!--begin::Form-->
+                 <form class="kt-form kt-form--label-right" *ngIf="active" #systemConfigurationForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                    <div class="kt-portlet__body">
+                        <div class="form-group row">
+                            <div class="col-lg-6">
+                                <label for="SystemConfiguration_TotalPermissionNumberPerDay">{{l("TotalPermissionNumberPerDay")}}</label>
+                                <input min="0" type="number" id="SystemConfiguration_TotalPermissionNumberPerDay" class="form-control" [(ngModel)]="systemConfiguration.totalPermissionNumberPerDay" name="TotalPermissionNumberPerDay"  />
+                            </div>
+
+                            <div class="col-lg-6">
+                                <label for="SystemConfiguration_TotalPermissionHoursPerDay">{{l("TotalPermissionHoursPerDay")}}</label>
+                                <input min="0" type="number" id="SystemConfiguration_TotalPermissionHoursPerDay" class="form-control" [(ngModel)]="systemConfiguration.totalPermissionHoursPerDay" name="TotalPermissionHoursPerDay"  />
+                            </div>
+
+
+
+                        </div>
+                        <div class="form-group row">
+
+                            <div class="col-lg-6">
+                                <label for="SystemConfiguration_TotalPermissionNumberPerWeek">{{l("TotalPermissionNumberPerWeek")}}</label>
+                                <input min="0" type="number" id="SystemConfiguration_TotalPermissionNumberPerWeek" class="form-control" [(ngModel)]="systemConfiguration.totalPermissionNumberPerWeek" name="TotalPermissionNumberPerWeek"  />
+                            </div>
+                            <div class="col-lg-6">
+                                <label for="SystemConfiguration_TotalPermissionHoursPerWeek">{{l("TotalPermissionHoursPerWeek")}}</label>
+                                <input min="0" type="number" id="SystemConfiguration_TotalPermissionHoursPerWeek" class="form-control" [(ngModel)]="systemConfiguration.totalPermissionHoursPerWeek" name="TotalPermissionHoursPerWeek"  />
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-6">
+                                <label for="SystemConfiguration_TotalPermissionNumberPerMonth">{{l("TotalPermissionNumberPerMonth")}}</label>
+                                <input min="0" type="number" id="SystemConfiguration_TotalPermissionNumberPerMonth" class="form-control" [(ngModel)]="systemConfiguration.totalPermissionNumberPerMonth" name="TotalPermissionNumberPerMonth"  />
+                            </div>
+                            <div class="col-lg-6">
+                                <label for="SystemConfiguration_TotalPermissionHoursPerMonth">{{l("TotalPermissionHoursPerMonth")}}</label>
+                                <input min="0" type="number" id="SystemConfiguration_TotalPermissionHoursMonth" class="form-control" [(ngModel)]="systemConfiguration.totalPermissionHoursPerMonth" name="TotalPermissionHoursPerMonth"  />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="kt-portlet__foot">
+                        <div class="kt-form__actions">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <button type="submit" class="btn btn-primary blue" [disabled]="!systemConfigurationForm.form.valid" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i> <span>{{l("Save")}}</span></button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!--end::Form-->
+            </div>
+
+        </div>
+    </div>
+</div>
+</div>

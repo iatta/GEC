@@ -1,0 +1,85 @@
+﻿<div bsModal #createOrEditModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="createOrEditModal" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form *ngIf="active" #employeeVacationForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="employeeVacation.id">{{l("EditEmployeeVacation")}}</span>
+                        <span *ngIf="!employeeVacation.id">{{l("CreateNewEmployeeVacation")}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close" [disabled]="saving">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group row">
+                        <div class="col-lg-9">
+                            <label for="selectedUsers">{{l("User")}}</label>
+                            <p-dropdown [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'" styleClass="form-control"  name="userName" [options]="usersList" [(ngModel)]="employeeVacation.userId" [filter]="true"></p-dropdown>
+                        </div>
+                        <div class="col-lg-3 input-group-prepend" style="margin-top: 27px;">
+                            <button class="btn btn-warning" type="button" (click)="openUnitModal()" >{{l('ChooseUnit')}}</button>
+                            <button class="btn btn-danger btn-icon" type="button" (click)="setUserIdNull()"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <input class="form-control" name="employeeVacation.userId" [(ngModel)]="employeeVacation.userId" type="text" required hidden>
+                    </div>
+
+
+					<div class="form-group m-form__group">
+                        <label for="LeaveTypeNameAr">{{l("LeaveType")}}</label>
+                        <div class="input-group">
+                            <input class="form-control" id="LeaveTypeNameAr" name="leaveTypeNameAr" [(ngModel)]="leaveTypeNameAr" type="text" disabled>
+                            <div class="input-group-append">
+                                <button class="btn btn-primary blue" (click)="openSelectLeaveTypeModal()" type="button"><i class="fa fa-search"></i> {{l("Pick")}}</button>
+                            </div> <div class="input-group-prepend">
+                                <button class="btn btn-danger btn-icon" type="button" (click)="setLeaveTypeIdNull()"><i class="fa fa-times"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <input class="form-control" name="employeeVacation.leaveTypeId" [(ngModel)]="employeeVacation.leaveTypeId" type="text" required hidden>
+
+
+								<div class="form-group">
+									<label for="EmployeeVacation_FromDate">{{l("FromDate")}}</label>
+									 <input required class="form-control m-input" type="datetime" bsDatepicker [(ngModel)]="employeeVacation.fromDate._d" id="EmployeeVacation_FromDate" name="EmployeeVacation_FromDate">
+								</div>
+
+								<div class="form-group">
+									<label for="EmployeeVacation_ToDate">{{l("ToDate")}}</label>
+									 <input required class="form-control m-input" type="datetime" bsDatepicker [(ngModel)]="employeeVacation.toDate._d" id="EmployeeVacation_ToDate" name="EmployeeVacation_ToDate">
+								</div>
+
+								<div class="form-group">
+									<label for="EmployeeVacation_Description">{{l("Description")}}</label>
+									<input type="text" id="EmployeeVacation_Description" class="form-control" [(ngModel)]="employeeVacation.description" name="Description"    />
+								</div>
+
+								<!-- <br/><div class="m-checkbox-list">
+									<label for="EmployeeVacation_Status" class="kt-checkbox">
+										<input id="EmployeeVacation_Status" type="checkbox" name="Status" [(ngModel)]="employeeVacation.status">
+										{{l("Status")}}
+										<span></span>
+									</label>
+								</div> -->
+
+								<div class="form-group">
+									<label for="EmployeeVacation_Note">{{l("Note")}}</label>
+									<input type="text" id="EmployeeVacation_Note" class="form-control" [(ngModel)]="employeeVacation.note" name="Note"    />
+								</div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-default" (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!employeeVacationForm.form.valid" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i> <span>{{l("Save")}}</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+<employeeVacationUserLookupTableModal #employeeVacationUserLookupTableModal (modalSave)="getNewUserId()"></employeeVacationUserLookupTableModal>
+		 <employeeVacationLeaveTypeLookupTableModal #employeeVacationLeaveTypeLookupTableModal (modalSave)="getNewLeaveTypeId()"></employeeVacationLeaveTypeLookupTableModal>
+         <organizationUnitsHorizontalTreeModal  #organizationUnitsHorizontalTreeModal    (ouSelected)="ouSelected($event)"></organizationUnitsHorizontalTreeModal>
+</div>

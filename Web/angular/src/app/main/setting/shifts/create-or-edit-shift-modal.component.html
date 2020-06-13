@@ -1,0 +1,145 @@
+﻿<div bsModal #createOrEditModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="createOrEditModal" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form *ngIf="active" #shiftForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="shift.id">{{l("EditShift")}}</span>
+                        <span *ngIf="!shift.id">{{l("CreateNewShift")}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close" [disabled]="saving">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                        <div class="form-group row">
+                            <div class="col-lg-6">
+                                <label for="Shift_NameAr">{{l("NameAr")}} *</label>
+                                <input type="text" id="Shift_NameAr" class="form-control" [(ngModel)]="shift.nameAr" name="NameAr"     required/>
+                            </div>
+                            <div class="col-lg-6">
+                                <label for="Shift_NameEn">{{l("NameEn")}} *</label>
+									<input type="text" id="Shift_NameEn" class="form-control" [(ngModel)]="shift.nameEn" name="NameEn"     required/>
+                            </div>
+                        </div>
+                                <div class="form-group row">
+                                    <div class="col-lg-12">
+                                        <label for="Shift_Code">{{l("Code")}} *</label>
+                                        <input type="text" id="Shift_Code" class="form-control" [(ngModel)]="shift.code" name="Code"     required/>
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-lg-6">
+                                        <label for="Shift_DayOff">{{l("DayOff")}}</label>
+                                        <select class="form-control" name="DayOff" id="Shift_DayOff" [(ngModel)]="shift.dayOff">
+                                        <option value="1">{{l('Starday')}}</option>
+
+                                        <option value="2">{{l('Sunday')}}</option>
+
+                                        <option value="3">{{l('Monday')}}</option>
+
+                                        <option value="4">{{l('Tuesday')}}</option>
+
+                                        <option value="5">{{l('Wednesday')}}</option>
+
+                                        <option value="6">{{l('Thursday')}}</option>
+
+                                        <option value="7">{{l('Friday')}}</option>
+
+
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label for="Shift_DayRest">{{l("DayRest")}}</label>
+                                        <select class="form-control" name="DayRest" id="Shift_DayRest" [(ngModel)]="shift.dayRest">
+                                        <option value="1">{{l('Starday')}}</option>
+
+                                        <option value="2">{{l('Sunday')}}</option>
+
+                                        <option value="3">{{l('Monday')}}</option>
+
+                                        <option value="4">{{l('Tuesday')}}</option>
+
+                                        <option value="5">{{l('Wednesday')}}</option>
+
+                                        <option value="6">{{l('Thursday')}}</option>
+
+                                        <option value="7">{{l('Friday')}}</option>
+
+
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-lg-6">
+                                        <label for="Shift_TimeIn">{{l("TimeIn")}}</label>
+                                        <ngb-timepicker [(ngModel)]="TimeInObj"  name="TimeInObj" [meridian]="meridian"></ngb-timepicker>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label for="Shift_TimeOut">{{l("TimeOut")}}</label>
+                                        <ngb-timepicker [(ngModel)]="TimeOutObj"  name="TimeOutObj" [meridian]="meridian"></ngb-timepicker>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group row">
+                                    <div class="col-lg-6">
+                                        <label for="Shift_EarlyIn">{{l("EarlyIn")}}</label>
+                                        <ngb-timepicker [(ngModel)]="EarlyInObj"  name="EarlyInObj" [meridian]="meridian"></ngb-timepicker>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label for="Shift_LateIn">{{l("LateIn")}}</label>
+									    <ngb-timepicker [(ngModel)]="LateInObj"  name="LateInObj" [meridian]="meridian"></ngb-timepicker>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col lg 6">
+                                        <label for="Shift_EarlyOut">{{l("EarlyOut")}}</label>
+                                        <ngb-timepicker [(ngModel)]="EarlyOutObj"  name="EarlyOutObj" [meridian]="meridian"></ngb-timepicker>
+                                    </div>
+                                    <div class="col lg 6">
+                                        <label for="Shift_LateOut">{{l("LateOut")}}</label>
+									    <ngb-timepicker [(ngModel)]="LateOutObj"  name="LateOutObj" [meridian]="meridian"></ngb-timepicker>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col lg 6">
+                                        <label for="Shift_TimeInRangeFrom">{{l("TimeInRangeFrom")}}</label>
+                                        <ngb-timepicker [(ngModel)]="TimeInRangeFromObj"  name="TimeInRangeFromObj" [meridian]="meridian"></ngb-timepicker>
+                                    </div>
+                                    <div class="col lg 6">
+                                        <label for="Shift_TimeInRangeTo">{{l("TimeInRangeTo")}}</label>
+                                        <ngb-timepicker [(ngModel)]="TimeInRangeToObj"  name="TimeInRangeToObj" [meridian]="meridian"></ngb-timepicker>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group row">
+                                    <div class="col lg 6">
+                                        <label for="Shift_TimeOutRangeFrom">{{l("TimeOutRangeFrom")}}</label>
+									    <ngb-timepicker [(ngModel)]="TimeOutRangeFromObj"  name="TimeOutRangeFromObj" [meridian]="meridian"></ngb-timepicker>
+                                    </div>
+                                    <div class="col lg 6">
+                                        <label for="Shift_TimeOutRangeTo">{{l("TimeOutRangeTo")}}</label>
+                                        <ngb-timepicker [(ngModel)]="TimeOutRangeToObj"  name="TimeOutRangeToObj" [meridian]="meridian"></ngb-timepicker>
+                                    </div>
+                                </div>
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-default" (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!shiftForm.form.valid" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i> <span>{{l("Save")}}</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>

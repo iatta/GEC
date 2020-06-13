@@ -1,0 +1,66 @@
+﻿<div bsModal #createOrEditModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="createOrEditModal" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form *ngIf="active" #employeeWarningForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="employeeWarning.id">{{l("EditEmployeeWarning")}}</span>
+                        <span *ngIf="!employeeWarning.id">{{l("CreateNewEmployeeWarning")}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close" [disabled]="saving">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                 
+
+					<div class="form-group m-form__group">
+                        <label for="UserName">{{l("User")}}</label>
+                        <div class="input-group">
+                            <input class="form-control" id="UserName" name="userName" [(ngModel)]="userName" type="text" disabled>     
+                            <div class="input-group-append">
+                                <button class="btn btn-primary blue" (click)="openSelectUserModal()" type="button"><i class="fa fa-search"></i> {{l("Pick")}}</button>
+                            </div> <div class="input-group-prepend">
+                                <button class="btn btn-danger btn-icon" type="button" (click)="setUserIdNull()"><i class="fa fa-times"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <input class="form-control" name="employeeWarning.userId" [(ngModel)]="employeeWarning.userId" type="text"  hidden>
+		 
+					<div class="form-group m-form__group">
+                        <label for="WarningTypeNameAr">{{l("WarningType")}}</label>
+                        <div class="input-group">
+                            <input class="form-control" id="WarningTypeNameAr" name="warningTypeNameAr" [(ngModel)]="warningTypeNameAr" type="text" disabled>     
+                            <div class="input-group-append">
+                                <button class="btn btn-primary blue" (click)="openSelectWarningTypeModal()" type="button"><i class="fa fa-search"></i> {{l("Pick")}}</button>
+                            </div> <div class="input-group-prepend">
+                                <button class="btn btn-danger btn-icon" type="button" (click)="setWarningTypeIdNull()"><i class="fa fa-times"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <input class="form-control" name="employeeWarning.warningTypeId" [(ngModel)]="employeeWarning.warningTypeId" type="text"  hidden>
+		 
+
+								<div class="form-group">
+									<label for="EmployeeWarning_FromDate">{{l("FromDate")}}</label>
+									 <input required class="form-control m-input" type="datetime" bsDatepicker [(ngModel)]="employeeWarning.fromDate._d" id="EmployeeWarning_FromDate" name="EmployeeWarning_FromDate">
+								</div>
+					
+								<div class="form-group">
+									<label for="EmployeeWarning_ToDate">{{l("ToDate")}}</label>
+									 <input required class="form-control m-input" type="datetime" bsDatepicker [(ngModel)]="employeeWarning.toDate._d" id="EmployeeWarning_ToDate" name="EmployeeWarning_ToDate">
+								</div>
+					
+
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-default" (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!employeeWarningForm.form.valid" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i> <span>{{l("Save")}}</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+<employeeWarningUserLookupTableModal #employeeWarningUserLookupTableModal (modalSave)="getNewUserId()"></employeeWarningUserLookupTableModal>
+		 <employeeWarningWarningTypeLookupTableModal #employeeWarningWarningTypeLookupTableModal (modalSave)="getNewWarningTypeId()"></employeeWarningWarningTypeLookupTableModal>
+		 
+</div>

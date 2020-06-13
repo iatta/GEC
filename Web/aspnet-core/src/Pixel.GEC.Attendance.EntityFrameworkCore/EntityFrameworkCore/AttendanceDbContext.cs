@@ -1,0 +1,198 @@
+﻿using Pixel.GEC.Attendance.Settings;
+using Pixel.GEC.Attendance.Attendance;
+using Pixel.GEC.Attendance.Operation;
+using Pixel.GEC.Attendance.Operations;
+using Pixel.GEC.Attendance.Setting;
+using Abp.IdentityServer4;
+using Abp.Zero.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
+using Pixel.GEC.Attendance.Authorization.Roles;
+using Pixel.GEC.Attendance.Authorization.Users;
+using Pixel.GEC.Attendance.Chat;
+using Pixel.GEC.Attendance.Editions;
+using Pixel.GEC.Attendance.Friendships;
+using Pixel.GEC.Attendance.MultiTenancy;
+using Pixel.GEC.Attendance.MultiTenancy.Accounting;
+using Pixel.GEC.Attendance.MultiTenancy.Payments;
+using Pixel.GEC.Attendance.Storage;
+using Pixel.GEC.Attendance.ReportsModel;
+
+namespace Pixel.GEC.Attendance.EntityFrameworkCore
+{
+    public class AttendanceDbContext : AbpZeroDbContext<Tenant, Role, User, AttendanceDbContext>, IAbpPersistedGrantDbContext
+    {
+        public virtual DbSet<MobileWebPage> MobileWebPages { get; set; }
+
+        public virtual DbSet<Nationality> Nationalities { get; set; }
+
+        public virtual DbSet<EmployeeWarning> EmployeeWarnings { get; set; }
+
+        public virtual DbQuery<InOutReportOutputCore> InOutReportOutputCore { get; set; }
+        public virtual DbQuery<FingerReportCore> FingerReportCore { get; set; }
+        public virtual DbQuery<ForgetInOutCore> ForgetInOutCore { get; set; }
+        public virtual DbQuery<PermitReportCore> PermitReportCore { get; set; }
+        public virtual DbQuery<EmployeeReportCore> EmployeeReportCore { get; set; }
+        
+
+        public virtual DbSet<TempTransaction> TempTransactions { get; set; }
+
+        public virtual DbSet<ManualTransaction> ManualTransactions { get; set; }
+
+        public virtual DbSet<Tran> Trans { get; set; }
+
+        public virtual DbSet<UserDevice> UserDevices { get; set; }
+
+        public virtual DbSet<MobileTransaction> MobileTransactions { get; set; }
+
+        public virtual DbSet<EmployeeAbsence> EmployeeAbsences { get; set; }
+
+        public virtual DbSet<LocationCredential> LocationCredentials { get; set; }
+
+        public virtual DbSet<Location> Locations { get; set; }
+
+        public virtual DbSet<EmployeeOfficialTaskDetail> EmployeeOfficialTaskDetails { get; set; }
+
+        public virtual DbSet<EmployeePermit> EmployeePermits { get; set; }
+
+        public virtual DbSet<Transaction> Transactions { get; set; }
+
+        public virtual DbSet<Machine> Machines { get; set; }
+
+        public virtual DbSet<EmployeeOfficialTask> EmployeeOfficialTasks { get; set; }
+
+        public virtual DbSet<OfficialTaskType> OfficialTaskTypes { get; set; }
+
+        public virtual DbSet<TimeProfileDetail> TimeProfileDetails { get; set; }
+
+        public virtual DbSet<TimeProfile> TimeProfiles { get; set; }
+
+        public virtual DbSet<ShiftTypeDetail> ShiftTypeDetails { get; set; }
+
+        public virtual DbSet<ShiftType> ShiftTypes { get; set; }
+
+        public virtual DbSet<Shift> Shifts { get; set; }
+
+        public virtual DbSet<WarningType> WarningTypes { get; set; }
+
+        public virtual DbSet<EmployeeVacation> EmployeeVacations { get; set; }
+
+        public virtual DbSet<SystemConfiguration> SystemConfigurations { get; set; }
+
+        public virtual DbSet<Permit> Permits { get; set; }
+
+        public virtual DbSet<TypesOfPermit> TypesOfPermits { get; set; }
+
+        public virtual DbSet<Holiday> Holidays { get; set; }
+
+        public virtual DbSet<LeaveType> LeaveTypes { get; set; }
+
+        public virtual DbSet<JobTitle> JobTitles { get; set; }
+
+        /* Define an IDbSet for each entity of the application */
+
+        public virtual DbSet<BinaryObject> BinaryObjects { get; set; }
+
+        public virtual DbSet<Friendship> Friendships { get; set; }
+
+        public virtual DbSet<ChatMessage> ChatMessages { get; set; }
+
+        public virtual DbSet<SubscribableEdition> SubscribableEditions { get; set; }
+
+        public virtual DbSet<SubscriptionPayment> SubscriptionPayments { get; set; }
+
+        public virtual DbSet<Invoice> Invoices { get; set; }
+
+        public virtual DbSet<PersistedGrantEntity> PersistedGrants { get; set; }
+
+        public virtual DbSet<SubscriptionPaymentExtensionData> SubscriptionPaymentExtensionDatas { get; set; }
+
+        public DbSet<PermitType> PermitTypes { get; set; }
+
+        public AttendanceDbContext(DbContextOptions<AttendanceDbContext> options)
+            : base(options)
+        {
+
+        }
+        
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            //modelBuilder.Ignore<InOutReportOutputCore>();
+
+            modelBuilder.Entity<ShiftType>()
+                .HasMany(c => c.ShiftTypeDetails)
+                .WithOne(e => e.ShiftTypeFk);
+
+            modelBuilder.Entity<Location>()
+               .HasMany(c => c.LocationCredentials)
+               .WithOne(e => e.LocationFk);
+
+
+
+            modelBuilder.Entity<PermitType>().ToTable("PermitTypes");
+
+            
+
+            modelBuilder.Entity<PermitType>()
+              .HasKey(c => new { c.PermitId, c.TypesOfPermitId });
+
+            modelBuilder.Entity<UserLocation>().ToTable("UserLocations");
+
+            modelBuilder.Entity<UserLocation>()
+              .HasKey(c => new { c.UserId, c.LocationId });
+
+
+            modelBuilder.Entity<EmployeeOfficialTaskDetail>().ToTable("EmployeeOfficialTaskDetails");
+
+            modelBuilder.Entity<EmployeeOfficialTaskDetail>()
+            .HasKey(c => new { c.UserId, c.EmployeeOfficialTaskId });
+
+
+
+            modelBuilder.Entity<BinaryObject>(b =>
+            {
+                b.HasIndex(e => new { e.TenantId });
+            });
+
+            modelBuilder.Entity<ChatMessage>(b =>
+            {
+                b.HasIndex(e => new { e.TenantId, e.UserId, e.ReadState });
+                b.HasIndex(e => new { e.TenantId, e.TargetUserId, e.ReadState });
+                b.HasIndex(e => new { e.TargetTenantId, e.TargetUserId, e.ReadState });
+                b.HasIndex(e => new { e.TargetTenantId, e.UserId, e.ReadState });
+            });
+
+            modelBuilder.Entity<Friendship>(b =>
+            {
+                b.HasIndex(e => new { e.TenantId, e.UserId });
+                b.HasIndex(e => new { e.TenantId, e.FriendUserId });
+                b.HasIndex(e => new { e.FriendTenantId, e.UserId });
+                b.HasIndex(e => new { e.FriendTenantId, e.FriendUserId });
+            });
+
+            modelBuilder.Entity<Tenant>(b =>
+            {
+                b.HasIndex(e => new { e.SubscriptionEndDateUtc });
+                b.HasIndex(e => new { e.CreationTime });
+            });
+
+            modelBuilder.Entity<SubscriptionPayment>(b =>
+            {
+                b.HasIndex(e => new { e.Status, e.CreationTime });
+                b.HasIndex(e => new { PaymentId = e.ExternalPaymentId, e.Gateway });
+            });
+
+            modelBuilder.Entity<SubscriptionPaymentExtensionData>(b =>
+            {
+                b.HasQueryFilter(m => !m.IsDeleted)
+                    .HasIndex(e => new { e.SubscriptionPaymentId, e.Key, e.IsDeleted })
+                    .IsUnique();
+            });
+
+            modelBuilder.ConfigurePersistedGrantEntity();
+        }
+    }
+}

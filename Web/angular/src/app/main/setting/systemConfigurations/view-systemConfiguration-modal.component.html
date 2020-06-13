@@ -1,0 +1,50 @@
+﻿<div bsModal #createOrEditModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="createOrEditModal" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    <span>{{l("Details")}}</span>
+                </h4>
+                <button type="button" class="close" (click)="close()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="row">
+                    <div class="col-6 mb-3">
+                        <h6>{{l("TotalPermissionNumberPerMonth")}} :</h6>
+                        {{ item.systemConfiguration.totalPermissionNumberPerMonth }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("TotalPermissionNumberPerWeek")}} :</h6>
+                        {{ item.systemConfiguration.totalPermissionNumberPerWeek }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("TotalPermissionNumberPerDay")}} :</h6>
+                        {{ item.systemConfiguration.totalPermissionNumberPerDay }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("TotalPermissionHoursPerMonth")}} :</h6>
+                        {{ item.systemConfiguration.totalPermissionHoursPerMonth }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("TotalPermissionHoursPerWeek")}} :</h6>
+                        {{ item.systemConfiguration.totalPermissionHoursPerWeek }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("TotalPermissionHoursPerDay")}} :</h6>
+                        {{ item.systemConfiguration.totalPermissionHoursPerDay }}
+                    </div>
+
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button [disabled]="saving" type="button" class="btn btn-primary blue" (click)="close()">{{l("Close")}}</button>
+            </div>
+        </div>
+    </div>
+
+</div>

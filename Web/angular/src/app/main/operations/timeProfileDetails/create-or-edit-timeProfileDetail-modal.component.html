@@ -1,0 +1,66 @@
+﻿<div bsModal #createOrEditModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="createOrEditModal" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form *ngIf="active" #timeProfileDetailForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="timeProfileDetail.id">{{l("EditTimeProfileDetail")}}</span>
+                        <span *ngIf="!timeProfileDetail.id">{{l("CreateNewTimeProfileDetail")}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close" [disabled]="saving">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                 
+
+					<div class="form-group m-form__group">
+                        <label for="TimeProfileDescriptionAr">{{l("TimeProfile")}}</label>
+                        <div class="input-group">
+                            <input class="form-control" id="TimeProfileDescriptionAr" name="timeProfileDescriptionAr" [(ngModel)]="timeProfileDescriptionAr" type="text" disabled>     
+                            <div class="input-group-append">
+                                <button class="btn btn-primary blue" (click)="openSelectTimeProfileModal()" type="button"><i class="fa fa-search"></i> {{l("Pick")}}</button>
+                            </div> <div class="input-group-prepend">
+                                <button class="btn btn-danger btn-icon" type="button" (click)="setTimeProfileIdNull()"><i class="fa fa-times"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <input class="form-control" name="timeProfileDetail.timeProfileId" [(ngModel)]="timeProfileDetail.timeProfileId" type="text"  hidden>
+		 
+					<div class="form-group m-form__group">
+                        <label for="ShiftNameAr">{{l("Shift")}}</label>
+                        <div class="input-group">
+                            <input class="form-control" id="ShiftNameAr" name="shiftNameAr" [(ngModel)]="shiftNameAr" type="text" disabled>     
+                            <div class="input-group-append">
+                                <button class="btn btn-primary blue" (click)="openSelectShiftModal()" type="button"><i class="fa fa-search"></i> {{l("Pick")}}</button>
+                            </div> <div class="input-group-prepend">
+                                <button class="btn btn-danger btn-icon" type="button" (click)="setShiftIdNull()"><i class="fa fa-times"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <input class="form-control" name="timeProfileDetail.shiftId" [(ngModel)]="timeProfileDetail.shiftId" type="text"  hidden>
+		 
+
+								<div class="form-group">
+									<label for="TimeProfileDetail_Day">{{l("Day")}}</label>
+									<input type="number" id="TimeProfileDetail_Day" class="form-control" [(ngModel)]="timeProfileDetail.day" name="Day"  />
+								</div>
+					
+								<div class="form-group">
+									<label for="TimeProfileDetail_ShiftNo">{{l("ShiftNo")}}</label>
+									<input type="number" id="TimeProfileDetail_ShiftNo" class="form-control" [(ngModel)]="timeProfileDetail.shiftNo" name="ShiftNo"  />
+								</div>
+					
+
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-default" (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!timeProfileDetailForm.form.valid" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i> <span>{{l("Save")}}</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+<timeProfileDetailTimeProfileLookupTableModal #timeProfileDetailTimeProfileLookupTableModal (modalSave)="getNewTimeProfileId()"></timeProfileDetailTimeProfileLookupTableModal>
+		 <timeProfileDetailShiftLookupTableModal #timeProfileDetailShiftLookupTableModal (modalSave)="getNewShiftId()"></timeProfileDetailShiftLookupTableModal>
+		 
+</div>

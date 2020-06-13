@@ -1,0 +1,109 @@
+﻿<div bsModal #createOrEditModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="createOrEditModal" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form *ngIf="active" #transactionForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="transaction.id">{{l("EditTransaction")}}</span>
+                        <span *ngIf="!transaction.id">{{l("CreateNewTransaction")}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close" [disabled]="saving">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                 
+
+
+								<div class="form-group">
+									<label for="Transaction_SerialNo">{{l("SerialNo")}}</label>
+									<input type="number" id="Transaction_SerialNo" class="form-control" [(ngModel)]="transaction.serialNo" name="SerialNo"  />
+								</div>
+					
+								<div class="form-group">
+									<label for="Transaction_TransType">{{l("TransType")}}</label>
+									<input type="number" id="Transaction_TransType" class="form-control" [(ngModel)]="transaction.transType" name="TransType"  />
+								</div>
+					
+								<div class="form-group">
+									<label for="Transaction_Pin">{{l("Pin")}}</label>
+									<input type="number" id="Transaction_Pin" class="form-control" [(ngModel)]="transaction.pin" name="Pin"  />
+								</div>
+					
+								<div class="form-group">
+									<label for="Transaction_Finger">{{l("Finger")}}</label>
+									<input type="number" id="Transaction_Finger" class="form-control" [(ngModel)]="transaction.finger" name="Finger"  />
+								</div>
+					
+								<div class="form-group">
+									<label for="Transaction_Address">{{l("Address")}}</label>
+									<input type="text" id="Transaction_Address" class="form-control" [(ngModel)]="transaction.address" name="Address"    />
+								</div>
+					
+								<div class="form-group">
+									<label for="Transaction_Manual">{{l("Manual")}}</label>
+									<input type="number" id="Transaction_Manual" class="form-control" [(ngModel)]="transaction.manual" name="Manual"  />
+								</div>
+					
+								<div class="form-group">
+									<label for="Transaction_ScanType">{{l("ScanType")}}</label>
+									<input type="number" id="Transaction_ScanType" class="form-control" [(ngModel)]="transaction.scanType" name="ScanType"  />
+								</div>
+					
+								<br/><div class="m-checkbox-list">
+									<label for="Transaction_IsProcessed" class="kt-checkbox">
+										<input id="Transaction_IsProcessed" type="checkbox" name="IsProcessed" [(ngModel)]="transaction.isProcessed"> 
+										{{l("IsProcessed")}}
+										<span></span>
+									</label>
+								</div>
+					
+								<br/><div class="m-checkbox-list">
+									<label for="Transaction_IsException" class="kt-checkbox">
+										<input id="Transaction_IsException" type="checkbox" name="IsException" [(ngModel)]="transaction.isException"> 
+										{{l("IsException")}}
+										<span></span>
+									</label>
+								</div>
+					
+								<div class="form-group">
+									<label for="Transaction_Reason">{{l("Reason")}}</label>
+									<input type="text" id="Transaction_Reason" class="form-control" [(ngModel)]="transaction.reason" name="Reason"    />
+								</div>
+					
+								<div class="form-group">
+									<label for="Transaction_TimeSheetID">{{l("TimeSheetID")}}</label>
+									<input type="number" id="Transaction_TimeSheetID" class="form-control" [(ngModel)]="transaction.timeSheetID" name="TimeSheetID"  />
+								</div>
+					
+								<div class="form-group">
+									<label for="Transaction_ProcessInOut">{{l("ProcessInOut")}}</label>
+									<input type="number" id="Transaction_ProcessInOut" class="form-control" [(ngModel)]="transaction.processInOut" name="ProcessInOut"  />
+								</div>
+					
+								<div class="form-group">
+									<label for="Transaction_Remark">{{l("Remark")}}</label>
+									<input type="text" id="Transaction_Remark" class="form-control" [(ngModel)]="transaction.remark" name="Remark"    />
+								</div>
+					
+								<div class="form-group">
+									<label for="Transaction_KeyType">{{l("KeyType")}}</label>
+									<input type="number" id="Transaction_KeyType" class="form-control" [(ngModel)]="transaction.keyType" name="KeyType"  />
+								</div>
+					
+								<div class="form-group">
+									<label for="Transaction_ImportDate">{{l("ImportDate")}}</label>
+									 <input required class="form-control m-input" type="datetime" bsDatepicker [(ngModel)]="transaction.importDate._d" id="Transaction_ImportDate" name="Transaction_ImportDate">
+								</div>
+					
+
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-default" (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!transactionForm.form.valid" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i> <span>{{l("Save")}}</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,60 @@
+﻿<div bsModal #createOrEditModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="createOrEditModal" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form *ngIf="active" #employeeAbsenceForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="employeeAbsence.id">{{l("EditEmployeeAbsence")}}</span>
+                        <span *ngIf="!employeeAbsence.id">{{l("CreateNewEmployeeAbsence")}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close" [disabled]="saving">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+
+					<div class="form-group row">
+                        <div class="col-lg-9">
+                            <label for="selectedUsers">{{l("User")}}</label>
+                            <p-dropdown [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'" styleClass="form-control"  name="userName" [options]="usersList" [(ngModel)]="employeeAbsence.userId" [filter]="true"></p-dropdown>
+                        </div>
+                        <div class="col-lg-3 input-group-prepend" style="margin-top: 27px;">
+                            <button class="btn btn-warning" type="button" (click)="openUnitModal()" >{{l('ChooseUnit')}}</button>
+                            <button class="btn btn-danger btn-icon" type="button" (click)="setUserIdNull()"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div>
+
+                    <input class="form-control" name="employeeAbsence.userId" [(ngModel)]="employeeAbsence.userId" type="text" required  hidden>
+
+
+
+								<div class="form-group">
+									<label for="EmployeeAbsence_FromDate">{{l("FromDate")}}</label>
+									 <input required class="form-control m-input" type="datetime" bsDatepicker [(ngModel)]="employeeAbsence.fromDate._d" id="EmployeeAbsence_FromDate" name="EmployeeAbsence_FromDate">
+								</div>
+
+								<div class="form-group">
+									<label for="EmployeeAbsence_ToDate">{{l("ToDate")}}</label>
+									 <input required class="form-control m-input" type="datetime" bsDatepicker [(ngModel)]="employeeAbsence.toDate._d" id="EmployeeAbsence_ToDate" name="EmployeeAbsence_ToDate">
+                                </div>
+
+                                <div class="form-group">
+									<label for="EmployeeAbsence_Note">{{l("Note")}}</label>
+									<input type="text" id="EmployeeAbsence_Note" class="form-control" [(ngModel)]="employeeAbsence.note" name="Note"    />
+								</div>
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-default" (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!employeeAbsenceForm.form.valid" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i> <span>{{l("Save")}}</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+<employeeAbsenceUserLookupTableModal #employeeAbsenceUserLookupTableModal (modalSave)="getNewUserId()"></employeeAbsenceUserLookupTableModal>
+<organizationUnitsHorizontalTreeModal  #organizationUnitsHorizontalTreeModal    (ouSelected)="ouSelected($event)"></organizationUnitsHorizontalTreeModal>
+
+</div>

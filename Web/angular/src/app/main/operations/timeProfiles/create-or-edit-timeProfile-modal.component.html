@@ -1,0 +1,141 @@
+﻿<div bsModal #createOrEditModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="createOrEditModal" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form *ngIf="active" #timeProfileForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="timeProfile.id">{{l("EditTimeProfile")}}</span>
+                        <span *ngIf="!timeProfile.id">{{l("CreateNewTimeProfile")}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close" [disabled]="saving">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                 
+
+					<div class="form-group">
+						<label for="selectedUsers">{{l("User")}}</label>
+						<p-multiSelect styleClass="form-control"  [options]="usersList" name="selectedUsers" [(ngModel)]="selectedUsers"></p-multiSelect>
+                        <!-- <div class="input-group">
+                            <input class="form-control" id="UserName" name="userName" [(ngModel)]="userName" type="text" disabled>     
+                            <div class="input-group-append">
+                                <button class="btn btn-primary blue" (click)="openSelectUserModal()" type="button"><i class="fa fa-search"></i> {{l("Pick")}}</button>
+                            </div> <div class="input-group-prepend">
+                                <button class="btn btn-danger btn-icon" type="button" (click)="setUserIdNull()"><i class="fa fa-times"></i></button>
+                            </div>
+                        </div> -->
+                    </div>
+                    <!-- <input class="form-control" name="timeProfile.userId" [(ngModel)]="timeProfile.userId" type="text"  hidden> -->
+		 
+
+								<!-- <div class="form-group">
+									<label for="TimeProfile_DescriptionAr">{{l("DescriptionAr")}}</label>
+									<input type="text" id="TimeProfile_DescriptionAr" class="form-control" [(ngModel)]="timeProfile.descriptionAr" name="DescriptionAr"    />
+								</div>
+					
+								<div class="form-group">
+									<label for="TimeProfile_DescriptionEn">{{l("DescriptionEn")}}</label>
+									<input type="text" id="TimeProfile_DescriptionEn" class="form-control" [(ngModel)]="timeProfile.descriptionEn" name="DescriptionEn"    />
+								</div> -->
+					
+								<div class="form-group row">
+                                    <div class="col-lg-6">
+                                        <label for="TimeProfile_StartDate">{{l("StartDate")}}</label>
+                                        <input required class="form-control m-input" type="datetime" bsDatepicker [(ngModel)]="timeProfile.startDate._d" id="TimeProfile_StartDate" name="TimeProfile_StartDate">
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label for="TimeProfile_EndDate">{{l("EndDate")}}</label>
+                                        <input required class="form-control m-input" type="datetime" bsDatepicker [(ngModel)]="timeProfile.endDate._d" id="TimeProfile_EndDate" name="TimeProfile_EndDate">
+                                    </div>
+								
+								</div>
+                    
+                                <br/>
+                                <br/>
+                            <p-tabView>
+                                <p-tabPanel header="Satarday">
+                                    <p-dropdown [options]="shiftypesDropdown" name="shiftTypeID_Saturday" [(ngModel)]="timeProfile.shiftTypeID_Saturday"></p-dropdown>
+                                    <button class="btn btn-success" style="margin-left: 20px;" type="button" (click)="applyToAllDays(timeProfile.shiftTypeID_Saturday)" >Apply To all Days</button>
+                                </p-tabPanel>
+                                <p-tabPanel header="Sunday">
+                                    <p-dropdown [options]="shiftypesDropdown" name="shiftTypeID_Sunday" [(ngModel)]="timeProfile.shiftTypeID_Sunday"></p-dropdown>
+                                    
+                                </p-tabPanel>
+                                <p-tabPanel header="Monday">
+                                    <p-dropdown [options]="shiftypesDropdown" name="shiftTypeID_Monday" [(ngModel)]="timeProfile.shiftTypeID_Monday"></p-dropdown>
+                                    
+                                </p-tabPanel>
+                                <p-tabPanel header="Tuesday">
+                                    <p-dropdown [options]="shiftypesDropdown" name="shiftTypeID_Tuesday" [(ngModel)]="timeProfile.shiftTypeID_Tuesday"></p-dropdown>
+                                   
+                                </p-tabPanel>
+                                <p-tabPanel header="Wednesday">
+                                    <p-dropdown [options]="shiftypesDropdown" name="shiftTypeID_Wednesday" [(ngModel)]="timeProfile.shiftTypeID_Wednesday"></p-dropdown>
+                                    
+                                </p-tabPanel>
+                                <p-tabPanel header="Thursday">
+                                    <p-dropdown [options]="shiftypesDropdown" name="shiftTypeID_Thursday" [(ngModel)]="timeProfile.shiftTypeID_Thursday"></p-dropdown>
+                                    
+                                </p-tabPanel>
+                                <p-tabPanel header="Friday">
+                                    <p-dropdown [options]="shiftypesDropdown" name="shiftTypeID_Friday" [(ngModel)]="timeProfile.shiftTypeID_Friday"></p-dropdown>
+                                   
+                                </p-tabPanel>
+                            </p-tabView>
+<br/>
+<br/>
+                            <p-table [value]="shiftList" selectionMode="multiple"  [(selection)]="selectedShifts">
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th style="width: 3em">
+                                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                                        </th>
+                                        <th>{{l('NameAr')}}</th>
+                                        <th> {{l('TimeIn')}}</th>
+                                        <th>  {{l('TimeOut')}}</th>
+                                        <th> {{l('EarlyIn')}}</th>
+
+                                        <th>  {{l('LateIn')}}</th>
+                                        <th>   {{l('EarlyOut')}}</th>
+                                        <th>  {{l('LateOut')}}</th>
+                                        <th>   {{l('TimeInRangeFrom')}}</th>
+                                        <th>{{l('TimeInRangeTo')}}</th>
+                                        <th>   {{l('TimeOutRangeFrom')}}</th>
+                                        <th>  {{l('TimeOutRangeTo')}}</th>
+
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-shift>
+                                    <tr>
+                                        <td>
+                                            <p-tableCheckbox [value]="shift"></p-tableCheckbox>
+                                        </td>
+                                        <td>{{shift.shift.nameAr}}</td>
+                                        <td>{{shift.shift.timeIn | minutesToTime}}</td>
+                                        <td>{{shift.shift.timeOut | minutesToTime}}</td>
+                                        <td>{{shift.shift.earlyIn | minutesToTime}}</td>
+
+                                        <td>{{shift.shift.lateIn | minutesToTime}}</td>
+                                        <td>{{shift.shift.earlyOut | minutesToTime}}</td>
+                                        <td>{{shift.shift.lateOut | minutesToTime}}</td>
+                                        <td>{{shift.shift.timeInRangeFrom | minutesToTime}}</td>
+                                        <td>{{shift.shift.timeInRangeTo | minutesToTime}}</td>
+                                        <td>{{shift.shift.timeOutRangeFrom | minutesToTime}}</td>
+                                        <td>{{shift.shift.timeOutRangeTo | minutesToTime}}</td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-default" (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!timeProfileForm.form.valid" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i> <span>{{l("Save")}}</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+<timeProfileUserLookupTableModal #timeProfileUserLookupTableModal (modalSave)="getNewUserId()"></timeProfileUserLookupTableModal>
+		 
+</div>

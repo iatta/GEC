@@ -1,0 +1,78 @@
+﻿<div bsModal #createOrEditModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="createOrEditModal" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    <span>{{l("Details")}}</span>
+                </h4>
+                <button type="button" class="close" (click)="close()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="row">
+                    <div class="col-6 mb-3">
+                        <h6>{{l("NameAr")}} :</h6>
+                        {{ item.shift.nameAr }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("NameEn")}} :</h6>
+                        {{ item.shift.nameEn }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("Code")}} :</h6>
+                        {{ item.shift.code }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("TimeIn")}} :</h6>
+                        {{ item.shift.timeIn| minutesToTime  }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("TimeOut")}} :</h6>
+                        {{ item.shift.timeOut | minutesToTime }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("EarlyIn")}} :</h6>
+                        {{ item.shift.earlyIn |minutesToTime }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("LateIn")}} :</h6>
+                        {{ item.shift.lateIn |minutesToTime}}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("EarlyOut")}} :</h6>
+                        {{ item.shift.earlyOut | minutesToTime}}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("LateOut")}} :</h6>
+                        {{ item.shift.lateOut | minutesToTime}}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("TimeInRangeFrom")}} :</h6>
+                        {{ item.shift.timeInRangeFrom | minutesToTime }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("TimeInRangeTo")}} :</h6>
+                        {{ item.shift.timeInRangeTo | minutesToTime }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("TimeOutRangeFrom")}} :</h6>
+                        {{ item.shift.timeOutRangeFrom | minutesToTime }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("TimeOutRangeTo")}} :</h6>
+                        {{ item.shift.timeOutRangeTo | minutesToTime}}
+                    </div>
+
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button [disabled]="saving" type="button" class="btn btn-primary blue" (click)="close()">{{l("Close")}}</button>
+            </div>
+        </div>
+    </div>
+
+</div>

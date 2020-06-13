@@ -1,0 +1,43 @@
+﻿<div bsModal #createOrEditModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="createOrEditModal" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form *ngIf="active" #leaveTypeForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="leaveType.id">{{l("EditLeaveType")}}</span>
+                        <span *ngIf="!leaveType.id">{{l("CreateNewLeaveType")}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close" [disabled]="saving">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                 
+
+
+								<div class="form-group">
+									<label for="LeaveType_NameAr">{{l("NameAr")}} *</label>
+									<input type="text" id="LeaveType_NameAr" class="form-control" [(ngModel)]="leaveType.nameAr" name="NameAr"     required/>
+								</div>
+					
+								<div class="form-group">
+									<label for="LeaveType_NameEn">{{l("NameEn")}} *</label>
+									<input type="text" id="LeaveType_NameEn" class="form-control" [(ngModel)]="leaveType.nameEn" name="NameEn"     required/>
+								</div>
+					
+								<div class="form-group">
+									<label for="LeaveType_Code">{{l("Code")}} *</label>
+									<input type="text" id="LeaveType_Code" class="form-control" [(ngModel)]="leaveType.code" name="Code"     required/>
+								</div>
+					
+
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-default" (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!leaveTypeForm.form.valid" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i> <span>{{l("Save")}}</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>

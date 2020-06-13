@@ -1,0 +1,125 @@
+﻿<div bsModal #createOrEditModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="createOrEditModal" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form *ngIf="active" #permitForm="ngForm" novalidate (ngSubmit)="save(permitForm)" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="permit.id">{{l("EditPermit")}}</span>
+                        <span *ngIf="!permit.id">{{l("CreateNewPermit")}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close" [disabled]="saving">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group row">
+						<div class="col-lg-6">
+							<label for="Permit_DescriptionAr">{{l("DescriptionAr")}} *</label>
+                                    <input type="text" id="Permit_DescriptionAr"  [ngClass]="{ 'is-invalid': permitForm.submitted && descriptionArInput.invalid}" #descriptionArInput="ngModel" class="form-control" [(ngModel)]="permit.descriptionAr" name="DescriptionAr"     required/>
+                                    <validation-messages [formCtrl]="descriptionArInput" [frm]="permitForm"></validation-messages>
+						</div>
+						<div class="col-lg-6">
+                            <label for="Permit_DescriptionEn">{{l("DescriptionEn")}} *</label>
+                            <input type="text" id="Permit_DescriptionEn" [ngClass]="{ 'is-invalid': permitForm.submitted && descriptionEnInput.invalid}" #descriptionEnInput="ngModel"  class="form-control" [(ngModel)]="permit.descriptionEn" name="DescriptionEn"     required/>
+                            <validation-messages [formCtrl]="descriptionEnInput" [frm]="permitForm"></validation-messages>
+						</div>
+					</div>
+
+
+                    <div class="form-group">
+                        <label> النوع  </label>
+                        <div class="kt-checkbox-inline">
+                            <label class="kt-checkbox">
+                                <input type="checkbox" name="lateIn" [checked]="permit.lateIn" [(ngModel)]="permit.lateIn"> {{l('LateIn')}}
+                                <span></span>
+                            </label>
+
+                            <label class="kt-checkbox">
+                                <input type="checkbox" name="earlyOut"  [checked]="permit.earlyOut" [(ngModel)]="permit.earlyOut"> {{l('EarlyOut')}}
+                                <span></span>
+                            </label>
+
+                            <label class="kt-checkbox">
+                                <input type="checkbox" name="offShift" [checked]="permit.offShift"  [(ngModel)]="permit.offShift"> {{l('OffShift')}}
+                                <span></span>
+                            </label>
+
+                            <label class="kt-checkbox">
+                                <input type="checkbox" name="fullDay" [checked]="permit.fullDay" [(ngModel)]="permit.fullDay"> {{l('FullDay')}}
+                                <span></span>
+                            </label>
+
+                            <label class="kt-checkbox">
+                                <input type="checkbox" name="inOut" [checked]="permit.inOut" [(ngModel)]="permit.inOut"> {{l('InOut')}}
+                                <span></span>
+                            </label>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+						<div class="col-lg-6">
+							<label for="Permit_ToleranceIn">{{l("ToleranceIn")}}</label>
+                                    <input min="0" required type="number" id="Permit_ToleranceIn" class="form-control" [ngClass]="{ 'is-invalid': permitForm.submitted && toleranceInInput.invalid}" #toleranceInInput="ngModel" [(ngModel)]="permit.toleranceIn" name="ToleranceIn"  />
+                                    <validation-messages [formCtrl]="toleranceInInput" [frm]="permitForm"></validation-messages>
+						</div>
+						<div class="col-lg-6">
+                            <label for="Permit_ToleranceOut">{{l("ToleranceOut")}}</label>
+                                    <input min="0" required [ngClass]="{ 'is-invalid': permitForm.submitted && toleranceOutInput.invalid}" #toleranceOutInput="ngModel" type="number" id="Permit_ToleranceOut" class="form-control" [(ngModel)]="permit.toleranceOut" name="ToleranceOut"  />
+                                    <validation-messages [formCtrl]="toleranceOutInput" [frm]="permitForm"></validation-messages>
+						</div>
+                    </div>
+                    <div class="form-group row">
+						<div class="col-lg-6">
+							<label for="Permit_MaxNumberPerDay">{{l("MaxNumberPerDay")}}</label>
+                                    <input min="0" required [ngClass]="{ 'is-invalid': permitForm.submitted && maxNumberPerDayInput.invalid}" #maxNumberPerDayInput="ngModel" type="number" id="Permit_MaxNumberPerDay" class="form-control" [(ngModel)]="permit.maxNumberPerDay" name="MaxNumberPerDay"  />
+                                    <validation-messages [formCtrl]="maxNumberPerDayInput" [frm]="permitForm"></validation-messages>
+						</div>
+						<div class="col-lg-6">
+                            <label for="Permit_TotalHoursPerDay">{{l("TotalHoursPerDay")}}</label>
+                                    <input min="0" required [ngClass]="{ 'is-invalid': permitForm.submitted && totalHoursPerDayInput.invalid}" #totalHoursPerDayInput="ngModel" type="number" id="Permit_TotalHoursPerDay" class="form-control" [(ngModel)]="permit.totalHoursPerDay" name="TotalHoursPerDay"  />
+                                    <validation-messages [formCtrl]="totalHoursPerDayInput" [frm]="permitForm"></validation-messages>
+						</div>
+                    </div>
+                    <div class="form-group row">
+						<div class="col-lg-6">
+							<label for="Permit_MaxNumberPerWeek">{{l("MaxNumberPerWeek")}}</label>
+                                    <input min="0" required [ngClass]="{ 'is-invalid': permitForm.submitted && maxNumberPerWeekInput.invalid}" #maxNumberPerWeekInput="ngModel" type="number" id="Permit_MaxNumberPerWeek" class="form-control" [(ngModel)]="permit.maxNumberPerWeek" name="MaxNumberPerWeek"    />
+                                    <validation-messages [formCtrl]="maxNumberPerWeekInput" [frm]="permitForm"></validation-messages>
+						</div>
+						<div class="col-lg-6">
+                            <label for="Permit_TotalHoursPerWeek">{{l("TotalHoursPerWeek")}}</label>
+                                    <input min="0" required [ngClass]="{ 'is-invalid': permitForm.submitted && totalHoursPerWeekInput.invalid}" #totalHoursPerWeekInput="ngModel" type="number" id="Permit_TotalHoursPerWeek" class="form-control" [(ngModel)]="permit.totalHoursPerWeek" name="TotalHoursPerWeek"  />
+                                    <validation-messages [formCtrl]="totalHoursPerWeekInput" [frm]="permitForm"></validation-messages>
+						</div>
+                    </div>
+                    <div class="form-group row">
+						<div class="col-lg-6">
+							<label for="Permit_MaxNumberPerMonth">{{l("MaxNumberPerMonth")}}</label>
+                                    <input min="0" required [ngClass]="{ 'is-invalid': permitForm.submitted && maxNumberPerMonthInput.invalid}" #maxNumberPerMonthInput="ngModel" type="number" id="Permit_MaxNumberPerMonth" class="form-control" [(ngModel)]="permit.maxNumberPerMonth" name="MaxNumberPerMonth"  />
+                                    <validation-messages [formCtrl]="maxNumberPerMonthInput" [frm]="permitForm"></validation-messages>
+						</div>
+						<div class="col-lg-6">
+                            <label for="Permit_TotalHoursPerMonth">{{l("TotalHoursPerMonth")}}</label>
+                            <input min="0"  required [ngClass]="{ 'is-invalid': permitForm.submitted && totalHoursPerMonthInput.invalid}" #totalHoursPerMonthInput="ngModel" type="number" id="Permit_TotalHoursPerMonth" class="form-control" [(ngModel)]="permit.totalHoursPerMonth" name="TotalHoursPerMonth"  />
+                            <validation-messages [formCtrl]="totalHoursPerMonthInput" [frm]="permitForm"></validation-messages>
+						</div>
+                    </div>
+                        <div class="form-group row">
+                            <div class="col-lg-6">
+                                <label for="isDeducted">{{l('DeductFrom')}}</label><br>
+                                <p-radioButton name="isDeducted" [label]="l('Actual')" value="0" [(ngModel)]="isDeducted"></p-radioButton>
+                                <p-radioButton name="isDeducted" [label]="l('Tolerance')" value="1" [(ngModel)]="isDeducted"></p-radioButton>
+                            </div>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-default" (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue"  [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i> <span>{{l("Save")}}</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
