@@ -20,7 +20,7 @@
   "Properties": [],
   "NavigationProperties": [
     {
-      "Namespace": "Pixel.GEC.Attendance.Operations",
+      "Namespace": "GEC.Attendance.Operations",
       "ForeignEntityName": "EmployeeOfficialTask",
       "IdType": "int",
       "IsNullable": true,
@@ -30,7 +30,7 @@
       "RelationType": "single"
     },
     {
-      "Namespace": "Pixel.GEC.Attendance.Authorization.Users",
+      "Namespace": "GEC.Attendance.Authorization.Users",
       "ForeignEntityName": "User",
       "IdType": "long",
       "IsNullable": true,

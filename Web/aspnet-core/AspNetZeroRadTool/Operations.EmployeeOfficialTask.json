@@ -116,7 +116,7 @@
   ],
   "NavigationProperties": [
     {
-      "Namespace": "Pixel.GEC.Attendance.Setting",
+      "Namespace": "GEC.Attendance.Setting",
       "ForeignEntityName": "OfficialTaskType",
       "IdType": "int",
       "IsNullable": true,

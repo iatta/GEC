@@ -39,7 +39,7 @@ export class EmployeeVacationsComponent extends AppComponentBase {
         leaveTypeNameArFilter = '';
 
 
-    _entityTypeFullName = 'Pixel.GEC.Attendance.Operations.EmployeeVacation';
+    _entityTypeFullName = 'GEC.Attendance.Operations.EmployeeVacation';
     entityHistoryEnabled = false;
 
     constructor(

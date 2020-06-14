@@ -2,6 +2,13 @@
 import { LateInEarlyOutComponent } from './operations/reports/Late-in-early-out.component';
 import { AbsentComponent } from './operations/reports/absent.component';
 import { ForgetInOutComponent } from './operations/reports/forget-in-out.component';
+import { ProjectsComponent } from './operations/projects/projects.component';
+import { ViewProjectModalComponent } from './operations/projects/view-project-modal.component';
+import { CreateOrEditProjectModalComponent } from './operations/projects/create-or-edit-project-modal.component';
+import { ProjectOrganizationUnitLookupTableModalComponent } from './operations/projects/project-organizationUnit-lookup-table-modal.component';
+import { ProjectLocationLookupTableModalComponent } from './operations/projects/project-location-lookup-table-modal.component';
+import { ProjectUserLookupTableModalComponent } from './operations/projects/project-user-lookup-table-modal.component';
+
 import { MobileWebPagesComponent } from './settings/mobileWebPages/mobileWebPages.component';
 import { ViewMobileWebPageModalComponent } from './settings/mobileWebPages/view-mobileWebPage-modal.component';
 import { CreateOrEditMobileWebPageModalComponent } from './settings/mobileWebPages/create-or-edit-mobileWebPage-modal.component';
@@ -220,6 +227,11 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
           }),
     ],
     declarations: [
+		ProjectsComponent,
+		ViewProjectModalComponent,		CreateOrEditProjectModalComponent,
+    ProjectOrganizationUnitLookupTableModalComponent,
+    ProjectLocationLookupTableModalComponent,
+    ProjectUserLookupTableModalComponent,
 		MobileWebPagesComponent,
 		ViewMobileWebPageModalComponent,		CreateOrEditMobileWebPageModalComponent,
 		EmployeeWarningsComponent,

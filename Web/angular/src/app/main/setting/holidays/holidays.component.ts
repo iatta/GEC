@@ -38,7 +38,7 @@ export class HolidaysComponent extends AppComponentBase {
 		minEndDateFilter : moment.Moment;
 
 
-    _entityTypeFullName = 'Pixel.GEC.Attendance.Setting.Holiday';
+    _entityTypeFullName = 'GEC.Attendance.Setting.Holiday';
     entityHistoryEnabled = false;
 
     constructor(

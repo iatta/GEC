@@ -3,8 +3,8 @@
 $buildFolder = (Get-Item -Path "./" -Verbose).FullName
 $slnFolder = Join-Path $buildFolder "../"
 $outputFolder = Join-Path $buildFolder "outputs"
-$webMvcFolder = Join-Path $slnFolder "src/Pixel.GEC.Attendance.Web.Mvc"
-$webPublicFolder = Join-Path $slnFolder "src/Pixel.GEC.Attendance.Web.Public"
+$webMvcFolder = Join-Path $slnFolder "src/GEC.Attendance.Web.Mvc"
+$webPublicFolder = Join-Path $slnFolder "src/GEC.Attendance.Web.Public"
 
 ## CLEAR ######################################################################
 

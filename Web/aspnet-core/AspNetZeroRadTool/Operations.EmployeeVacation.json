@@ -116,7 +116,7 @@
   ],
   "NavigationProperties": [
     {
-      "Namespace": "Pixel.GEC.Attendance.Authorization.Users",
+      "Namespace": "GEC.Attendance.Authorization.Users",
       "ForeignEntityName": "User",
       "IdType": "long",
       "IsNullable": false,
@@ -126,7 +126,7 @@
       "RelationType": "single"
     },
     {
-      "Namespace": "Pixel.GEC.Attendance.Setting",
+      "Namespace": "GEC.Attendance.Setting",
       "ForeignEntityName": "LeaveType",
       "IdType": "int",
       "IsNullable": false,

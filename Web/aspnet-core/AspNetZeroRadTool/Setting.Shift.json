@@ -308,7 +308,7 @@
   "EnumDefinitions": [
     {
       "Name": "Day",
-      "Namespace": "Pixel.GEC.Attendance.Enum",
+      "Namespace": "GEC.Attendance.Enum",
       "EnumProperties": [
         {
           "Name": "Starday",
@@ -342,7 +342,7 @@
     },
     {
       "Name": "Day",
-      "Namespace": "Pixel.GEC.Attendance.Enum",
+      "Namespace": "GEC.Attendance.Enum",
       "EnumProperties": [
         {
           "Name": "Starday",

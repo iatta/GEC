@@ -1,5 +1,6 @@
 ﻿import { ReportComponent } from './operations/reports/report.component';
 import { EmployeeReportComponent } from './operations/reports/employee-report.component';
+import { ProjectsComponent } from './operations/projects/projects.component';
 import { MobileWebPagesComponent } from './settings/mobileWebPages/mobileWebPages.component';
 import { EmployeeWarningsComponent } from './operations/employeeWarnings/employeeWarnings.component';
 import { TimeProfileReportComponent } from './operations/timeProfiles/timeProfile-report.component';
@@ -45,6 +46,7 @@ import { ManageOfficialTaskComponent } from './operations/employeeOfficialTasks/
             {
                 path: '',
                 children: [
+                    { path: 'operations/projects', component: ProjectsComponent, data: { permission: 'Pages.Projects' }  },
                     { path: 'settings/mobileWebPages', component: MobileWebPagesComponent, data: { permission: 'Pages.MobileWebPages' }  },
                     { path: 'operations/employeeWarnings', component: EmployeeWarningsComponent, data: { permission: 'Pages.EmployeeWarnings' }  },
                     { path: 'operations/employeeReport', component: EmployeeReportComponent, data: { permission: 'Pages.Reports' }  },

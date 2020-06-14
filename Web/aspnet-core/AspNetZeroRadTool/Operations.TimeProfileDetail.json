@@ -59,7 +59,7 @@
   ],
   "NavigationProperties": [
     {
-      "Namespace": "Pixel.GEC.Attendance.Operations",
+      "Namespace": "GEC.Attendance.Operations",
       "ForeignEntityName": "TimeProfile",
       "IdType": "int",
       "IsNullable": true,
@@ -69,7 +69,7 @@
       "RelationType": "single"
     },
     {
-      "Namespace": "Pixel.GEC.Attendance.Setting",
+      "Namespace": "GEC.Attendance.Setting",
       "ForeignEntityName": "Shift",
       "IdType": "int",
       "IsNullable": true,

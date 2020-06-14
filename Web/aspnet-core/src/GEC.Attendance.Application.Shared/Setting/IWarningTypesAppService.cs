@@ -1,0 +1,26 @@
+﻿using System;
+using System.Threading.Tasks;
+using Abp.Application.Services;
+using Abp.Application.Services.Dto;
+using GEC.Attendance.Setting.Dtos;
+using GEC.Attendance.Dto;
+
+namespace GEC.Attendance.Setting
+{
+    public interface IWarningTypesAppService : IApplicationService 
+    {
+        Task<PagedResultDto<GetWarningTypeForViewDto>> GetAll(GetAllWarningTypesInput input);
+
+        Task<GetWarningTypeForViewDto> GetWarningTypeForView(int id);
+
+		Task<GetWarningTypeForEditOutput> GetWarningTypeForEdit(EntityDto input);
+
+		Task CreateOrEdit(CreateOrEditWarningTypeDto input);
+
+		Task Delete(EntityDto input);
+
+		Task<FileDto> GetWarningTypesToExcel(GetAllWarningTypesForExcelInput input);
+
+		
+    }
+}
