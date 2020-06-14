@@ -39762,6 +39762,7 @@ export interface IGetOfficialTaskTypeForEditOutput {
 }
 
 export class OrganizationUnitDto implements IOrganizationUnitDto {
+    managerId:number|undefined;
     parentId!: number | undefined;
     code!: string | undefined;
     displayName!: string | undefined;
@@ -39784,6 +39785,7 @@ export class OrganizationUnitDto implements IOrganizationUnitDto {
 
     init(data?: any) {
         if (data) {
+            this.managerId = data["managerId"];
             this.parentId = data["parentId"];
             this.code = data["code"];
             this.displayName = data["displayName"];
@@ -39806,6 +39808,7 @@ export class OrganizationUnitDto implements IOrganizationUnitDto {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["managerId"] = this.managerId;
         data["parentId"] = this.parentId;
         data["code"] = this.code;
         data["displayName"] = this.displayName;
@@ -39821,6 +39824,7 @@ export class OrganizationUnitDto implements IOrganizationUnitDto {
 }
 
 export interface IOrganizationUnitDto {
+    managerId:number|undefined;
     parentId: number | undefined;
     code: string | undefined;
     displayName: string | undefined;
@@ -40083,6 +40087,7 @@ export interface IPagedResultDtoOfOrganizationUnitRoleListDto {
 
 export class CreateOrganizationUnitInput implements ICreateOrganizationUnitInput {
     parentId!: number | undefined;
+    managerId!: number | undefined;
     displayName!: string;
 
     constructor(data?: ICreateOrganizationUnitInput) {
@@ -40097,6 +40102,7 @@ export class CreateOrganizationUnitInput implements ICreateOrganizationUnitInput
     init(data?: any) {
         if (data) {
             this.parentId = data["parentId"];
+            this.managerId = data["managerId"];
             this.displayName = data["displayName"];
         }
     }
@@ -40111,6 +40117,7 @@ export class CreateOrganizationUnitInput implements ICreateOrganizationUnitInput
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["parentId"] = this.parentId;
+        data["managerId"] = this.managerId;
         data["displayName"] = this.displayName;
         return data;
     }
@@ -40119,10 +40126,12 @@ export class CreateOrganizationUnitInput implements ICreateOrganizationUnitInput
 export interface ICreateOrganizationUnitInput {
     parentId: number | undefined;
     displayName: string;
+    managerId: number | undefined;
 }
 
 export class UpdateOrganizationUnitInput implements IUpdateOrganizationUnitInput {
     id!: number;
+    managerId:number;
     displayName!: string;
 
     constructor(data?: IUpdateOrganizationUnitInput) {
@@ -40137,6 +40146,7 @@ export class UpdateOrganizationUnitInput implements IUpdateOrganizationUnitInput
     init(data?: any) {
         if (data) {
             this.id = data["id"];
+            this.managerId = data["managerId"];
             this.displayName = data["displayName"];
         }
     }
@@ -40151,6 +40161,7 @@ export class UpdateOrganizationUnitInput implements IUpdateOrganizationUnitInput
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
+        data["managerId"] = this.managerId;
         data["displayName"] = this.displayName;
         return data;
     }
@@ -40159,6 +40170,7 @@ export class UpdateOrganizationUnitInput implements IUpdateOrganizationUnitInput
 export interface IUpdateOrganizationUnitInput {
     id: number;
     displayName: string;
+    managerId:number;
 }
 
 export class MoveOrganizationUnitInput implements IMoveOrganizationUnitInput {

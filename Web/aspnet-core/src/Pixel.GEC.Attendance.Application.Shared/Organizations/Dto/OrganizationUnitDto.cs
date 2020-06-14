@@ -13,7 +13,7 @@ namespace Pixel.GEC.Attendance.Organizations.Dto
         public int MemberCount { get; set; }
         
         public int RoleCount { get; set; }
-        public int? ManagerId { get; set; }
+        public long? ManagerId { get; set; }
 
     }
 }

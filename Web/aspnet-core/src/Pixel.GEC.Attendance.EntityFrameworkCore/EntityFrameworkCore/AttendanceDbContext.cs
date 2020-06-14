@@ -17,6 +17,7 @@ using Pixel.GEC.Attendance.MultiTenancy.Accounting;
 using Pixel.GEC.Attendance.MultiTenancy.Payments;
 using Pixel.GEC.Attendance.Storage;
 using Pixel.GEC.Attendance.ReportsModel;
+using Pixel.GEC.Attendance.Extended;
 
 namespace Pixel.GEC.Attendance.EntityFrameworkCore
 {
@@ -108,6 +109,7 @@ namespace Pixel.GEC.Attendance.EntityFrameworkCore
         public virtual DbSet<SubscriptionPaymentExtensionData> SubscriptionPaymentExtensionDatas { get; set; }
 
         public DbSet<PermitType> PermitTypes { get; set; }
+        public DbSet<OrganizationUnitExtended> AbpOrganizationUnits { get; set; }
 
         public AttendanceDbContext(DbContextOptions<AttendanceDbContext> options)
             : base(options)

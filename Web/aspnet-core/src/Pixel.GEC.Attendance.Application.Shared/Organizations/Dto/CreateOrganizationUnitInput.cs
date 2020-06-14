@@ -6,6 +6,7 @@ namespace Pixel.GEC.Attendance.Organizations.Dto
     public class CreateOrganizationUnitInput
     {
         public long? ParentId { get; set; }
+        public long? ManagerId { get; set; }
 
         [Required]
         [StringLength(OrganizationUnit.MaxDisplayNameLength)]

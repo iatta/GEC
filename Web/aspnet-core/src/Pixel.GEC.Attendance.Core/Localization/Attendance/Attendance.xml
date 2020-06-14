@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
-  <texts>    <text name="MobileWebPage">Mobile web page</text>
+  <texts>    <text name="MobileWebPage">Mobile Web Page</text>
     <text name="Neme">Neme</text>
     <text name="Content">Content</text>
-    <text name="MobileWebPagesHeaderInfo">Mobile web pages header info</text>
-    <text name="CreateNewMobileWebPage">Create new mobile web page</text>
+    <text name="MobileWebPagesHeaderInfo">Mobile Web Pages Header Info</text>
+    <text name="CreateNewMobileWebPage">Create New Mobile web page</text>
     <text name="EditMobileWebPage">Edit mobile web page</text>
     <text name="DeleteMobileWebPage">Delete mobile web page</text>
     <text name="MobileWebPages">Mobile web pages</text>
@@ -33,7 +33,7 @@
     <text name="ManualTransactionsHeaderInfo">Manual transactions header info</text>
     <text name="CreateNewManualTransaction">Create new manual transaction</text>
     <text name="EditManualTransaction">Edit manual transaction</text>
-    <text name="DeleteManualTransaction">Delete manual transaction</text>
+    <text name="DeleteManualTransaction">Delete Manual Transaction</text>
     <text name="ManualTransactions">Manual transactions</text>
     <text name="TransDateRange">Trans date range</text>
     <text name="Tran">Tran</text>
@@ -124,9 +124,9 @@
     <text name="EditLocation">Edit location</text>
     <text name="DeleteLocation">Delete location</text>
     <text name="Locations">Locations</text>
-    <text name="EmployeeOfficialTaskDetail">Employee official task detail</text>
-    <text name="EmployeeOfficialTaskDetailsHeaderInfo">Employee official task details header info</text>
-    <text name="CreateNewEmployeeOfficialTaskDetail">Create new employee official task detail</text>
+    <text name="EmployeeOfficialTaskDetail">Employee Official Task Detail</text>
+    <text name="EmployeeOfficialTaskDetailsHeaderInfo">Employee Official Task Details header info</text>
+    <text name="CreateNewEmployeeOfficialTaskDetail">Create New Employee Official task detail</text>
     <text name="EditEmployeeOfficialTaskDetail">Edit employee official task detail</text>
     <text name="DeleteEmployeeOfficialTaskDetail">Delete employee official task detail</text>
     <text name="EmployeeOfficialTaskDetails">Employee official task details</text>
@@ -300,6 +300,7 @@
     <text name="DeleteEmployeePermit">Delete employee permit</text>
     <text name="EmployeePermits">Employee permits</text>
     <text name="PickUser">Pick user</text>
+    <text name="PickManager">Pick Manager</text>
     <text name="PermitDescriptionAr">Permit description ar</text>
     <text name="PickPermit">Pick permit</text>
     <text name="FromTimeRange">From time range</text>
@@ -1386,5 +1387,6 @@
     <text name="ShowLockScreenWhenTimedOut">Show Lock Screen When Timed Out</text>
     <text name="YourSessionIsLocked">Your Session is Locked</text>
     <text name="WebhookSubscriptionId">Webhook Subscription Id</text>
+    <text name="UnitManager">Manager</text>
   </texts>
 </localizationDictionary>

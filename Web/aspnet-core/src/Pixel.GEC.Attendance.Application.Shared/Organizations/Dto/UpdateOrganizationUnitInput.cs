@@ -7,6 +7,7 @@ namespace Pixel.GEC.Attendance.Organizations.Dto
     {
         [Range(1, long.MaxValue)]
         public long Id { get; set; }
+        public long? ManagerId { get; set; }
 
         [Required]
         [StringLength(OrganizationUnit.MaxDisplayNameLength)]

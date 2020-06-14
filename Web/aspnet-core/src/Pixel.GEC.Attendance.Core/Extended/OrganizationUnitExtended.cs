@@ -7,9 +7,14 @@ using System.Text;
 
 namespace Pixel.GEC.Attendance.Extended
 {
+    [Table("AbpOrganizationUnits")]
     public class OrganizationUnitExtended:OrganizationUnit
     {
-        public int? ManagerId { get; set; }
+        public OrganizationUnitExtended(int? tenantId, string displayName, long? parentId = null, long? managerId = null) : base(tenantId,displayName,parentId)
+        {
+            this.ManagerId = managerId;
+        }
+        public long? ManagerId { get; set; }
 
         [ForeignKey("ManagerId")]
         public User Manager { get; set; }

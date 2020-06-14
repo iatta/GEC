@@ -43,13 +43,23 @@ namespace Pixel.GEC.Attendance.Organizations
         {
             var organizationUnits = await _organizationUnitRepository.GetAllListAsync();
 
-            var organizationUnitMemberCounts = await _userOrganizationUnitRepository.GetAll()
+            //var organizationUnitMemberCounts = await _userOrganizationUnitRepository.GetAll()
+            //    .GroupBy(x => x.OrganizationUnitId)
+            //    .Select(groupedUsers => new
+            //    {
+            //        organizationUnitId = groupedUsers.Key,
+            //        count = groupedUsers.Count()
+            //    }).ToDictionaryAsync(x => x.organizationUnitId, y => y.count);
+
+            var organizationUnitMemberCounts = await UserManager.Users
+                .Where(x => x.OrganizationUnitId != null)
                 .GroupBy(x => x.OrganizationUnitId)
                 .Select(groupedUsers => new
                 {
                     organizationUnitId = groupedUsers.Key,
                     count = groupedUsers.Count()
                 }).ToDictionaryAsync(x => x.organizationUnitId, y => y.count);
+
 
             var organizationUnitRoleCounts = await _organizationUnitRoleRepository.GetAll()
                 .GroupBy(x => x.OrganizationUnitId)
@@ -63,7 +73,7 @@ namespace Pixel.GEC.Attendance.Organizations
                 organizationUnits.Select(ou =>
                 {
                     var organizationUnitDto = ObjectMapper.Map<OrganizationUnitDto>(ou);
-                    organizationUnitDto.MemberCount = organizationUnitMemberCounts.ContainsKey(ou.Id) ? organizationUnitMemberCounts[ou.Id] : 0;
+                    organizationUnitDto.MemberCount = organizationUnitMemberCounts.ContainsKey((int)ou.Id) ? organizationUnitMemberCounts[(int)ou.Id] : 0;
                     organizationUnitDto.RoleCount = organizationUnitRoleCounts.ContainsKey(ou.Id) ? organizationUnitRoleCounts[ou.Id] : 0;
                     return organizationUnitDto;
                 }).ToList());
@@ -124,8 +134,8 @@ namespace Pixel.GEC.Attendance.Organizations
         [AbpAuthorize(AppPermissions.Pages_Administration_OrganizationUnits_ManageOrganizationTree)]
         public async Task<OrganizationUnitDto> CreateOrganizationUnit(CreateOrganizationUnitInput input)
         {
-            var organizationUnit = new OrganizationUnit(AbpSession.TenantId, input.DisplayName, input.ParentId);
-
+            var organizationUnit = new OrganizationUnitExtended(AbpSession.TenantId, input.DisplayName, input.ParentId);
+            organizationUnit.ManagerId = input.ManagerId;
             await _organizationUnitManager.CreateAsync(organizationUnit);
             await CurrentUnitOfWork.SaveChangesAsync();
 
@@ -138,6 +148,7 @@ namespace Pixel.GEC.Attendance.Organizations
             var organizationUnit = await _organizationUnitRepository.GetAsync(input.Id);
 
             organizationUnit.DisplayName = input.DisplayName;
+            organizationUnit.ManagerId = input.ManagerId;
 
             await _organizationUnitManager.UpdateAsync(organizationUnit);
 
@@ -157,9 +168,18 @@ namespace Pixel.GEC.Attendance.Organizations
         [AbpAuthorize(AppPermissions.Pages_Administration_OrganizationUnits_ManageOrganizationTree)]
         public async Task DeleteOrganizationUnit(EntityDto<long> input)
         {
+
+            //update user units
+            var organizationUnitUsers = UserManager.Users.Where(x => x.OrganizationUnitId.Value == (int)input.Id).ToList();
+            foreach (var user in organizationUnitUsers)
+            {
+                user.OrganizationUnitId = null;
+                await UserManager.UpdateAsync(user);
+            }
+
             await _userOrganizationUnitRepository.DeleteAsync(x => x.OrganizationUnitId == input.Id);
             await _organizationUnitRoleRepository.DeleteAsync(x => x.OrganizationUnitId == input.Id);
-            await _organizationUnitManager.DeleteAsync(input.Id);
+            await _organizationUnitRepository.HardDeleteAsync(_organizationUnitRepository.FirstOrDefault(x => x.Id == input.Id));
         }
 
 
@@ -202,9 +222,14 @@ namespace Pixel.GEC.Attendance.Organizations
         [AbpAuthorize(AppPermissions.Pages_Administration_OrganizationUnits_ManageMembers)]
         public async Task<PagedResultDto<NameValueDto>> FindUsers(FindOrganizationUnitUsersInput input)
         {
-            var userIdsInOrganizationUnit = _userOrganizationUnitRepository.GetAll()
-                .Where(uou => uou.OrganizationUnitId == input.OrganizationUnitId)
-                .Select(uou => uou.UserId);
+            //var userIdsInOrganizationUnit = _userOrganizationUnitRepository.GetAll()
+            //    .Where(uou => uou.OrganizationUnitId == input.OrganizationUnitId)
+            //    .Select(uou => uou.UserId);
+
+            var userIdsInOrganizationUnit = UserManager.Users
+              .Where(uou => uou.OrganizationUnitId == input.OrganizationUnitId)
+              .Select(uou => uou.Id);
+
 
             var query = UserManager.Users
                 .Where(u => !userIdsInOrganizationUnit.Contains(u.Id))
@@ -274,5 +299,7 @@ namespace Pixel.GEC.Attendance.Organizations
             dto.MemberCount = await _userOrganizationUnitRepository.CountAsync(uou => uou.OrganizationUnitId == organizationUnit.Id);
             return dto;
         }
+
+
     }
 }
