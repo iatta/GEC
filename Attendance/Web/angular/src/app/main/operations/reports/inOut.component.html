@@ -1,0 +1,157 @@
+<div class="row" *ngIf="show">
+
+        <div class="col-lg-2"></div>
+        <div class="col-lg-8">
+            <h5>{{l(reportName)}} {{fromDate._d | momentFormat:'L'}} {{l('To')}} {{toDate._d | momentFormat:'L'}}</h5>
+        </div>
+        <div style="margin-top: -3%;" class="col-lg-2">
+            <img  *ngIf="!appSession.tenant || !appSession.tenant.logoId" [src]="defaultLogo" alt="logo" height="114px" width="180px" />
+        </div>
+</div>
+<div class="row" style="margin: auto;" *ngIf="show">
+    <div class="col-lg-12">
+
+        <p-table [value]="reportList" sortField="brand"  sortMode="single">
+            <ng-template pTemplate="caption">
+                <div class="ui-helper-clearfix" style="text-align: left">
+                    <button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="EXCEL" (click)="exportExcel()" style="margin-right: 0.5em;" class="ui-button-success"></button>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>
+                        {{l('Date')}}
+                    </th>
+                    <th>
+                        {{l('Day')}}
+                    </th>
+                    <th>
+                        {{l('Shift')}}
+                    </th>
+                    <th>
+                        {{l('In')}}
+                    </th>
+                    <th>
+                        {{l('Out')}}
+                    </th>
+                    <th>
+                        {{l('Late')}}
+                    </th>
+
+                    <th>
+                        {{l('EarlyOut')}}
+                    </th>
+
+                    <th>
+                        {{l('OverTime')}}
+                    </th>
+                    <th>
+                        {{l('Status')}}
+                    </th>
+                    <th>
+                        {{l('Note')}}
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
+                <tr class="ui-widget-header" *ngIf="rowGroupMetadata[rowData.empId].index === rowIndex">
+                    <td colspan="5">
+                       <div class="row">
+                           <div class="col-lg-4">
+                            {{l('Name')}} :  <span style="font-weight:bold">{{rowData.userName}}</span>
+                           </div>
+                           <div class="col-lg-4">
+                            {{l('unit')}} :  <span style="font-weight:bold">{{rowData.mainDisplayName}}  {{rowData.unitName}}</span>
+                           </div>
+                           <div class="col-lg-4">
+                            {{l('fingerCode')}} :  <span style="font-weight:bold">{{rowData.fingerCode}}</span>
+                           </div>
+                           <div class="col-lg-4">
+                            {{l('civilId')}} :  <span style="font-weight:bold">{{rowData.civilId}}</span>
+                           </div>
+                           <div class="col-lg-4">
+                            {{l('JobTitle')}} :  <span style="font-weight:bold">{{rowData.jobTitleName}}</span>
+                           </div>
+
+                       </div>
+                    </td>
+                    <td colspan="5">
+                        <div class="row">
+                            <table style="width: 50%;background-color: gray;color: white;" class="table-bordered">
+                                 <tr>
+                                     <td>
+                                         نوع الخصم
+                                     </td>
+
+                                     <td>
+                                         الكميه
+                                     </td>
+                                     <td>
+                                         ايام الخصم
+                                     </td>
+                                 </tr>
+                                 <tr>
+                                     <td>  دقائق التأخير  </td>
+                                     <td>   {{getTotalLate(rowData.empId)}}  </td>
+                                     <td>0</td>
+                                     <td>يوم</td>
+                                 </tr>
+                                 <tr>
+                                     <td>  نسيان البصمة  </td>
+                                     <td>{{rowData.forgetIn + rowData.forgetOut}}</td>
+                                     <td>0</td>
+                                     <td>يوم</td>
+                                 </tr>
+                                 <tr>
+                                     <td>   الغياب  </td>
+                                     <td>{{rowData.absentsCount}}</td>
+                                     <td>{{rowData.absentsCount}}</td>
+                                     <td>يوم</td>
+                                 </tr>
+                             </table>
+                        </div>
+                     </td>
+                </tr>
+                <tr [ngClass]="getRowClass(rowData)">
+                    <td>
+                        {{rowData.attendanceDate | momentFormat:'L'}}
+                    </td>
+                    <td>
+                        {{rowData.attendanceDate | momentFormat:'dddd'}}
+                    </td>
+
+                    <td>
+                        {{rowData.shiftNameAr}}
+                    </td>
+
+                    <td>
+                        {{rowData.attendanceInStr}}
+                    </td>
+
+                    <td>
+                        {{rowData.attendanceOutStr}}
+                    </td>
+
+                    <td>
+                        {{rowData.attendanceLateIn | minutesToTime24}}
+                    </td>
+
+                    <td>
+                        {{rowData.attendanceEarlyOut | minutesToTime24}}
+                    </td>
+
+                    <td>
+                        {{rowData.overTime}}
+                    </td>
+
+                    <td>
+                      <div>  {{getStatusText(rowData) }} </div>
+                    </td>
+                    <td></td>
+                </tr>
+
+            </ng-template>
+        </p-table>
+
+    </div>
+</div>

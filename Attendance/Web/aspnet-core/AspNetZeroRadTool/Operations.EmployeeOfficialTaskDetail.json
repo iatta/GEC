@@ -1,0 +1,44 @@
+{
+  "IsRegenerate": false,
+  "MenuPosition": "main",
+  "RelativeNamespace": "Operations",
+  "EntityName": "EmployeeOfficialTaskDetail",
+  "EntityNamePlural": "EmployeeOfficialTaskDetails",
+  "TableName": "EmployeeOfficialTaskDetails",
+  "PrimaryKeyType": "int",
+  "BaseClass": "FullAuditedEntity",
+  "EntityHistory": false,
+  "AutoMigration": true,
+  "UpdateDatabase": true,
+  "CreateUserInterface": true,
+  "CreateViewOnly": true,
+  "CreateExcelExport": true,
+  "PagePermission": {
+    "Host": false,
+    "Tenant": false
+  },
+  "Properties": [],
+  "NavigationProperties": [
+    {
+      "Namespace": "Pixel.Attendance.Operations",
+      "ForeignEntityName": "EmployeeOfficialTask",
+      "IdType": "int",
+      "IsNullable": true,
+      "PropertyName": "EmployeeOfficialTaskId",
+      "DisplayPropertyName": "DescriptionAr",
+      "DuplicationNumber": 0,
+      "RelationType": "single"
+    },
+    {
+      "Namespace": "Pixel.Attendance.Authorization.Users",
+      "ForeignEntityName": "User",
+      "IdType": "long",
+      "IsNullable": true,
+      "PropertyName": "UserId",
+      "DisplayPropertyName": "Name",
+      "DuplicationNumber": 0,
+      "RelationType": "single"
+    }
+  ],
+  "EnumDefinitions": []
+}
