@@ -30,6 +30,13 @@ namespace Pixel.Attendance.Authorization
 
             var pages = context.GetPermissionOrNull(AppPermissions.Pages) ?? context.CreatePermission(AppPermissions.Pages, L("Pages"));
 
+            var projects = pages.CreateChildPermission(AppPermissions.Pages_Projects, L("Projects"));
+            projects.CreateChildPermission(AppPermissions.Pages_Projects_Create, L("CreateNewProject"));
+            projects.CreateChildPermission(AppPermissions.Pages_Projects_Edit, L("EditProject"));
+            projects.CreateChildPermission(AppPermissions.Pages_Projects_Delete, L("DeleteProject"));
+
+
+
             var mobileWebPages = pages.CreateChildPermission(AppPermissions.Pages_MobileWebPages, L("MobileWebPages"));
             mobileWebPages.CreateChildPermission(AppPermissions.Pages_MobileWebPages_Create, L("CreateNewMobileWebPage"));
             mobileWebPages.CreateChildPermission(AppPermissions.Pages_MobileWebPages_Edit, L("EditMobileWebPage"));

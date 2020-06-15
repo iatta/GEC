@@ -3,13 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Pixel.Attendance.Migrations
 {
-    public partial class Regenerated_EmployeePermit6672 : Migration
+    public partial class Added_Project : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-          
             migrationBuilder.CreateTable(
-                name: "EmployeePermits",
+                name: "Projects",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -21,47 +20,55 @@ namespace Pixel.Attendance.Migrations
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeleterUserId = table.Column<long>(nullable: true),
                     DeletionTime = table.Column<DateTime>(nullable: true),
-                    FromTime = table.Column<int>(nullable: false),
-                    ToTime = table.Column<int>(nullable: false),
-                    PermitDate = table.Column<DateTime>(nullable: false),
-                    Description = table.Column<string>(nullable: true),
-                    Status = table.Column<bool>(nullable: false),
-                    Note = table.Column<string>(nullable: true),
-                    UserId = table.Column<long>(nullable: true),
-                    PermitId = table.Column<int>(nullable: true)
+                    NameAr = table.Column<string>(nullable: true),
+                    NameEn = table.Column<string>(nullable: true),
+                    ManagerId = table.Column<long>(nullable: true),
+                    LocationId = table.Column<int>(nullable: true),
+                    OrganizationUnitId = table.Column<long>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_EmployeePermits", x => x.Id);
+                    table.PrimaryKey("PK_Projects", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_EmployeePermits_Permits_PermitId",
-                        column: x => x.PermitId,
-                        principalTable: "Permits",
+                        name: "FK_Projects_Locations_LocationId",
+                        column: x => x.LocationId,
+                        principalTable: "Locations",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_EmployeePermits_AbpUsers_UserId",
-                        column: x => x.UserId,
+                        name: "FK_Projects_AbpUsers_ManagerId",
+                        column: x => x.ManagerId,
                         principalTable: "AbpUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Projects_AbpOrganizationUnits_OrganizationUnitId",
+                        column: x => x.OrganizationUnitId,
+                        principalTable: "AbpOrganizationUnits",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_EmployeePermits_PermitId",
-                table: "EmployeePermits",
-                column: "PermitId");
+                name: "IX_Projects_LocationId",
+                table: "Projects",
+                column: "LocationId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_EmployeePermits_UserId",
-                table: "EmployeePermits",
-                column: "UserId");
+                name: "IX_Projects_ManagerId",
+                table: "Projects",
+                column: "ManagerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Projects_OrganizationUnitId",
+                table: "Projects",
+                column: "OrganizationUnitId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "EmployeePermits");
+                name: "Projects");
         }
     }
 }

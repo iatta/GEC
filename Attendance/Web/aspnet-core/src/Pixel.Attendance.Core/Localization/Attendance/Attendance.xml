@@ -1,6 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
-  <texts>    <text name="MobileWebPage">Mobile web page</text>
+  <texts>    <text name="Project">Project</text>
+    <text name="ProjectsHeaderInfo">Projects header info</text>
+    <text name="CreateNewProject">Create new project</text>
+    <text name="EditProject">Edit project</text>
+    <text name="DeleteProject">Delete project</text>
+    <text name="Projects">Projects</text>
+    <text name="LocationTitleEn">Location title en</text>
+    <text name="MobileWebPage">Mobile web page</text>
     <text name="Neme">Neme</text>
     <text name="Content">Content</text>
     <text name="MobileWebPagesHeaderInfo">Mobile web pages header info</text>

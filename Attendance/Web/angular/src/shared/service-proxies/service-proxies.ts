@@ -16,8 +16,6 @@ import * as moment from 'moment';
 
 export const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
 
-
-
 @Injectable()
 export class AccountServiceProxy {
     private http: HttpClient;
@@ -30,7 +28,7 @@ export class AccountServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     isTenantAvailable(body: IsTenantAvailableInput | undefined): Observable<IsTenantAvailableOutput> {
@@ -44,7 +42,7 @@ export class AccountServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
                 "Accept": "text/plain"
             })
         };
@@ -65,8 +63,8 @@ export class AccountServiceProxy {
 
     protected processIsTenantAvailable(response: HttpResponseBase): Observable<IsTenantAvailableOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -86,7 +84,7 @@ export class AccountServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     resolveTenantId(body: ResolveTenantIdInput | undefined): Observable<number> {
@@ -100,7 +98,7 @@ export class AccountServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
                 "Accept": "text/plain"
             })
         };
@@ -121,8 +119,8 @@ export class AccountServiceProxy {
 
     protected processResolveTenantId(response: HttpResponseBase): Observable<number> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -142,7 +140,7 @@ export class AccountServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     register(body: RegisterInput | undefined): Observable<RegisterOutput> {
@@ -156,7 +154,7 @@ export class AccountServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
                 "Accept": "text/plain"
             })
         };
@@ -177,8 +175,8 @@ export class AccountServiceProxy {
 
     protected processRegister(response: HttpResponseBase): Observable<RegisterOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -198,7 +196,7 @@ export class AccountServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     sendPasswordResetCode(body: SendPasswordResetCodeInput | undefined): Observable<void> {
@@ -212,7 +210,7 @@ export class AccountServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -232,8 +230,8 @@ export class AccountServiceProxy {
 
     protected processSendPasswordResetCode(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -250,7 +248,7 @@ export class AccountServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     resetPassword(body: ResetPasswordInput | undefined): Observable<ResetPasswordOutput> {
@@ -264,7 +262,7 @@ export class AccountServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
                 "Accept": "text/plain"
             })
         };
@@ -285,8 +283,8 @@ export class AccountServiceProxy {
 
     protected processResetPassword(response: HttpResponseBase): Observable<ResetPasswordOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -306,7 +304,7 @@ export class AccountServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     sendEmailActivationLink(body: SendEmailActivationLinkInput | undefined): Observable<void> {
@@ -320,7 +318,7 @@ export class AccountServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -340,8 +338,8 @@ export class AccountServiceProxy {
 
     protected processSendEmailActivationLink(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -358,7 +356,7 @@ export class AccountServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     activateEmail(body: ActivateEmailInput | undefined): Observable<void> {
@@ -372,7 +370,7 @@ export class AccountServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -392,8 +390,8 @@ export class AccountServiceProxy {
 
     protected processActivateEmail(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -410,7 +408,7 @@ export class AccountServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     impersonate(body: ImpersonateInput | undefined): Observable<ImpersonateOutput> {
@@ -424,7 +422,7 @@ export class AccountServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
                 "Accept": "text/plain"
             })
         };
@@ -445,8 +443,8 @@ export class AccountServiceProxy {
 
     protected processImpersonate(response: HttpResponseBase): Observable<ImpersonateOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -496,8 +494,8 @@ export class AccountServiceProxy {
 
     protected processBackToImpersonator(response: HttpResponseBase): Observable<ImpersonateOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -517,7 +515,7 @@ export class AccountServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     switchToLinkedAccount(body: SwitchToLinkedAccountInput | undefined): Observable<SwitchToLinkedAccountOutput> {
@@ -531,7 +529,7 @@ export class AccountServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
                 "Accept": "text/plain"
             })
         };
@@ -552,8 +550,8 @@ export class AccountServiceProxy {
 
     protected processSwitchToLinkedAccount(response: HttpResponseBase): Observable<SwitchToLinkedAccountOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -585,18 +583,18 @@ export class AuditLogServiceProxy {
     }
 
     /**
-     * @param startDate (optional)
-     * @param endDate (optional)
-     * @param userName (optional)
-     * @param serviceName (optional)
-     * @param methodName (optional)
-     * @param browserInfo (optional)
-     * @param hasException (optional)
-     * @param minExecutionDuration (optional)
-     * @param maxExecutionDuration (optional)
-     * @param sorting (optional)
-     * @param maxResultCount (optional)
-     * @param skipCount (optional)
+     * @param startDate (optional) 
+     * @param endDate (optional) 
+     * @param userName (optional) 
+     * @param serviceName (optional) 
+     * @param methodName (optional) 
+     * @param browserInfo (optional) 
+     * @param hasException (optional) 
+     * @param minExecutionDuration (optional) 
+     * @param maxExecutionDuration (optional) 
+     * @param sorting (optional) 
+     * @param maxResultCount (optional) 
+     * @param skipCount (optional) 
      * @return Success
      */
     getAuditLogs(startDate: moment.Moment | undefined, endDate: moment.Moment | undefined, userName: string | undefined, serviceName: string | undefined, methodName: string | undefined, browserInfo: string | undefined, hasException: boolean | undefined, minExecutionDuration: number | undefined, maxExecutionDuration: number | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<PagedResultDtoOfAuditLogListDto> {
@@ -604,51 +602,51 @@ export class AuditLogServiceProxy {
         if (startDate === null)
             throw new Error("The parameter 'startDate' cannot be null.");
         else if (startDate !== undefined)
-            url_ += "StartDate=" + encodeURIComponent(startDate ? "" + startDate.toJSON() : "") + "&";
+            url_ += "StartDate=" + encodeURIComponent(startDate ? "" + startDate.toJSON() : "") + "&"; 
         if (endDate === null)
             throw new Error("The parameter 'endDate' cannot be null.");
         else if (endDate !== undefined)
-            url_ += "EndDate=" + encodeURIComponent(endDate ? "" + endDate.toJSON() : "") + "&";
+            url_ += "EndDate=" + encodeURIComponent(endDate ? "" + endDate.toJSON() : "") + "&"; 
         if (userName === null)
             throw new Error("The parameter 'userName' cannot be null.");
         else if (userName !== undefined)
-            url_ += "UserName=" + encodeURIComponent("" + userName) + "&";
+            url_ += "UserName=" + encodeURIComponent("" + userName) + "&"; 
         if (serviceName === null)
             throw new Error("The parameter 'serviceName' cannot be null.");
         else if (serviceName !== undefined)
-            url_ += "ServiceName=" + encodeURIComponent("" + serviceName) + "&";
+            url_ += "ServiceName=" + encodeURIComponent("" + serviceName) + "&"; 
         if (methodName === null)
             throw new Error("The parameter 'methodName' cannot be null.");
         else if (methodName !== undefined)
-            url_ += "MethodName=" + encodeURIComponent("" + methodName) + "&";
+            url_ += "MethodName=" + encodeURIComponent("" + methodName) + "&"; 
         if (browserInfo === null)
             throw new Error("The parameter 'browserInfo' cannot be null.");
         else if (browserInfo !== undefined)
-            url_ += "BrowserInfo=" + encodeURIComponent("" + browserInfo) + "&";
+            url_ += "BrowserInfo=" + encodeURIComponent("" + browserInfo) + "&"; 
         if (hasException === null)
             throw new Error("The parameter 'hasException' cannot be null.");
         else if (hasException !== undefined)
-            url_ += "HasException=" + encodeURIComponent("" + hasException) + "&";
+            url_ += "HasException=" + encodeURIComponent("" + hasException) + "&"; 
         if (minExecutionDuration === null)
             throw new Error("The parameter 'minExecutionDuration' cannot be null.");
         else if (minExecutionDuration !== undefined)
-            url_ += "MinExecutionDuration=" + encodeURIComponent("" + minExecutionDuration) + "&";
+            url_ += "MinExecutionDuration=" + encodeURIComponent("" + minExecutionDuration) + "&"; 
         if (maxExecutionDuration === null)
             throw new Error("The parameter 'maxExecutionDuration' cannot be null.");
         else if (maxExecutionDuration !== undefined)
-            url_ += "MaxExecutionDuration=" + encodeURIComponent("" + maxExecutionDuration) + "&";
+            url_ += "MaxExecutionDuration=" + encodeURIComponent("" + maxExecutionDuration) + "&"; 
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
         if (maxResultCount === null)
             throw new Error("The parameter 'maxResultCount' cannot be null.");
         else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
         if (skipCount === null)
             throw new Error("The parameter 'skipCount' cannot be null.");
         else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -675,8 +673,8 @@ export class AuditLogServiceProxy {
 
     protected processGetAuditLogs(response: HttpResponseBase): Observable<PagedResultDtoOfAuditLogListDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -696,18 +694,18 @@ export class AuditLogServiceProxy {
     }
 
     /**
-     * @param startDate (optional)
-     * @param endDate (optional)
-     * @param userName (optional)
-     * @param serviceName (optional)
-     * @param methodName (optional)
-     * @param browserInfo (optional)
-     * @param hasException (optional)
-     * @param minExecutionDuration (optional)
-     * @param maxExecutionDuration (optional)
-     * @param sorting (optional)
-     * @param maxResultCount (optional)
-     * @param skipCount (optional)
+     * @param startDate (optional) 
+     * @param endDate (optional) 
+     * @param userName (optional) 
+     * @param serviceName (optional) 
+     * @param methodName (optional) 
+     * @param browserInfo (optional) 
+     * @param hasException (optional) 
+     * @param minExecutionDuration (optional) 
+     * @param maxExecutionDuration (optional) 
+     * @param sorting (optional) 
+     * @param maxResultCount (optional) 
+     * @param skipCount (optional) 
      * @return Success
      */
     getAuditLogsToExcel(startDate: moment.Moment | undefined, endDate: moment.Moment | undefined, userName: string | undefined, serviceName: string | undefined, methodName: string | undefined, browserInfo: string | undefined, hasException: boolean | undefined, minExecutionDuration: number | undefined, maxExecutionDuration: number | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<FileDto> {
@@ -715,51 +713,51 @@ export class AuditLogServiceProxy {
         if (startDate === null)
             throw new Error("The parameter 'startDate' cannot be null.");
         else if (startDate !== undefined)
-            url_ += "StartDate=" + encodeURIComponent(startDate ? "" + startDate.toJSON() : "") + "&";
+            url_ += "StartDate=" + encodeURIComponent(startDate ? "" + startDate.toJSON() : "") + "&"; 
         if (endDate === null)
             throw new Error("The parameter 'endDate' cannot be null.");
         else if (endDate !== undefined)
-            url_ += "EndDate=" + encodeURIComponent(endDate ? "" + endDate.toJSON() : "") + "&";
+            url_ += "EndDate=" + encodeURIComponent(endDate ? "" + endDate.toJSON() : "") + "&"; 
         if (userName === null)
             throw new Error("The parameter 'userName' cannot be null.");
         else if (userName !== undefined)
-            url_ += "UserName=" + encodeURIComponent("" + userName) + "&";
+            url_ += "UserName=" + encodeURIComponent("" + userName) + "&"; 
         if (serviceName === null)
             throw new Error("The parameter 'serviceName' cannot be null.");
         else if (serviceName !== undefined)
-            url_ += "ServiceName=" + encodeURIComponent("" + serviceName) + "&";
+            url_ += "ServiceName=" + encodeURIComponent("" + serviceName) + "&"; 
         if (methodName === null)
             throw new Error("The parameter 'methodName' cannot be null.");
         else if (methodName !== undefined)
-            url_ += "MethodName=" + encodeURIComponent("" + methodName) + "&";
+            url_ += "MethodName=" + encodeURIComponent("" + methodName) + "&"; 
         if (browserInfo === null)
             throw new Error("The parameter 'browserInfo' cannot be null.");
         else if (browserInfo !== undefined)
-            url_ += "BrowserInfo=" + encodeURIComponent("" + browserInfo) + "&";
+            url_ += "BrowserInfo=" + encodeURIComponent("" + browserInfo) + "&"; 
         if (hasException === null)
             throw new Error("The parameter 'hasException' cannot be null.");
         else if (hasException !== undefined)
-            url_ += "HasException=" + encodeURIComponent("" + hasException) + "&";
+            url_ += "HasException=" + encodeURIComponent("" + hasException) + "&"; 
         if (minExecutionDuration === null)
             throw new Error("The parameter 'minExecutionDuration' cannot be null.");
         else if (minExecutionDuration !== undefined)
-            url_ += "MinExecutionDuration=" + encodeURIComponent("" + minExecutionDuration) + "&";
+            url_ += "MinExecutionDuration=" + encodeURIComponent("" + minExecutionDuration) + "&"; 
         if (maxExecutionDuration === null)
             throw new Error("The parameter 'maxExecutionDuration' cannot be null.");
         else if (maxExecutionDuration !== undefined)
-            url_ += "MaxExecutionDuration=" + encodeURIComponent("" + maxExecutionDuration) + "&";
+            url_ += "MaxExecutionDuration=" + encodeURIComponent("" + maxExecutionDuration) + "&"; 
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
         if (maxResultCount === null)
             throw new Error("The parameter 'maxResultCount' cannot be null.");
         else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
         if (skipCount === null)
             throw new Error("The parameter 'skipCount' cannot be null.");
         else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -786,8 +784,8 @@ export class AuditLogServiceProxy {
 
     protected processGetAuditLogsToExcel(response: HttpResponseBase): Observable<FileDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -837,8 +835,8 @@ export class AuditLogServiceProxy {
 
     protected processGetEntityHistoryObjectTypes(response: HttpResponseBase): Observable<NameValueDto[]> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -862,13 +860,13 @@ export class AuditLogServiceProxy {
     }
 
     /**
-     * @param startDate (optional)
-     * @param endDate (optional)
-     * @param userName (optional)
-     * @param entityTypeFullName (optional)
-     * @param sorting (optional)
-     * @param maxResultCount (optional)
-     * @param skipCount (optional)
+     * @param startDate (optional) 
+     * @param endDate (optional) 
+     * @param userName (optional) 
+     * @param entityTypeFullName (optional) 
+     * @param sorting (optional) 
+     * @param maxResultCount (optional) 
+     * @param skipCount (optional) 
      * @return Success
      */
     getEntityChanges(startDate: moment.Moment | undefined, endDate: moment.Moment | undefined, userName: string | undefined, entityTypeFullName: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<PagedResultDtoOfEntityChangeListDto> {
@@ -876,31 +874,31 @@ export class AuditLogServiceProxy {
         if (startDate === null)
             throw new Error("The parameter 'startDate' cannot be null.");
         else if (startDate !== undefined)
-            url_ += "StartDate=" + encodeURIComponent(startDate ? "" + startDate.toJSON() : "") + "&";
+            url_ += "StartDate=" + encodeURIComponent(startDate ? "" + startDate.toJSON() : "") + "&"; 
         if (endDate === null)
             throw new Error("The parameter 'endDate' cannot be null.");
         else if (endDate !== undefined)
-            url_ += "EndDate=" + encodeURIComponent(endDate ? "" + endDate.toJSON() : "") + "&";
+            url_ += "EndDate=" + encodeURIComponent(endDate ? "" + endDate.toJSON() : "") + "&"; 
         if (userName === null)
             throw new Error("The parameter 'userName' cannot be null.");
         else if (userName !== undefined)
-            url_ += "UserName=" + encodeURIComponent("" + userName) + "&";
+            url_ += "UserName=" + encodeURIComponent("" + userName) + "&"; 
         if (entityTypeFullName === null)
             throw new Error("The parameter 'entityTypeFullName' cannot be null.");
         else if (entityTypeFullName !== undefined)
-            url_ += "EntityTypeFullName=" + encodeURIComponent("" + entityTypeFullName) + "&";
+            url_ += "EntityTypeFullName=" + encodeURIComponent("" + entityTypeFullName) + "&"; 
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
         if (maxResultCount === null)
             throw new Error("The parameter 'maxResultCount' cannot be null.");
         else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
         if (skipCount === null)
             throw new Error("The parameter 'skipCount' cannot be null.");
         else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -927,8 +925,8 @@ export class AuditLogServiceProxy {
 
     protected processGetEntityChanges(response: HttpResponseBase): Observable<PagedResultDtoOfEntityChangeListDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -948,11 +946,11 @@ export class AuditLogServiceProxy {
     }
 
     /**
-     * @param entityTypeFullName (optional)
-     * @param entityId (optional)
-     * @param sorting (optional)
-     * @param maxResultCount (optional)
-     * @param skipCount (optional)
+     * @param entityTypeFullName (optional) 
+     * @param entityId (optional) 
+     * @param sorting (optional) 
+     * @param maxResultCount (optional) 
+     * @param skipCount (optional) 
      * @return Success
      */
     getEntityTypeChanges(entityTypeFullName: string | undefined, entityId: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<PagedResultDtoOfEntityChangeListDto> {
@@ -960,23 +958,23 @@ export class AuditLogServiceProxy {
         if (entityTypeFullName === null)
             throw new Error("The parameter 'entityTypeFullName' cannot be null.");
         else if (entityTypeFullName !== undefined)
-            url_ += "EntityTypeFullName=" + encodeURIComponent("" + entityTypeFullName) + "&";
+            url_ += "EntityTypeFullName=" + encodeURIComponent("" + entityTypeFullName) + "&"; 
         if (entityId === null)
             throw new Error("The parameter 'entityId' cannot be null.");
         else if (entityId !== undefined)
-            url_ += "EntityId=" + encodeURIComponent("" + entityId) + "&";
+            url_ += "EntityId=" + encodeURIComponent("" + entityId) + "&"; 
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
         if (maxResultCount === null)
             throw new Error("The parameter 'maxResultCount' cannot be null.");
         else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
         if (skipCount === null)
             throw new Error("The parameter 'skipCount' cannot be null.");
         else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -1003,8 +1001,8 @@ export class AuditLogServiceProxy {
 
     protected processGetEntityTypeChanges(response: HttpResponseBase): Observable<PagedResultDtoOfEntityChangeListDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -1024,13 +1022,13 @@ export class AuditLogServiceProxy {
     }
 
     /**
-     * @param startDate (optional)
-     * @param endDate (optional)
-     * @param userName (optional)
-     * @param entityTypeFullName (optional)
-     * @param sorting (optional)
-     * @param maxResultCount (optional)
-     * @param skipCount (optional)
+     * @param startDate (optional) 
+     * @param endDate (optional) 
+     * @param userName (optional) 
+     * @param entityTypeFullName (optional) 
+     * @param sorting (optional) 
+     * @param maxResultCount (optional) 
+     * @param skipCount (optional) 
      * @return Success
      */
     getEntityChangesToExcel(startDate: moment.Moment | undefined, endDate: moment.Moment | undefined, userName: string | undefined, entityTypeFullName: string | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<FileDto> {
@@ -1038,31 +1036,31 @@ export class AuditLogServiceProxy {
         if (startDate === null)
             throw new Error("The parameter 'startDate' cannot be null.");
         else if (startDate !== undefined)
-            url_ += "StartDate=" + encodeURIComponent(startDate ? "" + startDate.toJSON() : "") + "&";
+            url_ += "StartDate=" + encodeURIComponent(startDate ? "" + startDate.toJSON() : "") + "&"; 
         if (endDate === null)
             throw new Error("The parameter 'endDate' cannot be null.");
         else if (endDate !== undefined)
-            url_ += "EndDate=" + encodeURIComponent(endDate ? "" + endDate.toJSON() : "") + "&";
+            url_ += "EndDate=" + encodeURIComponent(endDate ? "" + endDate.toJSON() : "") + "&"; 
         if (userName === null)
             throw new Error("The parameter 'userName' cannot be null.");
         else if (userName !== undefined)
-            url_ += "UserName=" + encodeURIComponent("" + userName) + "&";
+            url_ += "UserName=" + encodeURIComponent("" + userName) + "&"; 
         if (entityTypeFullName === null)
             throw new Error("The parameter 'entityTypeFullName' cannot be null.");
         else if (entityTypeFullName !== undefined)
-            url_ += "EntityTypeFullName=" + encodeURIComponent("" + entityTypeFullName) + "&";
+            url_ += "EntityTypeFullName=" + encodeURIComponent("" + entityTypeFullName) + "&"; 
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
         if (maxResultCount === null)
             throw new Error("The parameter 'maxResultCount' cannot be null.");
         else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
         if (skipCount === null)
             throw new Error("The parameter 'skipCount' cannot be null.");
         else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -1089,8 +1087,8 @@ export class AuditLogServiceProxy {
 
     protected processGetEntityChangesToExcel(response: HttpResponseBase): Observable<FileDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -1110,7 +1108,7 @@ export class AuditLogServiceProxy {
     }
 
     /**
-     * @param entityChangeId (optional)
+     * @param entityChangeId (optional) 
      * @return Success
      */
     getEntityPropertyChanges(entityChangeId: number | undefined): Observable<EntityPropertyChangeDto[]> {
@@ -1118,7 +1116,7 @@ export class AuditLogServiceProxy {
         if (entityChangeId === null)
             throw new Error("The parameter 'entityChangeId' cannot be null.");
         else if (entityChangeId !== undefined)
-            url_ += "entityChangeId=" + encodeURIComponent("" + entityChangeId) + "&";
+            url_ += "entityChangeId=" + encodeURIComponent("" + entityChangeId) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -1145,8 +1143,8 @@ export class AuditLogServiceProxy {
 
     protected processGetEntityPropertyChanges(response: HttpResponseBase): Observable<EntityPropertyChangeDto[]> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -1212,8 +1210,8 @@ export class CachingServiceProxy {
 
     protected processGetAllCaches(response: HttpResponseBase): Observable<ListResultDtoOfCacheDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -1233,7 +1231,7 @@ export class CachingServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     clearCache(body: EntityDtoOfString | undefined): Observable<void> {
@@ -1247,7 +1245,7 @@ export class CachingServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -1267,8 +1265,8 @@ export class CachingServiceProxy {
 
     protected processClearCache(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -1314,8 +1312,8 @@ export class CachingServiceProxy {
 
     protected processClearAllCaches(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -1374,8 +1372,8 @@ export class ChatServiceProxy {
 
     protected processGetUserChatFriendsWithSettings(response: HttpResponseBase): Observable<GetUserChatFriendsWithSettingsOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -1395,9 +1393,9 @@ export class ChatServiceProxy {
     }
 
     /**
-     * @param tenantId (optional)
-     * @param userId (optional)
-     * @param minMessageId (optional)
+     * @param tenantId (optional) 
+     * @param userId (optional) 
+     * @param minMessageId (optional) 
      * @return Success
      */
     getUserChatMessages(tenantId: number | undefined, userId: number | undefined, minMessageId: number | undefined): Observable<ListResultDtoOfChatMessageDto> {
@@ -1405,15 +1403,15 @@ export class ChatServiceProxy {
         if (tenantId === null)
             throw new Error("The parameter 'tenantId' cannot be null.");
         else if (tenantId !== undefined)
-            url_ += "TenantId=" + encodeURIComponent("" + tenantId) + "&";
+            url_ += "TenantId=" + encodeURIComponent("" + tenantId) + "&"; 
         if (userId === null)
             throw new Error("The parameter 'userId' cannot be null.");
         else if (userId !== undefined)
-            url_ += "UserId=" + encodeURIComponent("" + userId) + "&";
+            url_ += "UserId=" + encodeURIComponent("" + userId) + "&"; 
         if (minMessageId === null)
             throw new Error("The parameter 'minMessageId' cannot be null.");
         else if (minMessageId !== undefined)
-            url_ += "MinMessageId=" + encodeURIComponent("" + minMessageId) + "&";
+            url_ += "MinMessageId=" + encodeURIComponent("" + minMessageId) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -1440,8 +1438,8 @@ export class ChatServiceProxy {
 
     protected processGetUserChatMessages(response: HttpResponseBase): Observable<ListResultDtoOfChatMessageDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -1461,7 +1459,7 @@ export class ChatServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     markAllUnreadMessagesOfUserAsRead(body: MarkAllUnreadMessagesOfUserAsReadInput | undefined): Observable<void> {
@@ -1475,7 +1473,7 @@ export class ChatServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -1495,8 +1493,8 @@ export class ChatServiceProxy {
 
     protected processMarkAllUnreadMessagesOfUserAsRead(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -1525,7 +1523,7 @@ export class CommonLookupServiceProxy {
     }
 
     /**
-     * @param onlyFreeItems (optional)
+     * @param onlyFreeItems (optional) 
      * @return Success
      */
     getEditionsForCombobox(onlyFreeItems: boolean | undefined): Observable<ListResultDtoOfSubscribableEditionComboboxItemDto> {
@@ -1533,7 +1531,7 @@ export class CommonLookupServiceProxy {
         if (onlyFreeItems === null)
             throw new Error("The parameter 'onlyFreeItems' cannot be null.");
         else if (onlyFreeItems !== undefined)
-            url_ += "onlyFreeItems=" + encodeURIComponent("" + onlyFreeItems) + "&";
+            url_ += "onlyFreeItems=" + encodeURIComponent("" + onlyFreeItems) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -1560,8 +1558,8 @@ export class CommonLookupServiceProxy {
 
     protected processGetEditionsForCombobox(response: HttpResponseBase): Observable<ListResultDtoOfSubscribableEditionComboboxItemDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -1581,7 +1579,7 @@ export class CommonLookupServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     findUsers(body: FindUsersInput | undefined): Observable<PagedResultDtoOfNameValueDto> {
@@ -1595,7 +1593,7 @@ export class CommonLookupServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
                 "Accept": "text/plain"
             })
         };
@@ -1616,8 +1614,8 @@ export class CommonLookupServiceProxy {
 
     protected processFindUsers(response: HttpResponseBase): Observable<PagedResultDtoOfNameValueDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -1667,8 +1665,8 @@ export class CommonLookupServiceProxy {
 
     protected processGetDefaultEditionName(response: HttpResponseBase): Observable<GetDefaultEditionNameOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -1700,8 +1698,8 @@ export class DashboardCustomizationServiceProxy {
     }
 
     /**
-     * @param dashboardName (optional)
-     * @param application (optional)
+     * @param dashboardName (optional) 
+     * @param application (optional) 
      * @return Success
      */
     getUserDashboard(dashboardName: string | undefined, application: string | undefined): Observable<Dashboard> {
@@ -1709,11 +1707,11 @@ export class DashboardCustomizationServiceProxy {
         if (dashboardName === null)
             throw new Error("The parameter 'dashboardName' cannot be null.");
         else if (dashboardName !== undefined)
-            url_ += "DashboardName=" + encodeURIComponent("" + dashboardName) + "&";
+            url_ += "DashboardName=" + encodeURIComponent("" + dashboardName) + "&"; 
         if (application === null)
             throw new Error("The parameter 'application' cannot be null.");
         else if (application !== undefined)
-            url_ += "Application=" + encodeURIComponent("" + application) + "&";
+            url_ += "Application=" + encodeURIComponent("" + application) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -1740,8 +1738,8 @@ export class DashboardCustomizationServiceProxy {
 
     protected processGetUserDashboard(response: HttpResponseBase): Observable<Dashboard> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -1761,7 +1759,7 @@ export class DashboardCustomizationServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     savePage(body: SavePageInput | undefined): Observable<void> {
@@ -1775,7 +1773,7 @@ export class DashboardCustomizationServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -1795,8 +1793,8 @@ export class DashboardCustomizationServiceProxy {
 
     protected processSavePage(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -1813,7 +1811,7 @@ export class DashboardCustomizationServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     renamePage(body: RenamePageInput | undefined): Observable<void> {
@@ -1827,7 +1825,7 @@ export class DashboardCustomizationServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -1847,8 +1845,8 @@ export class DashboardCustomizationServiceProxy {
 
     protected processRenamePage(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -1865,7 +1863,7 @@ export class DashboardCustomizationServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     addNewPage(body: AddNewPageInput | undefined): Observable<AddNewPageOutput> {
@@ -1879,7 +1877,7 @@ export class DashboardCustomizationServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
                 "Accept": "text/plain"
             })
         };
@@ -1900,8 +1898,8 @@ export class DashboardCustomizationServiceProxy {
 
     protected processAddNewPage(response: HttpResponseBase): Observable<AddNewPageOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -1921,9 +1919,9 @@ export class DashboardCustomizationServiceProxy {
     }
 
     /**
-     * @param id (optional)
-     * @param dashboardName (optional)
-     * @param application (optional)
+     * @param id (optional) 
+     * @param dashboardName (optional) 
+     * @param application (optional) 
      * @return Success
      */
     deletePage(id: string | undefined, dashboardName: string | undefined, application: string | undefined): Observable<void> {
@@ -1931,15 +1929,15 @@ export class DashboardCustomizationServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         if (dashboardName === null)
             throw new Error("The parameter 'dashboardName' cannot be null.");
         else if (dashboardName !== undefined)
-            url_ += "DashboardName=" + encodeURIComponent("" + dashboardName) + "&";
+            url_ += "DashboardName=" + encodeURIComponent("" + dashboardName) + "&"; 
         if (application === null)
             throw new Error("The parameter 'application' cannot be null.");
         else if (application !== undefined)
-            url_ += "Application=" + encodeURIComponent("" + application) + "&";
+            url_ += "Application=" + encodeURIComponent("" + application) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -1965,8 +1963,8 @@ export class DashboardCustomizationServiceProxy {
 
     protected processDeletePage(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -1983,7 +1981,7 @@ export class DashboardCustomizationServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     addWidget(body: AddWidgetInput | undefined): Observable<Widget> {
@@ -1997,7 +1995,7 @@ export class DashboardCustomizationServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
                 "Accept": "text/plain"
             })
         };
@@ -2018,8 +2016,8 @@ export class DashboardCustomizationServiceProxy {
 
     protected processAddWidget(response: HttpResponseBase): Observable<Widget> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -2039,8 +2037,8 @@ export class DashboardCustomizationServiceProxy {
     }
 
     /**
-     * @param dashboardName (optional)
-     * @param application (optional)
+     * @param dashboardName (optional) 
+     * @param application (optional) 
      * @return Success
      */
     getDashboardDefinition(dashboardName: string | undefined, application: string | undefined): Observable<DashboardOutput> {
@@ -2048,11 +2046,11 @@ export class DashboardCustomizationServiceProxy {
         if (dashboardName === null)
             throw new Error("The parameter 'dashboardName' cannot be null.");
         else if (dashboardName !== undefined)
-            url_ += "DashboardName=" + encodeURIComponent("" + dashboardName) + "&";
+            url_ += "DashboardName=" + encodeURIComponent("" + dashboardName) + "&"; 
         if (application === null)
             throw new Error("The parameter 'application' cannot be null.");
         else if (application !== undefined)
-            url_ += "Application=" + encodeURIComponent("" + application) + "&";
+            url_ += "Application=" + encodeURIComponent("" + application) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -2079,8 +2077,8 @@ export class DashboardCustomizationServiceProxy {
 
     protected processGetDashboardDefinition(response: HttpResponseBase): Observable<DashboardOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -2100,8 +2098,8 @@ export class DashboardCustomizationServiceProxy {
     }
 
     /**
-     * @param dashboardName (optional)
-     * @param application (optional)
+     * @param dashboardName (optional) 
+     * @param application (optional) 
      * @return Success
      */
     getAllWidgetDefinitions(dashboardName: string | undefined, application: string | undefined): Observable<WidgetOutput[]> {
@@ -2109,11 +2107,11 @@ export class DashboardCustomizationServiceProxy {
         if (dashboardName === null)
             throw new Error("The parameter 'dashboardName' cannot be null.");
         else if (dashboardName !== undefined)
-            url_ += "DashboardName=" + encodeURIComponent("" + dashboardName) + "&";
+            url_ += "DashboardName=" + encodeURIComponent("" + dashboardName) + "&"; 
         if (application === null)
             throw new Error("The parameter 'application' cannot be null.");
         else if (application !== undefined)
-            url_ += "Application=" + encodeURIComponent("" + application) + "&";
+            url_ += "Application=" + encodeURIComponent("" + application) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -2140,8 +2138,8 @@ export class DashboardCustomizationServiceProxy {
 
     protected processGetAllWidgetDefinitions(response: HttpResponseBase): Observable<WidgetOutput[]> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -2165,7 +2163,7 @@ export class DashboardCustomizationServiceProxy {
     }
 
     /**
-     * @param application (optional)
+     * @param application (optional) 
      * @return Success
      */
     getSettingName(application: string | undefined): Observable<string> {
@@ -2173,7 +2171,7 @@ export class DashboardCustomizationServiceProxy {
         if (application === null)
             throw new Error("The parameter 'application' cannot be null.");
         else if (application !== undefined)
-            url_ += "application=" + encodeURIComponent("" + application) + "&";
+            url_ += "application=" + encodeURIComponent("" + application) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -2200,8 +2198,8 @@ export class DashboardCustomizationServiceProxy {
 
     protected processGetSettingName(response: HttpResponseBase): Observable<string> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -2233,7 +2231,7 @@ export class DemoUiComponentsServiceProxy {
     }
 
     /**
-     * @param date (optional)
+     * @param date (optional) 
      * @return Success
      */
     sendAndGetDate(date: moment.Moment | undefined): Observable<DateToStringOutput> {
@@ -2241,7 +2239,7 @@ export class DemoUiComponentsServiceProxy {
         if (date === null)
             throw new Error("The parameter 'date' cannot be null.");
         else if (date !== undefined)
-            url_ += "date=" + encodeURIComponent(date ? "" + date.toJSON() : "") + "&";
+            url_ += "date=" + encodeURIComponent(date ? "" + date.toJSON() : "") + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -2268,8 +2266,8 @@ export class DemoUiComponentsServiceProxy {
 
     protected processSendAndGetDate(response: HttpResponseBase): Observable<DateToStringOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -2289,7 +2287,7 @@ export class DemoUiComponentsServiceProxy {
     }
 
     /**
-     * @param date (optional)
+     * @param date (optional) 
      * @return Success
      */
     sendAndGetDateTime(date: moment.Moment | undefined): Observable<DateToStringOutput> {
@@ -2297,7 +2295,7 @@ export class DemoUiComponentsServiceProxy {
         if (date === null)
             throw new Error("The parameter 'date' cannot be null.");
         else if (date !== undefined)
-            url_ += "date=" + encodeURIComponent(date ? "" + date.toJSON() : "") + "&";
+            url_ += "date=" + encodeURIComponent(date ? "" + date.toJSON() : "") + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -2324,8 +2322,8 @@ export class DemoUiComponentsServiceProxy {
 
     protected processSendAndGetDateTime(response: HttpResponseBase): Observable<DateToStringOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -2345,8 +2343,8 @@ export class DemoUiComponentsServiceProxy {
     }
 
     /**
-     * @param startDate (optional)
-     * @param endDate (optional)
+     * @param startDate (optional) 
+     * @param endDate (optional) 
      * @return Success
      */
     sendAndGetDateRange(startDate: moment.Moment | undefined, endDate: moment.Moment | undefined): Observable<DateToStringOutput> {
@@ -2354,11 +2352,11 @@ export class DemoUiComponentsServiceProxy {
         if (startDate === null)
             throw new Error("The parameter 'startDate' cannot be null.");
         else if (startDate !== undefined)
-            url_ += "startDate=" + encodeURIComponent(startDate ? "" + startDate.toJSON() : "") + "&";
+            url_ += "startDate=" + encodeURIComponent(startDate ? "" + startDate.toJSON() : "") + "&"; 
         if (endDate === null)
             throw new Error("The parameter 'endDate' cannot be null.");
         else if (endDate !== undefined)
-            url_ += "endDate=" + encodeURIComponent(endDate ? "" + endDate.toJSON() : "") + "&";
+            url_ += "endDate=" + encodeURIComponent(endDate ? "" + endDate.toJSON() : "") + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -2385,8 +2383,8 @@ export class DemoUiComponentsServiceProxy {
 
     protected processSendAndGetDateRange(response: HttpResponseBase): Observable<DateToStringOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -2406,7 +2404,7 @@ export class DemoUiComponentsServiceProxy {
     }
 
     /**
-     * @param searchTerm (optional)
+     * @param searchTerm (optional) 
      * @return Success
      */
     getCountries(searchTerm: string | undefined): Observable<NameValueOfString[]> {
@@ -2414,7 +2412,7 @@ export class DemoUiComponentsServiceProxy {
         if (searchTerm === null)
             throw new Error("The parameter 'searchTerm' cannot be null.");
         else if (searchTerm !== undefined)
-            url_ += "searchTerm=" + encodeURIComponent("" + searchTerm) + "&";
+            url_ += "searchTerm=" + encodeURIComponent("" + searchTerm) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -2441,8 +2439,8 @@ export class DemoUiComponentsServiceProxy {
 
     protected processGetCountries(response: HttpResponseBase): Observable<NameValueOfString[]> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -2466,7 +2464,7 @@ export class DemoUiComponentsServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     sendAndGetSelectedCountries(body: NameValueOfString[] | undefined): Observable<NameValueOfString[]> {
@@ -2480,7 +2478,7 @@ export class DemoUiComponentsServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
                 "Accept": "text/plain"
             })
         };
@@ -2501,8 +2499,8 @@ export class DemoUiComponentsServiceProxy {
 
     protected processSendAndGetSelectedCountries(response: HttpResponseBase): Observable<NameValueOfString[]> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -2526,7 +2524,7 @@ export class DemoUiComponentsServiceProxy {
     }
 
     /**
-     * @param input (optional)
+     * @param input (optional) 
      * @return Success
      */
     sendAndGetValue(input: string | undefined): Observable<StringOutput> {
@@ -2534,7 +2532,7 @@ export class DemoUiComponentsServiceProxy {
         if (input === null)
             throw new Error("The parameter 'input' cannot be null.");
         else if (input !== undefined)
-            url_ += "input=" + encodeURIComponent("" + input) + "&";
+            url_ += "input=" + encodeURIComponent("" + input) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -2561,8 +2559,8 @@ export class DemoUiComponentsServiceProxy {
 
     protected processSendAndGetValue(response: HttpResponseBase): Observable<StringOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -2624,8 +2622,8 @@ export class EditionServiceProxy {
 
     protected processGetEditions(response: HttpResponseBase): Observable<ListResultDtoOfEditionListDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -2645,7 +2643,7 @@ export class EditionServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     getEditionForEdit(id: number | undefined): Observable<GetEditionEditOutput> {
@@ -2653,7 +2651,7 @@ export class EditionServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -2680,8 +2678,8 @@ export class EditionServiceProxy {
 
     protected processGetEditionForEdit(response: HttpResponseBase): Observable<GetEditionEditOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -2701,7 +2699,7 @@ export class EditionServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     createEdition(body: CreateEditionDto | undefined): Observable<void> {
@@ -2715,7 +2713,7 @@ export class EditionServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -2735,8 +2733,8 @@ export class EditionServiceProxy {
 
     protected processCreateEdition(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -2753,7 +2751,7 @@ export class EditionServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     updateEdition(body: UpdateEditionDto | undefined): Observable<void> {
@@ -2767,7 +2765,7 @@ export class EditionServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -2787,8 +2785,8 @@ export class EditionServiceProxy {
 
     protected processUpdateEdition(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -2805,7 +2803,7 @@ export class EditionServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     deleteEdition(id: number | undefined): Observable<void> {
@@ -2813,7 +2811,7 @@ export class EditionServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -2839,8 +2837,8 @@ export class EditionServiceProxy {
 
     protected processDeleteEdition(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -2857,7 +2855,7 @@ export class EditionServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     moveTenantsToAnotherEdition(body: MoveTenantsToAnotherEditionDto | undefined): Observable<void> {
@@ -2871,7 +2869,7 @@ export class EditionServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -2891,8 +2889,8 @@ export class EditionServiceProxy {
 
     protected processMoveTenantsToAnotherEdition(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -2909,9 +2907,9 @@ export class EditionServiceProxy {
     }
 
     /**
-     * @param selectedEditionId (optional)
-     * @param addAllItem (optional)
-     * @param onlyFreeItems (optional)
+     * @param selectedEditionId (optional) 
+     * @param addAllItem (optional) 
+     * @param onlyFreeItems (optional) 
      * @return Success
      */
     getEditionComboboxItems(selectedEditionId: number | undefined, addAllItem: boolean | undefined, onlyFreeItems: boolean | undefined): Observable<SubscribableEditionComboboxItemDto[]> {
@@ -2919,15 +2917,15 @@ export class EditionServiceProxy {
         if (selectedEditionId === null)
             throw new Error("The parameter 'selectedEditionId' cannot be null.");
         else if (selectedEditionId !== undefined)
-            url_ += "selectedEditionId=" + encodeURIComponent("" + selectedEditionId) + "&";
+            url_ += "selectedEditionId=" + encodeURIComponent("" + selectedEditionId) + "&"; 
         if (addAllItem === null)
             throw new Error("The parameter 'addAllItem' cannot be null.");
         else if (addAllItem !== undefined)
-            url_ += "addAllItem=" + encodeURIComponent("" + addAllItem) + "&";
+            url_ += "addAllItem=" + encodeURIComponent("" + addAllItem) + "&"; 
         if (onlyFreeItems === null)
             throw new Error("The parameter 'onlyFreeItems' cannot be null.");
         else if (onlyFreeItems !== undefined)
-            url_ += "onlyFreeItems=" + encodeURIComponent("" + onlyFreeItems) + "&";
+            url_ += "onlyFreeItems=" + encodeURIComponent("" + onlyFreeItems) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -2954,8 +2952,8 @@ export class EditionServiceProxy {
 
     protected processGetEditionComboboxItems(response: HttpResponseBase): Observable<SubscribableEditionComboboxItemDto[]> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -2979,7 +2977,7 @@ export class EditionServiceProxy {
     }
 
     /**
-     * @param editionId (optional)
+     * @param editionId (optional) 
      * @return Success
      */
     getTenantCount(editionId: number | undefined): Observable<number> {
@@ -2987,7 +2985,7 @@ export class EditionServiceProxy {
         if (editionId === null)
             throw new Error("The parameter 'editionId' cannot be null.");
         else if (editionId !== undefined)
-            url_ += "editionId=" + encodeURIComponent("" + editionId) + "&";
+            url_ += "editionId=" + encodeURIComponent("" + editionId) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -3014,8 +3012,8 @@ export class EditionServiceProxy {
 
     protected processGetTenantCount(response: HttpResponseBase): Observable<number> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -3047,15 +3045,15 @@ export class EmployeeAbsencesServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param maxFromDateFilter (optional)
-     * @param minFromDateFilter (optional)
-     * @param maxToDateFilter (optional)
-     * @param minToDateFilter (optional)
-     * @param userNameFilter (optional)
-     * @param sorting (optional)
-     * @param skipCount (optional)
-     * @param maxResultCount (optional)
+     * @param filter (optional) 
+     * @param maxFromDateFilter (optional) 
+     * @param minFromDateFilter (optional) 
+     * @param maxToDateFilter (optional) 
+     * @param minToDateFilter (optional) 
+     * @param userNameFilter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
      * @return Success
      */
     getAll(filter: string | undefined, maxFromDateFilter: moment.Moment | undefined, minFromDateFilter: moment.Moment | undefined, maxToDateFilter: moment.Moment | undefined, minToDateFilter: moment.Moment | undefined, userNameFilter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetEmployeeAbsenceForViewDto> {
@@ -3063,39 +3061,39 @@ export class EmployeeAbsencesServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (maxFromDateFilter === null)
             throw new Error("The parameter 'maxFromDateFilter' cannot be null.");
         else if (maxFromDateFilter !== undefined)
-            url_ += "MaxFromDateFilter=" + encodeURIComponent(maxFromDateFilter ? "" + maxFromDateFilter.toJSON() : "") + "&";
+            url_ += "MaxFromDateFilter=" + encodeURIComponent(maxFromDateFilter ? "" + maxFromDateFilter.toJSON() : "") + "&"; 
         if (minFromDateFilter === null)
             throw new Error("The parameter 'minFromDateFilter' cannot be null.");
         else if (minFromDateFilter !== undefined)
-            url_ += "MinFromDateFilter=" + encodeURIComponent(minFromDateFilter ? "" + minFromDateFilter.toJSON() : "") + "&";
+            url_ += "MinFromDateFilter=" + encodeURIComponent(minFromDateFilter ? "" + minFromDateFilter.toJSON() : "") + "&"; 
         if (maxToDateFilter === null)
             throw new Error("The parameter 'maxToDateFilter' cannot be null.");
         else if (maxToDateFilter !== undefined)
-            url_ += "MaxToDateFilter=" + encodeURIComponent(maxToDateFilter ? "" + maxToDateFilter.toJSON() : "") + "&";
+            url_ += "MaxToDateFilter=" + encodeURIComponent(maxToDateFilter ? "" + maxToDateFilter.toJSON() : "") + "&"; 
         if (minToDateFilter === null)
             throw new Error("The parameter 'minToDateFilter' cannot be null.");
         else if (minToDateFilter !== undefined)
-            url_ += "MinToDateFilter=" + encodeURIComponent(minToDateFilter ? "" + minToDateFilter.toJSON() : "") + "&";
+            url_ += "MinToDateFilter=" + encodeURIComponent(minToDateFilter ? "" + minToDateFilter.toJSON() : "") + "&"; 
         if (userNameFilter === null)
             throw new Error("The parameter 'userNameFilter' cannot be null.");
         else if (userNameFilter !== undefined)
-            url_ += "UserNameFilter=" + encodeURIComponent("" + userNameFilter) + "&";
+            url_ += "UserNameFilter=" + encodeURIComponent("" + userNameFilter) + "&"; 
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
         if (skipCount === null)
             throw new Error("The parameter 'skipCount' cannot be null.");
         else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
         if (maxResultCount === null)
             throw new Error("The parameter 'maxResultCount' cannot be null.");
         else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -3122,8 +3120,8 @@ export class EmployeeAbsencesServiceProxy {
 
     protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfGetEmployeeAbsenceForViewDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -3143,7 +3141,7 @@ export class EmployeeAbsencesServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     getEmployeeAbsenceForView(id: number | undefined): Observable<GetEmployeeAbsenceForViewDto> {
@@ -3151,7 +3149,7 @@ export class EmployeeAbsencesServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "id=" + encodeURIComponent("" + id) + "&";
+            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -3178,8 +3176,8 @@ export class EmployeeAbsencesServiceProxy {
 
     protected processGetEmployeeAbsenceForView(response: HttpResponseBase): Observable<GetEmployeeAbsenceForViewDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -3199,7 +3197,7 @@ export class EmployeeAbsencesServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     getEmployeeAbsenceForEdit(id: number | undefined): Observable<GetEmployeeAbsenceForEditOutput> {
@@ -3207,7 +3205,7 @@ export class EmployeeAbsencesServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -3234,8 +3232,8 @@ export class EmployeeAbsencesServiceProxy {
 
     protected processGetEmployeeAbsenceForEdit(response: HttpResponseBase): Observable<GetEmployeeAbsenceForEditOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -3255,7 +3253,7 @@ export class EmployeeAbsencesServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     createOrEdit(body: CreateOrEditEmployeeAbsenceDto | undefined): Observable<void> {
@@ -3269,7 +3267,7 @@ export class EmployeeAbsencesServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -3289,8 +3287,8 @@ export class EmployeeAbsencesServiceProxy {
 
     protected processCreateOrEdit(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -3307,7 +3305,7 @@ export class EmployeeAbsencesServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     delete(id: number | undefined): Observable<void> {
@@ -3315,7 +3313,7 @@ export class EmployeeAbsencesServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -3341,8 +3339,8 @@ export class EmployeeAbsencesServiceProxy {
 
     protected processDelete(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -3359,12 +3357,12 @@ export class EmployeeAbsencesServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param maxFromDateFilter (optional)
-     * @param minFromDateFilter (optional)
-     * @param maxToDateFilter (optional)
-     * @param minToDateFilter (optional)
-     * @param userNameFilter (optional)
+     * @param filter (optional) 
+     * @param maxFromDateFilter (optional) 
+     * @param minFromDateFilter (optional) 
+     * @param maxToDateFilter (optional) 
+     * @param minToDateFilter (optional) 
+     * @param userNameFilter (optional) 
      * @return Success
      */
     getEmployeeAbsencesToExcel(filter: string | undefined, maxFromDateFilter: moment.Moment | undefined, minFromDateFilter: moment.Moment | undefined, maxToDateFilter: moment.Moment | undefined, minToDateFilter: moment.Moment | undefined, userNameFilter: string | undefined): Observable<FileDto> {
@@ -3372,27 +3370,27 @@ export class EmployeeAbsencesServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (maxFromDateFilter === null)
             throw new Error("The parameter 'maxFromDateFilter' cannot be null.");
         else if (maxFromDateFilter !== undefined)
-            url_ += "MaxFromDateFilter=" + encodeURIComponent(maxFromDateFilter ? "" + maxFromDateFilter.toJSON() : "") + "&";
+            url_ += "MaxFromDateFilter=" + encodeURIComponent(maxFromDateFilter ? "" + maxFromDateFilter.toJSON() : "") + "&"; 
         if (minFromDateFilter === null)
             throw new Error("The parameter 'minFromDateFilter' cannot be null.");
         else if (minFromDateFilter !== undefined)
-            url_ += "MinFromDateFilter=" + encodeURIComponent(minFromDateFilter ? "" + minFromDateFilter.toJSON() : "") + "&";
+            url_ += "MinFromDateFilter=" + encodeURIComponent(minFromDateFilter ? "" + minFromDateFilter.toJSON() : "") + "&"; 
         if (maxToDateFilter === null)
             throw new Error("The parameter 'maxToDateFilter' cannot be null.");
         else if (maxToDateFilter !== undefined)
-            url_ += "MaxToDateFilter=" + encodeURIComponent(maxToDateFilter ? "" + maxToDateFilter.toJSON() : "") + "&";
+            url_ += "MaxToDateFilter=" + encodeURIComponent(maxToDateFilter ? "" + maxToDateFilter.toJSON() : "") + "&"; 
         if (minToDateFilter === null)
             throw new Error("The parameter 'minToDateFilter' cannot be null.");
         else if (minToDateFilter !== undefined)
-            url_ += "MinToDateFilter=" + encodeURIComponent(minToDateFilter ? "" + minToDateFilter.toJSON() : "") + "&";
+            url_ += "MinToDateFilter=" + encodeURIComponent(minToDateFilter ? "" + minToDateFilter.toJSON() : "") + "&"; 
         if (userNameFilter === null)
             throw new Error("The parameter 'userNameFilter' cannot be null.");
         else if (userNameFilter !== undefined)
-            url_ += "UserNameFilter=" + encodeURIComponent("" + userNameFilter) + "&";
+            url_ += "UserNameFilter=" + encodeURIComponent("" + userNameFilter) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -3419,8 +3417,8 @@ export class EmployeeAbsencesServiceProxy {
 
     protected processGetEmployeeAbsencesToExcel(response: HttpResponseBase): Observable<FileDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -3440,10 +3438,10 @@ export class EmployeeAbsencesServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param sorting (optional)
-     * @param skipCount (optional)
-     * @param maxResultCount (optional)
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
      * @return Success
      */
     getAllUserForLookupTable(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfEmployeeAbsenceUserLookupTableDto> {
@@ -3451,19 +3449,19 @@ export class EmployeeAbsencesServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
         if (skipCount === null)
             throw new Error("The parameter 'skipCount' cannot be null.");
         else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
         if (maxResultCount === null)
             throw new Error("The parameter 'maxResultCount' cannot be null.");
         else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -3490,8 +3488,8 @@ export class EmployeeAbsencesServiceProxy {
 
     protected processGetAllUserForLookupTable(response: HttpResponseBase): Observable<PagedResultDtoOfEmployeeAbsenceUserLookupTableDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -3523,18 +3521,18 @@ export class EmployeeOfficialTasksServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param maxFromDateFilter (optional)
-     * @param minFromDateFilter (optional)
-     * @param maxToDateFilter (optional)
-     * @param minToDateFilter (optional)
-     * @param remarksFilter (optional)
-     * @param descriptionArFilter (optional)
-     * @param descriptionEnFilter (optional)
-     * @param officialTaskTypeNameArFilter (optional)
-     * @param sorting (optional)
-     * @param skipCount (optional)
-     * @param maxResultCount (optional)
+     * @param filter (optional) 
+     * @param maxFromDateFilter (optional) 
+     * @param minFromDateFilter (optional) 
+     * @param maxToDateFilter (optional) 
+     * @param minToDateFilter (optional) 
+     * @param remarksFilter (optional) 
+     * @param descriptionArFilter (optional) 
+     * @param descriptionEnFilter (optional) 
+     * @param officialTaskTypeNameArFilter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
      * @return Success
      */
     getAll(filter: string | undefined, maxFromDateFilter: moment.Moment | undefined, minFromDateFilter: moment.Moment | undefined, maxToDateFilter: moment.Moment | undefined, minToDateFilter: moment.Moment | undefined, remarksFilter: string | undefined, descriptionArFilter: string | undefined, descriptionEnFilter: string | undefined, officialTaskTypeNameArFilter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetEmployeeOfficialTaskForViewDto> {
@@ -3542,51 +3540,51 @@ export class EmployeeOfficialTasksServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (maxFromDateFilter === null)
             throw new Error("The parameter 'maxFromDateFilter' cannot be null.");
         else if (maxFromDateFilter !== undefined)
-            url_ += "MaxFromDateFilter=" + encodeURIComponent(maxFromDateFilter ? "" + maxFromDateFilter.toJSON() : "") + "&";
+            url_ += "MaxFromDateFilter=" + encodeURIComponent(maxFromDateFilter ? "" + maxFromDateFilter.toJSON() : "") + "&"; 
         if (minFromDateFilter === null)
             throw new Error("The parameter 'minFromDateFilter' cannot be null.");
         else if (minFromDateFilter !== undefined)
-            url_ += "MinFromDateFilter=" + encodeURIComponent(minFromDateFilter ? "" + minFromDateFilter.toJSON() : "") + "&";
+            url_ += "MinFromDateFilter=" + encodeURIComponent(minFromDateFilter ? "" + minFromDateFilter.toJSON() : "") + "&"; 
         if (maxToDateFilter === null)
             throw new Error("The parameter 'maxToDateFilter' cannot be null.");
         else if (maxToDateFilter !== undefined)
-            url_ += "MaxToDateFilter=" + encodeURIComponent(maxToDateFilter ? "" + maxToDateFilter.toJSON() : "") + "&";
+            url_ += "MaxToDateFilter=" + encodeURIComponent(maxToDateFilter ? "" + maxToDateFilter.toJSON() : "") + "&"; 
         if (minToDateFilter === null)
             throw new Error("The parameter 'minToDateFilter' cannot be null.");
         else if (minToDateFilter !== undefined)
-            url_ += "MinToDateFilter=" + encodeURIComponent(minToDateFilter ? "" + minToDateFilter.toJSON() : "") + "&";
+            url_ += "MinToDateFilter=" + encodeURIComponent(minToDateFilter ? "" + minToDateFilter.toJSON() : "") + "&"; 
         if (remarksFilter === null)
             throw new Error("The parameter 'remarksFilter' cannot be null.");
         else if (remarksFilter !== undefined)
-            url_ += "RemarksFilter=" + encodeURIComponent("" + remarksFilter) + "&";
+            url_ += "RemarksFilter=" + encodeURIComponent("" + remarksFilter) + "&"; 
         if (descriptionArFilter === null)
             throw new Error("The parameter 'descriptionArFilter' cannot be null.");
         else if (descriptionArFilter !== undefined)
-            url_ += "DescriptionArFilter=" + encodeURIComponent("" + descriptionArFilter) + "&";
+            url_ += "DescriptionArFilter=" + encodeURIComponent("" + descriptionArFilter) + "&"; 
         if (descriptionEnFilter === null)
             throw new Error("The parameter 'descriptionEnFilter' cannot be null.");
         else if (descriptionEnFilter !== undefined)
-            url_ += "DescriptionEnFilter=" + encodeURIComponent("" + descriptionEnFilter) + "&";
+            url_ += "DescriptionEnFilter=" + encodeURIComponent("" + descriptionEnFilter) + "&"; 
         if (officialTaskTypeNameArFilter === null)
             throw new Error("The parameter 'officialTaskTypeNameArFilter' cannot be null.");
         else if (officialTaskTypeNameArFilter !== undefined)
-            url_ += "OfficialTaskTypeNameArFilter=" + encodeURIComponent("" + officialTaskTypeNameArFilter) + "&";
+            url_ += "OfficialTaskTypeNameArFilter=" + encodeURIComponent("" + officialTaskTypeNameArFilter) + "&"; 
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
         if (skipCount === null)
             throw new Error("The parameter 'skipCount' cannot be null.");
         else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
         if (maxResultCount === null)
             throw new Error("The parameter 'maxResultCount' cannot be null.");
         else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -3613,8 +3611,8 @@ export class EmployeeOfficialTasksServiceProxy {
 
     protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfGetEmployeeOfficialTaskForViewDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -3634,7 +3632,7 @@ export class EmployeeOfficialTasksServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     getEmployeeOfficialTaskForView(id: number | undefined): Observable<GetEmployeeOfficialTaskForViewDto> {
@@ -3642,7 +3640,7 @@ export class EmployeeOfficialTasksServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "id=" + encodeURIComponent("" + id) + "&";
+            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -3669,8 +3667,8 @@ export class EmployeeOfficialTasksServiceProxy {
 
     protected processGetEmployeeOfficialTaskForView(response: HttpResponseBase): Observable<GetEmployeeOfficialTaskForViewDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -3690,7 +3688,7 @@ export class EmployeeOfficialTasksServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     getEmployeeOfficialTaskForEdit(id: number | undefined): Observable<GetEmployeeOfficialTaskForEditOutput> {
@@ -3698,7 +3696,7 @@ export class EmployeeOfficialTasksServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -3725,8 +3723,8 @@ export class EmployeeOfficialTasksServiceProxy {
 
     protected processGetEmployeeOfficialTaskForEdit(response: HttpResponseBase): Observable<GetEmployeeOfficialTaskForEditOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -3746,7 +3744,7 @@ export class EmployeeOfficialTasksServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     createOrEdit(body: CreateOrEditEmployeeOfficialTaskDto | undefined): Observable<void> {
@@ -3760,7 +3758,7 @@ export class EmployeeOfficialTasksServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -3780,8 +3778,8 @@ export class EmployeeOfficialTasksServiceProxy {
 
     protected processCreateOrEdit(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -3798,7 +3796,7 @@ export class EmployeeOfficialTasksServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     delete(id: number | undefined): Observable<void> {
@@ -3806,7 +3804,7 @@ export class EmployeeOfficialTasksServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -3832,8 +3830,8 @@ export class EmployeeOfficialTasksServiceProxy {
 
     protected processDelete(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -3850,15 +3848,15 @@ export class EmployeeOfficialTasksServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param maxFromDateFilter (optional)
-     * @param minFromDateFilter (optional)
-     * @param maxToDateFilter (optional)
-     * @param minToDateFilter (optional)
-     * @param remarksFilter (optional)
-     * @param descriptionArFilter (optional)
-     * @param descriptionEnFilter (optional)
-     * @param officialTaskTypeNameArFilter (optional)
+     * @param filter (optional) 
+     * @param maxFromDateFilter (optional) 
+     * @param minFromDateFilter (optional) 
+     * @param maxToDateFilter (optional) 
+     * @param minToDateFilter (optional) 
+     * @param remarksFilter (optional) 
+     * @param descriptionArFilter (optional) 
+     * @param descriptionEnFilter (optional) 
+     * @param officialTaskTypeNameArFilter (optional) 
      * @return Success
      */
     getEmployeeOfficialTasksToExcel(filter: string | undefined, maxFromDateFilter: moment.Moment | undefined, minFromDateFilter: moment.Moment | undefined, maxToDateFilter: moment.Moment | undefined, minToDateFilter: moment.Moment | undefined, remarksFilter: string | undefined, descriptionArFilter: string | undefined, descriptionEnFilter: string | undefined, officialTaskTypeNameArFilter: string | undefined): Observable<FileDto> {
@@ -3866,39 +3864,39 @@ export class EmployeeOfficialTasksServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (maxFromDateFilter === null)
             throw new Error("The parameter 'maxFromDateFilter' cannot be null.");
         else if (maxFromDateFilter !== undefined)
-            url_ += "MaxFromDateFilter=" + encodeURIComponent(maxFromDateFilter ? "" + maxFromDateFilter.toJSON() : "") + "&";
+            url_ += "MaxFromDateFilter=" + encodeURIComponent(maxFromDateFilter ? "" + maxFromDateFilter.toJSON() : "") + "&"; 
         if (minFromDateFilter === null)
             throw new Error("The parameter 'minFromDateFilter' cannot be null.");
         else if (minFromDateFilter !== undefined)
-            url_ += "MinFromDateFilter=" + encodeURIComponent(minFromDateFilter ? "" + minFromDateFilter.toJSON() : "") + "&";
+            url_ += "MinFromDateFilter=" + encodeURIComponent(minFromDateFilter ? "" + minFromDateFilter.toJSON() : "") + "&"; 
         if (maxToDateFilter === null)
             throw new Error("The parameter 'maxToDateFilter' cannot be null.");
         else if (maxToDateFilter !== undefined)
-            url_ += "MaxToDateFilter=" + encodeURIComponent(maxToDateFilter ? "" + maxToDateFilter.toJSON() : "") + "&";
+            url_ += "MaxToDateFilter=" + encodeURIComponent(maxToDateFilter ? "" + maxToDateFilter.toJSON() : "") + "&"; 
         if (minToDateFilter === null)
             throw new Error("The parameter 'minToDateFilter' cannot be null.");
         else if (minToDateFilter !== undefined)
-            url_ += "MinToDateFilter=" + encodeURIComponent(minToDateFilter ? "" + minToDateFilter.toJSON() : "") + "&";
+            url_ += "MinToDateFilter=" + encodeURIComponent(minToDateFilter ? "" + minToDateFilter.toJSON() : "") + "&"; 
         if (remarksFilter === null)
             throw new Error("The parameter 'remarksFilter' cannot be null.");
         else if (remarksFilter !== undefined)
-            url_ += "RemarksFilter=" + encodeURIComponent("" + remarksFilter) + "&";
+            url_ += "RemarksFilter=" + encodeURIComponent("" + remarksFilter) + "&"; 
         if (descriptionArFilter === null)
             throw new Error("The parameter 'descriptionArFilter' cannot be null.");
         else if (descriptionArFilter !== undefined)
-            url_ += "DescriptionArFilter=" + encodeURIComponent("" + descriptionArFilter) + "&";
+            url_ += "DescriptionArFilter=" + encodeURIComponent("" + descriptionArFilter) + "&"; 
         if (descriptionEnFilter === null)
             throw new Error("The parameter 'descriptionEnFilter' cannot be null.");
         else if (descriptionEnFilter !== undefined)
-            url_ += "DescriptionEnFilter=" + encodeURIComponent("" + descriptionEnFilter) + "&";
+            url_ += "DescriptionEnFilter=" + encodeURIComponent("" + descriptionEnFilter) + "&"; 
         if (officialTaskTypeNameArFilter === null)
             throw new Error("The parameter 'officialTaskTypeNameArFilter' cannot be null.");
         else if (officialTaskTypeNameArFilter !== undefined)
-            url_ += "OfficialTaskTypeNameArFilter=" + encodeURIComponent("" + officialTaskTypeNameArFilter) + "&";
+            url_ += "OfficialTaskTypeNameArFilter=" + encodeURIComponent("" + officialTaskTypeNameArFilter) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -3925,8 +3923,8 @@ export class EmployeeOfficialTasksServiceProxy {
 
     protected processGetEmployeeOfficialTasksToExcel(response: HttpResponseBase): Observable<FileDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -3946,10 +3944,10 @@ export class EmployeeOfficialTasksServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param sorting (optional)
-     * @param skipCount (optional)
-     * @param maxResultCount (optional)
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
      * @return Success
      */
     getAllOfficialTaskTypeForLookupTable(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfEmployeeOfficialTaskOfficialTaskTypeLookupTableDto> {
@@ -3957,19 +3955,19 @@ export class EmployeeOfficialTasksServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
         if (skipCount === null)
             throw new Error("The parameter 'skipCount' cannot be null.");
         else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
         if (maxResultCount === null)
             throw new Error("The parameter 'maxResultCount' cannot be null.");
         else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -3996,8 +3994,8 @@ export class EmployeeOfficialTasksServiceProxy {
 
     protected processGetAllOfficialTaskTypeForLookupTable(response: HttpResponseBase): Observable<PagedResultDtoOfEmployeeOfficialTaskOfficialTaskTypeLookupTableDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -4029,15 +4027,15 @@ export class EmployeePermitsServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param maxPermitDateFilter (optional)
-     * @param minPermitDateFilter (optional)
-     * @param statusFilter (optional)
-     * @param userNameFilter (optional)
-     * @param permitDescriptionArFilter (optional)
-     * @param sorting (optional)
-     * @param skipCount (optional)
-     * @param maxResultCount (optional)
+     * @param filter (optional) 
+     * @param maxPermitDateFilter (optional) 
+     * @param minPermitDateFilter (optional) 
+     * @param statusFilter (optional) 
+     * @param userNameFilter (optional) 
+     * @param permitDescriptionArFilter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
      * @return Success
      */
     getAll(filter: string | undefined, maxPermitDateFilter: moment.Moment | undefined, minPermitDateFilter: moment.Moment | undefined, statusFilter: number | undefined, userNameFilter: string | undefined, permitDescriptionArFilter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetEmployeePermitForViewDto> {
@@ -4045,39 +4043,39 @@ export class EmployeePermitsServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (maxPermitDateFilter === null)
             throw new Error("The parameter 'maxPermitDateFilter' cannot be null.");
         else if (maxPermitDateFilter !== undefined)
-            url_ += "MaxPermitDateFilter=" + encodeURIComponent(maxPermitDateFilter ? "" + maxPermitDateFilter.toJSON() : "") + "&";
+            url_ += "MaxPermitDateFilter=" + encodeURIComponent(maxPermitDateFilter ? "" + maxPermitDateFilter.toJSON() : "") + "&"; 
         if (minPermitDateFilter === null)
             throw new Error("The parameter 'minPermitDateFilter' cannot be null.");
         else if (minPermitDateFilter !== undefined)
-            url_ += "MinPermitDateFilter=" + encodeURIComponent(minPermitDateFilter ? "" + minPermitDateFilter.toJSON() : "") + "&";
+            url_ += "MinPermitDateFilter=" + encodeURIComponent(minPermitDateFilter ? "" + minPermitDateFilter.toJSON() : "") + "&"; 
         if (statusFilter === null)
             throw new Error("The parameter 'statusFilter' cannot be null.");
         else if (statusFilter !== undefined)
-            url_ += "StatusFilter=" + encodeURIComponent("" + statusFilter) + "&";
+            url_ += "StatusFilter=" + encodeURIComponent("" + statusFilter) + "&"; 
         if (userNameFilter === null)
             throw new Error("The parameter 'userNameFilter' cannot be null.");
         else if (userNameFilter !== undefined)
-            url_ += "UserNameFilter=" + encodeURIComponent("" + userNameFilter) + "&";
+            url_ += "UserNameFilter=" + encodeURIComponent("" + userNameFilter) + "&"; 
         if (permitDescriptionArFilter === null)
             throw new Error("The parameter 'permitDescriptionArFilter' cannot be null.");
         else if (permitDescriptionArFilter !== undefined)
-            url_ += "PermitDescriptionArFilter=" + encodeURIComponent("" + permitDescriptionArFilter) + "&";
+            url_ += "PermitDescriptionArFilter=" + encodeURIComponent("" + permitDescriptionArFilter) + "&"; 
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
         if (skipCount === null)
             throw new Error("The parameter 'skipCount' cannot be null.");
         else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
         if (maxResultCount === null)
             throw new Error("The parameter 'maxResultCount' cannot be null.");
         else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -4104,8 +4102,8 @@ export class EmployeePermitsServiceProxy {
 
     protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfGetEmployeePermitForViewDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -4125,15 +4123,15 @@ export class EmployeePermitsServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param maxPermitDateFilter (optional)
-     * @param minPermitDateFilter (optional)
-     * @param statusFilter (optional)
-     * @param userNameFilter (optional)
-     * @param permitDescriptionArFilter (optional)
-     * @param sorting (optional)
-     * @param skipCount (optional)
-     * @param maxResultCount (optional)
+     * @param filter (optional) 
+     * @param maxPermitDateFilter (optional) 
+     * @param minPermitDateFilter (optional) 
+     * @param statusFilter (optional) 
+     * @param userNameFilter (optional) 
+     * @param permitDescriptionArFilter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
      * @return Success
      */
     getAllForManager(filter: string | undefined, maxPermitDateFilter: moment.Moment | undefined, minPermitDateFilter: moment.Moment | undefined, statusFilter: number | undefined, userNameFilter: string | undefined, permitDescriptionArFilter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetEmployeePermitForViewDto> {
@@ -4141,39 +4139,39 @@ export class EmployeePermitsServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (maxPermitDateFilter === null)
             throw new Error("The parameter 'maxPermitDateFilter' cannot be null.");
         else if (maxPermitDateFilter !== undefined)
-            url_ += "MaxPermitDateFilter=" + encodeURIComponent(maxPermitDateFilter ? "" + maxPermitDateFilter.toJSON() : "") + "&";
+            url_ += "MaxPermitDateFilter=" + encodeURIComponent(maxPermitDateFilter ? "" + maxPermitDateFilter.toJSON() : "") + "&"; 
         if (minPermitDateFilter === null)
             throw new Error("The parameter 'minPermitDateFilter' cannot be null.");
         else if (minPermitDateFilter !== undefined)
-            url_ += "MinPermitDateFilter=" + encodeURIComponent(minPermitDateFilter ? "" + minPermitDateFilter.toJSON() : "") + "&";
+            url_ += "MinPermitDateFilter=" + encodeURIComponent(minPermitDateFilter ? "" + minPermitDateFilter.toJSON() : "") + "&"; 
         if (statusFilter === null)
             throw new Error("The parameter 'statusFilter' cannot be null.");
         else if (statusFilter !== undefined)
-            url_ += "StatusFilter=" + encodeURIComponent("" + statusFilter) + "&";
+            url_ += "StatusFilter=" + encodeURIComponent("" + statusFilter) + "&"; 
         if (userNameFilter === null)
             throw new Error("The parameter 'userNameFilter' cannot be null.");
         else if (userNameFilter !== undefined)
-            url_ += "UserNameFilter=" + encodeURIComponent("" + userNameFilter) + "&";
+            url_ += "UserNameFilter=" + encodeURIComponent("" + userNameFilter) + "&"; 
         if (permitDescriptionArFilter === null)
             throw new Error("The parameter 'permitDescriptionArFilter' cannot be null.");
         else if (permitDescriptionArFilter !== undefined)
-            url_ += "PermitDescriptionArFilter=" + encodeURIComponent("" + permitDescriptionArFilter) + "&";
+            url_ += "PermitDescriptionArFilter=" + encodeURIComponent("" + permitDescriptionArFilter) + "&"; 
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
         if (skipCount === null)
             throw new Error("The parameter 'skipCount' cannot be null.");
         else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
         if (maxResultCount === null)
             throw new Error("The parameter 'maxResultCount' cannot be null.");
         else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -4200,8 +4198,8 @@ export class EmployeePermitsServiceProxy {
 
     protected processGetAllForManager(response: HttpResponseBase): Observable<PagedResultDtoOfGetEmployeePermitForViewDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -4221,7 +4219,7 @@ export class EmployeePermitsServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     getEmployeePermitForView(id: number | undefined): Observable<GetEmployeePermitForViewDto> {
@@ -4229,7 +4227,7 @@ export class EmployeePermitsServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "id=" + encodeURIComponent("" + id) + "&";
+            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -4256,8 +4254,8 @@ export class EmployeePermitsServiceProxy {
 
     protected processGetEmployeePermitForView(response: HttpResponseBase): Observable<GetEmployeePermitForViewDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -4277,7 +4275,7 @@ export class EmployeePermitsServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     getEmployeePermitForEdit(id: number | undefined): Observable<GetEmployeePermitForEditOutput> {
@@ -4285,7 +4283,7 @@ export class EmployeePermitsServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -4312,8 +4310,8 @@ export class EmployeePermitsServiceProxy {
 
     protected processGetEmployeePermitForEdit(response: HttpResponseBase): Observable<GetEmployeePermitForEditOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -4333,7 +4331,7 @@ export class EmployeePermitsServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     createOrEdit(body: CreateOrEditEmployeePermitDto | undefined): Observable<void> {
@@ -4347,7 +4345,7 @@ export class EmployeePermitsServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -4367,8 +4365,8 @@ export class EmployeePermitsServiceProxy {
 
     protected processCreateOrEdit(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -4385,7 +4383,7 @@ export class EmployeePermitsServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     delete(id: number | undefined): Observable<void> {
@@ -4393,7 +4391,7 @@ export class EmployeePermitsServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -4419,8 +4417,8 @@ export class EmployeePermitsServiceProxy {
 
     protected processDelete(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -4437,12 +4435,12 @@ export class EmployeePermitsServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param maxPermitDateFilter (optional)
-     * @param minPermitDateFilter (optional)
-     * @param statusFilter (optional)
-     * @param userNameFilter (optional)
-     * @param permitDescriptionArFilter (optional)
+     * @param filter (optional) 
+     * @param maxPermitDateFilter (optional) 
+     * @param minPermitDateFilter (optional) 
+     * @param statusFilter (optional) 
+     * @param userNameFilter (optional) 
+     * @param permitDescriptionArFilter (optional) 
      * @return Success
      */
     getEmployeePermitsToExcel(filter: string | undefined, maxPermitDateFilter: moment.Moment | undefined, minPermitDateFilter: moment.Moment | undefined, statusFilter: number | undefined, userNameFilter: string | undefined, permitDescriptionArFilter: string | undefined): Observable<FileDto> {
@@ -4450,27 +4448,27 @@ export class EmployeePermitsServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (maxPermitDateFilter === null)
             throw new Error("The parameter 'maxPermitDateFilter' cannot be null.");
         else if (maxPermitDateFilter !== undefined)
-            url_ += "MaxPermitDateFilter=" + encodeURIComponent(maxPermitDateFilter ? "" + maxPermitDateFilter.toJSON() : "") + "&";
+            url_ += "MaxPermitDateFilter=" + encodeURIComponent(maxPermitDateFilter ? "" + maxPermitDateFilter.toJSON() : "") + "&"; 
         if (minPermitDateFilter === null)
             throw new Error("The parameter 'minPermitDateFilter' cannot be null.");
         else if (minPermitDateFilter !== undefined)
-            url_ += "MinPermitDateFilter=" + encodeURIComponent(minPermitDateFilter ? "" + minPermitDateFilter.toJSON() : "") + "&";
+            url_ += "MinPermitDateFilter=" + encodeURIComponent(minPermitDateFilter ? "" + minPermitDateFilter.toJSON() : "") + "&"; 
         if (statusFilter === null)
             throw new Error("The parameter 'statusFilter' cannot be null.");
         else if (statusFilter !== undefined)
-            url_ += "StatusFilter=" + encodeURIComponent("" + statusFilter) + "&";
+            url_ += "StatusFilter=" + encodeURIComponent("" + statusFilter) + "&"; 
         if (userNameFilter === null)
             throw new Error("The parameter 'userNameFilter' cannot be null.");
         else if (userNameFilter !== undefined)
-            url_ += "UserNameFilter=" + encodeURIComponent("" + userNameFilter) + "&";
+            url_ += "UserNameFilter=" + encodeURIComponent("" + userNameFilter) + "&"; 
         if (permitDescriptionArFilter === null)
             throw new Error("The parameter 'permitDescriptionArFilter' cannot be null.");
         else if (permitDescriptionArFilter !== undefined)
-            url_ += "PermitDescriptionArFilter=" + encodeURIComponent("" + permitDescriptionArFilter) + "&";
+            url_ += "PermitDescriptionArFilter=" + encodeURIComponent("" + permitDescriptionArFilter) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -4497,8 +4495,8 @@ export class EmployeePermitsServiceProxy {
 
     protected processGetEmployeePermitsToExcel(response: HttpResponseBase): Observable<FileDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -4518,10 +4516,10 @@ export class EmployeePermitsServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param sorting (optional)
-     * @param skipCount (optional)
-     * @param maxResultCount (optional)
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
      * @return Success
      */
     getAllUserForLookupTable(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfEmployeePermitUserLookupTableDto> {
@@ -4529,19 +4527,19 @@ export class EmployeePermitsServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
         if (skipCount === null)
             throw new Error("The parameter 'skipCount' cannot be null.");
         else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
         if (maxResultCount === null)
             throw new Error("The parameter 'maxResultCount' cannot be null.");
         else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -4568,8 +4566,8 @@ export class EmployeePermitsServiceProxy {
 
     protected processGetAllUserForLookupTable(response: HttpResponseBase): Observable<PagedResultDtoOfEmployeePermitUserLookupTableDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -4589,10 +4587,10 @@ export class EmployeePermitsServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param sorting (optional)
-     * @param skipCount (optional)
-     * @param maxResultCount (optional)
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
      * @return Success
      */
     getAllPermitForLookupTable(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfEmployeePermitPermitLookupTableDto> {
@@ -4600,19 +4598,19 @@ export class EmployeePermitsServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
         if (skipCount === null)
             throw new Error("The parameter 'skipCount' cannot be null.");
         else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
         if (maxResultCount === null)
             throw new Error("The parameter 'maxResultCount' cannot be null.");
         else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -4639,8 +4637,8 @@ export class EmployeePermitsServiceProxy {
 
     protected processGetAllPermitForLookupTable(response: HttpResponseBase): Observable<PagedResultDtoOfEmployeePermitPermitLookupTableDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -4672,17 +4670,17 @@ export class EmployeeVacationsServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param maxFromDateFilter (optional)
-     * @param minFromDateFilter (optional)
-     * @param maxToDateFilter (optional)
-     * @param minToDateFilter (optional)
-     * @param statusFilter (optional)
-     * @param userNameFilter (optional)
-     * @param leaveTypeNameArFilter (optional)
-     * @param sorting (optional)
-     * @param skipCount (optional)
-     * @param maxResultCount (optional)
+     * @param filter (optional) 
+     * @param maxFromDateFilter (optional) 
+     * @param minFromDateFilter (optional) 
+     * @param maxToDateFilter (optional) 
+     * @param minToDateFilter (optional) 
+     * @param statusFilter (optional) 
+     * @param userNameFilter (optional) 
+     * @param leaveTypeNameArFilter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
      * @return Success
      */
     getAll(filter: string | undefined, maxFromDateFilter: moment.Moment | undefined, minFromDateFilter: moment.Moment | undefined, maxToDateFilter: moment.Moment | undefined, minToDateFilter: moment.Moment | undefined, statusFilter: number | undefined, userNameFilter: string | undefined, leaveTypeNameArFilter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetEmployeeVacationForViewDto> {
@@ -4690,47 +4688,47 @@ export class EmployeeVacationsServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (maxFromDateFilter === null)
             throw new Error("The parameter 'maxFromDateFilter' cannot be null.");
         else if (maxFromDateFilter !== undefined)
-            url_ += "MaxFromDateFilter=" + encodeURIComponent(maxFromDateFilter ? "" + maxFromDateFilter.toJSON() : "") + "&";
+            url_ += "MaxFromDateFilter=" + encodeURIComponent(maxFromDateFilter ? "" + maxFromDateFilter.toJSON() : "") + "&"; 
         if (minFromDateFilter === null)
             throw new Error("The parameter 'minFromDateFilter' cannot be null.");
         else if (minFromDateFilter !== undefined)
-            url_ += "MinFromDateFilter=" + encodeURIComponent(minFromDateFilter ? "" + minFromDateFilter.toJSON() : "") + "&";
+            url_ += "MinFromDateFilter=" + encodeURIComponent(minFromDateFilter ? "" + minFromDateFilter.toJSON() : "") + "&"; 
         if (maxToDateFilter === null)
             throw new Error("The parameter 'maxToDateFilter' cannot be null.");
         else if (maxToDateFilter !== undefined)
-            url_ += "MaxToDateFilter=" + encodeURIComponent(maxToDateFilter ? "" + maxToDateFilter.toJSON() : "") + "&";
+            url_ += "MaxToDateFilter=" + encodeURIComponent(maxToDateFilter ? "" + maxToDateFilter.toJSON() : "") + "&"; 
         if (minToDateFilter === null)
             throw new Error("The parameter 'minToDateFilter' cannot be null.");
         else if (minToDateFilter !== undefined)
-            url_ += "MinToDateFilter=" + encodeURIComponent(minToDateFilter ? "" + minToDateFilter.toJSON() : "") + "&";
+            url_ += "MinToDateFilter=" + encodeURIComponent(minToDateFilter ? "" + minToDateFilter.toJSON() : "") + "&"; 
         if (statusFilter === null)
             throw new Error("The parameter 'statusFilter' cannot be null.");
         else if (statusFilter !== undefined)
-            url_ += "StatusFilter=" + encodeURIComponent("" + statusFilter) + "&";
+            url_ += "StatusFilter=" + encodeURIComponent("" + statusFilter) + "&"; 
         if (userNameFilter === null)
             throw new Error("The parameter 'userNameFilter' cannot be null.");
         else if (userNameFilter !== undefined)
-            url_ += "UserNameFilter=" + encodeURIComponent("" + userNameFilter) + "&";
+            url_ += "UserNameFilter=" + encodeURIComponent("" + userNameFilter) + "&"; 
         if (leaveTypeNameArFilter === null)
             throw new Error("The parameter 'leaveTypeNameArFilter' cannot be null.");
         else if (leaveTypeNameArFilter !== undefined)
-            url_ += "LeaveTypeNameArFilter=" + encodeURIComponent("" + leaveTypeNameArFilter) + "&";
+            url_ += "LeaveTypeNameArFilter=" + encodeURIComponent("" + leaveTypeNameArFilter) + "&"; 
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
         if (skipCount === null)
             throw new Error("The parameter 'skipCount' cannot be null.");
         else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
         if (maxResultCount === null)
             throw new Error("The parameter 'maxResultCount' cannot be null.");
         else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -4757,8 +4755,8 @@ export class EmployeeVacationsServiceProxy {
 
     protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfGetEmployeeVacationForViewDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -4778,7 +4776,7 @@ export class EmployeeVacationsServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     getEmployeeVacationForView(id: number | undefined): Observable<GetEmployeeVacationForViewDto> {
@@ -4786,7 +4784,7 @@ export class EmployeeVacationsServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "id=" + encodeURIComponent("" + id) + "&";
+            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -4813,8 +4811,8 @@ export class EmployeeVacationsServiceProxy {
 
     protected processGetEmployeeVacationForView(response: HttpResponseBase): Observable<GetEmployeeVacationForViewDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -4834,7 +4832,7 @@ export class EmployeeVacationsServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     getEmployeeVacationForEdit(id: number | undefined): Observable<GetEmployeeVacationForEditOutput> {
@@ -4842,7 +4840,7 @@ export class EmployeeVacationsServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -4869,8 +4867,8 @@ export class EmployeeVacationsServiceProxy {
 
     protected processGetEmployeeVacationForEdit(response: HttpResponseBase): Observable<GetEmployeeVacationForEditOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -4890,7 +4888,7 @@ export class EmployeeVacationsServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     createFromExcel(body: CreateOrEditEmployeeVacationDto[] | undefined): Observable<void> {
@@ -4904,7 +4902,7 @@ export class EmployeeVacationsServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -4924,8 +4922,8 @@ export class EmployeeVacationsServiceProxy {
 
     protected processCreateFromExcel(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -4942,7 +4940,7 @@ export class EmployeeVacationsServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     createOrEdit(body: CreateOrEditEmployeeVacationDto | undefined): Observable<void> {
@@ -4956,7 +4954,7 @@ export class EmployeeVacationsServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -4976,8 +4974,8 @@ export class EmployeeVacationsServiceProxy {
 
     protected processCreateOrEdit(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -4994,7 +4992,7 @@ export class EmployeeVacationsServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     delete(id: number | undefined): Observable<void> {
@@ -5002,7 +5000,7 @@ export class EmployeeVacationsServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -5028,8 +5026,8 @@ export class EmployeeVacationsServiceProxy {
 
     protected processDelete(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -5046,14 +5044,14 @@ export class EmployeeVacationsServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param maxFromDateFilter (optional)
-     * @param minFromDateFilter (optional)
-     * @param maxToDateFilter (optional)
-     * @param minToDateFilter (optional)
-     * @param statusFilter (optional)
-     * @param userNameFilter (optional)
-     * @param leaveTypeNameArFilter (optional)
+     * @param filter (optional) 
+     * @param maxFromDateFilter (optional) 
+     * @param minFromDateFilter (optional) 
+     * @param maxToDateFilter (optional) 
+     * @param minToDateFilter (optional) 
+     * @param statusFilter (optional) 
+     * @param userNameFilter (optional) 
+     * @param leaveTypeNameArFilter (optional) 
      * @return Success
      */
     getEmployeeVacationsToExcel(filter: string | undefined, maxFromDateFilter: moment.Moment | undefined, minFromDateFilter: moment.Moment | undefined, maxToDateFilter: moment.Moment | undefined, minToDateFilter: moment.Moment | undefined, statusFilter: number | undefined, userNameFilter: string | undefined, leaveTypeNameArFilter: string | undefined): Observable<FileDto> {
@@ -5061,35 +5059,35 @@ export class EmployeeVacationsServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (maxFromDateFilter === null)
             throw new Error("The parameter 'maxFromDateFilter' cannot be null.");
         else if (maxFromDateFilter !== undefined)
-            url_ += "MaxFromDateFilter=" + encodeURIComponent(maxFromDateFilter ? "" + maxFromDateFilter.toJSON() : "") + "&";
+            url_ += "MaxFromDateFilter=" + encodeURIComponent(maxFromDateFilter ? "" + maxFromDateFilter.toJSON() : "") + "&"; 
         if (minFromDateFilter === null)
             throw new Error("The parameter 'minFromDateFilter' cannot be null.");
         else if (minFromDateFilter !== undefined)
-            url_ += "MinFromDateFilter=" + encodeURIComponent(minFromDateFilter ? "" + minFromDateFilter.toJSON() : "") + "&";
+            url_ += "MinFromDateFilter=" + encodeURIComponent(minFromDateFilter ? "" + minFromDateFilter.toJSON() : "") + "&"; 
         if (maxToDateFilter === null)
             throw new Error("The parameter 'maxToDateFilter' cannot be null.");
         else if (maxToDateFilter !== undefined)
-            url_ += "MaxToDateFilter=" + encodeURIComponent(maxToDateFilter ? "" + maxToDateFilter.toJSON() : "") + "&";
+            url_ += "MaxToDateFilter=" + encodeURIComponent(maxToDateFilter ? "" + maxToDateFilter.toJSON() : "") + "&"; 
         if (minToDateFilter === null)
             throw new Error("The parameter 'minToDateFilter' cannot be null.");
         else if (minToDateFilter !== undefined)
-            url_ += "MinToDateFilter=" + encodeURIComponent(minToDateFilter ? "" + minToDateFilter.toJSON() : "") + "&";
+            url_ += "MinToDateFilter=" + encodeURIComponent(minToDateFilter ? "" + minToDateFilter.toJSON() : "") + "&"; 
         if (statusFilter === null)
             throw new Error("The parameter 'statusFilter' cannot be null.");
         else if (statusFilter !== undefined)
-            url_ += "StatusFilter=" + encodeURIComponent("" + statusFilter) + "&";
+            url_ += "StatusFilter=" + encodeURIComponent("" + statusFilter) + "&"; 
         if (userNameFilter === null)
             throw new Error("The parameter 'userNameFilter' cannot be null.");
         else if (userNameFilter !== undefined)
-            url_ += "UserNameFilter=" + encodeURIComponent("" + userNameFilter) + "&";
+            url_ += "UserNameFilter=" + encodeURIComponent("" + userNameFilter) + "&"; 
         if (leaveTypeNameArFilter === null)
             throw new Error("The parameter 'leaveTypeNameArFilter' cannot be null.");
         else if (leaveTypeNameArFilter !== undefined)
-            url_ += "LeaveTypeNameArFilter=" + encodeURIComponent("" + leaveTypeNameArFilter) + "&";
+            url_ += "LeaveTypeNameArFilter=" + encodeURIComponent("" + leaveTypeNameArFilter) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -5116,8 +5114,8 @@ export class EmployeeVacationsServiceProxy {
 
     protected processGetEmployeeVacationsToExcel(response: HttpResponseBase): Observable<FileDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -5137,10 +5135,10 @@ export class EmployeeVacationsServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param sorting (optional)
-     * @param skipCount (optional)
-     * @param maxResultCount (optional)
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
      * @return Success
      */
     getAllUserForLookupTable(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfEmployeeVacationUserLookupTableDto> {
@@ -5148,19 +5146,19 @@ export class EmployeeVacationsServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
         if (skipCount === null)
             throw new Error("The parameter 'skipCount' cannot be null.");
         else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
         if (maxResultCount === null)
             throw new Error("The parameter 'maxResultCount' cannot be null.");
         else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -5187,8 +5185,8 @@ export class EmployeeVacationsServiceProxy {
 
     protected processGetAllUserForLookupTable(response: HttpResponseBase): Observable<PagedResultDtoOfEmployeeVacationUserLookupTableDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -5208,10 +5206,10 @@ export class EmployeeVacationsServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param sorting (optional)
-     * @param skipCount (optional)
-     * @param maxResultCount (optional)
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
      * @return Success
      */
     getAllLeaveTypeForLookupTable(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfEmployeeVacationLeaveTypeLookupTableDto> {
@@ -5219,19 +5217,19 @@ export class EmployeeVacationsServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
         if (skipCount === null)
             throw new Error("The parameter 'skipCount' cannot be null.");
         else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
         if (maxResultCount === null)
             throw new Error("The parameter 'maxResultCount' cannot be null.");
         else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -5258,8 +5256,8 @@ export class EmployeeVacationsServiceProxy {
 
     protected processGetAllLeaveTypeForLookupTable(response: HttpResponseBase): Observable<PagedResultDtoOfEmployeeVacationLeaveTypeLookupTableDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -5291,16 +5289,16 @@ export class EmployeeWarningsServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param maxFromDateFilter (optional)
-     * @param minFromDateFilter (optional)
-     * @param maxToDateFilter (optional)
-     * @param minToDateFilter (optional)
-     * @param userNameFilter (optional)
-     * @param warningTypeNameArFilter (optional)
-     * @param sorting (optional)
-     * @param skipCount (optional)
-     * @param maxResultCount (optional)
+     * @param filter (optional) 
+     * @param maxFromDateFilter (optional) 
+     * @param minFromDateFilter (optional) 
+     * @param maxToDateFilter (optional) 
+     * @param minToDateFilter (optional) 
+     * @param userNameFilter (optional) 
+     * @param warningTypeNameArFilter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
      * @return Success
      */
     getAll(filter: string | undefined, maxFromDateFilter: moment.Moment | undefined, minFromDateFilter: moment.Moment | undefined, maxToDateFilter: moment.Moment | undefined, minToDateFilter: moment.Moment | undefined, userNameFilter: string | undefined, warningTypeNameArFilter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetEmployeeWarningForViewDto> {
@@ -5308,43 +5306,43 @@ export class EmployeeWarningsServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (maxFromDateFilter === null)
             throw new Error("The parameter 'maxFromDateFilter' cannot be null.");
         else if (maxFromDateFilter !== undefined)
-            url_ += "MaxFromDateFilter=" + encodeURIComponent(maxFromDateFilter ? "" + maxFromDateFilter.toJSON() : "") + "&";
+            url_ += "MaxFromDateFilter=" + encodeURIComponent(maxFromDateFilter ? "" + maxFromDateFilter.toJSON() : "") + "&"; 
         if (minFromDateFilter === null)
             throw new Error("The parameter 'minFromDateFilter' cannot be null.");
         else if (minFromDateFilter !== undefined)
-            url_ += "MinFromDateFilter=" + encodeURIComponent(minFromDateFilter ? "" + minFromDateFilter.toJSON() : "") + "&";
+            url_ += "MinFromDateFilter=" + encodeURIComponent(minFromDateFilter ? "" + minFromDateFilter.toJSON() : "") + "&"; 
         if (maxToDateFilter === null)
             throw new Error("The parameter 'maxToDateFilter' cannot be null.");
         else if (maxToDateFilter !== undefined)
-            url_ += "MaxToDateFilter=" + encodeURIComponent(maxToDateFilter ? "" + maxToDateFilter.toJSON() : "") + "&";
+            url_ += "MaxToDateFilter=" + encodeURIComponent(maxToDateFilter ? "" + maxToDateFilter.toJSON() : "") + "&"; 
         if (minToDateFilter === null)
             throw new Error("The parameter 'minToDateFilter' cannot be null.");
         else if (minToDateFilter !== undefined)
-            url_ += "MinToDateFilter=" + encodeURIComponent(minToDateFilter ? "" + minToDateFilter.toJSON() : "") + "&";
+            url_ += "MinToDateFilter=" + encodeURIComponent(minToDateFilter ? "" + minToDateFilter.toJSON() : "") + "&"; 
         if (userNameFilter === null)
             throw new Error("The parameter 'userNameFilter' cannot be null.");
         else if (userNameFilter !== undefined)
-            url_ += "UserNameFilter=" + encodeURIComponent("" + userNameFilter) + "&";
+            url_ += "UserNameFilter=" + encodeURIComponent("" + userNameFilter) + "&"; 
         if (warningTypeNameArFilter === null)
             throw new Error("The parameter 'warningTypeNameArFilter' cannot be null.");
         else if (warningTypeNameArFilter !== undefined)
-            url_ += "WarningTypeNameArFilter=" + encodeURIComponent("" + warningTypeNameArFilter) + "&";
+            url_ += "WarningTypeNameArFilter=" + encodeURIComponent("" + warningTypeNameArFilter) + "&"; 
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
         if (skipCount === null)
             throw new Error("The parameter 'skipCount' cannot be null.");
         else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
         if (maxResultCount === null)
             throw new Error("The parameter 'maxResultCount' cannot be null.");
         else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -5371,8 +5369,8 @@ export class EmployeeWarningsServiceProxy {
 
     protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfGetEmployeeWarningForViewDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -5392,7 +5390,7 @@ export class EmployeeWarningsServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     getEmployeeWarningForView(id: number | undefined): Observable<GetEmployeeWarningForViewDto> {
@@ -5400,7 +5398,7 @@ export class EmployeeWarningsServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "id=" + encodeURIComponent("" + id) + "&";
+            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -5427,8 +5425,8 @@ export class EmployeeWarningsServiceProxy {
 
     protected processGetEmployeeWarningForView(response: HttpResponseBase): Observable<GetEmployeeWarningForViewDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -5448,7 +5446,7 @@ export class EmployeeWarningsServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     getEmployeeWarningForEdit(id: number | undefined): Observable<GetEmployeeWarningForEditOutput> {
@@ -5456,7 +5454,7 @@ export class EmployeeWarningsServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -5483,8 +5481,8 @@ export class EmployeeWarningsServiceProxy {
 
     protected processGetEmployeeWarningForEdit(response: HttpResponseBase): Observable<GetEmployeeWarningForEditOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -5504,7 +5502,7 @@ export class EmployeeWarningsServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     createOrEdit(body: CreateOrEditEmployeeWarningDto | undefined): Observable<void> {
@@ -5518,7 +5516,7 @@ export class EmployeeWarningsServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -5538,8 +5536,8 @@ export class EmployeeWarningsServiceProxy {
 
     protected processCreateOrEdit(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -5556,7 +5554,7 @@ export class EmployeeWarningsServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     delete(id: number | undefined): Observable<void> {
@@ -5564,7 +5562,7 @@ export class EmployeeWarningsServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -5590,8 +5588,8 @@ export class EmployeeWarningsServiceProxy {
 
     protected processDelete(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -5608,13 +5606,13 @@ export class EmployeeWarningsServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param maxFromDateFilter (optional)
-     * @param minFromDateFilter (optional)
-     * @param maxToDateFilter (optional)
-     * @param minToDateFilter (optional)
-     * @param userNameFilter (optional)
-     * @param warningTypeNameArFilter (optional)
+     * @param filter (optional) 
+     * @param maxFromDateFilter (optional) 
+     * @param minFromDateFilter (optional) 
+     * @param maxToDateFilter (optional) 
+     * @param minToDateFilter (optional) 
+     * @param userNameFilter (optional) 
+     * @param warningTypeNameArFilter (optional) 
      * @return Success
      */
     getEmployeeWarningsToExcel(filter: string | undefined, maxFromDateFilter: moment.Moment | undefined, minFromDateFilter: moment.Moment | undefined, maxToDateFilter: moment.Moment | undefined, minToDateFilter: moment.Moment | undefined, userNameFilter: string | undefined, warningTypeNameArFilter: string | undefined): Observable<FileDto> {
@@ -5622,31 +5620,31 @@ export class EmployeeWarningsServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (maxFromDateFilter === null)
             throw new Error("The parameter 'maxFromDateFilter' cannot be null.");
         else if (maxFromDateFilter !== undefined)
-            url_ += "MaxFromDateFilter=" + encodeURIComponent(maxFromDateFilter ? "" + maxFromDateFilter.toJSON() : "") + "&";
+            url_ += "MaxFromDateFilter=" + encodeURIComponent(maxFromDateFilter ? "" + maxFromDateFilter.toJSON() : "") + "&"; 
         if (minFromDateFilter === null)
             throw new Error("The parameter 'minFromDateFilter' cannot be null.");
         else if (minFromDateFilter !== undefined)
-            url_ += "MinFromDateFilter=" + encodeURIComponent(minFromDateFilter ? "" + minFromDateFilter.toJSON() : "") + "&";
+            url_ += "MinFromDateFilter=" + encodeURIComponent(minFromDateFilter ? "" + minFromDateFilter.toJSON() : "") + "&"; 
         if (maxToDateFilter === null)
             throw new Error("The parameter 'maxToDateFilter' cannot be null.");
         else if (maxToDateFilter !== undefined)
-            url_ += "MaxToDateFilter=" + encodeURIComponent(maxToDateFilter ? "" + maxToDateFilter.toJSON() : "") + "&";
+            url_ += "MaxToDateFilter=" + encodeURIComponent(maxToDateFilter ? "" + maxToDateFilter.toJSON() : "") + "&"; 
         if (minToDateFilter === null)
             throw new Error("The parameter 'minToDateFilter' cannot be null.");
         else if (minToDateFilter !== undefined)
-            url_ += "MinToDateFilter=" + encodeURIComponent(minToDateFilter ? "" + minToDateFilter.toJSON() : "") + "&";
+            url_ += "MinToDateFilter=" + encodeURIComponent(minToDateFilter ? "" + minToDateFilter.toJSON() : "") + "&"; 
         if (userNameFilter === null)
             throw new Error("The parameter 'userNameFilter' cannot be null.");
         else if (userNameFilter !== undefined)
-            url_ += "UserNameFilter=" + encodeURIComponent("" + userNameFilter) + "&";
+            url_ += "UserNameFilter=" + encodeURIComponent("" + userNameFilter) + "&"; 
         if (warningTypeNameArFilter === null)
             throw new Error("The parameter 'warningTypeNameArFilter' cannot be null.");
         else if (warningTypeNameArFilter !== undefined)
-            url_ += "WarningTypeNameArFilter=" + encodeURIComponent("" + warningTypeNameArFilter) + "&";
+            url_ += "WarningTypeNameArFilter=" + encodeURIComponent("" + warningTypeNameArFilter) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -5673,8 +5671,8 @@ export class EmployeeWarningsServiceProxy {
 
     protected processGetEmployeeWarningsToExcel(response: HttpResponseBase): Observable<FileDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -5694,10 +5692,10 @@ export class EmployeeWarningsServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param sorting (optional)
-     * @param skipCount (optional)
-     * @param maxResultCount (optional)
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
      * @return Success
      */
     getAllUserForLookupTable(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfEmployeeWarningUserLookupTableDto> {
@@ -5705,19 +5703,19 @@ export class EmployeeWarningsServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
         if (skipCount === null)
             throw new Error("The parameter 'skipCount' cannot be null.");
         else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
         if (maxResultCount === null)
             throw new Error("The parameter 'maxResultCount' cannot be null.");
         else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -5744,8 +5742,8 @@ export class EmployeeWarningsServiceProxy {
 
     protected processGetAllUserForLookupTable(response: HttpResponseBase): Observable<PagedResultDtoOfEmployeeWarningUserLookupTableDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -5765,10 +5763,10 @@ export class EmployeeWarningsServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param sorting (optional)
-     * @param skipCount (optional)
-     * @param maxResultCount (optional)
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
      * @return Success
      */
     getAllWarningTypeForLookupTable(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfEmployeeWarningWarningTypeLookupTableDto> {
@@ -5776,19 +5774,19 @@ export class EmployeeWarningsServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
         if (skipCount === null)
             throw new Error("The parameter 'skipCount' cannot be null.");
         else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
         if (maxResultCount === null)
             throw new Error("The parameter 'maxResultCount' cannot be null.");
         else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -5815,8 +5813,8 @@ export class EmployeeWarningsServiceProxy {
 
     protected processGetAllWarningTypeForLookupTable(response: HttpResponseBase): Observable<PagedResultDtoOfEmployeeWarningWarningTypeLookupTableDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -5848,7 +5846,7 @@ export class FriendshipServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     createFriendshipRequest(body: CreateFriendshipRequestInput | undefined): Observable<FriendDto> {
@@ -5862,7 +5860,7 @@ export class FriendshipServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
                 "Accept": "text/plain"
             })
         };
@@ -5883,8 +5881,8 @@ export class FriendshipServiceProxy {
 
     protected processCreateFriendshipRequest(response: HttpResponseBase): Observable<FriendDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -5904,7 +5902,7 @@ export class FriendshipServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     createFriendshipRequestByUserName(body: CreateFriendshipRequestByUserNameInput | undefined): Observable<FriendDto> {
@@ -5918,7 +5916,7 @@ export class FriendshipServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
                 "Accept": "text/plain"
             })
         };
@@ -5939,8 +5937,8 @@ export class FriendshipServiceProxy {
 
     protected processCreateFriendshipRequestByUserName(response: HttpResponseBase): Observable<FriendDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -5960,7 +5958,7 @@ export class FriendshipServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     blockUser(body: BlockUserInput | undefined): Observable<void> {
@@ -5974,7 +5972,7 @@ export class FriendshipServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -5994,8 +5992,8 @@ export class FriendshipServiceProxy {
 
     protected processBlockUser(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -6012,7 +6010,7 @@ export class FriendshipServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     unblockUser(body: UnblockUserInput | undefined): Observable<void> {
@@ -6026,7 +6024,7 @@ export class FriendshipServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -6046,8 +6044,8 @@ export class FriendshipServiceProxy {
 
     protected processUnblockUser(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -6064,7 +6062,7 @@ export class FriendshipServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     acceptFriendshipRequest(body: AcceptFriendshipRequestInput | undefined): Observable<void> {
@@ -6078,7 +6076,7 @@ export class FriendshipServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -6098,8 +6096,8 @@ export class FriendshipServiceProxy {
 
     protected processAcceptFriendshipRequest(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -6128,16 +6126,16 @@ export class HolidaysServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param nameArFilter (optional)
-     * @param nameEnFilter (optional)
-     * @param maxStartDateFilter (optional)
-     * @param minStartDateFilter (optional)
-     * @param maxEndDateFilter (optional)
-     * @param minEndDateFilter (optional)
-     * @param sorting (optional)
-     * @param skipCount (optional)
-     * @param maxResultCount (optional)
+     * @param filter (optional) 
+     * @param nameArFilter (optional) 
+     * @param nameEnFilter (optional) 
+     * @param maxStartDateFilter (optional) 
+     * @param minStartDateFilter (optional) 
+     * @param maxEndDateFilter (optional) 
+     * @param minEndDateFilter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
      * @return Success
      */
     getAll(filter: string | undefined, nameArFilter: string | undefined, nameEnFilter: string | undefined, maxStartDateFilter: moment.Moment | undefined, minStartDateFilter: moment.Moment | undefined, maxEndDateFilter: moment.Moment | undefined, minEndDateFilter: moment.Moment | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetHolidayForViewDto> {
@@ -6145,43 +6143,43 @@ export class HolidaysServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (nameArFilter === null)
             throw new Error("The parameter 'nameArFilter' cannot be null.");
         else if (nameArFilter !== undefined)
-            url_ += "NameArFilter=" + encodeURIComponent("" + nameArFilter) + "&";
+            url_ += "NameArFilter=" + encodeURIComponent("" + nameArFilter) + "&"; 
         if (nameEnFilter === null)
             throw new Error("The parameter 'nameEnFilter' cannot be null.");
         else if (nameEnFilter !== undefined)
-            url_ += "NameEnFilter=" + encodeURIComponent("" + nameEnFilter) + "&";
+            url_ += "NameEnFilter=" + encodeURIComponent("" + nameEnFilter) + "&"; 
         if (maxStartDateFilter === null)
             throw new Error("The parameter 'maxStartDateFilter' cannot be null.");
         else if (maxStartDateFilter !== undefined)
-            url_ += "MaxStartDateFilter=" + encodeURIComponent(maxStartDateFilter ? "" + maxStartDateFilter.toJSON() : "") + "&";
+            url_ += "MaxStartDateFilter=" + encodeURIComponent(maxStartDateFilter ? "" + maxStartDateFilter.toJSON() : "") + "&"; 
         if (minStartDateFilter === null)
             throw new Error("The parameter 'minStartDateFilter' cannot be null.");
         else if (minStartDateFilter !== undefined)
-            url_ += "MinStartDateFilter=" + encodeURIComponent(minStartDateFilter ? "" + minStartDateFilter.toJSON() : "") + "&";
+            url_ += "MinStartDateFilter=" + encodeURIComponent(minStartDateFilter ? "" + minStartDateFilter.toJSON() : "") + "&"; 
         if (maxEndDateFilter === null)
             throw new Error("The parameter 'maxEndDateFilter' cannot be null.");
         else if (maxEndDateFilter !== undefined)
-            url_ += "MaxEndDateFilter=" + encodeURIComponent(maxEndDateFilter ? "" + maxEndDateFilter.toJSON() : "") + "&";
+            url_ += "MaxEndDateFilter=" + encodeURIComponent(maxEndDateFilter ? "" + maxEndDateFilter.toJSON() : "") + "&"; 
         if (minEndDateFilter === null)
             throw new Error("The parameter 'minEndDateFilter' cannot be null.");
         else if (minEndDateFilter !== undefined)
-            url_ += "MinEndDateFilter=" + encodeURIComponent(minEndDateFilter ? "" + minEndDateFilter.toJSON() : "") + "&";
+            url_ += "MinEndDateFilter=" + encodeURIComponent(minEndDateFilter ? "" + minEndDateFilter.toJSON() : "") + "&"; 
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
         if (skipCount === null)
             throw new Error("The parameter 'skipCount' cannot be null.");
         else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
         if (maxResultCount === null)
             throw new Error("The parameter 'maxResultCount' cannot be null.");
         else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -6208,8 +6206,8 @@ export class HolidaysServiceProxy {
 
     protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfGetHolidayForViewDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -6229,7 +6227,7 @@ export class HolidaysServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     getHolidayForView(id: number | undefined): Observable<GetHolidayForViewDto> {
@@ -6237,7 +6235,7 @@ export class HolidaysServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "id=" + encodeURIComponent("" + id) + "&";
+            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -6264,8 +6262,8 @@ export class HolidaysServiceProxy {
 
     protected processGetHolidayForView(response: HttpResponseBase): Observable<GetHolidayForViewDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -6285,7 +6283,7 @@ export class HolidaysServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     getHolidayForEdit(id: number | undefined): Observable<GetHolidayForEditOutput> {
@@ -6293,7 +6291,7 @@ export class HolidaysServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -6320,8 +6318,8 @@ export class HolidaysServiceProxy {
 
     protected processGetHolidayForEdit(response: HttpResponseBase): Observable<GetHolidayForEditOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -6341,7 +6339,7 @@ export class HolidaysServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     createOrEdit(body: CreateOrEditHolidayDto | undefined): Observable<void> {
@@ -6355,7 +6353,7 @@ export class HolidaysServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -6375,8 +6373,8 @@ export class HolidaysServiceProxy {
 
     protected processCreateOrEdit(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -6393,7 +6391,7 @@ export class HolidaysServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     delete(id: number | undefined): Observable<void> {
@@ -6401,7 +6399,7 @@ export class HolidaysServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -6427,8 +6425,8 @@ export class HolidaysServiceProxy {
 
     protected processDelete(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -6445,13 +6443,13 @@ export class HolidaysServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param nameArFilter (optional)
-     * @param nameEnFilter (optional)
-     * @param maxStartDateFilter (optional)
-     * @param minStartDateFilter (optional)
-     * @param maxEndDateFilter (optional)
-     * @param minEndDateFilter (optional)
+     * @param filter (optional) 
+     * @param nameArFilter (optional) 
+     * @param nameEnFilter (optional) 
+     * @param maxStartDateFilter (optional) 
+     * @param minStartDateFilter (optional) 
+     * @param maxEndDateFilter (optional) 
+     * @param minEndDateFilter (optional) 
      * @return Success
      */
     getHolidaysToExcel(filter: string | undefined, nameArFilter: string | undefined, nameEnFilter: string | undefined, maxStartDateFilter: moment.Moment | undefined, minStartDateFilter: moment.Moment | undefined, maxEndDateFilter: moment.Moment | undefined, minEndDateFilter: moment.Moment | undefined): Observable<FileDto> {
@@ -6459,31 +6457,31 @@ export class HolidaysServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (nameArFilter === null)
             throw new Error("The parameter 'nameArFilter' cannot be null.");
         else if (nameArFilter !== undefined)
-            url_ += "NameArFilter=" + encodeURIComponent("" + nameArFilter) + "&";
+            url_ += "NameArFilter=" + encodeURIComponent("" + nameArFilter) + "&"; 
         if (nameEnFilter === null)
             throw new Error("The parameter 'nameEnFilter' cannot be null.");
         else if (nameEnFilter !== undefined)
-            url_ += "NameEnFilter=" + encodeURIComponent("" + nameEnFilter) + "&";
+            url_ += "NameEnFilter=" + encodeURIComponent("" + nameEnFilter) + "&"; 
         if (maxStartDateFilter === null)
             throw new Error("The parameter 'maxStartDateFilter' cannot be null.");
         else if (maxStartDateFilter !== undefined)
-            url_ += "MaxStartDateFilter=" + encodeURIComponent(maxStartDateFilter ? "" + maxStartDateFilter.toJSON() : "") + "&";
+            url_ += "MaxStartDateFilter=" + encodeURIComponent(maxStartDateFilter ? "" + maxStartDateFilter.toJSON() : "") + "&"; 
         if (minStartDateFilter === null)
             throw new Error("The parameter 'minStartDateFilter' cannot be null.");
         else if (minStartDateFilter !== undefined)
-            url_ += "MinStartDateFilter=" + encodeURIComponent(minStartDateFilter ? "" + minStartDateFilter.toJSON() : "") + "&";
+            url_ += "MinStartDateFilter=" + encodeURIComponent(minStartDateFilter ? "" + minStartDateFilter.toJSON() : "") + "&"; 
         if (maxEndDateFilter === null)
             throw new Error("The parameter 'maxEndDateFilter' cannot be null.");
         else if (maxEndDateFilter !== undefined)
-            url_ += "MaxEndDateFilter=" + encodeURIComponent(maxEndDateFilter ? "" + maxEndDateFilter.toJSON() : "") + "&";
+            url_ += "MaxEndDateFilter=" + encodeURIComponent(maxEndDateFilter ? "" + maxEndDateFilter.toJSON() : "") + "&"; 
         if (minEndDateFilter === null)
             throw new Error("The parameter 'minEndDateFilter' cannot be null.");
         else if (minEndDateFilter !== undefined)
-            url_ += "MinEndDateFilter=" + encodeURIComponent(minEndDateFilter ? "" + minEndDateFilter.toJSON() : "") + "&";
+            url_ += "MinEndDateFilter=" + encodeURIComponent(minEndDateFilter ? "" + minEndDateFilter.toJSON() : "") + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -6510,8 +6508,8 @@ export class HolidaysServiceProxy {
 
     protected processGetHolidaysToExcel(response: HttpResponseBase): Observable<FileDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -6543,8 +6541,8 @@ export class HostDashboardServiceProxy {
     }
 
     /**
-     * @param startDate (optional)
-     * @param endDate (optional)
+     * @param startDate (optional) 
+     * @param endDate (optional) 
      * @return Success
      */
     getTopStatsData(startDate: moment.Moment | undefined, endDate: moment.Moment | undefined): Observable<TopStatsData> {
@@ -6552,11 +6550,11 @@ export class HostDashboardServiceProxy {
         if (startDate === null)
             throw new Error("The parameter 'startDate' cannot be null.");
         else if (startDate !== undefined)
-            url_ += "StartDate=" + encodeURIComponent(startDate ? "" + startDate.toJSON() : "") + "&";
+            url_ += "StartDate=" + encodeURIComponent(startDate ? "" + startDate.toJSON() : "") + "&"; 
         if (endDate === null)
             throw new Error("The parameter 'endDate' cannot be null.");
         else if (endDate !== undefined)
-            url_ += "EndDate=" + encodeURIComponent(endDate ? "" + endDate.toJSON() : "") + "&";
+            url_ += "EndDate=" + encodeURIComponent(endDate ? "" + endDate.toJSON() : "") + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -6583,8 +6581,8 @@ export class HostDashboardServiceProxy {
 
     protected processGetTopStatsData(response: HttpResponseBase): Observable<TopStatsData> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -6634,8 +6632,8 @@ export class HostDashboardServiceProxy {
 
     protected processGetRecentTenantsData(response: HttpResponseBase): Observable<GetRecentTenantsOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -6685,8 +6683,8 @@ export class HostDashboardServiceProxy {
 
     protected processGetSubscriptionExpiringTenantsData(response: HttpResponseBase): Observable<GetExpiringTenantsOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -6706,8 +6704,8 @@ export class HostDashboardServiceProxy {
     }
 
     /**
-     * @param startDate (optional)
-     * @param endDate (optional)
+     * @param startDate (optional) 
+     * @param endDate (optional) 
      * @return Success
      */
     getIncomeStatistics(incomeStatisticsDateInterval: ChartDateInterval, startDate: moment.Moment | undefined, endDate: moment.Moment | undefined): Observable<GetIncomeStatisticsDataOutput> {
@@ -6715,15 +6713,15 @@ export class HostDashboardServiceProxy {
         if (incomeStatisticsDateInterval === undefined || incomeStatisticsDateInterval === null)
             throw new Error("The parameter 'incomeStatisticsDateInterval' must be defined and cannot be null.");
         else
-            url_ += "IncomeStatisticsDateInterval=" + encodeURIComponent("" + incomeStatisticsDateInterval) + "&";
+            url_ += "IncomeStatisticsDateInterval=" + encodeURIComponent("" + incomeStatisticsDateInterval) + "&"; 
         if (startDate === null)
             throw new Error("The parameter 'startDate' cannot be null.");
         else if (startDate !== undefined)
-            url_ += "StartDate=" + encodeURIComponent(startDate ? "" + startDate.toJSON() : "") + "&";
+            url_ += "StartDate=" + encodeURIComponent(startDate ? "" + startDate.toJSON() : "") + "&"; 
         if (endDate === null)
             throw new Error("The parameter 'endDate' cannot be null.");
         else if (endDate !== undefined)
-            url_ += "EndDate=" + encodeURIComponent(endDate ? "" + endDate.toJSON() : "") + "&";
+            url_ += "EndDate=" + encodeURIComponent(endDate ? "" + endDate.toJSON() : "") + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -6750,8 +6748,8 @@ export class HostDashboardServiceProxy {
 
     protected processGetIncomeStatistics(response: HttpResponseBase): Observable<GetIncomeStatisticsDataOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -6771,8 +6769,8 @@ export class HostDashboardServiceProxy {
     }
 
     /**
-     * @param startDate (optional)
-     * @param endDate (optional)
+     * @param startDate (optional) 
+     * @param endDate (optional) 
      * @return Success
      */
     getEditionTenantStatistics(startDate: moment.Moment | undefined, endDate: moment.Moment | undefined): Observable<GetEditionTenantStatisticsOutput> {
@@ -6780,11 +6778,11 @@ export class HostDashboardServiceProxy {
         if (startDate === null)
             throw new Error("The parameter 'startDate' cannot be null.");
         else if (startDate !== undefined)
-            url_ += "StartDate=" + encodeURIComponent(startDate ? "" + startDate.toJSON() : "") + "&";
+            url_ += "StartDate=" + encodeURIComponent(startDate ? "" + startDate.toJSON() : "") + "&"; 
         if (endDate === null)
             throw new Error("The parameter 'endDate' cannot be null.");
         else if (endDate !== undefined)
-            url_ += "EndDate=" + encodeURIComponent(endDate ? "" + endDate.toJSON() : "") + "&";
+            url_ += "EndDate=" + encodeURIComponent(endDate ? "" + endDate.toJSON() : "") + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -6811,8 +6809,8 @@ export class HostDashboardServiceProxy {
 
     protected processGetEditionTenantStatistics(response: HttpResponseBase): Observable<GetEditionTenantStatisticsOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -6874,8 +6872,8 @@ export class HostSettingsServiceProxy {
 
     protected processGetAllSettings(response: HttpResponseBase): Observable<HostSettingsEditDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -6895,7 +6893,7 @@ export class HostSettingsServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     updateAllSettings(body: HostSettingsEditDto | undefined): Observable<void> {
@@ -6909,7 +6907,7 @@ export class HostSettingsServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -6929,8 +6927,8 @@ export class HostSettingsServiceProxy {
 
     protected processUpdateAllSettings(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -6947,7 +6945,7 @@ export class HostSettingsServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     sendTestEmail(body: SendTestEmailInput | undefined): Observable<void> {
@@ -6961,7 +6959,7 @@ export class HostSettingsServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -6981,8 +6979,8 @@ export class HostSettingsServiceProxy {
 
     protected processSendTestEmail(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -7011,7 +7009,7 @@ export class InstallServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     setup(body: InstallDto | undefined): Observable<void> {
@@ -7025,7 +7023,7 @@ export class InstallServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -7045,8 +7043,8 @@ export class InstallServiceProxy {
 
     protected processSetup(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -7093,8 +7091,8 @@ export class InstallServiceProxy {
 
     protected processGetAppSettingsJson(response: HttpResponseBase): Observable<AppSettingsJsonDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -7144,8 +7142,8 @@ export class InstallServiceProxy {
 
     protected processCheckDatabase(response: HttpResponseBase): Observable<CheckDatabaseOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -7177,7 +7175,7 @@ export class InvoiceServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     getInvoiceInfo(id: number | undefined): Observable<InvoiceDto> {
@@ -7185,7 +7183,7 @@ export class InvoiceServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -7212,8 +7210,8 @@ export class InvoiceServiceProxy {
 
     protected processGetInvoiceInfo(response: HttpResponseBase): Observable<InvoiceDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -7233,7 +7231,7 @@ export class InvoiceServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     createInvoice(body: CreateInvoiceDto | undefined): Observable<void> {
@@ -7247,7 +7245,7 @@ export class InvoiceServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -7267,8 +7265,8 @@ export class InvoiceServiceProxy {
 
     protected processCreateInvoice(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -7297,12 +7295,12 @@ export class JobTitleServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param nameArFilter (optional)
-     * @param nameEnFilter (optional)
-     * @param sorting (optional)
-     * @param skipCount (optional)
-     * @param maxResultCount (optional)
+     * @param filter (optional) 
+     * @param nameArFilter (optional) 
+     * @param nameEnFilter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
      * @return Success
      */
     getAll(filter: string | undefined, nameArFilter: string | undefined, nameEnFilter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetJobTitleForViewDto> {
@@ -7310,27 +7308,27 @@ export class JobTitleServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (nameArFilter === null)
             throw new Error("The parameter 'nameArFilter' cannot be null.");
         else if (nameArFilter !== undefined)
-            url_ += "NameArFilter=" + encodeURIComponent("" + nameArFilter) + "&";
+            url_ += "NameArFilter=" + encodeURIComponent("" + nameArFilter) + "&"; 
         if (nameEnFilter === null)
             throw new Error("The parameter 'nameEnFilter' cannot be null.");
         else if (nameEnFilter !== undefined)
-            url_ += "NameEnFilter=" + encodeURIComponent("" + nameEnFilter) + "&";
+            url_ += "NameEnFilter=" + encodeURIComponent("" + nameEnFilter) + "&"; 
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
         if (skipCount === null)
             throw new Error("The parameter 'skipCount' cannot be null.");
         else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
         if (maxResultCount === null)
             throw new Error("The parameter 'maxResultCount' cannot be null.");
         else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -7357,8 +7355,8 @@ export class JobTitleServiceProxy {
 
     protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfGetJobTitleForViewDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -7408,8 +7406,8 @@ export class JobTitleServiceProxy {
 
     protected processGetAllFlat(response: HttpResponseBase): Observable<JobTitleDto[]> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -7433,7 +7431,7 @@ export class JobTitleServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     getJobTitleForView(id: number | undefined): Observable<GetJobTitleForViewDto> {
@@ -7441,7 +7439,7 @@ export class JobTitleServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "id=" + encodeURIComponent("" + id) + "&";
+            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -7468,8 +7466,8 @@ export class JobTitleServiceProxy {
 
     protected processGetJobTitleForView(response: HttpResponseBase): Observable<GetJobTitleForViewDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -7489,7 +7487,7 @@ export class JobTitleServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     getJobTitleForEdit(id: number | undefined): Observable<GetJobTitleForEditOutput> {
@@ -7497,7 +7495,7 @@ export class JobTitleServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -7524,8 +7522,8 @@ export class JobTitleServiceProxy {
 
     protected processGetJobTitleForEdit(response: HttpResponseBase): Observable<GetJobTitleForEditOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -7545,7 +7543,7 @@ export class JobTitleServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     createOrEdit(body: CreateOrEditJobTitleDto | undefined): Observable<void> {
@@ -7559,7 +7557,7 @@ export class JobTitleServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -7579,8 +7577,8 @@ export class JobTitleServiceProxy {
 
     protected processCreateOrEdit(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -7597,7 +7595,7 @@ export class JobTitleServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     delete(id: number | undefined): Observable<void> {
@@ -7605,7 +7603,7 @@ export class JobTitleServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -7631,8 +7629,8 @@ export class JobTitleServiceProxy {
 
     protected processDelete(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -7649,8 +7647,8 @@ export class JobTitleServiceProxy {
     }
 
     /**
-     * @param id (optional)
-     * @param lang (optional)
+     * @param id (optional) 
+     * @param lang (optional) 
      * @return Success
      */
     getTitleById(id: number | undefined, lang: number | undefined): Observable<string> {
@@ -7658,11 +7656,11 @@ export class JobTitleServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "id=" + encodeURIComponent("" + id) + "&";
+            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
         if (lang === null)
             throw new Error("The parameter 'lang' cannot be null.");
         else if (lang !== undefined)
-            url_ += "lang=" + encodeURIComponent("" + lang) + "&";
+            url_ += "lang=" + encodeURIComponent("" + lang) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -7689,8 +7687,8 @@ export class JobTitleServiceProxy {
 
     protected processGetTitleById(response: HttpResponseBase): Observable<string> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -7710,9 +7708,9 @@ export class JobTitleServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param nameArFilter (optional)
-     * @param nameEnFilter (optional)
+     * @param filter (optional) 
+     * @param nameArFilter (optional) 
+     * @param nameEnFilter (optional) 
      * @return Success
      */
     getJobTitlesToExcel(filter: string | undefined, nameArFilter: string | undefined, nameEnFilter: string | undefined): Observable<FileDto> {
@@ -7720,15 +7718,15 @@ export class JobTitleServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (nameArFilter === null)
             throw new Error("The parameter 'nameArFilter' cannot be null.");
         else if (nameArFilter !== undefined)
-            url_ += "NameArFilter=" + encodeURIComponent("" + nameArFilter) + "&";
+            url_ += "NameArFilter=" + encodeURIComponent("" + nameArFilter) + "&"; 
         if (nameEnFilter === null)
             throw new Error("The parameter 'nameEnFilter' cannot be null.");
         else if (nameEnFilter !== undefined)
-            url_ += "NameEnFilter=" + encodeURIComponent("" + nameEnFilter) + "&";
+            url_ += "NameEnFilter=" + encodeURIComponent("" + nameEnFilter) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -7755,8 +7753,8 @@ export class JobTitleServiceProxy {
 
     protected processGetJobTitlesToExcel(response: HttpResponseBase): Observable<FileDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -7818,8 +7816,8 @@ export class LanguageServiceProxy {
 
     protected processGetLanguages(response: HttpResponseBase): Observable<GetLanguagesOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -7839,7 +7837,7 @@ export class LanguageServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     getLanguageForEdit(id: number | undefined): Observable<GetLanguageForEditOutput> {
@@ -7847,7 +7845,7 @@ export class LanguageServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -7874,8 +7872,8 @@ export class LanguageServiceProxy {
 
     protected processGetLanguageForEdit(response: HttpResponseBase): Observable<GetLanguageForEditOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -7895,7 +7893,7 @@ export class LanguageServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     createOrUpdateLanguage(body: CreateOrUpdateLanguageInput | undefined): Observable<void> {
@@ -7909,7 +7907,7 @@ export class LanguageServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -7929,8 +7927,8 @@ export class LanguageServiceProxy {
 
     protected processCreateOrUpdateLanguage(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -7947,7 +7945,7 @@ export class LanguageServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     deleteLanguage(id: number | undefined): Observable<void> {
@@ -7955,7 +7953,7 @@ export class LanguageServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -7981,8 +7979,8 @@ export class LanguageServiceProxy {
 
     protected processDeleteLanguage(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -7999,7 +7997,7 @@ export class LanguageServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     setDefaultLanguage(body: SetDefaultLanguageInput | undefined): Observable<void> {
@@ -8013,7 +8011,7 @@ export class LanguageServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -8033,8 +8031,8 @@ export class LanguageServiceProxy {
 
     protected processSetDefaultLanguage(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -8051,12 +8049,12 @@ export class LanguageServiceProxy {
     }
 
     /**
-     * @param maxResultCount (optional)
-     * @param skipCount (optional)
-     * @param sorting (optional)
-     * @param baseLanguageName (optional)
-     * @param targetValueFilter (optional)
-     * @param filterText (optional)
+     * @param maxResultCount (optional) 
+     * @param skipCount (optional) 
+     * @param sorting (optional) 
+     * @param baseLanguageName (optional) 
+     * @param targetValueFilter (optional) 
+     * @param filterText (optional) 
      * @return Success
      */
     getLanguageTexts(maxResultCount: number | undefined, skipCount: number | undefined, sorting: string | undefined, sourceName: string, baseLanguageName: string | undefined, targetLanguageName: string, targetValueFilter: string | undefined, filterText: string | undefined): Observable<PagedResultDtoOfLanguageTextListDto> {
@@ -8064,35 +8062,35 @@ export class LanguageServiceProxy {
         if (maxResultCount === null)
             throw new Error("The parameter 'maxResultCount' cannot be null.");
         else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
         if (skipCount === null)
             throw new Error("The parameter 'skipCount' cannot be null.");
         else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
         if (sourceName === undefined || sourceName === null)
             throw new Error("The parameter 'sourceName' must be defined and cannot be null.");
         else
-            url_ += "SourceName=" + encodeURIComponent("" + sourceName) + "&";
+            url_ += "SourceName=" + encodeURIComponent("" + sourceName) + "&"; 
         if (baseLanguageName === null)
             throw new Error("The parameter 'baseLanguageName' cannot be null.");
         else if (baseLanguageName !== undefined)
-            url_ += "BaseLanguageName=" + encodeURIComponent("" + baseLanguageName) + "&";
+            url_ += "BaseLanguageName=" + encodeURIComponent("" + baseLanguageName) + "&"; 
         if (targetLanguageName === undefined || targetLanguageName === null)
             throw new Error("The parameter 'targetLanguageName' must be defined and cannot be null.");
         else
-            url_ += "TargetLanguageName=" + encodeURIComponent("" + targetLanguageName) + "&";
+            url_ += "TargetLanguageName=" + encodeURIComponent("" + targetLanguageName) + "&"; 
         if (targetValueFilter === null)
             throw new Error("The parameter 'targetValueFilter' cannot be null.");
         else if (targetValueFilter !== undefined)
-            url_ += "TargetValueFilter=" + encodeURIComponent("" + targetValueFilter) + "&";
+            url_ += "TargetValueFilter=" + encodeURIComponent("" + targetValueFilter) + "&"; 
         if (filterText === null)
             throw new Error("The parameter 'filterText' cannot be null.");
         else if (filterText !== undefined)
-            url_ += "FilterText=" + encodeURIComponent("" + filterText) + "&";
+            url_ += "FilterText=" + encodeURIComponent("" + filterText) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -8119,8 +8117,8 @@ export class LanguageServiceProxy {
 
     protected processGetLanguageTexts(response: HttpResponseBase): Observable<PagedResultDtoOfLanguageTextListDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -8140,7 +8138,7 @@ export class LanguageServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     updateLanguageText(body: UpdateLanguageTextInput | undefined): Observable<void> {
@@ -8154,7 +8152,7 @@ export class LanguageServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -8174,8 +8172,8 @@ export class LanguageServiceProxy {
 
     protected processUpdateLanguageText(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -8204,13 +8202,13 @@ export class LeaveTypesServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param nameArFilter (optional)
-     * @param nameEnFilter (optional)
-     * @param codeFilter (optional)
-     * @param sorting (optional)
-     * @param skipCount (optional)
-     * @param maxResultCount (optional)
+     * @param filter (optional) 
+     * @param nameArFilter (optional) 
+     * @param nameEnFilter (optional) 
+     * @param codeFilter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
      * @return Success
      */
     getAll(filter: string | undefined, nameArFilter: string | undefined, nameEnFilter: string | undefined, codeFilter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetLeaveTypeForViewDto> {
@@ -8218,31 +8216,31 @@ export class LeaveTypesServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (nameArFilter === null)
             throw new Error("The parameter 'nameArFilter' cannot be null.");
         else if (nameArFilter !== undefined)
-            url_ += "NameArFilter=" + encodeURIComponent("" + nameArFilter) + "&";
+            url_ += "NameArFilter=" + encodeURIComponent("" + nameArFilter) + "&"; 
         if (nameEnFilter === null)
             throw new Error("The parameter 'nameEnFilter' cannot be null.");
         else if (nameEnFilter !== undefined)
-            url_ += "NameEnFilter=" + encodeURIComponent("" + nameEnFilter) + "&";
+            url_ += "NameEnFilter=" + encodeURIComponent("" + nameEnFilter) + "&"; 
         if (codeFilter === null)
             throw new Error("The parameter 'codeFilter' cannot be null.");
         else if (codeFilter !== undefined)
-            url_ += "CodeFilter=" + encodeURIComponent("" + codeFilter) + "&";
+            url_ += "CodeFilter=" + encodeURIComponent("" + codeFilter) + "&"; 
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
         if (skipCount === null)
             throw new Error("The parameter 'skipCount' cannot be null.");
         else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
         if (maxResultCount === null)
             throw new Error("The parameter 'maxResultCount' cannot be null.");
         else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -8269,8 +8267,8 @@ export class LeaveTypesServiceProxy {
 
     protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfGetLeaveTypeForViewDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -8290,7 +8288,7 @@ export class LeaveTypesServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     getLeaveTypeForView(id: number | undefined): Observable<GetLeaveTypeForViewDto> {
@@ -8298,7 +8296,7 @@ export class LeaveTypesServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "id=" + encodeURIComponent("" + id) + "&";
+            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -8325,8 +8323,8 @@ export class LeaveTypesServiceProxy {
 
     protected processGetLeaveTypeForView(response: HttpResponseBase): Observable<GetLeaveTypeForViewDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -8346,7 +8344,7 @@ export class LeaveTypesServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     getLeaveTypeForEdit(id: number | undefined): Observable<GetLeaveTypeForEditOutput> {
@@ -8354,7 +8352,7 @@ export class LeaveTypesServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -8381,8 +8379,8 @@ export class LeaveTypesServiceProxy {
 
     protected processGetLeaveTypeForEdit(response: HttpResponseBase): Observable<GetLeaveTypeForEditOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -8402,7 +8400,7 @@ export class LeaveTypesServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     createOrEdit(body: CreateOrEditLeaveTypeDto | undefined): Observable<void> {
@@ -8416,7 +8414,7 @@ export class LeaveTypesServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -8436,8 +8434,8 @@ export class LeaveTypesServiceProxy {
 
     protected processCreateOrEdit(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -8454,7 +8452,7 @@ export class LeaveTypesServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     delete(id: number | undefined): Observable<void> {
@@ -8462,7 +8460,7 @@ export class LeaveTypesServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -8488,8 +8486,8 @@ export class LeaveTypesServiceProxy {
 
     protected processDelete(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -8506,10 +8504,10 @@ export class LeaveTypesServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param nameArFilter (optional)
-     * @param nameEnFilter (optional)
-     * @param codeFilter (optional)
+     * @param filter (optional) 
+     * @param nameArFilter (optional) 
+     * @param nameEnFilter (optional) 
+     * @param codeFilter (optional) 
      * @return Success
      */
     getLeaveTypesToExcel(filter: string | undefined, nameArFilter: string | undefined, nameEnFilter: string | undefined, codeFilter: string | undefined): Observable<FileDto> {
@@ -8517,19 +8515,19 @@ export class LeaveTypesServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (nameArFilter === null)
             throw new Error("The parameter 'nameArFilter' cannot be null.");
         else if (nameArFilter !== undefined)
-            url_ += "NameArFilter=" + encodeURIComponent("" + nameArFilter) + "&";
+            url_ += "NameArFilter=" + encodeURIComponent("" + nameArFilter) + "&"; 
         if (nameEnFilter === null)
             throw new Error("The parameter 'nameEnFilter' cannot be null.");
         else if (nameEnFilter !== undefined)
-            url_ += "NameEnFilter=" + encodeURIComponent("" + nameEnFilter) + "&";
+            url_ += "NameEnFilter=" + encodeURIComponent("" + nameEnFilter) + "&"; 
         if (codeFilter === null)
             throw new Error("The parameter 'codeFilter' cannot be null.");
         else if (codeFilter !== undefined)
-            url_ += "CodeFilter=" + encodeURIComponent("" + codeFilter) + "&";
+            url_ += "CodeFilter=" + encodeURIComponent("" + codeFilter) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -8556,8 +8554,8 @@ export class LeaveTypesServiceProxy {
 
     protected processGetLeaveTypesToExcel(response: HttpResponseBase): Observable<FileDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -8589,15 +8587,15 @@ export class LocationCredentialsServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param maxLongitudeFilter (optional)
-     * @param minLongitudeFilter (optional)
-     * @param maxLatitudeFilter (optional)
-     * @param minLatitudeFilter (optional)
-     * @param locationDescriptionArFilter (optional)
-     * @param sorting (optional)
-     * @param skipCount (optional)
-     * @param maxResultCount (optional)
+     * @param filter (optional) 
+     * @param maxLongitudeFilter (optional) 
+     * @param minLongitudeFilter (optional) 
+     * @param maxLatitudeFilter (optional) 
+     * @param minLatitudeFilter (optional) 
+     * @param locationDescriptionArFilter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
      * @return Success
      */
     getAll(filter: string | undefined, maxLongitudeFilter: number | undefined, minLongitudeFilter: number | undefined, maxLatitudeFilter: number | undefined, minLatitudeFilter: number | undefined, locationDescriptionArFilter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetLocationCredentialForViewDto> {
@@ -8605,39 +8603,39 @@ export class LocationCredentialsServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (maxLongitudeFilter === null)
             throw new Error("The parameter 'maxLongitudeFilter' cannot be null.");
         else if (maxLongitudeFilter !== undefined)
-            url_ += "MaxLongitudeFilter=" + encodeURIComponent("" + maxLongitudeFilter) + "&";
+            url_ += "MaxLongitudeFilter=" + encodeURIComponent("" + maxLongitudeFilter) + "&"; 
         if (minLongitudeFilter === null)
             throw new Error("The parameter 'minLongitudeFilter' cannot be null.");
         else if (minLongitudeFilter !== undefined)
-            url_ += "MinLongitudeFilter=" + encodeURIComponent("" + minLongitudeFilter) + "&";
+            url_ += "MinLongitudeFilter=" + encodeURIComponent("" + minLongitudeFilter) + "&"; 
         if (maxLatitudeFilter === null)
             throw new Error("The parameter 'maxLatitudeFilter' cannot be null.");
         else if (maxLatitudeFilter !== undefined)
-            url_ += "MaxLatitudeFilter=" + encodeURIComponent("" + maxLatitudeFilter) + "&";
+            url_ += "MaxLatitudeFilter=" + encodeURIComponent("" + maxLatitudeFilter) + "&"; 
         if (minLatitudeFilter === null)
             throw new Error("The parameter 'minLatitudeFilter' cannot be null.");
         else if (minLatitudeFilter !== undefined)
-            url_ += "MinLatitudeFilter=" + encodeURIComponent("" + minLatitudeFilter) + "&";
+            url_ += "MinLatitudeFilter=" + encodeURIComponent("" + minLatitudeFilter) + "&"; 
         if (locationDescriptionArFilter === null)
             throw new Error("The parameter 'locationDescriptionArFilter' cannot be null.");
         else if (locationDescriptionArFilter !== undefined)
-            url_ += "LocationDescriptionArFilter=" + encodeURIComponent("" + locationDescriptionArFilter) + "&";
+            url_ += "LocationDescriptionArFilter=" + encodeURIComponent("" + locationDescriptionArFilter) + "&"; 
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
         if (skipCount === null)
             throw new Error("The parameter 'skipCount' cannot be null.");
         else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
         if (maxResultCount === null)
             throw new Error("The parameter 'maxResultCount' cannot be null.");
         else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -8664,8 +8662,8 @@ export class LocationCredentialsServiceProxy {
 
     protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfGetLocationCredentialForViewDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -8685,7 +8683,7 @@ export class LocationCredentialsServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     getLocationCredentialForView(id: number | undefined): Observable<GetLocationCredentialForViewDto> {
@@ -8693,7 +8691,7 @@ export class LocationCredentialsServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "id=" + encodeURIComponent("" + id) + "&";
+            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -8720,8 +8718,8 @@ export class LocationCredentialsServiceProxy {
 
     protected processGetLocationCredentialForView(response: HttpResponseBase): Observable<GetLocationCredentialForViewDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -8741,7 +8739,7 @@ export class LocationCredentialsServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     getLocationCredentialForEdit(id: number | undefined): Observable<GetLocationCredentialForEditOutput> {
@@ -8749,7 +8747,7 @@ export class LocationCredentialsServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -8776,8 +8774,8 @@ export class LocationCredentialsServiceProxy {
 
     protected processGetLocationCredentialForEdit(response: HttpResponseBase): Observable<GetLocationCredentialForEditOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -8797,7 +8795,7 @@ export class LocationCredentialsServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     createOrEdit(body: CreateOrEditLocationCredentialDto | undefined): Observable<void> {
@@ -8811,7 +8809,7 @@ export class LocationCredentialsServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -8831,8 +8829,8 @@ export class LocationCredentialsServiceProxy {
 
     protected processCreateOrEdit(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -8849,7 +8847,7 @@ export class LocationCredentialsServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     delete(id: number | undefined): Observable<void> {
@@ -8857,7 +8855,7 @@ export class LocationCredentialsServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -8883,8 +8881,8 @@ export class LocationCredentialsServiceProxy {
 
     protected processDelete(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -8901,12 +8899,12 @@ export class LocationCredentialsServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param maxLongitudeFilter (optional)
-     * @param minLongitudeFilter (optional)
-     * @param maxLatitudeFilter (optional)
-     * @param minLatitudeFilter (optional)
-     * @param locationDescriptionArFilter (optional)
+     * @param filter (optional) 
+     * @param maxLongitudeFilter (optional) 
+     * @param minLongitudeFilter (optional) 
+     * @param maxLatitudeFilter (optional) 
+     * @param minLatitudeFilter (optional) 
+     * @param locationDescriptionArFilter (optional) 
      * @return Success
      */
     getLocationCredentialsToExcel(filter: string | undefined, maxLongitudeFilter: number | undefined, minLongitudeFilter: number | undefined, maxLatitudeFilter: number | undefined, minLatitudeFilter: number | undefined, locationDescriptionArFilter: string | undefined): Observable<FileDto> {
@@ -8914,27 +8912,27 @@ export class LocationCredentialsServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (maxLongitudeFilter === null)
             throw new Error("The parameter 'maxLongitudeFilter' cannot be null.");
         else if (maxLongitudeFilter !== undefined)
-            url_ += "MaxLongitudeFilter=" + encodeURIComponent("" + maxLongitudeFilter) + "&";
+            url_ += "MaxLongitudeFilter=" + encodeURIComponent("" + maxLongitudeFilter) + "&"; 
         if (minLongitudeFilter === null)
             throw new Error("The parameter 'minLongitudeFilter' cannot be null.");
         else if (minLongitudeFilter !== undefined)
-            url_ += "MinLongitudeFilter=" + encodeURIComponent("" + minLongitudeFilter) + "&";
+            url_ += "MinLongitudeFilter=" + encodeURIComponent("" + minLongitudeFilter) + "&"; 
         if (maxLatitudeFilter === null)
             throw new Error("The parameter 'maxLatitudeFilter' cannot be null.");
         else if (maxLatitudeFilter !== undefined)
-            url_ += "MaxLatitudeFilter=" + encodeURIComponent("" + maxLatitudeFilter) + "&";
+            url_ += "MaxLatitudeFilter=" + encodeURIComponent("" + maxLatitudeFilter) + "&"; 
         if (minLatitudeFilter === null)
             throw new Error("The parameter 'minLatitudeFilter' cannot be null.");
         else if (minLatitudeFilter !== undefined)
-            url_ += "MinLatitudeFilter=" + encodeURIComponent("" + minLatitudeFilter) + "&";
+            url_ += "MinLatitudeFilter=" + encodeURIComponent("" + minLatitudeFilter) + "&"; 
         if (locationDescriptionArFilter === null)
             throw new Error("The parameter 'locationDescriptionArFilter' cannot be null.");
         else if (locationDescriptionArFilter !== undefined)
-            url_ += "LocationDescriptionArFilter=" + encodeURIComponent("" + locationDescriptionArFilter) + "&";
+            url_ += "LocationDescriptionArFilter=" + encodeURIComponent("" + locationDescriptionArFilter) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -8961,8 +8959,8 @@ export class LocationCredentialsServiceProxy {
 
     protected processGetLocationCredentialsToExcel(response: HttpResponseBase): Observable<FileDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -8982,10 +8980,10 @@ export class LocationCredentialsServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param sorting (optional)
-     * @param skipCount (optional)
-     * @param maxResultCount (optional)
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
      * @return Success
      */
     getAllLocationForLookupTable(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfLocationCredentialLocationLookupTableDto> {
@@ -8993,19 +8991,19 @@ export class LocationCredentialsServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
         if (skipCount === null)
             throw new Error("The parameter 'skipCount' cannot be null.");
         else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
         if (maxResultCount === null)
             throw new Error("The parameter 'maxResultCount' cannot be null.");
         else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -9032,8 +9030,8 @@ export class LocationCredentialsServiceProxy {
 
     protected processGetAllLocationForLookupTable(response: HttpResponseBase): Observable<PagedResultDtoOfLocationCredentialLocationLookupTableDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -9065,12 +9063,12 @@ export class LocationsServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param titleArFilter (optional)
-     * @param titleEnFilter (optional)
-     * @param sorting (optional)
-     * @param skipCount (optional)
-     * @param maxResultCount (optional)
+     * @param filter (optional) 
+     * @param titleArFilter (optional) 
+     * @param titleEnFilter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
      * @return Success
      */
     getAll(filter: string | undefined, titleArFilter: string | undefined, titleEnFilter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetLocationForViewDto> {
@@ -9078,27 +9076,27 @@ export class LocationsServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (titleArFilter === null)
             throw new Error("The parameter 'titleArFilter' cannot be null.");
         else if (titleArFilter !== undefined)
-            url_ += "TitleArFilter=" + encodeURIComponent("" + titleArFilter) + "&";
+            url_ += "TitleArFilter=" + encodeURIComponent("" + titleArFilter) + "&"; 
         if (titleEnFilter === null)
             throw new Error("The parameter 'titleEnFilter' cannot be null.");
         else if (titleEnFilter !== undefined)
-            url_ += "TitleEnFilter=" + encodeURIComponent("" + titleEnFilter) + "&";
+            url_ += "TitleEnFilter=" + encodeURIComponent("" + titleEnFilter) + "&"; 
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
         if (skipCount === null)
             throw new Error("The parameter 'skipCount' cannot be null.");
         else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
         if (maxResultCount === null)
             throw new Error("The parameter 'maxResultCount' cannot be null.");
         else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -9125,8 +9123,8 @@ export class LocationsServiceProxy {
 
     protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfGetLocationForViewDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -9146,7 +9144,7 @@ export class LocationsServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     getLocationForView(id: number | undefined): Observable<GetLocationForViewDto> {
@@ -9154,7 +9152,7 @@ export class LocationsServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "id=" + encodeURIComponent("" + id) + "&";
+            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -9181,8 +9179,8 @@ export class LocationsServiceProxy {
 
     protected processGetLocationForView(response: HttpResponseBase): Observable<GetLocationForViewDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -9202,7 +9200,7 @@ export class LocationsServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     getLocationForEdit(id: number | undefined): Observable<GetLocationForEditOutput> {
@@ -9210,7 +9208,7 @@ export class LocationsServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -9237,8 +9235,8 @@ export class LocationsServiceProxy {
 
     protected processGetLocationForEdit(response: HttpResponseBase): Observable<GetLocationForEditOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -9258,7 +9256,7 @@ export class LocationsServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     createOrEdit(body: CreateOrEditLocationDto | undefined): Observable<void> {
@@ -9272,7 +9270,7 @@ export class LocationsServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -9292,8 +9290,8 @@ export class LocationsServiceProxy {
 
     protected processCreateOrEdit(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -9310,7 +9308,7 @@ export class LocationsServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     delete(id: number | undefined): Observable<void> {
@@ -9318,7 +9316,7 @@ export class LocationsServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -9344,8 +9342,8 @@ export class LocationsServiceProxy {
 
     protected processDelete(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -9362,9 +9360,9 @@ export class LocationsServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param titleArFilter (optional)
-     * @param titleEnFilter (optional)
+     * @param filter (optional) 
+     * @param titleArFilter (optional) 
+     * @param titleEnFilter (optional) 
      * @return Success
      */
     getLocationsToExcel(filter: string | undefined, titleArFilter: string | undefined, titleEnFilter: string | undefined): Observable<FileDto> {
@@ -9372,15 +9370,15 @@ export class LocationsServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (titleArFilter === null)
             throw new Error("The parameter 'titleArFilter' cannot be null.");
         else if (titleArFilter !== undefined)
-            url_ += "TitleArFilter=" + encodeURIComponent("" + titleArFilter) + "&";
+            url_ += "TitleArFilter=" + encodeURIComponent("" + titleArFilter) + "&"; 
         if (titleEnFilter === null)
             throw new Error("The parameter 'titleEnFilter' cannot be null.");
         else if (titleEnFilter !== undefined)
-            url_ += "TitleEnFilter=" + encodeURIComponent("" + titleEnFilter) + "&";
+            url_ += "TitleEnFilter=" + encodeURIComponent("" + titleEnFilter) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -9407,8 +9405,8 @@ export class LocationsServiceProxy {
 
     protected processGetLocationsToExcel(response: HttpResponseBase): Observable<FileDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -9440,16 +9438,16 @@ export class MachinesServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param nameArFilter (optional)
-     * @param nameEnFilter (optional)
-     * @param ipAddressFilter (optional)
-     * @param subNetFilter (optional)
-     * @param statusFilter (optional)
-     * @param organizationUnitDisplayNameFilter (optional)
-     * @param sorting (optional)
-     * @param skipCount (optional)
-     * @param maxResultCount (optional)
+     * @param filter (optional) 
+     * @param nameArFilter (optional) 
+     * @param nameEnFilter (optional) 
+     * @param ipAddressFilter (optional) 
+     * @param subNetFilter (optional) 
+     * @param statusFilter (optional) 
+     * @param organizationUnitDisplayNameFilter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
      * @return Success
      */
     getAll(filter: string | undefined, nameArFilter: string | undefined, nameEnFilter: string | undefined, ipAddressFilter: string | undefined, subNetFilter: string | undefined, statusFilter: number | undefined, organizationUnitDisplayNameFilter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetMachineForViewDto> {
@@ -9457,43 +9455,43 @@ export class MachinesServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (nameArFilter === null)
             throw new Error("The parameter 'nameArFilter' cannot be null.");
         else if (nameArFilter !== undefined)
-            url_ += "NameArFilter=" + encodeURIComponent("" + nameArFilter) + "&";
+            url_ += "NameArFilter=" + encodeURIComponent("" + nameArFilter) + "&"; 
         if (nameEnFilter === null)
             throw new Error("The parameter 'nameEnFilter' cannot be null.");
         else if (nameEnFilter !== undefined)
-            url_ += "NameEnFilter=" + encodeURIComponent("" + nameEnFilter) + "&";
+            url_ += "NameEnFilter=" + encodeURIComponent("" + nameEnFilter) + "&"; 
         if (ipAddressFilter === null)
             throw new Error("The parameter 'ipAddressFilter' cannot be null.");
         else if (ipAddressFilter !== undefined)
-            url_ += "IpAddressFilter=" + encodeURIComponent("" + ipAddressFilter) + "&";
+            url_ += "IpAddressFilter=" + encodeURIComponent("" + ipAddressFilter) + "&"; 
         if (subNetFilter === null)
             throw new Error("The parameter 'subNetFilter' cannot be null.");
         else if (subNetFilter !== undefined)
-            url_ += "SubNetFilter=" + encodeURIComponent("" + subNetFilter) + "&";
+            url_ += "SubNetFilter=" + encodeURIComponent("" + subNetFilter) + "&"; 
         if (statusFilter === null)
             throw new Error("The parameter 'statusFilter' cannot be null.");
         else if (statusFilter !== undefined)
-            url_ += "StatusFilter=" + encodeURIComponent("" + statusFilter) + "&";
+            url_ += "StatusFilter=" + encodeURIComponent("" + statusFilter) + "&"; 
         if (organizationUnitDisplayNameFilter === null)
             throw new Error("The parameter 'organizationUnitDisplayNameFilter' cannot be null.");
         else if (organizationUnitDisplayNameFilter !== undefined)
-            url_ += "OrganizationUnitDisplayNameFilter=" + encodeURIComponent("" + organizationUnitDisplayNameFilter) + "&";
+            url_ += "OrganizationUnitDisplayNameFilter=" + encodeURIComponent("" + organizationUnitDisplayNameFilter) + "&"; 
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
         if (skipCount === null)
             throw new Error("The parameter 'skipCount' cannot be null.");
         else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
         if (maxResultCount === null)
             throw new Error("The parameter 'maxResultCount' cannot be null.");
         else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -9520,8 +9518,8 @@ export class MachinesServiceProxy {
 
     protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfGetMachineForViewDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -9541,7 +9539,7 @@ export class MachinesServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     getMachineForView(id: number | undefined): Observable<GetMachineForViewDto> {
@@ -9549,7 +9547,7 @@ export class MachinesServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "id=" + encodeURIComponent("" + id) + "&";
+            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -9576,8 +9574,8 @@ export class MachinesServiceProxy {
 
     protected processGetMachineForView(response: HttpResponseBase): Observable<GetMachineForViewDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -9597,7 +9595,7 @@ export class MachinesServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     getMachineForEdit(id: number | undefined): Observable<GetMachineForEditOutput> {
@@ -9605,7 +9603,7 @@ export class MachinesServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -9632,8 +9630,8 @@ export class MachinesServiceProxy {
 
     protected processGetMachineForEdit(response: HttpResponseBase): Observable<GetMachineForEditOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -9653,7 +9651,7 @@ export class MachinesServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     createOrEdit(body: CreateOrEditMachineDto | undefined): Observable<void> {
@@ -9667,7 +9665,7 @@ export class MachinesServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -9687,8 +9685,8 @@ export class MachinesServiceProxy {
 
     protected processCreateOrEdit(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -9705,7 +9703,7 @@ export class MachinesServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     delete(id: number | undefined): Observable<void> {
@@ -9713,7 +9711,7 @@ export class MachinesServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -9739,8 +9737,8 @@ export class MachinesServiceProxy {
 
     protected processDelete(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -9757,13 +9755,13 @@ export class MachinesServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param nameArFilter (optional)
-     * @param nameEnFilter (optional)
-     * @param ipAddressFilter (optional)
-     * @param subNetFilter (optional)
-     * @param statusFilter (optional)
-     * @param organizationUnitDisplayNameFilter (optional)
+     * @param filter (optional) 
+     * @param nameArFilter (optional) 
+     * @param nameEnFilter (optional) 
+     * @param ipAddressFilter (optional) 
+     * @param subNetFilter (optional) 
+     * @param statusFilter (optional) 
+     * @param organizationUnitDisplayNameFilter (optional) 
      * @return Success
      */
     getMachinesToExcel(filter: string | undefined, nameArFilter: string | undefined, nameEnFilter: string | undefined, ipAddressFilter: string | undefined, subNetFilter: string | undefined, statusFilter: number | undefined, organizationUnitDisplayNameFilter: string | undefined): Observable<FileDto> {
@@ -9771,31 +9769,31 @@ export class MachinesServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (nameArFilter === null)
             throw new Error("The parameter 'nameArFilter' cannot be null.");
         else if (nameArFilter !== undefined)
-            url_ += "NameArFilter=" + encodeURIComponent("" + nameArFilter) + "&";
+            url_ += "NameArFilter=" + encodeURIComponent("" + nameArFilter) + "&"; 
         if (nameEnFilter === null)
             throw new Error("The parameter 'nameEnFilter' cannot be null.");
         else if (nameEnFilter !== undefined)
-            url_ += "NameEnFilter=" + encodeURIComponent("" + nameEnFilter) + "&";
+            url_ += "NameEnFilter=" + encodeURIComponent("" + nameEnFilter) + "&"; 
         if (ipAddressFilter === null)
             throw new Error("The parameter 'ipAddressFilter' cannot be null.");
         else if (ipAddressFilter !== undefined)
-            url_ += "IpAddressFilter=" + encodeURIComponent("" + ipAddressFilter) + "&";
+            url_ += "IpAddressFilter=" + encodeURIComponent("" + ipAddressFilter) + "&"; 
         if (subNetFilter === null)
             throw new Error("The parameter 'subNetFilter' cannot be null.");
         else if (subNetFilter !== undefined)
-            url_ += "SubNetFilter=" + encodeURIComponent("" + subNetFilter) + "&";
+            url_ += "SubNetFilter=" + encodeURIComponent("" + subNetFilter) + "&"; 
         if (statusFilter === null)
             throw new Error("The parameter 'statusFilter' cannot be null.");
         else if (statusFilter !== undefined)
-            url_ += "StatusFilter=" + encodeURIComponent("" + statusFilter) + "&";
+            url_ += "StatusFilter=" + encodeURIComponent("" + statusFilter) + "&"; 
         if (organizationUnitDisplayNameFilter === null)
             throw new Error("The parameter 'organizationUnitDisplayNameFilter' cannot be null.");
         else if (organizationUnitDisplayNameFilter !== undefined)
-            url_ += "OrganizationUnitDisplayNameFilter=" + encodeURIComponent("" + organizationUnitDisplayNameFilter) + "&";
+            url_ += "OrganizationUnitDisplayNameFilter=" + encodeURIComponent("" + organizationUnitDisplayNameFilter) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -9822,8 +9820,8 @@ export class MachinesServiceProxy {
 
     protected processGetMachinesToExcel(response: HttpResponseBase): Observable<FileDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -9843,10 +9841,10 @@ export class MachinesServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param sorting (optional)
-     * @param skipCount (optional)
-     * @param maxResultCount (optional)
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
      * @return Success
      */
     getAllOrganizationUnitForLookupTable(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfMachineOrganizationUnitLookupTableDto> {
@@ -9854,19 +9852,19 @@ export class MachinesServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
         if (skipCount === null)
             throw new Error("The parameter 'skipCount' cannot be null.");
         else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
         if (maxResultCount === null)
             throw new Error("The parameter 'maxResultCount' cannot be null.");
         else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -9893,8 +9891,8 @@ export class MachinesServiceProxy {
 
     protected processGetAllOrganizationUnitForLookupTable(response: HttpResponseBase): Observable<PagedResultDtoOfMachineOrganizationUnitLookupTableDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -9926,13 +9924,13 @@ export class ManualTransactionsServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param maxTransDateFilter (optional)
-     * @param minTransDateFilter (optional)
-     * @param userNameFilter (optional)
-     * @param sorting (optional)
-     * @param skipCount (optional)
-     * @param maxResultCount (optional)
+     * @param filter (optional) 
+     * @param maxTransDateFilter (optional) 
+     * @param minTransDateFilter (optional) 
+     * @param userNameFilter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
      * @return Success
      */
     getAll(filter: string | undefined, maxTransDateFilter: moment.Moment | undefined, minTransDateFilter: moment.Moment | undefined, userNameFilter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetManualTransactionForViewDto> {
@@ -9940,31 +9938,31 @@ export class ManualTransactionsServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (maxTransDateFilter === null)
             throw new Error("The parameter 'maxTransDateFilter' cannot be null.");
         else if (maxTransDateFilter !== undefined)
-            url_ += "MaxTransDateFilter=" + encodeURIComponent(maxTransDateFilter ? "" + maxTransDateFilter.toJSON() : "") + "&";
+            url_ += "MaxTransDateFilter=" + encodeURIComponent(maxTransDateFilter ? "" + maxTransDateFilter.toJSON() : "") + "&"; 
         if (minTransDateFilter === null)
             throw new Error("The parameter 'minTransDateFilter' cannot be null.");
         else if (minTransDateFilter !== undefined)
-            url_ += "MinTransDateFilter=" + encodeURIComponent(minTransDateFilter ? "" + minTransDateFilter.toJSON() : "") + "&";
+            url_ += "MinTransDateFilter=" + encodeURIComponent(minTransDateFilter ? "" + minTransDateFilter.toJSON() : "") + "&"; 
         if (userNameFilter === null)
             throw new Error("The parameter 'userNameFilter' cannot be null.");
         else if (userNameFilter !== undefined)
-            url_ += "UserNameFilter=" + encodeURIComponent("" + userNameFilter) + "&";
+            url_ += "UserNameFilter=" + encodeURIComponent("" + userNameFilter) + "&"; 
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
         if (skipCount === null)
             throw new Error("The parameter 'skipCount' cannot be null.");
         else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
         if (maxResultCount === null)
             throw new Error("The parameter 'maxResultCount' cannot be null.");
         else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -9991,8 +9989,8 @@ export class ManualTransactionsServiceProxy {
 
     protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfGetManualTransactionForViewDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -10012,7 +10010,7 @@ export class ManualTransactionsServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     getManualTransactionForView(id: number | undefined): Observable<GetManualTransactionForViewDto> {
@@ -10020,7 +10018,7 @@ export class ManualTransactionsServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "id=" + encodeURIComponent("" + id) + "&";
+            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -10047,8 +10045,8 @@ export class ManualTransactionsServiceProxy {
 
     protected processGetManualTransactionForView(response: HttpResponseBase): Observable<GetManualTransactionForViewDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -10068,7 +10066,7 @@ export class ManualTransactionsServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     getManualTransactionForEdit(id: number | undefined): Observable<GetManualTransactionForEditOutput> {
@@ -10076,7 +10074,7 @@ export class ManualTransactionsServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -10103,8 +10101,8 @@ export class ManualTransactionsServiceProxy {
 
     protected processGetManualTransactionForEdit(response: HttpResponseBase): Observable<GetManualTransactionForEditOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -10124,7 +10122,7 @@ export class ManualTransactionsServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     createOrEdit(body: CreateOrEditManualTransactionDto | undefined): Observable<void> {
@@ -10138,7 +10136,7 @@ export class ManualTransactionsServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -10158,8 +10156,8 @@ export class ManualTransactionsServiceProxy {
 
     protected processCreateOrEdit(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -10176,7 +10174,7 @@ export class ManualTransactionsServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     delete(id: number | undefined): Observable<void> {
@@ -10184,7 +10182,7 @@ export class ManualTransactionsServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -10210,8 +10208,8 @@ export class ManualTransactionsServiceProxy {
 
     protected processDelete(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -10228,10 +10226,10 @@ export class ManualTransactionsServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param maxTransDateFilter (optional)
-     * @param minTransDateFilter (optional)
-     * @param userNameFilter (optional)
+     * @param filter (optional) 
+     * @param maxTransDateFilter (optional) 
+     * @param minTransDateFilter (optional) 
+     * @param userNameFilter (optional) 
      * @return Success
      */
     getManualTransactionsToExcel(filter: string | undefined, maxTransDateFilter: moment.Moment | undefined, minTransDateFilter: moment.Moment | undefined, userNameFilter: string | undefined): Observable<FileDto> {
@@ -10239,19 +10237,19 @@ export class ManualTransactionsServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (maxTransDateFilter === null)
             throw new Error("The parameter 'maxTransDateFilter' cannot be null.");
         else if (maxTransDateFilter !== undefined)
-            url_ += "MaxTransDateFilter=" + encodeURIComponent(maxTransDateFilter ? "" + maxTransDateFilter.toJSON() : "") + "&";
+            url_ += "MaxTransDateFilter=" + encodeURIComponent(maxTransDateFilter ? "" + maxTransDateFilter.toJSON() : "") + "&"; 
         if (minTransDateFilter === null)
             throw new Error("The parameter 'minTransDateFilter' cannot be null.");
         else if (minTransDateFilter !== undefined)
-            url_ += "MinTransDateFilter=" + encodeURIComponent(minTransDateFilter ? "" + minTransDateFilter.toJSON() : "") + "&";
+            url_ += "MinTransDateFilter=" + encodeURIComponent(minTransDateFilter ? "" + minTransDateFilter.toJSON() : "") + "&"; 
         if (userNameFilter === null)
             throw new Error("The parameter 'userNameFilter' cannot be null.");
         else if (userNameFilter !== undefined)
-            url_ += "UserNameFilter=" + encodeURIComponent("" + userNameFilter) + "&";
+            url_ += "UserNameFilter=" + encodeURIComponent("" + userNameFilter) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -10278,8 +10276,8 @@ export class ManualTransactionsServiceProxy {
 
     protected processGetManualTransactionsToExcel(response: HttpResponseBase): Observable<FileDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -10299,10 +10297,10 @@ export class ManualTransactionsServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param sorting (optional)
-     * @param skipCount (optional)
-     * @param maxResultCount (optional)
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
      * @return Success
      */
     getAllUserForLookupTable(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfManualTransactionUserLookupTableDto> {
@@ -10310,19 +10308,19 @@ export class ManualTransactionsServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
         if (skipCount === null)
             throw new Error("The parameter 'skipCount' cannot be null.");
         else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
         if (maxResultCount === null)
             throw new Error("The parameter 'maxResultCount' cannot be null.");
         else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -10349,8 +10347,8 @@ export class ManualTransactionsServiceProxy {
 
     protected processGetAllUserForLookupTable(response: HttpResponseBase): Observable<PagedResultDtoOfManualTransactionUserLookupTableDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -10382,13 +10380,13 @@ export class MobileTransactionsServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param maxSiteIdFilter (optional)
-     * @param minSiteIdFilter (optional)
-     * @param siteNameFilter (optional)
-     * @param sorting (optional)
-     * @param skipCount (optional)
-     * @param maxResultCount (optional)
+     * @param filter (optional) 
+     * @param maxSiteIdFilter (optional) 
+     * @param minSiteIdFilter (optional) 
+     * @param siteNameFilter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
      * @return Success
      */
     getAll(filter: string | undefined, maxSiteIdFilter: number | undefined, minSiteIdFilter: number | undefined, siteNameFilter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetMobileTransactionForViewDto> {
@@ -10396,31 +10394,31 @@ export class MobileTransactionsServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (maxSiteIdFilter === null)
             throw new Error("The parameter 'maxSiteIdFilter' cannot be null.");
         else if (maxSiteIdFilter !== undefined)
-            url_ += "MaxSiteIdFilter=" + encodeURIComponent("" + maxSiteIdFilter) + "&";
+            url_ += "MaxSiteIdFilter=" + encodeURIComponent("" + maxSiteIdFilter) + "&"; 
         if (minSiteIdFilter === null)
             throw new Error("The parameter 'minSiteIdFilter' cannot be null.");
         else if (minSiteIdFilter !== undefined)
-            url_ += "MinSiteIdFilter=" + encodeURIComponent("" + minSiteIdFilter) + "&";
+            url_ += "MinSiteIdFilter=" + encodeURIComponent("" + minSiteIdFilter) + "&"; 
         if (siteNameFilter === null)
             throw new Error("The parameter 'siteNameFilter' cannot be null.");
         else if (siteNameFilter !== undefined)
-            url_ += "SiteNameFilter=" + encodeURIComponent("" + siteNameFilter) + "&";
+            url_ += "SiteNameFilter=" + encodeURIComponent("" + siteNameFilter) + "&"; 
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
         if (skipCount === null)
             throw new Error("The parameter 'skipCount' cannot be null.");
         else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
         if (maxResultCount === null)
             throw new Error("The parameter 'maxResultCount' cannot be null.");
         else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -10447,8 +10445,8 @@ export class MobileTransactionsServiceProxy {
 
     protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfGetMobileTransactionForViewDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -10468,7 +10466,7 @@ export class MobileTransactionsServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     getMobileTransactionForEdit(id: number | undefined): Observable<GetMobileTransactionForEditOutput> {
@@ -10476,7 +10474,7 @@ export class MobileTransactionsServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -10503,8 +10501,8 @@ export class MobileTransactionsServiceProxy {
 
     protected processGetMobileTransactionForEdit(response: HttpResponseBase): Observable<GetMobileTransactionForEditOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -10524,7 +10522,7 @@ export class MobileTransactionsServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     createOrEdit(body: CreateOrEditMobileTransactionDto | undefined): Observable<void> {
@@ -10538,7 +10536,7 @@ export class MobileTransactionsServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -10558,8 +10556,8 @@ export class MobileTransactionsServiceProxy {
 
     protected processCreateOrEdit(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -10576,7 +10574,7 @@ export class MobileTransactionsServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     delete(id: number | undefined): Observable<void> {
@@ -10584,7 +10582,7 @@ export class MobileTransactionsServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -10610,8 +10608,8 @@ export class MobileTransactionsServiceProxy {
 
     protected processDelete(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -10628,10 +10626,10 @@ export class MobileTransactionsServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param maxSiteIdFilter (optional)
-     * @param minSiteIdFilter (optional)
-     * @param siteNameFilter (optional)
+     * @param filter (optional) 
+     * @param maxSiteIdFilter (optional) 
+     * @param minSiteIdFilter (optional) 
+     * @param siteNameFilter (optional) 
      * @return Success
      */
     getMobileTransactionsToExcel(filter: string | undefined, maxSiteIdFilter: number | undefined, minSiteIdFilter: number | undefined, siteNameFilter: string | undefined): Observable<FileDto> {
@@ -10639,19 +10637,19 @@ export class MobileTransactionsServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (maxSiteIdFilter === null)
             throw new Error("The parameter 'maxSiteIdFilter' cannot be null.");
         else if (maxSiteIdFilter !== undefined)
-            url_ += "MaxSiteIdFilter=" + encodeURIComponent("" + maxSiteIdFilter) + "&";
+            url_ += "MaxSiteIdFilter=" + encodeURIComponent("" + maxSiteIdFilter) + "&"; 
         if (minSiteIdFilter === null)
             throw new Error("The parameter 'minSiteIdFilter' cannot be null.");
         else if (minSiteIdFilter !== undefined)
-            url_ += "MinSiteIdFilter=" + encodeURIComponent("" + minSiteIdFilter) + "&";
+            url_ += "MinSiteIdFilter=" + encodeURIComponent("" + minSiteIdFilter) + "&"; 
         if (siteNameFilter === null)
             throw new Error("The parameter 'siteNameFilter' cannot be null.");
         else if (siteNameFilter !== undefined)
-            url_ += "SiteNameFilter=" + encodeURIComponent("" + siteNameFilter) + "&";
+            url_ += "SiteNameFilter=" + encodeURIComponent("" + siteNameFilter) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -10678,8 +10676,8 @@ export class MobileTransactionsServiceProxy {
 
     protected processGetMobileTransactionsToExcel(response: HttpResponseBase): Observable<FileDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -10699,7 +10697,7 @@ export class MobileTransactionsServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     checkEmpLocation(body: CheckEmpLocationInputModel | undefined): Observable<CheckEmpLocationOutputModel> {
@@ -10713,7 +10711,7 @@ export class MobileTransactionsServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
                 "Accept": "text/plain"
             })
         };
@@ -10734,8 +10732,8 @@ export class MobileTransactionsServiceProxy {
 
     protected processCheckEmpLocation(response: HttpResponseBase): Observable<CheckEmpLocationOutputModel> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -10755,7 +10753,7 @@ export class MobileTransactionsServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     insertTransaction(body: InsertTransactionInputModel | undefined): Observable<InsertTransactionOutputModel> {
@@ -10769,7 +10767,7 @@ export class MobileTransactionsServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
                 "Accept": "text/plain"
             })
         };
@@ -10790,8 +10788,8 @@ export class MobileTransactionsServiceProxy {
 
     protected processInsertTransaction(response: HttpResponseBase): Observable<InsertTransactionOutputModel> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -10811,7 +10809,7 @@ export class MobileTransactionsServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     report(body: ReportInputModel | undefined): Observable<ReportOutputModel> {
@@ -10825,7 +10823,7 @@ export class MobileTransactionsServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
                 "Accept": "text/plain"
             })
         };
@@ -10846,8 +10844,8 @@ export class MobileTransactionsServiceProxy {
 
     protected processReport(response: HttpResponseBase): Observable<ReportOutputModel> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -10867,7 +10865,7 @@ export class MobileTransactionsServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     getLastTransaction(body: LastTransactionInputModel | undefined): Observable<LastTransOutputModel> {
@@ -10881,7 +10879,7 @@ export class MobileTransactionsServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
                 "Accept": "text/plain"
             })
         };
@@ -10902,8 +10900,8 @@ export class MobileTransactionsServiceProxy {
 
     protected processGetLastTransaction(response: HttpResponseBase): Observable<LastTransOutputModel> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -10923,7 +10921,7 @@ export class MobileTransactionsServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     getEmpLocations(body: ReportInputModel | undefined): Observable<GetEmpLocationsOutputModel> {
@@ -10937,7 +10935,7 @@ export class MobileTransactionsServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
                 "Accept": "text/plain"
             })
         };
@@ -10958,8 +10956,8 @@ export class MobileTransactionsServiceProxy {
 
     protected processGetEmpLocations(response: HttpResponseBase): Observable<GetEmpLocationsOutputModel> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -10991,12 +10989,12 @@ export class MobileWebPagesServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param nameFilter (optional)
-     * @param contentFilter (optional)
-     * @param sorting (optional)
-     * @param skipCount (optional)
-     * @param maxResultCount (optional)
+     * @param filter (optional) 
+     * @param nameFilter (optional) 
+     * @param contentFilter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
      * @return Success
      */
     getAll(filter: string | undefined, nameFilter: string | undefined, contentFilter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetMobileWebPageForViewDto> {
@@ -11004,27 +11002,27 @@ export class MobileWebPagesServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (nameFilter === null)
             throw new Error("The parameter 'nameFilter' cannot be null.");
         else if (nameFilter !== undefined)
-            url_ += "NameFilter=" + encodeURIComponent("" + nameFilter) + "&";
+            url_ += "NameFilter=" + encodeURIComponent("" + nameFilter) + "&"; 
         if (contentFilter === null)
             throw new Error("The parameter 'contentFilter' cannot be null.");
         else if (contentFilter !== undefined)
-            url_ += "ContentFilter=" + encodeURIComponent("" + contentFilter) + "&";
+            url_ += "ContentFilter=" + encodeURIComponent("" + contentFilter) + "&"; 
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
         if (skipCount === null)
             throw new Error("The parameter 'skipCount' cannot be null.");
         else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
         if (maxResultCount === null)
             throw new Error("The parameter 'maxResultCount' cannot be null.");
         else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -11051,8 +11049,8 @@ export class MobileWebPagesServiceProxy {
 
     protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfGetMobileWebPageForViewDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -11072,7 +11070,7 @@ export class MobileWebPagesServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     getMobileWebPageForView(id: number | undefined): Observable<GetMobileWebPageForViewDto> {
@@ -11080,7 +11078,7 @@ export class MobileWebPagesServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "id=" + encodeURIComponent("" + id) + "&";
+            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -11107,8 +11105,8 @@ export class MobileWebPagesServiceProxy {
 
     protected processGetMobileWebPageForView(response: HttpResponseBase): Observable<GetMobileWebPageForViewDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -11128,7 +11126,7 @@ export class MobileWebPagesServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     getMobileWebPageForEdit(id: number | undefined): Observable<GetMobileWebPageForEditOutput> {
@@ -11136,7 +11134,7 @@ export class MobileWebPagesServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -11163,8 +11161,8 @@ export class MobileWebPagesServiceProxy {
 
     protected processGetMobileWebPageForEdit(response: HttpResponseBase): Observable<GetMobileWebPageForEditOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -11184,7 +11182,7 @@ export class MobileWebPagesServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     createOrEdit(body: CreateOrEditMobileWebPageDto | undefined): Observable<void> {
@@ -11198,7 +11196,7 @@ export class MobileWebPagesServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -11218,8 +11216,8 @@ export class MobileWebPagesServiceProxy {
 
     protected processCreateOrEdit(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -11236,7 +11234,7 @@ export class MobileWebPagesServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     delete(id: number | undefined): Observable<void> {
@@ -11244,7 +11242,7 @@ export class MobileWebPagesServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -11270,8 +11268,8 @@ export class MobileWebPagesServiceProxy {
 
     protected processDelete(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -11288,9 +11286,9 @@ export class MobileWebPagesServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param nameFilter (optional)
-     * @param contentFilter (optional)
+     * @param filter (optional) 
+     * @param nameFilter (optional) 
+     * @param contentFilter (optional) 
      * @return Success
      */
     getMobileWebPagesToExcel(filter: string | undefined, nameFilter: string | undefined, contentFilter: string | undefined): Observable<FileDto> {
@@ -11298,15 +11296,15 @@ export class MobileWebPagesServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (nameFilter === null)
             throw new Error("The parameter 'nameFilter' cannot be null.");
         else if (nameFilter !== undefined)
-            url_ += "NameFilter=" + encodeURIComponent("" + nameFilter) + "&";
+            url_ += "NameFilter=" + encodeURIComponent("" + nameFilter) + "&"; 
         if (contentFilter === null)
             throw new Error("The parameter 'contentFilter' cannot be null.");
         else if (contentFilter !== undefined)
-            url_ += "ContentFilter=" + encodeURIComponent("" + contentFilter) + "&";
+            url_ += "ContentFilter=" + encodeURIComponent("" + contentFilter) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -11333,8 +11331,8 @@ export class MobileWebPagesServiceProxy {
 
     protected processGetMobileWebPagesToExcel(response: HttpResponseBase): Observable<FileDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -11352,6 +11350,62 @@ export class MobileWebPagesServiceProxy {
         }
         return _observableOf<FileDto>(<any>null);
     }
+
+    /**
+     * @param name (optional) 
+     * @return Success
+     */
+    getMobileWebPageByName(name: string | undefined): Observable<GetMobileWebPageForViewDto> {
+        let url_ = this.baseUrl + "/api/services/app/MobileWebPages/GetMobileWebPageByName?";
+        if (name === null)
+            throw new Error("The parameter 'name' cannot be null.");
+        else if (name !== undefined)
+            url_ += "name=" + encodeURIComponent("" + name) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetMobileWebPageByName(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetMobileWebPageByName(<any>response_);
+                } catch (e) {
+                    return <Observable<GetMobileWebPageForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetMobileWebPageForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetMobileWebPageByName(response: HttpResponseBase): Observable<GetMobileWebPageForViewDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetMobileWebPageForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetMobileWebPageForViewDto>(<any>null);
+    }
 }
 
 @Injectable()
@@ -11366,10 +11420,10 @@ export class NationalitiesServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param sorting (optional)
-     * @param skipCount (optional)
-     * @param maxResultCount (optional)
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
      * @return Success
      */
     getAll(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetNationalityForViewDto> {
@@ -11377,19 +11431,19 @@ export class NationalitiesServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
         if (skipCount === null)
             throw new Error("The parameter 'skipCount' cannot be null.");
         else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
         if (maxResultCount === null)
             throw new Error("The parameter 'maxResultCount' cannot be null.");
         else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -11416,8 +11470,8 @@ export class NationalitiesServiceProxy {
 
     protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfGetNationalityForViewDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -11437,7 +11491,7 @@ export class NationalitiesServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     getNationalityForEdit(id: number | undefined): Observable<GetNationalityForEditOutput> {
@@ -11445,7 +11499,7 @@ export class NationalitiesServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -11472,8 +11526,8 @@ export class NationalitiesServiceProxy {
 
     protected processGetNationalityForEdit(response: HttpResponseBase): Observable<GetNationalityForEditOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -11493,7 +11547,7 @@ export class NationalitiesServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     createOrEdit(body: CreateOrEditNationalityDto | undefined): Observable<void> {
@@ -11507,7 +11561,7 @@ export class NationalitiesServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -11527,8 +11581,8 @@ export class NationalitiesServiceProxy {
 
     protected processCreateOrEdit(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -11545,7 +11599,7 @@ export class NationalitiesServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     delete(id: number | undefined): Observable<void> {
@@ -11553,7 +11607,7 @@ export class NationalitiesServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -11579,8 +11633,8 @@ export class NationalitiesServiceProxy {
 
     protected processDelete(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -11609,11 +11663,11 @@ export class NotificationServiceProxy {
     }
 
     /**
-     * @param state (optional)
-     * @param startDate (optional)
-     * @param endDate (optional)
-     * @param maxResultCount (optional)
-     * @param skipCount (optional)
+     * @param state (optional) 
+     * @param startDate (optional) 
+     * @param endDate (optional) 
+     * @param maxResultCount (optional) 
+     * @param skipCount (optional) 
      * @return Success
      */
     getUserNotifications(state: UserNotificationState | undefined, startDate: moment.Moment | undefined, endDate: moment.Moment | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<GetNotificationsOutput> {
@@ -11621,23 +11675,23 @@ export class NotificationServiceProxy {
         if (state === null)
             throw new Error("The parameter 'state' cannot be null.");
         else if (state !== undefined)
-            url_ += "State=" + encodeURIComponent("" + state) + "&";
+            url_ += "State=" + encodeURIComponent("" + state) + "&"; 
         if (startDate === null)
             throw new Error("The parameter 'startDate' cannot be null.");
         else if (startDate !== undefined)
-            url_ += "StartDate=" + encodeURIComponent(startDate ? "" + startDate.toJSON() : "") + "&";
+            url_ += "StartDate=" + encodeURIComponent(startDate ? "" + startDate.toJSON() : "") + "&"; 
         if (endDate === null)
             throw new Error("The parameter 'endDate' cannot be null.");
         else if (endDate !== undefined)
-            url_ += "EndDate=" + encodeURIComponent(endDate ? "" + endDate.toJSON() : "") + "&";
+            url_ += "EndDate=" + encodeURIComponent(endDate ? "" + endDate.toJSON() : "") + "&"; 
         if (maxResultCount === null)
             throw new Error("The parameter 'maxResultCount' cannot be null.");
         else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
         if (skipCount === null)
             throw new Error("The parameter 'skipCount' cannot be null.");
         else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -11664,8 +11718,8 @@ export class NotificationServiceProxy {
 
     protected processGetUserNotifications(response: HttpResponseBase): Observable<GetNotificationsOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -11714,8 +11768,8 @@ export class NotificationServiceProxy {
 
     protected processSetAllNotificationsAsRead(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -11732,7 +11786,7 @@ export class NotificationServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     setNotificationAsRead(body: EntityDtoOfGuid | undefined): Observable<void> {
@@ -11746,7 +11800,7 @@ export class NotificationServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -11766,8 +11820,8 @@ export class NotificationServiceProxy {
 
     protected processSetNotificationAsRead(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -11814,8 +11868,8 @@ export class NotificationServiceProxy {
 
     protected processGetNotificationSettings(response: HttpResponseBase): Observable<GetNotificationSettingsOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -11835,7 +11889,7 @@ export class NotificationServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     updateNotificationSettings(body: UpdateNotificationSettingsInput | undefined): Observable<void> {
@@ -11849,7 +11903,7 @@ export class NotificationServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -11869,8 +11923,8 @@ export class NotificationServiceProxy {
 
     protected processUpdateNotificationSettings(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -11887,7 +11941,7 @@ export class NotificationServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     deleteNotification(id: string | undefined): Observable<void> {
@@ -11895,7 +11949,7 @@ export class NotificationServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -11921,8 +11975,8 @@ export class NotificationServiceProxy {
 
     protected processDeleteNotification(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -11939,9 +11993,9 @@ export class NotificationServiceProxy {
     }
 
     /**
-     * @param state (optional)
-     * @param startDate (optional)
-     * @param endDate (optional)
+     * @param state (optional) 
+     * @param startDate (optional) 
+     * @param endDate (optional) 
      * @return Success
      */
     deleteAllUserNotifications(state: UserNotificationState | undefined, startDate: moment.Moment | undefined, endDate: moment.Moment | undefined): Observable<void> {
@@ -11949,15 +12003,15 @@ export class NotificationServiceProxy {
         if (state === null)
             throw new Error("The parameter 'state' cannot be null.");
         else if (state !== undefined)
-            url_ += "State=" + encodeURIComponent("" + state) + "&";
+            url_ += "State=" + encodeURIComponent("" + state) + "&"; 
         if (startDate === null)
             throw new Error("The parameter 'startDate' cannot be null.");
         else if (startDate !== undefined)
-            url_ += "StartDate=" + encodeURIComponent(startDate ? "" + startDate.toJSON() : "") + "&";
+            url_ += "StartDate=" + encodeURIComponent(startDate ? "" + startDate.toJSON() : "") + "&"; 
         if (endDate === null)
             throw new Error("The parameter 'endDate' cannot be null.");
         else if (endDate !== undefined)
-            url_ += "EndDate=" + encodeURIComponent(endDate ? "" + endDate.toJSON() : "") + "&";
+            url_ += "EndDate=" + encodeURIComponent(endDate ? "" + endDate.toJSON() : "") + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -11983,8 +12037,8 @@ export class NotificationServiceProxy {
 
     protected processDeleteAllUserNotifications(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -12013,15 +12067,15 @@ export class OfficialTaskTypesServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param nameArFilter (optional)
-     * @param nameEnFilter (optional)
-     * @param typeInFilter (optional)
-     * @param typeOutFilter (optional)
-     * @param typeInOutFilter (optional)
-     * @param sorting (optional)
-     * @param skipCount (optional)
-     * @param maxResultCount (optional)
+     * @param filter (optional) 
+     * @param nameArFilter (optional) 
+     * @param nameEnFilter (optional) 
+     * @param typeInFilter (optional) 
+     * @param typeOutFilter (optional) 
+     * @param typeInOutFilter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
      * @return Success
      */
     getAll(filter: string | undefined, nameArFilter: string | undefined, nameEnFilter: string | undefined, typeInFilter: number | undefined, typeOutFilter: number | undefined, typeInOutFilter: number | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetOfficialTaskTypeForViewDto> {
@@ -12029,39 +12083,39 @@ export class OfficialTaskTypesServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (nameArFilter === null)
             throw new Error("The parameter 'nameArFilter' cannot be null.");
         else if (nameArFilter !== undefined)
-            url_ += "NameArFilter=" + encodeURIComponent("" + nameArFilter) + "&";
+            url_ += "NameArFilter=" + encodeURIComponent("" + nameArFilter) + "&"; 
         if (nameEnFilter === null)
             throw new Error("The parameter 'nameEnFilter' cannot be null.");
         else if (nameEnFilter !== undefined)
-            url_ += "NameEnFilter=" + encodeURIComponent("" + nameEnFilter) + "&";
+            url_ += "NameEnFilter=" + encodeURIComponent("" + nameEnFilter) + "&"; 
         if (typeInFilter === null)
             throw new Error("The parameter 'typeInFilter' cannot be null.");
         else if (typeInFilter !== undefined)
-            url_ += "TypeInFilter=" + encodeURIComponent("" + typeInFilter) + "&";
+            url_ += "TypeInFilter=" + encodeURIComponent("" + typeInFilter) + "&"; 
         if (typeOutFilter === null)
             throw new Error("The parameter 'typeOutFilter' cannot be null.");
         else if (typeOutFilter !== undefined)
-            url_ += "TypeOutFilter=" + encodeURIComponent("" + typeOutFilter) + "&";
+            url_ += "TypeOutFilter=" + encodeURIComponent("" + typeOutFilter) + "&"; 
         if (typeInOutFilter === null)
             throw new Error("The parameter 'typeInOutFilter' cannot be null.");
         else if (typeInOutFilter !== undefined)
-            url_ += "TypeInOutFilter=" + encodeURIComponent("" + typeInOutFilter) + "&";
+            url_ += "TypeInOutFilter=" + encodeURIComponent("" + typeInOutFilter) + "&"; 
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
         if (skipCount === null)
             throw new Error("The parameter 'skipCount' cannot be null.");
         else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
         if (maxResultCount === null)
             throw new Error("The parameter 'maxResultCount' cannot be null.");
         else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -12088,8 +12142,8 @@ export class OfficialTaskTypesServiceProxy {
 
     protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfGetOfficialTaskTypeForViewDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -12109,7 +12163,7 @@ export class OfficialTaskTypesServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     getOfficialTaskTypeForView(id: number | undefined): Observable<GetOfficialTaskTypeForViewDto> {
@@ -12117,7 +12171,7 @@ export class OfficialTaskTypesServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "id=" + encodeURIComponent("" + id) + "&";
+            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -12144,8 +12198,8 @@ export class OfficialTaskTypesServiceProxy {
 
     protected processGetOfficialTaskTypeForView(response: HttpResponseBase): Observable<GetOfficialTaskTypeForViewDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -12165,7 +12219,7 @@ export class OfficialTaskTypesServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     getOfficialTaskTypeForEdit(id: number | undefined): Observable<GetOfficialTaskTypeForEditOutput> {
@@ -12173,7 +12227,7 @@ export class OfficialTaskTypesServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -12200,8 +12254,8 @@ export class OfficialTaskTypesServiceProxy {
 
     protected processGetOfficialTaskTypeForEdit(response: HttpResponseBase): Observable<GetOfficialTaskTypeForEditOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -12221,7 +12275,7 @@ export class OfficialTaskTypesServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     createOrEdit(body: CreateOrEditOfficialTaskTypeDto | undefined): Observable<void> {
@@ -12235,7 +12289,7 @@ export class OfficialTaskTypesServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -12255,8 +12309,8 @@ export class OfficialTaskTypesServiceProxy {
 
     protected processCreateOrEdit(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -12273,7 +12327,7 @@ export class OfficialTaskTypesServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     delete(id: number | undefined): Observable<void> {
@@ -12281,7 +12335,7 @@ export class OfficialTaskTypesServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -12307,8 +12361,8 @@ export class OfficialTaskTypesServiceProxy {
 
     protected processDelete(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -12325,12 +12379,12 @@ export class OfficialTaskTypesServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param nameArFilter (optional)
-     * @param nameEnFilter (optional)
-     * @param typeInFilter (optional)
-     * @param typeOutFilter (optional)
-     * @param typeInOutFilter (optional)
+     * @param filter (optional) 
+     * @param nameArFilter (optional) 
+     * @param nameEnFilter (optional) 
+     * @param typeInFilter (optional) 
+     * @param typeOutFilter (optional) 
+     * @param typeInOutFilter (optional) 
      * @return Success
      */
     getOfficialTaskTypesToExcel(filter: string | undefined, nameArFilter: string | undefined, nameEnFilter: string | undefined, typeInFilter: number | undefined, typeOutFilter: number | undefined, typeInOutFilter: number | undefined): Observable<FileDto> {
@@ -12338,27 +12392,27 @@ export class OfficialTaskTypesServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (nameArFilter === null)
             throw new Error("The parameter 'nameArFilter' cannot be null.");
         else if (nameArFilter !== undefined)
-            url_ += "NameArFilter=" + encodeURIComponent("" + nameArFilter) + "&";
+            url_ += "NameArFilter=" + encodeURIComponent("" + nameArFilter) + "&"; 
         if (nameEnFilter === null)
             throw new Error("The parameter 'nameEnFilter' cannot be null.");
         else if (nameEnFilter !== undefined)
-            url_ += "NameEnFilter=" + encodeURIComponent("" + nameEnFilter) + "&";
+            url_ += "NameEnFilter=" + encodeURIComponent("" + nameEnFilter) + "&"; 
         if (typeInFilter === null)
             throw new Error("The parameter 'typeInFilter' cannot be null.");
         else if (typeInFilter !== undefined)
-            url_ += "TypeInFilter=" + encodeURIComponent("" + typeInFilter) + "&";
+            url_ += "TypeInFilter=" + encodeURIComponent("" + typeInFilter) + "&"; 
         if (typeOutFilter === null)
             throw new Error("The parameter 'typeOutFilter' cannot be null.");
         else if (typeOutFilter !== undefined)
-            url_ += "TypeOutFilter=" + encodeURIComponent("" + typeOutFilter) + "&";
+            url_ += "TypeOutFilter=" + encodeURIComponent("" + typeOutFilter) + "&"; 
         if (typeInOutFilter === null)
             throw new Error("The parameter 'typeInOutFilter' cannot be null.");
         else if (typeInOutFilter !== undefined)
-            url_ += "TypeInOutFilter=" + encodeURIComponent("" + typeInOutFilter) + "&";
+            url_ += "TypeInOutFilter=" + encodeURIComponent("" + typeInOutFilter) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -12385,8 +12439,8 @@ export class OfficialTaskTypesServiceProxy {
 
     protected processGetOfficialTaskTypesToExcel(response: HttpResponseBase): Observable<FileDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -12448,8 +12502,8 @@ export class OrganizationUnitServiceProxy {
 
     protected processGetOrganizationUnits(response: HttpResponseBase): Observable<ListResultDtoOfOrganizationUnitDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -12469,10 +12523,10 @@ export class OrganizationUnitServiceProxy {
     }
 
     /**
-     * @param id (optional)
-     * @param sorting (optional)
-     * @param maxResultCount (optional)
-     * @param skipCount (optional)
+     * @param id (optional) 
+     * @param sorting (optional) 
+     * @param maxResultCount (optional) 
+     * @param skipCount (optional) 
      * @return Success
      */
     getOrganizationUnitUsers(id: number | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<PagedResultDtoOfOrganizationUnitUserListDto> {
@@ -12480,19 +12534,19 @@ export class OrganizationUnitServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
         if (maxResultCount === null)
             throw new Error("The parameter 'maxResultCount' cannot be null.");
         else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
         if (skipCount === null)
             throw new Error("The parameter 'skipCount' cannot be null.");
         else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -12519,8 +12573,8 @@ export class OrganizationUnitServiceProxy {
 
     protected processGetOrganizationUnitUsers(response: HttpResponseBase): Observable<PagedResultDtoOfOrganizationUnitUserListDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -12540,10 +12594,10 @@ export class OrganizationUnitServiceProxy {
     }
 
     /**
-     * @param id (optional)
-     * @param sorting (optional)
-     * @param maxResultCount (optional)
-     * @param skipCount (optional)
+     * @param id (optional) 
+     * @param sorting (optional) 
+     * @param maxResultCount (optional) 
+     * @param skipCount (optional) 
      * @return Success
      */
     getOrganizationUnitRoles(id: number | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<PagedResultDtoOfOrganizationUnitRoleListDto> {
@@ -12551,19 +12605,19 @@ export class OrganizationUnitServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
         if (maxResultCount === null)
             throw new Error("The parameter 'maxResultCount' cannot be null.");
         else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
         if (skipCount === null)
             throw new Error("The parameter 'skipCount' cannot be null.");
         else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -12590,8 +12644,8 @@ export class OrganizationUnitServiceProxy {
 
     protected processGetOrganizationUnitRoles(response: HttpResponseBase): Observable<PagedResultDtoOfOrganizationUnitRoleListDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -12611,7 +12665,7 @@ export class OrganizationUnitServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     createOrganizationUnit(body: CreateOrganizationUnitInput | undefined): Observable<OrganizationUnitDto> {
@@ -12625,7 +12679,7 @@ export class OrganizationUnitServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
                 "Accept": "text/plain"
             })
         };
@@ -12646,8 +12700,8 @@ export class OrganizationUnitServiceProxy {
 
     protected processCreateOrganizationUnit(response: HttpResponseBase): Observable<OrganizationUnitDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -12667,7 +12721,7 @@ export class OrganizationUnitServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     updateOrganizationUnit(body: UpdateOrganizationUnitInput | undefined): Observable<OrganizationUnitDto> {
@@ -12681,7 +12735,7 @@ export class OrganizationUnitServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
                 "Accept": "text/plain"
             })
         };
@@ -12702,8 +12756,8 @@ export class OrganizationUnitServiceProxy {
 
     protected processUpdateOrganizationUnit(response: HttpResponseBase): Observable<OrganizationUnitDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -12723,7 +12777,7 @@ export class OrganizationUnitServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     moveOrganizationUnit(body: MoveOrganizationUnitInput | undefined): Observable<OrganizationUnitDto> {
@@ -12737,7 +12791,7 @@ export class OrganizationUnitServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
                 "Accept": "text/plain"
             })
         };
@@ -12758,8 +12812,8 @@ export class OrganizationUnitServiceProxy {
 
     protected processMoveOrganizationUnit(response: HttpResponseBase): Observable<OrganizationUnitDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -12779,7 +12833,7 @@ export class OrganizationUnitServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     deleteOrganizationUnit(id: number | undefined): Observable<void> {
@@ -12787,7 +12841,7 @@ export class OrganizationUnitServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -12813,8 +12867,8 @@ export class OrganizationUnitServiceProxy {
 
     protected processDeleteOrganizationUnit(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -12831,8 +12885,8 @@ export class OrganizationUnitServiceProxy {
     }
 
     /**
-     * @param userId (optional)
-     * @param organizationUnitId (optional)
+     * @param userId (optional) 
+     * @param organizationUnitId (optional) 
      * @return Success
      */
     removeUserFromOrganizationUnit(userId: number | undefined, organizationUnitId: number | undefined): Observable<void> {
@@ -12840,11 +12894,11 @@ export class OrganizationUnitServiceProxy {
         if (userId === null)
             throw new Error("The parameter 'userId' cannot be null.");
         else if (userId !== undefined)
-            url_ += "UserId=" + encodeURIComponent("" + userId) + "&";
+            url_ += "UserId=" + encodeURIComponent("" + userId) + "&"; 
         if (organizationUnitId === null)
             throw new Error("The parameter 'organizationUnitId' cannot be null.");
         else if (organizationUnitId !== undefined)
-            url_ += "OrganizationUnitId=" + encodeURIComponent("" + organizationUnitId) + "&";
+            url_ += "OrganizationUnitId=" + encodeURIComponent("" + organizationUnitId) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -12870,8 +12924,8 @@ export class OrganizationUnitServiceProxy {
 
     protected processRemoveUserFromOrganizationUnit(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -12888,8 +12942,8 @@ export class OrganizationUnitServiceProxy {
     }
 
     /**
-     * @param roleId (optional)
-     * @param organizationUnitId (optional)
+     * @param roleId (optional) 
+     * @param organizationUnitId (optional) 
      * @return Success
      */
     removeRoleFromOrganizationUnit(roleId: number | undefined, organizationUnitId: number | undefined): Observable<void> {
@@ -12897,11 +12951,11 @@ export class OrganizationUnitServiceProxy {
         if (roleId === null)
             throw new Error("The parameter 'roleId' cannot be null.");
         else if (roleId !== undefined)
-            url_ += "RoleId=" + encodeURIComponent("" + roleId) + "&";
+            url_ += "RoleId=" + encodeURIComponent("" + roleId) + "&"; 
         if (organizationUnitId === null)
             throw new Error("The parameter 'organizationUnitId' cannot be null.");
         else if (organizationUnitId !== undefined)
-            url_ += "OrganizationUnitId=" + encodeURIComponent("" + organizationUnitId) + "&";
+            url_ += "OrganizationUnitId=" + encodeURIComponent("" + organizationUnitId) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -12927,8 +12981,8 @@ export class OrganizationUnitServiceProxy {
 
     protected processRemoveRoleFromOrganizationUnit(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -12945,7 +12999,7 @@ export class OrganizationUnitServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     addUsersToOrganizationUnit(body: UsersToOrganizationUnitInput | undefined): Observable<void> {
@@ -12959,7 +13013,7 @@ export class OrganizationUnitServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -12979,8 +13033,8 @@ export class OrganizationUnitServiceProxy {
 
     protected processAddUsersToOrganizationUnit(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -12997,7 +13051,7 @@ export class OrganizationUnitServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     addRolesToOrganizationUnit(body: RolesToOrganizationUnitInput | undefined): Observable<void> {
@@ -13011,7 +13065,7 @@ export class OrganizationUnitServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -13031,8 +13085,8 @@ export class OrganizationUnitServiceProxy {
 
     protected processAddRolesToOrganizationUnit(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -13049,7 +13103,7 @@ export class OrganizationUnitServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     findUsers(body: FindOrganizationUnitUsersInput | undefined): Observable<PagedResultDtoOfNameValueDto> {
@@ -13063,7 +13117,7 @@ export class OrganizationUnitServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
                 "Accept": "text/plain"
             })
         };
@@ -13084,8 +13138,8 @@ export class OrganizationUnitServiceProxy {
 
     protected processFindUsers(response: HttpResponseBase): Observable<PagedResultDtoOfNameValueDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -13105,7 +13159,7 @@ export class OrganizationUnitServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     findRoles(body: FindOrganizationUnitRolesInput | undefined): Observable<PagedResultDtoOfNameValueDto> {
@@ -13119,7 +13173,7 @@ export class OrganizationUnitServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
                 "Accept": "text/plain"
             })
         };
@@ -13140,8 +13194,8 @@ export class OrganizationUnitServiceProxy {
 
     protected processFindRoles(response: HttpResponseBase): Observable<PagedResultDtoOfNameValueDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -13173,7 +13227,7 @@ export class PaymentServiceProxy {
     }
 
     /**
-     * @param upgradeEditionId (optional)
+     * @param upgradeEditionId (optional) 
      * @return Success
      */
     getPaymentInfo(upgradeEditionId: number | undefined): Observable<PaymentInfoDto> {
@@ -13181,7 +13235,7 @@ export class PaymentServiceProxy {
         if (upgradeEditionId === null)
             throw new Error("The parameter 'upgradeEditionId' cannot be null.");
         else if (upgradeEditionId !== undefined)
-            url_ += "UpgradeEditionId=" + encodeURIComponent("" + upgradeEditionId) + "&";
+            url_ += "UpgradeEditionId=" + encodeURIComponent("" + upgradeEditionId) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -13208,8 +13262,8 @@ export class PaymentServiceProxy {
 
     protected processGetPaymentInfo(response: HttpResponseBase): Observable<PaymentInfoDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -13229,7 +13283,7 @@ export class PaymentServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     createPayment(body: CreatePaymentDto | undefined): Observable<number> {
@@ -13243,7 +13297,7 @@ export class PaymentServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
                 "Accept": "text/plain"
             })
         };
@@ -13264,8 +13318,8 @@ export class PaymentServiceProxy {
 
     protected processCreatePayment(response: HttpResponseBase): Observable<number> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -13285,7 +13339,7 @@ export class PaymentServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     cancelPayment(body: CancelPaymentDto | undefined): Observable<void> {
@@ -13299,7 +13353,7 @@ export class PaymentServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -13319,8 +13373,8 @@ export class PaymentServiceProxy {
 
     protected processCancelPayment(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -13337,9 +13391,9 @@ export class PaymentServiceProxy {
     }
 
     /**
-     * @param sorting (optional)
-     * @param maxResultCount (optional)
-     * @param skipCount (optional)
+     * @param sorting (optional) 
+     * @param maxResultCount (optional) 
+     * @param skipCount (optional) 
      * @return Success
      */
     getPaymentHistory(sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<PagedResultDtoOfSubscriptionPaymentListDto> {
@@ -13347,15 +13401,15 @@ export class PaymentServiceProxy {
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
         if (maxResultCount === null)
             throw new Error("The parameter 'maxResultCount' cannot be null.");
         else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
         if (skipCount === null)
             throw new Error("The parameter 'skipCount' cannot be null.");
         else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -13382,8 +13436,8 @@ export class PaymentServiceProxy {
 
     protected processGetPaymentHistory(response: HttpResponseBase): Observable<PagedResultDtoOfSubscriptionPaymentListDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -13403,7 +13457,7 @@ export class PaymentServiceProxy {
     }
 
     /**
-     * @param recurringPaymentsEnabled (optional)
+     * @param recurringPaymentsEnabled (optional) 
      * @return Success
      */
     getActiveGateways(recurringPaymentsEnabled: boolean | undefined): Observable<PaymentGatewayModel[]> {
@@ -13411,7 +13465,7 @@ export class PaymentServiceProxy {
         if (recurringPaymentsEnabled === null)
             throw new Error("The parameter 'recurringPaymentsEnabled' cannot be null.");
         else if (recurringPaymentsEnabled !== undefined)
-            url_ += "RecurringPaymentsEnabled=" + encodeURIComponent("" + recurringPaymentsEnabled) + "&";
+            url_ += "RecurringPaymentsEnabled=" + encodeURIComponent("" + recurringPaymentsEnabled) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -13438,8 +13492,8 @@ export class PaymentServiceProxy {
 
     protected processGetActiveGateways(response: HttpResponseBase): Observable<PaymentGatewayModel[]> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -13463,7 +13517,7 @@ export class PaymentServiceProxy {
     }
 
     /**
-     * @param paymentId (optional)
+     * @param paymentId (optional) 
      * @return Success
      */
     getPayment(paymentId: number | undefined): Observable<SubscriptionPaymentDto> {
@@ -13471,7 +13525,7 @@ export class PaymentServiceProxy {
         if (paymentId === null)
             throw new Error("The parameter 'paymentId' cannot be null.");
         else if (paymentId !== undefined)
-            url_ += "paymentId=" + encodeURIComponent("" + paymentId) + "&";
+            url_ += "paymentId=" + encodeURIComponent("" + paymentId) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -13498,8 +13552,8 @@ export class PaymentServiceProxy {
 
     protected processGetPayment(response: HttpResponseBase): Observable<SubscriptionPaymentDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -13549,8 +13603,8 @@ export class PaymentServiceProxy {
 
     protected processGetLastCompletedPayment(response: HttpResponseBase): Observable<SubscriptionPaymentDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -13570,7 +13624,7 @@ export class PaymentServiceProxy {
     }
 
     /**
-     * @param paymentId (optional)
+     * @param paymentId (optional) 
      * @return Success
      */
     buyNowSucceed(paymentId: number | undefined): Observable<void> {
@@ -13578,7 +13632,7 @@ export class PaymentServiceProxy {
         if (paymentId === null)
             throw new Error("The parameter 'paymentId' cannot be null.");
         else if (paymentId !== undefined)
-            url_ += "paymentId=" + encodeURIComponent("" + paymentId) + "&";
+            url_ += "paymentId=" + encodeURIComponent("" + paymentId) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -13604,8 +13658,8 @@ export class PaymentServiceProxy {
 
     protected processBuyNowSucceed(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -13622,7 +13676,7 @@ export class PaymentServiceProxy {
     }
 
     /**
-     * @param paymentId (optional)
+     * @param paymentId (optional) 
      * @return Success
      */
     newRegistrationSucceed(paymentId: number | undefined): Observable<void> {
@@ -13630,7 +13684,7 @@ export class PaymentServiceProxy {
         if (paymentId === null)
             throw new Error("The parameter 'paymentId' cannot be null.");
         else if (paymentId !== undefined)
-            url_ += "paymentId=" + encodeURIComponent("" + paymentId) + "&";
+            url_ += "paymentId=" + encodeURIComponent("" + paymentId) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -13656,8 +13710,8 @@ export class PaymentServiceProxy {
 
     protected processNewRegistrationSucceed(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -13674,7 +13728,7 @@ export class PaymentServiceProxy {
     }
 
     /**
-     * @param paymentId (optional)
+     * @param paymentId (optional) 
      * @return Success
      */
     upgradeSucceed(paymentId: number | undefined): Observable<void> {
@@ -13682,7 +13736,7 @@ export class PaymentServiceProxy {
         if (paymentId === null)
             throw new Error("The parameter 'paymentId' cannot be null.");
         else if (paymentId !== undefined)
-            url_ += "paymentId=" + encodeURIComponent("" + paymentId) + "&";
+            url_ += "paymentId=" + encodeURIComponent("" + paymentId) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -13708,8 +13762,8 @@ export class PaymentServiceProxy {
 
     protected processUpgradeSucceed(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -13726,7 +13780,7 @@ export class PaymentServiceProxy {
     }
 
     /**
-     * @param paymentId (optional)
+     * @param paymentId (optional) 
      * @return Success
      */
     extendSucceed(paymentId: number | undefined): Observable<void> {
@@ -13734,7 +13788,7 @@ export class PaymentServiceProxy {
         if (paymentId === null)
             throw new Error("The parameter 'paymentId' cannot be null.");
         else if (paymentId !== undefined)
-            url_ += "paymentId=" + encodeURIComponent("" + paymentId) + "&";
+            url_ += "paymentId=" + encodeURIComponent("" + paymentId) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -13760,8 +13814,8 @@ export class PaymentServiceProxy {
 
     protected processExtendSucceed(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -13778,7 +13832,7 @@ export class PaymentServiceProxy {
     }
 
     /**
-     * @param paymentId (optional)
+     * @param paymentId (optional) 
      * @return Success
      */
     paymentFailed(paymentId: number | undefined): Observable<void> {
@@ -13786,7 +13840,7 @@ export class PaymentServiceProxy {
         if (paymentId === null)
             throw new Error("The parameter 'paymentId' cannot be null.");
         else if (paymentId !== undefined)
-            url_ += "paymentId=" + encodeURIComponent("" + paymentId) + "&";
+            url_ += "paymentId=" + encodeURIComponent("" + paymentId) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -13812,8 +13866,8 @@ export class PaymentServiceProxy {
 
     protected processPaymentFailed(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -13830,7 +13884,7 @@ export class PaymentServiceProxy {
     }
 
     /**
-     * @param upgradeEditionId (optional)
+     * @param upgradeEditionId (optional) 
      * @return Success
      */
     switchBetweenFreeEditions(upgradeEditionId: number | undefined): Observable<void> {
@@ -13838,7 +13892,7 @@ export class PaymentServiceProxy {
         if (upgradeEditionId === null)
             throw new Error("The parameter 'upgradeEditionId' cannot be null.");
         else if (upgradeEditionId !== undefined)
-            url_ += "upgradeEditionId=" + encodeURIComponent("" + upgradeEditionId) + "&";
+            url_ += "upgradeEditionId=" + encodeURIComponent("" + upgradeEditionId) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -13864,8 +13918,8 @@ export class PaymentServiceProxy {
 
     protected processSwitchBetweenFreeEditions(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -13882,7 +13936,7 @@ export class PaymentServiceProxy {
     }
 
     /**
-     * @param editionId (optional)
+     * @param editionId (optional) 
      * @return Success
      */
     upgradeSubscriptionCostsLessThenMinAmount(editionId: number | undefined): Observable<void> {
@@ -13890,7 +13944,7 @@ export class PaymentServiceProxy {
         if (editionId === null)
             throw new Error("The parameter 'editionId' cannot be null.");
         else if (editionId !== undefined)
-            url_ += "editionId=" + encodeURIComponent("" + editionId) + "&";
+            url_ += "editionId=" + encodeURIComponent("" + editionId) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -13916,8 +13970,8 @@ export class PaymentServiceProxy {
 
     protected processUpgradeSubscriptionCostsLessThenMinAmount(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -13964,8 +14018,8 @@ export class PaymentServiceProxy {
 
     protected processHasAnyPayment(response: HttpResponseBase): Observable<boolean> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -13997,8 +14051,8 @@ export class PayPalPaymentServiceProxy {
     }
 
     /**
-     * @param paymentId (optional)
-     * @param paypalOrderId (optional)
+     * @param paymentId (optional) 
+     * @param paypalOrderId (optional) 
      * @return Success
      */
     confirmPayment(paymentId: number | undefined, paypalOrderId: string | undefined): Observable<void> {
@@ -14006,11 +14060,11 @@ export class PayPalPaymentServiceProxy {
         if (paymentId === null)
             throw new Error("The parameter 'paymentId' cannot be null.");
         else if (paymentId !== undefined)
-            url_ += "paymentId=" + encodeURIComponent("" + paymentId) + "&";
+            url_ += "paymentId=" + encodeURIComponent("" + paymentId) + "&"; 
         if (paypalOrderId === null)
             throw new Error("The parameter 'paypalOrderId' cannot be null.");
         else if (paypalOrderId !== undefined)
-            url_ += "paypalOrderId=" + encodeURIComponent("" + paypalOrderId) + "&";
+            url_ += "paypalOrderId=" + encodeURIComponent("" + paypalOrderId) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -14036,8 +14090,8 @@ export class PayPalPaymentServiceProxy {
 
     protected processConfirmPayment(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -14084,8 +14138,8 @@ export class PayPalPaymentServiceProxy {
 
     protected processGetConfiguration(response: HttpResponseBase): Observable<PayPalConfigurationDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -14147,8 +14201,8 @@ export class PermissionServiceProxy {
 
     protected processGetAllPermissions(response: HttpResponseBase): Observable<ListResultDtoOfFlatPermissionWithLevelDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -14180,12 +14234,12 @@ export class PermitsServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param descriptionArFilter (optional)
-     * @param descriptionEnFilter (optional)
-     * @param sorting (optional)
-     * @param skipCount (optional)
-     * @param maxResultCount (optional)
+     * @param filter (optional) 
+     * @param descriptionArFilter (optional) 
+     * @param descriptionEnFilter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
      * @return Success
      */
     getAll(filter: string | undefined, descriptionArFilter: string | undefined, descriptionEnFilter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetPermitForViewDto> {
@@ -14193,27 +14247,27 @@ export class PermitsServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (descriptionArFilter === null)
             throw new Error("The parameter 'descriptionArFilter' cannot be null.");
         else if (descriptionArFilter !== undefined)
-            url_ += "DescriptionArFilter=" + encodeURIComponent("" + descriptionArFilter) + "&";
+            url_ += "DescriptionArFilter=" + encodeURIComponent("" + descriptionArFilter) + "&"; 
         if (descriptionEnFilter === null)
             throw new Error("The parameter 'descriptionEnFilter' cannot be null.");
         else if (descriptionEnFilter !== undefined)
-            url_ += "DescriptionEnFilter=" + encodeURIComponent("" + descriptionEnFilter) + "&";
+            url_ += "DescriptionEnFilter=" + encodeURIComponent("" + descriptionEnFilter) + "&"; 
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
         if (skipCount === null)
             throw new Error("The parameter 'skipCount' cannot be null.");
         else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
         if (maxResultCount === null)
             throw new Error("The parameter 'maxResultCount' cannot be null.");
         else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -14240,8 +14294,8 @@ export class PermitsServiceProxy {
 
     protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfGetPermitForViewDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -14261,7 +14315,7 @@ export class PermitsServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     getPermitForView(id: number | undefined): Observable<GetPermitForViewDto> {
@@ -14269,7 +14323,7 @@ export class PermitsServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "id=" + encodeURIComponent("" + id) + "&";
+            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -14296,8 +14350,8 @@ export class PermitsServiceProxy {
 
     protected processGetPermitForView(response: HttpResponseBase): Observable<GetPermitForViewDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -14317,7 +14371,7 @@ export class PermitsServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     getPermitForEdit(id: number | undefined): Observable<GetPermitForEditOutput> {
@@ -14325,7 +14379,7 @@ export class PermitsServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -14352,8 +14406,8 @@ export class PermitsServiceProxy {
 
     protected processGetPermitForEdit(response: HttpResponseBase): Observable<GetPermitForEditOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -14373,7 +14427,7 @@ export class PermitsServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     createOrEdit(body: CreateOrEditPermitDto | undefined): Observable<void> {
@@ -14387,7 +14441,7 @@ export class PermitsServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -14407,8 +14461,8 @@ export class PermitsServiceProxy {
 
     protected processCreateOrEdit(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -14425,7 +14479,7 @@ export class PermitsServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     delete(id: number | undefined): Observable<void> {
@@ -14433,7 +14487,7 @@ export class PermitsServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -14459,8 +14513,8 @@ export class PermitsServiceProxy {
 
     protected processDelete(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -14477,9 +14531,9 @@ export class PermitsServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param descriptionArFilter (optional)
-     * @param descriptionEnFilter (optional)
+     * @param filter (optional) 
+     * @param descriptionArFilter (optional) 
+     * @param descriptionEnFilter (optional) 
      * @return Success
      */
     getPermitsToExcel(filter: string | undefined, descriptionArFilter: string | undefined, descriptionEnFilter: string | undefined): Observable<FileDto> {
@@ -14487,15 +14541,15 @@ export class PermitsServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (descriptionArFilter === null)
             throw new Error("The parameter 'descriptionArFilter' cannot be null.");
         else if (descriptionArFilter !== undefined)
-            url_ += "DescriptionArFilter=" + encodeURIComponent("" + descriptionArFilter) + "&";
+            url_ += "DescriptionArFilter=" + encodeURIComponent("" + descriptionArFilter) + "&"; 
         if (descriptionEnFilter === null)
             throw new Error("The parameter 'descriptionEnFilter' cannot be null.");
         else if (descriptionEnFilter !== undefined)
-            url_ += "DescriptionEnFilter=" + encodeURIComponent("" + descriptionEnFilter) + "&";
+            url_ += "DescriptionEnFilter=" + encodeURIComponent("" + descriptionEnFilter) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -14522,8 +14576,8 @@ export class PermitsServiceProxy {
 
     protected processGetPermitsToExcel(response: HttpResponseBase): Observable<FileDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -14585,8 +14639,8 @@ export class ProfileServiceProxy {
 
     protected processGetCurrentUserProfileForEdit(response: HttpResponseBase): Observable<CurrentUserProfileEditDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -14635,8 +14689,8 @@ export class ProfileServiceProxy {
 
     protected processDisableGoogleAuthenticator(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -14683,8 +14737,8 @@ export class ProfileServiceProxy {
 
     protected processUpdateGoogleAuthenticatorKey(response: HttpResponseBase): Observable<UpdateGoogleAuthenticatorKeyOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -14704,7 +14758,7 @@ export class ProfileServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     sendVerificationSms(body: SendVerificationSmsInputDto | undefined): Observable<void> {
@@ -14718,7 +14772,7 @@ export class ProfileServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -14738,8 +14792,8 @@ export class ProfileServiceProxy {
 
     protected processSendVerificationSms(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -14756,7 +14810,7 @@ export class ProfileServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     verifySmsCode(body: VerifySmsCodeInputDto | undefined): Observable<void> {
@@ -14770,7 +14824,7 @@ export class ProfileServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -14790,8 +14844,8 @@ export class ProfileServiceProxy {
 
     protected processVerifySmsCode(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -14837,8 +14891,8 @@ export class ProfileServiceProxy {
 
     protected processPrepareCollectedData(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -14855,7 +14909,7 @@ export class ProfileServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     updateCurrentUserProfile(body: CurrentUserProfileEditDto | undefined): Observable<void> {
@@ -14869,7 +14923,7 @@ export class ProfileServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -14889,8 +14943,8 @@ export class ProfileServiceProxy {
 
     protected processUpdateCurrentUserProfile(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -14907,7 +14961,7 @@ export class ProfileServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     changePassword(body: ChangePasswordInput | undefined): Observable<void> {
@@ -14921,7 +14975,7 @@ export class ProfileServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -14941,8 +14995,8 @@ export class ProfileServiceProxy {
 
     protected processChangePassword(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -14959,7 +15013,7 @@ export class ProfileServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     updateProfilePicture(body: UpdateProfilePictureInput | undefined): Observable<void> {
@@ -14973,7 +15027,7 @@ export class ProfileServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -14993,8 +15047,8 @@ export class ProfileServiceProxy {
 
     protected processUpdateProfilePicture(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -15041,8 +15095,8 @@ export class ProfileServiceProxy {
 
     protected processGetPasswordComplexitySetting(response: HttpResponseBase): Observable<GetPasswordComplexitySettingOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -15092,8 +15146,8 @@ export class ProfileServiceProxy {
 
     protected processGetProfilePicture(response: HttpResponseBase): Observable<GetProfilePictureOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -15113,9 +15167,9 @@ export class ProfileServiceProxy {
     }
 
     /**
-     * @param profilePictureId (optional)
-     * @param userId (optional)
-     * @param tenantId (optional)
+     * @param profilePictureId (optional) 
+     * @param userId (optional) 
+     * @param tenantId (optional) 
      * @return Success
      */
     getFriendProfilePictureById(profilePictureId: string | undefined, userId: number | undefined, tenantId: number | undefined): Observable<GetProfilePictureOutput> {
@@ -15123,15 +15177,15 @@ export class ProfileServiceProxy {
         if (profilePictureId === null)
             throw new Error("The parameter 'profilePictureId' cannot be null.");
         else if (profilePictureId !== undefined)
-            url_ += "ProfilePictureId=" + encodeURIComponent("" + profilePictureId) + "&";
+            url_ += "ProfilePictureId=" + encodeURIComponent("" + profilePictureId) + "&"; 
         if (userId === null)
             throw new Error("The parameter 'userId' cannot be null.");
         else if (userId !== undefined)
-            url_ += "UserId=" + encodeURIComponent("" + userId) + "&";
+            url_ += "UserId=" + encodeURIComponent("" + userId) + "&"; 
         if (tenantId === null)
             throw new Error("The parameter 'tenantId' cannot be null.");
         else if (tenantId !== undefined)
-            url_ += "TenantId=" + encodeURIComponent("" + tenantId) + "&";
+            url_ += "TenantId=" + encodeURIComponent("" + tenantId) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -15158,8 +15212,8 @@ export class ProfileServiceProxy {
 
     protected processGetFriendProfilePictureById(response: HttpResponseBase): Observable<GetProfilePictureOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -15179,7 +15233,7 @@ export class ProfileServiceProxy {
     }
 
     /**
-     * @param profilePictureId (optional)
+     * @param profilePictureId (optional) 
      * @return Success
      */
     getProfilePictureById(profilePictureId: string | undefined): Observable<GetProfilePictureOutput> {
@@ -15187,7 +15241,7 @@ export class ProfileServiceProxy {
         if (profilePictureId === null)
             throw new Error("The parameter 'profilePictureId' cannot be null.");
         else if (profilePictureId !== undefined)
-            url_ += "profilePictureId=" + encodeURIComponent("" + profilePictureId) + "&";
+            url_ += "profilePictureId=" + encodeURIComponent("" + profilePictureId) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -15214,8 +15268,8 @@ export class ProfileServiceProxy {
 
     protected processGetProfilePictureById(response: HttpResponseBase): Observable<GetProfilePictureOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -15235,7 +15289,7 @@ export class ProfileServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     changeLanguage(body: ChangeUserLanguageDto | undefined): Observable<void> {
@@ -15249,7 +15303,7 @@ export class ProfileServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -15269,8 +15323,8 @@ export class ProfileServiceProxy {
 
     protected processChangeLanguage(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -15287,7 +15341,7 @@ export class ProfileServiceProxy {
     }
 
     /**
-     * @param strEncrypted (optional)
+     * @param strEncrypted (optional) 
      * @return Success
      */
     enryptString(strEncrypted: string | undefined): Observable<string> {
@@ -15295,7 +15349,7 @@ export class ProfileServiceProxy {
         if (strEncrypted === null)
             throw new Error("The parameter 'strEncrypted' cannot be null.");
         else if (strEncrypted !== undefined)
-            url_ += "strEncrypted=" + encodeURIComponent("" + strEncrypted) + "&";
+            url_ += "strEncrypted=" + encodeURIComponent("" + strEncrypted) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -15322,8 +15376,8 @@ export class ProfileServiceProxy {
 
     protected processEnryptString(response: HttpResponseBase): Observable<string> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -15344,6 +15398,624 @@ export class ProfileServiceProxy {
 }
 
 @Injectable()
+export class ProjectsServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param nameArFilter (optional) 
+     * @param nameEnFilter (optional) 
+     * @param userNameFilter (optional) 
+     * @param locationTitleEnFilter (optional) 
+     * @param organizationUnitDisplayNameFilter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
+     * @return Success
+     */
+    getAll(filter: string | undefined, nameArFilter: string | undefined, nameEnFilter: string | undefined, userNameFilter: string | undefined, locationTitleEnFilter: string | undefined, organizationUnitDisplayNameFilter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetProjectForViewDto> {
+        let url_ = this.baseUrl + "/api/services/app/Projects/GetAll?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (nameArFilter === null)
+            throw new Error("The parameter 'nameArFilter' cannot be null.");
+        else if (nameArFilter !== undefined)
+            url_ += "NameArFilter=" + encodeURIComponent("" + nameArFilter) + "&"; 
+        if (nameEnFilter === null)
+            throw new Error("The parameter 'nameEnFilter' cannot be null.");
+        else if (nameEnFilter !== undefined)
+            url_ += "NameEnFilter=" + encodeURIComponent("" + nameEnFilter) + "&"; 
+        if (userNameFilter === null)
+            throw new Error("The parameter 'userNameFilter' cannot be null.");
+        else if (userNameFilter !== undefined)
+            url_ += "UserNameFilter=" + encodeURIComponent("" + userNameFilter) + "&"; 
+        if (locationTitleEnFilter === null)
+            throw new Error("The parameter 'locationTitleEnFilter' cannot be null.");
+        else if (locationTitleEnFilter !== undefined)
+            url_ += "LocationTitleEnFilter=" + encodeURIComponent("" + locationTitleEnFilter) + "&"; 
+        if (organizationUnitDisplayNameFilter === null)
+            throw new Error("The parameter 'organizationUnitDisplayNameFilter' cannot be null.");
+        else if (organizationUnitDisplayNameFilter !== undefined)
+            url_ += "OrganizationUnitDisplayNameFilter=" + encodeURIComponent("" + organizationUnitDisplayNameFilter) + "&"; 
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAll(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfGetProjectForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfGetProjectForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfGetProjectForViewDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfGetProjectForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfGetProjectForViewDto>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getProjectForView(id: number | undefined): Observable<GetProjectForViewDto> {
+        let url_ = this.baseUrl + "/api/services/app/Projects/GetProjectForView?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetProjectForView(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetProjectForView(<any>response_);
+                } catch (e) {
+                    return <Observable<GetProjectForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetProjectForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetProjectForView(response: HttpResponseBase): Observable<GetProjectForViewDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetProjectForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetProjectForViewDto>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getProjectForEdit(id: number | undefined): Observable<GetProjectForEditOutput> {
+        let url_ = this.baseUrl + "/api/services/app/Projects/GetProjectForEdit?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetProjectForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetProjectForEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<GetProjectForEditOutput>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetProjectForEditOutput>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetProjectForEdit(response: HttpResponseBase): Observable<GetProjectForEditOutput> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetProjectForEditOutput.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetProjectForEditOutput>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    createOrEdit(body: CreateOrEditProjectDto | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Projects/CreateOrEdit";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json", 
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOrEdit(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    delete(id: number | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Projects/Delete?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDelete(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDelete(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDelete(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param nameArFilter (optional) 
+     * @param nameEnFilter (optional) 
+     * @param userNameFilter (optional) 
+     * @param locationTitleEnFilter (optional) 
+     * @param organizationUnitDisplayNameFilter (optional) 
+     * @return Success
+     */
+    getProjectsToExcel(filter: string | undefined, nameArFilter: string | undefined, nameEnFilter: string | undefined, userNameFilter: string | undefined, locationTitleEnFilter: string | undefined, organizationUnitDisplayNameFilter: string | undefined): Observable<FileDto> {
+        let url_ = this.baseUrl + "/api/services/app/Projects/GetProjectsToExcel?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (nameArFilter === null)
+            throw new Error("The parameter 'nameArFilter' cannot be null.");
+        else if (nameArFilter !== undefined)
+            url_ += "NameArFilter=" + encodeURIComponent("" + nameArFilter) + "&"; 
+        if (nameEnFilter === null)
+            throw new Error("The parameter 'nameEnFilter' cannot be null.");
+        else if (nameEnFilter !== undefined)
+            url_ += "NameEnFilter=" + encodeURIComponent("" + nameEnFilter) + "&"; 
+        if (userNameFilter === null)
+            throw new Error("The parameter 'userNameFilter' cannot be null.");
+        else if (userNameFilter !== undefined)
+            url_ += "UserNameFilter=" + encodeURIComponent("" + userNameFilter) + "&"; 
+        if (locationTitleEnFilter === null)
+            throw new Error("The parameter 'locationTitleEnFilter' cannot be null.");
+        else if (locationTitleEnFilter !== undefined)
+            url_ += "LocationTitleEnFilter=" + encodeURIComponent("" + locationTitleEnFilter) + "&"; 
+        if (organizationUnitDisplayNameFilter === null)
+            throw new Error("The parameter 'organizationUnitDisplayNameFilter' cannot be null.");
+        else if (organizationUnitDisplayNameFilter !== undefined)
+            url_ += "OrganizationUnitDisplayNameFilter=" + encodeURIComponent("" + organizationUnitDisplayNameFilter) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetProjectsToExcel(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetProjectsToExcel(<any>response_);
+                } catch (e) {
+                    return <Observable<FileDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<FileDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetProjectsToExcel(response: HttpResponseBase): Observable<FileDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = FileDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<FileDto>(<any>null);
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
+     * @return Success
+     */
+    getAllUserForLookupTable(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfProjectUserLookupTableDto> {
+        let url_ = this.baseUrl + "/api/services/app/Projects/GetAllUserForLookupTable?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllUserForLookupTable(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllUserForLookupTable(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfProjectUserLookupTableDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfProjectUserLookupTableDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAllUserForLookupTable(response: HttpResponseBase): Observable<PagedResultDtoOfProjectUserLookupTableDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfProjectUserLookupTableDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfProjectUserLookupTableDto>(<any>null);
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
+     * @return Success
+     */
+    getAllLocationForLookupTable(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfProjectLocationLookupTableDto> {
+        let url_ = this.baseUrl + "/api/services/app/Projects/GetAllLocationForLookupTable?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllLocationForLookupTable(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllLocationForLookupTable(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfProjectLocationLookupTableDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfProjectLocationLookupTableDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAllLocationForLookupTable(response: HttpResponseBase): Observable<PagedResultDtoOfProjectLocationLookupTableDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfProjectLocationLookupTableDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfProjectLocationLookupTableDto>(<any>null);
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
+     * @return Success
+     */
+    getAllOrganizationUnitForLookupTable(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfProjectOrganizationUnitLookupTableDto> {
+        let url_ = this.baseUrl + "/api/services/app/Projects/GetAllOrganizationUnitForLookupTable?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllOrganizationUnitForLookupTable(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllOrganizationUnitForLookupTable(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfProjectOrganizationUnitLookupTableDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfProjectOrganizationUnitLookupTableDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAllOrganizationUnitForLookupTable(response: HttpResponseBase): Observable<PagedResultDtoOfProjectOrganizationUnitLookupTableDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfProjectOrganizationUnitLookupTableDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfProjectOrganizationUnitLookupTableDto>(<any>null);
+    }
+}
+
+@Injectable()
 export class RoleServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -15355,7 +16027,7 @@ export class RoleServiceProxy {
     }
 
     /**
-     * @param permissions (optional)
+     * @param permissions (optional) 
      * @return Success
      */
     getRoles(permissions: string[] | undefined): Observable<ListResultDtoOfRoleListDto> {
@@ -15390,8 +16062,8 @@ export class RoleServiceProxy {
 
     protected processGetRoles(response: HttpResponseBase): Observable<ListResultDtoOfRoleListDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -15411,7 +16083,7 @@ export class RoleServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     getRoleForEdit(id: number | undefined): Observable<GetRoleForEditOutput> {
@@ -15419,7 +16091,7 @@ export class RoleServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -15446,8 +16118,8 @@ export class RoleServiceProxy {
 
     protected processGetRoleForEdit(response: HttpResponseBase): Observable<GetRoleForEditOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -15467,7 +16139,7 @@ export class RoleServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     createOrUpdateRole(body: CreateOrUpdateRoleInput | undefined): Observable<void> {
@@ -15481,7 +16153,7 @@ export class RoleServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -15501,8 +16173,8 @@ export class RoleServiceProxy {
 
     protected processCreateOrUpdateRole(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -15519,7 +16191,7 @@ export class RoleServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     deleteRole(id: number | undefined): Observable<void> {
@@ -15527,7 +16199,7 @@ export class RoleServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -15553,8 +16225,8 @@ export class RoleServiceProxy {
 
     protected processDeleteRole(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -15613,8 +16285,8 @@ export class SessionServiceProxy {
 
     protected processGetCurrentLoginInformations(response: HttpResponseBase): Observable<GetCurrentLoginInformationsOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -15664,8 +16336,8 @@ export class SessionServiceProxy {
 
     protected processUpdateUserSignInToken(response: HttpResponseBase): Observable<UpdateUserSignInTokenOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -15697,13 +16369,13 @@ export class ShiftsServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param nameArFilter (optional)
-     * @param nameEnFilter (optional)
-     * @param codeFilter (optional)
-     * @param sorting (optional)
-     * @param skipCount (optional)
-     * @param maxResultCount (optional)
+     * @param filter (optional) 
+     * @param nameArFilter (optional) 
+     * @param nameEnFilter (optional) 
+     * @param codeFilter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
      * @return Success
      */
     getAll(filter: string | undefined, nameArFilter: string | undefined, nameEnFilter: string | undefined, codeFilter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetShiftForViewDto> {
@@ -15711,31 +16383,31 @@ export class ShiftsServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (nameArFilter === null)
             throw new Error("The parameter 'nameArFilter' cannot be null.");
         else if (nameArFilter !== undefined)
-            url_ += "NameArFilter=" + encodeURIComponent("" + nameArFilter) + "&";
+            url_ += "NameArFilter=" + encodeURIComponent("" + nameArFilter) + "&"; 
         if (nameEnFilter === null)
             throw new Error("The parameter 'nameEnFilter' cannot be null.");
         else if (nameEnFilter !== undefined)
-            url_ += "NameEnFilter=" + encodeURIComponent("" + nameEnFilter) + "&";
+            url_ += "NameEnFilter=" + encodeURIComponent("" + nameEnFilter) + "&"; 
         if (codeFilter === null)
             throw new Error("The parameter 'codeFilter' cannot be null.");
         else if (codeFilter !== undefined)
-            url_ += "CodeFilter=" + encodeURIComponent("" + codeFilter) + "&";
+            url_ += "CodeFilter=" + encodeURIComponent("" + codeFilter) + "&"; 
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
         if (skipCount === null)
             throw new Error("The parameter 'skipCount' cannot be null.");
         else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
         if (maxResultCount === null)
             throw new Error("The parameter 'maxResultCount' cannot be null.");
         else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -15762,8 +16434,8 @@ export class ShiftsServiceProxy {
 
     protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfGetShiftForViewDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -15813,8 +16485,8 @@ export class ShiftsServiceProxy {
 
     protected processGetAllFlat(response: HttpResponseBase): Observable<GetShiftForViewDto[]> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -15838,7 +16510,7 @@ export class ShiftsServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     getShiftForView(id: number | undefined): Observable<GetShiftForViewDto> {
@@ -15846,7 +16518,7 @@ export class ShiftsServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "id=" + encodeURIComponent("" + id) + "&";
+            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -15873,8 +16545,8 @@ export class ShiftsServiceProxy {
 
     protected processGetShiftForView(response: HttpResponseBase): Observable<GetShiftForViewDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -15894,7 +16566,7 @@ export class ShiftsServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     getShiftForEdit(id: number | undefined): Observable<GetShiftForEditOutput> {
@@ -15902,7 +16574,7 @@ export class ShiftsServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -15929,8 +16601,8 @@ export class ShiftsServiceProxy {
 
     protected processGetShiftForEdit(response: HttpResponseBase): Observable<GetShiftForEditOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -15950,7 +16622,7 @@ export class ShiftsServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     createOrEdit(body: CreateOrEditShiftDto | undefined): Observable<void> {
@@ -15964,7 +16636,7 @@ export class ShiftsServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -15984,8 +16656,8 @@ export class ShiftsServiceProxy {
 
     protected processCreateOrEdit(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -16002,7 +16674,7 @@ export class ShiftsServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     delete(id: number | undefined): Observable<void> {
@@ -16010,7 +16682,7 @@ export class ShiftsServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -16036,8 +16708,8 @@ export class ShiftsServiceProxy {
 
     protected processDelete(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -16054,10 +16726,10 @@ export class ShiftsServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param nameArFilter (optional)
-     * @param nameEnFilter (optional)
-     * @param codeFilter (optional)
+     * @param filter (optional) 
+     * @param nameArFilter (optional) 
+     * @param nameEnFilter (optional) 
+     * @param codeFilter (optional) 
      * @return Success
      */
     getShiftsToExcel(filter: string | undefined, nameArFilter: string | undefined, nameEnFilter: string | undefined, codeFilter: string | undefined): Observable<FileDto> {
@@ -16065,19 +16737,19 @@ export class ShiftsServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (nameArFilter === null)
             throw new Error("The parameter 'nameArFilter' cannot be null.");
         else if (nameArFilter !== undefined)
-            url_ += "NameArFilter=" + encodeURIComponent("" + nameArFilter) + "&";
+            url_ += "NameArFilter=" + encodeURIComponent("" + nameArFilter) + "&"; 
         if (nameEnFilter === null)
             throw new Error("The parameter 'nameEnFilter' cannot be null.");
         else if (nameEnFilter !== undefined)
-            url_ += "NameEnFilter=" + encodeURIComponent("" + nameEnFilter) + "&";
+            url_ += "NameEnFilter=" + encodeURIComponent("" + nameEnFilter) + "&"; 
         if (codeFilter === null)
             throw new Error("The parameter 'codeFilter' cannot be null.");
         else if (codeFilter !== undefined)
-            url_ += "CodeFilter=" + encodeURIComponent("" + codeFilter) + "&";
+            url_ += "CodeFilter=" + encodeURIComponent("" + codeFilter) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -16104,8 +16776,8 @@ export class ShiftsServiceProxy {
 
     protected processGetShiftsToExcel(response: HttpResponseBase): Observable<FileDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -16137,11 +16809,11 @@ export class ShiftTypeDetailsServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param shiftTypeDescriptionArFilter (optional)
-     * @param sorting (optional)
-     * @param skipCount (optional)
-     * @param maxResultCount (optional)
+     * @param filter (optional) 
+     * @param shiftTypeDescriptionArFilter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
      * @return Success
      */
     getAll(filter: string | undefined, shiftTypeDescriptionArFilter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetShiftTypeDetailForViewDto> {
@@ -16149,23 +16821,23 @@ export class ShiftTypeDetailsServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (shiftTypeDescriptionArFilter === null)
             throw new Error("The parameter 'shiftTypeDescriptionArFilter' cannot be null.");
         else if (shiftTypeDescriptionArFilter !== undefined)
-            url_ += "ShiftTypeDescriptionArFilter=" + encodeURIComponent("" + shiftTypeDescriptionArFilter) + "&";
+            url_ += "ShiftTypeDescriptionArFilter=" + encodeURIComponent("" + shiftTypeDescriptionArFilter) + "&"; 
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
         if (skipCount === null)
             throw new Error("The parameter 'skipCount' cannot be null.");
         else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
         if (maxResultCount === null)
             throw new Error("The parameter 'maxResultCount' cannot be null.");
         else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -16192,8 +16864,8 @@ export class ShiftTypeDetailsServiceProxy {
 
     protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfGetShiftTypeDetailForViewDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -16213,7 +16885,7 @@ export class ShiftTypeDetailsServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     getShiftTypeDetailForView(id: number | undefined): Observable<GetShiftTypeDetailForViewDto> {
@@ -16221,7 +16893,7 @@ export class ShiftTypeDetailsServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "id=" + encodeURIComponent("" + id) + "&";
+            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -16248,8 +16920,8 @@ export class ShiftTypeDetailsServiceProxy {
 
     protected processGetShiftTypeDetailForView(response: HttpResponseBase): Observable<GetShiftTypeDetailForViewDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -16269,7 +16941,7 @@ export class ShiftTypeDetailsServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     getShiftTypeDetailForEdit(id: number | undefined): Observable<GetShiftTypeDetailForEditOutput> {
@@ -16277,7 +16949,7 @@ export class ShiftTypeDetailsServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -16304,8 +16976,8 @@ export class ShiftTypeDetailsServiceProxy {
 
     protected processGetShiftTypeDetailForEdit(response: HttpResponseBase): Observable<GetShiftTypeDetailForEditOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -16325,7 +16997,7 @@ export class ShiftTypeDetailsServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     createOrEdit(body: CreateOrEditShiftTypeDetailDto | undefined): Observable<void> {
@@ -16339,7 +17011,7 @@ export class ShiftTypeDetailsServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -16359,8 +17031,8 @@ export class ShiftTypeDetailsServiceProxy {
 
     protected processCreateOrEdit(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -16377,7 +17049,7 @@ export class ShiftTypeDetailsServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     delete(id: number | undefined): Observable<void> {
@@ -16385,7 +17057,7 @@ export class ShiftTypeDetailsServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -16411,8 +17083,8 @@ export class ShiftTypeDetailsServiceProxy {
 
     protected processDelete(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -16429,8 +17101,8 @@ export class ShiftTypeDetailsServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param shiftTypeDescriptionArFilter (optional)
+     * @param filter (optional) 
+     * @param shiftTypeDescriptionArFilter (optional) 
      * @return Success
      */
     getShiftTypeDetailsToExcel(filter: string | undefined, shiftTypeDescriptionArFilter: string | undefined): Observable<FileDto> {
@@ -16438,11 +17110,11 @@ export class ShiftTypeDetailsServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (shiftTypeDescriptionArFilter === null)
             throw new Error("The parameter 'shiftTypeDescriptionArFilter' cannot be null.");
         else if (shiftTypeDescriptionArFilter !== undefined)
-            url_ += "ShiftTypeDescriptionArFilter=" + encodeURIComponent("" + shiftTypeDescriptionArFilter) + "&";
+            url_ += "ShiftTypeDescriptionArFilter=" + encodeURIComponent("" + shiftTypeDescriptionArFilter) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -16469,8 +17141,8 @@ export class ShiftTypeDetailsServiceProxy {
 
     protected processGetShiftTypeDetailsToExcel(response: HttpResponseBase): Observable<FileDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -16490,10 +17162,10 @@ export class ShiftTypeDetailsServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param sorting (optional)
-     * @param skipCount (optional)
-     * @param maxResultCount (optional)
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
      * @return Success
      */
     getAllShiftTypeForLookupTable(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfShiftTypeDetailShiftTypeLookupTableDto> {
@@ -16501,19 +17173,19 @@ export class ShiftTypeDetailsServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
         if (skipCount === null)
             throw new Error("The parameter 'skipCount' cannot be null.");
         else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
         if (maxResultCount === null)
             throw new Error("The parameter 'maxResultCount' cannot be null.");
         else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -16540,8 +17212,8 @@ export class ShiftTypeDetailsServiceProxy {
 
     protected processGetAllShiftTypeForLookupTable(response: HttpResponseBase): Observable<PagedResultDtoOfShiftTypeDetailShiftTypeLookupTableDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -16573,12 +17245,12 @@ export class ShiftTypesServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param descriptionEnFilter (optional)
-     * @param descriptionArFilter (optional)
-     * @param sorting (optional)
-     * @param skipCount (optional)
-     * @param maxResultCount (optional)
+     * @param filter (optional) 
+     * @param descriptionEnFilter (optional) 
+     * @param descriptionArFilter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
      * @return Success
      */
     getAll(filter: string | undefined, descriptionEnFilter: string | undefined, descriptionArFilter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetShiftTypeForViewDto> {
@@ -16586,27 +17258,27 @@ export class ShiftTypesServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (descriptionEnFilter === null)
             throw new Error("The parameter 'descriptionEnFilter' cannot be null.");
         else if (descriptionEnFilter !== undefined)
-            url_ += "DescriptionEnFilter=" + encodeURIComponent("" + descriptionEnFilter) + "&";
+            url_ += "DescriptionEnFilter=" + encodeURIComponent("" + descriptionEnFilter) + "&"; 
         if (descriptionArFilter === null)
             throw new Error("The parameter 'descriptionArFilter' cannot be null.");
         else if (descriptionArFilter !== undefined)
-            url_ += "DescriptionArFilter=" + encodeURIComponent("" + descriptionArFilter) + "&";
+            url_ += "DescriptionArFilter=" + encodeURIComponent("" + descriptionArFilter) + "&"; 
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
         if (skipCount === null)
             throw new Error("The parameter 'skipCount' cannot be null.");
         else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
         if (maxResultCount === null)
             throw new Error("The parameter 'maxResultCount' cannot be null.");
         else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -16633,8 +17305,8 @@ export class ShiftTypesServiceProxy {
 
     protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfGetShiftTypeForViewDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -16684,8 +17356,8 @@ export class ShiftTypesServiceProxy {
 
     protected processGetAllFlat(response: HttpResponseBase): Observable<GetShiftTypeForViewDto[]> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -16709,7 +17381,7 @@ export class ShiftTypesServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     getShiftTypeForView(id: number | undefined): Observable<GetShiftTypeForViewDto> {
@@ -16717,7 +17389,7 @@ export class ShiftTypesServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "id=" + encodeURIComponent("" + id) + "&";
+            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -16744,8 +17416,8 @@ export class ShiftTypesServiceProxy {
 
     protected processGetShiftTypeForView(response: HttpResponseBase): Observable<GetShiftTypeForViewDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -16765,7 +17437,7 @@ export class ShiftTypesServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     getShiftTypeForEdit(id: number | undefined): Observable<GetShiftTypeForEditOutput> {
@@ -16773,7 +17445,7 @@ export class ShiftTypesServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -16800,8 +17472,8 @@ export class ShiftTypesServiceProxy {
 
     protected processGetShiftTypeForEdit(response: HttpResponseBase): Observable<GetShiftTypeForEditOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -16821,7 +17493,7 @@ export class ShiftTypesServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     createOrEdit(body: CreateOrEditShiftTypeDto | undefined): Observable<void> {
@@ -16835,7 +17507,7 @@ export class ShiftTypesServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -16855,8 +17527,8 @@ export class ShiftTypesServiceProxy {
 
     protected processCreateOrEdit(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -16873,7 +17545,7 @@ export class ShiftTypesServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     delete(id: number | undefined): Observable<void> {
@@ -16881,7 +17553,7 @@ export class ShiftTypesServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -16907,8 +17579,8 @@ export class ShiftTypesServiceProxy {
 
     protected processDelete(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -16925,9 +17597,9 @@ export class ShiftTypesServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param descriptionEnFilter (optional)
-     * @param descriptionArFilter (optional)
+     * @param filter (optional) 
+     * @param descriptionEnFilter (optional) 
+     * @param descriptionArFilter (optional) 
      * @return Success
      */
     getShiftTypesToExcel(filter: string | undefined, descriptionEnFilter: string | undefined, descriptionArFilter: string | undefined): Observable<FileDto> {
@@ -16935,15 +17607,15 @@ export class ShiftTypesServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (descriptionEnFilter === null)
             throw new Error("The parameter 'descriptionEnFilter' cannot be null.");
         else if (descriptionEnFilter !== undefined)
-            url_ += "DescriptionEnFilter=" + encodeURIComponent("" + descriptionEnFilter) + "&";
+            url_ += "DescriptionEnFilter=" + encodeURIComponent("" + descriptionEnFilter) + "&"; 
         if (descriptionArFilter === null)
             throw new Error("The parameter 'descriptionArFilter' cannot be null.");
         else if (descriptionArFilter !== undefined)
-            url_ += "DescriptionArFilter=" + encodeURIComponent("" + descriptionArFilter) + "&";
+            url_ += "DescriptionArFilter=" + encodeURIComponent("" + descriptionArFilter) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -16970,8 +17642,8 @@ export class ShiftTypesServiceProxy {
 
     protected processGetShiftTypesToExcel(response: HttpResponseBase): Observable<FileDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -17033,8 +17705,8 @@ export class StripePaymentServiceProxy {
 
     protected processGetConfiguration(response: HttpResponseBase): Observable<StripeConfigurationDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -17054,7 +17726,7 @@ export class StripePaymentServiceProxy {
     }
 
     /**
-     * @param stripeSessionId (optional)
+     * @param stripeSessionId (optional) 
      * @return Success
      */
     getPayment(stripeSessionId: string | undefined): Observable<SubscriptionPaymentDto> {
@@ -17062,7 +17734,7 @@ export class StripePaymentServiceProxy {
         if (stripeSessionId === null)
             throw new Error("The parameter 'stripeSessionId' cannot be null.");
         else if (stripeSessionId !== undefined)
-            url_ += "StripeSessionId=" + encodeURIComponent("" + stripeSessionId) + "&";
+            url_ += "StripeSessionId=" + encodeURIComponent("" + stripeSessionId) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -17089,8 +17761,8 @@ export class StripePaymentServiceProxy {
 
     protected processGetPayment(response: HttpResponseBase): Observable<SubscriptionPaymentDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -17110,7 +17782,7 @@ export class StripePaymentServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     createPaymentSession(body: StripeCreatePaymentSessionInput | undefined): Observable<string> {
@@ -17124,7 +17796,7 @@ export class StripePaymentServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
                 "Accept": "text/plain"
             })
         };
@@ -17145,8 +17817,8 @@ export class StripePaymentServiceProxy {
 
     protected processCreatePaymentSession(response: HttpResponseBase): Observable<string> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -17166,7 +17838,7 @@ export class StripePaymentServiceProxy {
     }
 
     /**
-     * @param paymentId (optional)
+     * @param paymentId (optional) 
      * @return Success
      */
     getPaymentResult(paymentId: number | undefined): Observable<StripePaymentResultOutput> {
@@ -17174,7 +17846,7 @@ export class StripePaymentServiceProxy {
         if (paymentId === null)
             throw new Error("The parameter 'paymentId' cannot be null.");
         else if (paymentId !== undefined)
-            url_ += "PaymentId=" + encodeURIComponent("" + paymentId) + "&";
+            url_ += "PaymentId=" + encodeURIComponent("" + paymentId) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -17201,8 +17873,8 @@ export class StripePaymentServiceProxy {
 
     protected processGetPaymentResult(response: HttpResponseBase): Observable<StripePaymentResultOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -17263,8 +17935,8 @@ export class SubscriptionServiceProxy {
 
     protected processDisableRecurringPayments(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -17310,8 +17982,8 @@ export class SubscriptionServiceProxy {
 
     protected processEnableRecurringPayments(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -17340,10 +18012,10 @@ export class SystemConfigurationsServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param sorting (optional)
-     * @param skipCount (optional)
-     * @param maxResultCount (optional)
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
      * @return Success
      */
     getAll(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetSystemConfigurationForViewDto> {
@@ -17351,19 +18023,19 @@ export class SystemConfigurationsServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
         if (skipCount === null)
             throw new Error("The parameter 'skipCount' cannot be null.");
         else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
         if (maxResultCount === null)
             throw new Error("The parameter 'maxResultCount' cannot be null.");
         else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -17390,8 +18062,8 @@ export class SystemConfigurationsServiceProxy {
 
     protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfGetSystemConfigurationForViewDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -17411,7 +18083,7 @@ export class SystemConfigurationsServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     getSystemConfigurationForView(id: number | undefined): Observable<GetSystemConfigurationForViewDto> {
@@ -17419,7 +18091,7 @@ export class SystemConfigurationsServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "id=" + encodeURIComponent("" + id) + "&";
+            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -17446,8 +18118,8 @@ export class SystemConfigurationsServiceProxy {
 
     protected processGetSystemConfigurationForView(response: HttpResponseBase): Observable<GetSystemConfigurationForViewDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -17467,7 +18139,7 @@ export class SystemConfigurationsServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     getSystemConfigurationForEdit(id: number | undefined): Observable<GetSystemConfigurationForEditOutput> {
@@ -17475,7 +18147,7 @@ export class SystemConfigurationsServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -17502,8 +18174,8 @@ export class SystemConfigurationsServiceProxy {
 
     protected processGetSystemConfigurationForEdit(response: HttpResponseBase): Observable<GetSystemConfigurationForEditOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -17523,7 +18195,7 @@ export class SystemConfigurationsServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     createOrEdit(body: CreateOrEditSystemConfigurationDto | undefined): Observable<void> {
@@ -17537,7 +18209,7 @@ export class SystemConfigurationsServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -17557,8 +18229,8 @@ export class SystemConfigurationsServiceProxy {
 
     protected processCreateOrEdit(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -17575,7 +18247,7 @@ export class SystemConfigurationsServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     delete(id: number | undefined): Observable<void> {
@@ -17583,7 +18255,7 @@ export class SystemConfigurationsServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -17609,8 +18281,8 @@ export class SystemConfigurationsServiceProxy {
 
     protected processDelete(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -17627,7 +18299,7 @@ export class SystemConfigurationsServiceProxy {
     }
 
     /**
-     * @param filter (optional)
+     * @param filter (optional) 
      * @return Success
      */
     getSystemConfigurationsToExcel(filter: string | undefined): Observable<FileDto> {
@@ -17635,7 +18307,7 @@ export class SystemConfigurationsServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -17662,8 +18334,8 @@ export class SystemConfigurationsServiceProxy {
 
     protected processGetSystemConfigurationsToExcel(response: HttpResponseBase): Observable<FileDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -17695,10 +18367,10 @@ export class TempTransactionsServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param sorting (optional)
-     * @param skipCount (optional)
-     * @param maxResultCount (optional)
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
      * @return Success
      */
     getAll(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetTempTransactionForViewDto> {
@@ -17706,19 +18378,19 @@ export class TempTransactionsServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
         if (skipCount === null)
             throw new Error("The parameter 'skipCount' cannot be null.");
         else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
         if (maxResultCount === null)
             throw new Error("The parameter 'maxResultCount' cannot be null.");
         else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -17745,8 +18417,8 @@ export class TempTransactionsServiceProxy {
 
     protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfGetTempTransactionForViewDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -17766,7 +18438,7 @@ export class TempTransactionsServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     getTempTransactionForView(id: number | undefined): Observable<GetTempTransactionForViewDto> {
@@ -17774,7 +18446,7 @@ export class TempTransactionsServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "id=" + encodeURIComponent("" + id) + "&";
+            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -17801,8 +18473,8 @@ export class TempTransactionsServiceProxy {
 
     protected processGetTempTransactionForView(response: HttpResponseBase): Observable<GetTempTransactionForViewDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -17822,7 +18494,7 @@ export class TempTransactionsServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     getTempTransactionForEdit(id: number | undefined): Observable<GetTempTransactionForEditOutput> {
@@ -17830,7 +18502,7 @@ export class TempTransactionsServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -17857,8 +18529,8 @@ export class TempTransactionsServiceProxy {
 
     protected processGetTempTransactionForEdit(response: HttpResponseBase): Observable<GetTempTransactionForEditOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -17878,7 +18550,7 @@ export class TempTransactionsServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     createOrEdit(body: CreateOrEditTempTransactionDto | undefined): Observable<void> {
@@ -17892,7 +18564,7 @@ export class TempTransactionsServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -17912,8 +18584,8 @@ export class TempTransactionsServiceProxy {
 
     protected processCreateOrEdit(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -17930,7 +18602,7 @@ export class TempTransactionsServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     delete(id: number | undefined): Observable<void> {
@@ -17938,7 +18610,7 @@ export class TempTransactionsServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -17964,8 +18636,8 @@ export class TempTransactionsServiceProxy {
 
     protected processDelete(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -17994,16 +18666,16 @@ export class TenantServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param subscriptionEndDateStart (optional)
-     * @param subscriptionEndDateEnd (optional)
-     * @param creationDateStart (optional)
-     * @param creationDateEnd (optional)
-     * @param editionId (optional)
-     * @param editionIdSpecified (optional)
-     * @param sorting (optional)
-     * @param maxResultCount (optional)
-     * @param skipCount (optional)
+     * @param filter (optional) 
+     * @param subscriptionEndDateStart (optional) 
+     * @param subscriptionEndDateEnd (optional) 
+     * @param creationDateStart (optional) 
+     * @param creationDateEnd (optional) 
+     * @param editionId (optional) 
+     * @param editionIdSpecified (optional) 
+     * @param sorting (optional) 
+     * @param maxResultCount (optional) 
+     * @param skipCount (optional) 
      * @return Success
      */
     getTenants(filter: string | undefined, subscriptionEndDateStart: moment.Moment | undefined, subscriptionEndDateEnd: moment.Moment | undefined, creationDateStart: moment.Moment | undefined, creationDateEnd: moment.Moment | undefined, editionId: number | undefined, editionIdSpecified: boolean | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<PagedResultDtoOfTenantListDto> {
@@ -18011,43 +18683,43 @@ export class TenantServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (subscriptionEndDateStart === null)
             throw new Error("The parameter 'subscriptionEndDateStart' cannot be null.");
         else if (subscriptionEndDateStart !== undefined)
-            url_ += "SubscriptionEndDateStart=" + encodeURIComponent(subscriptionEndDateStart ? "" + subscriptionEndDateStart.toJSON() : "") + "&";
+            url_ += "SubscriptionEndDateStart=" + encodeURIComponent(subscriptionEndDateStart ? "" + subscriptionEndDateStart.toJSON() : "") + "&"; 
         if (subscriptionEndDateEnd === null)
             throw new Error("The parameter 'subscriptionEndDateEnd' cannot be null.");
         else if (subscriptionEndDateEnd !== undefined)
-            url_ += "SubscriptionEndDateEnd=" + encodeURIComponent(subscriptionEndDateEnd ? "" + subscriptionEndDateEnd.toJSON() : "") + "&";
+            url_ += "SubscriptionEndDateEnd=" + encodeURIComponent(subscriptionEndDateEnd ? "" + subscriptionEndDateEnd.toJSON() : "") + "&"; 
         if (creationDateStart === null)
             throw new Error("The parameter 'creationDateStart' cannot be null.");
         else if (creationDateStart !== undefined)
-            url_ += "CreationDateStart=" + encodeURIComponent(creationDateStart ? "" + creationDateStart.toJSON() : "") + "&";
+            url_ += "CreationDateStart=" + encodeURIComponent(creationDateStart ? "" + creationDateStart.toJSON() : "") + "&"; 
         if (creationDateEnd === null)
             throw new Error("The parameter 'creationDateEnd' cannot be null.");
         else if (creationDateEnd !== undefined)
-            url_ += "CreationDateEnd=" + encodeURIComponent(creationDateEnd ? "" + creationDateEnd.toJSON() : "") + "&";
+            url_ += "CreationDateEnd=" + encodeURIComponent(creationDateEnd ? "" + creationDateEnd.toJSON() : "") + "&"; 
         if (editionId === null)
             throw new Error("The parameter 'editionId' cannot be null.");
         else if (editionId !== undefined)
-            url_ += "EditionId=" + encodeURIComponent("" + editionId) + "&";
+            url_ += "EditionId=" + encodeURIComponent("" + editionId) + "&"; 
         if (editionIdSpecified === null)
             throw new Error("The parameter 'editionIdSpecified' cannot be null.");
         else if (editionIdSpecified !== undefined)
-            url_ += "EditionIdSpecified=" + encodeURIComponent("" + editionIdSpecified) + "&";
+            url_ += "EditionIdSpecified=" + encodeURIComponent("" + editionIdSpecified) + "&"; 
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
         if (maxResultCount === null)
             throw new Error("The parameter 'maxResultCount' cannot be null.");
         else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
         if (skipCount === null)
             throw new Error("The parameter 'skipCount' cannot be null.");
         else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -18074,8 +18746,8 @@ export class TenantServiceProxy {
 
     protected processGetTenants(response: HttpResponseBase): Observable<PagedResultDtoOfTenantListDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -18095,7 +18767,7 @@ export class TenantServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     createTenant(body: CreateTenantInput | undefined): Observable<void> {
@@ -18109,7 +18781,7 @@ export class TenantServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -18129,8 +18801,8 @@ export class TenantServiceProxy {
 
     protected processCreateTenant(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -18147,7 +18819,7 @@ export class TenantServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     getTenantForEdit(id: number | undefined): Observable<TenantEditDto> {
@@ -18155,7 +18827,7 @@ export class TenantServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -18182,8 +18854,8 @@ export class TenantServiceProxy {
 
     protected processGetTenantForEdit(response: HttpResponseBase): Observable<TenantEditDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -18203,7 +18875,7 @@ export class TenantServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     updateTenant(body: TenantEditDto | undefined): Observable<void> {
@@ -18217,7 +18889,7 @@ export class TenantServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -18237,8 +18909,8 @@ export class TenantServiceProxy {
 
     protected processUpdateTenant(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -18255,7 +18927,7 @@ export class TenantServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     deleteTenant(id: number | undefined): Observable<void> {
@@ -18263,7 +18935,7 @@ export class TenantServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -18289,8 +18961,8 @@ export class TenantServiceProxy {
 
     protected processDeleteTenant(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -18307,7 +18979,7 @@ export class TenantServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     getTenantFeaturesForEdit(id: number | undefined): Observable<GetTenantFeaturesEditOutput> {
@@ -18315,7 +18987,7 @@ export class TenantServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -18342,8 +19014,8 @@ export class TenantServiceProxy {
 
     protected processGetTenantFeaturesForEdit(response: HttpResponseBase): Observable<GetTenantFeaturesEditOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -18363,7 +19035,7 @@ export class TenantServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     updateTenantFeatures(body: UpdateTenantFeaturesInput | undefined): Observable<void> {
@@ -18377,7 +19049,7 @@ export class TenantServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -18397,8 +19069,8 @@ export class TenantServiceProxy {
 
     protected processUpdateTenantFeatures(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -18415,7 +19087,7 @@ export class TenantServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     resetTenantSpecificFeatures(body: EntityDto | undefined): Observable<void> {
@@ -18429,7 +19101,7 @@ export class TenantServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -18449,8 +19121,8 @@ export class TenantServiceProxy {
 
     protected processResetTenantSpecificFeatures(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -18467,7 +19139,7 @@ export class TenantServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     unlockTenantAdmin(body: EntityDto | undefined): Observable<void> {
@@ -18481,7 +19153,7 @@ export class TenantServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -18501,8 +19173,8 @@ export class TenantServiceProxy {
 
     protected processUnlockTenantAdmin(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -18561,8 +19233,8 @@ export class TenantDashboardServiceProxy {
 
     protected processGetMemberActivity(response: HttpResponseBase): Observable<GetMemberActivityOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -18589,7 +19261,7 @@ export class TenantDashboardServiceProxy {
         if (salesSummaryDatePeriod === undefined || salesSummaryDatePeriod === null)
             throw new Error("The parameter 'salesSummaryDatePeriod' must be defined and cannot be null.");
         else
-            url_ += "SalesSummaryDatePeriod=" + encodeURIComponent("" + salesSummaryDatePeriod) + "&";
+            url_ += "SalesSummaryDatePeriod=" + encodeURIComponent("" + salesSummaryDatePeriod) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -18616,8 +19288,8 @@ export class TenantDashboardServiceProxy {
 
     protected processGetDashboardData(response: HttpResponseBase): Observable<GetDashboardDataOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -18667,8 +19339,8 @@ export class TenantDashboardServiceProxy {
 
     protected processGetTopStats(response: HttpResponseBase): Observable<GetTopStatsOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -18718,8 +19390,8 @@ export class TenantDashboardServiceProxy {
 
     protected processGetProfitShare(response: HttpResponseBase): Observable<GetProfitShareOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -18769,8 +19441,8 @@ export class TenantDashboardServiceProxy {
 
     protected processGetDailySales(response: HttpResponseBase): Observable<GetDailySalesOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -18797,7 +19469,7 @@ export class TenantDashboardServiceProxy {
         if (salesSummaryDatePeriod === undefined || salesSummaryDatePeriod === null)
             throw new Error("The parameter 'salesSummaryDatePeriod' must be defined and cannot be null.");
         else
-            url_ += "SalesSummaryDatePeriod=" + encodeURIComponent("" + salesSummaryDatePeriod) + "&";
+            url_ += "SalesSummaryDatePeriod=" + encodeURIComponent("" + salesSummaryDatePeriod) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -18824,8 +19496,8 @@ export class TenantDashboardServiceProxy {
 
     protected processGetSalesSummary(response: HttpResponseBase): Observable<GetSalesSummaryOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -18875,8 +19547,8 @@ export class TenantDashboardServiceProxy {
 
     protected processGetRegionalStats(response: HttpResponseBase): Observable<GetRegionalStatsOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -18926,8 +19598,8 @@ export class TenantDashboardServiceProxy {
 
     protected processGetGeneralStats(response: HttpResponseBase): Observable<GetGeneralStatsOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -18959,7 +19631,7 @@ export class TenantRegistrationServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     registerTenant(body: RegisterTenantInput | undefined): Observable<RegisterTenantOutput> {
@@ -18973,7 +19645,7 @@ export class TenantRegistrationServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
                 "Accept": "text/plain"
             })
         };
@@ -18994,8 +19666,8 @@ export class TenantRegistrationServiceProxy {
 
     protected processRegisterTenant(response: HttpResponseBase): Observable<RegisterTenantOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -19045,8 +19717,8 @@ export class TenantRegistrationServiceProxy {
 
     protected processGetEditionsForSelect(response: HttpResponseBase): Observable<EditionsSelectOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -19066,7 +19738,7 @@ export class TenantRegistrationServiceProxy {
     }
 
     /**
-     * @param editionId (optional)
+     * @param editionId (optional) 
      * @return Success
      */
     getEdition(editionId: number | undefined): Observable<EditionSelectDto> {
@@ -19074,7 +19746,7 @@ export class TenantRegistrationServiceProxy {
         if (editionId === null)
             throw new Error("The parameter 'editionId' cannot be null.");
         else if (editionId !== undefined)
-            url_ += "editionId=" + encodeURIComponent("" + editionId) + "&";
+            url_ += "editionId=" + encodeURIComponent("" + editionId) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -19101,8 +19773,8 @@ export class TenantRegistrationServiceProxy {
 
     protected processGetEdition(response: HttpResponseBase): Observable<EditionSelectDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -19164,8 +19836,8 @@ export class TenantSettingsServiceProxy {
 
     protected processGetAllSettings(response: HttpResponseBase): Observable<TenantSettingsEditDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -19185,7 +19857,7 @@ export class TenantSettingsServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     updateAllSettings(body: TenantSettingsEditDto | undefined): Observable<void> {
@@ -19199,7 +19871,7 @@ export class TenantSettingsServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -19219,8 +19891,8 @@ export class TenantSettingsServiceProxy {
 
     protected processUpdateAllSettings(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -19266,8 +19938,8 @@ export class TenantSettingsServiceProxy {
 
     protected processClearLogo(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -19313,8 +19985,8 @@ export class TenantSettingsServiceProxy {
 
     protected processClearCustomCss(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -19331,7 +20003,7 @@ export class TenantSettingsServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     sendTestEmail(body: SendTestEmailInput | undefined): Observable<void> {
@@ -19345,7 +20017,7 @@ export class TenantSettingsServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -19365,8 +20037,8 @@ export class TenantSettingsServiceProxy {
 
     protected processSendTestEmail(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -19395,12 +20067,12 @@ export class TimeProfileDetailsServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param timeProfileDescriptionArFilter (optional)
-     * @param shiftNameArFilter (optional)
-     * @param sorting (optional)
-     * @param skipCount (optional)
-     * @param maxResultCount (optional)
+     * @param filter (optional) 
+     * @param timeProfileDescriptionArFilter (optional) 
+     * @param shiftNameArFilter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
      * @return Success
      */
     getAll(filter: string | undefined, timeProfileDescriptionArFilter: string | undefined, shiftNameArFilter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetTimeProfileDetailForViewDto> {
@@ -19408,27 +20080,27 @@ export class TimeProfileDetailsServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (timeProfileDescriptionArFilter === null)
             throw new Error("The parameter 'timeProfileDescriptionArFilter' cannot be null.");
         else if (timeProfileDescriptionArFilter !== undefined)
-            url_ += "TimeProfileDescriptionArFilter=" + encodeURIComponent("" + timeProfileDescriptionArFilter) + "&";
+            url_ += "TimeProfileDescriptionArFilter=" + encodeURIComponent("" + timeProfileDescriptionArFilter) + "&"; 
         if (shiftNameArFilter === null)
             throw new Error("The parameter 'shiftNameArFilter' cannot be null.");
         else if (shiftNameArFilter !== undefined)
-            url_ += "ShiftNameArFilter=" + encodeURIComponent("" + shiftNameArFilter) + "&";
+            url_ += "ShiftNameArFilter=" + encodeURIComponent("" + shiftNameArFilter) + "&"; 
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
         if (skipCount === null)
             throw new Error("The parameter 'skipCount' cannot be null.");
         else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
         if (maxResultCount === null)
             throw new Error("The parameter 'maxResultCount' cannot be null.");
         else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -19455,8 +20127,8 @@ export class TimeProfileDetailsServiceProxy {
 
     protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfGetTimeProfileDetailForViewDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -19476,7 +20148,7 @@ export class TimeProfileDetailsServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     getTimeProfileDetailForView(id: number | undefined): Observable<GetTimeProfileDetailForViewDto> {
@@ -19484,7 +20156,7 @@ export class TimeProfileDetailsServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "id=" + encodeURIComponent("" + id) + "&";
+            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -19511,8 +20183,8 @@ export class TimeProfileDetailsServiceProxy {
 
     protected processGetTimeProfileDetailForView(response: HttpResponseBase): Observable<GetTimeProfileDetailForViewDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -19532,7 +20204,7 @@ export class TimeProfileDetailsServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     getTimeProfileDetailForEdit(id: number | undefined): Observable<GetTimeProfileDetailForEditOutput> {
@@ -19540,7 +20212,7 @@ export class TimeProfileDetailsServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -19567,8 +20239,8 @@ export class TimeProfileDetailsServiceProxy {
 
     protected processGetTimeProfileDetailForEdit(response: HttpResponseBase): Observable<GetTimeProfileDetailForEditOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -19588,7 +20260,7 @@ export class TimeProfileDetailsServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     createOrEdit(body: CreateOrEditTimeProfileDetailDto | undefined): Observable<void> {
@@ -19602,7 +20274,7 @@ export class TimeProfileDetailsServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -19622,8 +20294,8 @@ export class TimeProfileDetailsServiceProxy {
 
     protected processCreateOrEdit(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -19640,7 +20312,7 @@ export class TimeProfileDetailsServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     delete(id: number | undefined): Observable<void> {
@@ -19648,7 +20320,7 @@ export class TimeProfileDetailsServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -19674,8 +20346,8 @@ export class TimeProfileDetailsServiceProxy {
 
     protected processDelete(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -19692,9 +20364,9 @@ export class TimeProfileDetailsServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param timeProfileDescriptionArFilter (optional)
-     * @param shiftNameArFilter (optional)
+     * @param filter (optional) 
+     * @param timeProfileDescriptionArFilter (optional) 
+     * @param shiftNameArFilter (optional) 
      * @return Success
      */
     getTimeProfileDetailsToExcel(filter: string | undefined, timeProfileDescriptionArFilter: string | undefined, shiftNameArFilter: string | undefined): Observable<FileDto> {
@@ -19702,15 +20374,15 @@ export class TimeProfileDetailsServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (timeProfileDescriptionArFilter === null)
             throw new Error("The parameter 'timeProfileDescriptionArFilter' cannot be null.");
         else if (timeProfileDescriptionArFilter !== undefined)
-            url_ += "TimeProfileDescriptionArFilter=" + encodeURIComponent("" + timeProfileDescriptionArFilter) + "&";
+            url_ += "TimeProfileDescriptionArFilter=" + encodeURIComponent("" + timeProfileDescriptionArFilter) + "&"; 
         if (shiftNameArFilter === null)
             throw new Error("The parameter 'shiftNameArFilter' cannot be null.");
         else if (shiftNameArFilter !== undefined)
-            url_ += "ShiftNameArFilter=" + encodeURIComponent("" + shiftNameArFilter) + "&";
+            url_ += "ShiftNameArFilter=" + encodeURIComponent("" + shiftNameArFilter) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -19737,8 +20409,8 @@ export class TimeProfileDetailsServiceProxy {
 
     protected processGetTimeProfileDetailsToExcel(response: HttpResponseBase): Observable<FileDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -19758,10 +20430,10 @@ export class TimeProfileDetailsServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param sorting (optional)
-     * @param skipCount (optional)
-     * @param maxResultCount (optional)
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
      * @return Success
      */
     getAllTimeProfileForLookupTable(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfTimeProfileDetailTimeProfileLookupTableDto> {
@@ -19769,19 +20441,19 @@ export class TimeProfileDetailsServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
         if (skipCount === null)
             throw new Error("The parameter 'skipCount' cannot be null.");
         else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
         if (maxResultCount === null)
             throw new Error("The parameter 'maxResultCount' cannot be null.");
         else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -19808,8 +20480,8 @@ export class TimeProfileDetailsServiceProxy {
 
     protected processGetAllTimeProfileForLookupTable(response: HttpResponseBase): Observable<PagedResultDtoOfTimeProfileDetailTimeProfileLookupTableDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -19829,10 +20501,10 @@ export class TimeProfileDetailsServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param sorting (optional)
-     * @param skipCount (optional)
-     * @param maxResultCount (optional)
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
      * @return Success
      */
     getAllShiftForLookupTable(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfTimeProfileDetailShiftLookupTableDto> {
@@ -19840,19 +20512,19 @@ export class TimeProfileDetailsServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
         if (skipCount === null)
             throw new Error("The parameter 'skipCount' cannot be null.");
         else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
         if (maxResultCount === null)
             throw new Error("The parameter 'maxResultCount' cannot be null.");
         else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -19879,8 +20551,8 @@ export class TimeProfileDetailsServiceProxy {
 
     protected processGetAllShiftForLookupTable(response: HttpResponseBase): Observable<PagedResultDtoOfTimeProfileDetailShiftLookupTableDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -19912,17 +20584,17 @@ export class TimeProfilesServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param descriptionArFilter (optional)
-     * @param descriptionEnFilter (optional)
-     * @param maxStartDateFilter (optional)
-     * @param minStartDateFilter (optional)
-     * @param maxEndDateFilter (optional)
-     * @param minEndDateFilter (optional)
-     * @param userNameFilter (optional)
-     * @param sorting (optional)
-     * @param skipCount (optional)
-     * @param maxResultCount (optional)
+     * @param filter (optional) 
+     * @param descriptionArFilter (optional) 
+     * @param descriptionEnFilter (optional) 
+     * @param maxStartDateFilter (optional) 
+     * @param minStartDateFilter (optional) 
+     * @param maxEndDateFilter (optional) 
+     * @param minEndDateFilter (optional) 
+     * @param userNameFilter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
      * @return Success
      */
     getAll(filter: string | undefined, descriptionArFilter: string | undefined, descriptionEnFilter: string | undefined, maxStartDateFilter: moment.Moment | undefined, minStartDateFilter: moment.Moment | undefined, maxEndDateFilter: moment.Moment | undefined, minEndDateFilter: moment.Moment | undefined, userNameFilter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetTimeProfileForViewDto> {
@@ -19930,47 +20602,47 @@ export class TimeProfilesServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (descriptionArFilter === null)
             throw new Error("The parameter 'descriptionArFilter' cannot be null.");
         else if (descriptionArFilter !== undefined)
-            url_ += "DescriptionArFilter=" + encodeURIComponent("" + descriptionArFilter) + "&";
+            url_ += "DescriptionArFilter=" + encodeURIComponent("" + descriptionArFilter) + "&"; 
         if (descriptionEnFilter === null)
             throw new Error("The parameter 'descriptionEnFilter' cannot be null.");
         else if (descriptionEnFilter !== undefined)
-            url_ += "DescriptionEnFilter=" + encodeURIComponent("" + descriptionEnFilter) + "&";
+            url_ += "DescriptionEnFilter=" + encodeURIComponent("" + descriptionEnFilter) + "&"; 
         if (maxStartDateFilter === null)
             throw new Error("The parameter 'maxStartDateFilter' cannot be null.");
         else if (maxStartDateFilter !== undefined)
-            url_ += "MaxStartDateFilter=" + encodeURIComponent(maxStartDateFilter ? "" + maxStartDateFilter.toJSON() : "") + "&";
+            url_ += "MaxStartDateFilter=" + encodeURIComponent(maxStartDateFilter ? "" + maxStartDateFilter.toJSON() : "") + "&"; 
         if (minStartDateFilter === null)
             throw new Error("The parameter 'minStartDateFilter' cannot be null.");
         else if (minStartDateFilter !== undefined)
-            url_ += "MinStartDateFilter=" + encodeURIComponent(minStartDateFilter ? "" + minStartDateFilter.toJSON() : "") + "&";
+            url_ += "MinStartDateFilter=" + encodeURIComponent(minStartDateFilter ? "" + minStartDateFilter.toJSON() : "") + "&"; 
         if (maxEndDateFilter === null)
             throw new Error("The parameter 'maxEndDateFilter' cannot be null.");
         else if (maxEndDateFilter !== undefined)
-            url_ += "MaxEndDateFilter=" + encodeURIComponent(maxEndDateFilter ? "" + maxEndDateFilter.toJSON() : "") + "&";
+            url_ += "MaxEndDateFilter=" + encodeURIComponent(maxEndDateFilter ? "" + maxEndDateFilter.toJSON() : "") + "&"; 
         if (minEndDateFilter === null)
             throw new Error("The parameter 'minEndDateFilter' cannot be null.");
         else if (minEndDateFilter !== undefined)
-            url_ += "MinEndDateFilter=" + encodeURIComponent(minEndDateFilter ? "" + minEndDateFilter.toJSON() : "") + "&";
+            url_ += "MinEndDateFilter=" + encodeURIComponent(minEndDateFilter ? "" + minEndDateFilter.toJSON() : "") + "&"; 
         if (userNameFilter === null)
             throw new Error("The parameter 'userNameFilter' cannot be null.");
         else if (userNameFilter !== undefined)
-            url_ += "UserNameFilter=" + encodeURIComponent("" + userNameFilter) + "&";
+            url_ += "UserNameFilter=" + encodeURIComponent("" + userNameFilter) + "&"; 
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
         if (skipCount === null)
             throw new Error("The parameter 'skipCount' cannot be null.");
         else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
         if (maxResultCount === null)
             throw new Error("The parameter 'maxResultCount' cannot be null.");
         else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -19997,8 +20669,8 @@ export class TimeProfilesServiceProxy {
 
     protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfGetTimeProfileForViewDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -20018,7 +20690,7 @@ export class TimeProfilesServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     getTimeProfileForView(id: number | undefined): Observable<GetTimeProfileForViewDto> {
@@ -20026,7 +20698,7 @@ export class TimeProfilesServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "id=" + encodeURIComponent("" + id) + "&";
+            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -20053,8 +20725,8 @@ export class TimeProfilesServiceProxy {
 
     protected processGetTimeProfileForView(response: HttpResponseBase): Observable<GetTimeProfileForViewDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -20074,7 +20746,7 @@ export class TimeProfilesServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     getTimeProfileForEdit(id: number | undefined): Observable<GetTimeProfileForEditOutput> {
@@ -20082,7 +20754,7 @@ export class TimeProfilesServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -20109,8 +20781,8 @@ export class TimeProfilesServiceProxy {
 
     protected processGetTimeProfileForEdit(response: HttpResponseBase): Observable<GetTimeProfileForEditOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -20130,7 +20802,7 @@ export class TimeProfilesServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     createTimeProfileFromExcel(body: CreateTimeProfileFromExcelDto[] | undefined): Observable<void> {
@@ -20144,7 +20816,7 @@ export class TimeProfilesServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -20164,8 +20836,8 @@ export class TimeProfilesServiceProxy {
 
     protected processCreateTimeProfileFromExcel(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -20182,7 +20854,7 @@ export class TimeProfilesServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     createOrEdit(body: CreateOrEditTimeProfileDto[] | undefined): Observable<void> {
@@ -20196,7 +20868,7 @@ export class TimeProfilesServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -20216,8 +20888,8 @@ export class TimeProfilesServiceProxy {
 
     protected processCreateOrEdit(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -20234,7 +20906,7 @@ export class TimeProfilesServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     delete(id: number | undefined): Observable<void> {
@@ -20242,7 +20914,7 @@ export class TimeProfilesServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -20268,8 +20940,8 @@ export class TimeProfilesServiceProxy {
 
     protected processDelete(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -20286,14 +20958,14 @@ export class TimeProfilesServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param descriptionArFilter (optional)
-     * @param descriptionEnFilter (optional)
-     * @param maxStartDateFilter (optional)
-     * @param minStartDateFilter (optional)
-     * @param maxEndDateFilter (optional)
-     * @param minEndDateFilter (optional)
-     * @param userNameFilter (optional)
+     * @param filter (optional) 
+     * @param descriptionArFilter (optional) 
+     * @param descriptionEnFilter (optional) 
+     * @param maxStartDateFilter (optional) 
+     * @param minStartDateFilter (optional) 
+     * @param maxEndDateFilter (optional) 
+     * @param minEndDateFilter (optional) 
+     * @param userNameFilter (optional) 
      * @return Success
      */
     getTimeProfilesToExcel(filter: string | undefined, descriptionArFilter: string | undefined, descriptionEnFilter: string | undefined, maxStartDateFilter: moment.Moment | undefined, minStartDateFilter: moment.Moment | undefined, maxEndDateFilter: moment.Moment | undefined, minEndDateFilter: moment.Moment | undefined, userNameFilter: string | undefined): Observable<FileDto> {
@@ -20301,35 +20973,35 @@ export class TimeProfilesServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (descriptionArFilter === null)
             throw new Error("The parameter 'descriptionArFilter' cannot be null.");
         else if (descriptionArFilter !== undefined)
-            url_ += "DescriptionArFilter=" + encodeURIComponent("" + descriptionArFilter) + "&";
+            url_ += "DescriptionArFilter=" + encodeURIComponent("" + descriptionArFilter) + "&"; 
         if (descriptionEnFilter === null)
             throw new Error("The parameter 'descriptionEnFilter' cannot be null.");
         else if (descriptionEnFilter !== undefined)
-            url_ += "DescriptionEnFilter=" + encodeURIComponent("" + descriptionEnFilter) + "&";
+            url_ += "DescriptionEnFilter=" + encodeURIComponent("" + descriptionEnFilter) + "&"; 
         if (maxStartDateFilter === null)
             throw new Error("The parameter 'maxStartDateFilter' cannot be null.");
         else if (maxStartDateFilter !== undefined)
-            url_ += "MaxStartDateFilter=" + encodeURIComponent(maxStartDateFilter ? "" + maxStartDateFilter.toJSON() : "") + "&";
+            url_ += "MaxStartDateFilter=" + encodeURIComponent(maxStartDateFilter ? "" + maxStartDateFilter.toJSON() : "") + "&"; 
         if (minStartDateFilter === null)
             throw new Error("The parameter 'minStartDateFilter' cannot be null.");
         else if (minStartDateFilter !== undefined)
-            url_ += "MinStartDateFilter=" + encodeURIComponent(minStartDateFilter ? "" + minStartDateFilter.toJSON() : "") + "&";
+            url_ += "MinStartDateFilter=" + encodeURIComponent(minStartDateFilter ? "" + minStartDateFilter.toJSON() : "") + "&"; 
         if (maxEndDateFilter === null)
             throw new Error("The parameter 'maxEndDateFilter' cannot be null.");
         else if (maxEndDateFilter !== undefined)
-            url_ += "MaxEndDateFilter=" + encodeURIComponent(maxEndDateFilter ? "" + maxEndDateFilter.toJSON() : "") + "&";
+            url_ += "MaxEndDateFilter=" + encodeURIComponent(maxEndDateFilter ? "" + maxEndDateFilter.toJSON() : "") + "&"; 
         if (minEndDateFilter === null)
             throw new Error("The parameter 'minEndDateFilter' cannot be null.");
         else if (minEndDateFilter !== undefined)
-            url_ += "MinEndDateFilter=" + encodeURIComponent(minEndDateFilter ? "" + minEndDateFilter.toJSON() : "") + "&";
+            url_ += "MinEndDateFilter=" + encodeURIComponent(minEndDateFilter ? "" + minEndDateFilter.toJSON() : "") + "&"; 
         if (userNameFilter === null)
             throw new Error("The parameter 'userNameFilter' cannot be null.");
         else if (userNameFilter !== undefined)
-            url_ += "UserNameFilter=" + encodeURIComponent("" + userNameFilter) + "&";
+            url_ += "UserNameFilter=" + encodeURIComponent("" + userNameFilter) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -20356,8 +21028,8 @@ export class TimeProfilesServiceProxy {
 
     protected processGetTimeProfilesToExcel(response: HttpResponseBase): Observable<FileDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -20377,10 +21049,10 @@ export class TimeProfilesServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param sorting (optional)
-     * @param skipCount (optional)
-     * @param maxResultCount (optional)
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
      * @return Success
      */
     getAllUserForLookupTable(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfTimeProfileUserLookupTableDto> {
@@ -20388,19 +21060,19 @@ export class TimeProfilesServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
         if (skipCount === null)
             throw new Error("The parameter 'skipCount' cannot be null.");
         else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
         if (maxResultCount === null)
             throw new Error("The parameter 'maxResultCount' cannot be null.");
         else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -20427,8 +21099,8 @@ export class TimeProfilesServiceProxy {
 
     protected processGetAllUserForLookupTable(response: HttpResponseBase): Observable<PagedResultDtoOfTimeProfileUserLookupTableDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -20467,7 +21139,7 @@ export class TimingServiceProxy {
         if (defaultTimezoneScope === undefined || defaultTimezoneScope === null)
             throw new Error("The parameter 'defaultTimezoneScope' must be defined and cannot be null.");
         else
-            url_ += "DefaultTimezoneScope=" + encodeURIComponent("" + defaultTimezoneScope) + "&";
+            url_ += "DefaultTimezoneScope=" + encodeURIComponent("" + defaultTimezoneScope) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -20494,8 +21166,8 @@ export class TimingServiceProxy {
 
     protected processGetTimezones(response: HttpResponseBase): Observable<ListResultDtoOfNameValueDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -20515,7 +21187,7 @@ export class TimingServiceProxy {
     }
 
     /**
-     * @param selectedTimezoneId (optional)
+     * @param selectedTimezoneId (optional) 
      * @return Success
      */
     getTimezoneComboboxItems(selectedTimezoneId: string | undefined): Observable<ComboboxItemDto[]> {
@@ -20523,7 +21195,7 @@ export class TimingServiceProxy {
         if (selectedTimezoneId === null)
             throw new Error("The parameter 'selectedTimezoneId' cannot be null.");
         else if (selectedTimezoneId !== undefined)
-            url_ += "SelectedTimezoneId=" + encodeURIComponent("" + selectedTimezoneId) + "&";
+            url_ += "SelectedTimezoneId=" + encodeURIComponent("" + selectedTimezoneId) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -20550,8 +21222,8 @@ export class TimingServiceProxy {
 
     protected processGetTimezoneComboboxItems(response: HttpResponseBase): Observable<ComboboxItemDto[]> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -20587,7 +21259,7 @@ export class TokenAuthServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     login(body: MobileLoginModel | undefined): Observable<MobileResultModel> {
@@ -20601,7 +21273,7 @@ export class TokenAuthServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
                 "Accept": "text/plain"
             })
         };
@@ -20622,8 +21294,8 @@ export class TokenAuthServiceProxy {
 
     protected processLogin(response: HttpResponseBase): Observable<MobileResultModel> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -20643,7 +21315,7 @@ export class TokenAuthServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     authenticate(body: AuthenticateModel | undefined): Observable<AuthenticateResultModel> {
@@ -20657,7 +21329,7 @@ export class TokenAuthServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
                 "Accept": "text/plain"
             })
         };
@@ -20678,8 +21350,8 @@ export class TokenAuthServiceProxy {
 
     protected processAuthenticate(response: HttpResponseBase): Observable<AuthenticateResultModel> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -20699,7 +21371,7 @@ export class TokenAuthServiceProxy {
     }
 
     /**
-     * @param refreshToken (optional)
+     * @param refreshToken (optional) 
      * @return Success
      */
     refreshToken(refreshToken: string | undefined): Observable<RefreshTokenResult> {
@@ -20707,7 +21379,7 @@ export class TokenAuthServiceProxy {
         if (refreshToken === null)
             throw new Error("The parameter 'refreshToken' cannot be null.");
         else if (refreshToken !== undefined)
-            url_ += "refreshToken=" + encodeURIComponent("" + refreshToken) + "&";
+            url_ += "refreshToken=" + encodeURIComponent("" + refreshToken) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -20734,8 +21406,8 @@ export class TokenAuthServiceProxy {
 
     protected processRefreshToken(response: HttpResponseBase): Observable<RefreshTokenResult> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -20784,8 +21456,8 @@ export class TokenAuthServiceProxy {
 
     protected processLogOut(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -20802,7 +21474,7 @@ export class TokenAuthServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     sendTwoFactorAuthCode(body: SendTwoFactorAuthCodeModel | undefined): Observable<void> {
@@ -20816,7 +21488,7 @@ export class TokenAuthServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -20836,8 +21508,8 @@ export class TokenAuthServiceProxy {
 
     protected processSendTwoFactorAuthCode(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -20854,7 +21526,7 @@ export class TokenAuthServiceProxy {
     }
 
     /**
-     * @param impersonationToken (optional)
+     * @param impersonationToken (optional) 
      * @return Success
      */
     impersonatedAuthenticate(impersonationToken: string | undefined): Observable<ImpersonatedAuthenticateResultModel> {
@@ -20862,7 +21534,7 @@ export class TokenAuthServiceProxy {
         if (impersonationToken === null)
             throw new Error("The parameter 'impersonationToken' cannot be null.");
         else if (impersonationToken !== undefined)
-            url_ += "impersonationToken=" + encodeURIComponent("" + impersonationToken) + "&";
+            url_ += "impersonationToken=" + encodeURIComponent("" + impersonationToken) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -20889,8 +21561,8 @@ export class TokenAuthServiceProxy {
 
     protected processImpersonatedAuthenticate(response: HttpResponseBase): Observable<ImpersonatedAuthenticateResultModel> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -20910,7 +21582,7 @@ export class TokenAuthServiceProxy {
     }
 
     /**
-     * @param switchAccountToken (optional)
+     * @param switchAccountToken (optional) 
      * @return Success
      */
     linkedAccountAuthenticate(switchAccountToken: string | undefined): Observable<SwitchedAccountAuthenticateResultModel> {
@@ -20918,7 +21590,7 @@ export class TokenAuthServiceProxy {
         if (switchAccountToken === null)
             throw new Error("The parameter 'switchAccountToken' cannot be null.");
         else if (switchAccountToken !== undefined)
-            url_ += "switchAccountToken=" + encodeURIComponent("" + switchAccountToken) + "&";
+            url_ += "switchAccountToken=" + encodeURIComponent("" + switchAccountToken) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -20945,8 +21617,8 @@ export class TokenAuthServiceProxy {
 
     protected processLinkedAccountAuthenticate(response: HttpResponseBase): Observable<SwitchedAccountAuthenticateResultModel> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -20996,8 +21668,8 @@ export class TokenAuthServiceProxy {
 
     protected processGetExternalAuthenticationProviders(response: HttpResponseBase): Observable<ExternalLoginProviderInfoModel[]> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -21021,7 +21693,7 @@ export class TokenAuthServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     externalAuthenticate(body: ExternalAuthenticateModel | undefined): Observable<ExternalAuthenticateResultModel> {
@@ -21035,7 +21707,7 @@ export class TokenAuthServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
                 "Accept": "text/plain"
             })
         };
@@ -21056,8 +21728,8 @@ export class TokenAuthServiceProxy {
 
     protected processExternalAuthenticate(response: HttpResponseBase): Observable<ExternalAuthenticateResultModel> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -21077,8 +21749,8 @@ export class TokenAuthServiceProxy {
     }
 
     /**
-     * @param message (optional)
-     * @param severity (optional)
+     * @param message (optional) 
+     * @param severity (optional) 
      * @return Success
      */
     testNotification(message: string | undefined, severity: string | undefined): Observable<void> {
@@ -21086,11 +21758,11 @@ export class TokenAuthServiceProxy {
         if (message === null)
             throw new Error("The parameter 'message' cannot be null.");
         else if (message !== undefined)
-            url_ += "message=" + encodeURIComponent("" + message) + "&";
+            url_ += "message=" + encodeURIComponent("" + message) + "&"; 
         if (severity === null)
             throw new Error("The parameter 'severity' cannot be null.");
         else if (severity !== undefined)
-            url_ += "severity=" + encodeURIComponent("" + severity) + "&";
+            url_ += "severity=" + encodeURIComponent("" + severity) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -21116,8 +21788,8 @@ export class TokenAuthServiceProxy {
 
     protected processTestNotification(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -21146,45 +21818,45 @@ export class TransServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param scan1Filter (optional)
-     * @param scan2Filter (optional)
-     * @param scan3Filter (optional)
-     * @param scan4Filter (optional)
-     * @param scan5Filter (optional)
-     * @param scan6Filter (optional)
-     * @param scan8Filter (optional)
-     * @param scanLocation1Filter (optional)
-     * @param scanLocation2Filter (optional)
-     * @param scanLocation3Filter (optional)
-     * @param scanLocation4Filter (optional)
-     * @param scanLocation5Filter (optional)
-     * @param scanLocation6Filter (optional)
-     * @param scanLocation7Filter (optional)
-     * @param scanLocation8Filter (optional)
-     * @param hasHolidayFilter (optional)
-     * @param hasVacationFilter (optional)
-     * @param hasOffDayFilter (optional)
-     * @param isAbsentFilter (optional)
-     * @param leaveCodeFilter (optional)
-     * @param maxDesignationIDFilter (optional)
-     * @param minDesignationIDFilter (optional)
-     * @param leaveRemarkFilter (optional)
-     * @param maxNoShiftsFilter (optional)
-     * @param minNoShiftsFilter (optional)
-     * @param shiftNameFilter (optional)
-     * @param scanManual1Filter (optional)
-     * @param scanManual2Filter (optional)
-     * @param scanManual3Filter (optional)
-     * @param scanManual4Filter (optional)
-     * @param scanManual5Filter (optional)
-     * @param scanManual6Filter (optional)
-     * @param scanManual7Filter (optional)
-     * @param scanManual8Filter (optional)
-     * @param userNameFilter (optional)
-     * @param sorting (optional)
-     * @param skipCount (optional)
-     * @param maxResultCount (optional)
+     * @param filter (optional) 
+     * @param scan1Filter (optional) 
+     * @param scan2Filter (optional) 
+     * @param scan3Filter (optional) 
+     * @param scan4Filter (optional) 
+     * @param scan5Filter (optional) 
+     * @param scan6Filter (optional) 
+     * @param scan8Filter (optional) 
+     * @param scanLocation1Filter (optional) 
+     * @param scanLocation2Filter (optional) 
+     * @param scanLocation3Filter (optional) 
+     * @param scanLocation4Filter (optional) 
+     * @param scanLocation5Filter (optional) 
+     * @param scanLocation6Filter (optional) 
+     * @param scanLocation7Filter (optional) 
+     * @param scanLocation8Filter (optional) 
+     * @param hasHolidayFilter (optional) 
+     * @param hasVacationFilter (optional) 
+     * @param hasOffDayFilter (optional) 
+     * @param isAbsentFilter (optional) 
+     * @param leaveCodeFilter (optional) 
+     * @param maxDesignationIDFilter (optional) 
+     * @param minDesignationIDFilter (optional) 
+     * @param leaveRemarkFilter (optional) 
+     * @param maxNoShiftsFilter (optional) 
+     * @param minNoShiftsFilter (optional) 
+     * @param shiftNameFilter (optional) 
+     * @param scanManual1Filter (optional) 
+     * @param scanManual2Filter (optional) 
+     * @param scanManual3Filter (optional) 
+     * @param scanManual4Filter (optional) 
+     * @param scanManual5Filter (optional) 
+     * @param scanManual6Filter (optional) 
+     * @param scanManual7Filter (optional) 
+     * @param scanManual8Filter (optional) 
+     * @param userNameFilter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
      * @return Success
      */
     getAll(filter: string | undefined, scan1Filter: string | undefined, scan2Filter: string | undefined, scan3Filter: string | undefined, scan4Filter: string | undefined, scan5Filter: string | undefined, scan6Filter: string | undefined, scan8Filter: string | undefined, scanLocation1Filter: string | undefined, scanLocation2Filter: string | undefined, scanLocation3Filter: string | undefined, scanLocation4Filter: string | undefined, scanLocation5Filter: string | undefined, scanLocation6Filter: string | undefined, scanLocation7Filter: string | undefined, scanLocation8Filter: string | undefined, hasHolidayFilter: number | undefined, hasVacationFilter: number | undefined, hasOffDayFilter: number | undefined, isAbsentFilter: number | undefined, leaveCodeFilter: string | undefined, maxDesignationIDFilter: number | undefined, minDesignationIDFilter: number | undefined, leaveRemarkFilter: string | undefined, maxNoShiftsFilter: number | undefined, minNoShiftsFilter: number | undefined, shiftNameFilter: string | undefined, scanManual1Filter: number | undefined, scanManual2Filter: number | undefined, scanManual3Filter: number | undefined, scanManual4Filter: number | undefined, scanManual5Filter: number | undefined, scanManual6Filter: number | undefined, scanManual7Filter: number | undefined, scanManual8Filter: number | undefined, userNameFilter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetTranForViewDto> {
@@ -21192,159 +21864,159 @@ export class TransServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (scan1Filter === null)
             throw new Error("The parameter 'scan1Filter' cannot be null.");
         else if (scan1Filter !== undefined)
-            url_ += "Scan1Filter=" + encodeURIComponent("" + scan1Filter) + "&";
+            url_ += "Scan1Filter=" + encodeURIComponent("" + scan1Filter) + "&"; 
         if (scan2Filter === null)
             throw new Error("The parameter 'scan2Filter' cannot be null.");
         else if (scan2Filter !== undefined)
-            url_ += "Scan2Filter=" + encodeURIComponent("" + scan2Filter) + "&";
+            url_ += "Scan2Filter=" + encodeURIComponent("" + scan2Filter) + "&"; 
         if (scan3Filter === null)
             throw new Error("The parameter 'scan3Filter' cannot be null.");
         else if (scan3Filter !== undefined)
-            url_ += "Scan3Filter=" + encodeURIComponent("" + scan3Filter) + "&";
+            url_ += "Scan3Filter=" + encodeURIComponent("" + scan3Filter) + "&"; 
         if (scan4Filter === null)
             throw new Error("The parameter 'scan4Filter' cannot be null.");
         else if (scan4Filter !== undefined)
-            url_ += "Scan4Filter=" + encodeURIComponent("" + scan4Filter) + "&";
+            url_ += "Scan4Filter=" + encodeURIComponent("" + scan4Filter) + "&"; 
         if (scan5Filter === null)
             throw new Error("The parameter 'scan5Filter' cannot be null.");
         else if (scan5Filter !== undefined)
-            url_ += "Scan5Filter=" + encodeURIComponent("" + scan5Filter) + "&";
+            url_ += "Scan5Filter=" + encodeURIComponent("" + scan5Filter) + "&"; 
         if (scan6Filter === null)
             throw new Error("The parameter 'scan6Filter' cannot be null.");
         else if (scan6Filter !== undefined)
-            url_ += "Scan6Filter=" + encodeURIComponent("" + scan6Filter) + "&";
+            url_ += "Scan6Filter=" + encodeURIComponent("" + scan6Filter) + "&"; 
         if (scan8Filter === null)
             throw new Error("The parameter 'scan8Filter' cannot be null.");
         else if (scan8Filter !== undefined)
-            url_ += "Scan8Filter=" + encodeURIComponent("" + scan8Filter) + "&";
+            url_ += "Scan8Filter=" + encodeURIComponent("" + scan8Filter) + "&"; 
         if (scanLocation1Filter === null)
             throw new Error("The parameter 'scanLocation1Filter' cannot be null.");
         else if (scanLocation1Filter !== undefined)
-            url_ += "ScanLocation1Filter=" + encodeURIComponent("" + scanLocation1Filter) + "&";
+            url_ += "ScanLocation1Filter=" + encodeURIComponent("" + scanLocation1Filter) + "&"; 
         if (scanLocation2Filter === null)
             throw new Error("The parameter 'scanLocation2Filter' cannot be null.");
         else if (scanLocation2Filter !== undefined)
-            url_ += "ScanLocation2Filter=" + encodeURIComponent("" + scanLocation2Filter) + "&";
+            url_ += "ScanLocation2Filter=" + encodeURIComponent("" + scanLocation2Filter) + "&"; 
         if (scanLocation3Filter === null)
             throw new Error("The parameter 'scanLocation3Filter' cannot be null.");
         else if (scanLocation3Filter !== undefined)
-            url_ += "ScanLocation3Filter=" + encodeURIComponent("" + scanLocation3Filter) + "&";
+            url_ += "ScanLocation3Filter=" + encodeURIComponent("" + scanLocation3Filter) + "&"; 
         if (scanLocation4Filter === null)
             throw new Error("The parameter 'scanLocation4Filter' cannot be null.");
         else if (scanLocation4Filter !== undefined)
-            url_ += "ScanLocation4Filter=" + encodeURIComponent("" + scanLocation4Filter) + "&";
+            url_ += "ScanLocation4Filter=" + encodeURIComponent("" + scanLocation4Filter) + "&"; 
         if (scanLocation5Filter === null)
             throw new Error("The parameter 'scanLocation5Filter' cannot be null.");
         else if (scanLocation5Filter !== undefined)
-            url_ += "ScanLocation5Filter=" + encodeURIComponent("" + scanLocation5Filter) + "&";
+            url_ += "ScanLocation5Filter=" + encodeURIComponent("" + scanLocation5Filter) + "&"; 
         if (scanLocation6Filter === null)
             throw new Error("The parameter 'scanLocation6Filter' cannot be null.");
         else if (scanLocation6Filter !== undefined)
-            url_ += "ScanLocation6Filter=" + encodeURIComponent("" + scanLocation6Filter) + "&";
+            url_ += "ScanLocation6Filter=" + encodeURIComponent("" + scanLocation6Filter) + "&"; 
         if (scanLocation7Filter === null)
             throw new Error("The parameter 'scanLocation7Filter' cannot be null.");
         else if (scanLocation7Filter !== undefined)
-            url_ += "ScanLocation7Filter=" + encodeURIComponent("" + scanLocation7Filter) + "&";
+            url_ += "ScanLocation7Filter=" + encodeURIComponent("" + scanLocation7Filter) + "&"; 
         if (scanLocation8Filter === null)
             throw new Error("The parameter 'scanLocation8Filter' cannot be null.");
         else if (scanLocation8Filter !== undefined)
-            url_ += "ScanLocation8Filter=" + encodeURIComponent("" + scanLocation8Filter) + "&";
+            url_ += "ScanLocation8Filter=" + encodeURIComponent("" + scanLocation8Filter) + "&"; 
         if (hasHolidayFilter === null)
             throw new Error("The parameter 'hasHolidayFilter' cannot be null.");
         else if (hasHolidayFilter !== undefined)
-            url_ += "HasHolidayFilter=" + encodeURIComponent("" + hasHolidayFilter) + "&";
+            url_ += "HasHolidayFilter=" + encodeURIComponent("" + hasHolidayFilter) + "&"; 
         if (hasVacationFilter === null)
             throw new Error("The parameter 'hasVacationFilter' cannot be null.");
         else if (hasVacationFilter !== undefined)
-            url_ += "HasVacationFilter=" + encodeURIComponent("" + hasVacationFilter) + "&";
+            url_ += "HasVacationFilter=" + encodeURIComponent("" + hasVacationFilter) + "&"; 
         if (hasOffDayFilter === null)
             throw new Error("The parameter 'hasOffDayFilter' cannot be null.");
         else if (hasOffDayFilter !== undefined)
-            url_ += "HasOffDayFilter=" + encodeURIComponent("" + hasOffDayFilter) + "&";
+            url_ += "HasOffDayFilter=" + encodeURIComponent("" + hasOffDayFilter) + "&"; 
         if (isAbsentFilter === null)
             throw new Error("The parameter 'isAbsentFilter' cannot be null.");
         else if (isAbsentFilter !== undefined)
-            url_ += "IsAbsentFilter=" + encodeURIComponent("" + isAbsentFilter) + "&";
+            url_ += "IsAbsentFilter=" + encodeURIComponent("" + isAbsentFilter) + "&"; 
         if (leaveCodeFilter === null)
             throw new Error("The parameter 'leaveCodeFilter' cannot be null.");
         else if (leaveCodeFilter !== undefined)
-            url_ += "LeaveCodeFilter=" + encodeURIComponent("" + leaveCodeFilter) + "&";
+            url_ += "LeaveCodeFilter=" + encodeURIComponent("" + leaveCodeFilter) + "&"; 
         if (maxDesignationIDFilter === null)
             throw new Error("The parameter 'maxDesignationIDFilter' cannot be null.");
         else if (maxDesignationIDFilter !== undefined)
-            url_ += "MaxDesignationIDFilter=" + encodeURIComponent("" + maxDesignationIDFilter) + "&";
+            url_ += "MaxDesignationIDFilter=" + encodeURIComponent("" + maxDesignationIDFilter) + "&"; 
         if (minDesignationIDFilter === null)
             throw new Error("The parameter 'minDesignationIDFilter' cannot be null.");
         else if (minDesignationIDFilter !== undefined)
-            url_ += "MinDesignationIDFilter=" + encodeURIComponent("" + minDesignationIDFilter) + "&";
+            url_ += "MinDesignationIDFilter=" + encodeURIComponent("" + minDesignationIDFilter) + "&"; 
         if (leaveRemarkFilter === null)
             throw new Error("The parameter 'leaveRemarkFilter' cannot be null.");
         else if (leaveRemarkFilter !== undefined)
-            url_ += "LeaveRemarkFilter=" + encodeURIComponent("" + leaveRemarkFilter) + "&";
+            url_ += "LeaveRemarkFilter=" + encodeURIComponent("" + leaveRemarkFilter) + "&"; 
         if (maxNoShiftsFilter === null)
             throw new Error("The parameter 'maxNoShiftsFilter' cannot be null.");
         else if (maxNoShiftsFilter !== undefined)
-            url_ += "MaxNoShiftsFilter=" + encodeURIComponent("" + maxNoShiftsFilter) + "&";
+            url_ += "MaxNoShiftsFilter=" + encodeURIComponent("" + maxNoShiftsFilter) + "&"; 
         if (minNoShiftsFilter === null)
             throw new Error("The parameter 'minNoShiftsFilter' cannot be null.");
         else if (minNoShiftsFilter !== undefined)
-            url_ += "MinNoShiftsFilter=" + encodeURIComponent("" + minNoShiftsFilter) + "&";
+            url_ += "MinNoShiftsFilter=" + encodeURIComponent("" + minNoShiftsFilter) + "&"; 
         if (shiftNameFilter === null)
             throw new Error("The parameter 'shiftNameFilter' cannot be null.");
         else if (shiftNameFilter !== undefined)
-            url_ += "ShiftNameFilter=" + encodeURIComponent("" + shiftNameFilter) + "&";
+            url_ += "ShiftNameFilter=" + encodeURIComponent("" + shiftNameFilter) + "&"; 
         if (scanManual1Filter === null)
             throw new Error("The parameter 'scanManual1Filter' cannot be null.");
         else if (scanManual1Filter !== undefined)
-            url_ += "ScanManual1Filter=" + encodeURIComponent("" + scanManual1Filter) + "&";
+            url_ += "ScanManual1Filter=" + encodeURIComponent("" + scanManual1Filter) + "&"; 
         if (scanManual2Filter === null)
             throw new Error("The parameter 'scanManual2Filter' cannot be null.");
         else if (scanManual2Filter !== undefined)
-            url_ += "ScanManual2Filter=" + encodeURIComponent("" + scanManual2Filter) + "&";
+            url_ += "ScanManual2Filter=" + encodeURIComponent("" + scanManual2Filter) + "&"; 
         if (scanManual3Filter === null)
             throw new Error("The parameter 'scanManual3Filter' cannot be null.");
         else if (scanManual3Filter !== undefined)
-            url_ += "ScanManual3Filter=" + encodeURIComponent("" + scanManual3Filter) + "&";
+            url_ += "ScanManual3Filter=" + encodeURIComponent("" + scanManual3Filter) + "&"; 
         if (scanManual4Filter === null)
             throw new Error("The parameter 'scanManual4Filter' cannot be null.");
         else if (scanManual4Filter !== undefined)
-            url_ += "ScanManual4Filter=" + encodeURIComponent("" + scanManual4Filter) + "&";
+            url_ += "ScanManual4Filter=" + encodeURIComponent("" + scanManual4Filter) + "&"; 
         if (scanManual5Filter === null)
             throw new Error("The parameter 'scanManual5Filter' cannot be null.");
         else if (scanManual5Filter !== undefined)
-            url_ += "ScanManual5Filter=" + encodeURIComponent("" + scanManual5Filter) + "&";
+            url_ += "ScanManual5Filter=" + encodeURIComponent("" + scanManual5Filter) + "&"; 
         if (scanManual6Filter === null)
             throw new Error("The parameter 'scanManual6Filter' cannot be null.");
         else if (scanManual6Filter !== undefined)
-            url_ += "ScanManual6Filter=" + encodeURIComponent("" + scanManual6Filter) + "&";
+            url_ += "ScanManual6Filter=" + encodeURIComponent("" + scanManual6Filter) + "&"; 
         if (scanManual7Filter === null)
             throw new Error("The parameter 'scanManual7Filter' cannot be null.");
         else if (scanManual7Filter !== undefined)
-            url_ += "ScanManual7Filter=" + encodeURIComponent("" + scanManual7Filter) + "&";
+            url_ += "ScanManual7Filter=" + encodeURIComponent("" + scanManual7Filter) + "&"; 
         if (scanManual8Filter === null)
             throw new Error("The parameter 'scanManual8Filter' cannot be null.");
         else if (scanManual8Filter !== undefined)
-            url_ += "ScanManual8Filter=" + encodeURIComponent("" + scanManual8Filter) + "&";
+            url_ += "ScanManual8Filter=" + encodeURIComponent("" + scanManual8Filter) + "&"; 
         if (userNameFilter === null)
             throw new Error("The parameter 'userNameFilter' cannot be null.");
         else if (userNameFilter !== undefined)
-            url_ += "UserNameFilter=" + encodeURIComponent("" + userNameFilter) + "&";
+            url_ += "UserNameFilter=" + encodeURIComponent("" + userNameFilter) + "&"; 
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
         if (skipCount === null)
             throw new Error("The parameter 'skipCount' cannot be null.");
         else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
         if (maxResultCount === null)
             throw new Error("The parameter 'maxResultCount' cannot be null.");
         else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -21371,8 +22043,8 @@ export class TransServiceProxy {
 
     protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfGetTranForViewDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -21392,7 +22064,7 @@ export class TransServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     getTranForView(id: number | undefined): Observable<GetTranForViewDto> {
@@ -21400,7 +22072,7 @@ export class TransServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "id=" + encodeURIComponent("" + id) + "&";
+            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -21427,8 +22099,8 @@ export class TransServiceProxy {
 
     protected processGetTranForView(response: HttpResponseBase): Observable<GetTranForViewDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -21448,7 +22120,7 @@ export class TransServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     getTranForEdit(id: number | undefined): Observable<GetTranForEditOutput> {
@@ -21456,7 +22128,7 @@ export class TransServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -21483,8 +22155,8 @@ export class TransServiceProxy {
 
     protected processGetTranForEdit(response: HttpResponseBase): Observable<GetTranForEditOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -21504,7 +22176,7 @@ export class TransServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     createOrEdit(body: CreateOrEditTranDto | undefined): Observable<void> {
@@ -21518,7 +22190,7 @@ export class TransServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -21538,8 +22210,8 @@ export class TransServiceProxy {
 
     protected processCreateOrEdit(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -21556,7 +22228,7 @@ export class TransServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     delete(id: number | undefined): Observable<void> {
@@ -21564,7 +22236,7 @@ export class TransServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -21590,8 +22262,8 @@ export class TransServiceProxy {
 
     protected processDelete(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -21608,42 +22280,42 @@ export class TransServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param scan1Filter (optional)
-     * @param scan2Filter (optional)
-     * @param scan3Filter (optional)
-     * @param scan4Filter (optional)
-     * @param scan5Filter (optional)
-     * @param scan6Filter (optional)
-     * @param scan8Filter (optional)
-     * @param scanLocation1Filter (optional)
-     * @param scanLocation2Filter (optional)
-     * @param scanLocation3Filter (optional)
-     * @param scanLocation4Filter (optional)
-     * @param scanLocation5Filter (optional)
-     * @param scanLocation6Filter (optional)
-     * @param scanLocation7Filter (optional)
-     * @param scanLocation8Filter (optional)
-     * @param hasHolidayFilter (optional)
-     * @param hasVacationFilter (optional)
-     * @param hasOffDayFilter (optional)
-     * @param isAbsentFilter (optional)
-     * @param leaveCodeFilter (optional)
-     * @param maxDesignationIDFilter (optional)
-     * @param minDesignationIDFilter (optional)
-     * @param leaveRemarkFilter (optional)
-     * @param maxNoShiftsFilter (optional)
-     * @param minNoShiftsFilter (optional)
-     * @param shiftNameFilter (optional)
-     * @param scanManual1Filter (optional)
-     * @param scanManual2Filter (optional)
-     * @param scanManual3Filter (optional)
-     * @param scanManual4Filter (optional)
-     * @param scanManual5Filter (optional)
-     * @param scanManual6Filter (optional)
-     * @param scanManual7Filter (optional)
-     * @param scanManual8Filter (optional)
-     * @param userNameFilter (optional)
+     * @param filter (optional) 
+     * @param scan1Filter (optional) 
+     * @param scan2Filter (optional) 
+     * @param scan3Filter (optional) 
+     * @param scan4Filter (optional) 
+     * @param scan5Filter (optional) 
+     * @param scan6Filter (optional) 
+     * @param scan8Filter (optional) 
+     * @param scanLocation1Filter (optional) 
+     * @param scanLocation2Filter (optional) 
+     * @param scanLocation3Filter (optional) 
+     * @param scanLocation4Filter (optional) 
+     * @param scanLocation5Filter (optional) 
+     * @param scanLocation6Filter (optional) 
+     * @param scanLocation7Filter (optional) 
+     * @param scanLocation8Filter (optional) 
+     * @param hasHolidayFilter (optional) 
+     * @param hasVacationFilter (optional) 
+     * @param hasOffDayFilter (optional) 
+     * @param isAbsentFilter (optional) 
+     * @param leaveCodeFilter (optional) 
+     * @param maxDesignationIDFilter (optional) 
+     * @param minDesignationIDFilter (optional) 
+     * @param leaveRemarkFilter (optional) 
+     * @param maxNoShiftsFilter (optional) 
+     * @param minNoShiftsFilter (optional) 
+     * @param shiftNameFilter (optional) 
+     * @param scanManual1Filter (optional) 
+     * @param scanManual2Filter (optional) 
+     * @param scanManual3Filter (optional) 
+     * @param scanManual4Filter (optional) 
+     * @param scanManual5Filter (optional) 
+     * @param scanManual6Filter (optional) 
+     * @param scanManual7Filter (optional) 
+     * @param scanManual8Filter (optional) 
+     * @param userNameFilter (optional) 
      * @return Success
      */
     getTransToExcel(filter: string | undefined, scan1Filter: string | undefined, scan2Filter: string | undefined, scan3Filter: string | undefined, scan4Filter: string | undefined, scan5Filter: string | undefined, scan6Filter: string | undefined, scan8Filter: string | undefined, scanLocation1Filter: string | undefined, scanLocation2Filter: string | undefined, scanLocation3Filter: string | undefined, scanLocation4Filter: string | undefined, scanLocation5Filter: string | undefined, scanLocation6Filter: string | undefined, scanLocation7Filter: string | undefined, scanLocation8Filter: string | undefined, hasHolidayFilter: number | undefined, hasVacationFilter: number | undefined, hasOffDayFilter: number | undefined, isAbsentFilter: number | undefined, leaveCodeFilter: string | undefined, maxDesignationIDFilter: number | undefined, minDesignationIDFilter: number | undefined, leaveRemarkFilter: string | undefined, maxNoShiftsFilter: number | undefined, minNoShiftsFilter: number | undefined, shiftNameFilter: string | undefined, scanManual1Filter: number | undefined, scanManual2Filter: number | undefined, scanManual3Filter: number | undefined, scanManual4Filter: number | undefined, scanManual5Filter: number | undefined, scanManual6Filter: number | undefined, scanManual7Filter: number | undefined, scanManual8Filter: number | undefined, userNameFilter: string | undefined): Observable<FileDto> {
@@ -21651,147 +22323,147 @@ export class TransServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (scan1Filter === null)
             throw new Error("The parameter 'scan1Filter' cannot be null.");
         else if (scan1Filter !== undefined)
-            url_ += "Scan1Filter=" + encodeURIComponent("" + scan1Filter) + "&";
+            url_ += "Scan1Filter=" + encodeURIComponent("" + scan1Filter) + "&"; 
         if (scan2Filter === null)
             throw new Error("The parameter 'scan2Filter' cannot be null.");
         else if (scan2Filter !== undefined)
-            url_ += "Scan2Filter=" + encodeURIComponent("" + scan2Filter) + "&";
+            url_ += "Scan2Filter=" + encodeURIComponent("" + scan2Filter) + "&"; 
         if (scan3Filter === null)
             throw new Error("The parameter 'scan3Filter' cannot be null.");
         else if (scan3Filter !== undefined)
-            url_ += "Scan3Filter=" + encodeURIComponent("" + scan3Filter) + "&";
+            url_ += "Scan3Filter=" + encodeURIComponent("" + scan3Filter) + "&"; 
         if (scan4Filter === null)
             throw new Error("The parameter 'scan4Filter' cannot be null.");
         else if (scan4Filter !== undefined)
-            url_ += "Scan4Filter=" + encodeURIComponent("" + scan4Filter) + "&";
+            url_ += "Scan4Filter=" + encodeURIComponent("" + scan4Filter) + "&"; 
         if (scan5Filter === null)
             throw new Error("The parameter 'scan5Filter' cannot be null.");
         else if (scan5Filter !== undefined)
-            url_ += "Scan5Filter=" + encodeURIComponent("" + scan5Filter) + "&";
+            url_ += "Scan5Filter=" + encodeURIComponent("" + scan5Filter) + "&"; 
         if (scan6Filter === null)
             throw new Error("The parameter 'scan6Filter' cannot be null.");
         else if (scan6Filter !== undefined)
-            url_ += "Scan6Filter=" + encodeURIComponent("" + scan6Filter) + "&";
+            url_ += "Scan6Filter=" + encodeURIComponent("" + scan6Filter) + "&"; 
         if (scan8Filter === null)
             throw new Error("The parameter 'scan8Filter' cannot be null.");
         else if (scan8Filter !== undefined)
-            url_ += "Scan8Filter=" + encodeURIComponent("" + scan8Filter) + "&";
+            url_ += "Scan8Filter=" + encodeURIComponent("" + scan8Filter) + "&"; 
         if (scanLocation1Filter === null)
             throw new Error("The parameter 'scanLocation1Filter' cannot be null.");
         else if (scanLocation1Filter !== undefined)
-            url_ += "ScanLocation1Filter=" + encodeURIComponent("" + scanLocation1Filter) + "&";
+            url_ += "ScanLocation1Filter=" + encodeURIComponent("" + scanLocation1Filter) + "&"; 
         if (scanLocation2Filter === null)
             throw new Error("The parameter 'scanLocation2Filter' cannot be null.");
         else if (scanLocation2Filter !== undefined)
-            url_ += "ScanLocation2Filter=" + encodeURIComponent("" + scanLocation2Filter) + "&";
+            url_ += "ScanLocation2Filter=" + encodeURIComponent("" + scanLocation2Filter) + "&"; 
         if (scanLocation3Filter === null)
             throw new Error("The parameter 'scanLocation3Filter' cannot be null.");
         else if (scanLocation3Filter !== undefined)
-            url_ += "ScanLocation3Filter=" + encodeURIComponent("" + scanLocation3Filter) + "&";
+            url_ += "ScanLocation3Filter=" + encodeURIComponent("" + scanLocation3Filter) + "&"; 
         if (scanLocation4Filter === null)
             throw new Error("The parameter 'scanLocation4Filter' cannot be null.");
         else if (scanLocation4Filter !== undefined)
-            url_ += "ScanLocation4Filter=" + encodeURIComponent("" + scanLocation4Filter) + "&";
+            url_ += "ScanLocation4Filter=" + encodeURIComponent("" + scanLocation4Filter) + "&"; 
         if (scanLocation5Filter === null)
             throw new Error("The parameter 'scanLocation5Filter' cannot be null.");
         else if (scanLocation5Filter !== undefined)
-            url_ += "ScanLocation5Filter=" + encodeURIComponent("" + scanLocation5Filter) + "&";
+            url_ += "ScanLocation5Filter=" + encodeURIComponent("" + scanLocation5Filter) + "&"; 
         if (scanLocation6Filter === null)
             throw new Error("The parameter 'scanLocation6Filter' cannot be null.");
         else if (scanLocation6Filter !== undefined)
-            url_ += "ScanLocation6Filter=" + encodeURIComponent("" + scanLocation6Filter) + "&";
+            url_ += "ScanLocation6Filter=" + encodeURIComponent("" + scanLocation6Filter) + "&"; 
         if (scanLocation7Filter === null)
             throw new Error("The parameter 'scanLocation7Filter' cannot be null.");
         else if (scanLocation7Filter !== undefined)
-            url_ += "ScanLocation7Filter=" + encodeURIComponent("" + scanLocation7Filter) + "&";
+            url_ += "ScanLocation7Filter=" + encodeURIComponent("" + scanLocation7Filter) + "&"; 
         if (scanLocation8Filter === null)
             throw new Error("The parameter 'scanLocation8Filter' cannot be null.");
         else if (scanLocation8Filter !== undefined)
-            url_ += "ScanLocation8Filter=" + encodeURIComponent("" + scanLocation8Filter) + "&";
+            url_ += "ScanLocation8Filter=" + encodeURIComponent("" + scanLocation8Filter) + "&"; 
         if (hasHolidayFilter === null)
             throw new Error("The parameter 'hasHolidayFilter' cannot be null.");
         else if (hasHolidayFilter !== undefined)
-            url_ += "HasHolidayFilter=" + encodeURIComponent("" + hasHolidayFilter) + "&";
+            url_ += "HasHolidayFilter=" + encodeURIComponent("" + hasHolidayFilter) + "&"; 
         if (hasVacationFilter === null)
             throw new Error("The parameter 'hasVacationFilter' cannot be null.");
         else if (hasVacationFilter !== undefined)
-            url_ += "HasVacationFilter=" + encodeURIComponent("" + hasVacationFilter) + "&";
+            url_ += "HasVacationFilter=" + encodeURIComponent("" + hasVacationFilter) + "&"; 
         if (hasOffDayFilter === null)
             throw new Error("The parameter 'hasOffDayFilter' cannot be null.");
         else if (hasOffDayFilter !== undefined)
-            url_ += "HasOffDayFilter=" + encodeURIComponent("" + hasOffDayFilter) + "&";
+            url_ += "HasOffDayFilter=" + encodeURIComponent("" + hasOffDayFilter) + "&"; 
         if (isAbsentFilter === null)
             throw new Error("The parameter 'isAbsentFilter' cannot be null.");
         else if (isAbsentFilter !== undefined)
-            url_ += "IsAbsentFilter=" + encodeURIComponent("" + isAbsentFilter) + "&";
+            url_ += "IsAbsentFilter=" + encodeURIComponent("" + isAbsentFilter) + "&"; 
         if (leaveCodeFilter === null)
             throw new Error("The parameter 'leaveCodeFilter' cannot be null.");
         else if (leaveCodeFilter !== undefined)
-            url_ += "LeaveCodeFilter=" + encodeURIComponent("" + leaveCodeFilter) + "&";
+            url_ += "LeaveCodeFilter=" + encodeURIComponent("" + leaveCodeFilter) + "&"; 
         if (maxDesignationIDFilter === null)
             throw new Error("The parameter 'maxDesignationIDFilter' cannot be null.");
         else if (maxDesignationIDFilter !== undefined)
-            url_ += "MaxDesignationIDFilter=" + encodeURIComponent("" + maxDesignationIDFilter) + "&";
+            url_ += "MaxDesignationIDFilter=" + encodeURIComponent("" + maxDesignationIDFilter) + "&"; 
         if (minDesignationIDFilter === null)
             throw new Error("The parameter 'minDesignationIDFilter' cannot be null.");
         else if (minDesignationIDFilter !== undefined)
-            url_ += "MinDesignationIDFilter=" + encodeURIComponent("" + minDesignationIDFilter) + "&";
+            url_ += "MinDesignationIDFilter=" + encodeURIComponent("" + minDesignationIDFilter) + "&"; 
         if (leaveRemarkFilter === null)
             throw new Error("The parameter 'leaveRemarkFilter' cannot be null.");
         else if (leaveRemarkFilter !== undefined)
-            url_ += "LeaveRemarkFilter=" + encodeURIComponent("" + leaveRemarkFilter) + "&";
+            url_ += "LeaveRemarkFilter=" + encodeURIComponent("" + leaveRemarkFilter) + "&"; 
         if (maxNoShiftsFilter === null)
             throw new Error("The parameter 'maxNoShiftsFilter' cannot be null.");
         else if (maxNoShiftsFilter !== undefined)
-            url_ += "MaxNoShiftsFilter=" + encodeURIComponent("" + maxNoShiftsFilter) + "&";
+            url_ += "MaxNoShiftsFilter=" + encodeURIComponent("" + maxNoShiftsFilter) + "&"; 
         if (minNoShiftsFilter === null)
             throw new Error("The parameter 'minNoShiftsFilter' cannot be null.");
         else if (minNoShiftsFilter !== undefined)
-            url_ += "MinNoShiftsFilter=" + encodeURIComponent("" + minNoShiftsFilter) + "&";
+            url_ += "MinNoShiftsFilter=" + encodeURIComponent("" + minNoShiftsFilter) + "&"; 
         if (shiftNameFilter === null)
             throw new Error("The parameter 'shiftNameFilter' cannot be null.");
         else if (shiftNameFilter !== undefined)
-            url_ += "ShiftNameFilter=" + encodeURIComponent("" + shiftNameFilter) + "&";
+            url_ += "ShiftNameFilter=" + encodeURIComponent("" + shiftNameFilter) + "&"; 
         if (scanManual1Filter === null)
             throw new Error("The parameter 'scanManual1Filter' cannot be null.");
         else if (scanManual1Filter !== undefined)
-            url_ += "ScanManual1Filter=" + encodeURIComponent("" + scanManual1Filter) + "&";
+            url_ += "ScanManual1Filter=" + encodeURIComponent("" + scanManual1Filter) + "&"; 
         if (scanManual2Filter === null)
             throw new Error("The parameter 'scanManual2Filter' cannot be null.");
         else if (scanManual2Filter !== undefined)
-            url_ += "ScanManual2Filter=" + encodeURIComponent("" + scanManual2Filter) + "&";
+            url_ += "ScanManual2Filter=" + encodeURIComponent("" + scanManual2Filter) + "&"; 
         if (scanManual3Filter === null)
             throw new Error("The parameter 'scanManual3Filter' cannot be null.");
         else if (scanManual3Filter !== undefined)
-            url_ += "ScanManual3Filter=" + encodeURIComponent("" + scanManual3Filter) + "&";
+            url_ += "ScanManual3Filter=" + encodeURIComponent("" + scanManual3Filter) + "&"; 
         if (scanManual4Filter === null)
             throw new Error("The parameter 'scanManual4Filter' cannot be null.");
         else if (scanManual4Filter !== undefined)
-            url_ += "ScanManual4Filter=" + encodeURIComponent("" + scanManual4Filter) + "&";
+            url_ += "ScanManual4Filter=" + encodeURIComponent("" + scanManual4Filter) + "&"; 
         if (scanManual5Filter === null)
             throw new Error("The parameter 'scanManual5Filter' cannot be null.");
         else if (scanManual5Filter !== undefined)
-            url_ += "ScanManual5Filter=" + encodeURIComponent("" + scanManual5Filter) + "&";
+            url_ += "ScanManual5Filter=" + encodeURIComponent("" + scanManual5Filter) + "&"; 
         if (scanManual6Filter === null)
             throw new Error("The parameter 'scanManual6Filter' cannot be null.");
         else if (scanManual6Filter !== undefined)
-            url_ += "ScanManual6Filter=" + encodeURIComponent("" + scanManual6Filter) + "&";
+            url_ += "ScanManual6Filter=" + encodeURIComponent("" + scanManual6Filter) + "&"; 
         if (scanManual7Filter === null)
             throw new Error("The parameter 'scanManual7Filter' cannot be null.");
         else if (scanManual7Filter !== undefined)
-            url_ += "ScanManual7Filter=" + encodeURIComponent("" + scanManual7Filter) + "&";
+            url_ += "ScanManual7Filter=" + encodeURIComponent("" + scanManual7Filter) + "&"; 
         if (scanManual8Filter === null)
             throw new Error("The parameter 'scanManual8Filter' cannot be null.");
         else if (scanManual8Filter !== undefined)
-            url_ += "ScanManual8Filter=" + encodeURIComponent("" + scanManual8Filter) + "&";
+            url_ += "ScanManual8Filter=" + encodeURIComponent("" + scanManual8Filter) + "&"; 
         if (userNameFilter === null)
             throw new Error("The parameter 'userNameFilter' cannot be null.");
         else if (userNameFilter !== undefined)
-            url_ += "UserNameFilter=" + encodeURIComponent("" + userNameFilter) + "&";
+            url_ += "UserNameFilter=" + encodeURIComponent("" + userNameFilter) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -21818,8 +22490,8 @@ export class TransServiceProxy {
 
     protected processGetTransToExcel(response: HttpResponseBase): Observable<FileDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -21839,10 +22511,10 @@ export class TransServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param sorting (optional)
-     * @param skipCount (optional)
-     * @param maxResultCount (optional)
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
      * @return Success
      */
     getAllUserForLookupTable(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfTranUserLookupTableDto> {
@@ -21850,19 +22522,19 @@ export class TransServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
         if (skipCount === null)
             throw new Error("The parameter 'skipCount' cannot be null.");
         else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
         if (maxResultCount === null)
             throw new Error("The parameter 'maxResultCount' cannot be null.");
         else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -21889,8 +22561,8 @@ export class TransServiceProxy {
 
     protected processGetAllUserForLookupTable(response: HttpResponseBase): Observable<PagedResultDtoOfTranUserLookupTableDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -21922,12 +22594,12 @@ export class TransactionsServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param maxTransTypeFilter (optional)
-     * @param minTransTypeFilter (optional)
-     * @param sorting (optional)
-     * @param skipCount (optional)
-     * @param maxResultCount (optional)
+     * @param filter (optional) 
+     * @param maxTransTypeFilter (optional) 
+     * @param minTransTypeFilter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
      * @return Success
      */
     getAll(filter: string | undefined, maxTransTypeFilter: number | undefined, minTransTypeFilter: number | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetTransactionForViewDto> {
@@ -21935,27 +22607,27 @@ export class TransactionsServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (maxTransTypeFilter === null)
             throw new Error("The parameter 'maxTransTypeFilter' cannot be null.");
         else if (maxTransTypeFilter !== undefined)
-            url_ += "MaxTransTypeFilter=" + encodeURIComponent("" + maxTransTypeFilter) + "&";
+            url_ += "MaxTransTypeFilter=" + encodeURIComponent("" + maxTransTypeFilter) + "&"; 
         if (minTransTypeFilter === null)
             throw new Error("The parameter 'minTransTypeFilter' cannot be null.");
         else if (minTransTypeFilter !== undefined)
-            url_ += "MinTransTypeFilter=" + encodeURIComponent("" + minTransTypeFilter) + "&";
+            url_ += "MinTransTypeFilter=" + encodeURIComponent("" + minTransTypeFilter) + "&"; 
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
         if (skipCount === null)
             throw new Error("The parameter 'skipCount' cannot be null.");
         else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
         if (maxResultCount === null)
             throw new Error("The parameter 'maxResultCount' cannot be null.");
         else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -21982,8 +22654,8 @@ export class TransactionsServiceProxy {
 
     protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfGetTransactionForViewDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -22003,7 +22675,7 @@ export class TransactionsServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     getTransactionForView(id: number | undefined): Observable<GetTransactionForViewDto> {
@@ -22011,7 +22683,7 @@ export class TransactionsServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "id=" + encodeURIComponent("" + id) + "&";
+            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -22038,8 +22710,8 @@ export class TransactionsServiceProxy {
 
     protected processGetTransactionForView(response: HttpResponseBase): Observable<GetTransactionForViewDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -22059,7 +22731,7 @@ export class TransactionsServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     getTransactionForEdit(id: number | undefined): Observable<GetTransactionForEditOutput> {
@@ -22067,7 +22739,7 @@ export class TransactionsServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -22094,8 +22766,8 @@ export class TransactionsServiceProxy {
 
     protected processGetTransactionForEdit(response: HttpResponseBase): Observable<GetTransactionForEditOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -22115,7 +22787,7 @@ export class TransactionsServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     createOrEdit(body: CreateOrEditTransactionDto | undefined): Observable<void> {
@@ -22129,7 +22801,7 @@ export class TransactionsServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -22149,8 +22821,8 @@ export class TransactionsServiceProxy {
 
     protected processCreateOrEdit(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -22167,7 +22839,7 @@ export class TransactionsServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     delete(id: number | undefined): Observable<void> {
@@ -22175,7 +22847,7 @@ export class TransactionsServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -22201,8 +22873,8 @@ export class TransactionsServiceProxy {
 
     protected processDelete(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -22219,9 +22891,9 @@ export class TransactionsServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param maxTransTypeFilter (optional)
-     * @param minTransTypeFilter (optional)
+     * @param filter (optional) 
+     * @param maxTransTypeFilter (optional) 
+     * @param minTransTypeFilter (optional) 
      * @return Success
      */
     getTransactionsToExcel(filter: string | undefined, maxTransTypeFilter: number | undefined, minTransTypeFilter: number | undefined): Observable<FileDto> {
@@ -22229,15 +22901,15 @@ export class TransactionsServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (maxTransTypeFilter === null)
             throw new Error("The parameter 'maxTransTypeFilter' cannot be null.");
         else if (maxTransTypeFilter !== undefined)
-            url_ += "MaxTransTypeFilter=" + encodeURIComponent("" + maxTransTypeFilter) + "&";
+            url_ += "MaxTransTypeFilter=" + encodeURIComponent("" + maxTransTypeFilter) + "&"; 
         if (minTransTypeFilter === null)
             throw new Error("The parameter 'minTransTypeFilter' cannot be null.");
         else if (minTransTypeFilter !== undefined)
-            url_ += "MinTransTypeFilter=" + encodeURIComponent("" + minTransTypeFilter) + "&";
+            url_ += "MinTransTypeFilter=" + encodeURIComponent("" + minTransTypeFilter) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -22264,8 +22936,8 @@ export class TransactionsServiceProxy {
 
     protected processGetTransactionsToExcel(response: HttpResponseBase): Observable<FileDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -22297,10 +22969,10 @@ export class TypesOfPermitsServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param sorting (optional)
-     * @param skipCount (optional)
-     * @param maxResultCount (optional)
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
      * @return Success
      */
     getAll(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetTypesOfPermitForViewDto> {
@@ -22308,19 +22980,19 @@ export class TypesOfPermitsServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
         if (skipCount === null)
             throw new Error("The parameter 'skipCount' cannot be null.");
         else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
         if (maxResultCount === null)
             throw new Error("The parameter 'maxResultCount' cannot be null.");
         else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -22347,8 +23019,8 @@ export class TypesOfPermitsServiceProxy {
 
     protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfGetTypesOfPermitForViewDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -22398,8 +23070,8 @@ export class TypesOfPermitsServiceProxy {
 
     protected processGetAllFlat(response: HttpResponseBase): Observable<GetTypesOfPermitForViewDto[]> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -22423,7 +23095,7 @@ export class TypesOfPermitsServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     getTypesOfPermitForView(id: number | undefined): Observable<GetTypesOfPermitForViewDto> {
@@ -22431,7 +23103,7 @@ export class TypesOfPermitsServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "id=" + encodeURIComponent("" + id) + "&";
+            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -22458,8 +23130,8 @@ export class TypesOfPermitsServiceProxy {
 
     protected processGetTypesOfPermitForView(response: HttpResponseBase): Observable<GetTypesOfPermitForViewDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -22479,7 +23151,7 @@ export class TypesOfPermitsServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     getTypesOfPermitForEdit(id: number | undefined): Observable<GetTypesOfPermitForEditOutput> {
@@ -22487,7 +23159,7 @@ export class TypesOfPermitsServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -22514,8 +23186,8 @@ export class TypesOfPermitsServiceProxy {
 
     protected processGetTypesOfPermitForEdit(response: HttpResponseBase): Observable<GetTypesOfPermitForEditOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -22535,7 +23207,7 @@ export class TypesOfPermitsServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     createOrEdit(body: CreateOrEditTypesOfPermitDto | undefined): Observable<void> {
@@ -22549,7 +23221,7 @@ export class TypesOfPermitsServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -22569,8 +23241,8 @@ export class TypesOfPermitsServiceProxy {
 
     protected processCreateOrEdit(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -22587,7 +23259,7 @@ export class TypesOfPermitsServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     delete(id: number | undefined): Observable<void> {
@@ -22595,7 +23267,7 @@ export class TypesOfPermitsServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -22621,8 +23293,8 @@ export class TypesOfPermitsServiceProxy {
 
     protected processDelete(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -22639,7 +23311,7 @@ export class TypesOfPermitsServiceProxy {
     }
 
     /**
-     * @param filter (optional)
+     * @param filter (optional) 
      * @return Success
      */
     getTypesOfPermitsToExcel(filter: string | undefined): Observable<FileDto> {
@@ -22647,7 +23319,7 @@ export class TypesOfPermitsServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -22674,8 +23346,8 @@ export class TypesOfPermitsServiceProxy {
 
     protected processGetTypesOfPermitsToExcel(response: HttpResponseBase): Observable<FileDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -22737,8 +23409,8 @@ export class UiCustomizationSettingsServiceProxy {
 
     protected processGetUiManagementSettings(response: HttpResponseBase): Observable<ThemeSettingsDto[]> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -22762,7 +23434,7 @@ export class UiCustomizationSettingsServiceProxy {
     }
 
     /**
-     * @param themeName (optional)
+     * @param themeName (optional) 
      * @return Success
      */
     changeThemeWithDefaultValues(themeName: string | undefined): Observable<void> {
@@ -22770,7 +23442,7 @@ export class UiCustomizationSettingsServiceProxy {
         if (themeName === null)
             throw new Error("The parameter 'themeName' cannot be null.");
         else if (themeName !== undefined)
-            url_ += "themeName=" + encodeURIComponent("" + themeName) + "&";
+            url_ += "themeName=" + encodeURIComponent("" + themeName) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -22796,8 +23468,8 @@ export class UiCustomizationSettingsServiceProxy {
 
     protected processChangeThemeWithDefaultValues(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -22814,7 +23486,7 @@ export class UiCustomizationSettingsServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     updateUiManagementSettings(body: ThemeSettingsDto | undefined): Observable<void> {
@@ -22828,7 +23500,7 @@ export class UiCustomizationSettingsServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -22848,8 +23520,8 @@ export class UiCustomizationSettingsServiceProxy {
 
     protected processUpdateUiManagementSettings(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -22866,7 +23538,7 @@ export class UiCustomizationSettingsServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     updateDefaultUiManagementSettings(body: ThemeSettingsDto | undefined): Observable<void> {
@@ -22880,7 +23552,7 @@ export class UiCustomizationSettingsServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -22900,8 +23572,8 @@ export class UiCustomizationSettingsServiceProxy {
 
     protected processUpdateDefaultUiManagementSettings(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -22947,8 +23619,8 @@ export class UiCustomizationSettingsServiceProxy {
 
     protected processUseSystemDefaultSettings(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -22977,13 +23649,13 @@ export class UserServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param permissions (optional)
-     * @param role (optional)
-     * @param onlyLockedUsers (optional)
-     * @param sorting (optional)
-     * @param maxResultCount (optional)
-     * @param skipCount (optional)
+     * @param filter (optional) 
+     * @param permissions (optional) 
+     * @param role (optional) 
+     * @param onlyLockedUsers (optional) 
+     * @param sorting (optional) 
+     * @param maxResultCount (optional) 
+     * @param skipCount (optional) 
      * @return Success
      */
     getUsers(filter: string | undefined, permissions: string[] | undefined, role: number | undefined, onlyLockedUsers: boolean | undefined, sorting: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<PagedResultDtoOfUserListDto> {
@@ -22991,7 +23663,7 @@ export class UserServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (permissions === null)
             throw new Error("The parameter 'permissions' cannot be null.");
         else if (permissions !== undefined)
@@ -22999,23 +23671,23 @@ export class UserServiceProxy {
         if (role === null)
             throw new Error("The parameter 'role' cannot be null.");
         else if (role !== undefined)
-            url_ += "Role=" + encodeURIComponent("" + role) + "&";
+            url_ += "Role=" + encodeURIComponent("" + role) + "&"; 
         if (onlyLockedUsers === null)
             throw new Error("The parameter 'onlyLockedUsers' cannot be null.");
         else if (onlyLockedUsers !== undefined)
-            url_ += "OnlyLockedUsers=" + encodeURIComponent("" + onlyLockedUsers) + "&";
+            url_ += "OnlyLockedUsers=" + encodeURIComponent("" + onlyLockedUsers) + "&"; 
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
         if (maxResultCount === null)
             throw new Error("The parameter 'maxResultCount' cannot be null.");
         else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
         if (skipCount === null)
             throw new Error("The parameter 'skipCount' cannot be null.");
         else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -23042,8 +23714,8 @@ export class UserServiceProxy {
 
     protected processGetUsers(response: HttpResponseBase): Observable<PagedResultDtoOfUserListDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -23093,8 +23765,8 @@ export class UserServiceProxy {
 
     protected processGetUsersFlat(response: HttpResponseBase): Observable<UserListDto[]> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -23118,7 +23790,7 @@ export class UserServiceProxy {
     }
 
     /**
-     * @param unitId (optional)
+     * @param unitId (optional) 
      * @return Success
      */
     getUsersFlatByUnitId(unitId: number | undefined): Observable<UserListDto[]> {
@@ -23126,7 +23798,7 @@ export class UserServiceProxy {
         if (unitId === null)
             throw new Error("The parameter 'unitId' cannot be null.");
         else if (unitId !== undefined)
-            url_ += "unitId=" + encodeURIComponent("" + unitId) + "&";
+            url_ += "unitId=" + encodeURIComponent("" + unitId) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -23153,8 +23825,8 @@ export class UserServiceProxy {
 
     protected processGetUsersFlatByUnitId(response: HttpResponseBase): Observable<UserListDto[]> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -23178,7 +23850,7 @@ export class UserServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     updateUserFaceId(body: UpdateUserFaceIdInput | undefined): Observable<void> {
@@ -23192,7 +23864,7 @@ export class UserServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -23212,8 +23884,8 @@ export class UserServiceProxy {
 
     protected processUpdateUserFaceId(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -23230,7 +23902,7 @@ export class UserServiceProxy {
     }
 
     /**
-     * @param civilId (optional)
+     * @param civilId (optional) 
      * @return Success
      */
     getUserForFaceId(civilId: string | undefined): Observable<GetUserForFaceIdOutput> {
@@ -23238,7 +23910,7 @@ export class UserServiceProxy {
         if (civilId === null)
             throw new Error("The parameter 'civilId' cannot be null.");
         else if (civilId !== undefined)
-            url_ += "civilId=" + encodeURIComponent("" + civilId) + "&";
+            url_ += "civilId=" + encodeURIComponent("" + civilId) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -23265,8 +23937,8 @@ export class UserServiceProxy {
 
     protected processGetUserForFaceId(response: HttpResponseBase): Observable<GetUserForFaceIdOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -23286,7 +23958,7 @@ export class UserServiceProxy {
     }
 
     /**
-     * @param civilId (optional)
+     * @param civilId (optional) 
      * @return Success
      */
     getExistUSerForActive(civilId: string | undefined): Observable<GetUserForEditOutput> {
@@ -23294,7 +23966,7 @@ export class UserServiceProxy {
         if (civilId === null)
             throw new Error("The parameter 'civilId' cannot be null.");
         else if (civilId !== undefined)
-            url_ += "civilId=" + encodeURIComponent("" + civilId) + "&";
+            url_ += "civilId=" + encodeURIComponent("" + civilId) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -23321,8 +23993,8 @@ export class UserServiceProxy {
 
     protected processGetExistUSerForActive(response: HttpResponseBase): Observable<GetUserForEditOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -23342,11 +24014,11 @@ export class UserServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param permissions (optional)
-     * @param role (optional)
-     * @param onlyLockedUsers (optional)
-     * @param sorting (optional)
+     * @param filter (optional) 
+     * @param permissions (optional) 
+     * @param role (optional) 
+     * @param onlyLockedUsers (optional) 
+     * @param sorting (optional) 
      * @return Success
      */
     getUsersToExcel(filter: string | undefined, permissions: string[] | undefined, role: number | undefined, onlyLockedUsers: boolean | undefined, sorting: string | undefined): Observable<FileDto> {
@@ -23354,7 +24026,7 @@ export class UserServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (permissions === null)
             throw new Error("The parameter 'permissions' cannot be null.");
         else if (permissions !== undefined)
@@ -23362,15 +24034,15 @@ export class UserServiceProxy {
         if (role === null)
             throw new Error("The parameter 'role' cannot be null.");
         else if (role !== undefined)
-            url_ += "Role=" + encodeURIComponent("" + role) + "&";
+            url_ += "Role=" + encodeURIComponent("" + role) + "&"; 
         if (onlyLockedUsers === null)
             throw new Error("The parameter 'onlyLockedUsers' cannot be null.");
         else if (onlyLockedUsers !== undefined)
-            url_ += "OnlyLockedUsers=" + encodeURIComponent("" + onlyLockedUsers) + "&";
+            url_ += "OnlyLockedUsers=" + encodeURIComponent("" + onlyLockedUsers) + "&"; 
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -23397,8 +24069,8 @@ export class UserServiceProxy {
 
     protected processGetUsersToExcel(response: HttpResponseBase): Observable<FileDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -23418,7 +24090,7 @@ export class UserServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     getUserForEdit(id: number | undefined): Observable<GetUserForEditOutput> {
@@ -23426,7 +24098,7 @@ export class UserServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -23453,8 +24125,8 @@ export class UserServiceProxy {
 
     protected processGetUserForEdit(response: HttpResponseBase): Observable<GetUserForEditOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -23474,7 +24146,7 @@ export class UserServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     getUserPermissionsForEdit(id: number | undefined): Observable<GetUserPermissionsForEditOutput> {
@@ -23482,7 +24154,7 @@ export class UserServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -23509,8 +24181,8 @@ export class UserServiceProxy {
 
     protected processGetUserPermissionsForEdit(response: HttpResponseBase): Observable<GetUserPermissionsForEditOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -23530,7 +24202,7 @@ export class UserServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     resetUserSpecificPermissions(body: EntityDtoOfInt64 | undefined): Observable<void> {
@@ -23544,7 +24216,7 @@ export class UserServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -23564,8 +24236,8 @@ export class UserServiceProxy {
 
     protected processResetUserSpecificPermissions(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -23582,7 +24254,7 @@ export class UserServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     updateUserPermissions(body: UpdateUserPermissionsInput | undefined): Observable<void> {
@@ -23596,7 +24268,7 @@ export class UserServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -23616,8 +24288,8 @@ export class UserServiceProxy {
 
     protected processUpdateUserPermissions(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -23634,7 +24306,7 @@ export class UserServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     createOrUpdateUser(body: CreateOrUpdateUserInput | undefined): Observable<void> {
@@ -23648,7 +24320,7 @@ export class UserServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -23668,8 +24340,8 @@ export class UserServiceProxy {
 
     protected processCreateOrUpdateUser(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -23686,7 +24358,7 @@ export class UserServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     deleteUser(id: number | undefined): Observable<void> {
@@ -23694,7 +24366,7 @@ export class UserServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -23720,8 +24392,8 @@ export class UserServiceProxy {
 
     protected processDeleteUser(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -23738,7 +24410,7 @@ export class UserServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     unlockUser(body: EntityDtoOfInt64 | undefined): Observable<void> {
@@ -23752,7 +24424,7 @@ export class UserServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -23772,8 +24444,8 @@ export class UserServiceProxy {
 
     protected processUnlockUser(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -23790,7 +24462,7 @@ export class UserServiceProxy {
     }
 
     /**
-     * @param shiftId (optional)
+     * @param shiftId (optional) 
      * @return Success
      */
     getUsersByShiftId(shiftId: number | undefined): Observable<UserReportDto[]> {
@@ -23798,7 +24470,7 @@ export class UserServiceProxy {
         if (shiftId === null)
             throw new Error("The parameter 'shiftId' cannot be null.");
         else if (shiftId !== undefined)
-            url_ += "shiftId=" + encodeURIComponent("" + shiftId) + "&";
+            url_ += "shiftId=" + encodeURIComponent("" + shiftId) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -23825,8 +24497,8 @@ export class UserServiceProxy {
 
     protected processGetUsersByShiftId(response: HttpResponseBase): Observable<UserReportDto[]> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -23850,11 +24522,10 @@ export class UserServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     generateInOutReport(body: ReportInput | undefined): Observable<InOutReportOutput[]> {
-        debugger    
         let url_ = this.baseUrl + "/api/services/app/User/GenerateInOutReport";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -23865,7 +24536,7 @@ export class UserServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
                 "Accept": "text/plain"
             })
         };
@@ -23886,8 +24557,8 @@ export class UserServiceProxy {
 
     protected processGenerateInOutReport(response: HttpResponseBase): Observable<InOutReportOutput[]> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -23911,7 +24582,7 @@ export class UserServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     generateForgetInOutReport(body: ReportInput | undefined): Observable<InOutReportOutput[]> {
@@ -23925,7 +24596,7 @@ export class UserServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
                 "Accept": "text/plain"
             })
         };
@@ -23946,8 +24617,8 @@ export class UserServiceProxy {
 
     protected processGenerateForgetInOutReport(response: HttpResponseBase): Observable<InOutReportOutput[]> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -23971,7 +24642,7 @@ export class UserServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     generatePermitReport(body: ReportInput | undefined): Observable<PermitReportOutput[]> {
@@ -23985,7 +24656,7 @@ export class UserServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
                 "Accept": "text/plain"
             })
         };
@@ -24006,8 +24677,8 @@ export class UserServiceProxy {
 
     protected processGeneratePermitReport(response: HttpResponseBase): Observable<PermitReportOutput[]> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -24031,7 +24702,7 @@ export class UserServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     generateFingerReport(body: ReportInput | undefined): Observable<FingerReportOutput[]> {
@@ -24045,7 +24716,7 @@ export class UserServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
                 "Accept": "text/plain"
             })
         };
@@ -24066,8 +24737,8 @@ export class UserServiceProxy {
 
     protected processGenerateFingerReport(response: HttpResponseBase): Observable<FingerReportOutput[]> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -24091,7 +24762,7 @@ export class UserServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     calculateDaysReport(body: ReportInput | undefined): Observable<EmployeeReportOutput[]> {
@@ -24105,7 +24776,7 @@ export class UserServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
                 "Accept": "text/plain"
             })
         };
@@ -24126,8 +24797,8 @@ export class UserServiceProxy {
 
     protected processCalculateDaysReport(response: HttpResponseBase): Observable<EmployeeReportOutput[]> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -24151,7 +24822,7 @@ export class UserServiceProxy {
     }
 
     /**
-     * @param strEncrypted (optional)
+     * @param strEncrypted (optional) 
      * @return Success
      */
     enryptString(strEncrypted: string | undefined): Observable<string> {
@@ -24159,7 +24830,7 @@ export class UserServiceProxy {
         if (strEncrypted === null)
             throw new Error("The parameter 'strEncrypted' cannot be null.");
         else if (strEncrypted !== undefined)
-            url_ += "strEncrypted=" + encodeURIComponent("" + strEncrypted) + "&";
+            url_ += "strEncrypted=" + encodeURIComponent("" + strEncrypted) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -24186,8 +24857,8 @@ export class UserServiceProxy {
 
     protected processEnryptString(response: HttpResponseBase): Observable<string> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -24219,11 +24890,11 @@ export class UserDevicesServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param userNameFilter (optional)
-     * @param sorting (optional)
-     * @param skipCount (optional)
-     * @param maxResultCount (optional)
+     * @param filter (optional) 
+     * @param userNameFilter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
      * @return Success
      */
     getAll(filter: string | undefined, userNameFilter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetUserDeviceForViewDto> {
@@ -24231,23 +24902,23 @@ export class UserDevicesServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (userNameFilter === null)
             throw new Error("The parameter 'userNameFilter' cannot be null.");
         else if (userNameFilter !== undefined)
-            url_ += "UserNameFilter=" + encodeURIComponent("" + userNameFilter) + "&";
+            url_ += "UserNameFilter=" + encodeURIComponent("" + userNameFilter) + "&"; 
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
         if (skipCount === null)
             throw new Error("The parameter 'skipCount' cannot be null.");
         else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
         if (maxResultCount === null)
             throw new Error("The parameter 'maxResultCount' cannot be null.");
         else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -24274,8 +24945,8 @@ export class UserDevicesServiceProxy {
 
     protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfGetUserDeviceForViewDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -24295,7 +24966,7 @@ export class UserDevicesServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     getUserDeviceForView(id: number | undefined): Observable<GetUserDeviceForViewDto> {
@@ -24303,7 +24974,7 @@ export class UserDevicesServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "id=" + encodeURIComponent("" + id) + "&";
+            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -24330,8 +25001,8 @@ export class UserDevicesServiceProxy {
 
     protected processGetUserDeviceForView(response: HttpResponseBase): Observable<GetUserDeviceForViewDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -24351,7 +25022,7 @@ export class UserDevicesServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     getUserDeviceForEdit(id: number | undefined): Observable<GetUserDeviceForEditOutput> {
@@ -24359,7 +25030,7 @@ export class UserDevicesServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -24386,8 +25057,8 @@ export class UserDevicesServiceProxy {
 
     protected processGetUserDeviceForEdit(response: HttpResponseBase): Observable<GetUserDeviceForEditOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -24407,7 +25078,7 @@ export class UserDevicesServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     createOrEdit(body: CreateOrEditUserDeviceDto | undefined): Observable<void> {
@@ -24421,7 +25092,7 @@ export class UserDevicesServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -24441,8 +25112,8 @@ export class UserDevicesServiceProxy {
 
     protected processCreateOrEdit(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -24459,7 +25130,7 @@ export class UserDevicesServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     delete(id: number | undefined): Observable<void> {
@@ -24467,7 +25138,7 @@ export class UserDevicesServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -24493,8 +25164,8 @@ export class UserDevicesServiceProxy {
 
     protected processDelete(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -24511,8 +25182,8 @@ export class UserDevicesServiceProxy {
     }
 
     /**
-     * @param civilid (optional)
-     * @param sn (optional)
+     * @param civilid (optional) 
+     * @param sn (optional) 
      * @return Success
      */
     isExist(civilid: string | undefined, sn: string | undefined): Observable<boolean> {
@@ -24520,11 +25191,11 @@ export class UserDevicesServiceProxy {
         if (civilid === null)
             throw new Error("The parameter 'civilid' cannot be null.");
         else if (civilid !== undefined)
-            url_ += "civilid=" + encodeURIComponent("" + civilid) + "&";
+            url_ += "civilid=" + encodeURIComponent("" + civilid) + "&"; 
         if (sn === null)
             throw new Error("The parameter 'sn' cannot be null.");
         else if (sn !== undefined)
-            url_ += "sn=" + encodeURIComponent("" + sn) + "&";
+            url_ += "sn=" + encodeURIComponent("" + sn) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -24551,8 +25222,8 @@ export class UserDevicesServiceProxy {
 
     protected processIsExist(response: HttpResponseBase): Observable<boolean> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -24572,8 +25243,8 @@ export class UserDevicesServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param userNameFilter (optional)
+     * @param filter (optional) 
+     * @param userNameFilter (optional) 
      * @return Success
      */
     getUserDevicesToExcel(filter: string | undefined, userNameFilter: string | undefined): Observable<FileDto> {
@@ -24581,11 +25252,11 @@ export class UserDevicesServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (userNameFilter === null)
             throw new Error("The parameter 'userNameFilter' cannot be null.");
         else if (userNameFilter !== undefined)
-            url_ += "UserNameFilter=" + encodeURIComponent("" + userNameFilter) + "&";
+            url_ += "UserNameFilter=" + encodeURIComponent("" + userNameFilter) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -24612,8 +25283,8 @@ export class UserDevicesServiceProxy {
 
     protected processGetUserDevicesToExcel(response: HttpResponseBase): Observable<FileDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -24633,10 +25304,10 @@ export class UserDevicesServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param sorting (optional)
-     * @param skipCount (optional)
-     * @param maxResultCount (optional)
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
      * @return Success
      */
     getAllUserForLookupTable(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfUserDeviceUserLookupTableDto> {
@@ -24644,19 +25315,19 @@ export class UserDevicesServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
         if (skipCount === null)
             throw new Error("The parameter 'skipCount' cannot be null.");
         else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
         if (maxResultCount === null)
             throw new Error("The parameter 'maxResultCount' cannot be null.");
         else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -24683,8 +25354,8 @@ export class UserDevicesServiceProxy {
 
     protected processGetAllUserForLookupTable(response: HttpResponseBase): Observable<PagedResultDtoOfUserDeviceUserLookupTableDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -24716,7 +25387,7 @@ export class UserLinkServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     linkToUser(body: LinkToUserInput | undefined): Observable<void> {
@@ -24730,7 +25401,7 @@ export class UserLinkServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -24750,8 +25421,8 @@ export class UserLinkServiceProxy {
 
     protected processLinkToUser(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -24768,9 +25439,9 @@ export class UserLinkServiceProxy {
     }
 
     /**
-     * @param maxResultCount (optional)
-     * @param skipCount (optional)
-     * @param sorting (optional)
+     * @param maxResultCount (optional) 
+     * @param skipCount (optional) 
+     * @param sorting (optional) 
      * @return Success
      */
     getLinkedUsers(maxResultCount: number | undefined, skipCount: number | undefined, sorting: string | undefined): Observable<PagedResultDtoOfLinkedUserDto> {
@@ -24778,15 +25449,15 @@ export class UserLinkServiceProxy {
         if (maxResultCount === null)
             throw new Error("The parameter 'maxResultCount' cannot be null.");
         else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
         if (skipCount === null)
             throw new Error("The parameter 'skipCount' cannot be null.");
         else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -24813,8 +25484,8 @@ export class UserLinkServiceProxy {
 
     protected processGetLinkedUsers(response: HttpResponseBase): Observable<PagedResultDtoOfLinkedUserDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -24864,8 +25535,8 @@ export class UserLinkServiceProxy {
 
     protected processGetRecentlyUsedLinkedUsers(response: HttpResponseBase): Observable<ListResultDtoOfLinkedUserDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -24885,7 +25556,7 @@ export class UserLinkServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     unlinkUser(body: UnlinkUserInput | undefined): Observable<void> {
@@ -24899,7 +25570,7 @@ export class UserLinkServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -24919,8 +25590,8 @@ export class UserLinkServiceProxy {
 
     protected processUnlinkUser(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -24979,8 +25650,8 @@ export class UserLoginServiceProxy {
 
     protected processGetRecentUserLoginAttempts(response: HttpResponseBase): Observable<ListResultDtoOfUserLoginAttemptDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -25012,11 +25683,11 @@ export class WarningTypesServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param nameArFilter (optional)
-     * @param sorting (optional)
-     * @param skipCount (optional)
-     * @param maxResultCount (optional)
+     * @param filter (optional) 
+     * @param nameArFilter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
      * @return Success
      */
     getAll(filter: string | undefined, nameArFilter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetWarningTypeForViewDto> {
@@ -25024,23 +25695,23 @@ export class WarningTypesServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (nameArFilter === null)
             throw new Error("The parameter 'nameArFilter' cannot be null.");
         else if (nameArFilter !== undefined)
-            url_ += "NameArFilter=" + encodeURIComponent("" + nameArFilter) + "&";
+            url_ += "NameArFilter=" + encodeURIComponent("" + nameArFilter) + "&"; 
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
-            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&";
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
         if (skipCount === null)
             throw new Error("The parameter 'skipCount' cannot be null.");
         else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
         if (maxResultCount === null)
             throw new Error("The parameter 'maxResultCount' cannot be null.");
         else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -25067,8 +25738,8 @@ export class WarningTypesServiceProxy {
 
     protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfGetWarningTypeForViewDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -25088,7 +25759,7 @@ export class WarningTypesServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     getWarningTypeForView(id: number | undefined): Observable<GetWarningTypeForViewDto> {
@@ -25096,7 +25767,7 @@ export class WarningTypesServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "id=" + encodeURIComponent("" + id) + "&";
+            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -25123,8 +25794,8 @@ export class WarningTypesServiceProxy {
 
     protected processGetWarningTypeForView(response: HttpResponseBase): Observable<GetWarningTypeForViewDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -25144,7 +25815,7 @@ export class WarningTypesServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     getWarningTypeForEdit(id: number | undefined): Observable<GetWarningTypeForEditOutput> {
@@ -25152,7 +25823,7 @@ export class WarningTypesServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -25179,8 +25850,8 @@ export class WarningTypesServiceProxy {
 
     protected processGetWarningTypeForEdit(response: HttpResponseBase): Observable<GetWarningTypeForEditOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -25200,7 +25871,7 @@ export class WarningTypesServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     createOrEdit(body: CreateOrEditWarningTypeDto | undefined): Observable<void> {
@@ -25214,7 +25885,7 @@ export class WarningTypesServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -25234,8 +25905,8 @@ export class WarningTypesServiceProxy {
 
     protected processCreateOrEdit(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -25252,7 +25923,7 @@ export class WarningTypesServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     delete(id: number | undefined): Observable<void> {
@@ -25260,7 +25931,7 @@ export class WarningTypesServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -25286,8 +25957,8 @@ export class WarningTypesServiceProxy {
 
     protected processDelete(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -25304,8 +25975,8 @@ export class WarningTypesServiceProxy {
     }
 
     /**
-     * @param filter (optional)
-     * @param nameArFilter (optional)
+     * @param filter (optional) 
+     * @param nameArFilter (optional) 
      * @return Success
      */
     getWarningTypesToExcel(filter: string | undefined, nameArFilter: string | undefined): Observable<FileDto> {
@@ -25313,11 +25984,11 @@ export class WarningTypesServiceProxy {
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
         else if (filter !== undefined)
-            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
         if (nameArFilter === null)
             throw new Error("The parameter 'nameArFilter' cannot be null.");
         else if (nameArFilter !== undefined)
-            url_ += "NameArFilter=" + encodeURIComponent("" + nameArFilter) + "&";
+            url_ += "NameArFilter=" + encodeURIComponent("" + nameArFilter) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -25344,8 +26015,8 @@ export class WarningTypesServiceProxy {
 
     protected processGetWarningTypesToExcel(response: HttpResponseBase): Observable<FileDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -25377,7 +26048,7 @@ export class WebhookEventServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     get(id: string | undefined): Observable<WebhookEvent> {
@@ -25385,7 +26056,7 @@ export class WebhookEventServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "id=" + encodeURIComponent("" + id) + "&";
+            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -25412,8 +26083,8 @@ export class WebhookEventServiceProxy {
 
     protected processGet(response: HttpResponseBase): Observable<WebhookEvent> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -25445,9 +26116,9 @@ export class WebhookSendAttemptServiceProxy {
     }
 
     /**
-     * @param subscriptionId (optional)
-     * @param maxResultCount (optional)
-     * @param skipCount (optional)
+     * @param subscriptionId (optional) 
+     * @param maxResultCount (optional) 
+     * @param skipCount (optional) 
      * @return Success
      */
     getAllSendAttempts(subscriptionId: string | undefined, maxResultCount: number | undefined, skipCount: number | undefined): Observable<PagedResultDtoOfGetAllSendAttemptsOutput> {
@@ -25455,15 +26126,15 @@ export class WebhookSendAttemptServiceProxy {
         if (subscriptionId === null)
             throw new Error("The parameter 'subscriptionId' cannot be null.");
         else if (subscriptionId !== undefined)
-            url_ += "SubscriptionId=" + encodeURIComponent("" + subscriptionId) + "&";
+            url_ += "SubscriptionId=" + encodeURIComponent("" + subscriptionId) + "&"; 
         if (maxResultCount === null)
             throw new Error("The parameter 'maxResultCount' cannot be null.");
         else if (maxResultCount !== undefined)
-            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&";
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
         if (skipCount === null)
             throw new Error("The parameter 'skipCount' cannot be null.");
         else if (skipCount !== undefined)
-            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&";
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -25490,8 +26161,8 @@ export class WebhookSendAttemptServiceProxy {
 
     protected processGetAllSendAttempts(response: HttpResponseBase): Observable<PagedResultDtoOfGetAllSendAttemptsOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -25511,7 +26182,7 @@ export class WebhookSendAttemptServiceProxy {
     }
 
     /**
-     * @param id (optional)
+     * @param id (optional) 
      * @return Success
      */
     getAllSendAttemptsOfWebhookEvent(id: string | undefined): Observable<ListResultDtoOfGetAllSendAttemptsOfWebhookEventOutput> {
@@ -25519,7 +26190,7 @@ export class WebhookSendAttemptServiceProxy {
         if (id === null)
             throw new Error("The parameter 'id' cannot be null.");
         else if (id !== undefined)
-            url_ += "Id=" + encodeURIComponent("" + id) + "&";
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -25546,8 +26217,8 @@ export class WebhookSendAttemptServiceProxy {
 
     protected processGetAllSendAttemptsOfWebhookEvent(response: HttpResponseBase): Observable<ListResultDtoOfGetAllSendAttemptsOfWebhookEventOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -25567,7 +26238,7 @@ export class WebhookSendAttemptServiceProxy {
     }
 
     /**
-     * @param sendAttemptId (optional)
+     * @param sendAttemptId (optional) 
      * @return Success
      */
     resend(sendAttemptId: string | undefined): Observable<void> {
@@ -25575,7 +26246,7 @@ export class WebhookSendAttemptServiceProxy {
         if (sendAttemptId === null)
             throw new Error("The parameter 'sendAttemptId' cannot be null.");
         else if (sendAttemptId !== undefined)
-            url_ += "sendAttemptId=" + encodeURIComponent("" + sendAttemptId) + "&";
+            url_ += "sendAttemptId=" + encodeURIComponent("" + sendAttemptId) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -25601,8 +26272,8 @@ export class WebhookSendAttemptServiceProxy {
 
     protected processResend(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -25661,8 +26332,8 @@ export class WebhookSubscriptionServiceProxy {
 
     protected processPublishTestWebhook(response: HttpResponseBase): Observable<string> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -25712,8 +26383,8 @@ export class WebhookSubscriptionServiceProxy {
 
     protected processGetAllSubscriptions(response: HttpResponseBase): Observable<ListResultDtoOfGetAllSubscriptionsOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -25733,7 +26404,7 @@ export class WebhookSubscriptionServiceProxy {
     }
 
     /**
-     * @param subscriptionId (optional)
+     * @param subscriptionId (optional) 
      * @return Success
      */
     getSubscription(subscriptionId: string | undefined): Observable<WebhookSubscription> {
@@ -25741,7 +26412,7 @@ export class WebhookSubscriptionServiceProxy {
         if (subscriptionId === null)
             throw new Error("The parameter 'subscriptionId' cannot be null.");
         else if (subscriptionId !== undefined)
-            url_ += "subscriptionId=" + encodeURIComponent("" + subscriptionId) + "&";
+            url_ += "subscriptionId=" + encodeURIComponent("" + subscriptionId) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -25768,8 +26439,8 @@ export class WebhookSubscriptionServiceProxy {
 
     protected processGetSubscription(response: HttpResponseBase): Observable<WebhookSubscription> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -25789,7 +26460,7 @@ export class WebhookSubscriptionServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     addSubscription(body: WebhookSubscription | undefined): Observable<void> {
@@ -25803,7 +26474,7 @@ export class WebhookSubscriptionServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -25823,8 +26494,8 @@ export class WebhookSubscriptionServiceProxy {
 
     protected processAddSubscription(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -25841,7 +26512,7 @@ export class WebhookSubscriptionServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     updateSubscription(body: WebhookSubscription | undefined): Observable<void> {
@@ -25855,7 +26526,7 @@ export class WebhookSubscriptionServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -25875,8 +26546,8 @@ export class WebhookSubscriptionServiceProxy {
 
     protected processUpdateSubscription(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -25893,7 +26564,7 @@ export class WebhookSubscriptionServiceProxy {
     }
 
     /**
-     * @param body (optional)
+     * @param body (optional) 
      * @return Success
      */
     activateWebhookSubscription(body: ActivateWebhookSubscriptionInput | undefined): Observable<void> {
@@ -25907,7 +26578,7 @@ export class WebhookSubscriptionServiceProxy {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json-patch+json",
+                "Content-Type": "application/json-patch+json", 
             })
         };
 
@@ -25927,8 +26598,8 @@ export class WebhookSubscriptionServiceProxy {
 
     protected processActivateWebhookSubscription(response: HttpResponseBase): Observable<void> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -25945,7 +26616,7 @@ export class WebhookSubscriptionServiceProxy {
     }
 
     /**
-     * @param webhookName (optional)
+     * @param webhookName (optional) 
      * @return Success
      */
     isSubscribed(webhookName: string | undefined): Observable<boolean> {
@@ -25953,7 +26624,7 @@ export class WebhookSubscriptionServiceProxy {
         if (webhookName === null)
             throw new Error("The parameter 'webhookName' cannot be null.");
         else if (webhookName !== undefined)
-            url_ += "webhookName=" + encodeURIComponent("" + webhookName) + "&";
+            url_ += "webhookName=" + encodeURIComponent("" + webhookName) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -25980,8 +26651,8 @@ export class WebhookSubscriptionServiceProxy {
 
     protected processIsSubscribed(response: HttpResponseBase): Observable<boolean> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -26001,7 +26672,7 @@ export class WebhookSubscriptionServiceProxy {
     }
 
     /**
-     * @param webhookName (optional)
+     * @param webhookName (optional) 
      * @return Success
      */
     getAllSubscriptionsIfFeaturesGranted(webhookName: string | undefined): Observable<ListResultDtoOfGetAllSubscriptionsOutput> {
@@ -26009,7 +26680,7 @@ export class WebhookSubscriptionServiceProxy {
         if (webhookName === null)
             throw new Error("The parameter 'webhookName' cannot be null.");
         else if (webhookName !== undefined)
-            url_ += "webhookName=" + encodeURIComponent("" + webhookName) + "&";
+            url_ += "webhookName=" + encodeURIComponent("" + webhookName) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -26036,8 +26707,8 @@ export class WebhookSubscriptionServiceProxy {
 
     protected processGetAllSubscriptionsIfFeaturesGranted(response: HttpResponseBase): Observable<ListResultDtoOfGetAllSubscriptionsOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -26087,8 +26758,8 @@ export class WebhookSubscriptionServiceProxy {
 
     protected processGetAllAvailableWebhooks(response: HttpResponseBase): Observable<ListResultDtoOfGetAllAvailableWebhooksOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -26150,8 +26821,8 @@ export class WebLogServiceProxy {
 
     protected processGetLatestWebLogs(response: HttpResponseBase): Observable<GetLatestWebLogsOutput> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -26201,8 +26872,8 @@ export class WebLogServiceProxy {
 
     protected processDownloadWebLogs(response: HttpResponseBase): Observable<FileDto> {
         const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
@@ -26250,7 +26921,7 @@ export class IsTenantAvailableInput implements IIsTenantAvailableInput {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["tenancyName"] = this.tenancyName;
-        return data;
+        return data; 
     }
 }
 
@@ -26298,7 +26969,7 @@ export class IsTenantAvailableOutput implements IIsTenantAvailableOutput {
         data["state"] = this.state;
         data["tenantId"] = this.tenantId;
         data["serverRootAddress"] = this.serverRootAddress;
-        return data;
+        return data; 
     }
 }
 
@@ -26336,7 +27007,7 @@ export class ResolveTenantIdInput implements IResolveTenantIdInput {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["c"] = this.c;
-        return data;
+        return data; 
     }
 }
 
@@ -26387,7 +27058,7 @@ export class RegisterInput implements IRegisterInput {
         data["emailAddress"] = this.emailAddress;
         data["password"] = this.password;
         data["captchaResponse"] = this.captchaResponse;
-        return data;
+        return data; 
     }
 }
 
@@ -26428,7 +27099,7 @@ export class RegisterOutput implements IRegisterOutput {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["canLogin"] = this.canLogin;
-        return data;
+        return data; 
     }
 }
 
@@ -26464,7 +27135,7 @@ export class SendPasswordResetCodeInput implements ISendPasswordResetCodeInput {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["emailAddress"] = this.emailAddress;
-        return data;
+        return data; 
     }
 }
 
@@ -26515,7 +27186,7 @@ export class ResetPasswordInput implements IResetPasswordInput {
         data["returnUrl"] = this.returnUrl;
         data["singleSignIn"] = this.singleSignIn;
         data["c"] = this.c;
-        return data;
+        return data; 
     }
 }
 
@@ -26559,7 +27230,7 @@ export class ResetPasswordOutput implements IResetPasswordOutput {
         data = typeof data === 'object' ? data : {};
         data["canLogin"] = this.canLogin;
         data["userName"] = this.userName;
-        return data;
+        return data; 
     }
 }
 
@@ -26596,7 +27267,7 @@ export class SendEmailActivationLinkInput implements ISendEmailActivationLinkInp
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["emailAddress"] = this.emailAddress;
-        return data;
+        return data; 
     }
 }
 
@@ -26638,7 +27309,7 @@ export class ActivateEmailInput implements IActivateEmailInput {
         data["userId"] = this.userId;
         data["confirmationCode"] = this.confirmationCode;
         data["c"] = this.c;
-        return data;
+        return data; 
     }
 }
 
@@ -26679,7 +27350,7 @@ export class ImpersonateInput implements IImpersonateInput {
         data = typeof data === 'object' ? data : {};
         data["tenantId"] = this.tenantId;
         data["userId"] = this.userId;
-        return data;
+        return data; 
     }
 }
 
@@ -26719,7 +27390,7 @@ export class ImpersonateOutput implements IImpersonateOutput {
         data = typeof data === 'object' ? data : {};
         data["impersonationToken"] = this.impersonationToken;
         data["tenancyName"] = this.tenancyName;
-        return data;
+        return data; 
     }
 }
 
@@ -26759,7 +27430,7 @@ export class SwitchToLinkedAccountInput implements ISwitchToLinkedAccountInput {
         data = typeof data === 'object' ? data : {};
         data["targetTenantId"] = this.targetTenantId;
         data["targetUserId"] = this.targetUserId;
-        return data;
+        return data; 
     }
 }
 
@@ -26799,7 +27470,7 @@ export class SwitchToLinkedAccountOutput implements ISwitchToLinkedAccountOutput
         data = typeof data === 'object' ? data : {};
         data["switchAccountToken"] = this.switchAccountToken;
         data["tenancyName"] = this.tenancyName;
-        return data;
+        return data; 
     }
 }
 
@@ -26878,7 +27549,7 @@ export class AuditLogListDto implements IAuditLogListDto {
         data["exception"] = this.exception;
         data["customData"] = this.customData;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -26939,7 +27610,7 @@ export class PagedResultDtoOfAuditLogListDto implements IPagedResultDtoOfAuditLo
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -26982,7 +27653,7 @@ export class FileDto implements IFileDto {
         data["fileName"] = this.fileName;
         data["fileType"] = this.fileType;
         data["fileToken"] = this.fileToken;
-        return data;
+        return data; 
     }
 }
 
@@ -27023,7 +27694,7 @@ export class NameValueDto implements INameValueDto {
         data = typeof data === 'object' ? data : {};
         data["name"] = this.name;
         data["value"] = this.value;
-        return data;
+        return data; 
     }
 }
 
@@ -27087,7 +27758,7 @@ export class EntityChangeListDto implements IEntityChangeListDto {
         data["changeTypeName"] = this.changeTypeName;
         data["entityChangeSetId"] = this.entityChangeSetId;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -27141,7 +27812,7 @@ export class PagedResultDtoOfEntityChangeListDto implements IPagedResultDtoOfEnt
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -27196,7 +27867,7 @@ export class EntityPropertyChangeDto implements IEntityPropertyChangeDto {
         data["propertyTypeFullName"] = this.propertyTypeFullName;
         data["tenantId"] = this.tenantId;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -27238,7 +27909,7 @@ export class CacheDto implements ICacheDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["name"] = this.name;
-        return data;
+        return data; 
     }
 }
 
@@ -27282,7 +27953,7 @@ export class ListResultDtoOfCacheDto implements IListResultDtoOfCacheDto {
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -27318,7 +27989,7 @@ export class EntityDtoOfString implements IEntityDtoOfString {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -27380,7 +28051,7 @@ export class FriendDto implements IFriendDto {
         data["unreadMessageCount"] = this.unreadMessageCount;
         data["isOnline"] = this.isOnline;
         data["state"] = this.state;
-        return data;
+        return data; 
     }
 }
 
@@ -27434,7 +28105,7 @@ export class GetUserChatFriendsWithSettingsOutput implements IGetUserChatFriends
             for (let item of this.friends)
                 data["friends"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -27511,7 +28182,7 @@ export class ChatMessageDto implements IChatMessageDto {
         data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
         data["sharedMessageId"] = this.sharedMessageId;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -27565,7 +28236,7 @@ export class ListResultDtoOfChatMessageDto implements IListResultDtoOfChatMessag
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -27604,7 +28275,7 @@ export class MarkAllUnreadMessagesOfUserAsReadInput implements IMarkAllUnreadMes
         data = typeof data === 'object' ? data : {};
         data["tenantId"] = this.tenantId;
         data["userId"] = this.userId;
-        return data;
+        return data; 
     }
 }
 
@@ -27650,7 +28321,7 @@ export class SubscribableEditionComboboxItemDto implements ISubscribableEditionC
         data["value"] = this.value;
         data["displayText"] = this.displayText;
         data["isSelected"] = this.isSelected;
-        return data;
+        return data; 
     }
 }
 
@@ -27697,7 +28368,7 @@ export class ListResultDtoOfSubscribableEditionComboboxItemDto implements IListR
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -27742,7 +28413,7 @@ export class FindUsersInput implements IFindUsersInput {
         data["maxResultCount"] = this.maxResultCount;
         data["skipCount"] = this.skipCount;
         data["filter"] = this.filter;
-        return data;
+        return data; 
     }
 }
 
@@ -27792,7 +28463,7 @@ export class PagedResultDtoOfNameValueDto implements IPagedResultDtoOfNameValueD
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -27829,7 +28500,7 @@ export class GetDefaultEditionNameOutput implements IGetDefaultEditionNameOutput
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["name"] = this.name;
-        return data;
+        return data; 
     }
 }
 
@@ -27877,7 +28548,7 @@ export class Widget implements IWidget {
         data["width"] = this.width;
         data["positionX"] = this.positionX;
         data["positionY"] = this.positionY;
-        return data;
+        return data; 
     }
 }
 
@@ -27931,7 +28602,7 @@ export class Page implements IPage {
             for (let item of this.widgets)
                 data["widgets"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -27980,7 +28651,7 @@ export class Dashboard implements IDashboard {
             for (let item of this.pages)
                 data["pages"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -28031,7 +28702,7 @@ export class SavePageInput implements ISavePageInput {
             for (let item of this.pages)
                 data["pages"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -28078,7 +28749,7 @@ export class RenamePageInput implements IRenamePageInput {
         data["id"] = this.id;
         data["name"] = this.name;
         data["application"] = this.application;
-        return data;
+        return data; 
     }
 }
 
@@ -28123,7 +28794,7 @@ export class AddNewPageInput implements IAddNewPageInput {
         data["dashboardName"] = this.dashboardName;
         data["name"] = this.name;
         data["application"] = this.application;
-        return data;
+        return data; 
     }
 }
 
@@ -28161,7 +28832,7 @@ export class AddNewPageOutput implements IAddNewPageOutput {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["pageId"] = this.pageId;
-        return data;
+        return data; 
     }
 }
 
@@ -28212,7 +28883,7 @@ export class AddWidgetInput implements IAddWidgetInput {
         data["width"] = this.width;
         data["height"] = this.height;
         data["application"] = this.application;
-        return data;
+        return data; 
     }
 }
 
@@ -28256,7 +28927,7 @@ export class WidgetFilterOutput implements IWidgetFilterOutput {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["name"] = this.name;
-        return data;
+        return data; 
     }
 }
 
@@ -28310,7 +28981,7 @@ export class WidgetOutput implements IWidgetOutput {
             for (let item of this.filters)
                 data["filters"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -28360,7 +29031,7 @@ export class DashboardOutput implements IDashboardOutput {
             for (let item of this.widgets)
                 data["widgets"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -28397,7 +29068,7 @@ export class DateToStringOutput implements IDateToStringOutput {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["dateString"] = this.dateString;
-        return data;
+        return data; 
     }
 }
 
@@ -28436,7 +29107,7 @@ export class NameValueOfString implements INameValueOfString {
         data = typeof data === 'object' ? data : {};
         data["name"] = this.name;
         data["value"] = this.value;
-        return data;
+        return data; 
     }
 }
 
@@ -28473,7 +29144,7 @@ export class StringOutput implements IStringOutput {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["output"] = this.output;
-        return data;
+        return data; 
     }
 }
 
@@ -28536,7 +29207,7 @@ export class EditionListDto implements IEditionListDto {
         data["trialDayCount"] = this.trialDayCount;
         data["expiringEditionDisplayName"] = this.expiringEditionDisplayName;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -28589,7 +29260,7 @@ export class ListResultDtoOfEditionListDto implements IListResultDtoOfEditionLis
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -28631,7 +29302,7 @@ export class EditionEditDto implements IEditionEditDto {
         data["id"] = this.id;
         data["displayName"] = this.displayName;
         data["expiringEditionId"] = this.expiringEditionId;
-        return data;
+        return data; 
     }
 }
 
@@ -28684,7 +29355,7 @@ export class IValueValidator implements IIValueValidator {
                     data["attributes"][key] = this.attributes[key];
             }
         }
-        return data;
+        return data; 
     }
 }
 
@@ -28724,7 +29395,7 @@ export class LocalizableComboboxItemDto implements ILocalizableComboboxItemDto {
         data = typeof data === 'object' ? data : {};
         data["value"] = this.value;
         data["displayText"] = this.displayText;
-        return data;
+        return data; 
     }
 }
 
@@ -28769,7 +29440,7 @@ export class LocalizableComboboxItemSourceDto implements ILocalizableComboboxIte
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -28826,7 +29497,7 @@ export class FeatureInputTypeDto implements IFeatureInputTypeDto {
         }
         data["validator"] = this.validator ? this.validator.toJSON() : <any>undefined;
         data["itemSource"] = this.itemSource ? this.itemSource.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
@@ -28880,7 +29551,7 @@ export class FlatFeatureDto implements IFlatFeatureDto {
         data["description"] = this.description;
         data["defaultValue"] = this.defaultValue;
         data["inputType"] = this.inputType ? this.inputType.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
@@ -28943,7 +29614,7 @@ export class GetEditionEditOutput implements IGetEditionEditOutput {
             for (let item of this.features)
                 data["features"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -29005,7 +29676,7 @@ export class EditionCreateDto implements IEditionCreateDto {
         data["trialDayCount"] = this.trialDayCount;
         data["waitingDayAfterExpire"] = this.waitingDayAfterExpire;
         data["expiringEditionId"] = this.expiringEditionId;
-        return data;
+        return data; 
     }
 }
 
@@ -29064,7 +29735,7 @@ export class CreateEditionDto implements ICreateEditionDto {
             for (let item of this.featureValues)
                 data["featureValues"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -29116,7 +29787,7 @@ export class UpdateEditionDto implements IUpdateEditionDto {
             for (let item of this.featureValues)
                 data["featureValues"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -29156,7 +29827,7 @@ export class MoveTenantsToAnotherEditionDto implements IMoveTenantsToAnotherEdit
         data = typeof data === 'object' ? data : {};
         data["sourceEditionId"] = this.sourceEditionId;
         data["targetEditionId"] = this.targetEditionId;
-        return data;
+        return data; 
     }
 }
 
@@ -29202,7 +29873,7 @@ export class EmployeeAbsenceDto implements IEmployeeAbsenceDto {
         data["toDate"] = this.toDate ? this.toDate.toISOString() : <any>undefined;
         data["userId"] = this.userId;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -29244,7 +29915,7 @@ export class GetEmployeeAbsenceForViewDto implements IGetEmployeeAbsenceForViewD
         data = typeof data === 'object' ? data : {};
         data["employeeAbsence"] = this.employeeAbsence ? this.employeeAbsence.toJSON() : <any>undefined;
         data["userName"] = this.userName;
-        return data;
+        return data; 
     }
 }
 
@@ -29292,7 +29963,7 @@ export class PagedResultDtoOfGetEmployeeAbsenceForViewDto implements IPagedResul
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -29341,7 +30012,7 @@ export class CreateOrEditEmployeeAbsenceDto implements ICreateOrEditEmployeeAbse
         data["toDate"] = this.toDate ? this.toDate.toISOString() : <any>undefined;
         data["userId"] = this.userId;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -29384,7 +30055,7 @@ export class GetEmployeeAbsenceForEditOutput implements IGetEmployeeAbsenceForEd
         data = typeof data === 'object' ? data : {};
         data["employeeAbsence"] = this.employeeAbsence ? this.employeeAbsence.toJSON() : <any>undefined;
         data["userName"] = this.userName;
-        return data;
+        return data; 
     }
 }
 
@@ -29424,7 +30095,7 @@ export class EmployeeAbsenceUserLookupTableDto implements IEmployeeAbsenceUserLo
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["displayName"] = this.displayName;
-        return data;
+        return data; 
     }
 }
 
@@ -29472,7 +30143,7 @@ export class PagedResultDtoOfEmployeeAbsenceUserLookupTableDto implements IPaged
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -29515,7 +30186,7 @@ export class EmployeeOfficialTaskDetailDto implements IEmployeeOfficialTaskDetai
         data["employeeOfficialTaskId"] = this.employeeOfficialTaskId;
         data["userId"] = this.userId;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -29582,7 +30253,7 @@ export class EmployeeOfficialTaskDto implements IEmployeeOfficialTaskDto {
                 data["officialTaskDetails"].push(item.toJSON());
         }
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -29628,7 +30299,7 @@ export class GetEmployeeOfficialTaskForViewDto implements IGetEmployeeOfficialTa
         data = typeof data === 'object' ? data : {};
         data["employeeOfficialTask"] = this.employeeOfficialTask ? this.employeeOfficialTask.toJSON() : <any>undefined;
         data["officialTaskTypeNameAr"] = this.officialTaskTypeNameAr;
-        return data;
+        return data; 
     }
 }
 
@@ -29676,7 +30347,7 @@ export class PagedResultDtoOfGetEmployeeOfficialTaskForViewDto implements IPaged
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -29753,7 +30424,7 @@ export class CreateOrEditEmployeeOfficialTaskDto implements ICreateOrEditEmploye
                 data["selectedUsers"].push(item);
         }
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -29800,7 +30471,7 @@ export class GetEmployeeOfficialTaskForEditOutput implements IGetEmployeeOfficia
         data = typeof data === 'object' ? data : {};
         data["employeeOfficialTask"] = this.employeeOfficialTask ? this.employeeOfficialTask.toJSON() : <any>undefined;
         data["officialTaskTypeNameAr"] = this.officialTaskTypeNameAr;
-        return data;
+        return data; 
     }
 }
 
@@ -29840,7 +30511,7 @@ export class EmployeeOfficialTaskOfficialTaskTypeLookupTableDto implements IEmpl
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["displayName"] = this.displayName;
-        return data;
+        return data; 
     }
 }
 
@@ -29888,7 +30559,7 @@ export class PagedResultDtoOfEmployeeOfficialTaskOfficialTaskTypeLookupTableDto 
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -29946,7 +30617,7 @@ export class EmployeePermitDto implements IEmployeePermitDto {
         data["userId"] = this.userId;
         data["permitId"] = this.permitId;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -29995,7 +30666,7 @@ export class GetEmployeePermitForViewDto implements IGetEmployeePermitForViewDto
         data["employeePermit"] = this.employeePermit ? this.employeePermit.toJSON() : <any>undefined;
         data["userName"] = this.userName;
         data["permitDescriptionAr"] = this.permitDescriptionAr;
-        return data;
+        return data; 
     }
 }
 
@@ -30044,7 +30715,7 @@ export class PagedResultDtoOfGetEmployeePermitForViewDto implements IPagedResult
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -30105,7 +30776,7 @@ export class CreateOrEditEmployeePermitDto implements ICreateOrEditEmployeePermi
         data["userId"] = this.userId;
         data["permitId"] = this.permitId;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -30155,7 +30826,7 @@ export class GetEmployeePermitForEditOutput implements IGetEmployeePermitForEdit
         data["employeePermit"] = this.employeePermit ? this.employeePermit.toJSON() : <any>undefined;
         data["userName"] = this.userName;
         data["permitDescriptionAr"] = this.permitDescriptionAr;
-        return data;
+        return data; 
     }
 }
 
@@ -30196,7 +30867,7 @@ export class EmployeePermitUserLookupTableDto implements IEmployeePermitUserLook
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["displayName"] = this.displayName;
-        return data;
+        return data; 
     }
 }
 
@@ -30244,7 +30915,7 @@ export class PagedResultDtoOfEmployeePermitUserLookupTableDto implements IPagedR
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -30284,7 +30955,7 @@ export class EmployeePermitPermitLookupTableDto implements IEmployeePermitPermit
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["displayName"] = this.displayName;
-        return data;
+        return data; 
     }
 }
 
@@ -30332,7 +31003,7 @@ export class PagedResultDtoOfEmployeePermitPermitLookupTableDto implements IPage
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -30390,7 +31061,7 @@ export class EmployeeVacationDto implements IEmployeeVacationDto {
         data["userId"] = this.userId;
         data["leaveTypeId"] = this.leaveTypeId;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -30439,7 +31110,7 @@ export class GetEmployeeVacationForViewDto implements IGetEmployeeVacationForVie
         data["employeeVacation"] = this.employeeVacation ? this.employeeVacation.toJSON() : <any>undefined;
         data["userName"] = this.userName;
         data["leaveTypeNameAr"] = this.leaveTypeNameAr;
-        return data;
+        return data; 
     }
 }
 
@@ -30488,7 +31159,7 @@ export class PagedResultDtoOfGetEmployeeVacationForViewDto implements IPagedResu
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -30552,7 +31223,7 @@ export class CreateOrEditEmployeeVacationDto implements ICreateOrEditEmployeeVac
         data["leaveCode"] = this.leaveCode;
         data["empCode"] = this.empCode;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -30603,7 +31274,7 @@ export class GetEmployeeVacationForEditOutput implements IGetEmployeeVacationFor
         data["employeeVacation"] = this.employeeVacation ? this.employeeVacation.toJSON() : <any>undefined;
         data["userName"] = this.userName;
         data["leaveTypeNameAr"] = this.leaveTypeNameAr;
-        return data;
+        return data; 
     }
 }
 
@@ -30644,7 +31315,7 @@ export class EmployeeVacationUserLookupTableDto implements IEmployeeVacationUser
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["displayName"] = this.displayName;
-        return data;
+        return data; 
     }
 }
 
@@ -30692,7 +31363,7 @@ export class PagedResultDtoOfEmployeeVacationUserLookupTableDto implements IPage
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -30732,7 +31403,7 @@ export class EmployeeVacationLeaveTypeLookupTableDto implements IEmployeeVacatio
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["displayName"] = this.displayName;
-        return data;
+        return data; 
     }
 }
 
@@ -30780,7 +31451,7 @@ export class PagedResultDtoOfEmployeeVacationLeaveTypeLookupTableDto implements 
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -30829,7 +31500,7 @@ export class EmployeeWarningDto implements IEmployeeWarningDto {
         data["userId"] = this.userId;
         data["warningTypeId"] = this.warningTypeId;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -30875,7 +31546,7 @@ export class GetEmployeeWarningForViewDto implements IGetEmployeeWarningForViewD
         data["employeeWarning"] = this.employeeWarning ? this.employeeWarning.toJSON() : <any>undefined;
         data["userName"] = this.userName;
         data["warningTypeNameAr"] = this.warningTypeNameAr;
-        return data;
+        return data; 
     }
 }
 
@@ -30924,7 +31595,7 @@ export class PagedResultDtoOfGetEmployeeWarningForViewDto implements IPagedResul
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -30973,7 +31644,7 @@ export class CreateOrEditEmployeeWarningDto implements ICreateOrEditEmployeeWarn
         data["userId"] = this.userId;
         data["warningTypeId"] = this.warningTypeId;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -31019,7 +31690,7 @@ export class GetEmployeeWarningForEditOutput implements IGetEmployeeWarningForEd
         data["employeeWarning"] = this.employeeWarning ? this.employeeWarning.toJSON() : <any>undefined;
         data["userName"] = this.userName;
         data["warningTypeNameAr"] = this.warningTypeNameAr;
-        return data;
+        return data; 
     }
 }
 
@@ -31060,7 +31731,7 @@ export class EmployeeWarningUserLookupTableDto implements IEmployeeWarningUserLo
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["displayName"] = this.displayName;
-        return data;
+        return data; 
     }
 }
 
@@ -31108,7 +31779,7 @@ export class PagedResultDtoOfEmployeeWarningUserLookupTableDto implements IPaged
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -31148,7 +31819,7 @@ export class EmployeeWarningWarningTypeLookupTableDto implements IEmployeeWarnin
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["displayName"] = this.displayName;
-        return data;
+        return data; 
     }
 }
 
@@ -31196,7 +31867,7 @@ export class PagedResultDtoOfEmployeeWarningWarningTypeLookupTableDto implements
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -31236,7 +31907,7 @@ export class CreateFriendshipRequestInput implements ICreateFriendshipRequestInp
         data = typeof data === 'object' ? data : {};
         data["userId"] = this.userId;
         data["tenantId"] = this.tenantId;
-        return data;
+        return data; 
     }
 }
 
@@ -31276,7 +31947,7 @@ export class CreateFriendshipRequestByUserNameInput implements ICreateFriendship
         data = typeof data === 'object' ? data : {};
         data["tenancyName"] = this.tenancyName;
         data["userName"] = this.userName;
-        return data;
+        return data; 
     }
 }
 
@@ -31316,7 +31987,7 @@ export class BlockUserInput implements IBlockUserInput {
         data = typeof data === 'object' ? data : {};
         data["userId"] = this.userId;
         data["tenantId"] = this.tenantId;
-        return data;
+        return data; 
     }
 }
 
@@ -31356,7 +32027,7 @@ export class UnblockUserInput implements IUnblockUserInput {
         data = typeof data === 'object' ? data : {};
         data["userId"] = this.userId;
         data["tenantId"] = this.tenantId;
-        return data;
+        return data; 
     }
 }
 
@@ -31396,7 +32067,7 @@ export class AcceptFriendshipRequestInput implements IAcceptFriendshipRequestInp
         data = typeof data === 'object' ? data : {};
         data["userId"] = this.userId;
         data["tenantId"] = this.tenantId;
-        return data;
+        return data; 
     }
 }
 
@@ -31445,7 +32116,7 @@ export class HolidayDto implements IHolidayDto {
         data["startDate"] = this.startDate ? this.startDate.toISOString() : <any>undefined;
         data["endDate"] = this.endDate ? this.endDate.toISOString() : <any>undefined;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -31485,7 +32156,7 @@ export class GetHolidayForViewDto implements IGetHolidayForViewDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["holiday"] = this.holiday ? this.holiday.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
@@ -31532,7 +32203,7 @@ export class PagedResultDtoOfGetHolidayForViewDto implements IPagedResultDtoOfGe
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -31581,7 +32252,7 @@ export class CreateOrEditHolidayDto implements ICreateOrEditHolidayDto {
         data["startDate"] = this.startDate ? this.startDate.toISOString() : <any>undefined;
         data["endDate"] = this.endDate ? this.endDate.toISOString() : <any>undefined;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -31621,7 +32292,7 @@ export class GetHolidayForEditOutput implements IGetHolidayForEditOutput {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["holiday"] = this.holiday ? this.holiday.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
@@ -31666,7 +32337,7 @@ export class TopStatsData implements ITopStatsData {
         data["newSubscriptionAmount"] = this.newSubscriptionAmount;
         data["dashboardPlaceholder1"] = this.dashboardPlaceholder1;
         data["dashboardPlaceholder2"] = this.dashboardPlaceholder2;
-        return data;
+        return data; 
     }
 }
 
@@ -31711,7 +32382,7 @@ export class RecentTenant implements IRecentTenant {
         data["id"] = this.id;
         data["name"] = this.name;
         data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
@@ -31766,7 +32437,7 @@ export class GetRecentTenantsOutput implements IGetRecentTenantsOutput {
             for (let item of this.recentTenants)
                 data["recentTenants"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -31808,7 +32479,7 @@ export class ExpiringTenant implements IExpiringTenant {
         data = typeof data === 'object' ? data : {};
         data["tenantName"] = this.tenantName;
         data["remainingDayCount"] = this.remainingDayCount;
-        return data;
+        return data; 
     }
 }
 
@@ -31865,7 +32536,7 @@ export class GetExpiringTenantsOutput implements IGetExpiringTenantsOutput {
         data["maxExpiringTenantsShownCount"] = this.maxExpiringTenantsShownCount;
         data["subscriptionEndDateStart"] = this.subscriptionEndDateStart ? this.subscriptionEndDateStart.toISOString() : <any>undefined;
         data["subscriptionEndDateEnd"] = this.subscriptionEndDateEnd ? this.subscriptionEndDateEnd.toISOString() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
@@ -31917,7 +32588,7 @@ export class IncomeStastistic implements IIncomeStastistic {
         data["label"] = this.label;
         data["date"] = this.date ? this.date.toISOString() : <any>undefined;
         data["amount"] = this.amount;
-        return data;
+        return data; 
     }
 }
 
@@ -31963,7 +32634,7 @@ export class GetIncomeStatisticsDataOutput implements IGetIncomeStatisticsDataOu
             for (let item of this.incomeStatistics)
                 data["incomeStatistics"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -32002,7 +32673,7 @@ export class TenantEdition implements ITenantEdition {
         data = typeof data === 'object' ? data : {};
         data["label"] = this.label;
         data["value"] = this.value;
-        return data;
+        return data; 
     }
 }
 
@@ -32047,7 +32718,7 @@ export class GetEditionTenantStatisticsOutput implements IGetEditionTenantStatis
             for (let item of this.editionStatistics)
                 data["editionStatistics"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -32086,7 +32757,7 @@ export class GeneralSettingsEditDto implements IGeneralSettingsEditDto {
         data = typeof data === 'object' ? data : {};
         data["timezone"] = this.timezone;
         data["timezoneForComparison"] = this.timezoneForComparison;
-        return data;
+        return data; 
     }
 }
 
@@ -32132,7 +32803,7 @@ export class SessionTimeOutSettingsEditDto implements ISessionTimeOutSettingsEdi
         data["timeOutSecond"] = this.timeOutSecond;
         data["showTimeOutNotificationSecond"] = this.showTimeOutNotificationSecond;
         data["showLockScreenWhenTimedOut"] = this.showLockScreenWhenTimedOut;
-        return data;
+        return data; 
     }
 }
 
@@ -32186,7 +32857,7 @@ export class HostUserManagementSettingsEditDto implements IHostUserManagementSet
         data["isQuickThemeSelectEnabled"] = this.isQuickThemeSelectEnabled;
         data["useCaptchaOnLogin"] = this.useCaptchaOnLogin;
         data["sessionTimeOutSettings"] = this.sessionTimeOutSettings ? this.sessionTimeOutSettings.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
@@ -32251,7 +32922,7 @@ export class EmailSettingsEditDto implements IEmailSettingsEditDto {
         data["smtpDomain"] = this.smtpDomain;
         data["smtpEnableSsl"] = this.smtpEnableSsl;
         data["smtpUseDefaultCredentials"] = this.smtpUseDefaultCredentials;
-        return data;
+        return data; 
     }
 }
 
@@ -32304,7 +32975,7 @@ export class TenantManagementSettingsEditDto implements ITenantManagementSetting
         data["isNewRegisteredTenantActiveByDefault"] = this.isNewRegisteredTenantActiveByDefault;
         data["useCaptchaOnRegistration"] = this.useCaptchaOnRegistration;
         data["defaultEditionId"] = this.defaultEditionId;
-        return data;
+        return data; 
     }
 }
 
@@ -32355,7 +33026,7 @@ export class PasswordComplexitySetting implements IPasswordComplexitySetting {
         data["requireNonAlphanumeric"] = this.requireNonAlphanumeric;
         data["requireUppercase"] = this.requireUppercase;
         data["requiredLength"] = this.requiredLength;
-        return data;
+        return data; 
     }
 }
 
@@ -32401,7 +33072,7 @@ export class UserLockOutSettingsEditDto implements IUserLockOutSettingsEditDto {
         data["isEnabled"] = this.isEnabled;
         data["maxFailedAccessAttemptsBeforeLockout"] = this.maxFailedAccessAttemptsBeforeLockout;
         data["defaultAccountLockoutSeconds"] = this.defaultAccountLockoutSeconds;
-        return data;
+        return data; 
     }
 }
 
@@ -32454,7 +33125,7 @@ export class TwoFactorLoginSettingsEditDto implements ITwoFactorLoginSettingsEdi
         data["isSmsProviderEnabled"] = this.isSmsProviderEnabled;
         data["isRememberBrowserEnabled"] = this.isRememberBrowserEnabled;
         data["isGoogleAuthenticatorEnabled"] = this.isGoogleAuthenticatorEnabled;
-        return data;
+        return data; 
     }
 }
 
@@ -32510,7 +33181,7 @@ export class SecuritySettingsEditDto implements ISecuritySettingsEditDto {
         data["defaultPasswordComplexity"] = this.defaultPasswordComplexity ? this.defaultPasswordComplexity.toJSON() : <any>undefined;
         data["userLockOut"] = this.userLockOut ? this.userLockOut.toJSON() : <any>undefined;
         data["twoFactorLogin"] = this.twoFactorLogin ? this.twoFactorLogin.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
@@ -32554,7 +33225,7 @@ export class HostBillingSettingsEditDto implements IHostBillingSettingsEditDto {
         data = typeof data === 'object' ? data : {};
         data["legalName"] = this.legalName;
         data["address"] = this.address;
-        return data;
+        return data; 
     }
 }
 
@@ -32591,7 +33262,7 @@ export class OtherSettingsEditDto implements IOtherSettingsEditDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["isQuickThemeSelectEnabled"] = this.isQuickThemeSelectEnabled;
-        return data;
+        return data; 
     }
 }
 
@@ -32652,7 +33323,7 @@ export class HostSettingsEditDto implements IHostSettingsEditDto {
         data["security"] = this.security ? this.security.toJSON() : <any>undefined;
         data["billing"] = this.billing ? this.billing.toJSON() : <any>undefined;
         data["otherSettings"] = this.otherSettings ? this.otherSettings.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
@@ -32694,7 +33365,7 @@ export class SendTestEmailInput implements ISendTestEmailInput {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["emailAddress"] = this.emailAddress;
-        return data;
+        return data; 
     }
 }
 
@@ -32748,7 +33419,7 @@ export class InstallDto implements IInstallDto {
         data["defaultLanguage"] = this.defaultLanguage;
         data["smtpSettings"] = this.smtpSettings ? this.smtpSettings.toJSON() : <any>undefined;
         data["billInfo"] = this.billInfo ? this.billInfo.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
@@ -32793,7 +33464,7 @@ export class NameValue implements INameValue {
         data = typeof data === 'object' ? data : {};
         data["name"] = this.name;
         data["value"] = this.value;
-        return data;
+        return data; 
     }
 }
 
@@ -32844,7 +33515,7 @@ export class AppSettingsJsonDto implements IAppSettingsJsonDto {
             for (let item of this.languages)
                 data["languages"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -32882,7 +33553,7 @@ export class CheckDatabaseOutput implements ICheckDatabaseOutput {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["isDatabaseExist"] = this.isDatabaseExist;
-        return data;
+        return data; 
     }
 }
 
@@ -32958,7 +33629,7 @@ export class InvoiceDto implements IInvoiceDto {
             for (let item of this.hostAddress)
                 data["hostAddress"].push(item);
         }
-        return data;
+        return data; 
     }
 }
 
@@ -33002,7 +33673,7 @@ export class CreateInvoiceDto implements ICreateInvoiceDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["subscriptionPaymentId"] = this.subscriptionPaymentId;
-        return data;
+        return data; 
     }
 }
 
@@ -33047,7 +33718,7 @@ export class JobTitleDto implements IJobTitleDto {
         data["nameEn"] = this.nameEn;
         data["code"] = this.code;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -33086,7 +33757,7 @@ export class GetJobTitleForViewDto implements IGetJobTitleForViewDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["jobTitle"] = this.jobTitle ? this.jobTitle.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
@@ -33133,7 +33804,7 @@ export class PagedResultDtoOfGetJobTitleForViewDto implements IPagedResultDtoOfG
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -33176,7 +33847,7 @@ export class CreateOrEditJobTitleDto implements ICreateOrEditJobTitleDto {
         data["nameAr"] = this.nameAr;
         data["nameEn"] = this.nameEn;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -33214,7 +33885,7 @@ export class GetJobTitleForEditOutput implements IGetJobTitleForEditOutput {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["jobTitle"] = this.jobTitle ? this.jobTitle.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
@@ -33286,7 +33957,7 @@ export class ApplicationLanguageListDto implements IApplicationLanguageListDto {
         data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
         data["creatorUserId"] = this.creatorUserId;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -33345,7 +34016,7 @@ export class GetLanguagesOutput implements IGetLanguagesOutput {
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -33391,7 +34062,7 @@ export class ApplicationLanguageEditDto implements IApplicationLanguageEditDto {
         data["name"] = this.name;
         data["icon"] = this.icon;
         data["isEnabled"] = this.isEnabled;
-        return data;
+        return data; 
     }
 }
 
@@ -33436,7 +34107,7 @@ export class ComboboxItemDto implements IComboboxItemDto {
         data["value"] = this.value;
         data["displayText"] = this.displayText;
         data["isSelected"] = this.isSelected;
-        return data;
+        return data; 
     }
 }
 
@@ -33496,7 +34167,7 @@ export class GetLanguageForEditOutput implements IGetLanguageForEditOutput {
             for (let item of this.flags)
                 data["flags"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -33537,7 +34208,7 @@ export class CreateOrUpdateLanguageInput implements ICreateOrUpdateLanguageInput
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["language"] = this.language ? this.language.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
@@ -33573,7 +34244,7 @@ export class SetDefaultLanguageInput implements ISetDefaultLanguageInput {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["name"] = this.name;
-        return data;
+        return data; 
     }
 }
 
@@ -33615,7 +34286,7 @@ export class LanguageTextListDto implements ILanguageTextListDto {
         data["key"] = this.key;
         data["baseValue"] = this.baseValue;
         data["targetValue"] = this.targetValue;
-        return data;
+        return data; 
     }
 }
 
@@ -33664,7 +34335,7 @@ export class PagedResultDtoOfLanguageTextListDto implements IPagedResultDtoOfLan
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -33710,7 +34381,7 @@ export class UpdateLanguageTextInput implements IUpdateLanguageTextInput {
         data["sourceName"] = this.sourceName;
         data["key"] = this.key;
         data["value"] = this.value;
-        return data;
+        return data; 
     }
 }
 
@@ -33758,7 +34429,7 @@ export class LeaveTypeDto implements ILeaveTypeDto {
         data["nameEn"] = this.nameEn;
         data["code"] = this.code;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -33797,7 +34468,7 @@ export class GetLeaveTypeForViewDto implements IGetLeaveTypeForViewDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["leaveType"] = this.leaveType ? this.leaveType.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
@@ -33844,7 +34515,7 @@ export class PagedResultDtoOfGetLeaveTypeForViewDto implements IPagedResultDtoOf
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -33890,7 +34561,7 @@ export class CreateOrEditLeaveTypeDto implements ICreateOrEditLeaveTypeDto {
         data["nameEn"] = this.nameEn;
         data["code"] = this.code;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -33929,7 +34600,7 @@ export class GetLeaveTypeForEditOutput implements IGetLeaveTypeForEditOutput {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["leaveType"] = this.leaveType ? this.leaveType.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
@@ -33974,7 +34645,7 @@ export class LocationCredentialDto implements ILocationCredentialDto {
         data["latitude"] = this.latitude;
         data["locationId"] = this.locationId;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -34016,7 +34687,7 @@ export class GetLocationCredentialForViewDto implements IGetLocationCredentialFo
         data = typeof data === 'object' ? data : {};
         data["locationCredential"] = this.locationCredential ? this.locationCredential.toJSON() : <any>undefined;
         data["locationDescriptionAr"] = this.locationDescriptionAr;
-        return data;
+        return data; 
     }
 }
 
@@ -34064,7 +34735,7 @@ export class PagedResultDtoOfGetLocationCredentialForViewDto implements IPagedRe
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -34110,7 +34781,7 @@ export class CreateOrEditLocationCredentialDto implements ICreateOrEditLocationC
         data["latitude"] = this.latitude;
         data["locationId"] = this.locationId;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -34152,7 +34823,7 @@ export class GetLocationCredentialForEditOutput implements IGetLocationCredentia
         data = typeof data === 'object' ? data : {};
         data["locationCredential"] = this.locationCredential ? this.locationCredential.toJSON() : <any>undefined;
         data["locationDescriptionAr"] = this.locationDescriptionAr;
-        return data;
+        return data; 
     }
 }
 
@@ -34192,7 +34863,7 @@ export class LocationCredentialLocationLookupTableDto implements ILocationCreden
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["displayName"] = this.displayName;
-        return data;
+        return data; 
     }
 }
 
@@ -34240,7 +34911,7 @@ export class PagedResultDtoOfLocationCredentialLocationLookupTableDto implements
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -34283,7 +34954,7 @@ export class LocationDto implements ILocationDto {
         data["titleAr"] = this.titleAr;
         data["titleEn"] = this.titleEn;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -34321,7 +34992,7 @@ export class GetLocationForViewDto implements IGetLocationForViewDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["location"] = this.location ? this.location.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
@@ -34368,7 +35039,7 @@ export class PagedResultDtoOfGetLocationForViewDto implements IPagedResultDtoOfG
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -34422,7 +35093,7 @@ export class CreateOrEditLocationDto implements ICreateOrEditLocationDto {
                 data["locationCredentials"].push(item.toJSON());
         }
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -34461,7 +35132,7 @@ export class GetLocationForEditOutput implements IGetLocationForEditOutput {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["location"] = this.location ? this.location.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
@@ -34515,7 +35186,7 @@ export class MachineDto implements IMachineDto {
         data["status"] = this.status;
         data["organizationUnitId"] = this.organizationUnitId;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -34560,7 +35231,7 @@ export class GetMachineForViewDto implements IGetMachineForViewDto {
         data = typeof data === 'object' ? data : {};
         data["machine"] = this.machine ? this.machine.toJSON() : <any>undefined;
         data["organizationUnitDisplayName"] = this.organizationUnitDisplayName;
-        return data;
+        return data; 
     }
 }
 
@@ -34608,7 +35279,7 @@ export class PagedResultDtoOfGetMachineForViewDto implements IPagedResultDtoOfGe
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -34669,7 +35340,7 @@ export class CreateOrEditMachineDto implements ICreateOrEditMachineDto {
         data["online"] = this.online;
         data["organizationUnitId"] = this.organizationUnitId;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -34716,7 +35387,7 @@ export class GetMachineForEditOutput implements IGetMachineForEditOutput {
         data = typeof data === 'object' ? data : {};
         data["machine"] = this.machine ? this.machine.toJSON() : <any>undefined;
         data["organizationUnitDisplayName"] = this.organizationUnitDisplayName;
-        return data;
+        return data; 
     }
 }
 
@@ -34756,7 +35427,7 @@ export class MachineOrganizationUnitLookupTableDto implements IMachineOrganizati
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["displayName"] = this.displayName;
-        return data;
+        return data; 
     }
 }
 
@@ -34804,7 +35475,7 @@ export class PagedResultDtoOfMachineOrganizationUnitLookupTableDto implements IP
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -34850,7 +35521,7 @@ export class ManualTransactionDto implements IManualTransactionDto {
         data["transType"] = this.transType;
         data["userId"] = this.userId;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -34892,7 +35563,7 @@ export class GetManualTransactionForViewDto implements IGetManualTransactionForV
         data = typeof data === 'object' ? data : {};
         data["manualTransaction"] = this.manualTransaction ? this.manualTransaction.toJSON() : <any>undefined;
         data["userName"] = this.userName;
-        return data;
+        return data; 
     }
 }
 
@@ -34940,7 +35611,7 @@ export class PagedResultDtoOfGetManualTransactionForViewDto implements IPagedRes
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -34986,7 +35657,7 @@ export class CreateOrEditManualTransactionDto implements ICreateOrEditManualTran
         data["transType"] = this.transType;
         data["userId"] = this.userId;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -35028,7 +35699,7 @@ export class GetManualTransactionForEditOutput implements IGetManualTransactionF
         data = typeof data === 'object' ? data : {};
         data["manualTransaction"] = this.manualTransaction ? this.manualTransaction.toJSON() : <any>undefined;
         data["userName"] = this.userName;
-        return data;
+        return data; 
     }
 }
 
@@ -35068,7 +35739,7 @@ export class ManualTransactionUserLookupTableDto implements IManualTransactionUs
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["displayName"] = this.displayName;
-        return data;
+        return data; 
     }
 }
 
@@ -35116,7 +35787,7 @@ export class PagedResultDtoOfManualTransactionUserLookupTableDto implements IPag
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -35159,7 +35830,7 @@ export class MobileTransactionDto implements IMobileTransactionDto {
         data["siteId"] = this.siteId;
         data["siteName"] = this.siteName;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -35197,7 +35868,7 @@ export class GetMobileTransactionForViewDto implements IGetMobileTransactionForV
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["mobileTransaction"] = this.mobileTransaction ? this.mobileTransaction.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
@@ -35244,7 +35915,7 @@ export class PagedResultDtoOfGetMobileTransactionForViewDto implements IPagedRes
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -35314,7 +35985,7 @@ export class CreateOrEditMobileTransactionDto implements ICreateOrEditMobileTran
         data["siteId"] = this.siteId;
         data["siteName"] = this.siteName;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -35361,7 +36032,7 @@ export class GetMobileTransactionForEditOutput implements IGetMobileTransactionF
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["mobileTransaction"] = this.mobileTransaction ? this.mobileTransaction.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
@@ -35406,7 +36077,7 @@ export class CheckEmpLocationInputModel implements ICheckEmpLocationInputModel {
         data["latitude"] = this.latitude;
         data["longitude"] = this.longitude;
         data["languaugeId"] = this.languaugeId;
-        return data;
+        return data; 
     }
 }
 
@@ -35460,7 +36131,7 @@ export class CheckEmpLocationOutputModel implements ICheckEmpLocationOutputModel
         data["endDate"] = this.endDate ? this.endDate.toISOString() : <any>undefined;
         data["status"] = this.status;
         data["message"] = this.message;
-        return data;
+        return data; 
     }
 }
 
@@ -35531,7 +36202,7 @@ export class InsertTransactionInputModel implements IInsertTransactionInputModel
         data["transStatus"] = this.transStatus;
         data["empCode"] = this.empCode;
         data["languaugeId"] = this.languaugeId;
-        return data;
+        return data; 
     }
 }
 
@@ -35586,7 +36257,7 @@ export class InsertTransactionOutputModel implements IInsertTransactionOutputMod
         data["time"] = this.time;
         data["status"] = this.status;
         data["message"] = this.message;
-        return data;
+        return data; 
     }
 }
 
@@ -35634,7 +36305,7 @@ export class ReportInputModel implements IReportInputModel {
         data["fromDate"] = this.fromDate ? this.fromDate.toISOString() : <any>undefined;
         data["toDate"] = this.toDate ? this.toDate.toISOString() : <any>undefined;
         data["languaugeId"] = this.languaugeId;
-        return data;
+        return data; 
     }
 }
 
@@ -35703,7 +36374,7 @@ export class ReportEntityModel implements IReportEntityModel {
         data["siteId"] = this.siteId;
         data["siteName"] = this.siteName;
         data["siteAdress"] = this.siteAdress;
-        return data;
+        return data; 
     }
 }
 
@@ -35760,7 +36431,7 @@ export class TransEntityModel implements ITransEntityModel {
             for (let item of this.transactions)
                 data["transactions"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -35811,7 +36482,7 @@ export class ReportOutputModel implements IReportOutputModel {
         }
         data["status"] = this.status;
         data["message"] = this.message;
-        return data;
+        return data; 
     }
 }
 
@@ -35852,7 +36523,7 @@ export class LastTransactionInputModel implements ILastTransactionInputModel {
         data = typeof data === 'object' ? data : {};
         data["civilId"] = this.civilId;
         data["languaugeId"] = this.languaugeId;
-        return data;
+        return data; 
     }
 }
 
@@ -35903,7 +36574,7 @@ export class LastTransOutputModel implements ILastTransOutputModel {
         }
         data["status"] = this.status;
         data["message"] = this.message;
-        return data;
+        return data; 
     }
 }
 
@@ -35944,7 +36615,7 @@ export class LocationCerdentialModel implements ILocationCerdentialModel {
         data = typeof data === 'object' ? data : {};
         data["lat"] = this.lat;
         data["lon"] = this.lon;
-        return data;
+        return data; 
     }
 }
 
@@ -36001,7 +36672,7 @@ export class LocationModel implements ILocationModel {
             for (let item of this.cerdentials)
                 data["cerdentials"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -36055,7 +36726,7 @@ export class GetEmpLocationsOutputModel implements IGetEmpLocationsOutputModel {
         }
         data["status"] = this.status;
         data["message"] = this.message;
-        return data;
+        return data; 
     }
 }
 
@@ -36099,7 +36770,7 @@ export class MobileWebPageDto implements IMobileWebPageDto {
         data["name"] = this.name;
         data["content"] = this.content;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -36137,7 +36808,7 @@ export class GetMobileWebPageForViewDto implements IGetMobileWebPageForViewDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["mobileWebPage"] = this.mobileWebPage ? this.mobileWebPage.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
@@ -36184,7 +36855,7 @@ export class PagedResultDtoOfGetMobileWebPageForViewDto implements IPagedResultD
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -36227,7 +36898,7 @@ export class CreateOrEditMobileWebPageDto implements ICreateOrEditMobileWebPageD
         data["name"] = this.name;
         data["content"] = this.content;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -36265,7 +36936,7 @@ export class GetMobileWebPageForEditOutput implements IGetMobileWebPageForEditOu
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["mobileWebPage"] = this.mobileWebPage ? this.mobileWebPage.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
@@ -36307,7 +36978,7 @@ export class NationalityDto implements INationalityDto {
         data["nameAr"] = this.nameAr;
         data["nameEn"] = this.nameEn;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -36345,7 +37016,7 @@ export class GetNationalityForViewDto implements IGetNationalityForViewDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["nationality"] = this.nationality ? this.nationality.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
@@ -36392,7 +37063,7 @@ export class PagedResultDtoOfGetNationalityForViewDto implements IPagedResultDto
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -36435,7 +37106,7 @@ export class CreateOrEditNationalityDto implements ICreateOrEditNationalityDto {
         data["nameAr"] = this.nameAr;
         data["nameEn"] = this.nameEn;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -36473,7 +37144,7 @@ export class GetNationalityForEditOutput implements IGetNationalityForEditOutput
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["nationality"] = this.nationality ? this.nationality.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
@@ -36529,7 +37200,7 @@ export class NotificationData implements INotificationData {
                     data["properties"][key] = this.properties[key];
             }
         }
-        return data;
+        return data; 
     }
 }
 
@@ -36628,7 +37299,7 @@ export class IntPtr implements IIntPtr {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        return data;
+        return data; 
     }
 }
 
@@ -36663,7 +37334,7 @@ export class RuntimeMethodHandle implements IRuntimeMethodHandle {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["value"] = this.value ? this.value.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
@@ -36699,7 +37370,7 @@ export class ModuleHandle implements IModuleHandle {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["mdStreamVersion"] = this.mdStreamVersion;
-        return data;
+        return data; 
     }
 }
 
@@ -36738,7 +37409,7 @@ export class CustomAttributeTypedArgument implements ICustomAttributeTypedArgume
         data = typeof data === 'object' ? data : {};
         data["argumentType"] = this.argumentType ? this.argumentType.toJSON() : <any>undefined;
         data["value"] = this.value;
-        return data;
+        return data; 
     }
 }
 
@@ -36804,7 +37475,7 @@ export class MemberInfo implements IMemberInfo {
         }
         data["isCollectible"] = this.isCollectible;
         data["metadataToken"] = this.metadataToken;
-        return data;
+        return data; 
     }
 }
 
@@ -36856,7 +37527,7 @@ export class CustomAttributeNamedArgument implements ICustomAttributeNamedArgume
         data["typedValue"] = this.typedValue ? this.typedValue.toJSON() : <any>undefined;
         data["memberName"] = this.memberName;
         data["isField"] = this.isField;
-        return data;
+        return data; 
     }
 }
 
@@ -36920,7 +37591,7 @@ export class CustomAttributeData implements ICustomAttributeData {
             for (let item of this.namedArguments)
                 data["namedArguments"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -36991,7 +37662,7 @@ export class Module implements IModule {
                 data["customAttributes"].push(item.toJSON());
         }
         data["metadataToken"] = this.metadataToken;
-        return data;
+        return data; 
     }
 }
 
@@ -37136,7 +37807,7 @@ export class ConstructorInfo implements IConstructorInfo {
         }
         data["isCollectible"] = this.isCollectible;
         data["metadataToken"] = this.metadataToken;
-        return data;
+        return data; 
     }
 }
 
@@ -37274,7 +37945,7 @@ export class ParameterInfo implements IParameterInfo {
                 data["customAttributes"].push(item.toJSON());
         }
         data["metadataToken"] = this.metadataToken;
-        return data;
+        return data; 
     }
 }
 
@@ -37319,7 +37990,7 @@ export class ICustomAttributeProvider implements IICustomAttributeProvider {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        return data;
+        return data; 
     }
 }
 
@@ -37464,7 +38135,7 @@ export class MethodInfo implements IMethodInfo {
         }
         data["isCollectible"] = this.isCollectible;
         data["metadataToken"] = this.metadataToken;
-        return data;
+        return data; 
     }
 }
 
@@ -37584,7 +38255,7 @@ export class EventInfo implements IEventInfo {
         }
         data["isCollectible"] = this.isCollectible;
         data["metadataToken"] = this.metadataToken;
-        return data;
+        return data; 
     }
 }
 
@@ -37656,7 +38327,7 @@ export class RuntimeFieldHandle implements IRuntimeFieldHandle {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["value"] = this.value ? this.value.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
@@ -37775,7 +38446,7 @@ export class FieldInfo implements IFieldInfo {
         }
         data["isCollectible"] = this.isCollectible;
         data["metadataToken"] = this.metadataToken;
-        return data;
+        return data; 
     }
 }
 
@@ -37897,7 +38568,7 @@ export class PropertyInfo implements IPropertyInfo {
         }
         data["isCollectible"] = this.isCollectible;
         data["metadataToken"] = this.metadataToken;
-        return data;
+        return data; 
     }
 }
 
@@ -38048,7 +38719,7 @@ export class MethodBase implements IMethodBase {
         }
         data["isCollectible"] = this.isCollectible;
         data["metadataToken"] = this.metadataToken;
-        return data;
+        return data; 
     }
 }
 
@@ -38170,7 +38841,7 @@ export class StructLayoutAttribute implements IStructLayoutAttribute {
         data = typeof data === 'object' ? data : {};
         data["value"] = this.value;
         data["typeId"] = this.typeId;
-        return data;
+        return data; 
     }
 }
 
@@ -38207,7 +38878,7 @@ export class RuntimeTypeHandle implements IRuntimeTypeHandle {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["value"] = this.value ? this.value.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
@@ -38568,7 +39239,7 @@ export class TypeInfo implements ITypeInfo {
         }
         data["isCollectible"] = this.isCollectible;
         data["metadataToken"] = this.metadataToken;
-        return data;
+        return data; 
     }
 }
 
@@ -38772,7 +39443,7 @@ export class Assembly implements IAssembly {
         data["globalAssemblyCache"] = this.globalAssemblyCache;
         data["hostContext"] = this.hostContext;
         data["securityRuleSet"] = this.securityRuleSet;
-        return data;
+        return data; 
     }
 }
 
@@ -39051,7 +39722,7 @@ export class Type implements IType {
         }
         data["isCollectible"] = this.isCollectible;
         data["metadataToken"] = this.metadataToken;
-        return data;
+        return data; 
     }
 }
 
@@ -39189,7 +39860,7 @@ export class TenantNotification implements ITenantNotification {
         data["severity"] = this.severity;
         data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -39245,7 +39916,7 @@ export class UserNotification implements IUserNotification {
         data["state"] = this.state;
         data["notification"] = this.notification ? this.notification.toJSON() : <any>undefined;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -39299,7 +39970,7 @@ export class GetNotificationsOutput implements IGetNotificationsOutput {
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -39337,7 +40008,7 @@ export class EntityDtoOfGuid implements IEntityDtoOfGuid {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -39382,7 +40053,7 @@ export class NotificationSubscriptionWithDisplayNameDto implements INotification
         data["description"] = this.description;
         data["name"] = this.name;
         data["isSubscribed"] = this.isSubscribed;
-        return data;
+        return data; 
     }
 }
 
@@ -39432,7 +40103,7 @@ export class GetNotificationSettingsOutput implements IGetNotificationSettingsOu
             for (let item of this.notifications)
                 data["notifications"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -39472,7 +40143,7 @@ export class NotificationSubscriptionDto implements INotificationSubscriptionDto
         data = typeof data === 'object' ? data : {};
         data["name"] = this.name;
         data["isSubscribed"] = this.isSubscribed;
-        return data;
+        return data; 
     }
 }
 
@@ -39520,7 +40191,7 @@ export class UpdateNotificationSettingsInput implements IUpdateNotificationSetti
             for (let item of this.notifications)
                 data["notifications"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -39572,7 +40243,7 @@ export class OfficialTaskTypeDto implements IOfficialTaskTypeDto {
         data["typeOut"] = this.typeOut;
         data["typeInOut"] = this.typeInOut;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -39613,7 +40284,7 @@ export class GetOfficialTaskTypeForViewDto implements IGetOfficialTaskTypeForVie
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["officialTaskType"] = this.officialTaskType ? this.officialTaskType.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
@@ -39660,7 +40331,7 @@ export class PagedResultDtoOfGetOfficialTaskTypeForViewDto implements IPagedResu
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -39712,7 +40383,7 @@ export class CreateOrEditOfficialTaskTypeDto implements ICreateOrEditOfficialTas
         data["typeOut"] = this.typeOut;
         data["typeInOut"] = this.typeInOut;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -39753,7 +40424,7 @@ export class GetOfficialTaskTypeForEditOutput implements IGetOfficialTaskTypeFor
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["officialTaskType"] = this.officialTaskType ? this.officialTaskType.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
@@ -39816,7 +40487,7 @@ export class OrganizationUnitDto implements IOrganizationUnitDto {
         data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
         data["creatorUserId"] = this.creatorUserId;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -39869,7 +40540,7 @@ export class ListResultDtoOfOrganizationUnitDto implements IListResultDtoOfOrgan
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -39923,7 +40594,7 @@ export class OrganizationUnitUserListDto implements IOrganizationUnitUserListDto
         data["profilePictureId"] = this.profilePictureId;
         data["addedTime"] = this.addedTime ? this.addedTime.toISOString() : <any>undefined;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -39976,7 +40647,7 @@ export class PagedResultDtoOfOrganizationUnitUserListDto implements IPagedResult
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -40022,7 +40693,7 @@ export class OrganizationUnitRoleListDto implements IOrganizationUnitRoleListDto
         data["name"] = this.name;
         data["addedTime"] = this.addedTime ? this.addedTime.toISOString() : <any>undefined;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -40072,7 +40743,7 @@ export class PagedResultDtoOfOrganizationUnitRoleListDto implements IPagedResult
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -40112,7 +40783,7 @@ export class CreateOrganizationUnitInput implements ICreateOrganizationUnitInput
         data = typeof data === 'object' ? data : {};
         data["parentId"] = this.parentId;
         data["displayName"] = this.displayName;
-        return data;
+        return data; 
     }
 }
 
@@ -40152,7 +40823,7 @@ export class UpdateOrganizationUnitInput implements IUpdateOrganizationUnitInput
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["displayName"] = this.displayName;
-        return data;
+        return data; 
     }
 }
 
@@ -40192,7 +40863,7 @@ export class MoveOrganizationUnitInput implements IMoveOrganizationUnitInput {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["newParentId"] = this.newParentId;
-        return data;
+        return data; 
     }
 }
 
@@ -40240,7 +40911,7 @@ export class UsersToOrganizationUnitInput implements IUsersToOrganizationUnitInp
                 data["userIds"].push(item);
         }
         data["organizationUnitId"] = this.organizationUnitId;
-        return data;
+        return data; 
     }
 }
 
@@ -40288,7 +40959,7 @@ export class RolesToOrganizationUnitInput implements IRolesToOrganizationUnitInp
                 data["roleIds"].push(item);
         }
         data["organizationUnitId"] = this.organizationUnitId;
-        return data;
+        return data; 
     }
 }
 
@@ -40334,7 +41005,7 @@ export class FindOrganizationUnitUsersInput implements IFindOrganizationUnitUser
         data["maxResultCount"] = this.maxResultCount;
         data["skipCount"] = this.skipCount;
         data["filter"] = this.filter;
-        return data;
+        return data; 
     }
 }
 
@@ -40382,7 +41053,7 @@ export class FindOrganizationUnitRolesInput implements IFindOrganizationUnitRole
         data["maxResultCount"] = this.maxResultCount;
         data["skipCount"] = this.skipCount;
         data["filter"] = this.filter;
-        return data;
+        return data; 
     }
 }
 
@@ -40454,7 +41125,7 @@ export class EditionSelectDto implements IEditionSelectDto {
         data["waitingDayAfterExpire"] = this.waitingDayAfterExpire;
         data["isFree"] = this.isFree;
         data["additionalData"] = this.additionalData ? this.additionalData.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
@@ -40504,7 +41175,7 @@ export class PaymentInfoDto implements IPaymentInfoDto {
         data = typeof data === 'object' ? data : {};
         data["edition"] = this.edition ? this.edition.toJSON() : <any>undefined;
         data["additionalPrice"] = this.additionalPrice;
-        return data;
+        return data; 
     }
 }
 
@@ -40578,7 +41249,7 @@ export class CreatePaymentDto implements ICreatePaymentDto {
         data["recurringPaymentEnabled"] = this.recurringPaymentEnabled;
         data["successUrl"] = this.successUrl;
         data["errorUrl"] = this.errorUrl;
-        return data;
+        return data; 
     }
 }
 
@@ -40623,7 +41294,7 @@ export class CancelPaymentDto implements ICancelPaymentDto {
         data = typeof data === 'object' ? data : {};
         data["paymentId"] = this.paymentId;
         data["gateway"] = this.gateway;
-        return data;
+        return data; 
     }
 }
 
@@ -40705,7 +41376,7 @@ export class SubscriptionPaymentListDto implements ISubscriptionPaymentListDto {
         data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
         data["creatorUserId"] = this.creatorUserId;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -40767,7 +41438,7 @@ export class PagedResultDtoOfSubscriptionPaymentListDto implements IPagedResultD
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -40807,7 +41478,7 @@ export class PaymentGatewayModel implements IPaymentGatewayModel {
         data = typeof data === 'object' ? data : {};
         data["gatewayType"] = this.gatewayType;
         data["supportsRecurringPayments"] = this.supportsRecurringPayments;
-        return data;
+        return data; 
     }
 }
 
@@ -40903,7 +41574,7 @@ export class SubscriptionPaymentDto implements ISubscriptionPaymentDto {
         data["errorUrl"] = this.errorUrl;
         data["editionPaymentType"] = this.editionPaymentType;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -40962,7 +41633,7 @@ export class PayPalConfigurationDto implements IPayPalConfigurationDto {
         data["clientId"] = this.clientId;
         data["demoUsername"] = this.demoUsername;
         data["demoPassword"] = this.demoPassword;
-        return data;
+        return data; 
     }
 }
 
@@ -41015,7 +41686,7 @@ export class FlatPermissionWithLevelDto implements IFlatPermissionWithLevelDto {
         data["displayName"] = this.displayName;
         data["description"] = this.description;
         data["isGrantedByDefault"] = this.isGrantedByDefault;
-        return data;
+        return data; 
     }
 }
 
@@ -41064,7 +41735,7 @@ export class ListResultDtoOfFlatPermissionWithLevelDto implements IListResultDto
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -41148,7 +41819,7 @@ export class PermitDto implements IPermitDto {
         data["totalHoursPerMonth"] = this.totalHoursPerMonth;
         data["isDeducted"] = this.isDeducted;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -41200,7 +41871,7 @@ export class GetPermitForViewDto implements IGetPermitForViewDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["permit"] = this.permit ? this.permit.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
@@ -41247,7 +41918,7 @@ export class PagedResultDtoOfGetPermitForViewDto implements IPagedResultDtoOfGet
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -41343,7 +42014,7 @@ export class CreateOrEditPermitDto implements ICreateOrEditPermitDto {
                 data["selectedTypesOfPermit"].push(item);
         }
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -41405,7 +42076,7 @@ export class AssignedTypesOfPermitDto implements IAssignedTypesOfPermitDto {
         data["nameAr"] = this.nameAr;
         data["nameEn"] = this.nameEn;
         data["assigned"] = this.assigned;
-        return data;
+        return data; 
     }
 }
 
@@ -41455,7 +42126,7 @@ export class GetPermitForEditOutput implements IGetPermitForEditOutput {
             for (let item of this.assignedTypesOfPermit)
                 data["assignedTypesOfPermit"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -41516,7 +42187,7 @@ export class CurrentUserProfileEditDto implements ICurrentUserProfileEditDto {
         data["timezone"] = this.timezone;
         data["qrCodeSetupImageUrl"] = this.qrCodeSetupImageUrl;
         data["isGoogleAuthenticatorEnabled"] = this.isGoogleAuthenticatorEnabled;
-        return data;
+        return data; 
     }
 }
 
@@ -41560,7 +42231,7 @@ export class UpdateGoogleAuthenticatorKeyOutput implements IUpdateGoogleAuthenti
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["qrCodeSetupImageUrl"] = this.qrCodeSetupImageUrl;
-        return data;
+        return data; 
     }
 }
 
@@ -41596,7 +42267,7 @@ export class SendVerificationSmsInputDto implements ISendVerificationSmsInputDto
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["phoneNumber"] = this.phoneNumber;
-        return data;
+        return data; 
     }
 }
 
@@ -41635,7 +42306,7 @@ export class VerifySmsCodeInputDto implements IVerifySmsCodeInputDto {
         data = typeof data === 'object' ? data : {};
         data["code"] = this.code;
         data["phoneNumber"] = this.phoneNumber;
-        return data;
+        return data; 
     }
 }
 
@@ -41675,7 +42346,7 @@ export class ChangePasswordInput implements IChangePasswordInput {
         data = typeof data === 'object' ? data : {};
         data["currentPassword"] = this.currentPassword;
         data["newPassword"] = this.newPassword;
-        return data;
+        return data; 
     }
 }
 
@@ -41724,7 +42395,7 @@ export class UpdateProfilePictureInput implements IUpdateProfilePictureInput {
         data["y"] = this.y;
         data["width"] = this.width;
         data["height"] = this.height;
-        return data;
+        return data; 
     }
 }
 
@@ -41764,7 +42435,7 @@ export class GetPasswordComplexitySettingOutput implements IGetPasswordComplexit
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["setting"] = this.setting ? this.setting.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
@@ -41800,7 +42471,7 @@ export class GetProfilePictureOutput implements IGetProfilePictureOutput {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["profilePicture"] = this.profilePicture;
-        return data;
+        return data; 
     }
 }
 
@@ -41836,12 +42507,532 @@ export class ChangeUserLanguageDto implements IChangeUserLanguageDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["languageName"] = this.languageName;
-        return data;
+        return data; 
     }
 }
 
 export interface IChangeUserLanguageDto {
     languageName: string;
+}
+
+export class ProjectDto implements IProjectDto {
+    nameAr!: string | undefined;
+    nameEn!: string | undefined;
+    managerId!: number | undefined;
+    locationId!: number | undefined;
+    organizationUnitId!: number | undefined;
+    id!: number;
+
+    constructor(data?: IProjectDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.nameAr = data["nameAr"];
+            this.nameEn = data["nameEn"];
+            this.managerId = data["managerId"];
+            this.locationId = data["locationId"];
+            this.organizationUnitId = data["organizationUnitId"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): ProjectDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ProjectDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["nameAr"] = this.nameAr;
+        data["nameEn"] = this.nameEn;
+        data["managerId"] = this.managerId;
+        data["locationId"] = this.locationId;
+        data["organizationUnitId"] = this.organizationUnitId;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IProjectDto {
+    nameAr: string | undefined;
+    nameEn: string | undefined;
+    managerId: number | undefined;
+    locationId: number | undefined;
+    organizationUnitId: number | undefined;
+    id: number;
+}
+
+export class GetProjectForViewDto implements IGetProjectForViewDto {
+    project!: ProjectDto | undefined;
+    userName!: string | undefined;
+    locationTitleEn!: string | undefined;
+    organizationUnitDisplayName!: string | undefined;
+
+    constructor(data?: IGetProjectForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.project = data["project"] ? ProjectDto.fromJS(data["project"]) : <any>undefined;
+            this.userName = data["userName"];
+            this.locationTitleEn = data["locationTitleEn"];
+            this.organizationUnitDisplayName = data["organizationUnitDisplayName"];
+        }
+    }
+
+    static fromJS(data: any): GetProjectForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetProjectForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["project"] = this.project ? this.project.toJSON() : <any>undefined;
+        data["userName"] = this.userName;
+        data["locationTitleEn"] = this.locationTitleEn;
+        data["organizationUnitDisplayName"] = this.organizationUnitDisplayName;
+        return data; 
+    }
+}
+
+export interface IGetProjectForViewDto {
+    project: ProjectDto | undefined;
+    userName: string | undefined;
+    locationTitleEn: string | undefined;
+    organizationUnitDisplayName: string | undefined;
+}
+
+export class PagedResultDtoOfGetProjectForViewDto implements IPagedResultDtoOfGetProjectForViewDto {
+    totalCount!: number;
+    items!: GetProjectForViewDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfGetProjectForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (Array.isArray(data["items"])) {
+                this.items = [] as any;
+                for (let item of data["items"])
+                    this.items!.push(GetProjectForViewDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfGetProjectForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfGetProjectForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfGetProjectForViewDto {
+    totalCount: number;
+    items: GetProjectForViewDto[] | undefined;
+}
+
+export class CreateOrEditProjectDto implements ICreateOrEditProjectDto {
+    nameAr!: string | undefined;
+    nameEn!: string | undefined;
+    managerId!: number | undefined;
+    locationId!: number | undefined;
+    organizationUnitId!: number | undefined;
+    id!: number | undefined;
+
+    constructor(data?: ICreateOrEditProjectDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.nameAr = data["nameAr"];
+            this.nameEn = data["nameEn"];
+            this.managerId = data["managerId"];
+            this.locationId = data["locationId"];
+            this.organizationUnitId = data["organizationUnitId"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): CreateOrEditProjectDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateOrEditProjectDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["nameAr"] = this.nameAr;
+        data["nameEn"] = this.nameEn;
+        data["managerId"] = this.managerId;
+        data["locationId"] = this.locationId;
+        data["organizationUnitId"] = this.organizationUnitId;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface ICreateOrEditProjectDto {
+    nameAr: string | undefined;
+    nameEn: string | undefined;
+    managerId: number | undefined;
+    locationId: number | undefined;
+    organizationUnitId: number | undefined;
+    id: number | undefined;
+}
+
+export class GetProjectForEditOutput implements IGetProjectForEditOutput {
+    project!: CreateOrEditProjectDto | undefined;
+    userName!: string | undefined;
+    locationTitleEn!: string | undefined;
+    organizationUnitDisplayName!: string | undefined;
+
+    constructor(data?: IGetProjectForEditOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.project = data["project"] ? CreateOrEditProjectDto.fromJS(data["project"]) : <any>undefined;
+            this.userName = data["userName"];
+            this.locationTitleEn = data["locationTitleEn"];
+            this.organizationUnitDisplayName = data["organizationUnitDisplayName"];
+        }
+    }
+
+    static fromJS(data: any): GetProjectForEditOutput {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetProjectForEditOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["project"] = this.project ? this.project.toJSON() : <any>undefined;
+        data["userName"] = this.userName;
+        data["locationTitleEn"] = this.locationTitleEn;
+        data["organizationUnitDisplayName"] = this.organizationUnitDisplayName;
+        return data; 
+    }
+}
+
+export interface IGetProjectForEditOutput {
+    project: CreateOrEditProjectDto | undefined;
+    userName: string | undefined;
+    locationTitleEn: string | undefined;
+    organizationUnitDisplayName: string | undefined;
+}
+
+export class ProjectUserLookupTableDto implements IProjectUserLookupTableDto {
+    id!: number;
+    displayName!: string | undefined;
+
+    constructor(data?: IProjectUserLookupTableDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"];
+            this.displayName = data["displayName"];
+        }
+    }
+
+    static fromJS(data: any): ProjectUserLookupTableDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ProjectUserLookupTableDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["displayName"] = this.displayName;
+        return data; 
+    }
+}
+
+export interface IProjectUserLookupTableDto {
+    id: number;
+    displayName: string | undefined;
+}
+
+export class PagedResultDtoOfProjectUserLookupTableDto implements IPagedResultDtoOfProjectUserLookupTableDto {
+    totalCount!: number;
+    items!: ProjectUserLookupTableDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfProjectUserLookupTableDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (Array.isArray(data["items"])) {
+                this.items = [] as any;
+                for (let item of data["items"])
+                    this.items!.push(ProjectUserLookupTableDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfProjectUserLookupTableDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfProjectUserLookupTableDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfProjectUserLookupTableDto {
+    totalCount: number;
+    items: ProjectUserLookupTableDto[] | undefined;
+}
+
+export class ProjectLocationLookupTableDto implements IProjectLocationLookupTableDto {
+    id!: number;
+    displayName!: string | undefined;
+
+    constructor(data?: IProjectLocationLookupTableDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"];
+            this.displayName = data["displayName"];
+        }
+    }
+
+    static fromJS(data: any): ProjectLocationLookupTableDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ProjectLocationLookupTableDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["displayName"] = this.displayName;
+        return data; 
+    }
+}
+
+export interface IProjectLocationLookupTableDto {
+    id: number;
+    displayName: string | undefined;
+}
+
+export class PagedResultDtoOfProjectLocationLookupTableDto implements IPagedResultDtoOfProjectLocationLookupTableDto {
+    totalCount!: number;
+    items!: ProjectLocationLookupTableDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfProjectLocationLookupTableDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (Array.isArray(data["items"])) {
+                this.items = [] as any;
+                for (let item of data["items"])
+                    this.items!.push(ProjectLocationLookupTableDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfProjectLocationLookupTableDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfProjectLocationLookupTableDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfProjectLocationLookupTableDto {
+    totalCount: number;
+    items: ProjectLocationLookupTableDto[] | undefined;
+}
+
+export class ProjectOrganizationUnitLookupTableDto implements IProjectOrganizationUnitLookupTableDto {
+    id!: number;
+    displayName!: string | undefined;
+
+    constructor(data?: IProjectOrganizationUnitLookupTableDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"];
+            this.displayName = data["displayName"];
+        }
+    }
+
+    static fromJS(data: any): ProjectOrganizationUnitLookupTableDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ProjectOrganizationUnitLookupTableDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["displayName"] = this.displayName;
+        return data; 
+    }
+}
+
+export interface IProjectOrganizationUnitLookupTableDto {
+    id: number;
+    displayName: string | undefined;
+}
+
+export class PagedResultDtoOfProjectOrganizationUnitLookupTableDto implements IPagedResultDtoOfProjectOrganizationUnitLookupTableDto {
+    totalCount!: number;
+    items!: ProjectOrganizationUnitLookupTableDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfProjectOrganizationUnitLookupTableDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (Array.isArray(data["items"])) {
+                this.items = [] as any;
+                for (let item of data["items"])
+                    this.items!.push(ProjectOrganizationUnitLookupTableDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfProjectOrganizationUnitLookupTableDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfProjectOrganizationUnitLookupTableDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfProjectOrganizationUnitLookupTableDto {
+    totalCount: number;
+    items: ProjectOrganizationUnitLookupTableDto[] | undefined;
 }
 
 export class RoleListDto implements IRoleListDto {
@@ -41887,7 +43078,7 @@ export class RoleListDto implements IRoleListDto {
         data["isDefault"] = this.isDefault;
         data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -41936,7 +43127,7 @@ export class ListResultDtoOfRoleListDto implements IListResultDtoOfRoleListDto {
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -41978,7 +43169,7 @@ export class RoleEditDto implements IRoleEditDto {
         data["id"] = this.id;
         data["displayName"] = this.displayName;
         data["isDefault"] = this.isDefault;
-        return data;
+        return data; 
     }
 }
 
@@ -42028,7 +43219,7 @@ export class FlatPermissionDto implements IFlatPermissionDto {
         data["displayName"] = this.displayName;
         data["description"] = this.description;
         data["isGrantedByDefault"] = this.isGrantedByDefault;
-        return data;
+        return data; 
     }
 }
 
@@ -42090,7 +43281,7 @@ export class GetRoleForEditOutput implements IGetRoleForEditOutput {
             for (let item of this.grantedPermissionNames)
                 data["grantedPermissionNames"].push(item);
         }
-        return data;
+        return data; 
     }
 }
 
@@ -42143,7 +43334,7 @@ export class CreateOrUpdateRoleInput implements ICreateOrUpdateRoleInput {
             for (let item of this.grantedPermissionNames)
                 data["grantedPermissionNames"].push(item);
         }
-        return data;
+        return data; 
     }
 }
 
@@ -42195,7 +43386,7 @@ export class UserLoginInfoDto implements IUserLoginInfoDto {
         data["emailAddress"] = this.emailAddress;
         data["profilePictureId"] = this.profilePictureId;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -42260,7 +43451,7 @@ export class EditionInfoDto implements IEditionInfoDto {
         data["isHighestEdition"] = this.isHighestEdition;
         data["isFree"] = this.isFree;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -42341,7 +43532,7 @@ export class TenantLoginInfoDto implements ITenantLoginInfoDto {
         data["subscriptionDateString"] = this.subscriptionDateString;
         data["creationTimeString"] = this.creationTimeString;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -42417,7 +43608,7 @@ export class ApplicationInfoDto implements IApplicationInfoDto {
                     data["features"][key] = this.features[key];
             }
         }
-        return data;
+        return data; 
     }
 }
 
@@ -42458,7 +43649,7 @@ export class ThemeLayoutSettingsDto implements IThemeLayoutSettingsDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["layoutType"] = this.layoutType;
-        return data;
+        return data; 
     }
 }
 
@@ -42506,7 +43697,7 @@ export class ThemeHeaderSettingsDto implements IThemeHeaderSettingsDto {
         data["headerSkin"] = this.headerSkin;
         data["minimizeDesktopHeaderType"] = this.minimizeDesktopHeaderType;
         data["headerMenuArrows"] = this.headerMenuArrows;
-        return data;
+        return data; 
     }
 }
 
@@ -42549,7 +43740,7 @@ export class ThemeSubHeaderSettingsDto implements IThemeSubHeaderSettingsDto {
         data = typeof data === 'object' ? data : {};
         data["fixedSubHeader"] = this.fixedSubHeader;
         data["subheaderStyle"] = this.subheaderStyle;
-        return data;
+        return data; 
     }
 }
 
@@ -42604,7 +43795,7 @@ export class ThemeMenuSettingsDto implements IThemeMenuSettingsDto {
         data["defaultMinimizedAside"] = this.defaultMinimizedAside;
         data["submenuToggle"] = this.submenuToggle;
         data["searchActive"] = this.searchActive;
-        return data;
+        return data; 
     }
 }
 
@@ -42646,7 +43837,7 @@ export class ThemeFooterSettingsDto implements IThemeFooterSettingsDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["fixedFooter"] = this.fixedFooter;
-        return data;
+        return data; 
     }
 }
 
@@ -42697,7 +43888,7 @@ export class ThemeSettingsDto implements IThemeSettingsDto {
         data["subHeader"] = this.subHeader ? this.subHeader.toJSON() : <any>undefined;
         data["menu"] = this.menu ? this.menu.toJSON() : <any>undefined;
         data["footer"] = this.footer ? this.footer.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
@@ -42750,7 +43941,7 @@ export class UiCustomizationSettingsDto implements IUiCustomizationSettingsDto {
         data["isTopMenuUsed"] = this.isTopMenuUsed;
         data["isTabMenuUsed"] = this.isTabMenuUsed;
         data["allowMenuScroll"] = this.allowMenuScroll;
-        return data;
+        return data; 
     }
 }
 
@@ -42799,7 +43990,7 @@ export class GetCurrentLoginInformationsOutput implements IGetCurrentLoginInform
         data["tenant"] = this.tenant ? this.tenant.toJSON() : <any>undefined;
         data["application"] = this.application ? this.application.toJSON() : <any>undefined;
         data["theme"] = this.theme ? this.theme.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
@@ -42844,7 +44035,7 @@ export class UpdateUserSignInTokenOutput implements IUpdateUserSignInTokenOutput
         data["signInToken"] = this.signInToken;
         data["encodedUserId"] = this.encodedUserId;
         data["encodedTenantId"] = this.encodedTenantId;
-        return data;
+        return data; 
     }
 }
 
@@ -42924,7 +44115,7 @@ export class ShiftDto implements IShiftDto {
         data["timeOutRangeTo"] = this.timeOutRangeTo;
         data["deductType"] = this.deductType;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -42974,7 +44165,7 @@ export class GetShiftForViewDto implements IGetShiftForViewDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["shift"] = this.shift ? this.shift.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
@@ -43021,7 +44212,7 @@ export class PagedResultDtoOfGetShiftForViewDto implements IPagedResultDtoOfGetS
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -43116,7 +44307,7 @@ export class CreateOrEditShiftDto implements ICreateOrEditShiftDto {
         data["timeOutRangeTo"] = this.timeOutRangeTo;
         data["deductType"] = this.deductType;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -43168,7 +44359,7 @@ export class GetShiftForEditOutput implements IGetShiftForEditOutput {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["shift"] = this.shift ? this.shift.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
@@ -43225,7 +44416,7 @@ export class ShiftTypeDetailDto implements IShiftTypeDetailDto {
         data["selectedInTime"] = this.selectedInTime;
         data["selectedOutTime"] = this.selectedOutTime;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -43271,7 +44462,7 @@ export class GetShiftTypeDetailForViewDto implements IGetShiftTypeDetailForViewD
         data = typeof data === 'object' ? data : {};
         data["shiftTypeDetail"] = this.shiftTypeDetail ? this.shiftTypeDetail.toJSON() : <any>undefined;
         data["shiftTypeDescriptionAr"] = this.shiftTypeDescriptionAr;
-        return data;
+        return data; 
     }
 }
 
@@ -43319,7 +44510,7 @@ export class PagedResultDtoOfGetShiftTypeDetailForViewDto implements IPagedResul
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -43374,7 +44565,7 @@ export class CreateOrEditShiftTypeDetailDto implements ICreateOrEditShiftTypeDet
         data["noDuty"] = this.noDuty;
         data["shiftTypeId"] = this.shiftTypeId;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -43419,7 +44610,7 @@ export class GetShiftTypeDetailForEditOutput implements IGetShiftTypeDetailForEd
         data = typeof data === 'object' ? data : {};
         data["shiftTypeDetail"] = this.shiftTypeDetail ? this.shiftTypeDetail.toJSON() : <any>undefined;
         data["shiftTypeDescriptionAr"] = this.shiftTypeDescriptionAr;
-        return data;
+        return data; 
     }
 }
 
@@ -43459,7 +44650,7 @@ export class ShiftTypeDetailShiftTypeLookupTableDto implements IShiftTypeDetailS
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["displayName"] = this.displayName;
-        return data;
+        return data; 
     }
 }
 
@@ -43507,7 +44698,7 @@ export class PagedResultDtoOfShiftTypeDetailShiftTypeLookupTableDto implements I
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -43571,7 +44762,7 @@ export class ShiftTypeDto implements IShiftTypeDto {
         data["open"] = this.open;
         data["maxBoundryTime"] = this.maxBoundryTime;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -43616,7 +44807,7 @@ export class GetShiftTypeForViewDto implements IGetShiftTypeForViewDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["shiftType"] = this.shiftType ? this.shiftType.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
@@ -43663,7 +44854,7 @@ export class PagedResultDtoOfGetShiftTypeForViewDto implements IPagedResultDtoOf
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -43738,7 +44929,7 @@ export class CreateOrEditShiftTypeDto implements ICreateOrEditShiftTypeDto {
                 data["shiftTypeDetails"].push(item.toJSON());
         }
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -43784,7 +44975,7 @@ export class GetShiftTypeForEditOutput implements IGetShiftTypeForEditOutput {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["shiftType"] = this.shiftType ? this.shiftType.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
@@ -43820,7 +45011,7 @@ export class StripeConfigurationDto implements IStripeConfigurationDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["publishableKey"] = this.publishableKey;
-        return data;
+        return data; 
     }
 }
 
@@ -43862,7 +45053,7 @@ export class StripeCreatePaymentSessionInput implements IStripeCreatePaymentSess
         data["paymentId"] = this.paymentId;
         data["successUrl"] = this.successUrl;
         data["cancelUrl"] = this.cancelUrl;
-        return data;
+        return data; 
     }
 }
 
@@ -43900,7 +45091,7 @@ export class StripePaymentResultOutput implements IStripePaymentResultOutput {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["paymentDone"] = this.paymentDone;
-        return data;
+        return data; 
     }
 }
 
@@ -43954,7 +45145,7 @@ export class SystemConfigurationDto implements ISystemConfigurationDto {
         data["totalPermissionHoursPerWeek"] = this.totalPermissionHoursPerWeek;
         data["totalPermissionHoursPerDay"] = this.totalPermissionHoursPerDay;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -43996,7 +45187,7 @@ export class GetSystemConfigurationForViewDto implements IGetSystemConfiguration
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["systemConfiguration"] = this.systemConfiguration ? this.systemConfiguration.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
@@ -44043,7 +45234,7 @@ export class PagedResultDtoOfGetSystemConfigurationForViewDto implements IPagedR
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -44098,7 +45289,7 @@ export class CreateOrEditSystemConfigurationDto implements ICreateOrEditSystemCo
         data["totalPermissionHoursPerWeek"] = this.totalPermissionHoursPerWeek;
         data["totalPermissionHoursPerDay"] = this.totalPermissionHoursPerDay;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -44140,7 +45331,7 @@ export class GetSystemConfigurationForEditOutput implements IGetSystemConfigurat
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["systemConfiguration"] = this.systemConfiguration ? this.systemConfiguration.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
@@ -44176,7 +45367,7 @@ export class TempTransactionDto implements ITempTransactionDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -44212,7 +45403,7 @@ export class GetTempTransactionForViewDto implements IGetTempTransactionForViewD
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["tempTransaction"] = this.tempTransaction ? this.tempTransaction.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
@@ -44259,7 +45450,7 @@ export class PagedResultDtoOfGetTempTransactionForViewDto implements IPagedResul
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -44296,7 +45487,7 @@ export class CreateOrEditTempTransactionDto implements ICreateOrEditTempTransact
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -44332,7 +45523,7 @@ export class GetTempTransactionForEditOutput implements IGetTempTransactionForEd
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["tempTransaction"] = this.tempTransaction ? this.tempTransaction.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
@@ -44395,7 +45586,7 @@ export class TenantListDto implements ITenantListDto {
         data["editionId"] = this.editionId;
         data["isInTrialPeriod"] = this.isInTrialPeriod;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -44451,7 +45642,7 @@ export class PagedResultDtoOfTenantListDto implements IPagedResultDtoOfTenantLis
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -44518,7 +45709,7 @@ export class CreateTenantInput implements ICreateTenantInput {
         data["isActive"] = this.isActive;
         data["subscriptionEndDateUtc"] = this.subscriptionEndDateUtc ? this.subscriptionEndDateUtc.toISOString() : <any>undefined;
         data["isInTrialPeriod"] = this.isInTrialPeriod;
-        return data;
+        return data; 
     }
 }
 
@@ -44585,7 +45776,7 @@ export class TenantEditDto implements ITenantEditDto {
         data["subscriptionEndDateUtc"] = this.subscriptionEndDateUtc ? this.subscriptionEndDateUtc.toISOString() : <any>undefined;
         data["isInTrialPeriod"] = this.isInTrialPeriod;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -44647,7 +45838,7 @@ export class GetTenantFeaturesEditOutput implements IGetTenantFeaturesEditOutput
             for (let item of this.features)
                 data["features"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -44698,7 +45889,7 @@ export class UpdateTenantFeaturesInput implements IUpdateTenantFeaturesInput {
             for (let item of this.featureValues)
                 data["featureValues"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -44735,7 +45926,7 @@ export class EntityDto implements IEntityDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -44783,7 +45974,7 @@ export class MemberActivity implements IMemberActivity {
         data["cases"] = this.cases;
         data["closed"] = this.closed;
         data["rate"] = this.rate;
-        return data;
+        return data; 
     }
 }
 
@@ -44831,7 +46022,7 @@ export class GetMemberActivityOutput implements IGetMemberActivityOutput {
             for (let item of this.memberActivities)
                 data["memberActivities"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -44879,7 +46070,7 @@ export class SalesSummaryData implements ISalesSummaryData {
         data["period"] = this.period;
         data["sales"] = this.sales;
         data["profit"] = this.profit;
-        return data;
+        return data; 
     }
 }
 
@@ -44980,7 +46171,7 @@ export class GetDashboardDataOutput implements IGetDashboardDataOutput {
             for (let item of this.profitShares)
                 data["profitShares"].push(item);
         }
-        return data;
+        return data; 
     }
 }
 
@@ -45050,7 +46241,7 @@ export class GetTopStatsOutput implements IGetTopStatsOutput {
         data["totalEmployeesCount"] = this.totalEmployeesCount;
         data["totalEmployeePermits"] = this.totalEmployeePermits;
         data["totalEmployeeOfficialTasks"] = this.totalEmployeeOfficialTasks;
-        return data;
+        return data; 
     }
 }
 
@@ -45101,7 +46292,7 @@ export class GetProfitShareOutput implements IGetProfitShareOutput {
             for (let item of this.profitShares)
                 data["profitShares"].push(item);
         }
-        return data;
+        return data; 
     }
 }
 
@@ -45145,7 +46336,7 @@ export class GetDailySalesOutput implements IGetDailySalesOutput {
             for (let item of this.dailySales)
                 data["dailySales"].push(item);
         }
-        return data;
+        return data; 
     }
 }
 
@@ -45201,7 +46392,7 @@ export class GetSalesSummaryOutput implements IGetSalesSummaryOutput {
             for (let item of this.salesSummary)
                 data["salesSummary"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -45261,7 +46452,7 @@ export class RegionalStatCountry implements IRegionalStatCountry {
         }
         data["averagePrice"] = this.averagePrice;
         data["totalPrice"] = this.totalPrice;
-        return data;
+        return data; 
     }
 }
 
@@ -45309,7 +46500,7 @@ export class GetRegionalStatsOutput implements IGetRegionalStatsOutput {
             for (let item of this.stats)
                 data["stats"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -45351,7 +46542,7 @@ export class GetGeneralStatsOutput implements IGetGeneralStatsOutput {
         data["transactionPercent"] = this.transactionPercent;
         data["newVisitPercent"] = this.newVisitPercent;
         data["bouncePercent"] = this.bouncePercent;
-        return data;
+        return data; 
     }
 }
 
@@ -45413,7 +46604,7 @@ export class RegisterTenantInput implements IRegisterTenantInput {
         data["captchaResponse"] = this.captchaResponse;
         data["subscriptionStartType"] = this.subscriptionStartType;
         data["editionId"] = this.editionId;
-        return data;
+        return data; 
     }
 }
 
@@ -45476,7 +46667,7 @@ export class RegisterTenantOutput implements IRegisterTenantOutput {
         data["isTenantActive"] = this.isTenantActive;
         data["isActive"] = this.isActive;
         data["isEmailConfirmationRequired"] = this.isEmailConfirmationRequired;
-        return data;
+        return data; 
     }
 }
 
@@ -45537,7 +46728,7 @@ export class IInputType implements IIInputType {
             }
         }
         data["validator"] = this.validator ? this.validator.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
@@ -45593,7 +46784,7 @@ export class FlatFeatureSelectDto implements IFlatFeatureSelectDto {
         data["defaultValue"] = this.defaultValue;
         data["inputType"] = this.inputType ? this.inputType.toJSON() : <any>undefined;
         data["textHtmlColor"] = this.textHtmlColor;
-        return data;
+        return data; 
     }
 }
 
@@ -45646,7 +46837,7 @@ export class EditionWithFeaturesDto implements IEditionWithFeaturesDto {
             for (let item of this.featureValues)
                 data["featureValues"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -45702,7 +46893,7 @@ export class EditionsSelectOutput implements IEditionsSelectOutput {
             for (let item of this.editionsWithFeatures)
                 data["editionsWithFeatures"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -45760,7 +46951,7 @@ export class TenantUserManagementSettingsEditDto implements ITenantUserManagemen
         data["isCookieConsentEnabled"] = this.isCookieConsentEnabled;
         data["isQuickThemeSelectEnabled"] = this.isQuickThemeSelectEnabled;
         data["sessionTimeOutSettings"] = this.sessionTimeOutSettings ? this.sessionTimeOutSettings.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
@@ -45830,7 +47021,7 @@ export class TenantEmailSettingsEditDto implements ITenantEmailSettingsEditDto {
         data["smtpDomain"] = this.smtpDomain;
         data["smtpEnableSsl"] = this.smtpEnableSsl;
         data["smtpUseDefaultCredentials"] = this.smtpUseDefaultCredentials;
-        return data;
+        return data; 
     }
 }
 
@@ -45887,7 +47078,7 @@ export class LdapSettingsEditDto implements ILdapSettingsEditDto {
         data["domain"] = this.domain;
         data["userName"] = this.userName;
         data["password"] = this.password;
-        return data;
+        return data; 
     }
 }
 
@@ -45933,7 +47124,7 @@ export class TenantBillingSettingsEditDto implements ITenantBillingSettingsEditD
         data["legalName"] = this.legalName;
         data["address"] = this.address;
         data["taxVatNo"] = this.taxVatNo;
-        return data;
+        return data; 
     }
 }
 
@@ -45971,7 +47162,7 @@ export class TenantOtherSettingsEditDto implements ITenantOtherSettingsEditDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["isQuickThemeSelectEnabled"] = this.isQuickThemeSelectEnabled;
-        return data;
+        return data; 
     }
 }
 
@@ -46029,7 +47220,7 @@ export class TenantSettingsEditDto implements ITenantSettingsEditDto {
         data["security"] = this.security ? this.security.toJSON() : <any>undefined;
         data["billing"] = this.billing ? this.billing.toJSON() : <any>undefined;
         data["otherSettings"] = this.otherSettings ? this.otherSettings.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
@@ -46080,7 +47271,7 @@ export class TimeProfileDetailDto implements ITimeProfileDetailDto {
         data["shiftId"] = this.shiftId;
         data["day"] = this.day;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -46125,7 +47316,7 @@ export class GetTimeProfileDetailForViewDto implements IGetTimeProfileDetailForV
         data["timeProfileDetail"] = this.timeProfileDetail ? this.timeProfileDetail.toJSON() : <any>undefined;
         data["timeProfileDescriptionAr"] = this.timeProfileDescriptionAr;
         data["shiftNameAr"] = this.shiftNameAr;
-        return data;
+        return data; 
     }
 }
 
@@ -46174,7 +47365,7 @@ export class PagedResultDtoOfGetTimeProfileDetailForViewDto implements IPagedRes
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -46223,7 +47414,7 @@ export class CreateOrEditTimeProfileDetailDto implements ICreateOrEditTimeProfil
         data["timeProfileId"] = this.timeProfileId;
         data["shiftId"] = this.shiftId;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -46269,7 +47460,7 @@ export class GetTimeProfileDetailForEditOutput implements IGetTimeProfileDetailF
         data["timeProfileDetail"] = this.timeProfileDetail ? this.timeProfileDetail.toJSON() : <any>undefined;
         data["timeProfileDescriptionAr"] = this.timeProfileDescriptionAr;
         data["shiftNameAr"] = this.shiftNameAr;
-        return data;
+        return data; 
     }
 }
 
@@ -46310,7 +47501,7 @@ export class TimeProfileDetailTimeProfileLookupTableDto implements ITimeProfileD
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["displayName"] = this.displayName;
-        return data;
+        return data; 
     }
 }
 
@@ -46358,7 +47549,7 @@ export class PagedResultDtoOfTimeProfileDetailTimeProfileLookupTableDto implemen
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -46398,7 +47589,7 @@ export class TimeProfileDetailShiftLookupTableDto implements ITimeProfileDetailS
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["displayName"] = this.displayName;
-        return data;
+        return data; 
     }
 }
 
@@ -46446,7 +47637,7 @@ export class PagedResultDtoOfTimeProfileDetailShiftLookupTableDto implements IPa
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -46498,7 +47689,7 @@ export class TimeProfileDto implements ITimeProfileDto {
         data["endDate"] = this.endDate ? this.endDate.toISOString() : <any>undefined;
         data["userId"] = this.userId;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -46542,7 +47733,7 @@ export class GetTimeProfileForViewDto implements IGetTimeProfileForViewDto {
         data = typeof data === 'object' ? data : {};
         data["timeProfile"] = this.timeProfile ? this.timeProfile.toJSON() : <any>undefined;
         data["userName"] = this.userName;
-        return data;
+        return data; 
     }
 }
 
@@ -46590,7 +47781,7 @@ export class PagedResultDtoOfGetTimeProfileForViewDto implements IPagedResultDto
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -46677,7 +47868,7 @@ export class CreateOrEditTimeProfileDto implements ICreateOrEditTimeProfileDto {
         }
         data["shiftId"] = this.shiftId;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -46730,7 +47921,7 @@ export class GetTimeProfileForEditOutput implements IGetTimeProfileForEditOutput
         data = typeof data === 'object' ? data : {};
         data["timeProfile"] = this.timeProfile ? this.timeProfile.toJSON() : <any>undefined;
         data["userName"] = this.userName;
-        return data;
+        return data; 
     }
 }
 
@@ -46776,7 +47967,7 @@ export class CreateTimeProfileFromExcelDto implements ICreateTimeProfileFromExce
         data["date"] = this.date ? this.date.toISOString() : <any>undefined;
         data["shiftType"] = this.shiftType;
         data["shift"] = this.shift;
-        return data;
+        return data; 
     }
 }
 
@@ -46818,7 +48009,7 @@ export class TimeProfileUserLookupTableDto implements ITimeProfileUserLookupTabl
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["displayName"] = this.displayName;
-        return data;
+        return data; 
     }
 }
 
@@ -46866,7 +48057,7 @@ export class PagedResultDtoOfTimeProfileUserLookupTableDto implements IPagedResu
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -46918,7 +48109,7 @@ export class ListResultDtoOfNameValueDto implements IListResultDtoOfNameValueDto
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -46963,7 +48154,7 @@ export class MobileLoginModel implements IMobileLoginModel {
         data["deviceSN"] = this.deviceSN;
         data["civilId"] = this.civilId;
         data["languageId"] = this.languageId;
-        return data;
+        return data; 
     }
 }
 
@@ -47023,7 +48214,7 @@ export class MobileUserModel implements IMobileUserModel {
         data["loginTime"] = this.loginTime ? this.loginTime.toISOString() : <any>undefined;
         data["empCode"] = this.empCode;
         data["civilId"] = this.civilId;
-        return data;
+        return data; 
     }
 }
 
@@ -47081,7 +48272,7 @@ export class MobileResultModel implements IMobileResultModel {
         data["status"] = this.status;
         data["message"] = this.message;
         data["encryptedAccessToken"] = this.encryptedAccessToken;
-        return data;
+        return data; 
     }
 }
 
@@ -47143,7 +48334,7 @@ export class AuthenticateModel implements IAuthenticateModel {
         data["singleSignIn"] = this.singleSignIn;
         data["returnUrl"] = this.returnUrl;
         data["captchaResponse"] = this.captchaResponse;
-        return data;
+        return data; 
     }
 }
 
@@ -47227,7 +48418,7 @@ export class AuthenticateResultModel implements IAuthenticateResultModel {
         data["returnUrl"] = this.returnUrl;
         data["refreshToken"] = this.refreshToken;
         data["refreshTokenExpireInSeconds"] = this.refreshTokenExpireInSeconds;
-        return data;
+        return data; 
     }
 }
 
@@ -47280,7 +48471,7 @@ export class RefreshTokenResult implements IRefreshTokenResult {
         data["accessToken"] = this.accessToken;
         data["encryptedAccessToken"] = this.encryptedAccessToken;
         data["expireInSeconds"] = this.expireInSeconds;
-        return data;
+        return data; 
     }
 }
 
@@ -47321,7 +48512,7 @@ export class SendTwoFactorAuthCodeModel implements ISendTwoFactorAuthCodeModel {
         data = typeof data === 'object' ? data : {};
         data["userId"] = this.userId;
         data["provider"] = this.provider;
-        return data;
+        return data; 
     }
 }
 
@@ -47364,7 +48555,7 @@ export class ImpersonatedAuthenticateResultModel implements IImpersonatedAuthent
         data["accessToken"] = this.accessToken;
         data["encryptedAccessToken"] = this.encryptedAccessToken;
         data["expireInSeconds"] = this.expireInSeconds;
-        return data;
+        return data; 
     }
 }
 
@@ -47408,7 +48599,7 @@ export class SwitchedAccountAuthenticateResultModel implements ISwitchedAccountA
         data["accessToken"] = this.accessToken;
         data["encryptedAccessToken"] = this.encryptedAccessToken;
         data["expireInSeconds"] = this.expireInSeconds;
-        return data;
+        return data; 
     }
 }
 
@@ -47464,7 +48655,7 @@ export class ExternalLoginProviderInfoModel implements IExternalLoginProviderInf
                     data["additionalParams"][key] = this.additionalParams[key];
             }
         }
-        return data;
+        return data; 
     }
 }
 
@@ -47514,7 +48705,7 @@ export class ExternalAuthenticateModel implements IExternalAuthenticateModel {
         data["providerAccessCode"] = this.providerAccessCode;
         data["returnUrl"] = this.returnUrl;
         data["singleSignIn"] = this.singleSignIn;
-        return data;
+        return data; 
     }
 }
 
@@ -47572,7 +48763,7 @@ export class ExternalAuthenticateResultModel implements IExternalAuthenticateRes
         data["returnUrl"] = this.returnUrl;
         data["refreshToken"] = this.refreshToken;
         data["refreshTokenExpireInSeconds"] = this.refreshTokenExpireInSeconds;
-        return data;
+        return data; 
     }
 }
 
@@ -47713,7 +48904,7 @@ export class TranDto implements ITranDto {
         data["scanManual8"] = this.scanManual8;
         data["userId"] = this.userId;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -47785,7 +48976,7 @@ export class GetTranForViewDto implements IGetTranForViewDto {
         data = typeof data === 'object' ? data : {};
         data["tran"] = this.tran ? this.tran.toJSON() : <any>undefined;
         data["userName"] = this.userName;
-        return data;
+        return data; 
     }
 }
 
@@ -47833,7 +49024,7 @@ export class PagedResultDtoOfGetTranForViewDto implements IPagedResultDtoOfGetTr
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -47969,7 +49160,7 @@ export class CreateOrEditTranDto implements ICreateOrEditTranDto {
         data["scanManual8"] = this.scanManual8;
         data["userId"] = this.userId;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -48041,7 +49232,7 @@ export class GetTranForEditOutput implements IGetTranForEditOutput {
         data = typeof data === 'object' ? data : {};
         data["tran"] = this.tran ? this.tran.toJSON() : <any>undefined;
         data["userName"] = this.userName;
-        return data;
+        return data; 
     }
 }
 
@@ -48081,7 +49272,7 @@ export class TranUserLookupTableDto implements ITranUserLookupTableDto {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["displayName"] = this.displayName;
-        return data;
+        return data; 
     }
 }
 
@@ -48129,7 +49320,7 @@ export class PagedResultDtoOfTranUserLookupTableDto implements IPagedResultDtoOf
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -48187,7 +49378,7 @@ export class TransactionDto implements ITransactionDto {
         data["userName"] = this.userName;
         data["time"] = this.time;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -48233,7 +49424,7 @@ export class GetTransactionForViewDto implements IGetTransactionForViewDto {
         data = typeof data === 'object' ? data : {};
         data["transaction"] = this.transaction ? this.transaction.toJSON() : <any>undefined;
         data["userName"] = this.userName;
-        return data;
+        return data; 
     }
 }
 
@@ -48281,7 +49472,7 @@ export class PagedResultDtoOfGetTransactionForViewDto implements IPagedResultDto
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -48372,7 +49563,7 @@ export class CreateOrEditTransactionDto implements ICreateOrEditTransactionDto {
         data["userName"] = this.userName;
         data["time"] = this.time;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -48429,7 +49620,7 @@ export class GetTransactionForEditOutput implements IGetTransactionForEditOutput
         data = typeof data === 'object' ? data : {};
         data["transaction"] = this.transaction ? this.transaction.toJSON() : <any>undefined;
         data["userName"] = this.userName;
-        return data;
+        return data; 
     }
 }
 
@@ -48472,7 +49663,7 @@ export class TypesOfPermitDto implements ITypesOfPermitDto {
         data["nameAr"] = this.nameAr;
         data["nameEn"] = this.nameEn;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -48510,7 +49701,7 @@ export class GetTypesOfPermitForViewDto implements IGetTypesOfPermitForViewDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["typesOfPermit"] = this.typesOfPermit ? this.typesOfPermit.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
@@ -48557,7 +49748,7 @@ export class PagedResultDtoOfGetTypesOfPermitForViewDto implements IPagedResultD
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -48600,7 +49791,7 @@ export class CreateOrEditTypesOfPermitDto implements ICreateOrEditTypesOfPermitD
         data["nameAr"] = this.nameAr;
         data["nameEn"] = this.nameEn;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -48638,7 +49829,7 @@ export class GetTypesOfPermitForEditOutput implements IGetTypesOfPermitForEditOu
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["typesOfPermit"] = this.typesOfPermit ? this.typesOfPermit.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
@@ -48677,7 +49868,7 @@ export class UserListRoleDto implements IUserListRoleDto {
         data = typeof data === 'object' ? data : {};
         data["roleId"] = this.roleId;
         data["roleName"] = this.roleName;
-        return data;
+        return data; 
     }
 }
 
@@ -48833,7 +50024,7 @@ export class UserListDto implements IUserListDto {
         data["unitName"] = this.unitName;
         data["jobTitleName"] = this.jobTitleName;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -48917,7 +50108,7 @@ export class PagedResultDtoOfUserListDto implements IPagedResultDtoOfUserListDto
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -48963,7 +50154,7 @@ export class UpdateUserFaceIdInput implements IUpdateUserFaceIdInput {
         data["image"] = this.image;
         data["faceMap"] = this.faceMap;
         data["isEnrolled"] = this.isEnrolled;
-        return data;
+        return data; 
     }
 }
 
@@ -49092,7 +50283,7 @@ export class GetUserForFaceIdOutput implements IGetUserForFaceIdOutput {
         data["address2"] = this.address2;
         data["unitDisplayName"] = this.unitDisplayName;
         data["managerDisplayName"] = this.managerDisplayName;
-        return data;
+        return data; 
     }
 }
 
@@ -49266,7 +50457,7 @@ export class UserEditDto implements IUserEditDto {
         data["address2"] = this.address2;
         data["mobilePasword"] = this.mobilePasword;
         data["timeProfile"] = this.timeProfile ? this.timeProfile.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
@@ -49350,7 +50541,7 @@ export class UserRoleDto implements IUserRoleDto {
         data["roleDisplayName"] = this.roleDisplayName;
         data["isAssigned"] = this.isAssigned;
         data["inheritedFromOrganizationUnit"] = this.inheritedFromOrganizationUnit;
-        return data;
+        return data; 
     }
 }
 
@@ -49405,7 +50596,7 @@ export class UserLocationDto implements IUserLocationDto {
         data["toDate"] = this.toDate ? this.toDate.toISOString() : <any>undefined;
         data["locationDisplayName"] = this.locationDisplayName;
         data["isAssigned"] = this.isAssigned;
-        return data;
+        return data; 
     }
 }
 
@@ -49579,7 +50770,7 @@ export class GetUserForEditOutput implements IGetUserForEditOutput {
         data["address"] = this.address;
         data["address2"] = this.address2;
         data["timeProfile"] = this.timeProfile ? this.timeProfile.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
@@ -49665,7 +50856,7 @@ export class GetUserPermissionsForEditOutput implements IGetUserPermissionsForEd
             for (let item of this.grantedPermissionNames)
                 data["grantedPermissionNames"].push(item);
         }
-        return data;
+        return data; 
     }
 }
 
@@ -49702,7 +50893,7 @@ export class EntityDtoOfInt64 implements IEntityDtoOfInt64 {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -49752,7 +50943,7 @@ export class UpdateUserPermissionsInput implements IUpdateUserPermissionsInput {
             for (let item of this.grantedPermissionNames)
                 data["grantedPermissionNames"].push(item);
         }
-        return data;
+        return data; 
     }
 }
 
@@ -49801,7 +50992,7 @@ export class AssignedLocationDto implements IAssignedLocationDto {
         data["fromDate"] = this.fromDate ? this.fromDate.toISOString() : <any>undefined;
         data["toDate"] = this.toDate ? this.toDate.toISOString() : <any>undefined;
         data["locationDisplayName"] = this.locationDisplayName;
-        return data;
+        return data; 
     }
 }
 
@@ -49962,7 +51153,7 @@ export class CreateOrUpdateUserInput implements ICreateOrUpdateUserInput {
         data["managerId"] = this.managerId;
         data["userLoaded"] = this.userLoaded;
         data["timeProfile"] = this.timeProfile ? this.timeProfile.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
@@ -50044,7 +51235,7 @@ export class UserReportDto implements IUserReportDto {
         data["shiftId"] = this.shiftId;
         data["startDate"] = this.startDate ? this.startDate.toISOString() : <any>undefined;
         data["endDate"] = this.endDate ? this.endDate.toISOString() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
@@ -50114,7 +51305,7 @@ export class ReportInput implements IReportInput {
         data["machine"] = this.machine;
         data["daysCount"] = this.daysCount;
         data["type"] = this.type;
-        return data;
+        return data; 
     }
 }
 
@@ -50325,7 +51516,7 @@ export class InOutReportOutput implements IInOutReportOutput {
         data["holidayName"] = this.holidayName;
         data["fingerCode"] = this.fingerCode;
         data["code"] = this.code;
-        return data;
+        return data; 
     }
 }
 
@@ -50450,7 +51641,7 @@ export class PermitReportOutput implements IPermitReportOutput {
         data["fromTime"] = this.fromTime;
         data["empId"] = this.empId;
         data["userName"] = this.userName;
-        return data;
+        return data; 
     }
 }
 
@@ -50524,7 +51715,7 @@ export class FingerReportOutput implements IFingerReportOutput {
         data["scan4"] = this.scan4;
         data["scan5"] = this.scan5;
         data["scan6"] = this.scan6;
-        return data;
+        return data; 
     }
 }
 
@@ -50584,7 +51775,7 @@ export class EmployeeReportOutput implements IEmployeeReportOutput {
         data["attendanceCount"] = this.attendanceCount;
         data["absentContinusDays"] = this.absentContinusDays;
         data["daysCount"] = this.daysCount;
-        return data;
+        return data; 
     }
 }
 
@@ -50646,7 +51837,7 @@ export class UserDeviceDto implements IUserDeviceDto {
         data["civilID"] = this.civilID;
         data["userId"] = this.userId;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -50692,7 +51883,7 @@ export class GetUserDeviceForViewDto implements IGetUserDeviceForViewDto {
         data = typeof data === 'object' ? data : {};
         data["userDevice"] = this.userDevice ? this.userDevice.toJSON() : <any>undefined;
         data["userName"] = this.userName;
-        return data;
+        return data; 
     }
 }
 
@@ -50740,7 +51931,7 @@ export class PagedResultDtoOfGetUserDeviceForViewDto implements IPagedResultDtoO
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -50798,7 +51989,7 @@ export class CreateOrEditUserDeviceDto implements ICreateOrEditUserDeviceDto {
         data["civilID"] = this.civilID;
         data["userId"] = this.userId;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -50844,7 +52035,7 @@ export class GetUserDeviceForEditOutput implements IGetUserDeviceForEditOutput {
         data = typeof data === 'object' ? data : {};
         data["userDevice"] = this.userDevice ? this.userDevice.toJSON() : <any>undefined;
         data["userName"] = this.userName;
-        return data;
+        return data; 
     }
 }
 
@@ -50884,7 +52075,7 @@ export class UserDeviceUserLookupTableDto implements IUserDeviceUserLookupTableD
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["displayName"] = this.displayName;
-        return data;
+        return data; 
     }
 }
 
@@ -50932,7 +52123,7 @@ export class PagedResultDtoOfUserDeviceUserLookupTableDto implements IPagedResul
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -50975,7 +52166,7 @@ export class LinkToUserInput implements ILinkToUserInput {
         data["tenancyName"] = this.tenancyName;
         data["usernameOrEmailAddress"] = this.usernameOrEmailAddress;
         data["password"] = this.password;
-        return data;
+        return data; 
     }
 }
 
@@ -51022,7 +52213,7 @@ export class LinkedUserDto implements ILinkedUserDto {
         data["tenancyName"] = this.tenancyName;
         data["username"] = this.username;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -51072,7 +52263,7 @@ export class PagedResultDtoOfLinkedUserDto implements IPagedResultDtoOfLinkedUse
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -51117,7 +52308,7 @@ export class ListResultDtoOfLinkedUserDto implements IListResultDtoOfLinkedUserD
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -51156,7 +52347,7 @@ export class UnlinkUserInput implements IUnlinkUserInput {
         data = typeof data === 'object' ? data : {};
         data["tenantId"] = this.tenantId;
         data["userId"] = this.userId;
-        return data;
+        return data; 
     }
 }
 
@@ -51211,7 +52402,7 @@ export class UserLoginAttemptDto implements IUserLoginAttemptDto {
         data["browserInfo"] = this.browserInfo;
         data["result"] = this.result;
         data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
@@ -51261,7 +52452,7 @@ export class ListResultDtoOfUserLoginAttemptDto implements IListResultDtoOfUserL
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -51303,7 +52494,7 @@ export class WarningTypeDto implements IWarningTypeDto {
         data["nameAr"] = this.nameAr;
         data["nameEn"] = this.nameEn;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -51341,7 +52532,7 @@ export class GetWarningTypeForViewDto implements IGetWarningTypeForViewDto {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["warningType"] = this.warningType ? this.warningType.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
@@ -51388,7 +52579,7 @@ export class PagedResultDtoOfGetWarningTypeForViewDto implements IPagedResultDto
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -51431,7 +52622,7 @@ export class CreateOrEditWarningTypeDto implements ICreateOrEditWarningTypeDto {
         data["nameAr"] = this.nameAr;
         data["nameEn"] = this.nameEn;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -51469,7 +52660,7 @@ export class GetWarningTypeForEditOutput implements IGetWarningTypeForEditOutput
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["warningType"] = this.warningType ? this.warningType.toJSON() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
@@ -51523,7 +52714,7 @@ export class WebhookEvent implements IWebhookEvent {
         data["isDeleted"] = this.isDeleted;
         data["deletionTime"] = this.deletionTime ? this.deletionTime.toISOString() : <any>undefined;
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -51652,7 +52843,7 @@ export class GetAllSendAttemptsOutput implements IGetAllSendAttemptsOutput {
         data["response"] = this.response;
         data["responseStatusCode"] = this.responseStatusCode;
         data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
@@ -51705,7 +52896,7 @@ export class PagedResultDtoOfGetAllSendAttemptsOutput implements IPagedResultDto
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -51760,7 +52951,7 @@ export class GetAllSendAttemptsOfWebhookEventOutput implements IGetAllSendAttemp
         data["responseStatusCode"] = this.responseStatusCode;
         data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
         data["lastModificationTime"] = this.lastModificationTime ? this.lastModificationTime.toISOString() : <any>undefined;
-        return data;
+        return data; 
     }
 }
 
@@ -51810,7 +53001,7 @@ export class ListResultDtoOfGetAllSendAttemptsOfWebhookEventOutput implements IL
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -51863,7 +53054,7 @@ export class GetAllSubscriptionsOutput implements IGetAllSubscriptionsOutput {
                 data["webhooks"].push(item);
         }
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -51910,7 +53101,7 @@ export class ListResultDtoOfGetAllSubscriptionsOutput implements IListResultDtoO
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -51984,7 +53175,7 @@ export class WebhookSubscription implements IWebhookSubscription {
             }
         }
         data["id"] = this.id;
-        return data;
+        return data; 
     }
 }
 
@@ -52029,7 +53220,7 @@ export class ActivateWebhookSubscriptionInput implements IActivateWebhookSubscri
         data = typeof data === 'object' ? data : {};
         data["subscriptionId"] = this.subscriptionId;
         data["isActive"] = this.isActive;
-        return data;
+        return data; 
     }
 }
 
@@ -52072,7 +53263,7 @@ export class GetAllAvailableWebhooksOutput implements IGetAllAvailableWebhooksOu
         data["name"] = this.name;
         data["displayName"] = this.displayName;
         data["description"] = this.description;
-        return data;
+        return data; 
     }
 }
 
@@ -52118,7 +53309,7 @@ export class ListResultDtoOfGetAllAvailableWebhooksOutput implements IListResult
             for (let item of this.items)
                 data["items"].push(item.toJSON());
         }
-        return data;
+        return data; 
     }
 }
 
@@ -52162,7 +53353,7 @@ export class GetLatestWebLogsOutput implements IGetLatestWebLogsOutput {
             for (let item of this.latestWebLogLines)
                 data["latestWebLogLines"].push(item);
         }
-        return data;
+        return data; 
     }
 }
 
@@ -52225,7 +53416,7 @@ export class AdditionalData implements IAdditionalData {
                     data["Stripe"][key] = this.stripe[key];
             }
         }
-        return data;
+        return data; 
     }
 }
 
@@ -52236,10 +53427,10 @@ export interface IAdditionalData {
 
 export class ApiException extends Error {
     message: string;
-    status: number;
-    response: string;
+    status: number; 
+    response: string; 
     headers: { [key: string]: any; };
-    result: any;
+    result: any; 
 
     constructor(message: string, status: number, response: string, headers: { [key: string]: any; }, result: any) {
         super();
@@ -52271,12 +53462,12 @@ function blobToText(blob: any): Observable<string> {
             observer.next("");
             observer.complete();
         } else {
-            let reader = new FileReader();
-            reader.onload = event => {
+            let reader = new FileReader(); 
+            reader.onload = event => { 
                 observer.next((<any>event.target).result);
                 observer.complete();
             };
-            reader.readAsText(blob);
+            reader.readAsText(blob); 
         }
     });
 }

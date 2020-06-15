@@ -55,6 +55,8 @@ namespace Pixel.Attendance
     {
         public static void CreateMappings(IMapperConfigurationExpression configuration)
         {
+            configuration.CreateMap<CreateOrEditProjectDto, Project>().ReverseMap();
+            configuration.CreateMap<ProjectDto, Project>().ReverseMap();
             configuration.CreateMap<CreateOrEditMobileWebPageDto, MobileWebPage>().ReverseMap();
             configuration.CreateMap<MobileWebPageDto, MobileWebPage>().ReverseMap();
             configuration.CreateMap<CreateOrEditNationalityDto, Nationality>().ReverseMap();

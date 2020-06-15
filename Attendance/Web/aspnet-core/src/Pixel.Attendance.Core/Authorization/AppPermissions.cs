@@ -6,6 +6,11 @@
     /// </summary>
     public static class AppPermissions
     {
+        public const string Pages_Projects = "Pages.Projects";
+        public const string Pages_Projects_Create = "Pages.Projects.Create";
+        public const string Pages_Projects_Edit = "Pages.Projects.Edit";
+        public const string Pages_Projects_Delete = "Pages.Projects.Delete";
+
         public const string Pages_MobileWebPages = "Pages.MobileWebPages";
         public const string Pages_MobileWebPages_Create = "Pages.MobileWebPages.Create";
         public const string Pages_MobileWebPages_Edit = "Pages.MobileWebPages.Edit";
