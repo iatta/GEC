@@ -1393,5 +1393,10 @@
     <text name="ShowLockScreenWhenTimedOut">Show Lock Screen When Timed Out</text>
     <text name="YourSessionIsLocked">Your Session is Locked</text>
     <text name="WebhookSubscriptionId">Webhook Subscription Id</text>
+
+    <text name="UnitManager">Manager  </text>
+    <text name="PickManager">Pick Manager  </text>
+    
+
   </texts>
 </localizationDictionary>

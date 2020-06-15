@@ -40443,6 +40443,7 @@ export class OrganizationUnitDto implements IOrganizationUnitDto {
     creationTime!: moment.Moment;
     creatorUserId!: number | undefined;
     id!: number;
+    managerId!:number;
 
     constructor(data?: IOrganizationUnitDto) {
         if (data) {
@@ -40457,6 +40458,7 @@ export class OrganizationUnitDto implements IOrganizationUnitDto {
         if (data) {
             this.parentId = data["parentId"];
             this.code = data["code"];
+            this.managerId = data["managerId"];
             this.displayName = data["displayName"];
             this.memberCount = data["memberCount"];
             this.roleCount = data["roleCount"];
@@ -40479,6 +40481,8 @@ export class OrganizationUnitDto implements IOrganizationUnitDto {
         data = typeof data === 'object' ? data : {};
         data["parentId"] = this.parentId;
         data["code"] = this.code;
+        data["managerId"] = this.managerId;
+        
         data["displayName"] = this.displayName;
         data["memberCount"] = this.memberCount;
         data["roleCount"] = this.roleCount;
@@ -40502,6 +40506,8 @@ export interface IOrganizationUnitDto {
     creationTime: moment.Moment;
     creatorUserId: number | undefined;
     id: number;
+    managerId:number;
+
 }
 
 export class ListResultDtoOfOrganizationUnitDto implements IListResultDtoOfOrganizationUnitDto {
@@ -40755,6 +40761,7 @@ export interface IPagedResultDtoOfOrganizationUnitRoleListDto {
 export class CreateOrganizationUnitInput implements ICreateOrganizationUnitInput {
     parentId!: number | undefined;
     displayName!: string;
+    managerId!: number | undefined;
 
     constructor(data?: ICreateOrganizationUnitInput) {
         if (data) {
@@ -40769,6 +40776,7 @@ export class CreateOrganizationUnitInput implements ICreateOrganizationUnitInput
         if (data) {
             this.parentId = data["parentId"];
             this.displayName = data["displayName"];
+            this.managerId = data["managerId"];
         }
     }
 
@@ -40783,6 +40791,7 @@ export class CreateOrganizationUnitInput implements ICreateOrganizationUnitInput
         data = typeof data === 'object' ? data : {};
         data["parentId"] = this.parentId;
         data["displayName"] = this.displayName;
+        data["managerId"] = this.managerId;
         return data; 
     }
 }
@@ -40790,11 +40799,13 @@ export class CreateOrganizationUnitInput implements ICreateOrganizationUnitInput
 export interface ICreateOrganizationUnitInput {
     parentId: number | undefined;
     displayName: string;
+    managerId: number | undefined;
 }
 
 export class UpdateOrganizationUnitInput implements IUpdateOrganizationUnitInput {
     id!: number;
     displayName!: string;
+    managerId!: number;
 
     constructor(data?: IUpdateOrganizationUnitInput) {
         if (data) {
@@ -40809,6 +40820,7 @@ export class UpdateOrganizationUnitInput implements IUpdateOrganizationUnitInput
         if (data) {
             this.id = data["id"];
             this.displayName = data["displayName"];
+            this.managerId = data["managerId"];
         }
     }
 
@@ -40823,6 +40835,7 @@ export class UpdateOrganizationUnitInput implements IUpdateOrganizationUnitInput
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["displayName"] = this.displayName;
+        data["managerId"] = this.managerId;
         return data; 
     }
 }
@@ -40830,6 +40843,7 @@ export class UpdateOrganizationUnitInput implements IUpdateOrganizationUnitInput
 export interface IUpdateOrganizationUnitInput {
     id: number;
     displayName: string;
+    managerId:number;
 }
 
 export class MoveOrganizationUnitInput implements IMoveOrganizationUnitInput {

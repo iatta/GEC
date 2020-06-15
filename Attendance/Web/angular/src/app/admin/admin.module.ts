@@ -1,3 +1,4 @@
+import { OrganizationManagerModalComponent } from './organization-units/organization-manager-modal';
 import { ManageFaceIdComponent } from './users/manage-face-id.component';
 import { OrganizationUnitsHorizontalTreeModalUserComponent } from './shared/organization-horizontal-tree-modal-user.component';
 import { OrganizationUnitsHorizontalTreeModalComponent } from './shared/organization-horizontal-tree-modal.component';
@@ -213,7 +214,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         WebhookEventDetailComponent,
         ManageUserComponent,
         OrganizationUnitsHorizontalTreeModalUserComponent,
-        ManageFaceIdComponent
+        ManageFaceIdComponent,
+        OrganizationManagerModalComponent
 
     ],
     exports: [

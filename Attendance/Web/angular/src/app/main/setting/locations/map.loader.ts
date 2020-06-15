@@ -1,7 +1,8 @@
+import { environment } from './../../../../environments/environment';
 export class MapLoaderService {
     private static promise: Promise<any>;
     public static load(): Promise<any> {
-      let browserKey = "AIzaSyCDjjblndGMpWItsl94NEcb9nqCydADuDI";
+      let browserKey = environment.googleMapKey;
       let map = {
         URL: 'https://maps.googleapis.com/maps/api/js?libraries=geometry,drawing&key=' + browserKey + '&callback=__onGoogleLoaded',
       }

@@ -1,3 +1,5 @@
+import { NgForm } from '@angular/forms';
+import { OrganizationManagerModalComponent } from './organization-manager-modal';
 import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Injector, Output, ViewChild } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { CreateOrganizationUnitInput, OrganizationUnitDto, OrganizationUnitServiceProxy, UpdateOrganizationUnitInput } from '@shared/service-proxies/service-proxies';
@@ -8,6 +10,7 @@ export interface IOrganizationUnitOnEdit {
     id?: number;
     parentId?: number;
     displayName?: string;
+    managerId?:number;
 }
 
 @Component({
@@ -18,12 +21,14 @@ export class CreateOrEditUnitModalComponent extends AppComponentBase {
 
     @ViewChild('createOrEditModal', {static: true}) modal: ModalDirective;
     @ViewChild('organizationUnitDisplayName', {static: true}) organizationUnitDisplayNameInput: ElementRef;
+    @ViewChild('organizationManagerModal', { static: true }) organizationManagerModal: OrganizationManagerModalComponent;
 
     @Output() unitCreated: EventEmitter<OrganizationUnitDto> = new EventEmitter<OrganizationUnitDto>();
     @Output() unitUpdated: EventEmitter<OrganizationUnitDto> = new EventEmitter<OrganizationUnitDto>();
 
     active = false;
     saving = false;
+    userName = '';
 
     organizationUnit: IOrganizationUnitOnEdit = {};
 
@@ -40,24 +45,30 @@ export class CreateOrEditUnitModalComponent extends AppComponentBase {
     }
 
     show(organizationUnit: IOrganizationUnitOnEdit): void {
+        
         this.organizationUnit = organizationUnit;
         this.active = true;
         this.modal.show();
         this._changeDetector.detectChanges();
     }
 
-    save(): void {
-        if (!this.organizationUnit.id) {
-            this.createUnit();
-        } else {
-            this.updateUnit();
+    save(editForm:NgForm): void {
+        if(editForm.valid){
+            if (!this.organizationUnit.id) {
+                this.createUnit();
+            } else {
+                this.updateUnit();
+            }
         }
+       
     }
 
     createUnit() {
         const createInput = new CreateOrganizationUnitInput();
         createInput.parentId = this.organizationUnit.parentId;
         createInput.displayName = this.organizationUnit.displayName;
+        createInput.managerId = this.organizationUnit.managerId;
+
 
         this.saving = true;
         this._organizationUnitService
@@ -74,6 +85,7 @@ export class CreateOrEditUnitModalComponent extends AppComponentBase {
         const updateInput = new UpdateOrganizationUnitInput();
         updateInput.id = this.organizationUnit.id;
         updateInput.displayName = this.organizationUnit.displayName;
+        updateInput.managerId = this.organizationUnit.managerId;
 
         this.saving = true;
         this._organizationUnitService
@@ -90,4 +102,25 @@ export class CreateOrEditUnitModalComponent extends AppComponentBase {
         this.modal.hide();
         this.active = false;
     }
+
+    //organization manager 
+    openSelectUserModal() {
+        this.organizationManagerModal.id = this.organizationUnit.managerId;
+        this.organizationManagerModal.displayName = this.userName;
+        this.organizationManagerModal.show();
+    }
+ 
+
+
+    setUserIdNull() {
+        this.organizationUnit.managerId = null;
+        this.userName = '';
+    }
+
+    getNewUserId() {
+        this.organizationUnit.managerId = this.organizationManagerModal.id;
+        this.userName = this.organizationManagerModal.displayName;
+    }
+
+
 }

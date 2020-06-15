@@ -48,6 +48,7 @@ using Pixel.Attendance.Sessions.Dto;
 using Pixel.Attendance.WebHooks.Dto;
 using Pixel.Attendance.Dto;
 using Pixel.Attendance.ReportsModel;
+using Pixel.Attendance.Extended;
 
 namespace Pixel.Attendance
 {
@@ -215,7 +216,7 @@ namespace Pixel.Attendance
             configuration.CreateMap<FriendCacheItem, FriendDto>();
 
             //OrganizationUnit
-            configuration.CreateMap<OrganizationUnit, OrganizationUnitDto>();
+            configuration.CreateMap<OrganizationUnitExtended, OrganizationUnitDto>();
 
             //Webhooks
             configuration.CreateMap<WebhookSubscription, GetAllSubscriptionsOutput>();

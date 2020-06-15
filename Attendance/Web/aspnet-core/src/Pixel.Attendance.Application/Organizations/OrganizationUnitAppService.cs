@@ -12,6 +12,7 @@ using System.Linq.Dynamic.Core;
 using Abp.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Pixel.Attendance.Authorization.Roles;
+using Pixel.Attendance.Extended;
 
 namespace Pixel.Attendance.Organizations
 {
@@ -19,14 +20,14 @@ namespace Pixel.Attendance.Organizations
     public class OrganizationUnitAppService : AttendanceAppServiceBase, IOrganizationUnitAppService
     {
         private readonly OrganizationUnitManager _organizationUnitManager;
-        private readonly IRepository<OrganizationUnit, long> _organizationUnitRepository;
+        private readonly IRepository<OrganizationUnitExtended, long> _organizationUnitRepository;
         private readonly IRepository<UserOrganizationUnit, long> _userOrganizationUnitRepository;
         private readonly IRepository<OrganizationUnitRole, long> _organizationUnitRoleRepository;
         private readonly RoleManager _roleManager;
 
         public OrganizationUnitAppService(
             OrganizationUnitManager organizationUnitManager,
-            IRepository<OrganizationUnit, long> organizationUnitRepository,
+            IRepository<OrganizationUnitExtended, long> organizationUnitRepository,
             IRepository<UserOrganizationUnit, long> userOrganizationUnitRepository,
             RoleManager roleManager,
             IRepository<OrganizationUnitRole, long> organizationUnitRoleRepository)
@@ -42,7 +43,7 @@ namespace Pixel.Attendance.Organizations
         {
             var organizationUnits = await _organizationUnitRepository.GetAllListAsync();
 
-            var organizationUnitMemberCounts = await _userOrganizationUnitRepository.GetAll()
+            var organizationUnitMemberCounts = await UserManager.Users.Where(x => x.OrganizationUnitId != null)
                 .GroupBy(x => x.OrganizationUnitId)
                 .Select(groupedUsers => new
                 {
@@ -62,7 +63,7 @@ namespace Pixel.Attendance.Organizations
                 organizationUnits.Select(ou =>
                 {
                     var organizationUnitDto = ObjectMapper.Map<OrganizationUnitDto>(ou);
-                    organizationUnitDto.MemberCount = organizationUnitMemberCounts.ContainsKey(ou.Id) ? organizationUnitMemberCounts[ou.Id] : 0;
+                    organizationUnitDto.MemberCount = organizationUnitMemberCounts.ContainsKey((int)ou.Id) ? organizationUnitMemberCounts[(int)ou.Id] : 0;
                     organizationUnitDto.RoleCount = organizationUnitRoleCounts.ContainsKey(ou.Id) ? organizationUnitRoleCounts[ou.Id] : 0;
                     return organizationUnitDto;
                 }).ToList());
@@ -123,8 +124,8 @@ namespace Pixel.Attendance.Organizations
         [AbpAuthorize(AppPermissions.Pages_Administration_OrganizationUnits_ManageOrganizationTree)]
         public async Task<OrganizationUnitDto> CreateOrganizationUnit(CreateOrganizationUnitInput input)
         {
-            var organizationUnit = new OrganizationUnit(AbpSession.TenantId, input.DisplayName, input.ParentId);
-
+            var organizationUnit = new OrganizationUnitExtended(AbpSession.TenantId, input.DisplayName, input.ParentId);
+            organizationUnit.ManagerId = input.ManagerId;
             await _organizationUnitManager.CreateAsync(organizationUnit);
             await CurrentUnitOfWork.SaveChangesAsync();
 
@@ -135,7 +136,7 @@ namespace Pixel.Attendance.Organizations
         public async Task<OrganizationUnitDto> UpdateOrganizationUnit(UpdateOrganizationUnitInput input)
         {
             var organizationUnit = await _organizationUnitRepository.GetAsync(input.Id);
-
+            organizationUnit.ManagerId = input.ManagerId;
             organizationUnit.DisplayName = input.DisplayName;
 
             await _organizationUnitManager.UpdateAsync(organizationUnit);
@@ -156,9 +157,15 @@ namespace Pixel.Attendance.Organizations
         [AbpAuthorize(AppPermissions.Pages_Administration_OrganizationUnits_ManageOrganizationTree)]
         public async Task DeleteOrganizationUnit(EntityDto<long> input)
         {
+            var users = UserManager.Users.Where(x => x.OrganizationUnitId == input.Id).ToList();
+            foreach (var user in users)
+            {
+                user.OrganizationUnitId = null;
+                await UserManager.UpdateAsync(user);
+            }
             await _userOrganizationUnitRepository.DeleteAsync(x => x.OrganizationUnitId == input.Id);
             await _organizationUnitRoleRepository.DeleteAsync(x => x.OrganizationUnitId == input.Id);
-            await _organizationUnitManager.DeleteAsync(input.Id);
+            await _organizationUnitRepository.HardDeleteAsync(_organizationUnitRepository.FirstOrDefault(x => x.Id == input.Id));
         }
 
 
@@ -173,6 +180,8 @@ namespace Pixel.Attendance.Organizations
         [AbpAuthorize(AppPermissions.Pages_Administration_OrganizationUnits_ManageRoles)]
         public async Task RemoveRoleFromOrganizationUnit(RoleToOrganizationUnitInput input)
         {
+            
+
             await _roleManager.RemoveFromOrganizationUnitAsync(input.RoleId, input.OrganizationUnitId);
         }
 
@@ -201,9 +210,9 @@ namespace Pixel.Attendance.Organizations
         [AbpAuthorize(AppPermissions.Pages_Administration_OrganizationUnits_ManageMembers)]
         public async Task<PagedResultDto<NameValueDto>> FindUsers(FindOrganizationUnitUsersInput input)
         {
-            var userIdsInOrganizationUnit = _userOrganizationUnitRepository.GetAll()
+            var userIdsInOrganizationUnit = UserManager.Users
                 .Where(uou => uou.OrganizationUnitId == input.OrganizationUnitId)
-                .Select(uou => uou.UserId);
+                .Select(uou => uou.Id);
 
             var query = UserManager.Users
                 .Where(u => !userIdsInOrganizationUnit.Contains(u.Id))

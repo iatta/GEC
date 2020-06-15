@@ -9,6 +9,7 @@ namespace Pixel.Attendance.Organizations.Dto
 
         [Required]
         [StringLength(OrganizationUnit.MaxDisplayNameLength)]
-        public string DisplayName { get; set; } 
+        public string DisplayName { get; set; }
+        public long? ManagerId { get; set; }
     }
 }

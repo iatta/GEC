@@ -17,6 +17,7 @@ using Pixel.Attendance.MultiTenancy.Accounting;
 using Pixel.Attendance.MultiTenancy.Payments;
 using Pixel.Attendance.Storage;
 using Pixel.Attendance.ReportsModel;
+using Pixel.Attendance.Extended;
 
 namespace Pixel.Attendance.EntityFrameworkCore
 {
@@ -110,6 +111,10 @@ namespace Pixel.Attendance.EntityFrameworkCore
         public virtual DbSet<SubscriptionPaymentExtensionData> SubscriptionPaymentExtensionDatas { get; set; }
 
         public DbSet<PermitType> PermitTypes { get; set; }
+
+        public DbSet<OrganizationUnitExtended> AbpOrganizationUnits { get; set; }
+
+        
 
         public AttendanceDbContext(DbContextOptions<AttendanceDbContext> options)
             : base(options)

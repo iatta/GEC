@@ -13,5 +13,6 @@ namespace Pixel.Attendance.Organizations.Dto
         public int MemberCount { get; set; }
         
         public int RoleCount { get; set; }
+        public long? ManagerId { get; set; }
     }
 }
