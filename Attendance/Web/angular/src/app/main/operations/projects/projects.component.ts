@@ -1,6 +1,7 @@
-﻿import { Component, Injector, ViewEncapsulation, ViewChild } from '@angular/core';
+﻿import { AssignProjectUserLookupTableModalComponent } from './assign-project-user-lookup-table-modal.component';
+import { Component, Injector, ViewEncapsulation, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ProjectsServiceProxy, ProjectDto  } from '@shared/service-proxies/service-proxies';
+import { ProjectsServiceProxy, ProjectDto, GetProjectForViewDto } from '@shared/service-proxies/service-proxies';
 import { NotifyService } from '@abp/notify/notify.service';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { TokenAuthServiceProxy } from '@shared/service-proxies/service-proxies';
@@ -22,6 +23,7 @@ import * as moment from 'moment';
 })
 export class ProjectsComponent extends AppComponentBase {
 
+    @ViewChild('assignProjectUserLookupTableModal', { static: true }) assignProjectUserLookupTableModal: AssignProjectUserLookupTableModalComponent;
     @ViewChild('createOrEditProjectModal', { static: true }) createOrEditProjectModal: CreateOrEditProjectModalComponent;
     @ViewChild('viewProjectModalComponent', { static: true }) viewProjectModal: ViewProjectModalComponent;
     @ViewChild('entityTypeHistoryModal', { static: true }) entityTypeHistoryModal: EntityTypeHistoryModalComponent;
@@ -115,6 +117,10 @@ export class ProjectsComponent extends AppComponentBase {
                 }
             }
         );
+    }
+
+    openAssignProjectUsers(projectView:GetProjectForViewDto):void{
+        this.assignProjectUserLookupTableModal.show(projectView.project.id);
     }
 
     exportToExcel(): void {

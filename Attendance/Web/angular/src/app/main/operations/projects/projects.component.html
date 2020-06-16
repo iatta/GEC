@@ -133,6 +133,11 @@
                                                 <i class="fa fa-cog"></i><span class="caret"></span> {{l("Actions")}}
                                             </button>
 												<ul class="dropdown-menu"  *dropdownMenu>
+                                                    
+                                                <li>
+                                                    <a href="javascript:;"
+                                                        (click)="openAssignProjectUsers(record)">{{l('ProjectUsers')}}</a>
+                                                </li>
 												<li>
 													<a href="javascript:;"
 														(click)="viewProjectModal.show(record)">{{l('View')}}</a>
@@ -196,7 +201,7 @@
             </div>
         </div>
     </div>
-
+<assignProjectUserLookupTableModal #assignProjectUserLookupTableModal></assignProjectUserLookupTableModal>
     <createOrEditProjectModal #createOrEditProjectModal (modalSave)="getProjects()"></createOrEditProjectModal>
     <viewProjectModal #viewProjectModal></viewProjectModal>
      <entityTypeHistoryModal #entityTypeHistoryModal></entityTypeHistoryModal>

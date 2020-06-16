@@ -16013,6 +16013,118 @@ export class ProjectsServiceProxy {
         }
         return _observableOf<PagedResultDtoOfProjectOrganizationUnitLookupTableDto>(<any>null);
     }
+
+    /**
+     * @param projectId (optional) 
+     * @return Success
+     */
+    getProjectUsers(projectId: number | undefined): Observable<ProjectUserDto[]> {
+        let url_ = this.baseUrl + "/api/services/app/Projects/GetProjectUsers?";
+        if (projectId === null)
+            throw new Error("The parameter 'projectId' cannot be null.");
+        else if (projectId !== undefined)
+            url_ += "projectId=" + encodeURIComponent("" + projectId) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetProjectUsers(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetProjectUsers(<any>response_);
+                } catch (e) {
+                    return <Observable<ProjectUserDto[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ProjectUserDto[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetProjectUsers(response: HttpResponseBase): Observable<ProjectUserDto[]> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(ProjectUserDto.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ProjectUserDto[]>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    updateProjectUsers(body: ProjectUserInputDto | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Projects/UpdateProjectUsers";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json", 
+            })
+        };
+
+        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processUpdateProjectUsers(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processUpdateProjectUsers(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processUpdateProjectUsers(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
 }
 
 @Injectable()
@@ -40438,12 +40550,12 @@ export class OrganizationUnitDto implements IOrganizationUnitDto {
     displayName!: string | undefined;
     memberCount!: number;
     roleCount!: number;
+    managerId!: number | undefined;
     lastModificationTime!: moment.Moment | undefined;
     lastModifierUserId!: number | undefined;
     creationTime!: moment.Moment;
     creatorUserId!: number | undefined;
     id!: number;
-    managerId!:number;
 
     constructor(data?: IOrganizationUnitDto) {
         if (data) {
@@ -40458,10 +40570,10 @@ export class OrganizationUnitDto implements IOrganizationUnitDto {
         if (data) {
             this.parentId = data["parentId"];
             this.code = data["code"];
-            this.managerId = data["managerId"];
             this.displayName = data["displayName"];
             this.memberCount = data["memberCount"];
             this.roleCount = data["roleCount"];
+            this.managerId = data["managerId"];
             this.lastModificationTime = data["lastModificationTime"] ? moment(data["lastModificationTime"].toString()) : <any>undefined;
             this.lastModifierUserId = data["lastModifierUserId"];
             this.creationTime = data["creationTime"] ? moment(data["creationTime"].toString()) : <any>undefined;
@@ -40481,11 +40593,10 @@ export class OrganizationUnitDto implements IOrganizationUnitDto {
         data = typeof data === 'object' ? data : {};
         data["parentId"] = this.parentId;
         data["code"] = this.code;
-        data["managerId"] = this.managerId;
-        
         data["displayName"] = this.displayName;
         data["memberCount"] = this.memberCount;
         data["roleCount"] = this.roleCount;
+        data["managerId"] = this.managerId;
         data["lastModificationTime"] = this.lastModificationTime ? this.lastModificationTime.toISOString() : <any>undefined;
         data["lastModifierUserId"] = this.lastModifierUserId;
         data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
@@ -40501,13 +40612,12 @@ export interface IOrganizationUnitDto {
     displayName: string | undefined;
     memberCount: number;
     roleCount: number;
+    managerId: number | undefined;
     lastModificationTime: moment.Moment | undefined;
     lastModifierUserId: number | undefined;
     creationTime: moment.Moment;
     creatorUserId: number | undefined;
     id: number;
-    managerId:number;
-
 }
 
 export class ListResultDtoOfOrganizationUnitDto implements IListResultDtoOfOrganizationUnitDto {
@@ -40805,7 +40915,7 @@ export interface ICreateOrganizationUnitInput {
 export class UpdateOrganizationUnitInput implements IUpdateOrganizationUnitInput {
     id!: number;
     displayName!: string;
-    managerId!: number;
+    managerId!: number | undefined;
 
     constructor(data?: IUpdateOrganizationUnitInput) {
         if (data) {
@@ -40843,7 +40953,7 @@ export class UpdateOrganizationUnitInput implements IUpdateOrganizationUnitInput
 export interface IUpdateOrganizationUnitInput {
     id: number;
     displayName: string;
-    managerId:number;
+    managerId: number | undefined;
 }
 
 export class MoveOrganizationUnitInput implements IMoveOrganizationUnitInput {
@@ -43047,6 +43157,94 @@ export class PagedResultDtoOfProjectOrganizationUnitLookupTableDto implements IP
 export interface IPagedResultDtoOfProjectOrganizationUnitLookupTableDto {
     totalCount: number;
     items: ProjectOrganizationUnitLookupTableDto[] | undefined;
+}
+
+export class ProjectUserDto implements IProjectUserDto {
+    userId!: number;
+    projectId!: number;
+
+    constructor(data?: IProjectUserDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.userId = data["userId"];
+            this.projectId = data["projectId"];
+        }
+    }
+
+    static fromJS(data: any): ProjectUserDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ProjectUserDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["userId"] = this.userId;
+        data["projectId"] = this.projectId;
+        return data; 
+    }
+}
+
+export interface IProjectUserDto {
+    userId: number;
+    projectId: number;
+}
+
+export class ProjectUserInputDto implements IProjectUserInputDto {
+    projectUsers!: ProjectUserDto[] | undefined;
+    projectId!: number;
+
+    constructor(data?: IProjectUserInputDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            if (Array.isArray(data["projectUsers"])) {
+                this.projectUsers = [] as any;
+                for (let item of data["projectUsers"])
+                    this.projectUsers!.push(ProjectUserDto.fromJS(item));
+            }
+            this.projectId = data["projectId"];
+        }
+    }
+
+    static fromJS(data: any): ProjectUserInputDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ProjectUserInputDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.projectUsers)) {
+            data["projectUsers"] = [];
+            for (let item of this.projectUsers)
+                data["projectUsers"].push(item.toJSON());
+        }
+        data["projectId"] = this.projectId;
+        return data; 
+    }
+}
+
+export interface IProjectUserInputDto {
+    projectUsers: ProjectUserDto[] | undefined;
+    projectId: number;
 }
 
 export class RoleListDto implements IRoleListDto {

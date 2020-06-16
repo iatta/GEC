@@ -2,12 +2,12 @@
 <localizationDictionary culture="en">
   <texts>    <text name="Project">Project</text>
     <text name="ProjectsHeaderInfo">Projects header info</text>
-    <text name="CreateNewProject">Create new project</text>
-    <text name="EditProject">Edit project</text>
-    <text name="DeleteProject">Delete project</text>
+    <text name="CreateNewProject">Create New Project</text>
+    <text name="EditProject">Edit Project</text>
+    <text name="DeleteProject">Delete Project</text>
     <text name="Projects">Projects</text>
-    <text name="LocationTitleEn">Location title en</text>
-    <text name="MobileWebPage">Mobile web page</text>
+    <text name="LocationTitleEn">Location Title English</text>
+    <text name="MobileWebPage">Mobile Web Page</text>
     <text name="Neme">Neme</text>
     <text name="Content">Content</text>
     <text name="MobileWebPagesHeaderInfo">Mobile web pages header info</text>
@@ -109,8 +109,8 @@
     <text name="EditEmployeeAbsence">Edit employee absence</text>
     <text name="DeleteEmployeeAbsence">Delete employee absence</text>
     <text name="EmployeeAbsences">Employee absences</text>
-    <text name="TitleAr">Title ar</text>
-    <text name="TitleEn">Title en</text>
+    <text name="TitleAr">Title Arabic</text>
+    <text name="TitleEn">Title English</text>
     <text name="North">North</text>
     <text name="South">South</text>
     <text name="East">East</text>
@@ -359,8 +359,8 @@
     <text name="EndDateRange">End date range</text>
     <text name="Setting">Setting</text>
     <text name="LeaveType">Leave type</text>
-    <text name="NameAr">Name ar</text>
-    <text name="NameEn">Name en</text>
+    <text name="NameAr">Name Arabic</text>
+    <text name="NameEn">Name English</text>
     <text name="LeaveTypesHeaderInfo">Leave types header info</text>
     <text name="CreateNewLeaveType">Create new leave type</text>
     <text name="EditLeaveType">Edit leave type</text>
@@ -1396,7 +1396,7 @@
 
     <text name="UnitManager">Manager  </text>
     <text name="PickManager">Pick Manager  </text>
+<text name="DisplayName">Display NAme  </text>
     
-
   </texts>
 </localizationDictionary>

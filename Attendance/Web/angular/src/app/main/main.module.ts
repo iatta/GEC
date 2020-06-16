@@ -1,4 +1,5 @@
-﻿import { PermitReportComponent } from './operations/reports/permit.component';
+﻿import { AssignProjectUserLookupTableModalComponent } from './operations/projects/assign-project-user-lookup-table-modal.component';
+import { PermitReportComponent } from './operations/reports/permit.component';
 import { LateInEarlyOutComponent } from './operations/reports/Late-in-early-out.component';
 import { AbsentComponent } from './operations/reports/absent.component';
 import { ForgetInOutComponent } from './operations/reports/forget-in-out.component';
@@ -315,7 +316,8 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
         TimeProfileReportComponent,
         ReportComponent,
         InOutComponent,FingerReportComponent,ForgetInOutComponent,AbsentComponent,LateInEarlyOutComponent,PermitReportComponent,
-        EmployeeReportComponent
+        EmployeeReportComponent,
+        AssignProjectUserLookupTableModalComponent
 
     ],
     providers: [
