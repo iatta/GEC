@@ -4,6 +4,7 @@ using Abp.Application.Services;
 using Abp.Application.Services.Dto;
 using Pixel.Attendance.Operations.Dtos;
 using Pixel.Attendance.Dto;
+using System.Collections.Generic;
 
 namespace Pixel.Attendance.Operations
 {
@@ -27,6 +28,9 @@ namespace Pixel.Attendance.Operations
 		Task<PagedResultDto<ProjectLocationLookupTableDto>> GetAllLocationForLookupTable(GetAllForLookupTableInput input);
 		
 		Task<PagedResultDto<ProjectOrganizationUnitLookupTableDto>> GetAllOrganizationUnitForLookupTable(GetAllForLookupTableInput input);
-		
-    }
+		Task<List<ProjectUserDto>> GetProjectUsers(int projectId);
+		Task UpdateProjectUsers(ProjectUserInputDto input);
+
+
+	}
 }

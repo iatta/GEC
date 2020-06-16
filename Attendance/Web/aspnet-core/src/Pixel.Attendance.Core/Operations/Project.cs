@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Abp.Domain.Entities.Auditing;
 using Abp.Domain.Entities;
 using Abp.Auditing;
+using System.Collections.Generic;
 
 namespace Pixel.Attendance.Operations
 {
@@ -34,6 +35,8 @@ namespace Pixel.Attendance.Operations
 		
         [ForeignKey("OrganizationUnitId")]
 		public OrganizationUnit OrganizationUnitFk { get; set; }
-		
-    }
+
+		public ICollection<ProjectUser> Users { get; set; }
+
+	}
 }

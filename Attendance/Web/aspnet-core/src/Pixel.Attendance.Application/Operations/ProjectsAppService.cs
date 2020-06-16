@@ -24,7 +24,8 @@ namespace Pixel.Attendance.Operations
 	[AbpAuthorize(AppPermissions.Pages_Projects)]
     public class ProjectsAppService : AttendanceAppServiceBase, IProjectsAppService
     {
-		 private readonly IRepository<Project> _projectRepository;
+        
+        private readonly IRepository<Project> _projectRepository;
 		 private readonly IProjectsExcelExporter _projectsExcelExporter;
 		 private readonly IRepository<User,long> _lookup_userRepository;
 		 private readonly IRepository<Location,int> _lookup_locationRepository;
@@ -307,5 +308,36 @@ namespace Pixel.Attendance.Operations
                 lookupTableDtoList
             );
          }
+
+
+        //project users 
+        public async Task<List<ProjectUserDto>> GetProjectUsers(int projectId)
+        {
+            var output = new List<ProjectUserDto>();
+            var project = await _projectRepository.GetAllIncluding(x => x.Users).FirstOrDefaultAsync(x => x.Id == projectId);
+
+            foreach (var projectUser in project.Users)
+            {
+                output.Add(new ProjectUserDto { ProjectId = project.Id, UserId = projectUser.UserId });
+            }
+            return output;
+        }
+
+
+        public async Task UpdateProjectUsers(ProjectUserInputDto input)
+        {
+            var project = await _projectRepository.GetAllIncluding(x => x.Users).FirstOrDefaultAsync(x => x.Id == input.ProjectId);
+            project.Users.Clear();
+
+            foreach (var projectUser in input.ProjectUsers)
+            {
+                project.Users.Add(new ProjectUser { ProjectId = project.Id, UserId = projectUser.UserId });
+            }
+
+            await _projectRepository.UpdateAsync(project);
+
+        }
+
+
     }
 }

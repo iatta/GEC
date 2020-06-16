@@ -7,6 +7,7 @@ using Abp.Extensions;
 using Abp.Organizations;
 using Abp.Timing;
 using Pixel.Attendance.Enums;
+using Pixel.Attendance.Operations;
 using Pixel.Attendance.Setting;
 
 namespace Pixel.Attendance.Authorization.Users
@@ -78,6 +79,9 @@ namespace Pixel.Attendance.Authorization.Users
         public string Image { get; set; }
         public bool IsFaceRegistered { get; set; }
         public string MobilePassword { get; set; }
+
+        public ICollection<ProjectUser> Projects { get; set; }
+
         //Can add application specific user properties here
 
         public User()

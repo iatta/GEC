@@ -112,6 +112,8 @@ namespace Pixel.Attendance.EntityFrameworkCore
 
         public DbSet<PermitType> PermitTypes { get; set; }
 
+        //public DbSet<ProjectUser> ProjectUsers { get; set; }
+
         public DbSet<OrganizationUnitExtended> AbpOrganizationUnits { get; set; }
 
         
@@ -138,6 +140,25 @@ namespace Pixel.Attendance.EntityFrameworkCore
                .WithOne(e => e.LocationFk);
 
 
+            modelBuilder.Entity<ProjectUser>().ToTable("ProjectUsers");
+
+
+            modelBuilder.Entity<ProjectUser>().HasKey(ujr => new { ujr.UserId, ujr.ProjectId });
+
+            modelBuilder.Entity<ProjectUser>().HasOne(ujr => ujr.User).WithMany(u => u.Projects)
+                                                         .HasForeignKey(ujr => ujr.UserId).OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<ProjectUser>().HasOne(ujr => ujr.Project).WithMany(j => j.Users)
+                                                         .HasForeignKey(ujr => ujr.ProjectId).OnDelete(DeleteBehavior.Restrict);
+
+
+
+
+
+
+
+            //modelBuilder.Entity<ProjectUser>()
+            //.HasKey(c => new { c.ProjectId, c.UserId });
 
             modelBuilder.Entity<PermitType>().ToTable("PermitTypes");
 
