@@ -1397,6 +1397,7 @@
     <text name="UnitManager">Manager  </text>
     <text name="PickManager">Pick Manager  </text>
 <text name="DisplayName">Display NAme  </text>
+    <text name="DeductType">Deduct Type   </text>
     
   </texts>
 </localizationDictionary>

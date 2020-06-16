@@ -45,7 +45,7 @@
                                             </label>
                                         </div>
                                     </div>
-                                    <div class="col-lg-2">
+                                    <!-- <div class="col-lg-2">
                                         <div class="m-checkbox-list">
                                             <label for="ShiftType_CrossDay" class="kt-checkbox">
                                                 <input id="ShiftType_CrossDay" type="checkbox" name="CrossDay" [(ngModel)]="shiftType.crossDay">
@@ -72,17 +72,17 @@
                                                 <span></span>
                                             </label>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
-
+<!-- 
                                 <div class="form-group row">
-                                    <div class="col-lg-6" style="direction: rtl;">
+                                    <div class="col-lg-6"   [ngClass]="{'arabicDir': this.localization.currentLanguage['isRightToLeft'],'englishDir': !this.localization.currentLanguage['isRightToLeft']}">
                                         <label for="MaxBoundryTime">{{l("MaxBoundryTime")}}</label>
                                         <timepicker [disabled]="!shiftType.open" [(ngModel)]="TimeObj"  name="TimeObj"></timepicker>
                                     </div>
                                 </div>
-                                <br/>
-                                <div class="row">
+                                <br/> -->
+                                <!-- <div class="row">
                                     <button class="btn btn-success" type="button" (click)="addDuties()" >{{l('AddDuties')}}</button>
                                 </div>
                                 <br/>
@@ -100,7 +100,7 @@
                                             <button class="btn btn-danger" (click)="deleteDutie(shiftTypeDetail)" type="button">{{l("Remove")}}</button>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
 
                 </div>
                 <div class="modal-footer">

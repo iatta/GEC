@@ -62,8 +62,11 @@ namespace Pixel.Attendance.Setting
                                 TimeInRangeTo = o.TimeInRangeTo,
                                 TimeOutRangeFrom = o.TimeOutRangeFrom,
                                 TimeOutRangeTo = o.TimeOutRangeTo,
-                                Id = o.Id
-							}
+                                Id = o.Id,
+                                IsOverTimeAllowed = o.IsOverTimeAllowed,
+                                ShiftType = ObjectMapper.Map<ShiftTypeEnumDto>(o.ShiftType),
+                                DeductType = o.DeductType
+                            }
 						};
 
             var totalCount = await filteredShifts.CountAsync();
@@ -97,7 +100,10 @@ namespace Pixel.Attendance.Setting
                                  TimeInRangeTo = o.TimeInRangeTo,
                                  TimeOutRangeFrom = o.TimeOutRangeFrom,
                                  TimeOutRangeTo = o.TimeOutRangeTo,
-                                 Id = o.Id
+                                 Id = o.Id,
+                                 IsOverTimeAllowed = o.IsOverTimeAllowed,
+                                 ShiftType= ObjectMapper.Map<ShiftTypeEnumDto>(o.ShiftType),
+                                 DeductType = o.DeductType
                              }
                          };
 
@@ -184,8 +190,11 @@ namespace Pixel.Attendance.Setting
                                 TimeInRangeTo = o.TimeInRangeTo,
                                 TimeOutRangeFrom = o.TimeOutRangeFrom,
                                 TimeOutRangeTo = o.TimeOutRangeTo,
-                                Id = o.Id
-							}
+                                Id = o.Id,
+                                IsOverTimeAllowed = o.IsOverTimeAllowed,
+                                ShiftType = ObjectMapper.Map<ShiftTypeEnumDto>(o.ShiftType),
+                                DeductType = o.DeductType
+                            }
 						 });
 
 

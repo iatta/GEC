@@ -44,6 +44,8 @@ namespace Pixel.Attendance.Setting
 		
 		public virtual int TimeOutRangeTo { get; set; }
 		public int DeductType { get; set; }
+		public bool IsOverTimeAllowed { get; set; }
+		public ShiftTypeEnum ShiftType { get; set; }
 
 	}
 }

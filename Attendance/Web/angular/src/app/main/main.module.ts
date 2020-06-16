@@ -185,6 +185,8 @@ import { AgmCoreModule } from "@agm/core";
 import { InOutComponent } from './operations/reports/inOut.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
+import {CheckboxModule} from 'primeng/checkbox';
+
 
 NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
 
@@ -221,6 +223,7 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
         TreeModule,
         GMapModule,
         CalendarModule,
+        CheckboxModule,
         AgmCoreModule.forRoot({
             apiKey: 'AIzaSyCDjjblndGMpWItsl94NEcb9nqCydADuDI',
             libraries: ['places', 'drawing', 'geometry'],

@@ -49,6 +49,7 @@ using Pixel.Attendance.WebHooks.Dto;
 using Pixel.Attendance.Dto;
 using Pixel.Attendance.ReportsModel;
 using Pixel.Attendance.Extended;
+using Pixel.Attendance.Enums;
 
 namespace Pixel.Attendance
 {
@@ -56,6 +57,8 @@ namespace Pixel.Attendance
     {
         public static void CreateMappings(IMapperConfigurationExpression configuration)
         {
+            
+             configuration.CreateMap<ShiftTypeEnumDto, ShiftTypeEnum>().ReverseMap();
             configuration.CreateMap<CreateOrEditProjectDto, Project>().ReverseMap();
             configuration.CreateMap<ProjectDto, Project>().ReverseMap();
             configuration.CreateMap<CreateOrEditMobileWebPageDto, MobileWebPage>().ReverseMap();

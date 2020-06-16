@@ -76,34 +76,34 @@
                                      rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
                                      [paginator]="false"
                                      [lazy]="true"
-                                     [scrollable]="true"
-                                     ScrollWidth="100%"
+                                     
+                                     
                                      [responsive]="primengTableHelper.isResponsive"
                                      [resizableColumns]="primengTableHelper.resizableColumns">
                             <ng-template pTemplate="header">
                                 <tr>
-                                    <th style="width: 130px" [hidden]="!isGrantedAny('Pages.ShiftTypes.Edit', 'Pages.ShiftTypes.Delete')">{{l('Actions')}}</th>
-                                    <th style="width: 150px" pSortableColumn="descriptionEn">
+                                    <th  [hidden]="!isGrantedAny('Pages.ShiftTypes.Edit', 'Pages.ShiftTypes.Delete')">{{l('Actions')}}</th>
+                                    <th  pSortableColumn="descriptionEn">
                                         {{l('DescriptionEn')}}
                                         <p-sortIcon field="shiftType.descriptionEn"></p-sortIcon>
                                     </th>
-                                    <th style="width: 150px" pSortableColumn="descriptionAr">
+                                    <th  pSortableColumn="descriptionAr">
                                         {{l('DescriptionAr')}}
                                         <p-sortIcon field="shiftType.descriptionAr"></p-sortIcon>
                                     </th>
-                                    <th style="width: 150px" pSortableColumn="numberOfDuties">
+                                    <!-- <th style="width: 150px" pSortableColumn="numberOfDuties">
                                         {{l('NumberOfDuties')}}
                                         <p-sortIcon field="shiftType.numberOfDuties"></p-sortIcon>
-                                    </th>
-                                    <th style="width: 150px" pSortableColumn="inScan">
+                                    </th> -->
+                                    <th  style="text-align: center;" pSortableColumn="inScan">
                                         {{l('InScan')}}
                                         <p-sortIcon field="shiftType.inScan"></p-sortIcon>
                                     </th>
-                                    <th style="width: 150px" pSortableColumn="outScan">
+                                    <th style="text-align: center;" pSortableColumn="outScan">
                                         {{l('OutScan')}}
                                         <p-sortIcon field="shiftType.outScan"></p-sortIcon>
                                     </th>
-                                    <th style="width: 150px" pSortableColumn="crossDay">
+                                    <!-- <th style="width: 150px" pSortableColumn="crossDay">
                                         {{l('CrossDay')}}
                                         <p-sortIcon field="shiftType.crossDay"></p-sortIcon>
                                     </th>
@@ -118,13 +118,13 @@
                                     <th style="width: 150px" pSortableColumn="maxBoundryTime">
                                         {{l('MaxBoundryTime')}}
                                         <p-sortIcon field="shiftType.maxBoundryTime"></p-sortIcon>
-                                    </th>
+                                    </th> -->
 
                                 </tr>
                             </ng-template>                           
 							<ng-template pTemplate="body" let-record="$implicit">
                                 <tr>
-                                    <td style="width: 130px"
+                                    <td 
                                         [hidden]="!isGrantedAny('Pages.ShiftTypes.Edit', 'Pages.ShiftTypes.Delete')">
                                        <div class="btn-group dropdown" dropdown container="body">
                                             <button class="dropdown-toggle btn btn-sm btn-primary" dropdownToggle>
@@ -146,29 +146,29 @@
                                             </ul>
                                         </div>
                                     </td>
-                                    <td style="width:150px">
+                                    <td >
 											<span class="ui-column-title"> {{l('DescriptionEn')}}</span>
 											{{record.shiftType.descriptionEn}}
 										</td>
-                                    <td style="width:150px">
+                                    <td >
 											<span class="ui-column-title"> {{l('DescriptionAr')}}</span>
 											{{record.shiftType.descriptionAr}}
 										</td>
-                                    <td style="width:150px">
+                                    <!-- <td style="width:150px">
 											<span class="ui-column-title"> {{l('NumberOfDuties')}}</span>
 											{{record.shiftType.numberOfDuties}}
-										</td>
-                                    <td style="width:150px">
+										</td> -->
+                                    <td >
 										<span class="ui-column-title"> {{l('InScan')}}</span>
                                         <div *ngIf="record.shiftType.inScan" class="text-center"><i class="fa fa-check-circle kt--font-success" title="True"></i></div>
 										<div *ngIf="!record.shiftType.inScan" class="text-center"><i class="fa fa-times-circle" title="False"></i></div>
                                     </td>
-                                    <td style="width:150px">
+                                    <td >
 										<span class="ui-column-title"> {{l('OutScan')}}</span>
                                         <div *ngIf="record.shiftType.outScan" class="text-center"><i class="fa fa-check-circle kt--font-success" title="True"></i></div>
 										<div *ngIf="!record.shiftType.outScan" class="text-center"><i class="fa fa-times-circle" title="False"></i></div>
                                     </td>
-                                    <td style="width:150px">
+                                    <!-- <td style="width:150px">
 										<span class="ui-column-title"> {{l('CrossDay')}}</span>
                                         <div *ngIf="record.shiftType.crossDay" class="text-center"><i class="fa fa-check-circle kt--font-success" title="True"></i></div>
 										<div *ngIf="!record.shiftType.crossDay" class="text-center"><i class="fa fa-times-circle" title="False"></i></div>
@@ -186,7 +186,7 @@
                                     <td style="width:150px">
 											<span class="ui-column-title"> {{l('MaxBoundryTime')}}</span>
 											{{record.shiftType.maxBoundryTime | minutesToTime}}
-										</td>
+										</td> -->
 
                                 </tr>
                             </ng-template>

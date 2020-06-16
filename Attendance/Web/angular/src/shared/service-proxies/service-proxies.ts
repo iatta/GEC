@@ -44257,6 +44257,11 @@ export interface IUpdateUserSignInTokenOutput {
     encodedTenantId: string | undefined;
 }
 
+export enum ShiftTypeEnumDto {
+    Normal = 1,
+    OverTime = 2,
+}
+
 export class ShiftDto implements IShiftDto {
     nameAr!: string | undefined;
     nameEn!: string | undefined;
@@ -44272,6 +44277,8 @@ export class ShiftDto implements IShiftDto {
     timeOutRangeFrom!: number;
     timeOutRangeTo!: number;
     deductType!: number;
+    isOverTimeAllowed!: boolean;
+    shiftType!: ShiftTypeEnumDto;
     id!: number;
 
     constructor(data?: IShiftDto) {
@@ -44299,6 +44306,8 @@ export class ShiftDto implements IShiftDto {
             this.timeOutRangeFrom = data["timeOutRangeFrom"];
             this.timeOutRangeTo = data["timeOutRangeTo"];
             this.deductType = data["deductType"];
+            this.isOverTimeAllowed = data["isOverTimeAllowed"];
+            this.shiftType = data["shiftType"];
             this.id = data["id"];
         }
     }
@@ -44326,6 +44335,8 @@ export class ShiftDto implements IShiftDto {
         data["timeOutRangeFrom"] = this.timeOutRangeFrom;
         data["timeOutRangeTo"] = this.timeOutRangeTo;
         data["deductType"] = this.deductType;
+        data["isOverTimeAllowed"] = this.isOverTimeAllowed;
+        data["shiftType"] = this.shiftType;
         data["id"] = this.id;
         return data; 
     }
@@ -44346,6 +44357,8 @@ export interface IShiftDto {
     timeOutRangeFrom: number;
     timeOutRangeTo: number;
     deductType: number;
+    isOverTimeAllowed: boolean;
+    shiftType: ShiftTypeEnumDto;
     id: number;
 }
 
@@ -44460,6 +44473,8 @@ export class CreateOrEditShiftDto implements ICreateOrEditShiftDto {
     timeOutRangeFrom!: number;
     timeOutRangeTo!: number;
     deductType!: number;
+    isOverTimeAllowed!: boolean;
+    shiftType!: ShiftTypeEnumDto;
     id!: number | undefined;
 
     constructor(data?: ICreateOrEditShiftDto) {
@@ -44489,6 +44504,8 @@ export class CreateOrEditShiftDto implements ICreateOrEditShiftDto {
             this.timeOutRangeFrom = data["timeOutRangeFrom"];
             this.timeOutRangeTo = data["timeOutRangeTo"];
             this.deductType = data["deductType"];
+            this.isOverTimeAllowed = data["isOverTimeAllowed"];
+            this.shiftType = data["shiftType"];
             this.id = data["id"];
         }
     }
@@ -44518,6 +44535,8 @@ export class CreateOrEditShiftDto implements ICreateOrEditShiftDto {
         data["timeOutRangeFrom"] = this.timeOutRangeFrom;
         data["timeOutRangeTo"] = this.timeOutRangeTo;
         data["deductType"] = this.deductType;
+        data["isOverTimeAllowed"] = this.isOverTimeAllowed;
+        data["shiftType"] = this.shiftType;
         data["id"] = this.id;
         return data; 
     }
@@ -44540,6 +44559,8 @@ export interface ICreateOrEditShiftDto {
     timeOutRangeFrom: number;
     timeOutRangeTo: number;
     deductType: number;
+    isOverTimeAllowed: boolean;
+    shiftType: ShiftTypeEnumDto;
     id: number | undefined;
 }
 

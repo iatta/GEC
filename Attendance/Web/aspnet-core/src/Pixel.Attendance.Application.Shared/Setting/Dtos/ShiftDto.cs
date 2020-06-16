@@ -1,6 +1,7 @@
 ﻿using Pixel.Attendance.Enums;
 using System;
 using Abp.Application.Services.Dto;
+using Pixel.Attendance.Dto;
 
 namespace Pixel.Attendance.Setting.Dtos
 {
@@ -32,6 +33,8 @@ namespace Pixel.Attendance.Setting.Dtos
 
 		public int TimeOutRangeTo { get; set; }
 		public int DeductType { get; set; }
+		public bool IsOverTimeAllowed { get; set; }
+		public ShiftTypeEnumDto ShiftType { get; set; }
 
 
 	}

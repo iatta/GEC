@@ -186,3 +186,9 @@ body .ui-table .ui-table-thead > tr > th{
     background-color: #e4e8eecc !important;
 }
 
+.arabicDir{
+    direction: rtl !important;
+}
+.englishDir{
+    direction: ltr !important;
+}
