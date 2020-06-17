@@ -1,6 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
-  <texts>    <text name="Project">Project</text>
+  <texts>    <text name="UserShift">User shift</text>
+    <text name="UserShiftsHeaderInfo">User shifts header info</text>
+    <text name="CreateNewUserShift">Create new user shift</text>
+    <text name="EditUserShift">Edit user shift</text>
+    <text name="DeleteUserShift">Delete user shift</text>
+    <text name="UserShifts">User shifts</text>
+    <text name="ShiftNameEn">Shift name en</text>
+    <text name="Project">Project</text>
     <text name="ProjectsHeaderInfo">Projects header info</text>
     <text name="CreateNewProject">Create New Project</text>
     <text name="EditProject">Edit Project</text>

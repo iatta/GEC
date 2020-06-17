@@ -57,6 +57,8 @@ namespace Pixel.Attendance
     {
         public static void CreateMappings(IMapperConfigurationExpression configuration)
         {
+            configuration.CreateMap<CreateOrEditUserShiftDto, UserShift>().ReverseMap();
+            configuration.CreateMap<UserShiftDto, UserShift>().ReverseMap();
             
              configuration.CreateMap<ShiftTypeEnumDto, ShiftTypeEnum>().ReverseMap();
             configuration.CreateMap<CreateOrEditProjectDto, Project>().ReverseMap();

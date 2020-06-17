@@ -192,3 +192,13 @@ body .ui-table .ui-table-thead > tr > th{
 .englishDir{
     direction: ltr !important;
 }
+
+.glow {
+    background:gray;
+    animation:pulse 0.5s infinite alternate;
+  }
+  
+  @keyframes pulse {
+    from { box-shadow:0px 0px 10px 3px #0066cc; }
+    to { box-shadow:0px 0px 20px 5px #0066cc; }
+  }

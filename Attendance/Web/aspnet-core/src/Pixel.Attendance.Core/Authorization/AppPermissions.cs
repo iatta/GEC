@@ -6,6 +6,11 @@
     /// </summary>
     public static class AppPermissions
     {
+        public const string Pages_UserShifts = "Pages.UserShifts";
+        public const string Pages_UserShifts_Create = "Pages.UserShifts.Create";
+        public const string Pages_UserShifts_Edit = "Pages.UserShifts.Edit";
+        public const string Pages_UserShifts_Delete = "Pages.UserShifts.Delete";
+
         public const string Pages_Projects = "Pages.Projects";
         public const string Pages_Projects_Create = "Pages.Projects.Create";
         public const string Pages_Projects_Edit = "Pages.Projects.Edit";

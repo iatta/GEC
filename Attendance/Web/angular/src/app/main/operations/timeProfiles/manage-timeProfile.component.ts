@@ -195,8 +195,13 @@ export class ManageTimeProfileComponent extends AppComponentBase implements OnIn
         }
     }
 
+    // validateForm(){
+    //     let valid= true;
+    //     if(this.timeProfile.startDate > )
+    // }
+
     save(timeProfileForm : NgForm): void {
-        debugger
+        
         this.modelToSave = [];
         if(timeProfileForm.form.valid){
             this.saving = true;

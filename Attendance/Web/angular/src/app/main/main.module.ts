@@ -2,6 +2,12 @@
 import { PermitReportComponent } from './operations/reports/permit.component';
 import { LateInEarlyOutComponent } from './operations/reports/Late-in-early-out.component';
 import { AbsentComponent } from './operations/reports/absent.component';
+import { UserShiftsComponent } from './operations/userShifts/userShifts.component';
+import { ViewUserShiftModalComponent } from './operations/userShifts/view-userShift-modal.component';
+import { CreateOrEditUserShiftModalComponent } from './operations/userShifts/create-or-edit-userShift-modal.component';
+import { UserShiftUserLookupTableModalComponent } from './operations/userShifts/userShift-user-lookup-table-modal.component';
+import { UserShiftShiftLookupTableModalComponent } from './operations/userShifts/userShift-shift-lookup-table-modal.component';
+
 import { ForgetInOutComponent } from './operations/reports/forget-in-out.component';
 import { ProjectsComponent } from './operations/projects/projects.component';
 import { ViewProjectModalComponent } from './operations/projects/view-project-modal.component';
@@ -186,6 +192,7 @@ import { InOutComponent } from './operations/reports/inOut.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 import {CheckboxModule} from 'primeng/checkbox';
+import { ManageUserShiftComponent } from './operations/userShifts/manage-user-shift.component';
 
 
 NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
@@ -231,6 +238,10 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
           }),
     ],
     declarations: [
+		UserShiftsComponent,
+		ViewUserShiftModalComponent,		CreateOrEditUserShiftModalComponent,
+    UserShiftUserLookupTableModalComponent,
+    UserShiftShiftLookupTableModalComponent,
 		ProjectsComponent,
 		ViewProjectModalComponent,		CreateOrEditProjectModalComponent,
     ProjectUserLookupTableModalComponent,
@@ -320,7 +331,8 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
         ReportComponent,
         InOutComponent,FingerReportComponent,ForgetInOutComponent,AbsentComponent,LateInEarlyOutComponent,PermitReportComponent,
         EmployeeReportComponent,
-        AssignProjectUserLookupTableModalComponent
+        AssignProjectUserLookupTableModalComponent,
+        ManageUserShiftComponent
 
     ],
     providers: [

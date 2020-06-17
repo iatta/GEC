@@ -38,7 +38,7 @@
 
                                             <br/>
                                             <br/>
-                                            <div class="ui-rtl" dir="rtl">
+                                            <div   [ngClass]="{'ui-rtl': this.localization.currentLanguage['isRightToLeft'],'ui-ltr': !this.localization.currentLanguage['isRightToLeft']}">
                                                 <p-tabView>
                                                     <p-tabPanel  [selected]="i == 0" [header]="l(day.header)" *ngFor="let day of days;let i = index" >
                                                         <div class="row">

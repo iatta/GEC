@@ -24,11 +24,11 @@ export class AppNavigationService {
             new AppMenuItem('Editions', 'Pages.Editions', 'flaticon-app', '/app/admin/editions'),
 
             new AppMenuItem('Shifts', '', 'flaticon-interface-6', '', [
-                new AppMenuItem('ShiftTypes', 'Pages.ShiftTypes', 'flaticon-file-1', '/app/main/setting/shiftTypes'),
+                // new AppMenuItem('ShiftTypes', 'Pages.ShiftTypes', 'flaticon-file-1', '/app/main/setting/shiftTypes'),
                 new AppMenuItem('Shifts', 'Pages.Shifts', 'flaticon-calendar-with-a-clock-time-tools', '/app/main/setting/shifts'),
-                new AppMenuItem('TimeProfiles', 'Pages.TimeProfiles', 'flaticon-time-1', '/app/main/operations/mangeTimeProfile'),
+                new AppMenuItem('ManageUserShifts', 'Pages.Shifts', 'flaticon-calendar-with-a-clock-time-tools', '/app/main/operations/manageUserShifts'),
+                // new AppMenuItem('TimeProfiles', 'Pages.TimeProfiles', 'flaticon-time-1', '/app/main/operations/mangeTimeProfile'),
                 new AppMenuItem('UploadTimeProfile', 'Pages.UploadTimeProfile', 'flaticon-file-1', '/app/main/operations/uploadTimeProfile')
-                
             ]),
 
 
@@ -83,6 +83,8 @@ export class AppNavigationService {
             
             
             new AppMenuItem('Projects', 'Pages.Projects', 'flaticon-more', '/app/main/operations/projects'),
+            
+            new AppMenuItem('UserShifts', 'Pages.UserShifts', 'flaticon-more', '/app/main/operations/userShifts'),
              new AppMenuItem('Administration', '', 'flaticon-interface-8', '', [
                 new AppMenuItem('OrganizationUnits', 'Pages.Administration.OrganizationUnits', 'flaticon-map', '/app/admin/organization-units'),
                 new AppMenuItem('Roles', 'Pages.Administration.Roles', 'flaticon-suitcase', '/app/admin/roles'),

@@ -1,5 +1,6 @@
 ﻿import { ReportComponent } from './operations/reports/report.component';
 import { EmployeeReportComponent } from './operations/reports/employee-report.component';
+import { UserShiftsComponent } from './operations/userShifts/userShifts.component';
 import { ProjectsComponent } from './operations/projects/projects.component';
 import { MobileWebPagesComponent } from './settings/mobileWebPages/mobileWebPages.component';
 import { EmployeeWarningsComponent } from './operations/employeeWarnings/employeeWarnings.component';
@@ -39,6 +40,7 @@ import { JobTitlesComponent } from './setting/jobTitles/jobTitles.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { EmployeePermitsManagerComponent } from './operations/employeePermits/employeePermits-manager.component';
 import { ManageOfficialTaskComponent } from './operations/employeeOfficialTasks/manage-official-task.component';
+import { ManageUserShiftComponent } from './operations/userShifts/manage-user-shift.component';
 
 @NgModule({
     imports: [
@@ -46,6 +48,8 @@ import { ManageOfficialTaskComponent } from './operations/employeeOfficialTasks/
             {
                 path: '',
                 children: [
+                    { path: 'operations/manageUserShifts', component: ManageUserShiftComponent, data: { permission: 'Pages.UserShifts' }  },
+                    // { path: 'operations/userShifts', component: UserShiftsComponent, data: { permission: 'Pages.UserShifts' }  },
                     { path: 'operations/projects', component: ProjectsComponent, data: { permission: 'Pages.Projects' }  },
                     { path: 'settings/mobileWebPages', component: MobileWebPagesComponent, data: { permission: 'Pages.MobileWebPages' }  },
                     { path: 'operations/employeeWarnings', component: EmployeeWarningsComponent, data: { permission: 'Pages.EmployeeWarnings' }  },
