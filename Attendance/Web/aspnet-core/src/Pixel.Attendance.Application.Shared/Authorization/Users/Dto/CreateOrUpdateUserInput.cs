@@ -4,11 +4,13 @@ using Pixel.Attendance.Setting.Dtos;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Pixel.Attendance.Authorization.Users.Dto
 {
     public class CreateOrUpdateUserInput
     {
+       
         [Required]
         public UserEditDto User { get; set; }
 
@@ -64,11 +66,14 @@ namespace Pixel.Attendance.Authorization.Users.Dto
 
         public bool UserLoaded { get; set; }
 
-        public CreateOrEditTimeProfileDto TimeProfile { get; set; }
+        //public CreateOrEditTimeProfileDto TimeProfile { get; set; }
+        [NotMapped]
+        public List<GetUserShiftForViewDto> UserShifts { get; set; }
 
         public CreateOrUpdateUserInput()
         {
             OrganizationUnits = new List<long>();
+            UserShifts = new List<GetUserShiftForViewDto>();
         }
     }
 }

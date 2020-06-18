@@ -65,6 +65,11 @@ namespace Pixel.Attendance.Authorization.Users.Dto
         public string Address { get; set; }
         public string Address2 { get; set; }
 
-        public CreateOrEditTimeProfileDto TimeProfile { get; set; }
+        //public CreateOrEditTimeProfileDto TimeProfile { get; set; }
+
+        //public List<GetUserShiftForViewDto> UserShifts { get; set; }
+
+
+
     }
 }

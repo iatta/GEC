@@ -1,13 +1,14 @@
+import { Table } from 'primeng/table';
 import { UserLocationDto, AssignedLocationDto, TimeProfileDetailDto } from './../../../shared/service-proxies/service-proxies';
 import { NgForm } from '@angular/forms';
 import { OrganizationUnitsHorizontalTreeModalUserComponent } from './../shared/organization-horizontal-tree-modal-user.component';
 import { OrganizationUnitsHorizontalTreeModalComponent } from './../shared/organization-horizontal-tree-modal.component';
-import { SelectItem } from 'primeng/api';
+import { SelectItem, FilterUtils } from 'primeng/api';
 import { OrganizationUnitsHorizontalTreeComponent } from './../shared/organization-horizontal-tree.component';
 import { AfterViewChecked, Component, ElementRef, EventEmitter, Injector, Output, ViewChild, OnInit } from '@angular/core';
 import { AppConsts } from '@shared/AppConsts';
 import { AppComponentBase } from '@shared/common/app-component-base';
-import { JobTitleDto, JobTitleServiceProxy, CreateOrUpdateUserInput, OrganizationUnitDto, PasswordComplexitySetting, ProfileServiceProxy, UserEditDto, UserRoleDto, UserServiceProxy, GetShiftForViewDto, ShiftsServiceProxy, CreateOrEditTimeProfileDto, ShiftTypesServiceProxy } from '@shared/service-proxies/service-proxies';
+import { JobTitleDto, JobTitleServiceProxy, CreateOrUpdateUserInput, OrganizationUnitDto, PasswordComplexitySetting, ProfileServiceProxy, UserEditDto, UserRoleDto, UserServiceProxy, GetShiftForViewDto, ShiftsServiceProxy, CreateOrEditTimeProfileDto, ShiftTypesServiceProxy, GetUserShiftForViewDto, UserShiftDto } from '@shared/service-proxies/service-proxies';
 import { ModalDirective, TabsetComponent } from 'ngx-bootstrap';
 import { IOrganizationUnitsHierarchicalTreeComponentData, OrganizationHierarchicalTreeComponent } from '../shared/organization-hierarchical-tree.component';
 import { IOrganizationUnitsTreeComponentData, OrganizationUnitsTreeComponent } from '../shared/organization-unit-tree.component';
@@ -17,6 +18,7 @@ import { finalize } from 'rxjs/operators';
 import { Router, ActivatedRoute, ParamMap ,Params } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import * as moment from 'moment';
+import { rowsAnimation } from '@shared/animations/template.animations';
 
 @Component({
 
@@ -25,9 +27,16 @@ import * as moment from 'moment';
              margin-bottom: 20px;
         }`
     ],
-    styleUrls:['./manage-user.css']
+    animations: [rowsAnimation],
+    styleUrls:['./manage-user.css', '../../main/operations/userShifts/manager-user-shift.component.less']
 })
 export class ManageUserComponent extends AppComponentBase implements OnInit {
+    private table: Table;
+    @ViewChild('dt',{ static: false }) set content(content: Table) {
+        if(content) { // initially setter gets called with undefined
+            this.table = content;
+        }
+     }
 
     @ViewChild('userTabs', {static: false}) userTabs: TabsetComponent;
     //@ViewChild('organizationUnitTree', {static: false}) organizationUnitTree: OrganizationHierarchicalTreeComponent;
@@ -35,6 +44,7 @@ export class ManageUserComponent extends AppComponentBase implements OnInit {
      @ViewChild('organizationUnitsHorizontalTreeModal', { static: true }) organizationUnitsHorizontalTreeModal: OrganizationUnitsHorizontalTreeModalUserComponent;
 //   @ViewChild('organizationUnitTree', {static: false}) organizationUnitTree: OrganizationUnitsHorizontalTreeComponent;
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
+    
 
     active = false;
     saving = false;
@@ -62,7 +72,10 @@ export class ManageUserComponent extends AppComponentBase implements OnInit {
 
     test:moment.Moment;
     usersList: SelectItem[] = [];
-    shiftList: SelectItem[] = [];
+    
+    shiftList: GetShiftForViewDto[] = [];
+    selectedShift: GetShiftForViewDto;
+
     shiftTypeList: SelectItem[] = [];
     selectedShiftId: number;
 
@@ -75,7 +88,8 @@ export class ManageUserComponent extends AppComponentBase implements OnInit {
     assignedLocation:AssignedLocationDto[] = [];
     selectedLocation: any;
 
-
+    startDate: moment.Moment = moment();
+    endDate: moment.Moment = moment();
 
 
     cols: any[];
@@ -120,30 +134,15 @@ export class ManageUserComponent extends AppComponentBase implements OnInit {
              this.show();
         });
 
-
+        FilterUtils['dateRangeFilter'] = (value, filter): boolean => {
+            return value.isSame(filter);
+        }
     }
 
     initTimeProfile() : void {
     this._shiftsServiceProxy.getAllFlat().subscribe((result)=>{
-            this.shiftList.push({label:'اختر الدوام ', value:null});
-            result.forEach((shift)=>{
-                this.shiftList.push({label:shift.shift.nameAr, value: shift.shift.id });
-            });
-            if(!this.user.timeProfile)
-                this.user.timeProfile = new CreateOrEditTimeProfileDto();
-    });
-
-    this._shiftTypesServiceProxy.getAllFlat().subscribe((result)=>{
-        this.shiftTypeList.push({label:'اختر النوع ', value:null});
-        result.forEach((shiftType)=>{
-            this.shiftTypeList.push({label:shiftType.shiftType.descriptionAr, value: shiftType.shiftType.id });
+            this.shiftList = result; 
         });
-
-        if(result.length > 0)
-            this.user.timeProfile.shiftTypeID_Saturday = result[0].shiftType.id;
-
-    });
-
     }
 
     show(): void {
@@ -152,15 +151,8 @@ export class ManageUserComponent extends AppComponentBase implements OnInit {
             this.user = new UserEditDto();
             this.user.dateOfBirth = moment().startOf('day');
             this.user.joinDate = moment().startOf('day');
-            this.user.timeProfile = new CreateOrEditTimeProfileDto();
-
-            this.user.timeProfile.startDate = moment().startOf('day');
-            this.user.timeProfile.endDate = moment().startOf('day');
 
             this.user.terminationDate = moment().startOf('day');
-
-            this.user.timeProfile.timeProfileDetails = [];
-
             this.locationDateTo =  moment().startOf('day');
             this.locationDateFrom =  moment().startOf('day');
 
@@ -172,16 +164,12 @@ export class ManageUserComponent extends AppComponentBase implements OnInit {
 
         this._userService.getUserForEdit(this.userId).subscribe(userResult => {
 
-
+            debugger
             this.user = userResult.user;
+            console.log(this.user);
             this.userLoaded = true;
-            if(!this.user.timeProfile){
-                this.user.timeProfile = new CreateOrEditTimeProfileDto();
-                this.user.timeProfile.startDate = moment().startOf('day');
-                this.user.timeProfile.endDate = moment().startOf('day');
-
-            }
-
+            if(!this.user.userShifts)
+                this.user.userShifts = []
 
             this.locationDateTo =  moment().startOf('day');
             this.locationDateFrom =  moment().startOf('day');
@@ -354,56 +342,45 @@ export class ManageUserComponent extends AppComponentBase implements OnInit {
         if(!this.user.id){
             this.user.dateOfBirth = moment().startOf('day');
             this.user.joinDate = moment().startOf('day');
-
             this.user.terminationDate = moment().startOf('day');
-            this.user.timeProfile.startDate = moment().startOf('day');
-            this.user.timeProfile.endDate = moment().startOf('day');
         }
 
         document.getElementById('Name').focus();
     }
 
     save(userForm : NgForm): void {
-        debugger
-if(!this.userLoaded){
-    this._userService.getExistUSerForActive(this.user.civilId).subscribe((userResult) => {
-        console.log(userResult.user)
-        if(userResult.user){
-            this.message.confirm(
-                this.l('هذا المستخدم موجود من قبل'),
-                this.l('هل تريد استرجاع البيانات'),
-                (isConfirmed) => {
-                    if (isConfirmed) {
-                        this.userLoaded = true;
+        if(!this.userLoaded){
+            this._userService.getExistUSerForActive(this.user.civilId).subscribe((userResult) => {
+                console.log(userResult.user)
+                if(userResult.user){
+                    this.message.confirm(
+                        this.l('هذا المستخدم موجود من قبل'),
+                        this.l('هل تريد استرجاع البيانات'),
+                        (isConfirmed) => {
+                            if (isConfirmed) {
+                                this.userLoaded = true;
 
-                        this.user = userResult.user;
-                        if(!this.user.timeProfile){
-                            this.user.timeProfile = new CreateOrEditTimeProfileDto();
-                            this.user.timeProfile.startDate = moment().startOf('day');
-                            this.user.timeProfile.endDate = moment().startOf('day');
-                            this.user.timeProfile.timeProfileDetails = [];
+                                this.user = userResult.user;
+                                this.roles = userResult.roles;
+                                this.locations = userResult.locations;
+                                this.canChangeUserName = this.user.userName !== AppConsts.userManagement.defaultAdminUserName;
+
+                                this.allOrganizationUnits = userResult.allOrganizationUnits;
+                                this.memberedOrganizationUnits = userResult.memberedOrganizationUnits;
+                                this.memberedOrganizationUnit = userResult.memberOrganizationUnit;
+
+                                this.getProfilePicture(userResult.profilePictureId);
+                            }else {
+                                this.userLoaded = false;
+                                this.okSave(userForm);
+                            }
                         }
-
-                        this.roles = userResult.roles;
-                        this.locations = userResult.locations;
-                        this.canChangeUserName = this.user.userName !== AppConsts.userManagement.defaultAdminUserName;
-
-                        this.allOrganizationUnits = userResult.allOrganizationUnits;
-                        this.memberedOrganizationUnits = userResult.memberedOrganizationUnits;
-                        this.memberedOrganizationUnit = userResult.memberOrganizationUnit;
-
-                        this.getProfilePicture(userResult.profilePictureId);
-                    }else{
-                        this.userLoaded = false;
-                        this.okSave(userForm);
-                    }
+                    );
                 }
-            );
+            });
+        } else {
+            this.okSave(userForm);
         }
-    });
-}else{
-    this.okSave(userForm);
-}
 
 
 
@@ -427,29 +404,6 @@ if(!this.userLoaded){
 
             input.assignedLocations = this.assignedLocation;
             input.organizationUnitId = this.organizationUnitTree.getSelectedOrganizations();
-
-            input.user.timeProfile.shiftTypeID_Sunday = this.user.timeProfile.shiftTypeID_Saturday;
-            input.user.timeProfile.shiftTypeID_Monday = this.user.timeProfile.shiftTypeID_Saturday;
-            input.user.timeProfile.shiftTypeID_Tuesday = this.user.timeProfile.shiftTypeID_Saturday;
-            input.user.timeProfile.shiftTypeID_Wednesday = this.user.timeProfile.shiftTypeID_Saturday;
-            input.user.timeProfile.shiftTypeID_Thursday = this.user.timeProfile.shiftTypeID_Saturday;
-            input.user.timeProfile.shiftTypeID_Friday = this.user.timeProfile.shiftTypeID_Saturday;
-            if(input.user.timeProfile.timeProfileDetails == null)  {input.user.timeProfile.timeProfileDetails = [];}
-
-                if (input.user.timeProfile.timeProfileDetails.length == 0) {
-                    for (let index = 1; index <= 7; index++) {
-                        let timeProfileDetailToAdd = new TimeProfileDetailDto();
-                        timeProfileDetailToAdd.day = index;
-                        timeProfileDetailToAdd.shiftId =  input.user.timeProfile.shiftId;
-                        input.user.timeProfile.timeProfileDetails.push(timeProfileDetailToAdd);
-                    }
-                }else{
-                    input.user.timeProfile.timeProfileDetails.forEach(element => {
-                        element.shiftId = input.user.timeProfile.shiftId;
-                    });
-                }
-
-
             this.saving = true;
 
             input.userLoaded = this.userLoaded;
@@ -498,4 +452,68 @@ if(!this.userLoaded){
     getAssignedRoleCount(): number {
         return _.filter(this.roles, { isAssigned: true }).length;
     }
+
+    onDateSelect(value) {
+        let newDate = moment(moment(value , 'YYYY-MM-DD').toISOString());
+        this.table.filter(newDate, 'userShift.date', 'dateRangeFilter');
+        
+    }
+
+    formatDate(date) {
+        let month = date.getMonth() + 1;
+        let day = date.getDate();
+
+        if (month < 10) {
+            month = '0' + month;
+        }
+
+        if (day < 10) {
+            day = '0' + day;
+        }
+
+        return  day + '/' + month  + '/' + date.getFullYear();
+    }
+    addShifts(): void {
+        //add shifts
+        if(!this.selectedShift){
+            this.message.error('Please Select Shift');
+            return;
+        }
+        for (var m = moment(this.startDate); m.diff(this.endDate, 'days') <= 0; m.add(1, 'days')) {
+            let isExist = this.user.userShifts.findIndex(
+                x => x.userShift.date.isSame(m, 'year') && 
+                x.userShift.date.isSame(m, 'month') &&
+                 x.userShift.date.isSame(m, 'day') &&
+                 x.userShift.shiftId == this.selectedShift.shift.id);
+            if(isExist == -1){
+             let userShiftToAdd = new GetUserShiftForViewDto();
+             userShiftToAdd.shiftNameEn = this.selectedShift.shift.nameEn;
+             
+             userShiftToAdd.userShift = new UserShiftDto();
+             userShiftToAdd.userShift.isNew = true;
+             userShiftToAdd.userShift.userId = this.user.id; 
+             let date =moment(m);
+             userShiftToAdd.userShift.date = date; 
+             userShiftToAdd.userShift.shiftId = this.selectedShift.shift.id;
+             this.user.userShifts.unshift(userShiftToAdd);
+            }
+        }
+
+        this.table.reset();
+    }
+
+    deleteUserShift(userShiftView: GetUserShiftForViewDto):void{
+        let index = this.user.userShifts.findIndex(
+            x => x.userShift.date.isSame(userShiftView.userShift.date, 'year') && 
+            x.userShift.date.isSame(userShiftView.userShift.date, 'month') &&
+             x.userShift.date.isSame(userShiftView.userShift.date, 'day') &&
+             x.userShift.shiftId == userShiftView.userShift.shiftId);
+
+             if(index > -1)
+                this.user.userShifts[index].userShift.isDeleted = true;
+
+
+        this.table.reset();
+    }
+
 }

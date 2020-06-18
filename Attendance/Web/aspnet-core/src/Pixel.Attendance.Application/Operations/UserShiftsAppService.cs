@@ -260,16 +260,12 @@ namespace Pixel.Attendance.Operations
             {
                 
                 //delete if exist
-                var existUserShift =await _userShiftRepository.FirstOrDefaultAsync(x => x.Date.Date == userShift.Date.Date  && x.ShiftId == userShift.ShiftId);
-                if (existUserShift != null)
+                var existUserShift = await _userShiftRepository.FirstOrDefaultAsync(x => x.Date.Date == userShift.Date.Date  && x.UserId == userShift.UserId && x.ShiftId == userShift.ShiftId);
+                if (existUserShift == null)
                 {
-                    await _userShiftRepository.HardDeleteAsync(existUserShift);
+                    var newUserShift = ObjectMapper.Map<UserShift>(userShift);
+                    await _userShiftRepository.InsertAsync(newUserShift);
                 }
-
-                //add new shift 
-
-                var newUserShift = ObjectMapper.Map<UserShift>(userShift);
-                await _userShiftRepository.InsertAsync(newUserShift);
             }
 
         }

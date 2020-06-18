@@ -1,4 +1,6 @@
-﻿namespace Pixel.Attendance.Operations.Dtos
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Pixel.Attendance.Operations.Dtos
 {
     public class GetUserShiftForViewDto
     {
@@ -7,6 +9,9 @@
 		public string UserName { get; set;}
 
 		public string ShiftNameEn { get; set;}
+        [NotMapped]
+        public string[] ShiftNames { get; set; }
+
 
 
     }

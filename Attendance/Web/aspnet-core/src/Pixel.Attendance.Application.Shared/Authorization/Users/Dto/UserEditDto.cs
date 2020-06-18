@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Abp.Auditing;
 using Abp.Authorization.Users;
@@ -89,6 +90,8 @@ namespace Pixel.Attendance.Authorization.Users.Dto
         public string Address { get; set; }
         public string Address2 { get; set; }
         public string MobilePasword { get; set; }
-        public CreateOrEditTimeProfileDto TimeProfile { get; set; }
+        //public CreateOrEditTimeProfileDto TimeProfile { get; set; }
+        public List<GetUserShiftForViewDto> UserShifts { get; set; }
+        
     }
 }

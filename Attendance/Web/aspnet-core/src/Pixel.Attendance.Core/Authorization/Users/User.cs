@@ -81,6 +81,8 @@ namespace Pixel.Attendance.Authorization.Users
         public string MobilePassword { get; set; }
 
         public ICollection<ProjectUser> Projects { get; set; }
+        
+        
 
         //Can add application specific user properties here
 

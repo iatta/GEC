@@ -1,3 +1,4 @@
+import { UserShiftShiftLookupTableModalComponent } from './../main/operations/userShifts/userShift-shift-lookup-table-modal.component';
 import { OrganizationManagerModalComponent } from './organization-units/organization-manager-modal';
 import { ManageFaceIdComponent } from './users/manage-face-id.component';
 import { OrganizationUnitsHorizontalTreeModalUserComponent } from './shared/organization-horizontal-tree-modal-user.component';
@@ -105,6 +106,7 @@ import { AppBsModalModule } from '@shared/common/appBsModal/app-bs-modal.module'
 import {OrganizationChartModule} from 'primeng/organizationchart';
 import {MultiSelectModule} from 'primeng/multiselect';
 import {RadioButtonModule} from 'primeng/radiobutton';
+import {CalendarModule} from 'primeng/calendar';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     // suppressScrollX: true
@@ -143,7 +145,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         AppBsModalModule,
         OrganizationChartModule,
         MultiSelectModule,
-        RadioButtonModule
+        RadioButtonModule,
+        CalendarModule
     ],
     declarations: [
         UsersComponent,
@@ -215,7 +218,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         ManageUserComponent,
         OrganizationUnitsHorizontalTreeModalUserComponent,
         ManageFaceIdComponent,
-        OrganizationManagerModalComponent
+        OrganizationManagerModalComponent,
+        UserShiftShiftLookupTableModalComponent
 
     ],
     exports: [

@@ -47,6 +47,7 @@ using iTextSharp.text;
 using iTextSharp.text.pdf;
 using Pixel.Attendance.Helper;
 using Pixel.Attendance.Setting.Dtos;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.Logical;
 
 namespace Pixel.Attendance.Authorization.Users
 {
@@ -78,6 +79,10 @@ namespace Pixel.Attendance.Authorization.Users
         private readonly IRepository<JobTitle> _jobTitleRepository;
         private readonly IRepository<Nationality> _nationalityRepository;
         private readonly IActiveTransactionProvider _transactionProvider;
+        private readonly IRepository<UserShift> _userShiftRepository;
+        private readonly IRepository<User, long> _userRepository;
+        private readonly IRepository<Shift> _shiftRepository;
+        
 
 
 
@@ -106,6 +111,9 @@ namespace Pixel.Attendance.Authorization.Users
             IRepository<TimeProfileDetail> timeProfileDetailRepository,
             IDbContextProvider<AttendanceDbContext> dbCOntext,
             IRepository<Nationality> nationalityRepository,
+            IRepository<User, long> userRepository,
+            IRepository<UserShift> userShift,
+            IRepository<Shift> shift,
             IActiveTransactionProvider transactionProvider)
         {
             _roleManager = roleManager;
@@ -125,7 +133,7 @@ namespace Pixel.Attendance.Authorization.Users
             _userOrganizationUnitRepository = userOrganizationUnitRepository;
             _organizationUnitRoleRepository = organizationUnitRoleRepository;
             _roleRepository = roleRepository;
-
+            _userRepository = userRepository;
             AppUrlService = NullAppUrlService.Instance;
             _timeProfileRepository = timeProfileRepository;
             _locationRepository = locationRepository;
@@ -134,6 +142,8 @@ namespace Pixel.Attendance.Authorization.Users
             _transactionProvider = transactionProvider;
             _jobTitleRepository = jobTitleRepository;
             _nationalityRepository = nationalityRepository;
+            _shiftRepository = shift;
+            _userShiftRepository = userShift;
         }
 
         public async Task<PagedResultDto<UserListDto>> GetUsers(GetUsersInput input)
@@ -242,6 +252,7 @@ namespace Pixel.Attendance.Authorization.Users
 
             var allOrganizationUnits = await _organizationUnitRepository.GetAllListAsync();
 
+
             var output = new GetUserForEditOutput
             {
                 Roles = userRoleDtos,
@@ -256,7 +267,6 @@ namespace Pixel.Attendance.Authorization.Users
 
                 output.User = ObjectMapper.Map<UserEditDto>(user);
                 var timeProfile = _timeProfileRepository.GetAll().Where(x => x.UserId == output.User.Id).FirstOrDefault();
-                output.User.TimeProfile = ObjectMapper.Map<CreateOrEditTimeProfileDto>(timeProfile);
                 output.ProfilePictureId = user.ProfilePictureId;
 
 
@@ -327,8 +337,12 @@ namespace Pixel.Attendance.Authorization.Users
             var allOrganizationUnits = await _organizationUnitRepository.GetAllListAsync();
             var nationalities = await _nationalityRepository.GetAllListAsync();
 
+            //user shifts 
+           
+
             var output = new GetUserForEditOutput
             {
+                
                 Locations = userLocationDtos,
                 Nationalities = ObjectMapper.Map<List<NationalityDto>>(nationalities),
                 Roles = userRoleDtos,
@@ -345,8 +359,7 @@ namespace Pixel.Attendance.Authorization.Users
                     IsActive = true,
                     ShouldChangePasswordOnNextLogin = true,
                     IsTwoFactorEnabled = await SettingManager.GetSettingValueAsync<bool>(AbpZeroSettingNames.UserManagement.TwoFactorLogin.IsEnabled),
-                    IsLockoutEnabled = await SettingManager.GetSettingValueAsync<bool>(AbpZeroSettingNames.UserManagement.UserLockOut.IsEnabled),
-                    TimeProfile = new CreateOrEditTimeProfileDto()
+                    IsLockoutEnabled = await SettingManager.GetSettingValueAsync<bool>(AbpZeroSettingNames.UserManagement.UserLockOut.IsEnabled)
                 };
 
                 foreach (var defaultRole in await _roleManager.Roles.Where(r => r.IsDefault).ToListAsync())
@@ -364,19 +377,27 @@ namespace Pixel.Attendance.Authorization.Users
                 var user = await UserManager.Users.Include(x => x.Locations).FirstOrDefaultAsync(x => x.Id == input.Id.Value);
 
                 output.User = ObjectMapper.Map<UserEditDto>(user);
-                var timeProfile = _timeProfileRepository.GetAll().Include(x =>x.TimeProfileDetails).Where(x => x.UserId == output.User.Id).FirstOrDefault();
-                if (timeProfile != null)
-                {
-                    output.User.TimeProfile = ObjectMapper.Map<CreateOrEditTimeProfileDto>(timeProfile);
-                    if (timeProfile.TimeProfileDetails.Count > 0)
-                    {
-                        output.User.TimeProfile.ShiftId = timeProfile.TimeProfileDetails.FirstOrDefault().ShiftId.Value;
 
-                    }
-                }
+                var userShifts = from o in _userShiftRepository.GetAll()
+                                 join o2 in _shiftRepository.GetAll() on o.ShiftId equals o2.Id into j2
+                                 from s2 in j2.DefaultIfEmpty()
+                                 where o.UserId == input.Id
+
+                                 select new GetUserShiftForViewDto()
+                                 {
+                                     UserShift = new UserShiftDto
+                                     {
+                                         Date = o.Date,
+                                         Id = o.Id,
+                                         UserId = o.UserId,
+                                         ShiftId = o.ShiftId
+                                     },
+                                     ShiftNameEn = s2 == null ? "" : s2.NameEn.ToString()
+                                 };
                 
 
-                
+                output.User.UserShifts = await userShifts.ToListAsync();
+
                 output.ProfilePictureId = user.ProfilePictureId;
 
 
@@ -549,15 +570,17 @@ namespace Pixel.Attendance.Authorization.Users
                 );
             }
 
-            if (input.User.TimeProfile != null)
+            //add user shifts here 
+            foreach (var userShiftModel in input.User.UserShifts)
             {
-                var timeProfileToUpdate = ObjectMapper.Map<TimeProfile>(input.User.TimeProfile);
-                timeProfileToUpdate.UserId = user.Id;
-                await _timeProfileRepository.InsertOrUpdateAsync(timeProfileToUpdate);
-                foreach (var item in timeProfileToUpdate.TimeProfileDetails)
-                {
-                    await _timeProfileDetailRepository.InsertOrUpdateAsync(item);
-                }
+                //check if new 
+                if (userShiftModel.UserShift.IsNew)
+                    await _userShiftRepository.InsertAsync(ObjectMapper.Map<UserShift>(userShiftModel.UserShift));
+                               
+
+                if (userShiftModel.UserShift.IsDeleted && userShiftModel.UserShift.Id > 0)
+                    await _userShiftRepository.HardDeleteAsync(ObjectMapper.Map<UserShift>(userShiftModel.UserShift));
+
             }
         }
 
@@ -629,13 +652,14 @@ namespace Pixel.Attendance.Authorization.Users
                     input.User.Password
                 );
             }
-            
-            if (input.User.TimeProfile != null)
+
+            //add user shifts 
+            foreach (var userShiftModel in input.User.UserShifts)
             {
-                var timeProfileToUpdate = ObjectMapper.Map<TimeProfile>(input.User.TimeProfile);
-                timeProfileToUpdate.UserId = user.Id;
-                await _timeProfileRepository.InsertOrUpdateAsync(timeProfileToUpdate);
+                //add user shift 
+                await _userShiftRepository.InsertAsync(ObjectMapper.Map<UserShift>(userShiftModel.UserShift));
             }
+
         }
 
         private async Task FillRoleNames(IReadOnlyCollection<UserListDto> userListDtos)

@@ -41,9 +41,9 @@
     <text name="EditTempTransaction">Edit temp transaction</text>
     <text name="DeleteTempTransaction">Delete temp transaction</text>
     <text name="ManualTransaction">Manual transaction</text>
-    <text name="FingerCode">Finger code</text>
+    <text name="FingerCode">Finger Code</text>
     <text name="TransDate">Trans date</text>
-    <text name="CivilId">Civil id</text>
+    
     <text name="ManualTransactionsHeaderInfo">Manual transactions header info</text>
     <text name="CreateNewManualTransaction">Create new manual transaction</text>
     <text name="EditManualTransaction">Edit manual transaction</text>
@@ -1071,7 +1071,7 @@
     <text name="Link">Link</text>
     <text name="Billing">Billing</text>
     <text name="LegalName">Legal Name</text>
-    <text name="Address">Address</text>
+    
     <text name="Tax/VatNo">Tax/VatNo</text>
     <text name="Invoice">Invoice</text>
     <text name="TotalAmount">Total Amount</text>
@@ -1405,6 +1405,21 @@
     <text name="PickManager">Pick Manager  </text>
 <text name="DisplayName">Display NAme  </text>
     <text name="DeductType">Deduct Type   </text>
+    
+  <text name="CardNumber"> Card Number   </text>
+    <text name="fingerPassword"> Finger Password  </text>
+    <text name="Telephone_2"> Telephone_2  </text>
+    <text name="Extension"> Extension  </text>
+    <text name="DateOfBirth"> Birthday  </text>
+    <text name="JoinDate"> Join Date  </text>
+    <text name="CivilId">  Civil Number </text>
+    <text name="Address"> Address  </text>
+    <text name="Address2"> Address2  </text>
+    <text name="JobTitle"> Job Title  </text>
+    <text name="LocationName"> Location Name  </text>
+    <text name="LocationDisplayName">  Name </text>
+
+
     
   </texts>
 </localizationDictionary>

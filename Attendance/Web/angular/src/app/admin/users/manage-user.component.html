@@ -138,7 +138,7 @@
                                     <input [ngClass]="{ 'is-invalid': userForm.submitted && codeInput.invalid}" #codeInput="ngModel" id="Code" type="text" name="Code" class="form-control" [(ngModel)]="user.code" maxlength="32" required>
                                 </div>
                                 <div class="col-lg-6">
-                                    <label for="fingerCode">{{"fingerCode" | localize}} *</label>
+                                    <label for="fingerCode">{{"FingerCode" | localize}} *</label>
                                     <input  [ngClass]="{ 'is-invalid': userForm.submitted && fingerInput.invalid}" #fingerInput="ngModel" id="fingerCode" type="text" name="fingerCode" class="form-control" [(ngModel)]="user.fingerCode" maxlength="32" required>
                                 </div>
 
@@ -146,11 +146,11 @@
                             </div>
                             <div class="form-group row">
                                 <div class="col-lg-6">
-                                    <label for="cardNumber">{{"cardNumber" | localize}} *</label>
+                                    <label for="cardNumber">{{"CardNumber" | localize}} *</label>
                                     <input  [ngClass]="{ 'is-invalid': userForm.submitted && cardInput.invalid}" #cardInput="ngModel" id="cardNumber" type="text" name="cardNumber" class="form-control" [(ngModel)]="user.cardNumber" maxlength="32" required>
                                 </div>
                                 <div class="col-lg-6">
-                                    <label for="fingerPassword">{{"fingerPassword" | localize}} *</label>
+                                    <label for="fingerPassword">{{"FingerPassword" | localize}} *</label>
                                     <input  [ngClass]="{ 'is-invalid': userForm.submitted && fingerPasswordInput.invalid}" #fingerPasswordInput="ngModel" id="fingerPassword" type="text" name="fingerPassword" class="form-control" [(ngModel)]="user.fingerPassword" maxlength="32" required>
                                 </div>
 
@@ -158,13 +158,13 @@
                             </div>
                             <div class="form-group row">
                                 <div class="col-lg-6">
-                                    <label for="title">{{"title" | localize}}</label>
+                                    <label for="title">{{"Title" | localize}}</label>
                                     <!-- <input id="title" type="text" name="title" class="form-control" [(ngModel)]="user.title" maxlength="32"> -->
                                     <p-dropdown [ngClass]="{ 'is-invalid': userForm.submitted && titleInput.invalid}" #titleInput="ngModel" styleClass="form-control" [options]="titles" [(ngModel)]="user.titleId" name="title" [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'"></p-dropdown>
 
                                 </div>
                                 <div class="col-lg-6">
-                                    <label for="nationality">{{"nationality" | localize}}</label>
+                                    <label for="nationality">{{"Nationality" | localize}}</label>
                                     <!-- <input id="nationality" type="text" name="nationality" class="form-control" [(ngModel)]="user.nationality" maxlength="32"> -->
                                     <p-dropdown [ngClass]="{ 'is-invalid': userForm.submitted && nationalityInput.invalid}" #nationalityInput="ngModel" styleClass="form-control" [options]="nationalities" [(ngModel)]="user.nationalityId" name="nationality" [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'"></p-dropdown>
                                 </div>
@@ -172,11 +172,11 @@
                             </div>
                             <div class="form-group row">
                                <div class="col-lg-6">
-                                <label for="telephone_2">{{"telephone_2" | localize}}</label>
+                                <label for="telephone_2">{{"Telephone_2" | localize}}</label>
                                 <input id="telephone_2" type="text" name="telephone_2" class="form-control" [(ngModel)]="user.telephone_2" maxlength="32">
                                </div>
                                <div class="col-lg-6">
-                                <label for="extension">{{"extension" | localize}}</label>
+                                <label for="extension">{{"Extension" | localize}}</label>
                                 <input id="extension" type="text" name="extension" class="form-control" [(ngModel)]="user.extension" maxlength="32">
                                </div>
                             </div>
@@ -184,35 +184,35 @@
                             <div class="form-group row">
 
                                 <div class="col-lg-6">
-                                    <label for="dateOfBirth">{{"dateOfBirth" | localize}}</label>
+                                    <label for="dateOfBirth">{{"DateOfBirth" | localize}}</label>
                                     <!-- <input id="dateOfBirth" type="date" name="dateOfBirth" class="form-control" [(ngModel)]="user.dateOfBirth" maxlength="32"> -->
-                                    <input [required]="true" class="form-control m-input" type="datetime" bsDatepicker [(ngModel)]="user.dateOfBirth._d"  onkeydown="return false" id="User_DateOfBirth" name="User_DateOfBirth">
+                                    <input [required]="true" class="form-control m-input" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY',isAnimated: true }" type="datetime" bsDatepicker [(ngModel)]="user.dateOfBirth._d"  onkeydown="return false" id="User_DateOfBirth" name="User_DateOfBirth">
                                 </div>
                                 <div class="col-lg-6">
-                                    <label for="joinDate">{{"joinDate" | localize}}</label>
+                                    <label for="joinDate">{{"JoinDate" | localize}}</label>
                                     <!-- <input id="joinDate" type="date" name="joinDate" class="form-control" [(ngModel)]="user.joinDate" maxlength="32"> -->
-                                    <input required class="form-control m-input" type="datetime" bsDatepicker [(ngModel)]="user.joinDate._d"  onkeydown="return false"  id="joinDate" name="joinDate">
+                                    <input required class="form-control m-input" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY',isAnimated: true }" type="datetime" bsDatepicker [(ngModel)]="user.joinDate._d"  onkeydown="return false"  id="joinDate" name="joinDate">
                                 </div>
 
                             </div>
                             <div class="form-group row">
                                 <div class="col-lg-6">
-                                    <label for="civilId">{{"civilId" | localize}}</label>
-                                <input OnlyNumber="true"  [ngClass]="{ 'is-invalid': userForm.submitted && nationalityInput.invalid}" #nationalityInput="ngModel" required   id="civilId" type="text" name="civilId" class="form-control" [(ngModel)]="user.civilId" maxlength="12">
+                                    <label for="civilId">{{"CivilId" | localize}}</label>
+                                <input OnlyNumber="true"  [ngClass]="{ 'is-invalid': userForm.submitted && nationalityInput.invalid}" #nationalityInput="ngModel" required   id="civilId" type="text" name="civilId" class="form-control" [(ngModel)]="user.civilId" minlength="12" maxlength="12">
                                 </div>
                                 <div class="col-lg-6">
-                                    <label for="address">{{"address" | localize}}</label>
+                                    <label for="address">{{"Address" | localize}}</label>
                                     <input id="address" type="text" name="address" class="form-control" [(ngModel)]="user.address" maxlength="32">
                                 </div>
 
                             </div>
                             <div class="form-group row">
                                 <div class="col-lg-6">
-                                    <label for="address2">{{"address2" | localize}}</label>
+                                    <label for="address2">{{"Address2" | localize}}</label>
                                     <input id="address2" type="text" name="address2" class="form-control" [(ngModel)]="user.address2" maxlength="32">
                                 </div>
                                 <div class="col-lg-6">
-                                    <label for="JobTitleId">{{"JobTile" | localize}}</label>
+                                    <label for="JobTitleId">{{"JobTitle" | localize}}</label>
                                     <select [ngClass]="{ 'is-invalid': userForm.submitted && jobTitleIdInput.invalid}" required #jobTitleIdInput="ngModel" name="jobTitleId" class="form-control bs-select" [(ngModel)]="user.jobTitleId">
                                         <option *ngFor="let jobTitle of jobTitles" [value]="jobTitle.id">
                                             {{jobTitle.nameAr}}
@@ -222,28 +222,9 @@
                             </div>
 
                             <div class="form-group row">
-                                <div class="col-lg-3">
-                                    <label for="shiftList">{{l("Shift")}}</label>
-                                    <p-dropdown [ngClass]="{ 'is-invalid': userForm.submitted && shiftInput.invalid}" #shiftInput="ngModel" [required]="true" [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'" styleClass="form-control"  name="User_TimeProfile_ShiftId" [options]="shiftList" [(ngModel)]="user.timeProfile.shiftId" [filter]="true"></p-dropdown>
-                                </div>
-                                <div class="col-lg-3">
-                                    <label for="shiftList">{{l("ShiftType")}}</label>
-                                    <p-dropdown [ngClass]="{ 'is-invalid': userForm.submitted && shiftTypeInput.invalid}" #shiftTypeInput="ngModel" [required]="true" [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'" styleClass="form-control"  name="User_TimeProfile_ShiftTypeID_Saturday" [options]="shiftTypeList" [(ngModel)]="user.timeProfile.shiftTypeID_Saturday" [filter]="true"></p-dropdown>
-                                </div>
-                                <div class="col-lg-3">
-                                    <label for="User_TimeProfile_StartDate">{{l("StartDate")}}</label>
-                                    <input required class="form-control m-input" type="datetime" bsDatepicker [(ngModel)]="user.timeProfile.startDate._d" id="User_TimeProfile_StartDate" name="User_TimeProfile_StartDate">
-                                </div>
-                                <div class="col-lg-3">
-                                    <label for="User_TimeProfile_EndDate">{{l("EndDate")}}</label>
-                                    <input required class="form-control m-input" type="datetime" bsDatepicker [(ngModel)]="user.timeProfile.endDate._d" id="User_TimeProfile_EndDate" name="User_TimeProfile_EndDate">
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
                                 <div class="col-lg-4">
                                     <label for="selectedUsers">{{l("Manager")}}</label>
-                                    <p-dropdown [ngClass]="{ 'is-invalid': userForm.submitted && managerIdInput.invalid}" #managerIdInput="ngModel" [required]="true" [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'" styleClass="form-control"  name="userName" [options]="usersList" [(ngModel)]="user.managerId" [filter]="true"></p-dropdown>
+                                    <p-dropdown   [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'" styleClass="form-control"  name="userName" [options]="usersList" [(ngModel)]="user.managerId" [filter]="true"></p-dropdown>
                                 </div>
                                 <div class="col-lg-2 input-group-prepend" style="margin-top: 27px;">
                                     <button class="btn btn-warning" type="button" (click)="openUnitModal()" >{{l('ChooseUnit')}}</button>
@@ -256,7 +237,7 @@
                                 </div>
                                 <div class="col-lg-4" *ngIf="user.terminated">
                                     <label for="User_TerminationDate">{{l("TerminationDate")}}</label>
-                                    <input class="form-control m-input" type="datetime" bsDatepicker [(ngModel)]="user.terminationDate._d" id="User_TerminationDate" name="User_TerminationDate">
+                                    <input class="form-control m-input" type="datetime" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY',isAnimated: true }" bsDatepicker [(ngModel)]="user.terminationDate._d" id="User_TerminationDate" name="User_TerminationDate">
                                 </div>
                                 
                             </div>
@@ -291,11 +272,11 @@
                                 </div>
                                 <div class="col-lg-3">
                                     <label for="locationDateFrom">{{l("FromDate")}}</label>
-                                    <input [required]="true" required class="form-control m-input" type="datetime" bsDatepicker [(ngModel)]="locationDateFrom._d"  onkeydown="return false" id="locationDateFrom" name="locationDateFrom">
+                                    <input [required]="true" required class="form-control m-input" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY',isAnimated: true }" type="datetime" bsDatepicker [(ngModel)]="locationDateFrom._d"  onkeydown="return false" id="locationDateFrom" name="locationDateFrom">
                                 </div>
                                 <div class="col-lg-3">
                                     <label for="locationDateTo">{{l("ToDate")}}</label>
-                                    <input [required]="true" required class="form-control m-input" type="datetime" bsDatepicker [(ngModel)]="locationDateTo._d"  onkeydown="return false" id="locationDateTo" name="locationDateTo">
+                                    <input [required]="true" required class="form-control m-input" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY',isAnimated: true }" type="datetime" bsDatepicker [(ngModel)]="locationDateTo._d"  onkeydown="return false" id="locationDateTo" name="locationDateTo">
                                 </div>
                                 <div class="col-lg-3" style="padding-top: 23px;">
                                     <button type="button" class="btn btn-success" (click)="addUserLocation()" >{{l('Add')}}</button>
@@ -307,7 +288,7 @@
                                     <ng-template pTemplate="header" >
                                         <tr>
                                             <th >
-                                                {{l('locationDisplayName')}}
+                                                {{l('LocationName')}}
                                             </th>
                                             <th>
                                                 {{l('FromDate')}}
@@ -343,6 +324,91 @@
                                 </p-table>
                             </div>
 
+                        </tab>
+                        <tab heading="{{'Shift' | localize}}" name="fifth">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div  class="form-group row">
+                                        <div class="col-lg-3">
+                                            <label for="TimeProfile_StartDate">{{l("StartDate")}}</label>
+                                            <input required class="form-control m-input" type="datetime" bsDatepicker  [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY',isAnimated: true }" [(ngModel)]="startDate._d" id="startDate" name="startDate">
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <label for="endDate">{{l("EndDate")}}</label>
+                                            <input required class="form-control m-input" type="datetime" bsDatepicker  [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY',isAnimated: true }" [(ngModel)]="endDate._d" id="endDate" name="endDate">
+                                        </div>
+
+                                        <div class="col-lg-3">
+                                            <label for="Shift">{{l("Shift")}}</label>
+                                            <p-dropdown styleClass="form-control" optionLabel="shift.nameEn" [options]="shiftList" [(ngModel)]="selectedShift" name="selectedShift"  placeholder="Select a Shift" [showClear]="true"></p-dropdown>
+                                            
+                                        </div>
+
+                                        <div class="col-lg-3" style="margin-top: auto;">
+                                            <a href="javascript:void(0)" (click)="addShifts()"  class="btn btn-success btn-shadow-hover font-weight-bold mr-2">{{l("Add")}}</a>                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row align-items-center">
+                                <!--<Primeng-Datatable-Start>-->
+                                <div class="primeng-datatable-container col-12">
+                                    <p-table 
+                                    #dt
+                                    styleClass="ui-table-customers"
+                                    [value]="user.userShifts"
+                                    [responsive]="true"
+                                    [paginator]="true"
+                                    [rowHover]="true"
+                                    [rows]="10"
+                                    [rowsPerPageOptions]="[10,25,50]"
+                                    >
+                                        <ng-template pTemplate="caption">
+                                            {{l('UserShifts')}}
+                                            <!-- <div class="ui-table-globalfilter-container">
+                                                <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Global Search" />
+                                            </div> -->
+                                        </ng-template>
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                <th pSortableColumn="userShift.date">Day <p-sortIcon field="userShift.date"></p-sortIcon></th>
+                                                <th>{{l('Shift')}}</th>
+                                                <th>{{l('Action')}}</th>
+                                            </tr>
+                                            <tr>
+                                                <th>
+                                                    <p-calendar 
+                                                    (onSelect)="onDateSelect($event)"
+                                                     (onClearClick)="dt.filter('', 'userShift.date', 'equals')" 
+                                                     [showButtonBar]="true" 
+                                                     styleClass="ui-column-filter" 
+                                                     placeholder="Day"
+                                                      [readonlyInput]="true" 
+                                                      dateFormat="dd/mm/yy"></p-calendar>
+                                                </th>
+                                                <th></th>
+                                                <th></th>
+                                            </tr>
+                                           
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-userShiftView>
+                                            <tr [@rowsAnimation]="" *ngIf="!userShiftView.userShift.isDeleted">
+                                                
+                                                <td>
+                                                    {{userShiftView.userShift.date | momentFormat:'DD/MM/YYYY' }}
+                                                </td>
+                                                <td>
+                                                    {{userShiftView.shiftNameEn}}
+                                                </td>
+                                                <td>
+                                                    <button type="button" (click)="deleteUserShift(userShiftView)"  class="btn btn-danger">{{l("Delete")}}</button>
+                                                </td>
+                                        </tr>
+                                        </ng-template>
+                                    </p-table>
+                                </div>
+                            </div>
                         </tab>
                     </tabset>
                  </div>

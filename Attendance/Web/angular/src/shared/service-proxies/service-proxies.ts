@@ -51143,6 +51143,114 @@ export interface IGetUserForFaceIdOutput {
     managerDisplayName: string | undefined;
 }
 
+export class UserShiftDto implements IUserShiftDto {
+    date!: moment.Moment;
+    userId!: number | undefined;
+    shiftId!: number | undefined;
+    shift!: ShiftDto | undefined;
+    isNew!: boolean;
+    isModified!: boolean;
+    isDeleted!: boolean;
+    id!: number;
+
+    constructor(data?: IUserShiftDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.date = data["date"] ? moment(data["date"].toString()) : <any>undefined;
+            this.userId = data["userId"];
+            this.shiftId = data["shiftId"];
+            this.shift = data["shift"] ? ShiftDto.fromJS(data["shift"]) : <any>undefined;
+            this.isNew = data["isNew"];
+            this.isModified = data["isModified"];
+            this.isDeleted = data["isDeleted"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): UserShiftDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new UserShiftDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["date"] = this.date ? this.date.toISOString() : <any>undefined;
+        data["userId"] = this.userId;
+        data["shiftId"] = this.shiftId;
+        data["shift"] = this.shift ? this.shift.toJSON() : <any>undefined;
+        data["isNew"] = this.isNew;
+        data["isModified"] = this.isModified;
+        data["isDeleted"] = this.isDeleted;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IUserShiftDto {
+    date: moment.Moment;
+    userId: number | undefined;
+    shiftId: number | undefined;
+    shift: ShiftDto | undefined;
+    isNew: boolean;
+    isModified: boolean;
+    isDeleted: boolean;
+    id: number;
+}
+
+export class GetUserShiftForViewDto implements IGetUserShiftForViewDto {
+    userShift!: UserShiftDto | undefined;
+    userName!: string | undefined;
+    shiftNameEn!: string | undefined;
+
+    constructor(data?: IGetUserShiftForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.userShift = data["userShift"] ? UserShiftDto.fromJS(data["userShift"]) : <any>undefined;
+            this.userName = data["userName"];
+            this.shiftNameEn = data["shiftNameEn"];
+        }
+    }
+
+    static fromJS(data: any): GetUserShiftForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetUserShiftForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["userShift"] = this.userShift ? this.userShift.toJSON() : <any>undefined;
+        data["userName"] = this.userName;
+        data["shiftNameEn"] = this.shiftNameEn;
+        return data; 
+    }
+}
+
+export interface IGetUserShiftForViewDto {
+    userShift: UserShiftDto | undefined;
+    userName: string | undefined;
+    shiftNameEn: string | undefined;
+}
+
 export class UserEditDto implements IUserEditDto {
     id!: number | undefined;
     name!: string;
@@ -51180,7 +51288,7 @@ export class UserEditDto implements IUserEditDto {
     address!: string | undefined;
     address2!: string | undefined;
     mobilePasword!: string | undefined;
-    timeProfile!: CreateOrEditTimeProfileDto | undefined;
+    userShifts!: GetUserShiftForViewDto[] | undefined;
 
     constructor(data?: IUserEditDto) {
         if (data) {
@@ -51229,7 +51337,11 @@ export class UserEditDto implements IUserEditDto {
             this.address = data["address"];
             this.address2 = data["address2"];
             this.mobilePasword = data["mobilePasword"];
-            this.timeProfile = data["timeProfile"] ? CreateOrEditTimeProfileDto.fromJS(data["timeProfile"]) : <any>undefined;
+            if (Array.isArray(data["userShifts"])) {
+                this.userShifts = [] as any;
+                for (let item of data["userShifts"])
+                    this.userShifts!.push(GetUserShiftForViewDto.fromJS(item));
+            }
         }
     }
 
@@ -51278,7 +51390,11 @@ export class UserEditDto implements IUserEditDto {
         data["address"] = this.address;
         data["address2"] = this.address2;
         data["mobilePasword"] = this.mobilePasword;
-        data["timeProfile"] = this.timeProfile ? this.timeProfile.toJSON() : <any>undefined;
+        if (Array.isArray(this.userShifts)) {
+            data["userShifts"] = [];
+            for (let item of this.userShifts)
+                data["userShifts"].push(item.toJSON());
+        }
         return data; 
     }
 }
@@ -51320,7 +51436,7 @@ export interface IUserEditDto {
     address: string | undefined;
     address2: string | undefined;
     mobilePasword: string | undefined;
-    timeProfile: CreateOrEditTimeProfileDto | undefined;
+    userShifts: GetUserShiftForViewDto[] | undefined;
 }
 
 export class UserRoleDto implements IUserRoleDto {
@@ -51463,7 +51579,6 @@ export class GetUserForEditOutput implements IGetUserForEditOutput {
     device!: string | undefined;
     address!: string | undefined;
     address2!: string | undefined;
-    timeProfile!: CreateOrEditTimeProfileDto | undefined;
 
     constructor(data?: IGetUserForEditOutput) {
         if (data) {
@@ -51527,7 +51642,6 @@ export class GetUserForEditOutput implements IGetUserForEditOutput {
             this.device = data["device"];
             this.address = data["address"];
             this.address2 = data["address2"];
-            this.timeProfile = data["timeProfile"] ? CreateOrEditTimeProfileDto.fromJS(data["timeProfile"]) : <any>undefined;
         }
     }
 
@@ -51591,7 +51705,6 @@ export class GetUserForEditOutput implements IGetUserForEditOutput {
         data["device"] = this.device;
         data["address"] = this.address;
         data["address2"] = this.address2;
-        data["timeProfile"] = this.timeProfile ? this.timeProfile.toJSON() : <any>undefined;
         return data; 
     }
 }
@@ -51628,7 +51741,6 @@ export interface IGetUserForEditOutput {
     device: string | undefined;
     address: string | undefined;
     address2: string | undefined;
-    timeProfile: CreateOrEditTimeProfileDto | undefined;
 }
 
 export class GetUserPermissionsForEditOutput implements IGetUserPermissionsForEditOutput {
@@ -51858,7 +51970,7 @@ export class CreateOrUpdateUserInput implements ICreateOrUpdateUserInput {
     titleId!: number | undefined;
     managerId!: number | undefined;
     userLoaded!: boolean;
-    timeProfile!: CreateOrEditTimeProfileDto | undefined;
+    userShifts!: GetUserShiftForViewDto[] | undefined;
 
     constructor(data?: ICreateOrUpdateUserInput) {
         if (data) {
@@ -51918,7 +52030,11 @@ export class CreateOrUpdateUserInput implements ICreateOrUpdateUserInput {
             this.titleId = data["titleId"];
             this.managerId = data["managerId"];
             this.userLoaded = data["userLoaded"];
-            this.timeProfile = data["timeProfile"] ? CreateOrEditTimeProfileDto.fromJS(data["timeProfile"]) : <any>undefined;
+            if (Array.isArray(data["userShifts"])) {
+                this.userShifts = [] as any;
+                for (let item of data["userShifts"])
+                    this.userShifts!.push(GetUserShiftForViewDto.fromJS(item));
+            }
         }
     }
 
@@ -51974,7 +52090,11 @@ export class CreateOrUpdateUserInput implements ICreateOrUpdateUserInput {
         data["titleId"] = this.titleId;
         data["managerId"] = this.managerId;
         data["userLoaded"] = this.userLoaded;
-        data["timeProfile"] = this.timeProfile ? this.timeProfile.toJSON() : <any>undefined;
+        if (Array.isArray(this.userShifts)) {
+            data["userShifts"] = [];
+            for (let item of this.userShifts)
+                data["userShifts"].push(item.toJSON());
+        }
         return data; 
     }
 }
@@ -52011,7 +52131,7 @@ export interface ICreateOrUpdateUserInput {
     titleId: number | undefined;
     managerId: number | undefined;
     userLoaded: boolean;
-    timeProfile: CreateOrEditTimeProfileDto | undefined;
+    userShifts: GetUserShiftForViewDto[] | undefined;
 }
 
 export class UserReportDto implements IUserReportDto {
@@ -53280,98 +53400,6 @@ export class ListResultDtoOfUserLoginAttemptDto implements IListResultDtoOfUserL
 
 export interface IListResultDtoOfUserLoginAttemptDto {
     items: UserLoginAttemptDto[] | undefined;
-}
-
-export class UserShiftDto implements IUserShiftDto {
-    date!: moment.Moment;
-    userId!: number | undefined;
-    shiftId!: number | undefined;
-    id!: number;
-
-    constructor(data?: IUserShiftDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(data?: any) {
-        if (data) {
-            this.date = data["date"] ? moment(data["date"].toString()) : <any>undefined;
-            this.userId = data["userId"];
-            this.shiftId = data["shiftId"];
-            this.id = data["id"];
-        }
-    }
-
-    static fromJS(data: any): UserShiftDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new UserShiftDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["date"] = this.date ? this.date.toISOString() : <any>undefined;
-        data["userId"] = this.userId;
-        data["shiftId"] = this.shiftId;
-        data["id"] = this.id;
-        return data; 
-    }
-}
-
-export interface IUserShiftDto {
-    date: moment.Moment;
-    userId: number | undefined;
-    shiftId: number | undefined;
-    id: number;
-}
-
-export class GetUserShiftForViewDto implements IGetUserShiftForViewDto {
-    userShift!: UserShiftDto | undefined;
-    userName!: string | undefined;
-    shiftNameEn!: string | undefined;
-
-    constructor(data?: IGetUserShiftForViewDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(data?: any) {
-        if (data) {
-            this.userShift = data["userShift"] ? UserShiftDto.fromJS(data["userShift"]) : <any>undefined;
-            this.userName = data["userName"];
-            this.shiftNameEn = data["shiftNameEn"];
-        }
-    }
-
-    static fromJS(data: any): GetUserShiftForViewDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new GetUserShiftForViewDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["userShift"] = this.userShift ? this.userShift.toJSON() : <any>undefined;
-        data["userName"] = this.userName;
-        data["shiftNameEn"] = this.shiftNameEn;
-        return data; 
-    }
-}
-
-export interface IGetUserShiftForViewDto {
-    userShift: UserShiftDto | undefined;
-    userName: string | undefined;
-    shiftNameEn: string | undefined;
 }
 
 export class PagedResultDtoOfGetUserShiftForViewDto implements IPagedResultDtoOfGetUserShiftForViewDto {
