@@ -7,6 +7,7 @@ using System.Text;
 namespace Pixel.Attendance.Operations
 {
     
+    [Table("ProjectUsers")]
     public class ProjectUser
     {
         public long UserId { get; set; }

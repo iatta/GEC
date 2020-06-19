@@ -1,4 +1,3 @@
-import { UserShiftShiftLookupTableModalComponent } from './main/operations/userShifts/userShift-shift-lookup-table-modal.component';
 import { CustomProxyModule } from '@shared/service-proxies/custom-proxies.module';
 import { AbpModule } from '@abp/abp.module';
 import * as ngCommon from '@angular/common';

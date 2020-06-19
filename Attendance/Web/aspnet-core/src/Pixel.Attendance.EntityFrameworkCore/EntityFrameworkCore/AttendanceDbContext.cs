@@ -38,6 +38,7 @@ namespace Pixel.Attendance.EntityFrameworkCore
         public virtual DbQuery<ForgetInOutCore> ForgetInOutCore { get; set; }
         public virtual DbQuery<PermitReportCore> PermitReportCore { get; set; }
         public virtual DbQuery<EmployeeReportCore> EmployeeReportCore { get; set; }
+
         
 
         public virtual DbSet<TempTransaction> TempTransactions { get; set; }

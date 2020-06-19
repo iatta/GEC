@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Pixel.Attendance.EntityFrameworkCore;
 
 namespace Pixel.Attendance.Migrations
 {
     [DbContext(typeof(AttendanceDbContext))]
-    partial class AttendanceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200618123112_add_project_transaction_approve")]
+    partial class add_project_transaction_approve
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2730,8 +2732,8 @@ namespace Pixel.Attendance.Migrations
                     b.Property<int>("Manual")
                         .HasColumnType("int");
 
-                    b.Property<long>("Pin")
-                        .HasColumnType("bigint");
+                    b.Property<int>("Pin")
+                        .HasColumnType("int");
 
                     b.Property<int>("ProcessInOut")
                         .HasColumnType("int");
@@ -2767,8 +2769,6 @@ namespace Pixel.Attendance.Migrations
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Pin");
 
                     b.ToTable("Transactions");
                 });
@@ -4397,15 +4397,6 @@ namespace Pixel.Attendance.Migrations
                     b.HasOne("Pixel.Attendance.Authorization.Users.User", "UserFk")
                         .WithMany()
                         .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("Pixel.Attendance.Operations.Transaction", b =>
-                {
-                    b.HasOne("Pixel.Attendance.Authorization.Users.User", "User")
-                        .WithMany()
-                        .HasForeignKey("Pin")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Pixel.Attendance.Operations.UserShift", b =>

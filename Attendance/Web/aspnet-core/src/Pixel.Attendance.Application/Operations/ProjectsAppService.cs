@@ -42,7 +42,25 @@ namespace Pixel.Attendance.Operations
 		
 		  }
 
-		 public async Task<PagedResultDto<GetProjectForViewDto>> GetAll(GetAllProjectsInput input)
+        public async Task<List<ProjectDto>> GetAllFlatForProjectManager()
+        {
+            var data = await _projectRepository.GetAll().Where(x => x.ManagerId == GetCurrentUser().Id).ToListAsync();
+            return ObjectMapper.Map<List<ProjectDto>>(data);
+        }
+
+        public async Task<List<ProjectDto>> GetAllFlatForOrganizationUnitManager()
+        {
+            var data = await _projectRepository.GetAll().Where(x => x.OrganizationUnitId == GetCurrentUser().Id).ToListAsync();
+            return ObjectMapper.Map<List<ProjectDto>>(data);
+        }
+        public async Task<List<ProjectDto>> GetAllFlat()
+        {
+            var data = await _projectRepository.GetAll().ToListAsync();
+            return ObjectMapper.Map<List<ProjectDto>>(data);
+        }
+
+
+        public async Task<PagedResultDto<GetProjectForViewDto>> GetAll(GetAllProjectsInput input)
          {
 			
 			var filteredProjects = _projectRepository.GetAll()

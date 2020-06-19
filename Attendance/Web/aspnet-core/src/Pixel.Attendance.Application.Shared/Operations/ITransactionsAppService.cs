@@ -4,6 +4,7 @@ using Abp.Application.Services;
 using Abp.Application.Services.Dto;
 using Pixel.Attendance.Operations.Dtos;
 using Pixel.Attendance.Dto;
+using System.Collections.Generic;
 
 namespace Pixel.Attendance.Operations
 {
@@ -21,6 +22,12 @@ namespace Pixel.Attendance.Operations
 
 		Task<FileDto> GetTransactionsToExcel(GetAllTransactionsForExcelInput input);
 
-		
+        Task<EntityExistDto> TransactionExist(CreateOrEditTransactionDto input);
+        Task BulkUpdateTransactions(List<GetTransactionForViewDto> input);
+        Task<PagedResultDto<GetTransactionForViewDto>> GetAllTransactionForUnitManager(GetTransactionDto input);
+
+        Task<PagedResultDto<GetTransactionForViewDto>> GetAllTransactionForProjectManager(GetTransactionDto input);
+
+
     }
 }

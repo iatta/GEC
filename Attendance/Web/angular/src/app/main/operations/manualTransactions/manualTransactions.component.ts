@@ -49,6 +49,7 @@ export class ManualTransactionsComponent extends AppComponentBase {
     }
 
     getManualTransactions(event?: LazyLoadEvent) {
+        
         if (this.primengTableHelper.shouldResetPaging(event)) {
             this.paginator.changePage(0);
             return;

@@ -55,6 +55,8 @@ namespace Pixel.Attendance.Operations.Dtos
 		public string UserName { get; set; }
 		public string Time { get; set; }
 
+		public bool ProjectManagerApprove { get; set; }
+		public bool UnitManagerApprove { get; set; }
 
 
 	}

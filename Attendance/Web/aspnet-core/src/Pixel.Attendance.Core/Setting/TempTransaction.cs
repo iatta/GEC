@@ -57,7 +57,9 @@ namespace Pixel.Attendance.Setting
 		public virtual int ShiftType { get; set; }
 		
 		public virtual bool isNight { get; set; }
-		
 
-    }
+		public int ProjectId { get; set; }
+
+
+	}
 }

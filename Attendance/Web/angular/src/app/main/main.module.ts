@@ -193,6 +193,7 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 import {CheckboxModule} from 'primeng/checkbox';
 import { ManageUserShiftComponent } from './operations/userShifts/manage-user-shift.component';
+import { ProjectManagerTransactionsComponent } from './operations/manualTransactions/transaction-project-manager.component.';
 
 
 NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
@@ -332,11 +333,9 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
         InOutComponent,FingerReportComponent,ForgetInOutComponent,AbsentComponent,LateInEarlyOutComponent,PermitReportComponent,
         EmployeeReportComponent,
         AssignProjectUserLookupTableModalComponent,
-        ManageUserShiftComponent
+        ManageUserShiftComponent,
+        ProjectManagerTransactionsComponent
 
-    ],
-    exports: [
-        UserShiftShiftLookupTableModalComponent
     ],
     providers: [
         { provide: BsDatepickerConfig, useFactory: NgxBootstrapDatePickerConfigService.getDatepickerConfig },

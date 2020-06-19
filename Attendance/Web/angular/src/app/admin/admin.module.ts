@@ -1,4 +1,3 @@
-import { UserShiftShiftLookupTableModalComponent } from './../main/operations/userShifts/userShift-shift-lookup-table-modal.component';
 import { OrganizationManagerModalComponent } from './organization-units/organization-manager-modal';
 import { ManageFaceIdComponent } from './users/manage-face-id.component';
 import { OrganizationUnitsHorizontalTreeModalUserComponent } from './shared/organization-horizontal-tree-modal-user.component';
@@ -218,8 +217,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         ManageUserComponent,
         OrganizationUnitsHorizontalTreeModalUserComponent,
         ManageFaceIdComponent,
-        OrganizationManagerModalComponent,
-        UserShiftShiftLookupTableModalComponent
+        OrganizationManagerModalComponent
 
     ],
     exports: [

@@ -93,25 +93,30 @@
 
                             <div class="from-group row">
                                 <div class="col-lg-4 timeGroup">
-                                    <div class="col-lg-2">
-                                        <label for="Shift_TimeOut">{{l("TimeOut")}}</label>
-                                        <timepicker [(ngModel)]="TimeOutObj"  name="TimeOutObj" [showMeridian]="meridian"></timepicker>
-                                    </div>
                                     <div class="col-lg-2" >
                                         <label for="Shift_TimeIn">{{l("TimeIn")}}</label>
                                         <timepicker  [(ngModel)]="TimeInObj"  name="TimeInObj"  [showMeridian]="meridian"></timepicker>
                                     </div>
+                                    <div class="col-lg-2">
+                                        <label for="Shift_TimeOut">{{l("TimeOut")}}</label>
+                                        <timepicker [(ngModel)]="TimeOutObj"  name="TimeOutObj" [showMeridian]="meridian"></timepicker>
+                                    </div>
                                    
                                 </div>
                                 <div class="col-lg-4" [ngClass]="{'timeGroup marginRight': this.localization.currentLanguage['isRightToLeft'],'timeGroupEn marginLeft': !this.localization.currentLanguage['isRightToLeft']}">
-                                    <div class="col-lg-2">
-                                        <label for="Shift_LateIn">{{l("LateIn")}}</label>
-                                        <timepicker  [(ngModel)]="LateInObj"  name="LateInObj" [showMeridian]="meridian"></timepicker>
+                                   
+                                    <div class="col-lg-6">
+                                       
+                                        <label for="deductType">{{l("DeductType")}}</label>
+                                        <div [ngClass]="{'option-right': this.localization.currentLanguage['isRightToLeft']}">
+                                            <p-radioButton name="deductType"   [label]="l('Actual')" value="0"  [(ngModel)]="shift.deductType"></p-radioButton>
+                                            <p-radioButton name="deductType"  [label]="l('Tolerance')"   value="1"    [(ngModel)]="shift.deductType"></p-radioButton>
+                                        </div>
                                     </div>
-                                    <div class="col-lg-2">
-                                        <label for="Shift_EarlyIn">{{l("EarlyIn")}}</label>
-                                        <timepicker [(ngModel)]="EarlyInObj"  name="EarlyInObj" [showMeridian]="meridian"></timepicker>
-                                    </div>
+                                <div class="col-lg-2">
+                                    <label for="IsOverTimeAllowed">{{l("IsOverTimeAllowed")}}</label>
+                                    <p-checkbox [(ngModel)]="shift.isOverTimeAllowed" name="isOverTimeAllowed" binary="true"></p-checkbox>
+                                </div>
                                     
                                 </div>
 
@@ -131,15 +136,15 @@
                                
                             </div>
                             <div class="col-lg-4" [ngClass]="{'timeGroup marginRight': this.localization.currentLanguage['isRightToLeft'],'timeGroupEn marginLeft': !this.localization.currentLanguage['isRightToLeft']}">
-                                <div class="col lg 2">
-                                    <label for="Shift_TimeInRangeTo">{{l("TimeInRangeTo")}}</label>
-                                    <timepicker  [(ngModel)]="TimeInRangeToObj"  name="TimeInRangeToObj" [showMeridian]="meridian"></timepicker>
+                                <div class="col-lg-2">
+                                    <label for="Shift_LateIn">{{l("LateIn")}}</label>
+                                    <timepicker  [(ngModel)]="LateInObj"  name="LateInObj" [showMeridian]="meridian"></timepicker>
                                 </div>
-                                <div class="col lg 2">
-                                    <label for="Shift_TimeInRangeFrom">{{l("TimeInRangeFrom")}}</label>
-                                    <timepicker  [(ngModel)]="TimeInRangeFromObj"  name="TimeInRangeFromObj" [showMeridian]="meridian"></timepicker>
-
+                                <div class="col-lg-2">
+                                    <label for="Shift_EarlyIn">{{l("EarlyIn")}}</label>
+                                    <timepicker [(ngModel)]="EarlyInObj"  name="EarlyInObj" [showMeridian]="meridian"></timepicker>
                                 </div>
+                                
                                
                             </div>
                             </div>
@@ -157,18 +162,19 @@
                                 </div>
                                 
                                 <div class="col-lg-4" [ngClass]="{'timeGroup marginRight': this.localization.currentLanguage['isRightToLeft'],'timeGroupEn marginLeft': !this.localization.currentLanguage['isRightToLeft']}">
-                                    <div class="col-lg-6">
-                                       
-                                            <label for="deductType">{{l("DeductType")}}</label>
-                                            <div [ngClass]="{'option-right': this.localization.currentLanguage['isRightToLeft']}">
-                                                <p-radioButton name="deductType"   [label]="l('Actual')" value="0"  [(ngModel)]="shift.deductType"></p-radioButton>
-                                                <p-radioButton name="deductType"  [label]="l('Tolerance')"   value="1"    [(ngModel)]="shift.deductType"></p-radioButton>
-                                            </div>
-                                        </div>
-                                    <div class="col-lg-2">
-                                        <label for="IsOverTimeAllowed">{{l("IsOverTimeAllowed")}}</label>
-                                        <p-checkbox [(ngModel)]="shift.isOverTimeAllowed" name="isOverTimeAllowed" binary="true"></p-checkbox>
+                                   
+                                   
+                                    <div class="col lg 2">
+                                        <label for="Shift_TimeInRangeTo">{{l("TimeInRangeTo")}}</label>
+                                        <timepicker  [(ngModel)]="TimeInRangeToObj"  name="TimeInRangeToObj" [showMeridian]="meridian"></timepicker>
                                     </div>
+                                    <div class="col lg 2">
+                                        <label for="Shift_TimeInRangeFrom">{{l("TimeInRangeFrom")}}</label>
+                                        <timepicker  [(ngModel)]="TimeInRangeFromObj"  name="TimeInRangeFromObj" [showMeridian]="meridian"></timepicker>
+    
+                                    </div>
+                                   
+                                   
                                  
                                 </div>
                                 

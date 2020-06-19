@@ -1,4 +1,3 @@
-import { UserShiftShiftLookupTableModalComponent } from './app/main/operations/userShifts/userShift-shift-lookup-table-modal.component';
 import { CustomProxyModule } from './shared/service-proxies/custom-proxies.module';
 import { AbpModule } from '@abp/abp.module';
 import { PlatformLocation, registerLocaleData } from '@angular/common';
@@ -246,7 +245,6 @@ function handleLogoutRequest(authService: AppAuthService) {
     ],
     declarations: [
         RootComponent
-        
     ],
     providers: [
         { provide: API_BASE_URL, useFactory: getRemoteServiceBaseUrl },

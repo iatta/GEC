@@ -58,6 +58,7 @@ export class AppNavigationService {
             new AppMenuItem('Fingerprints', '', 'flaticon-interface-6', '', [
                 new AppMenuItem('FaceId', 'Pages.Administration.Users', 'flaticon-users', '/app/admin/manageFaceId'),
                 new AppMenuItem('ManualTransactions', 'Pages.ManualTransactions', 'flaticon-more', '/app/main/operations/manualTransactions'),
+                new AppMenuItem('ProjectManagerTransactions', 'Pages.ManualTransactions', 'flaticon-more', '/app/main/operations/ProjectManagerTransactions'),
                 
             ]),
 

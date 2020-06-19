@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Abp.Domain.Entities.Auditing;
 using Abp.Domain.Entities;
+using Pixel.Attendance.Authorization.Users;
 
 namespace Pixel.Attendance.Operations
 {
@@ -16,8 +17,10 @@ namespace Pixel.Attendance.Operations
 		
 		public virtual int TransType { get; set; }
 		
-		public virtual int Pin { get; set; }
-		
+		public virtual long Pin { get; set; }
+
+		[ForeignKey("Pin")]
+		public User User { get; set; }
 		public virtual int Finger { get; set; }
 		
 		public virtual string Address { get; set; }
@@ -43,7 +46,10 @@ namespace Pixel.Attendance.Operations
 		public virtual DateTime ImportDate { get; set; }
 		
 		public virtual DateTime Transaction_Date { get; set; }
-		
 
-    }
+		public bool ProjectManagerApprove { get; set; }
+		public bool UnitManagerApprove { get; set; }
+
+
+	}
 }

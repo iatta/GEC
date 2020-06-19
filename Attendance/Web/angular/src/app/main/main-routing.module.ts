@@ -41,6 +41,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { EmployeePermitsManagerComponent } from './operations/employeePermits/employeePermits-manager.component';
 import { ManageOfficialTaskComponent } from './operations/employeeOfficialTasks/manage-official-task.component';
 import { ManageUserShiftComponent } from './operations/userShifts/manage-user-shift.component';
+import { ProjectManagerTransactionsComponent } from './operations/manualTransactions/transaction-project-manager.component.';
 
 @NgModule({
     imports: [
@@ -57,6 +58,7 @@ import { ManageUserShiftComponent } from './operations/userShifts/manage-user-sh
                     { path: 'operations/reports', component: ReportComponent, data: { permission: 'Pages.Reports' }  },
                     { path: 'operations/timeProfileReport', component: TimeProfileReportComponent, data: { permission: 'Pages.TimeProfileReport' }  },
                     { path: 'operations/manualTransactions', component: ManualTransactionsComponent, data: { permission: 'Pages.ManualTransactions' }  },
+                    { path: 'operations/ProjectManagerTransactions', component: ProjectManagerTransactionsComponent, data: { permission: 'Pages.ManualTransactions' }  },
                     { path: 'operations/trans', component: TransComponent, data: { permission: 'Pages.Trans' }  },
                     { path: 'operations/uploadEmpVacation', component: UploadEmpVacationComponent, data: { permission: 'Pages.UploadEmpVacation' }  },
                     { path: 'operations/uploadTimeProfile', component: UploadTimeProfileComponent, data: { permission: 'Pages.UploadTimeProfile' }  },

@@ -15409,6 +15409,171 @@ export class ProjectsServiceProxy {
     }
 
     /**
+     * @return Success
+     */
+    getAllFlatForProjectManager(): Observable<ProjectDto[]> {
+        let url_ = this.baseUrl + "/api/services/app/Projects/GetAllFlatForProjectManager";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllFlatForProjectManager(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllFlatForProjectManager(<any>response_);
+                } catch (e) {
+                    return <Observable<ProjectDto[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ProjectDto[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAllFlatForProjectManager(response: HttpResponseBase): Observable<ProjectDto[]> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(ProjectDto.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ProjectDto[]>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getAllFlatForOrganizationUnitManager(): Observable<ProjectDto[]> {
+        let url_ = this.baseUrl + "/api/services/app/Projects/GetAllFlatForOrganizationUnitManager";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllFlatForOrganizationUnitManager(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllFlatForOrganizationUnitManager(<any>response_);
+                } catch (e) {
+                    return <Observable<ProjectDto[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ProjectDto[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAllFlatForOrganizationUnitManager(response: HttpResponseBase): Observable<ProjectDto[]> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(ProjectDto.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ProjectDto[]>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
+    getAllFlat(): Observable<ProjectDto[]> {
+        let url_ = this.baseUrl + "/api/services/app/Projects/GetAllFlat";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllFlat(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllFlat(<any>response_);
+                } catch (e) {
+                    return <Observable<ProjectDto[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ProjectDto[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAllFlat(response: HttpResponseBase): Observable<ProjectDto[]> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(ProjectDto.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ProjectDto[]>(<any>null);
+    }
+
+    /**
      * @param filter (optional) 
      * @param nameArFilter (optional) 
      * @param nameEnFilter (optional) 
@@ -23066,6 +23231,246 @@ export class TransactionsServiceProxy {
             }));
         }
         return _observableOf<FileDto>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    transactionExist(body: CreateOrEditTransactionDto | undefined): Observable<EntityExistDto> {
+        let url_ = this.baseUrl + "/api/services/app/Transactions/TransactionExist";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json", 
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processTransactionExist(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processTransactionExist(<any>response_);
+                } catch (e) {
+                    return <Observable<EntityExistDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<EntityExistDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processTransactionExist(response: HttpResponseBase): Observable<EntityExistDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = EntityExistDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<EntityExistDto>(<any>null);
+    }
+
+    /**
+     * @param projectId (optional) 
+     * @param fromDate (optional) 
+     * @param toDate (optional) 
+     * @return Success
+     */
+    getAllTransactionForProjectManager(projectId: number | undefined, fromDate: moment.Moment | undefined, toDate: moment.Moment | undefined): Observable<PagedResultDtoOfGetTransactionForViewDto> {
+        let url_ = this.baseUrl + "/api/services/app/Transactions/GetAllTransactionForProjectManager?";
+        if (projectId === null)
+            throw new Error("The parameter 'projectId' cannot be null.");
+        else if (projectId !== undefined)
+            url_ += "ProjectId=" + encodeURIComponent("" + projectId) + "&"; 
+        if (fromDate === null)
+            throw new Error("The parameter 'fromDate' cannot be null.");
+        else if (fromDate !== undefined)
+            url_ += "FromDate=" + encodeURIComponent(fromDate ? "" + fromDate.toJSON() : "") + "&"; 
+        if (toDate === null)
+            throw new Error("The parameter 'toDate' cannot be null.");
+        else if (toDate !== undefined)
+            url_ += "ToDate=" + encodeURIComponent(toDate ? "" + toDate.toJSON() : "") + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllTransactionForProjectManager(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllTransactionForProjectManager(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfGetTransactionForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfGetTransactionForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAllTransactionForProjectManager(response: HttpResponseBase): Observable<PagedResultDtoOfGetTransactionForViewDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfGetTransactionForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfGetTransactionForViewDto>(<any>null);
+    }
+
+    /**
+     * @param projectId (optional) 
+     * @param fromDate (optional) 
+     * @param toDate (optional) 
+     * @return Success
+     */
+    getAllTransactionForUnitManager(projectId: number | undefined, fromDate: moment.Moment | undefined, toDate: moment.Moment | undefined): Observable<PagedResultDtoOfGetTransactionForViewDto> {
+        let url_ = this.baseUrl + "/api/services/app/Transactions/GetAllTransactionForUnitManager?";
+        if (projectId === null)
+            throw new Error("The parameter 'projectId' cannot be null.");
+        else if (projectId !== undefined)
+            url_ += "ProjectId=" + encodeURIComponent("" + projectId) + "&"; 
+        if (fromDate === null)
+            throw new Error("The parameter 'fromDate' cannot be null.");
+        else if (fromDate !== undefined)
+            url_ += "FromDate=" + encodeURIComponent(fromDate ? "" + fromDate.toJSON() : "") + "&"; 
+        if (toDate === null)
+            throw new Error("The parameter 'toDate' cannot be null.");
+        else if (toDate !== undefined)
+            url_ += "ToDate=" + encodeURIComponent(toDate ? "" + toDate.toJSON() : "") + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllTransactionForUnitManager(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllTransactionForUnitManager(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfGetTransactionForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfGetTransactionForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAllTransactionForUnitManager(response: HttpResponseBase): Observable<PagedResultDtoOfGetTransactionForViewDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfGetTransactionForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfGetTransactionForViewDto>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    bulkUpdateTransactions(body: GetTransactionForViewDto[] | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Transactions/BulkUpdateTransactions";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json", 
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processBulkUpdateTransactions(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processBulkUpdateTransactions(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processBulkUpdateTransactions(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
     }
 }
 
@@ -50159,6 +50564,8 @@ export class TransactionDto implements ITransactionDto {
     creationTime!: moment.Moment;
     userName!: string | undefined;
     time!: string | undefined;
+    projectManagerApprove!: boolean;
+    unitManagerApprove!: boolean;
     id!: number;
 
     constructor(data?: ITransactionDto) {
@@ -50179,6 +50586,8 @@ export class TransactionDto implements ITransactionDto {
             this.creationTime = data["creationTime"] ? moment(data["creationTime"].toString()) : <any>undefined;
             this.userName = data["userName"];
             this.time = data["time"];
+            this.projectManagerApprove = data["projectManagerApprove"];
+            this.unitManagerApprove = data["unitManagerApprove"];
             this.id = data["id"];
         }
     }
@@ -50199,6 +50608,8 @@ export class TransactionDto implements ITransactionDto {
         data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
         data["userName"] = this.userName;
         data["time"] = this.time;
+        data["projectManagerApprove"] = this.projectManagerApprove;
+        data["unitManagerApprove"] = this.unitManagerApprove;
         data["id"] = this.id;
         return data; 
     }
@@ -50212,12 +50623,31 @@ export interface ITransactionDto {
     creationTime: moment.Moment;
     userName: string | undefined;
     time: string | undefined;
+    projectManagerApprove: boolean;
+    unitManagerApprove: boolean;
     id: number;
 }
 
 export class GetTransactionForViewDto implements IGetTransactionForViewDto {
     transaction!: TransactionDto | undefined;
     userName!: string | undefined;
+    projectName!: string | undefined;
+    shiftName!: string | undefined;
+    dayOff!: DayDto;
+    dayRest!: DayDto;
+    timeIn!: number;
+    timeOut!: number;
+    earlyIn!: number;
+    lateIn!: number;
+    earlyOut!: number;
+    lateOut!: number;
+    timeInRangeFrom!: number;
+    timeInRangeTo!: number;
+    timeOutRangeFrom!: number;
+    timeOutRangeTo!: number;
+    overtime!: number;
+    attendance_LateIn!: number;
+    attendance_EarlyOut!: number;
 
     constructor(data?: IGetTransactionForViewDto) {
         if (data) {
@@ -50232,6 +50662,23 @@ export class GetTransactionForViewDto implements IGetTransactionForViewDto {
         if (data) {
             this.transaction = data["transaction"] ? TransactionDto.fromJS(data["transaction"]) : <any>undefined;
             this.userName = data["userName"];
+            this.projectName = data["projectName"];
+            this.shiftName = data["shiftName"];
+            this.dayOff = data["dayOff"];
+            this.dayRest = data["dayRest"];
+            this.timeIn = data["timeIn"];
+            this.timeOut = data["timeOut"];
+            this.earlyIn = data["earlyIn"];
+            this.lateIn = data["lateIn"];
+            this.earlyOut = data["earlyOut"];
+            this.lateOut = data["lateOut"];
+            this.timeInRangeFrom = data["timeInRangeFrom"];
+            this.timeInRangeTo = data["timeInRangeTo"];
+            this.timeOutRangeFrom = data["timeOutRangeFrom"];
+            this.timeOutRangeTo = data["timeOutRangeTo"];
+            this.overtime = data["overtime"];
+            this.attendance_LateIn = data["attendance_LateIn"];
+            this.attendance_EarlyOut = data["attendance_EarlyOut"];
         }
     }
 
@@ -50246,6 +50693,23 @@ export class GetTransactionForViewDto implements IGetTransactionForViewDto {
         data = typeof data === 'object' ? data : {};
         data["transaction"] = this.transaction ? this.transaction.toJSON() : <any>undefined;
         data["userName"] = this.userName;
+        data["projectName"] = this.projectName;
+        data["shiftName"] = this.shiftName;
+        data["dayOff"] = this.dayOff;
+        data["dayRest"] = this.dayRest;
+        data["timeIn"] = this.timeIn;
+        data["timeOut"] = this.timeOut;
+        data["earlyIn"] = this.earlyIn;
+        data["lateIn"] = this.lateIn;
+        data["earlyOut"] = this.earlyOut;
+        data["lateOut"] = this.lateOut;
+        data["timeInRangeFrom"] = this.timeInRangeFrom;
+        data["timeInRangeTo"] = this.timeInRangeTo;
+        data["timeOutRangeFrom"] = this.timeOutRangeFrom;
+        data["timeOutRangeTo"] = this.timeOutRangeTo;
+        data["overtime"] = this.overtime;
+        data["attendance_LateIn"] = this.attendance_LateIn;
+        data["attendance_EarlyOut"] = this.attendance_EarlyOut;
         return data; 
     }
 }
@@ -50253,6 +50717,23 @@ export class GetTransactionForViewDto implements IGetTransactionForViewDto {
 export interface IGetTransactionForViewDto {
     transaction: TransactionDto | undefined;
     userName: string | undefined;
+    projectName: string | undefined;
+    shiftName: string | undefined;
+    dayOff: DayDto;
+    dayRest: DayDto;
+    timeIn: number;
+    timeOut: number;
+    earlyIn: number;
+    lateIn: number;
+    earlyOut: number;
+    lateOut: number;
+    timeInRangeFrom: number;
+    timeInRangeTo: number;
+    timeOutRangeFrom: number;
+    timeOutRangeTo: number;
+    overtime: number;
+    attendance_LateIn: number;
+    attendance_EarlyOut: number;
 }
 
 export class PagedResultDtoOfGetTransactionForViewDto implements IPagedResultDtoOfGetTransactionForViewDto {
@@ -50322,6 +50803,8 @@ export class CreateOrEditTransactionDto implements ICreateOrEditTransactionDto {
     transaction_Date!: moment.Moment;
     userName!: string | undefined;
     time!: string | undefined;
+    projectManagerApprove!: boolean;
+    unitManagerApprove!: boolean;
     id!: number | undefined;
 
     constructor(data?: ICreateOrEditTransactionDto) {
@@ -50353,6 +50836,8 @@ export class CreateOrEditTransactionDto implements ICreateOrEditTransactionDto {
             this.transaction_Date = data["transaction_Date"] ? moment(data["transaction_Date"].toString()) : <any>undefined;
             this.userName = data["userName"];
             this.time = data["time"];
+            this.projectManagerApprove = data["projectManagerApprove"];
+            this.unitManagerApprove = data["unitManagerApprove"];
             this.id = data["id"];
         }
     }
@@ -50384,6 +50869,8 @@ export class CreateOrEditTransactionDto implements ICreateOrEditTransactionDto {
         data["transaction_Date"] = this.transaction_Date ? this.transaction_Date.toISOString() : <any>undefined;
         data["userName"] = this.userName;
         data["time"] = this.time;
+        data["projectManagerApprove"] = this.projectManagerApprove;
+        data["unitManagerApprove"] = this.unitManagerApprove;
         data["id"] = this.id;
         return data; 
     }
@@ -50408,6 +50895,8 @@ export interface ICreateOrEditTransactionDto {
     transaction_Date: moment.Moment;
     userName: string | undefined;
     time: string | undefined;
+    projectManagerApprove: boolean;
+    unitManagerApprove: boolean;
     id: number | undefined;
 }
 
@@ -50449,6 +50938,46 @@ export class GetTransactionForEditOutput implements IGetTransactionForEditOutput
 export interface IGetTransactionForEditOutput {
     transaction: CreateOrEditTransactionDto | undefined;
     userName: string | undefined;
+}
+
+export class EntityExistDto implements IEntityExistDto {
+    isExist!: boolean;
+    id!: number | undefined;
+
+    constructor(data?: IEntityExistDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.isExist = data["isExist"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): EntityExistDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new EntityExistDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["isExist"] = this.isExist;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IEntityExistDto {
+    isExist: boolean;
+    id: number | undefined;
 }
 
 export class TypesOfPermitDto implements ITypesOfPermitDto {
@@ -51211,6 +51740,7 @@ export class GetUserShiftForViewDto implements IGetUserShiftForViewDto {
     userShift!: UserShiftDto | undefined;
     userName!: string | undefined;
     shiftNameEn!: string | undefined;
+    shiftNames!: string[] | undefined;
 
     constructor(data?: IGetUserShiftForViewDto) {
         if (data) {
@@ -51226,6 +51756,11 @@ export class GetUserShiftForViewDto implements IGetUserShiftForViewDto {
             this.userShift = data["userShift"] ? UserShiftDto.fromJS(data["userShift"]) : <any>undefined;
             this.userName = data["userName"];
             this.shiftNameEn = data["shiftNameEn"];
+            if (Array.isArray(data["shiftNames"])) {
+                this.shiftNames = [] as any;
+                for (let item of data["shiftNames"])
+                    this.shiftNames!.push(item);
+            }
         }
     }
 
@@ -51241,6 +51776,11 @@ export class GetUserShiftForViewDto implements IGetUserShiftForViewDto {
         data["userShift"] = this.userShift ? this.userShift.toJSON() : <any>undefined;
         data["userName"] = this.userName;
         data["shiftNameEn"] = this.shiftNameEn;
+        if (Array.isArray(this.shiftNames)) {
+            data["shiftNames"] = [];
+            for (let item of this.shiftNames)
+                data["shiftNames"].push(item);
+        }
         return data; 
     }
 }
@@ -51249,6 +51789,7 @@ export interface IGetUserShiftForViewDto {
     userShift: UserShiftDto | undefined;
     userName: string | undefined;
     shiftNameEn: string | undefined;
+    shiftNames: string[] | undefined;
 }
 
 export class UserEditDto implements IUserEditDto {

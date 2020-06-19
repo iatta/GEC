@@ -30,6 +30,9 @@ namespace Pixel.Attendance.Operations
 		Task<PagedResultDto<ProjectOrganizationUnitLookupTableDto>> GetAllOrganizationUnitForLookupTable(GetAllForLookupTableInput input);
 		Task<List<ProjectUserDto>> GetProjectUsers(int projectId);
 		Task UpdateProjectUsers(ProjectUserInputDto input);
+		Task<List<ProjectDto>> GetAllFlatForProjectManager();
+		Task<List<ProjectDto>> GetAllFlatForOrganizationUnitManager();
+		Task<List<ProjectDto>> GetAllFlat();
 
 
 	}
