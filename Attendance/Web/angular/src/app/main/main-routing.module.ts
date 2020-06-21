@@ -42,6 +42,7 @@ import { EmployeePermitsManagerComponent } from './operations/employeePermits/em
 import { ManageOfficialTaskComponent } from './operations/employeeOfficialTasks/manage-official-task.component';
 import { ManageUserShiftComponent } from './operations/userShifts/manage-user-shift.component';
 import { ProjectManagerTransactionsComponent } from './operations/manualTransactions/transaction-project-manager.component.';
+import { UnitManagerTransactionsComponent } from './operations/manualTransactions/transaction-unit-manager.component';
 
 @NgModule({
     imports: [
@@ -49,16 +50,18 @@ import { ProjectManagerTransactionsComponent } from './operations/manualTransact
             {
                 path: '',
                 children: [
-                    { path: 'operations/manageUserShifts', component: ManageUserShiftComponent, data: { permission: 'Pages.UserShifts' }  },
+                    { path: 'operations/manageUserShifts', component: ManageUserShiftComponent, data: { permission: 'Pages.ManageUserShifts' }  },
                     // { path: 'operations/userShifts', component: UserShiftsComponent, data: { permission: 'Pages.UserShifts' }  },
                     { path: 'operations/projects', component: ProjectsComponent, data: { permission: 'Pages.Projects' }  },
-                    { path: 'settings/mobileWebPages', component: MobileWebPagesComponent, data: { permission: 'Pages.MobileWebPages' }  },
+                    // { path: 'settings/mobileWebPages', component: MobileWebPagesComponent, data: { permission: 'Pages.MobileWebPages' }  },
                     { path: 'operations/employeeWarnings', component: EmployeeWarningsComponent, data: { permission: 'Pages.EmployeeWarnings' }  },
                     { path: 'operations/employeeReport', component: EmployeeReportComponent, data: { permission: 'Pages.Reports' }  },
                     { path: 'operations/reports', component: ReportComponent, data: { permission: 'Pages.Reports' }  },
                     { path: 'operations/timeProfileReport', component: TimeProfileReportComponent, data: { permission: 'Pages.TimeProfileReport' }  },
                     { path: 'operations/manualTransactions', component: ManualTransactionsComponent, data: { permission: 'Pages.ManualTransactions' }  },
-                    { path: 'operations/ProjectManagerTransactions', component: ProjectManagerTransactionsComponent, data: { permission: 'Pages.ManualTransactions' }  },
+                    { path: 'operations/ProjectManagerTransactions', component: ProjectManagerTransactionsComponent, data: { permission: 'Pages.FingerPrint.ProjectManagerTransactions' }  },
+                    { path: 'operations/UnitManagerTransactions', component: UnitManagerTransactionsComponent, data: { permission: 'Pages.FingerPrint.UnitManagerTransactions' }  },
+                    
                     { path: 'operations/trans', component: TransComponent, data: { permission: 'Pages.Trans' }  },
                     { path: 'operations/uploadEmpVacation', component: UploadEmpVacationComponent, data: { permission: 'Pages.UploadEmpVacation' }  },
                     { path: 'operations/uploadTimeProfile', component: UploadTimeProfileComponent, data: { permission: 'Pages.UploadTimeProfile' }  },

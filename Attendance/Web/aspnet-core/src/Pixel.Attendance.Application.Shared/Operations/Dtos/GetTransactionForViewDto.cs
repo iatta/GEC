@@ -34,7 +34,9 @@ namespace Pixel.Attendance.Operations.Dtos
 		public int Overtime { get; set; }
 		public int Attendance_LateIn { get; set; }
 		public int Attendance_EarlyOut { get; set; }
-		
+		public int TotalOverTime { get; set; }
+		public int TotalUserCount { get; set; }
+
 
 	}
 }

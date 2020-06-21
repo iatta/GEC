@@ -13,11 +13,13 @@ import { appModuleAnimation } from '@shared/animations/routerTransition';
 import * as moment from 'moment';
 import { Router, ActivatedRoute, ParamMap ,Params } from '@angular/router';
 import { NgForm } from '@angular/forms';
+import { rowsAnimation } from '@shared/animations/template.animations';
 
 @Component({
     selector: 'manageShift',
     templateUrl: './manage-shift.component.html',
-    styleUrls:['./shift-style.css']
+    styleUrls:['./shift-style.css'],
+    animations: [rowsAnimation],
 })
 export class ManageShiftComponent extends AppComponentBase implements OnInit {
 

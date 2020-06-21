@@ -18,6 +18,7 @@ using Pixel.Attendance.Authorization;
 using Abp.Extensions;
 using Abp.Authorization;
 using Microsoft.EntityFrameworkCore;
+using Pixel.Attendance.Extended;
 
 namespace Pixel.Attendance.Operations
 {
@@ -29,10 +30,10 @@ namespace Pixel.Attendance.Operations
 		 private readonly IProjectsExcelExporter _projectsExcelExporter;
 		 private readonly IRepository<User,long> _lookup_userRepository;
 		 private readonly IRepository<Location,int> _lookup_locationRepository;
-		 private readonly IRepository<OrganizationUnit,long> _lookup_organizationUnitRepository;
+		 private readonly IRepository<OrganizationUnitExtended,long> _lookup_organizationUnitRepository;
 		 
 
-		  public ProjectsAppService(IRepository<Project> projectRepository, IProjectsExcelExporter projectsExcelExporter , IRepository<User, long> lookup_userRepository, IRepository<Location, int> lookup_locationRepository, IRepository<OrganizationUnit, long> lookup_organizationUnitRepository) 
+		  public ProjectsAppService(IRepository<Project> projectRepository, IProjectsExcelExporter projectsExcelExporter , IRepository<User, long> lookup_userRepository, IRepository<Location, int> lookup_locationRepository, IRepository<OrganizationUnitExtended, long> lookup_organizationUnitRepository) 
 		  {
 			_projectRepository = projectRepository;
 			_projectsExcelExporter = projectsExcelExporter;
@@ -44,14 +45,20 @@ namespace Pixel.Attendance.Operations
 
         public async Task<List<ProjectDto>> GetAllFlatForProjectManager()
         {
+
             var data = await _projectRepository.GetAll().Where(x => x.ManagerId == GetCurrentUser().Id).ToListAsync();
             return ObjectMapper.Map<List<ProjectDto>>(data);
         }
 
         public async Task<List<ProjectDto>> GetAllFlatForOrganizationUnitManager()
         {
-            var data = await _projectRepository.GetAll().Where(x => x.OrganizationUnitId == GetCurrentUser().Id).ToListAsync();
+            var userUnits = _lookup_organizationUnitRepository.GetAll().Where(x => x.ManagerId == GetCurrentUser().Id).Select(x => x.Id).ToList();
+
+
+            var data = await _projectRepository.GetAll().Where(x => userUnits.Contains(x.OrganizationUnitId.Value)).ToListAsync();
             return ObjectMapper.Map<List<ProjectDto>>(data);
+
+           
         }
         public async Task<List<ProjectDto>> GetAllFlat()
         {

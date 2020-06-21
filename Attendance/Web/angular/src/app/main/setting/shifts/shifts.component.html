@@ -8,7 +8,7 @@
             </h3>
             <span class="kt-subheader__separator kt-subheader__separator--v"></span>
             <span class="kt-subheader__desc">
-                {{l("ShiftsHeaderInfo")}}
+                <!-- {{l("ShiftsHeaderInfo")}} -->
             </span>
         </div>
         <div class="kt-subheader__toolbar">
@@ -197,10 +197,10 @@
                                                         <b>{{l('LateOut')}} :</b>{{record.shift.lateOut | minutesToTime}}
                                                     </div>
                                                     <div class="ui-g-12">
-                                                        <b>{{l('TimeInRangeFrom')}} :</b> {{record.shift.timeInRangeFrom | minutesToTime}} <b>{{l('TimeInRangeTo')}} :</b> {{record.shift.timeInRangeTo | minutesToTime}}
+                                                        <b>{{l('TimeInRangeFrom')}} :</b> {{record.shift.timeInRangeFrom | minutesToTime}} <b>{{l('To')}} :</b> {{record.shift.timeInRangeTo | minutesToTime}}
                                                     </div>
                                                     <div class="ui-g-12">
-                                                        <b>{{l('TimeOutRangeFrom')}} :</b> {{record.shift.timeOutRangeFrom | minutesToTime}} <b>{{l('TimeOutRangeTo')}} :</b> {{record.shift.timeOutRangeTo | minutesToTime}}
+                                                        <b>{{l('TimeOutRangeFrom')}} :</b> {{record.shift.timeOutRangeFrom | minutesToTime}} <b>{{l('To')}} :</b> {{record.shift.timeOutRangeTo | minutesToTime}}
                                                     </div>
 
                                                 </div>

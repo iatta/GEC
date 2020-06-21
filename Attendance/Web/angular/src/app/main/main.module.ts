@@ -194,6 +194,8 @@ import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 import {CheckboxModule} from 'primeng/checkbox';
 import { ManageUserShiftComponent } from './operations/userShifts/manage-user-shift.component';
 import { ProjectManagerTransactionsComponent } from './operations/manualTransactions/transaction-project-manager.component.';
+import { UnitManagerTransactionsComponent } from './operations/manualTransactions/transaction-unit-manager.component';
+import { EditTimeTransactionModalComponent } from './operations/manualTransactions/edit-transaction-time-modal.component';
 
 
 NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
@@ -334,7 +336,9 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
         EmployeeReportComponent,
         AssignProjectUserLookupTableModalComponent,
         ManageUserShiftComponent,
-        ProjectManagerTransactionsComponent
+        ProjectManagerTransactionsComponent,
+        UnitManagerTransactionsComponent,
+        EditTimeTransactionModalComponent
 
     ],
     providers: [

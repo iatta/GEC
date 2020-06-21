@@ -10,13 +10,13 @@
                     </div>
                 </div>
                 <!--begin::Form-->
-                <form class="kt-form kt-form--fit kt-form--label-right"  #userShiftForm="ngForm" novalidate (ngSubmit)="save(userShiftForm)" autocomplete="off">
+                <form class="kt-form kt-form--fit kt-form--label-right" *ngIf="active"  #userShiftForm="ngForm" novalidate (ngSubmit)="save(userShiftForm)" autocomplete="off">
                     <div class="kt-portlet__body" [busyIf]="loading">
 
                                 <div class="form-group row">
-                                    <div class="col-lg-6" [hidden]="!usersList.length > 0">
+                                    <div class="col-lg-6">
                                         <label for="selectedUsers">{{l("Employee")}}</label>
-                                        <p-multiSelect styleClass="form-control"  [required]="true" #selectedUsersInput="ngModel"  [options]="usersList" name="selectedUsers" [(ngModel)]="selectedUsers"></p-multiSelect>
+                                        <p-multiSelect styleClass="form-control"   [required]="true" #selectedUsersInput="ngModel"  [options]="usersList" name="selectedUsers" [(ngModel)]="selectedUsers"></p-multiSelect>
                                         <validation-messages [formCtrl]="selectedUsersInput" [frm]="userShiftForm"></validation-messages>
 
                                     </div>
@@ -89,7 +89,7 @@
                                                        
                                                     </ng-template>
                                                     <ng-template pTemplate="body" let-userShiftDay>
-                                                        <tr>
+                                                        <tr [@rowsAnimation]="">
                                                             <td>
                                                                 {{userShiftDay.userName}}
                                                             </td>

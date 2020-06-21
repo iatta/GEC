@@ -86,7 +86,7 @@
                                     <select class="form-control" name="shiftType" [ngClass]="{ 'is-invalid': shiftForm.submitted && shiftTypeInput.invalid}"  #shiftTypeInput="ngModel" id="shiftType" [(ngModel)]="shift.shiftType" required>
                                         <validation-messages [formCtrl]="shiftTypeInput" [frm]="shiftForm"></validation-messages>
                                     <option value="1">{{l('Normal')}}</option>
-                                    <option value="2">{{l('OverTime')}}</option>
+                                    <option value="2">{{l('FixedOverTime')}}</option>
                                     </select>
                                 </div>
                             </div>

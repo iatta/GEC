@@ -27,6 +27,8 @@ namespace Pixel.Attendance.Operations
         Task<PagedResultDto<GetTransactionForViewDto>> GetAllTransactionForUnitManager(GetTransactionDto input);
 
         Task<PagedResultDto<GetTransactionForViewDto>> GetAllTransactionForProjectManager(GetTransactionDto input);
+        Task<PagedResultDto<GetTransactionForViewDto>> GetAllTransactionForHr(GetTransactionDto input);
+        Task UpdateSingleTransaction(GetTransactionForViewDto input);
 
 
     }

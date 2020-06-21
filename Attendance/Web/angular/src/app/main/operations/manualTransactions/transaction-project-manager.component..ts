@@ -2,7 +2,7 @@ import { PagedResultDtoOfGetTransactionForViewDto } from './../../../../shared/s
 import { filter } from 'rxjs/operators';
 import { Component, Injector, ViewEncapsulation, ViewChild, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { TransactionsServiceProxy, TransactionDto, ProjectDto, ProjectsServiceProxy } from '@shared/service-proxies/service-proxies';
+import { TransactionsServiceProxy, TransactionDto, ProjectDto, ProjectsServiceProxy, GetTransactionForViewDto } from '@shared/service-proxies/service-proxies';
 import { NotifyService } from '@abp/notify/notify.service';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { TokenAuthServiceProxy } from '@shared/service-proxies/service-proxies';
@@ -16,25 +16,33 @@ import { FileDownloadService } from '@shared/utils/file-download.service';
 import * as _ from 'lodash';
 import * as moment from 'moment';
 import { rowsAnimation } from '@shared/animations/template.animations';
+import { EditTimeTransactionModalComponent } from './edit-transaction-time-modal.component';
 
 @Component({
     templateUrl: './transaction-project-manager.component.html',
     animations: [rowsAnimation],
     styleUrls:['../../operations/userShifts/manager-user-shift.component.less']
+
 })
 export class ProjectManagerTransactionsComponent extends AppComponentBase implements OnInit {
 
-    
+    @ViewChild('editTimeTransactionModal', { static: true }) editTimeTransactionModal: EditTimeTransactionModalComponent;
 
     projectId:number;
-    fromDate:moment.Moment = moment();
-    toDate:moment.Moment =moment();
+    fromDate:string = moment().format('DD/MM/YYYY');
+    toDate:string =moment().format('DD/MM/YYYY');
     data:PagedResultDtoOfGetTransactionForViewDto = new PagedResultDtoOfGetTransactionForViewDto();
-    selectedTransactions:PagedResultDtoOfGetTransactionForViewDto[];
+    selectedTransactions:GetTransactionForViewDto[] = [];
     projectList:ProjectDto[];
     selectedProject:ProjectDto;
     loading=false;
     saving=false;
+    active = false;
+    totalUserCount = 0;
+    totalOverTime = 0;
+    totalOverTimeString='';
+
+
 
     constructor(
         injector: Injector,
@@ -50,18 +58,114 @@ export class ProjectManagerTransactionsComponent extends AppComponentBase implem
     ngOnInit(): void {
         this._projectServiceProxy.getAllFlatForProjectManager().subscribe((result)=>{
             this.projectList = result;
+            this.active = true;
             console.log(result);
         });
+    }
+
+    validateForm(){
+        let valid = true;
+        if(!this.selectedProject){
+            this.message.warn('Please Select Project');
+            valid = false;
+            return valid;
+        }
+        return valid;
     }
 
     getDate() {
-        this._transactionsServiceProxy.getAllTransactionForProjectManager(this.selectedProject.id,this.fromDate,this.toDate).subscribe((result)=>{
-            console.log(result);
-            this.data = result;
-        });
+        if(this.validateForm()){
+            let fromDateToPass = moment(this.fromDate,'DD/MM/YYYY');
+            let toDateToPass = moment(this.toDate,'DD/MM/YYYY');
+            this._transactionsServiceProxy.getAllTransactionForProjectManager(this.selectedProject.id,fromDateToPass,toDateToPass).subscribe((result)=>{
+                console.log(result);
+                this.data = result;
+                if(this.data.items.length){
+                //   this.totalUserCount =  this.data.items[0].totalUserCount;
+                  this.totalOverTime =  this.data.items[0].totalOverTime;
+                    let hours = Math.floor(this.totalOverTime  / 60);
+                    let minutes = this.totalOverTime  % 60;
+                    this.totalOverTimeString =  hours + ' hour/s  ' + minutes + ' minute/s';
+                }
+            });
+        }
+
     }
 
-    save(){
+    updateSingleTransaction(getTransactionForViewDto: GetTransactionForViewDto,value:boolean){
+        debugger
+        getTransactionForViewDto.transaction.projectManagerApprove = value;
+        this._transactionsServiceProxy.updateSingleTransaction(getTransactionForViewDto).subscribe((result) => {
+            console.log(result);
+        });
+
+    }
+
+    BulkUpdateTransaction(){
+        if(this.selectedTransactions.length == 0){
+            this.selectedTransactions = this.data.items;
+        }
+
+        this.selectedTransactions.forEach(element => {
+            element.transaction.projectManagerApprove = true;
+        });
+
+        this._transactionsServiceProxy.bulkUpdateTransactions(this.selectedTransactions).subscribe((result)=>{
+            console.log(result);
+        })
+    }
+
+    edit(getTransactionForViewDto: GetTransactionForViewDto){
+        this.editTimeTransactionModal.show(getTransactionForViewDto.transaction);
+    }
+    editTransaction(){
+        this.loading = true;
+        let modalTransaction = this.editTimeTransactionModal.manualTransaction;
+
+        let index = this.data.items.findIndex(x => x.transaction.id == modalTransaction.id);
+        if(index > -1 ){
+            this.data.items[index].transaction.time = modalTransaction.time;
+            this._transactionsServiceProxy.updateSingleTransaction(this.data.items[index]).subscribe((result) => {
+                this.notify.success('Transaction updated successfully ');
+                console.log(result);
+
+                this.recalculate(this.data.items[index]);
+            });
+        }
+    }
+
+
+    recalculate(getTransactionForViewDto: GetTransactionForViewDto){
+        this.data.items[0].totalOverTime = 0;
+        let minutes = (parseInt(getTransactionForViewDto.transaction.time.split(':')[0]) * 60) + parseInt(getTransactionForViewDto.transaction.time.split(':')[1]);
+        if(getTransactionForViewDto.transaction.keyType == 1){
+
+            if(minutes > getTransactionForViewDto.timeIn)
+                getTransactionForViewDto.attendance_LateIn = minutes - getTransactionForViewDto.timeIn;
+
+        }
+
+        if(getTransactionForViewDto.transaction.keyType == 2){
+            if (minutes > getTransactionForViewDto.timeOut)
+            {
+                getTransactionForViewDto.overtime = minutes -  getTransactionForViewDto.timeOut;
+                this.data.items[0].totalOverTime += minutes - getTransactionForViewDto.timeOut;
+            }
+
+            else
+            getTransactionForViewDto.attendance_EarlyOut = getTransactionForViewDto.timeOut - minutes;
+        }
+
+        this.totalOverTime = 0;
+        this.data.items.forEach(element => {
+            this.totalOverTime += element.overtime;
+        });
+
+        let hours = Math.floor(this.totalOverTime  / 60);
+        let otminutes = this.totalOverTime % 60;
+        this.totalOverTimeString =  hours + ' hour/s ' + otminutes + ' minute/s';
+
+        this.loading = false;
 
     }
 }

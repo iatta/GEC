@@ -30,6 +30,10 @@ namespace Pixel.Attendance.Authorization
 
             var pages = context.GetPermissionOrNull(AppPermissions.Pages) ?? context.CreatePermission(AppPermissions.Pages, L("Pages"));
 
+            var FingerPrints = pages.CreateChildPermission(AppPermissions.Pages_FingerPrint, L("FingerPrint"));
+            FingerPrints.CreateChildPermission(AppPermissions.Pages_ProjectManagerTransactions, L("ProjectManagerTransactionsPermission"));
+            FingerPrints.CreateChildPermission(AppPermissions.Pages_UnitManagerTransactions, L("UnitManagerTransactionsPermission"));
+
             var userShifts = pages.CreateChildPermission(AppPermissions.Pages_UserShifts, L("UserShifts"));
             userShifts.CreateChildPermission(AppPermissions.Pages_UserShifts_Create, L("CreateNewUserShift"));
             userShifts.CreateChildPermission(AppPermissions.Pages_UserShifts_Edit, L("EditUserShift"));

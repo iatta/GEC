@@ -27,8 +27,9 @@ export class AppNavigationService {
                 // new AppMenuItem('ShiftTypes', 'Pages.ShiftTypes', 'flaticon-file-1', '/app/main/setting/shiftTypes'),
                 new AppMenuItem('Shifts', 'Pages.Shifts', 'flaticon-calendar-with-a-clock-time-tools', '/app/main/setting/shifts'),
                 new AppMenuItem('ManageUserShifts', 'Pages.Shifts', 'flaticon-calendar-with-a-clock-time-tools', '/app/main/operations/manageUserShifts'),
+                // new AppMenuItem('UserShifts', 'Pages.UserShifts', 'flaticon-more', '/app/main/operations/userShifts'),
                 // new AppMenuItem('TimeProfiles', 'Pages.TimeProfiles', 'flaticon-time-1', '/app/main/operations/mangeTimeProfile'),
-                new AppMenuItem('UploadTimeProfile', 'Pages.UploadTimeProfile', 'flaticon-file-1', '/app/main/operations/uploadTimeProfile')
+                // new AppMenuItem('UploadTimeProfile', 'Pages.UploadTimeProfile', 'flaticon-file-1', '/app/main/operations/uploadTimeProfile')
             ]),
 
 
@@ -38,7 +39,7 @@ export class AppNavigationService {
                 new AppMenuItem('EmployeeVacations', 'Pages.EmployeeVacations', 'flaticon-notes', '/app/main/operations/employeeVacations'),
 
                 new AppMenuItem('EmployeeAbsences', 'Pages.EmployeeAbsences', 'flaticon-close', '/app/main/operation/employeeAbsences'),
-                new AppMenuItem('UploadEmpVacation', 'Pages.UploadEmpVacation', 'flaticon-file-1', '/app/main/operations/uploadEmpVacation'),
+                // new AppMenuItem('UploadEmpVacation', 'Pages.UploadEmpVacation', 'flaticon-file-1', '/app/main/operations/uploadEmpVacation'),
             ]),
 
 
@@ -58,7 +59,8 @@ export class AppNavigationService {
             new AppMenuItem('Fingerprints', '', 'flaticon-interface-6', '', [
                 new AppMenuItem('FaceId', 'Pages.Administration.Users', 'flaticon-users', '/app/admin/manageFaceId'),
                 new AppMenuItem('ManualTransactions', 'Pages.ManualTransactions', 'flaticon-more', '/app/main/operations/manualTransactions'),
-                new AppMenuItem('ProjectManagerTransactions', 'Pages.ManualTransactions', 'flaticon-more', '/app/main/operations/ProjectManagerTransactions'),
+                new AppMenuItem('ProjectManagerTransactions', 'Pages.FingerPrint.ProjectManagerTransactions', 'flaticon-more', '/app/main/operations/ProjectManagerTransactions'),
+                new AppMenuItem('UnitManagerTransactions', 'Pages.FingerPrint.UnitManagerTransactions', 'flaticon-more', '/app/main/operations/UnitManagerTransactions'),
                 
             ]),
 
@@ -67,8 +69,8 @@ export class AppNavigationService {
             ]),
 
             new AppMenuItem('Settings', '', 'flaticon-settings', '', [
-                new AppMenuItem('JobTitles', 'Pages.JobTitles', 'flaticon2-list-3', '/app/main/setting/jobTitles'),
-                new AppMenuItem('SystemConfigurations', 'Pages.SystemConfigurations', 'flaticon-safe-shield-protection', '/app/main/setting/systemConfigurations'),
+                
+                // new AppMenuItem('SystemConfigurations', 'Pages.SystemConfigurations', 'flaticon-safe-shield-protection', '/app/main/setting/systemConfigurations'),
                 
                 new AppMenuItem('Machines', 'Pages.Machines', 'flaticon-delete-2', '/app/main/setting/machines'),
                 new AppMenuItem('MobileWebPages', 'Pages.MobileWebPages', 'pi-mobile', '/app/main/settings/mobileWebPages'),
@@ -83,13 +85,15 @@ export class AppNavigationService {
             
             
             
-            new AppMenuItem('Projects', 'Pages.Projects', 'flaticon-more', '/app/main/operations/projects'),
             
-            new AppMenuItem('UserShifts', 'Pages.UserShifts', 'flaticon-more', '/app/main/operations/userShifts'),
+            
+            
              new AppMenuItem('Administration', '', 'flaticon-interface-8', '', [
                 new AppMenuItem('OrganizationUnits', 'Pages.Administration.OrganizationUnits', 'flaticon-map', '/app/admin/organization-units'),
+                new AppMenuItem('JobTitles', 'Pages.JobTitles', 'flaticon2-list-3', '/app/main/setting/jobTitles'),
                 new AppMenuItem('Roles', 'Pages.Administration.Roles', 'flaticon-suitcase', '/app/admin/roles'),
                 new AppMenuItem('Users', 'Pages.Administration.Users', 'flaticon-users', '/app/admin/users'),
+                new AppMenuItem('Projects', 'Pages.Projects', 'flaticon-more', '/app/main/operations/projects'),
                 new AppMenuItem('Languages', 'Pages.Administration.Languages', 'flaticon-tabs', '/app/admin/languages'),
                 new AppMenuItem('AuditLogs', 'Pages.Administration.AuditLogs', 'flaticon-folder-1', '/app/admin/auditLogs'),
                 new AppMenuItem('Maintenance', 'Pages.Administration.Host.Maintenance', 'flaticon-lock', '/app/admin/maintenance'),
@@ -99,12 +103,12 @@ export class AppNavigationService {
                 new AppMenuItem('Settings', 'Pages.Administration.Tenant.Settings', 'flaticon-settings', '/app/admin/tenantSettings'),
                 new AppMenuItem('WebhookSubscriptions', 'Pages.Administration.WebhookSubscription', 'flaticon2-world', '/app/admin/webhook-subscriptions')
             ]),
-            new AppMenuItem('Reports', '', 'flaticon-graph', '', [
-                new AppMenuItem('GeneralReports', 'Pages.Reports', 'flaticon-diagram', '/app/main/operations/reports'),
-                new AppMenuItem('EmployeeReport', 'Pages.Reports', 'flaticon-line-graph', '/app/main/operations/employeeReport'),
-                new AppMenuItem('TimeProfileReport', 'Pages.TimeProfileReport', 'flaticon-line-graph', '/app/main/operations/timeProfileReport'),
+            // new AppMenuItem('Reports', '', 'flaticon-graph', '', [
+            //     new AppMenuItem('GeneralReports', 'Pages.Reports', 'flaticon-diagram', '/app/main/operations/reports'),
+            //     new AppMenuItem('EmployeeReport', 'Pages.Reports', 'flaticon-line-graph', '/app/main/operations/employeeReport'),
+            //     new AppMenuItem('TimeProfileReport', 'Pages.TimeProfileReport', 'flaticon-line-graph', '/app/main/operations/timeProfileReport'),
 
-            ]),
+            // ]),
             new AppMenuItem('DemoUiComponents', 'Pages.DemoUiComponents', 'flaticon-shapes', '/app/admin/demo-ui-components'),
             
         ]);

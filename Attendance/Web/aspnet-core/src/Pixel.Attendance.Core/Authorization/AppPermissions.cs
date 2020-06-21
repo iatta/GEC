@@ -11,6 +11,11 @@
         public const string Pages_UserShifts_Edit = "Pages.UserShifts.Edit";
         public const string Pages_UserShifts_Delete = "Pages.UserShifts.Delete";
 
+        public const string Pages_FingerPrint = "Pages.FingerPrint";
+        public const string Pages_ProjectManagerTransactions = "Pages.FingerPrint.ProjectManagerTransactions";
+        public const string Pages_UnitManagerTransactions = "Pages.FingerPrint.UnitManagerTransactions";
+
+
         public const string Pages_Projects = "Pages.Projects";
         public const string Pages_Projects_Create = "Pages.Projects.Create";
         public const string Pages_Projects_Edit = "Pages.Projects.Edit";

@@ -1,0 +1,30 @@
+<div bsModal #editTransactionTimeModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="editTransactionTimeModal" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form *ngIf="active" #manualTransactionForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span>{{l("EditTransactionTime")}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close" [disabled]="saving">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="col-lg-6">
+                            <label for="timeObjInput">{{l("Time")}}</label>
+                            <timepicker  id="timeObjInput" [(ngModel)]="timeObj" #timeObjObjInput="ngModel"  name="timeObj" [showMeridian]="meridian"></timepicker>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-default" (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue"  [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i> <span>{{l("Save")}}</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>

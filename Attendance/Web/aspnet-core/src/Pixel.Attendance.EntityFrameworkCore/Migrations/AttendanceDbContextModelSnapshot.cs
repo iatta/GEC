@@ -2706,6 +2706,9 @@ namespace Pixel.Attendance.Migrations
                     b.Property<int>("Finger")
                         .HasColumnType("int");
 
+                    b.Property<bool>("HrApprove")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime>("ImportDate")
                         .HasColumnType("datetime2");
 

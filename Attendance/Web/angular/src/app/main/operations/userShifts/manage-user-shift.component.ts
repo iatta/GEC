@@ -10,6 +10,7 @@ import * as moment from 'moment';
 import {SelectItem} from 'primeng/api';
 import { Router, ActivatedRoute, ParamMap ,Params } from '@angular/router';
 import { NgForm } from '@angular/forms';
+import { rowsAnimation } from '@shared/animations/template.animations';
 
 class UserShiftDay{
     userId: number;
@@ -21,7 +22,8 @@ class UserShiftDay{
 @Component({
     selector: 'ManageUserShift',
     styleUrls:['./manager-user-shift.component.less'],
-    templateUrl: './manage-user-shift.component.html'
+    templateUrl: './manage-user-shift.component.html',
+    animations: [rowsAnimation]
 })
 export class ManageUserShiftComponent extends AppComponentBase implements OnInit {
     

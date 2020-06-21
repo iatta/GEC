@@ -23472,6 +23472,124 @@ export class TransactionsServiceProxy {
         }
         return _observableOf<void>(<any>null);
     }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    updateSingleTransaction(body: GetTransactionForViewDto | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Transactions/UpdateSingleTransaction";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json", 
+            })
+        };
+
+        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processUpdateSingleTransaction(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processUpdateSingleTransaction(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processUpdateSingleTransaction(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param projectId (optional) 
+     * @param fromDate (optional) 
+     * @param toDate (optional) 
+     * @return Success
+     */
+    getAllTransactionForHr(projectId: number | undefined, fromDate: moment.Moment | undefined, toDate: moment.Moment | undefined): Observable<PagedResultDtoOfGetTransactionForViewDto> {
+        let url_ = this.baseUrl + "/api/services/app/Transactions/GetAllTransactionForHr?";
+        if (projectId === null)
+            throw new Error("The parameter 'projectId' cannot be null.");
+        else if (projectId !== undefined)
+            url_ += "ProjectId=" + encodeURIComponent("" + projectId) + "&"; 
+        if (fromDate === null)
+            throw new Error("The parameter 'fromDate' cannot be null.");
+        else if (fromDate !== undefined)
+            url_ += "FromDate=" + encodeURIComponent(fromDate ? "" + fromDate.toJSON() : "") + "&"; 
+        if (toDate === null)
+            throw new Error("The parameter 'toDate' cannot be null.");
+        else if (toDate !== undefined)
+            url_ += "ToDate=" + encodeURIComponent(toDate ? "" + toDate.toJSON() : "") + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllTransactionForHr(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllTransactionForHr(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfGetTransactionForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfGetTransactionForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAllTransactionForHr(response: HttpResponseBase): Observable<PagedResultDtoOfGetTransactionForViewDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfGetTransactionForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfGetTransactionForViewDto>(<any>null);
+    }
 }
 
 @Injectable()
@@ -50566,6 +50684,7 @@ export class TransactionDto implements ITransactionDto {
     time!: string | undefined;
     projectManagerApprove!: boolean;
     unitManagerApprove!: boolean;
+    hrApprove!: boolean;
     id!: number;
 
     constructor(data?: ITransactionDto) {
@@ -50588,6 +50707,7 @@ export class TransactionDto implements ITransactionDto {
             this.time = data["time"];
             this.projectManagerApprove = data["projectManagerApprove"];
             this.unitManagerApprove = data["unitManagerApprove"];
+            this.hrApprove = data["hrApprove"];
             this.id = data["id"];
         }
     }
@@ -50610,6 +50730,7 @@ export class TransactionDto implements ITransactionDto {
         data["time"] = this.time;
         data["projectManagerApprove"] = this.projectManagerApprove;
         data["unitManagerApprove"] = this.unitManagerApprove;
+        data["hrApprove"] = this.hrApprove;
         data["id"] = this.id;
         return data; 
     }
@@ -50625,6 +50746,7 @@ export interface ITransactionDto {
     time: string | undefined;
     projectManagerApprove: boolean;
     unitManagerApprove: boolean;
+    hrApprove: boolean;
     id: number;
 }
 
@@ -50648,6 +50770,8 @@ export class GetTransactionForViewDto implements IGetTransactionForViewDto {
     overtime!: number;
     attendance_LateIn!: number;
     attendance_EarlyOut!: number;
+    totalOverTime!: number;
+    totalUserCount!: number;
 
     constructor(data?: IGetTransactionForViewDto) {
         if (data) {
@@ -50679,6 +50803,8 @@ export class GetTransactionForViewDto implements IGetTransactionForViewDto {
             this.overtime = data["overtime"];
             this.attendance_LateIn = data["attendance_LateIn"];
             this.attendance_EarlyOut = data["attendance_EarlyOut"];
+            this.totalOverTime = data["totalOverTime"];
+            this.totalUserCount = data["totalUserCount"];
         }
     }
 
@@ -50710,6 +50836,8 @@ export class GetTransactionForViewDto implements IGetTransactionForViewDto {
         data["overtime"] = this.overtime;
         data["attendance_LateIn"] = this.attendance_LateIn;
         data["attendance_EarlyOut"] = this.attendance_EarlyOut;
+        data["totalOverTime"] = this.totalOverTime;
+        data["totalUserCount"] = this.totalUserCount;
         return data; 
     }
 }
@@ -50734,6 +50862,8 @@ export interface IGetTransactionForViewDto {
     overtime: number;
     attendance_LateIn: number;
     attendance_EarlyOut: number;
+    totalOverTime: number;
+    totalUserCount: number;
 }
 
 export class PagedResultDtoOfGetTransactionForViewDto implements IPagedResultDtoOfGetTransactionForViewDto {

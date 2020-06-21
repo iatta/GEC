@@ -293,7 +293,7 @@
     <text name="ToDate">To date</text>
     <text name="EmployeeVacationsHeaderInfo">Employee vacations header info</text>
     <text name="CreateNewEmployeeVacation">Create new employee vacation</text>
-    <text name="EditEmployeeVacation">Edit employee vacation</text>
+    
     <text name="DeleteEmployeeVacation">Delete employee vacation</text>
     <text name="EmployeeVacations">Employee vacations</text>
     <text name="LeaveTypeNameAr">Leave type name ar</text>
@@ -1418,8 +1418,53 @@
     <text name="JobTitle"> Job Title  </text>
     <text name="LocationName"> Location Name  </text>
     <text name="LocationDisplayName">  Name </text>
-
-
     
+    
+    <text name="ManageUserShifts"> Manage employee shifts  </text>
+    <text name="ProjectManagerTransactions"> Manage Transactions  </text>
+    
+    <text name="IsOverTimeAllowed">    Allow Over Time  </text>
+    <text name="FixedOverTime"> Fixed Overtime     </text>
+    <text name="ChooseUnit">Choose Unit </text>
+    <text name="GenerateDays"> Generate Days     </text>
+    <text name="CreateNewholiday"> Create  new holiday     </text>
+    
+    <text name="EditEmployeeVacation">  Edit employee vacation    </text>
+    
+    <text name="PermitsTypes">   Permits types    </text>
+    <text name="EmployeePermitsManage">  Manage Permits    </text>
+    <text name="FaceId">   Face Id   </text>
+    <text name="UpdateFaceId">  Update    </text>
+    <text name="ManageFaceId">  Manage face id    </text>
+    <text name="EmployeeName">  Employee name    </text>
+    <text name="TransactionDate">  Transaction date    </text>
+    <text name="TransactionType">  Transaction type    </text>
+    <text name="ProjectEmployeeTransactions">  Manage Transactions    </text>
+    <text name="UnitManagerTransactions">  Manage Transactions    </text>
+    <text name="ManageLocation">  Manage Location    </text>
+    <text name="CreateNewJobTitle"> Create new job title     </text>
+    <text name="EditJobTitle">  Edit job title    </text>
+    <text name="OrganizationUnit">  Organization unit    </text>
+    <text name="Employee">    Employee  </text>
+    <text name="ProjectNameEn">  Project name EN    </text>
+    <text name="ProjectNameAr">   Project name AR   </text>
+    <text name="ProjectUsers">   Project Employees   </text>
+    <text name="UnitName">  Unit name    </text>
+    <text name="JobTitleName">   Job title name   </text>
+    <text name="SelectLocation">   Select location   </text>
+    <text name="ChooseEmployee"> Choose employee     </text>
+    <text name="ChooseLocation"> Choose location     </text>
+    <text name="ChooseNationality"> Choose nationality     </text>
+    <text name="LocationSameNameWithSameDate">   This Location Already Exist with Same Name And Same Date   </text>
+    <text name="UserDeleteUserLocation">  Delete User Location    </text>
+    
+    <text name="ThisEmployeeExistBefore">   This Employee Exist Before   </text>
+    <text name="DoYouWantToRecoverThisEmployee">  Do You Want To Recover This Employee    </text>
+    <text name="ProjectManagerTransactionsPermission">  Project Manager Transactions  </text>
+    <text name="UnitManagerTransactionsPermission">  Unit Manager Transactions  </text>
+    <text name="EditTransactionTime">  Edit Transaction Time  </text>
+
+
+
   </texts>
 </localizationDictionary>

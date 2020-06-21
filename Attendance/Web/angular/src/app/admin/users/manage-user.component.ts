@@ -118,7 +118,7 @@ export class ManageUserComponent extends AppComponentBase implements OnInit {
 
         this.initTimeProfile();
 
-        this.usersList.push({label:'اختر الموظف ', value:null});
+        this.usersList.push({label:this.l('ChooseEmployee'), value:null});
 
         this.titles.push({label: '-', value: null},{label: 'Mr', value: 1},
         {label: 'Mrs', value:2 },{label: 'Miss', value: 3});
@@ -180,14 +180,14 @@ export class ManageUserComponent extends AppComponentBase implements OnInit {
 
             this.roles = userResult.roles;
             this.locationsList = [];
-            this.locationsList.push({label:'اختر الموقع ', value:null});
+            this.locationsList.push({label:this.l('ChooseLocation'), value:null});
             userResult.locations.forEach(location => {
                 this.locationsList.push(  {label:location.locationDisplayName, value:{id:location.locationId, name: location.locationDisplayName}},);
             });
 
 
             this.nationalities =[];
-            this.nationalities.push({label:'اختر الجنسية ', value:null});
+            this.nationalities.push({label:this.l('ChooseNationality'), value:null});
             userResult.nationalities.forEach(nationality => {
                 this.nationalities.push({label:nationality.nameAr, value:nationality.id});
             })
@@ -217,7 +217,7 @@ export class ManageUserComponent extends AppComponentBase implements OnInit {
 
             this._userService.getUsersFlat().subscribe(result =>{
                 this.usersList = [];
-                this.usersList.push({label:'اختر الموظف ', value:null});
+                this.usersList.push({label:this.l('ChooseEmployee'), value:null});
                 result.forEach((user) => {
                     this.usersList.push({label:user.name, value:user.id});
                 });
@@ -354,8 +354,8 @@ export class ManageUserComponent extends AppComponentBase implements OnInit {
                 console.log(userResult.user)
                 if(userResult.user){
                     this.message.confirm(
-                        this.l('هذا المستخدم موجود من قبل'),
-                        this.l('هل تريد استرجاع البيانات'),
+                        this.l('ThisEmployeeExistBefore'),
+                        this.l('DoYouWantToRecoverThisEmployee'),
                         (isConfirmed) => {
                             if (isConfirmed) {
                                 this.userLoaded = true;
@@ -436,7 +436,7 @@ export class ManageUserComponent extends AppComponentBase implements OnInit {
     getUsers(unitId:number){
         this._userService.getUsersFlatByUnitId(unitId).subscribe((result) => {
             this.usersList = [];
-            this.usersList.push({label:'اختر الموظف ', value:null});
+            this.usersList.push({label:this.l('ChooseEmployee'), value:null});
             result.forEach((user) => {
                 this.usersList.push({label:user.name, value:user.id});
             });

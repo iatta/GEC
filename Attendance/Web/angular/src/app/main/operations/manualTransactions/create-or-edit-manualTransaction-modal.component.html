@@ -15,7 +15,7 @@
 
 
 					<div class="form-group m-form__group">
-                        <label for="UserName">{{l("User")}}</label>
+                        <label for="UserName">{{l("EmployeeName")}}</label>
                         <div class="input-group">
                             <input class="form-control" id="UserName" name="userName" [(ngModel)]="userName" type="text" disabled>
                             <div class="input-group-append">
@@ -29,7 +29,7 @@
 
 
 								<div class="form-group">
-									<label for="ManualTransaction_TransDate">{{l("TransDate")}}</label>
+									<label for="ManualTransaction_TransDate">{{l("TransactionDate")}}</label>
 									 <input required class="form-control m-input" type="datetime" bsDatepicker [(ngModel)]="manualTransaction.transaction_Date._d" id="ManualTransaction_transaction_Date" name="ManualTransaction_transaction_Date">
                                 </div>
                                 <div class="form-group">
@@ -40,7 +40,7 @@
                                 </div>
 
 								<div class="form-group">
-									<label for="ManualTransaction_KeyType">{{l("TransType")}}</label>
+									<label for="ManualTransaction_KeyType">{{l("TransactionType")}}</label>
 
                                     <select id="ManualTransaction_KeyType" class="form-control" [(ngModel)]="manualTransaction.keyType" name="KeyType">
                                         <option value="1">{{l('In')}}</option>
