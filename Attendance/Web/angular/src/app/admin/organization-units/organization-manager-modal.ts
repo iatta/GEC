@@ -20,7 +20,7 @@ export class OrganizationManagerModalComponent extends AppComponentBase {
     filterText = '';
     id: number;
     displayName: string;
-    
+
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
     active = false;
     saving = false;
@@ -33,6 +33,7 @@ export class OrganizationManagerModalComponent extends AppComponentBase {
     }
 
     show(): void {
+      debugger
         this.active = true;
         this.paginator.rows = 5;
         this.getAll();
@@ -40,7 +41,7 @@ export class OrganizationManagerModalComponent extends AppComponentBase {
     }
 
     getAll(event?: LazyLoadEvent) {
-        
+
         if (!this.active) {
             return;
         }
@@ -61,6 +62,7 @@ export class OrganizationManagerModalComponent extends AppComponentBase {
             this.primengTableHelper.totalRecordsCount = result.totalCount;
             this.primengTableHelper.records = result.items;
             this.primengTableHelper.hideLoadingIndicator();
+
         });
     }
 

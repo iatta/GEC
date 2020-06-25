@@ -11,6 +11,7 @@ export interface IOrganizationUnitOnEdit {
     parentId?: number;
     displayName?: string;
     managerId?:number;
+    userName?:string;
 }
 
 @Component({
@@ -45,8 +46,9 @@ export class CreateOrEditUnitModalComponent extends AppComponentBase {
     }
 
     show(organizationUnit: IOrganizationUnitOnEdit): void {
-        
+
         this.organizationUnit = organizationUnit;
+        this.userName = organizationUnit.userName;
         this.active = true;
         this.modal.show();
         this._changeDetector.detectChanges();
@@ -60,7 +62,7 @@ export class CreateOrEditUnitModalComponent extends AppComponentBase {
                 this.updateUnit();
             }
         }
-       
+
     }
 
     createUnit() {
@@ -77,11 +79,13 @@ export class CreateOrEditUnitModalComponent extends AppComponentBase {
             .subscribe((result: OrganizationUnitDto) => {
                 this.notify.info(this.l('SavedSuccessfully'));
                 this.close();
+                result.managerName = this.userName;
                 this.unitCreated.emit(result);
             });
     }
 
     updateUnit() {
+        debugger
         const updateInput = new UpdateOrganizationUnitInput();
         updateInput.id = this.organizationUnit.id;
         updateInput.displayName = this.organizationUnit.displayName;
@@ -94,6 +98,7 @@ export class CreateOrEditUnitModalComponent extends AppComponentBase {
             .subscribe((result: OrganizationUnitDto) => {
                 this.notify.info(this.l('SavedSuccessfully'));
                 this.close();
+                result.managerName = this.userName;
                 this.unitUpdated.emit(result);
             });
     }
@@ -103,13 +108,13 @@ export class CreateOrEditUnitModalComponent extends AppComponentBase {
         this.active = false;
     }
 
-    //organization manager 
+    //organization manager
     openSelectUserModal() {
         this.organizationManagerModal.id = this.organizationUnit.managerId;
-        this.organizationManagerModal.displayName = this.userName;
+        this.organizationManagerModal.displayName = this.organizationUnit.userName;
         this.organizationManagerModal.show();
     }
- 
+
 
 
     setUserIdNull() {

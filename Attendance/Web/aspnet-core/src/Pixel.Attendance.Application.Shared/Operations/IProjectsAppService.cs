@@ -33,6 +33,7 @@ namespace Pixel.Attendance.Operations
 		Task<List<ProjectDto>> GetAllFlatForProjectManager();
 		Task<List<ProjectDto>> GetAllFlatForOrganizationUnitManager();
 		Task<List<ProjectDto>> GetAllFlat();
+		Task<List<ProjectDto>> GetAllFlatForHr();
 
 
 	}

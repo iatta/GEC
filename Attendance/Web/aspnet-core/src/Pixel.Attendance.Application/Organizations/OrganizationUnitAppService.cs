@@ -13,6 +13,7 @@ using Abp.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Pixel.Attendance.Authorization.Roles;
 using Pixel.Attendance.Extended;
+using Pixel.Attendance.Authorization.Users;
 
 namespace Pixel.Attendance.Organizations
 {
@@ -23,6 +24,7 @@ namespace Pixel.Attendance.Organizations
         private readonly IRepository<OrganizationUnitExtended, long> _organizationUnitRepository;
         private readonly IRepository<UserOrganizationUnit, long> _userOrganizationUnitRepository;
         private readonly IRepository<OrganizationUnitRole, long> _organizationUnitRoleRepository;
+        private readonly IRepository<User, long> _userRepository;
         private readonly RoleManager _roleManager;
 
         public OrganizationUnitAppService(
@@ -30,13 +32,15 @@ namespace Pixel.Attendance.Organizations
             IRepository<OrganizationUnitExtended, long> organizationUnitRepository,
             IRepository<UserOrganizationUnit, long> userOrganizationUnitRepository,
             RoleManager roleManager,
-            IRepository<OrganizationUnitRole, long> organizationUnitRoleRepository)
+            IRepository<OrganizationUnitRole, long> organizationUnitRoleRepository,
+            IRepository<User, long> userRepository )
         {
             _organizationUnitManager = organizationUnitManager;
             _organizationUnitRepository = organizationUnitRepository;
             _userOrganizationUnitRepository = userOrganizationUnitRepository;
             _roleManager = roleManager;
             _organizationUnitRoleRepository = organizationUnitRoleRepository;
+            _userRepository = userRepository;
         }
 
         public async Task<ListResultDto<OrganizationUnitDto>> GetOrganizationUnits()
@@ -65,6 +69,10 @@ namespace Pixel.Attendance.Organizations
                     var organizationUnitDto = ObjectMapper.Map<OrganizationUnitDto>(ou);
                     organizationUnitDto.MemberCount = organizationUnitMemberCounts.ContainsKey((int)ou.Id) ? organizationUnitMemberCounts[(int)ou.Id] : 0;
                     organizationUnitDto.RoleCount = organizationUnitRoleCounts.ContainsKey(ou.Id) ? organizationUnitRoleCounts[ou.Id] : 0;
+                    var manager = _userRepository.FirstOrDefault(x => x.Id == organizationUnitDto.ManagerId);
+                    if (manager != null)
+                        organizationUnitDto.ManagerName = manager.Name;
+
                     return organizationUnitDto;
                 }).ToList());
         }

@@ -16,6 +16,7 @@ import { FileDownloadService } from '@shared/utils/file-download.service';
 import * as _ from 'lodash';
 import * as moment from 'moment';
 import { rowsAnimation } from '@shared/animations/template.animations';
+import { EditTimeTransactionModalComponent } from './edit-transaction-time-modal.component';
 
 @Component({
     templateUrl: './transaction-unit-manager.component.html',
@@ -24,7 +25,7 @@ import { rowsAnimation } from '@shared/animations/template.animations';
 })
 export class UnitManagerTransactionsComponent extends AppComponentBase implements OnInit {
 
-    
+    @ViewChild('editTimeTransactionModal', { static: true }) editTimeTransactionModal: EditTimeTransactionModalComponent;
 
     projectId:number;
     fromDate:string;
@@ -36,6 +37,10 @@ export class UnitManagerTransactionsComponent extends AppComponentBase implement
     loading=false;
     saving=false;
     active = false;
+    totalUserCount = 0;
+    totalOverTime = 0;
+    totalOverTimeString='';
+
 
     constructor(
         injector: Injector,
@@ -76,9 +81,16 @@ export class UnitManagerTransactionsComponent extends AppComponentBase implement
             this._transactionsServiceProxy.getAllTransactionForUnitManager(this.selectedProject.id,fromDateToPass,toDateToPass).subscribe((result)=>{
                 console.log(result);
                 this.data = result;
+                if(this.data.items.length){
+                    //   this.totalUserCount =  this.data.items[0].totalUserCount;
+                      this.totalOverTime =  this.data.items[0].totalOverTime;
+                        let hours = Math.floor(this.totalOverTime  / 60);
+                        let minutes = this.totalOverTime  % 60;
+                        this.totalOverTimeString =  hours + ' hour/s  ' + minutes + ' minute/s';
+                    }
             });
         }
-      
+
     }
 
     updateSingleTransaction(getTransactionForViewDto: GetTransactionForViewDto,value:boolean){
@@ -96,11 +108,66 @@ export class UnitManagerTransactionsComponent extends AppComponentBase implement
         }
 
         this.selectedTransactions.forEach(element => {
-            element.transaction.unitManagerApprove = true;
+            if(element.transaction.projectManagerApprove)
+                element.transaction.unitManagerApprove = true;
         });
 
         this._transactionsServiceProxy.bulkUpdateTransactions(this.selectedTransactions).subscribe((result)=>{
             console.log(result);
         })
+    }
+
+    edit(getTransactionForViewDto: GetTransactionForViewDto){
+        this.editTimeTransactionModal.show(getTransactionForViewDto.transaction);
+    }
+    editTransaction(){
+        this.loading = true;
+        let modalTransaction = this.editTimeTransactionModal.manualTransaction;
+
+        let index = this.data.items.findIndex(x => x.transaction.id == modalTransaction.id);
+        if(index > -1 ){
+            this.data.items[index].transaction.time = modalTransaction.time;
+            this._transactionsServiceProxy.updateSingleTransaction(this.data.items[index]).subscribe((result) => {
+                this.notify.success('Transaction updated successfully ');
+                console.log(result);
+
+                this.recalculate(this.data.items[index]);
+            });
+        }
+    }
+
+
+    recalculate(getTransactionForViewDto: GetTransactionForViewDto){
+        this.data.items[0].totalOverTime = 0;
+        let minutes = (parseInt(getTransactionForViewDto.transaction.time.split(':')[0]) * 60) + parseInt(getTransactionForViewDto.transaction.time.split(':')[1]);
+        if(getTransactionForViewDto.transaction.keyType == 1){
+
+            if(minutes > getTransactionForViewDto.timeIn)
+                getTransactionForViewDto.attendance_LateIn = minutes - getTransactionForViewDto.timeIn;
+
+        }
+
+        if(getTransactionForViewDto.transaction.keyType == 2){
+            if (minutes > getTransactionForViewDto.timeOut)
+            {
+                getTransactionForViewDto.overtime = minutes -  getTransactionForViewDto.timeOut;
+                this.data.items[0].totalOverTime += minutes - getTransactionForViewDto.timeOut;
+            }
+
+            else
+            getTransactionForViewDto.attendance_EarlyOut = getTransactionForViewDto.timeOut - minutes;
+        }
+
+        this.totalOverTime = 0;
+        this.data.items.forEach(element => {
+            this.totalOverTime += element.overtime;
+        });
+
+        let hours = Math.floor(this.totalOverTime  / 60);
+        let otminutes = this.totalOverTime % 60;
+        this.totalOverTimeString =  hours + ' hour/s ' + otminutes + ' minute/s';
+
+        this.loading = false;
+
     }
 }

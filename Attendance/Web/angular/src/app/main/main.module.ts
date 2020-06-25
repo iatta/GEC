@@ -196,6 +196,7 @@ import { ManageUserShiftComponent } from './operations/userShifts/manage-user-sh
 import { ProjectManagerTransactionsComponent } from './operations/manualTransactions/transaction-project-manager.component.';
 import { UnitManagerTransactionsComponent } from './operations/manualTransactions/transaction-unit-manager.component';
 import { EditTimeTransactionModalComponent } from './operations/manualTransactions/edit-transaction-time-modal.component';
+import { HrTransactionsComponent } from './operations/manualTransactions/transaction-hr.component';
 
 
 NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
@@ -338,7 +339,8 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
         ManageUserShiftComponent,
         ProjectManagerTransactionsComponent,
         UnitManagerTransactionsComponent,
-        EditTimeTransactionModalComponent
+        EditTimeTransactionModalComponent,
+        HrTransactionsComponent
 
     ],
     providers: [

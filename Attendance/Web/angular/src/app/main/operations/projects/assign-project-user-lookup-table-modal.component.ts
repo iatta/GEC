@@ -23,11 +23,12 @@ export class AssignProjectUserLookupTableModalComponent extends AppComponentBase
     filterText = '';
     projectId: number;
     displayName: string;
-    
+
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
     active = false;
     saving = false;
     selectedUsers:number[];
+    isChecked = false;
 
     constructor(
         injector: Injector,
@@ -100,14 +101,28 @@ export class AssignProjectUserLookupTableModalComponent extends AppComponentBase
             this.modal.hide();
         });
 
+
+
         // this.id = user.id;
         // this.displayName = user.displayName;
         // this.active = false;
         // this.modal.hide();
         // this.modalSave.emit(null);
     }
+        selectAll(event:any){
+            console.log(event);
+            if(event == 'T'){
+                this.selectedUsers=[];
+                this.primengTableHelper.records.forEach(element => {
+                    this.selectedUsers.push(element.id);
+                });
+            }else{
+                this.selectedUsers=[];
+            }
 
+        }
     close(): void {
+
         this.active = false;
         this.modal.hide();
         this.modalSave.emit(null);

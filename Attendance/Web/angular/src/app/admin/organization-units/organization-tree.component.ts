@@ -46,6 +46,7 @@ export class OrganizationTreeComponent extends AppComponentBase implements OnIni
     ouContextMenuItems: MenuItem[];
     canManageOrganizationUnits = false;
 
+
     _entityTypeFullName = 'Abp.Organizations.OrganizationUnit';
 
     constructor(
@@ -69,7 +70,7 @@ export class OrganizationTreeComponent extends AppComponentBase implements OnIni
         this.ouSelected.emit(<IBasicOrganizationUnitInfo>{
             id: event.node.data.id,
             displayName: event.node.data.displayName
-            
+
         });
     }
 
@@ -122,7 +123,8 @@ export class OrganizationTreeComponent extends AppComponentBase implements OnIni
     private getTreeDataFromServer(): void {
         let self = this;
         this._organizationUnitService.getOrganizationUnits().subscribe((result: ListResultDtoOfOrganizationUnitDto) => {
-            
+            debugger;
+            console.log(result);
             this.totalUnitCount = result.items.length;
             this.treeData = this._arrayToTreeConverterService.createTree(result.items,
                 'parentId',
@@ -177,9 +179,9 @@ export class OrganizationTreeComponent extends AppComponentBase implements OnIni
                 label: this.l('Edit'),
                 disabled: !canManageOrganizationTree,
                 command: (event) => {
-                    
+
                     this.createOrEditOrganizationUnitModal.show({
-                        
+                        userName:this.selectedOu.data.managerName,
                         id: this.selectedOu.data.id,
                         displayName: this.selectedOu.data.displayName,
                         managerId: this.selectedOu.data.managerId
@@ -298,6 +300,7 @@ export class OrganizationTreeComponent extends AppComponentBase implements OnIni
     }
 
     unitUpdated(ou: OrganizationUnitDto): void {
+
         let item = this._treeDataHelperService.findNode(this.treeData, { data: { id: ou.id } });
         if (!item) {
             return;
@@ -305,6 +308,7 @@ export class OrganizationTreeComponent extends AppComponentBase implements OnIni
 
         item.data.displayName = ou.displayName;
         item.label = ou.displayName;
+        item.data.managerName = ou.managerName;
         item.memberCount = ou.memberCount;
         item.roleCount = ou.roleCount;
     }

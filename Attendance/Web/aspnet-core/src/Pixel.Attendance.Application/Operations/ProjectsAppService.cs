@@ -43,6 +43,13 @@ namespace Pixel.Attendance.Operations
 		
 		  }
 
+        public async Task<List<ProjectDto>> GetAllFlatForHr()
+        {
+
+            var data = await _projectRepository.GetAllListAsync();
+            return ObjectMapper.Map<List<ProjectDto>>(data);
+        }
+
         public async Task<List<ProjectDto>> GetAllFlatForProjectManager()
         {
 

@@ -14,7 +14,10 @@
         public const string Pages_FingerPrint = "Pages.FingerPrint";
         public const string Pages_ProjectManagerTransactions = "Pages.FingerPrint.ProjectManagerTransactions";
         public const string Pages_UnitManagerTransactions = "Pages.FingerPrint.UnitManagerTransactions";
+        public const string Pages_HrTransactions = "Pages.FingerPrint.HrTransactions";
 
+        public const string Pages_ManageUserShifts = "Pages.ManageUserShifts";
+        
 
         public const string Pages_Projects = "Pages.Projects";
         public const string Pages_Projects_Create = "Pages.Projects.Create";

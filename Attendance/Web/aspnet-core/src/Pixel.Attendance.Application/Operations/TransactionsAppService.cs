@@ -230,7 +230,7 @@ namespace Pixel.Attendance.Operations
 
             foreach (var item in data)
             {
-                var userShifts = _UserShiftRepository.GetAll().Where(x => x.UserId == item.Transaction.Pin && x.Date == item.Transaction.Transaction_Date.Date).ToList();
+                var userShifts = _UserShiftRepository.GetAll().Where(x => x.UserId == item.Transaction.Pin && x.Date.Date == item.Transaction.Transaction_Date.Date).ToList();
 
                 if (userShifts.Count > 0)
                 {
@@ -296,7 +296,7 @@ namespace Pixel.Attendance.Operations
 
             var query = from t1 in _transactionRepository.GetAll().Where(x => userIds.Contains(x.Pin))
                         join u1 in _lookup_userRepository.GetAll() on t1.Pin equals u1.Id
-                        where  t1.Transaction_Date.Date >= input.FromDate.Date && t1.Transaction_Date.Date <= input.ToDate.Date && u1.ManagerId == GetCurrentUser().Id
+                        where  t1.Transaction_Date.Date >= input.FromDate.Date && t1.Transaction_Date.Date <= input.ToDate.Date
                         select new GetTransactionForViewDto()
                         {
                             Transaction = new TransactionDto
@@ -321,7 +321,8 @@ namespace Pixel.Attendance.Operations
            
             foreach (var item in data)
             {
-                var userShifts = _UserShiftRepository.GetAll().Where(x => x.UserId == item.Transaction.Pin && x.Date == item.Transaction.Transaction_Date.Date).ToList();
+                var userShifts = _UserShiftRepository.GetAll().Where(x => x.UserId == item.Transaction.Pin && x.Date.Date == item.Transaction.Transaction_Date.Date).ToList();
+
 
                 if (userShifts.Count > 0)
                 {
@@ -330,7 +331,7 @@ namespace Pixel.Attendance.Operations
 
                         var minutes = (Double.Parse(item.Transaction.Time.Split(":")[0]) * 60) + (Double.Parse(item.Transaction.Time.Split(":")[1]));
                         //var TransTime = new DateTime(1990, 11, 20).AddMinutes(minutes);
-                        var TransactionShift = _shiftRepository.FirstOrDefault(x => x.TimeInRangeFrom < minutes && x.TimeInRangeTo > minutes && x.TimeOutRangeFrom > minutes && x.TimeOutRangeTo < minutes && x.Id == userShift.ShiftId);
+                        var TransactionShift = _shiftRepository.FirstOrDefault(x => x.TimeInRangeFrom <= minutes && x.TimeOutRangeTo >= minutes && x.Id == userShift.ShiftId);
                         if (TransactionShift != null)
                         {
                             item.ShiftName = TransactionShift.NameEn;
@@ -423,7 +424,7 @@ namespace Pixel.Attendance.Operations
 
             foreach (var item in data)
             {
-                var userShifts = _UserShiftRepository.GetAll().Where(x => x.UserId == item.Transaction.Pin && x.Date == item.Transaction.Transaction_Date.Date).ToList();
+                var userShifts = _UserShiftRepository.GetAll().Where(x => x.UserId == item.Transaction.Pin && x.Date.Date == item.Transaction.Transaction_Date.Date).ToList();
 
                 if (userShifts.Count > 0)
                 {
@@ -432,7 +433,7 @@ namespace Pixel.Attendance.Operations
 
                         var minutes = (Double.Parse(item.Transaction.Time.Split(":")[0]) * 60) + (Double.Parse(item.Transaction.Time.Split(":")[1]));
                         //var TransTime = new DateTime(1990, 11, 20).AddMinutes(minutes);
-                        var TransactionShift = _shiftRepository.FirstOrDefault(x => x.TimeInRangeFrom < minutes && x.TimeInRangeTo > minutes && x.TimeOutRangeFrom > minutes && x.TimeOutRangeTo < minutes  && x.Id == userShift.ShiftId);
+                        var TransactionShift = _shiftRepository.FirstOrDefault(x => x.TimeInRangeFrom <= minutes && x.TimeOutRangeTo >= minutes && x.Id == userShift.ShiftId);
                         if (TransactionShift != null)
                         {
                             item.ShiftName = TransactionShift.NameEn;

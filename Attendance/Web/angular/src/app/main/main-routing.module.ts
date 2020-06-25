@@ -43,6 +43,7 @@ import { ManageOfficialTaskComponent } from './operations/employeeOfficialTasks/
 import { ManageUserShiftComponent } from './operations/userShifts/manage-user-shift.component';
 import { ProjectManagerTransactionsComponent } from './operations/manualTransactions/transaction-project-manager.component.';
 import { UnitManagerTransactionsComponent } from './operations/manualTransactions/transaction-unit-manager.component';
+import { HrTransactionsComponent } from './operations/manualTransactions/transaction-hr.component';
 
 @NgModule({
     imports: [
@@ -61,7 +62,10 @@ import { UnitManagerTransactionsComponent } from './operations/manualTransaction
                     { path: 'operations/manualTransactions', component: ManualTransactionsComponent, data: { permission: 'Pages.ManualTransactions' }  },
                     { path: 'operations/ProjectManagerTransactions', component: ProjectManagerTransactionsComponent, data: { permission: 'Pages.FingerPrint.ProjectManagerTransactions' }  },
                     { path: 'operations/UnitManagerTransactions', component: UnitManagerTransactionsComponent, data: { permission: 'Pages.FingerPrint.UnitManagerTransactions' }  },
-                    
+                    { path: 'operations/HrTransactions', component: HrTransactionsComponent, data: { permission: 'Pages.FingerPrint.HrTransactions' }  },
+
+
+
                     { path: 'operations/trans', component: TransComponent, data: { permission: 'Pages.Trans' }  },
                     { path: 'operations/uploadEmpVacation', component: UploadEmpVacationComponent, data: { permission: 'Pages.UploadEmpVacation' }  },
                     { path: 'operations/uploadTimeProfile', component: UploadTimeProfileComponent, data: { permission: 'Pages.UploadTimeProfile' }  },

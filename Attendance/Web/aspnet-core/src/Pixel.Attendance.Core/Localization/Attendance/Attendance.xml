@@ -1463,7 +1463,11 @@
     <text name="ProjectManagerTransactionsPermission">  Project Manager Transactions  </text>
     <text name="UnitManagerTransactionsPermission">  Unit Manager Transactions  </text>
     <text name="EditTransactionTime">  Edit Transaction Time  </text>
-
+    <text name="HrTransactions">  Manage Transactions </text>
+    <text name="HrTransactionsPermission">  Hr Transactions </text>
+    <text name="ManageUserShiftsPermission">  Manage User Shifts </text>
+    
+    
 
 
   </texts>

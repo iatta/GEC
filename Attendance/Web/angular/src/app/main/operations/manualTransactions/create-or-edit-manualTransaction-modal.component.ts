@@ -42,8 +42,8 @@ export class CreateOrEditManualTransactionModalComponent extends AppComponentBas
             this.manualTransaction = new CreateOrEditTransactionDto();
             this.manualTransaction.id = manualTransactionId;
             this.manualTransaction.transaction_Date = moment();
-            
-            
+
+
             this.timeObj.setHours(8);
             this.userName = '';
 
@@ -54,7 +54,7 @@ export class CreateOrEditManualTransactionModalComponent extends AppComponentBas
                 this.manualTransaction = result.transaction;
                 //
                 let minutes = (parseInt(this.manualTransaction.time.split(':')[0]) * 60) + parseInt(this.manualTransaction.time.split(':')[1]);
-                
+
 
                 this.timeObj.setHours(Math.floor(minutes / 60));
                 this.timeObj.setMinutes(minutes % 60);
@@ -75,7 +75,7 @@ export class CreateOrEditManualTransactionModalComponent extends AppComponentBas
                 if(result.isExist){
                     this.message.confirm('This Transaction Alread Exist With Same Date And Same Type',' Do You Want To Reload It ?',(isConfirmed) => {
                         if(isConfirmed){
-                            
+
                             this._transactionsServiceProxy.getTransactionForEdit(result.id).subscribe(result => {
                                 this.transactionLoaded = true;
                                 this.manualTransaction = result.transaction;
@@ -87,7 +87,20 @@ export class CreateOrEditManualTransactionModalComponent extends AppComponentBas
                             });
                         }
                     });
-                    
+
+                }else{
+                    this.saving = true;
+
+                const time = this.timeObj.getHours() + ':' + this.timeObj.getMinutes();
+                this.manualTransaction.time = time.toString();
+
+                this._transactionsServiceProxy.createOrEdit(this.manualTransaction)
+                .pipe(finalize(() => { this.saving = false;}))
+                .subscribe(() => {
+                    this.notify.info(this.l('SavedSuccessfully'));
+                    this.close();
+                    this.modalSave.emit(null);
+                });
                 }
             });
         }else{
@@ -104,9 +117,9 @@ export class CreateOrEditManualTransactionModalComponent extends AppComponentBas
                 this.modalSave.emit(null);
             });
         }
-            
 
-          
+
+
     }
 
     openSelectUserModal() {
