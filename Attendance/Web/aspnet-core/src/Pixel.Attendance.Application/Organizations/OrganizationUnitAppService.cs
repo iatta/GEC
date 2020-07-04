@@ -14,6 +14,7 @@ using Microsoft.EntityFrameworkCore;
 using Pixel.Attendance.Authorization.Roles;
 using Pixel.Attendance.Extended;
 using Pixel.Attendance.Authorization.Users;
+using Twilio.Exceptions;
 
 namespace Pixel.Attendance.Organizations
 {
@@ -165,15 +166,24 @@ namespace Pixel.Attendance.Organizations
         [AbpAuthorize(AppPermissions.Pages_Administration_OrganizationUnits_ManageOrganizationTree)]
         public async Task DeleteOrganizationUnit(EntityDto<long> input)
         {
-            var users = UserManager.Users.Where(x => x.OrganizationUnitId == input.Id).ToList();
-            foreach (var user in users)
+            var count = await _organizationUnitRepository.CountAsync(c => c.ParentId == input.Id);
+            if (count > 0)
+                throw new ApiException("Can't Delete This Unit");
+            else
             {
-                user.OrganizationUnitId = null;
-                await UserManager.UpdateAsync(user);
+                var users = UserManager.Users.Where(x => x.OrganizationUnitId == input.Id).ToList();
+                foreach (var user in users)
+                {
+                    user.OrganizationUnitId = null;
+                    await UserManager.UpdateAsync(user);
+                }
+                await _userOrganizationUnitRepository.DeleteAsync(x => x.OrganizationUnitId == input.Id);
+                await _organizationUnitRoleRepository.DeleteAsync(x => x.OrganizationUnitId == input.Id);
+
+                //check dependencies 
+                await _organizationUnitRepository.HardDeleteAsync(_organizationUnitRepository.FirstOrDefault(x => x.Id == input.Id));
             }
-            await _userOrganizationUnitRepository.DeleteAsync(x => x.OrganizationUnitId == input.Id);
-            await _organizationUnitRoleRepository.DeleteAsync(x => x.OrganizationUnitId == input.Id);
-            await _organizationUnitRepository.HardDeleteAsync(_organizationUnitRepository.FirstOrDefault(x => x.Id == input.Id));
+          
         }
 
 
