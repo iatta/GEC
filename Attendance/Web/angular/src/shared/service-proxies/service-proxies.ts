@@ -1169,6 +1169,421 @@ export class AuditLogServiceProxy {
 }
 
 @Injectable()
+export class BeaconsServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param nameFilter (optional) 
+     * @param uidFilter (optional) 
+     * @param maxMinorFilter (optional) 
+     * @param minMinorFilter (optional) 
+     * @param maxMajorFilter (optional) 
+     * @param minMajorFilter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
+     * @return Success
+     */
+    getAll(filter: string | undefined, nameFilter: string | undefined, uidFilter: string | undefined, maxMinorFilter: number | undefined, minMinorFilter: number | undefined, maxMajorFilter: number | undefined, minMajorFilter: number | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetBeaconForViewDto> {
+        let url_ = this.baseUrl + "/api/services/app/Beacons/GetAll?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (nameFilter === null)
+            throw new Error("The parameter 'nameFilter' cannot be null.");
+        else if (nameFilter !== undefined)
+            url_ += "NameFilter=" + encodeURIComponent("" + nameFilter) + "&"; 
+        if (uidFilter === null)
+            throw new Error("The parameter 'uidFilter' cannot be null.");
+        else if (uidFilter !== undefined)
+            url_ += "UidFilter=" + encodeURIComponent("" + uidFilter) + "&"; 
+        if (maxMinorFilter === null)
+            throw new Error("The parameter 'maxMinorFilter' cannot be null.");
+        else if (maxMinorFilter !== undefined)
+            url_ += "MaxMinorFilter=" + encodeURIComponent("" + maxMinorFilter) + "&"; 
+        if (minMinorFilter === null)
+            throw new Error("The parameter 'minMinorFilter' cannot be null.");
+        else if (minMinorFilter !== undefined)
+            url_ += "MinMinorFilter=" + encodeURIComponent("" + minMinorFilter) + "&"; 
+        if (maxMajorFilter === null)
+            throw new Error("The parameter 'maxMajorFilter' cannot be null.");
+        else if (maxMajorFilter !== undefined)
+            url_ += "MaxMajorFilter=" + encodeURIComponent("" + maxMajorFilter) + "&"; 
+        if (minMajorFilter === null)
+            throw new Error("The parameter 'minMajorFilter' cannot be null.");
+        else if (minMajorFilter !== undefined)
+            url_ += "MinMajorFilter=" + encodeURIComponent("" + minMajorFilter) + "&"; 
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAll(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfGetBeaconForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfGetBeaconForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfGetBeaconForViewDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfGetBeaconForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfGetBeaconForViewDto>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getBeaconForView(id: number | undefined): Observable<GetBeaconForViewDto> {
+        let url_ = this.baseUrl + "/api/services/app/Beacons/GetBeaconForView?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetBeaconForView(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetBeaconForView(<any>response_);
+                } catch (e) {
+                    return <Observable<GetBeaconForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetBeaconForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetBeaconForView(response: HttpResponseBase): Observable<GetBeaconForViewDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetBeaconForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetBeaconForViewDto>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getBeaconForEdit(id: number | undefined): Observable<GetBeaconForEditOutput> {
+        let url_ = this.baseUrl + "/api/services/app/Beacons/GetBeaconForEdit?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetBeaconForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetBeaconForEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<GetBeaconForEditOutput>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetBeaconForEditOutput>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetBeaconForEdit(response: HttpResponseBase): Observable<GetBeaconForEditOutput> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetBeaconForEditOutput.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetBeaconForEditOutput>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    createOrEdit(body: CreateOrEditBeaconDto | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Beacons/CreateOrEdit";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json", 
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOrEdit(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    delete(id: number | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Beacons/Delete?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDelete(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDelete(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDelete(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param nameFilter (optional) 
+     * @param uidFilter (optional) 
+     * @param maxMinorFilter (optional) 
+     * @param minMinorFilter (optional) 
+     * @param maxMajorFilter (optional) 
+     * @param minMajorFilter (optional) 
+     * @return Success
+     */
+    getBeaconsToExcel(filter: string | undefined, nameFilter: string | undefined, uidFilter: string | undefined, maxMinorFilter: number | undefined, minMinorFilter: number | undefined, maxMajorFilter: number | undefined, minMajorFilter: number | undefined): Observable<FileDto> {
+        let url_ = this.baseUrl + "/api/services/app/Beacons/GetBeaconsToExcel?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (nameFilter === null)
+            throw new Error("The parameter 'nameFilter' cannot be null.");
+        else if (nameFilter !== undefined)
+            url_ += "NameFilter=" + encodeURIComponent("" + nameFilter) + "&"; 
+        if (uidFilter === null)
+            throw new Error("The parameter 'uidFilter' cannot be null.");
+        else if (uidFilter !== undefined)
+            url_ += "UidFilter=" + encodeURIComponent("" + uidFilter) + "&"; 
+        if (maxMinorFilter === null)
+            throw new Error("The parameter 'maxMinorFilter' cannot be null.");
+        else if (maxMinorFilter !== undefined)
+            url_ += "MaxMinorFilter=" + encodeURIComponent("" + maxMinorFilter) + "&"; 
+        if (minMinorFilter === null)
+            throw new Error("The parameter 'minMinorFilter' cannot be null.");
+        else if (minMinorFilter !== undefined)
+            url_ += "MinMinorFilter=" + encodeURIComponent("" + minMinorFilter) + "&"; 
+        if (maxMajorFilter === null)
+            throw new Error("The parameter 'maxMajorFilter' cannot be null.");
+        else if (maxMajorFilter !== undefined)
+            url_ += "MaxMajorFilter=" + encodeURIComponent("" + maxMajorFilter) + "&"; 
+        if (minMajorFilter === null)
+            throw new Error("The parameter 'minMajorFilter' cannot be null.");
+        else if (minMajorFilter !== undefined)
+            url_ += "MinMajorFilter=" + encodeURIComponent("" + minMajorFilter) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetBeaconsToExcel(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetBeaconsToExcel(<any>response_);
+                } catch (e) {
+                    return <Observable<FileDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<FileDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetBeaconsToExcel(response: HttpResponseBase): Observable<FileDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = FileDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<FileDto>(<any>null);
+    }
+}
+
+@Injectable()
 export class CachingServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -29160,6 +29575,230 @@ export interface IEntityPropertyChangeDto {
     id: number;
 }
 
+export class BeaconDto implements IBeaconDto {
+    name!: string | undefined;
+    uid!: string | undefined;
+    minor!: number;
+    major!: number;
+    id!: number;
+
+    constructor(data?: IBeaconDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.name = data["name"];
+            this.uid = data["uid"];
+            this.minor = data["minor"];
+            this.major = data["major"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): BeaconDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new BeaconDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["name"] = this.name;
+        data["uid"] = this.uid;
+        data["minor"] = this.minor;
+        data["major"] = this.major;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IBeaconDto {
+    name: string | undefined;
+    uid: string | undefined;
+    minor: number;
+    major: number;
+    id: number;
+}
+
+export class GetBeaconForViewDto implements IGetBeaconForViewDto {
+    beacon!: BeaconDto | undefined;
+
+    constructor(data?: IGetBeaconForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.beacon = data["beacon"] ? BeaconDto.fromJS(data["beacon"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): GetBeaconForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetBeaconForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["beacon"] = this.beacon ? this.beacon.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IGetBeaconForViewDto {
+    beacon: BeaconDto | undefined;
+}
+
+export class PagedResultDtoOfGetBeaconForViewDto implements IPagedResultDtoOfGetBeaconForViewDto {
+    totalCount!: number;
+    items!: GetBeaconForViewDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfGetBeaconForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (Array.isArray(data["items"])) {
+                this.items = [] as any;
+                for (let item of data["items"])
+                    this.items!.push(GetBeaconForViewDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfGetBeaconForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfGetBeaconForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfGetBeaconForViewDto {
+    totalCount: number;
+    items: GetBeaconForViewDto[] | undefined;
+}
+
+export class CreateOrEditBeaconDto implements ICreateOrEditBeaconDto {
+    name!: string | undefined;
+    uid!: string | undefined;
+    minor!: number;
+    major!: number;
+    id!: number | undefined;
+
+    constructor(data?: ICreateOrEditBeaconDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.name = data["name"];
+            this.uid = data["uid"];
+            this.minor = data["minor"];
+            this.major = data["major"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): CreateOrEditBeaconDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateOrEditBeaconDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["name"] = this.name;
+        data["uid"] = this.uid;
+        data["minor"] = this.minor;
+        data["major"] = this.major;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface ICreateOrEditBeaconDto {
+    name: string | undefined;
+    uid: string | undefined;
+    minor: number;
+    major: number;
+    id: number | undefined;
+}
+
+export class GetBeaconForEditOutput implements IGetBeaconForEditOutput {
+    beacon!: CreateOrEditBeaconDto | undefined;
+
+    constructor(data?: IGetBeaconForEditOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.beacon = data["beacon"] ? CreateOrEditBeaconDto.fromJS(data["beacon"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): GetBeaconForEditOutput {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetBeaconForEditOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["beacon"] = this.beacon ? this.beacon.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IGetBeaconForEditOutput {
+    beacon: CreateOrEditBeaconDto | undefined;
+}
+
 export class CacheDto implements ICacheDto {
     name!: string | undefined;
 
@@ -52018,6 +52657,7 @@ export class UserEditDto implements IUserEditDto {
     address!: string | undefined;
     address2!: string | undefined;
     mobilePasword!: string | undefined;
+    beaconUid!: string | undefined;
     userShifts!: GetUserShiftForViewDto[] | undefined;
 
     constructor(data?: IUserEditDto) {
@@ -52067,6 +52707,7 @@ export class UserEditDto implements IUserEditDto {
             this.address = data["address"];
             this.address2 = data["address2"];
             this.mobilePasword = data["mobilePasword"];
+            this.beaconUid = data["beaconUid"];
             if (Array.isArray(data["userShifts"])) {
                 this.userShifts = [] as any;
                 for (let item of data["userShifts"])
@@ -52120,6 +52761,7 @@ export class UserEditDto implements IUserEditDto {
         data["address"] = this.address;
         data["address2"] = this.address2;
         data["mobilePasword"] = this.mobilePasword;
+        data["beaconUid"] = this.beaconUid;
         if (Array.isArray(this.userShifts)) {
             data["userShifts"] = [];
             for (let item of this.userShifts)
@@ -52166,6 +52808,7 @@ export interface IUserEditDto {
     address: string | undefined;
     address2: string | undefined;
     mobilePasword: string | undefined;
+    beaconUid: string | undefined;
     userShifts: GetUserShiftForViewDto[] | undefined;
 }
 
@@ -52284,6 +52927,7 @@ export class GetUserForEditOutput implements IGetUserForEditOutput {
     nationalities!: NationalityDto[] | undefined;
     locations!: UserLocationDto[] | undefined;
     allOrganizationUnits!: OrganizationUnitDto[] | undefined;
+    allBeacons!: BeaconDto[] | undefined;
     memberedOrganizationUnits!: string[] | undefined;
     memberOrganizationUnit!: string | undefined;
     code!: string | undefined;
@@ -52342,6 +52986,11 @@ export class GetUserForEditOutput implements IGetUserForEditOutput {
                 this.allOrganizationUnits = [] as any;
                 for (let item of data["allOrganizationUnits"])
                     this.allOrganizationUnits!.push(OrganizationUnitDto.fromJS(item));
+            }
+            if (Array.isArray(data["allBeacons"])) {
+                this.allBeacons = [] as any;
+                for (let item of data["allBeacons"])
+                    this.allBeacons!.push(BeaconDto.fromJS(item));
             }
             if (Array.isArray(data["memberedOrganizationUnits"])) {
                 this.memberedOrganizationUnits = [] as any;
@@ -52406,6 +53055,11 @@ export class GetUserForEditOutput implements IGetUserForEditOutput {
             for (let item of this.allOrganizationUnits)
                 data["allOrganizationUnits"].push(item.toJSON());
         }
+        if (Array.isArray(this.allBeacons)) {
+            data["allBeacons"] = [];
+            for (let item of this.allBeacons)
+                data["allBeacons"].push(item.toJSON());
+        }
         if (Array.isArray(this.memberedOrganizationUnits)) {
             data["memberedOrganizationUnits"] = [];
             for (let item of this.memberedOrganizationUnits)
@@ -52446,6 +53100,7 @@ export interface IGetUserForEditOutput {
     nationalities: NationalityDto[] | undefined;
     locations: UserLocationDto[] | undefined;
     allOrganizationUnits: OrganizationUnitDto[] | undefined;
+    allBeacons: BeaconDto[] | undefined;
     memberedOrganizationUnits: string[] | undefined;
     memberOrganizationUnit: string | undefined;
     code: string | undefined;

@@ -1,6 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
-  <texts>    <text name="UserShift">User shift</text>
+  <texts>    <text name="Beacon">Beacon</text>
+    <text name="Uid">Uid</text>
+    <text name="Minor">Minor</text>
+    <text name="Major">Major</text>
+    <text name="BeaconsHeaderInfo">Beacons header info</text>
+    <text name="CreateNewBeacon">Create new beacon</text>
+    <text name="EditBeacon">Edit beacon</text>
+    <text name="DeleteBeacon">Delete beacon</text>
+    <text name="Beacons">Beacons</text>
+    <text name="UserShift">User shift</text>
     <text name="UserShiftsHeaderInfo">User shifts header info</text>
     <text name="CreateNewUserShift">Create new user shift</text>
     <text name="EditUserShift">Edit user shift</text>

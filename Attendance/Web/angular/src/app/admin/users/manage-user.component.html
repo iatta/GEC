@@ -239,7 +239,7 @@
                                     <label for="User_TerminationDate">{{l("TerminationDate")}}</label>
                                     <input class="form-control m-input" type="datetime" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY',isAnimated: true }" bsDatepicker [(ngModel)]="user.terminationDate._d" id="User_TerminationDate" name="User_TerminationDate">
                                 </div>
-                                
+
                             </div>
 
 
@@ -341,11 +341,11 @@
                                         <div class="col-lg-3">
                                             <label for="Shift">{{l("Shift")}}</label>
                                             <p-dropdown styleClass="form-control" optionLabel="shift.nameEn" [options]="shiftList" [(ngModel)]="selectedShift" name="selectedShift"  placeholder="Select a Shift" [showClear]="true"></p-dropdown>
-                                            
+
                                         </div>
 
                                         <div class="col-lg-3" style="margin-top: auto;">
-                                            <a href="javascript:void(0)" (click)="addShifts()"  class="btn btn-success btn-shadow-hover font-weight-bold mr-2">{{l("Add")}}</a>                                            
+                                            <a href="javascript:void(0)" (click)="addShifts()"  class="btn btn-success btn-shadow-hover font-weight-bold mr-2">{{l("Add")}}</a>
                                         </div>
                                     </div>
                                 </div>
@@ -354,7 +354,7 @@
                             <div class="row align-items-center">
                                 <!--<Primeng-Datatable-Start>-->
                                 <div class="primeng-datatable-container col-12">
-                                    <p-table 
+                                    <p-table
                                     #dt
                                     styleClass="ui-table-customers"
                                     [value]="user.userShifts"
@@ -378,23 +378,23 @@
                                             </tr>
                                             <tr>
                                                 <th>
-                                                    <p-calendar 
+                                                    <p-calendar
                                                     (onSelect)="onDateSelect($event)"
-                                                     (onClearClick)="dt.filter('', 'userShift.date', 'equals')" 
-                                                     [showButtonBar]="true" 
-                                                     styleClass="ui-column-filter" 
+                                                     (onClearClick)="dt.filter('', 'userShift.date', 'equals')"
+                                                     [showButtonBar]="true"
+                                                     styleClass="ui-column-filter"
                                                      placeholder="Day"
-                                                      [readonlyInput]="true" 
+                                                      [readonlyInput]="true"
                                                       dateFormat="dd/mm/yy"></p-calendar>
                                                 </th>
                                                 <th></th>
                                                 <th></th>
                                             </tr>
-                                           
+
                                         </ng-template>
                                         <ng-template pTemplate="body" let-userShiftView>
                                             <tr [@rowsAnimation]="" *ngIf="!userShiftView.userShift.isDeleted">
-                                                
+
                                                 <td>
                                                     {{userShiftView.userShift.date | momentFormat:'DD/MM/YYYY' }}
                                                 </td>
@@ -407,6 +407,19 @@
                                         </tr>
                                         </ng-template>
                                     </p-table>
+                                </div>
+                            </div>
+                        </tab>
+                        <tab heading="{{'Beacon' | localize}}" name="sixth">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div  class="form-group row">
+                                        <div class="col-lg-3">
+                                            <label for="Shift">{{l("Beacon")}}</label>
+                                            <p-dropdown styleClass="form-control" [options]="beaconList" [(ngModel)]="selectedBeacon" name="selectedBeacon"  placeholder="Select Beacon" [showClear]="true"></p-dropdown>
+
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </tab>

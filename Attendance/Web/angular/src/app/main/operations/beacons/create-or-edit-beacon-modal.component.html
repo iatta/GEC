@@ -1,0 +1,48 @@
+﻿<div bsModal #createOrEditModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="createOrEditModal" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form *ngIf="active" #beaconForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="beacon.id">{{l("EditBeacon")}}</span>
+                        <span *ngIf="!beacon.id">{{l("CreateNewBeacon")}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close" [disabled]="saving">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                 
+
+
+								<div class="form-group">
+									<label for="Beacon_Name">{{l("Name")}}</label>
+									<input type="text" id="Beacon_Name" class="form-control" [(ngModel)]="beacon.name" name="Name"    />
+								</div>
+					
+								<div class="form-group">
+									<label for="Beacon_Uid">{{l("Uid")}}</label>
+									<input type="text" id="Beacon_Uid" class="form-control" [(ngModel)]="beacon.uid" name="Uid"    />
+								</div>
+					
+								<div class="form-group">
+									<label for="Beacon_Minor">{{l("Minor")}}</label>
+									<input type="number" id="Beacon_Minor" class="form-control" [(ngModel)]="beacon.minor" name="Minor"  />
+								</div>
+					
+								<div class="form-group">
+									<label for="Beacon_Major">{{l("Major")}}</label>
+									<input type="number" id="Beacon_Major" class="form-control" [(ngModel)]="beacon.major" name="Major"  />
+								</div>
+					
+
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-default" (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!beaconForm.form.valid" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i> <span>{{l("Save")}}</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>

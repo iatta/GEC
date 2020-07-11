@@ -79,6 +79,7 @@ namespace Pixel.Attendance.Authorization.Users
         public string Image { get; set; }
         public bool IsFaceRegistered { get; set; }
         public string MobilePassword { get; set; }
+        public string BeaconUid { get; set; }
 
         public ICollection<ProjectUser> Projects { get; set; }
         

@@ -6,6 +6,11 @@
     /// </summary>
     public static class AppPermissions
     {
+        public const string Pages_Beacons = "Pages.Beacons";
+        public const string Pages_Beacons_Create = "Pages.Beacons.Create";
+        public const string Pages_Beacons_Edit = "Pages.Beacons.Edit";
+        public const string Pages_Beacons_Delete = "Pages.Beacons.Delete";
+
         public const string Pages_UserShifts = "Pages.UserShifts";
         public const string Pages_UserShifts_Create = "Pages.UserShifts.Create";
         public const string Pages_UserShifts_Edit = "Pages.UserShifts.Edit";

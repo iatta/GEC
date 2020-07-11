@@ -89,6 +89,8 @@ export class AppNavigationService {
 
 
 
+
+            new AppMenuItem('Beacons', 'Pages.Beacons', 'flaticon-laptop', '/app/main/operations/beacons'),
              new AppMenuItem('Administration', '', 'flaticon-interface-8', '', [
                 new AppMenuItem('OrganizationUnits', 'Pages.Administration.OrganizationUnits', 'flaticon-map', '/app/admin/organization-units'),
                 new AppMenuItem('JobTitles', 'Pages.JobTitles', 'flaticon2-list-3', '/app/main/setting/jobTitles'),

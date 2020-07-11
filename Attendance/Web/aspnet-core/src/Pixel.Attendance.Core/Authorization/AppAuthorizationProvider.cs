@@ -30,6 +30,13 @@ namespace Pixel.Attendance.Authorization
 
             var pages = context.GetPermissionOrNull(AppPermissions.Pages) ?? context.CreatePermission(AppPermissions.Pages, L("Pages"));
 
+            var beacons = pages.CreateChildPermission(AppPermissions.Pages_Beacons, L("Beacons"));
+            beacons.CreateChildPermission(AppPermissions.Pages_Beacons_Create, L("CreateNewBeacon"));
+            beacons.CreateChildPermission(AppPermissions.Pages_Beacons_Edit, L("EditBeacon"));
+            beacons.CreateChildPermission(AppPermissions.Pages_Beacons_Delete, L("DeleteBeacon"));
+
+
+
             
             var ManageUserShifts = pages.CreateChildPermission(AppPermissions.Pages_ManageUserShifts, L("ManageUserShiftsPermission"));
             var FingerPrints = pages.CreateChildPermission(AppPermissions.Pages_FingerPrint, L("FingerPrint"));

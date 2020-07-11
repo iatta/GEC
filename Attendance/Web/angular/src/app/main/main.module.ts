@@ -2,6 +2,10 @@
 import { PermitReportComponent } from './operations/reports/permit.component';
 import { LateInEarlyOutComponent } from './operations/reports/Late-in-early-out.component';
 import { AbsentComponent } from './operations/reports/absent.component';
+import { BeaconsComponent } from './operations/beacons/beacons.component';
+import { ViewBeaconModalComponent } from './operations/beacons/view-beacon-modal.component';
+import { CreateOrEditBeaconModalComponent } from './operations/beacons/create-or-edit-beacon-modal.component';
+
 import { UserShiftsComponent } from './operations/userShifts/userShifts.component';
 import { ViewUserShiftModalComponent } from './operations/userShifts/view-userShift-modal.component';
 import { CreateOrEditUserShiftModalComponent } from './operations/userShifts/create-or-edit-userShift-modal.component';
@@ -242,6 +246,8 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
           }),
     ],
     declarations: [
+		BeaconsComponent,
+		ViewBeaconModalComponent,		CreateOrEditBeaconModalComponent,
 		UserShiftsComponent,
 		ViewUserShiftModalComponent,		CreateOrEditUserShiftModalComponent,
     UserShiftUserLookupTableModalComponent,

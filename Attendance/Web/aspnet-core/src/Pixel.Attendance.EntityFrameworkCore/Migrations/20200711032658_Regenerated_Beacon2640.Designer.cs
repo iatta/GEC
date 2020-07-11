@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Pixel.Attendance.EntityFrameworkCore;
 
 namespace Pixel.Attendance.Migrations
 {
     [DbContext(typeof(AttendanceDbContext))]
-    partial class AttendanceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200711032658_Regenerated_Beacon2640")]
+    partial class Regenerated_Beacon2640
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1470,9 +1472,6 @@ namespace Pixel.Attendance.Migrations
                     b.Property<string>("AuthenticationSource")
                         .HasColumnType("nvarchar(64)")
                         .HasMaxLength(64);
-
-                    b.Property<string>("BeaconUid")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CardNumber")
                         .HasColumnType("nvarchar(max)");

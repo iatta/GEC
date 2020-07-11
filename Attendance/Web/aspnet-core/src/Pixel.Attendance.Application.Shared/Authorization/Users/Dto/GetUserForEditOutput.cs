@@ -19,6 +19,7 @@ namespace Pixel.Attendance.Authorization.Users.Dto
         public UserLocationDto[] Locations { get; set; }
 
         public List<OrganizationUnitDto> AllOrganizationUnits { get; set; }
+        public List<BeaconDto> AllBeacons { get; set; }
 
         public List<string> MemberedOrganizationUnits { get; set; }
 
@@ -64,6 +65,8 @@ namespace Pixel.Attendance.Authorization.Users.Dto
 
         public string Address { get; set; }
         public string Address2 { get; set; }
+        
+
 
         //public CreateOrEditTimeProfileDto TimeProfile { get; set; }
 

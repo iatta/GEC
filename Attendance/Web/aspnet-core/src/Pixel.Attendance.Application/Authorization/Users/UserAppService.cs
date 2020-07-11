@@ -82,7 +82,8 @@ namespace Pixel.Attendance.Authorization.Users
         private readonly IRepository<UserShift> _userShiftRepository;
         private readonly IRepository<User, long> _userRepository;
         private readonly IRepository<Shift> _shiftRepository;
-        
+        private readonly IRepository<Beacon> _beaconRepository;
+
 
 
 
@@ -114,6 +115,7 @@ namespace Pixel.Attendance.Authorization.Users
             IRepository<User, long> userRepository,
             IRepository<UserShift> userShift,
             IRepository<Shift> shift,
+            IRepository<Beacon> beaconRepository,
             IActiveTransactionProvider transactionProvider)
         {
             _roleManager = roleManager;
@@ -144,6 +146,7 @@ namespace Pixel.Attendance.Authorization.Users
             _nationalityRepository = nationalityRepository;
             _shiftRepository = shift;
             _userShiftRepository = userShift;
+            _beaconRepository = beaconRepository;
         }
 
         public async Task<PagedResultDto<UserListDto>> GetUsers(GetUsersInput input)
@@ -336,9 +339,10 @@ namespace Pixel.Attendance.Authorization.Users
 
             var allOrganizationUnits = await _organizationUnitRepository.GetAllListAsync();
             var nationalities = await _nationalityRepository.GetAllListAsync();
+            var allBeacons = await _beaconRepository.GetAllListAsync();
 
             //user shifts 
-           
+
 
             var output = new GetUserForEditOutput
             {
@@ -347,6 +351,7 @@ namespace Pixel.Attendance.Authorization.Users
                 Nationalities = ObjectMapper.Map<List<NationalityDto>>(nationalities),
                 Roles = userRoleDtos,
                 AllOrganizationUnits = ObjectMapper.Map<List<OrganizationUnitDto>>(allOrganizationUnits),
+                AllBeacons = ObjectMapper.Map<List<BeaconDto>>(allBeacons),
                 MemberedOrganizationUnits = new List<string>(),
                 MemberOrganizationUnit = ""
             };

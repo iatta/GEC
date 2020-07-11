@@ -44,7 +44,7 @@ export class ManageUserComponent extends AppComponentBase implements OnInit {
      @ViewChild('organizationUnitsHorizontalTreeModal', { static: true }) organizationUnitsHorizontalTreeModal: OrganizationUnitsHorizontalTreeModalUserComponent;
 //   @ViewChild('organizationUnitTree', {static: false}) organizationUnitTree: OrganizationUnitsHorizontalTreeComponent;
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
-    
+
 
     active = false;
     saving = false;
@@ -72,9 +72,12 @@ export class ManageUserComponent extends AppComponentBase implements OnInit {
 
     test:moment.Moment;
     usersList: SelectItem[] = [];
-    
+
     shiftList: GetShiftForViewDto[] = [];
     selectedShift: GetShiftForViewDto;
+
+    beaconList: SelectItem[];
+    selectedBeacon:string;
 
     shiftTypeList: SelectItem[] = [];
     selectedShiftId: number;
@@ -141,7 +144,7 @@ export class ManageUserComponent extends AppComponentBase implements OnInit {
 
     initTimeProfile() : void {
     this._shiftsServiceProxy.getAllFlat().subscribe((result)=>{
-            this.shiftList = result; 
+            this.shiftList = result;
         });
     }
 
@@ -184,6 +187,13 @@ export class ManageUserComponent extends AppComponentBase implements OnInit {
             userResult.locations.forEach(location => {
                 this.locationsList.push(  {label:location.locationDisplayName, value:{id:location.locationId, name: location.locationDisplayName}},);
             });
+
+            this.beaconList = [];
+            userResult.allBeacons.forEach(beacon => {
+                this.beaconList.push({label:beacon.name, value:beacon.uid});
+            });
+
+            this.selectedBeacon = userResult.user.beaconUid;
 
 
             this.nationalities =[];
@@ -392,8 +402,9 @@ export class ManageUserComponent extends AppComponentBase implements OnInit {
         if(userForm.form.valid){
 
             let input = new CreateOrUpdateUserInput();
-
+            debugger
             input.user = this.user;
+            input.user.beaconUid = this.selectedBeacon;
             input.user.organizationUnitId = this.organizationUnitTree.getSelectedOrganizations();
             input.setRandomPassword = this.setRandomPassword;
             input.sendActivationEmail = this.sendActivationEmail;
@@ -456,7 +467,7 @@ export class ManageUserComponent extends AppComponentBase implements OnInit {
     onDateSelect(value) {
         let newDate = moment(moment(value , 'YYYY-MM-DD').toISOString());
         this.table.filter(newDate, 'userShift.date', 'dateRangeFilter');
-        
+
     }
 
     formatDate(date) {
@@ -481,19 +492,19 @@ export class ManageUserComponent extends AppComponentBase implements OnInit {
         }
         for (var m = moment(this.startDate); m.diff(this.endDate, 'days') <= 0; m.add(1, 'days')) {
             let isExist = this.user.userShifts.findIndex(
-                x => x.userShift.date.isSame(m, 'year') && 
+                x => x.userShift.date.isSame(m, 'year') &&
                 x.userShift.date.isSame(m, 'month') &&
                  x.userShift.date.isSame(m, 'day') &&
                  x.userShift.shiftId == this.selectedShift.shift.id);
             if(isExist == -1){
              let userShiftToAdd = new GetUserShiftForViewDto();
              userShiftToAdd.shiftNameEn = this.selectedShift.shift.nameEn;
-             
+
              userShiftToAdd.userShift = new UserShiftDto();
              userShiftToAdd.userShift.isNew = true;
-             userShiftToAdd.userShift.userId = this.user.id; 
+             userShiftToAdd.userShift.userId = this.user.id;
              let date =moment(m);
-             userShiftToAdd.userShift.date = date; 
+             userShiftToAdd.userShift.date = date;
              userShiftToAdd.userShift.shiftId = this.selectedShift.shift.id;
              this.user.userShifts.unshift(userShiftToAdd);
             }
@@ -504,7 +515,7 @@ export class ManageUserComponent extends AppComponentBase implements OnInit {
 
     deleteUserShift(userShiftView: GetUserShiftForViewDto):void{
         let index = this.user.userShifts.findIndex(
-            x => x.userShift.date.isSame(userShiftView.userShift.date, 'year') && 
+            x => x.userShift.date.isSame(userShiftView.userShift.date, 'year') &&
             x.userShift.date.isSame(userShiftView.userShift.date, 'month') &&
              x.userShift.date.isSame(userShiftView.userShift.date, 'day') &&
              x.userShift.shiftId == userShiftView.userShift.shiftId);
