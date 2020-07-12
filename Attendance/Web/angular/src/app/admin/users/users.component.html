@@ -203,6 +203,11 @@
                                                             *ngIf="'Pages.Administration.Users.Delete' | permission"
                                                             (click)="deleteUser(record)">{{'Delete' | localize}}</a>
                                                     </li>
+                                                    <li>
+                                                        <a href="javascript:;"
+                                                            *ngIf="'Pages.Administration.Users.SendNotification' | permission"
+                                                            (click)="sendNotification(record)">{{'SendNotification' | localize}}</a>
+                                                    </li>
                                                 </ul>
                                             </div>
                                         </td>

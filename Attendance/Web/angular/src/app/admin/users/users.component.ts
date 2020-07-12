@@ -1,3 +1,4 @@
+import { NotificaionInput } from './../../../shared/service-proxies/service-proxies';
 import { Component, Injector, ViewChild, ViewEncapsulation, AfterViewInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AppConsts } from '@shared/AppConsts';
@@ -173,6 +174,23 @@ export class UsersComponent extends AppComponentBase implements AfterViewInit {
                         .subscribe(() => {
                             this.reloadPage();
                             this.notify.success(this.l('SuccessfullyDeleted'));
+                        });
+                }
+            }
+        );
+    }
+
+    sendNotification(user: UserListDto):void{
+        this.message.confirm(
+            this.l('SendNotificationMessage', user.userName),
+            this.l('AreYouSure'),
+            (isConfirmed) => {
+                if (isConfirmed) {
+                    let model = new NotificaionInput();
+                    model.userId = user.id;
+                    this._userServiceProxy.sendNotification(model)
+                        .subscribe(() => {
+                            this.notify.success(this.l('SuccessfullySent'));
                         });
                 }
             }

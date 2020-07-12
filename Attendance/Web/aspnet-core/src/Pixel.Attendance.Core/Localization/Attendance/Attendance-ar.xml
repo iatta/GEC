@@ -1334,8 +1334,12 @@
     <text name="CreateNewMobileWebPage">   انشاء صفحة موبايل     </text>
     <text name="EditMobileWebPage">   تعديل صفحة موبايل     </text>
     <text name="Content">     المحتوى     </text>
+    <text name="SendNotificationMessageMessage">     سيتم ارساله تنبيه الى      </text>
+    <text name="SuccessfullySent">        تم ارسال التنبيه بنجاح       </text>
+    <text name="SendNotification">         ارسال تنبيه        </text>
     
-    
+
+
 
 
 

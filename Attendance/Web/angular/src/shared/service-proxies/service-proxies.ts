@@ -25567,6 +25567,62 @@ export class UserServiceProxy {
     }
 
     /**
+     * @param body (optional) 
+     * @return Success
+     */
+    sendNotification(body: NotificaionInput | undefined): Observable<NotificationResponseDto> {
+        let url_ = this.baseUrl + "/api/services/app/User/SendNotification";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json", 
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processSendNotification(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processSendNotification(<any>response_);
+                } catch (e) {
+                    return <Observable<NotificationResponseDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<NotificationResponseDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processSendNotification(response: HttpResponseBase): Observable<NotificationResponseDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = NotificationResponseDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<NotificationResponseDto>(<any>null);
+    }
+
+    /**
      * @param shiftId (optional) 
      * @return Success
      */
@@ -53517,6 +53573,86 @@ export interface ICreateOrUpdateUserInput {
     managerId: number | undefined;
     userLoaded: boolean;
     userShifts: GetUserShiftForViewDto[] | undefined;
+}
+
+export class NotificaionInput implements INotificaionInput {
+    userId!: number;
+    message!: string | undefined;
+
+    constructor(data?: INotificaionInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.userId = data["userId"];
+            this.message = data["message"];
+        }
+    }
+
+    static fromJS(data: any): NotificaionInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new NotificaionInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["userId"] = this.userId;
+        data["message"] = this.message;
+        return data; 
+    }
+}
+
+export interface INotificaionInput {
+    userId: number;
+    message: string | undefined;
+}
+
+export class NotificationResponseDto implements INotificationResponseDto {
+    status!: boolean;
+    message!: string | undefined;
+
+    constructor(data?: INotificationResponseDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.status = data["status"];
+            this.message = data["message"];
+        }
+    }
+
+    static fromJS(data: any): NotificationResponseDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new NotificationResponseDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["status"] = this.status;
+        data["message"] = this.message;
+        return data; 
+    }
+}
+
+export interface INotificationResponseDto {
+    status: boolean;
+    message: string | undefined;
 }
 
 export class UserReportDto implements IUserReportDto {

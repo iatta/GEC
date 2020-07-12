@@ -287,6 +287,9 @@ namespace Pixel.Attendance.Authorization
 
             var users = administration.CreateChildPermission(AppPermissions.Pages_Administration_Users, L("Users"));
             users.CreateChildPermission(AppPermissions.Pages_Administration_Users_Create, L("CreatingNewUser"));
+            users.CreateChildPermission(AppPermissions.Pages_Administration_Users_SendNotification, L("SendNotification"));
+            
+
             users.CreateChildPermission(AppPermissions.Pages_Administration_Users_Edit, L("EditingUser"));
             users.CreateChildPermission(AppPermissions.Pages_Administration_Users_Delete, L("DeletingUser"));
             users.CreateChildPermission(AppPermissions.Pages_Administration_Users_ChangePermissions, L("ChangingPermissions"));

@@ -208,6 +208,7 @@
         public const string Pages_Administration_Users_ChangePermissions = "Pages.Administration.Users.ChangePermissions";
         public const string Pages_Administration_Users_Impersonation = "Pages.Administration.Users.Impersonation";
         public const string Pages_Administration_Users_Unlock = "Pages.Administration.Users.Unlock";
+        public const string Pages_Administration_Users_SendNotification = "Pages.Administration.Users.SendNotification";
 
         public const string Pages_Administration_Languages = "Pages.Administration.Languages";
         public const string Pages_Administration_Languages_Create = "Pages.Administration.Languages.Create";

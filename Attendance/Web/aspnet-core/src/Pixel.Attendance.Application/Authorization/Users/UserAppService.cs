@@ -754,6 +754,14 @@ namespace Pixel.Attendance.Authorization.Users
             return query;
         }
 
+        public async Task<NotificationResponseDto> SendNotification(NotificaionInput input)
+        {
+            // to be modified
+           return await Task.Run(() => {
+                return new NotificationResponseDto();
+            });
+        }
+
         #region Reports
         public async Task<List<UserReportDto>> GetUsersByShiftId(int shiftId)
         {

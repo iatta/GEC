@@ -1475,8 +1475,13 @@
     <text name="HrTransactions">  Manage Transactions </text>
     <text name="HrTransactionsPermission">  Hr Transactions </text>
     <text name="ManageUserShiftsPermission">  Manage User Shifts </text>
+    <text name="SendNotification"> Send Notification </text>
+    <text name="SendNotificationMessage"> Send Notification Message </text>
+    <text name="SuccessfullySent"> Successfully Sent </text>
     
-    
+
+
+
 
 
   </texts>
