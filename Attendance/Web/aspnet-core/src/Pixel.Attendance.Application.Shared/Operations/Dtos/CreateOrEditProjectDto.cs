@@ -12,13 +12,14 @@ namespace Pixel.Attendance.Operations.Dtos
 		
 		
 		public string NameEn { get; set; }
-		
-		
-		 public long? ManagerId { get; set; }
+
+		public  string Code { get; set; }
+		public string Number { get; set; }
+		public long? ManagerId { get; set; }
 		 
-		 		 public int? LocationId { get; set; }
+		public int? LocationId { get; set; }
 		 
-		 		 public long? OrganizationUnitId { get; set; }
+		public long? OrganizationUnitId { get; set; }
 		 
 		 
     }

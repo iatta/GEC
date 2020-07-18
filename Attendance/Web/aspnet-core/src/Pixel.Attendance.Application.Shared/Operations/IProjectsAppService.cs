@@ -34,7 +34,8 @@ namespace Pixel.Attendance.Operations
 		Task<List<ProjectDto>> GetAllFlatForOrganizationUnitManager();
 		Task<List<ProjectDto>> GetAllFlat();
 		Task<List<ProjectDto>> GetAllFlatForHr();
-
+		Task<List<ProjectMachineDto>> GetProjecMachines(int projectId);
+		Task UpdateProjecMachines(ProjectMachineInputDto input);
 
 	}
 }

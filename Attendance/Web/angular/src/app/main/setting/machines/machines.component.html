@@ -109,10 +109,10 @@
                             <ng-template pTemplate="header">
                                 <tr>
                                     <th style="width: 130px" [hidden]="!isGrantedAny('Pages.Machines.Edit', 'Pages.Machines.Delete')">{{l('Actions')}}</th>
-                                    <th style="width: 150px" pSortableColumn="organizationUnitFk.displayName">
+                                    <!-- <th style="width: 150px" pSortableColumn="organizationUnitFk.displayName">
                                         {{l('DisplayName')}}
                                         <p-sortIcon field="organizationUnitDisplayName"></p-sortIcon>
-                                    </th>
+                                    </th> -->
                                     <th style="width: 150px" pSortableColumn="nameAr">
                                         {{l('NameAr')}}
                                         <p-sortIcon field="machine.nameAr"></p-sortIcon>
@@ -160,10 +160,10 @@
                                             </ul>
                                         </div>
                                     </td>
-                                    <td style="width:150px">
+                                    <!-- <td style="width:150px">
 												<span class="ui-column-title"> {{l('DisplayName')}}</span>
 												{{record.organizationUnitDisplayName}}
-											</td>
+											</td> -->
                                     <td style="width:150px">
 											<span class="ui-column-title"> {{l('NameAr')}}</span>
 											{{record.machine.nameAr}}

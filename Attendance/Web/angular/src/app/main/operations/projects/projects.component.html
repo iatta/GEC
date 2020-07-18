@@ -121,6 +121,14 @@
                                         {{l('ProjectNameEn')}}
                                         <p-sortIcon field="project.nameEn"></p-sortIcon>
                                     </th>
+                                    <th style="width: 150px" pSortableColumn="code">
+                                        {{l('Code')}}
+                                        <p-sortIcon field="project.code"></p-sortIcon>
+                                    </th>
+                                    <th style="width: 150px" pSortableColumn="number">
+                                        {{l('Number')}}
+                                        <p-sortIcon field="project.number"></p-sortIcon>
+                                    </th>
 
                                 </tr>
                             </ng-template>
@@ -134,11 +142,15 @@
                                             </button>
 												<ul class="dropdown-menu"  *dropdownMenu>
 
-                                                <li>
+                                                <!-- <li>
                                                     <a href="javascript:;"
                                                         (click)="openAssignProjectUsers(record)">{{l('ProjectUsers')}}</a>
+                                                </li> -->
+                                                <li>
+                                                    <a href="javascript:;"
+                                                        (click)="openAssignProjectMachines(record)">{{l('ProjectMachines')}}</a>
                                                 </li>
-												<li>
+                                                <li>
 													<a href="javascript:;"
 														(click)="viewProjectModal.show(record)">{{l('View')}}</a>
 												</li>
@@ -176,6 +188,14 @@
                                     <td style="width:150px">
 											<span class="ui-column-title"> {{l('NameEn')}}</span>
 											{{record.project.nameEn}}
+                                        </td>
+                                        <td style="width:150px">
+											<span class="ui-column-title"> {{l('Code')}}</span>
+											{{record.project.code}}
+                                        </td>
+                                        <td style="width:150px">
+											<span class="ui-column-title"> {{l('Number')}}</span>
+											{{record.project.number}}
 										</td>
 
                                 </tr>
@@ -201,7 +221,8 @@
             </div>
         </div>
     </div>
-<assignProjectUserLookupTableModal #assignProjectUserLookupTableModal></assignProjectUserLookupTableModal>
+    <assignProjectMachinesLookupTableModal #assignProjectMachinesLookupTableModal></assignProjectMachinesLookupTableModal>
+    <assignProjectUserLookupTableModal #assignProjectUserLookupTableModal></assignProjectUserLookupTableModal>
     <createOrEditProjectModal #createOrEditProjectModal (modalSave)="getProjects()"></createOrEditProjectModal>
     <viewProjectModal #viewProjectModal></viewProjectModal>
      <entityTypeHistoryModal #entityTypeHistoryModal></entityTypeHistoryModal>

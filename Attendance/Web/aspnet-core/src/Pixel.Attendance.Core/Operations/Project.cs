@@ -19,8 +19,9 @@ namespace Pixel.Attendance.Operations
 		public virtual string NameAr { get; set; }
 		
 		public virtual string NameEn { get; set; }
-		
 
+		public virtual string Code { get; set; }
+		public virtual string Number { get; set; }
 		public virtual long? ManagerId { get; set; }
 		
         [ForeignKey("ManagerId")]
@@ -37,6 +38,8 @@ namespace Pixel.Attendance.Operations
 		public OrganizationUnit OrganizationUnitFk { get; set; }
 
 		public ICollection<ProjectUser> Users { get; set; }
+
+		public ICollection<ProjectMachine> Machines { get; set; }
 
 	}
 }

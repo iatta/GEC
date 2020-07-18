@@ -4,6 +4,8 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Abp.Domain.Entities.Auditing;
 using Abp.Domain.Entities;
+using Pixel.Attendance.Operations;
+using System.Collections.Generic;
 
 namespace Pixel.Attendance.Setting
 {
@@ -38,6 +40,7 @@ namespace Pixel.Attendance.Setting
 		
         [ForeignKey("OrganizationUnitId")]
 		public OrganizationUnit OrganizationUnitFk { get; set; }
-		
-    }
+		public ICollection<ProjectMachine> Projects { get; set; }
+
+	}
 }

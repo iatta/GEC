@@ -15,6 +15,7 @@ import { FileDownloadService } from '@shared/utils/file-download.service';
 import { EntityTypeHistoryModalComponent } from '@app/shared/common/entityHistory/entity-type-history-modal.component';
 import * as _ from 'lodash';
 import * as moment from 'moment';
+import { AssignProjectMachineLookupTableModalComponent } from './assign-project-machine-lookup-table-modal.component';
 
 @Component({
     templateUrl: './projects.component.html',
@@ -24,6 +25,7 @@ import * as moment from 'moment';
 export class ProjectsComponent extends AppComponentBase {
 
     @ViewChild('assignProjectUserLookupTableModal', { static: true }) assignProjectUserLookupTableModal: AssignProjectUserLookupTableModalComponent;
+    @ViewChild('assignProjectMachinesLookupTableModal', { static: true }) assignProjectMachinesLookupTableModal: AssignProjectMachineLookupTableModalComponent;
     @ViewChild('createOrEditProjectModal', { static: true }) createOrEditProjectModal: CreateOrEditProjectModalComponent;
     @ViewChild('viewProjectModalComponent', { static: true }) viewProjectModal: ViewProjectModalComponent;
     @ViewChild('entityTypeHistoryModal', { static: true }) entityTypeHistoryModal: EntityTypeHistoryModalComponent;
@@ -123,6 +125,10 @@ export class ProjectsComponent extends AppComponentBase {
         this.assignProjectUserLookupTableModal.show(projectView.project.id);
     }
 
+
+    openAssignProjectMachines(projectView:GetProjectForViewDto):void{
+        this.assignProjectMachinesLookupTableModal.show(projectView.project.id);
+    }
     exportToExcel(): void {
         this._projectsServiceProxy.getProjectsToExcel(
         this.filterText,

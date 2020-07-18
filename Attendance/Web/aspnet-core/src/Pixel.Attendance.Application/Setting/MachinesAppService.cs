@@ -207,5 +207,37 @@ namespace Pixel.Attendance.Setting
                 lookupTableDtoList
             );
          }
+
+        [AbpAuthorize(AppPermissions.Pages_Machines)]
+        public async Task<PagedResultDto<MachineLookupTableDto>> GetAllMachinesForLookupTable(GetAllForLookupTableInput input)
+        {
+            var query = _machineRepository.GetAll();
+            if (!string.IsNullOrEmpty(input.Filter))
+            {
+                query = query.Where(x => x.NameEn.ToLower().Contains(input.Filter.ToLower()));
+            }
+
+            var totalCount = await query.CountAsync();
+
+            var machineList = await query
+                .PageBy(input)
+                .ToListAsync();
+
+            var lookupTableDtoList = new List<MachineLookupTableDto>();
+            foreach (var machine in machineList)
+            {
+                lookupTableDtoList.Add(new MachineLookupTableDto
+                {
+                    Id = machine.Id,
+                    Name = machine.NameEn?.ToString(),
+                    IpAddress = machine.IpAddress?.ToString()
+                });
+            }
+
+            return new PagedResultDto<MachineLookupTableDto>(
+                totalCount,
+                lookupTableDtoList
+            );
+        }
     }
 }

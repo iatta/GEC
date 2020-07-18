@@ -145,6 +145,21 @@ namespace Pixel.Attendance.EntityFrameworkCore
                .WithOne(e => e.LocationFk);
 
 
+
+
+            modelBuilder.Entity<ProjectMachine>().ToTable("ProjectMachines");
+
+            modelBuilder.Entity<ProjectMachine>().HasKey(ujr => new { ujr.MachineId, ujr.ProjectId });
+
+            modelBuilder.Entity<ProjectMachine>().HasOne(ujr => ujr.Machine).WithMany(u => u.Projects)
+                                                         .HasForeignKey(ujr => ujr.MachineId).OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<ProjectMachine>().HasOne(ujr => ujr.Project).WithMany(j => j.Machines)
+                                                         .HasForeignKey(ujr => ujr.ProjectId).OnDelete(DeleteBehavior.Restrict);
+
+
+
+
             modelBuilder.Entity<ProjectUser>().ToTable("ProjectUsers");
 
 

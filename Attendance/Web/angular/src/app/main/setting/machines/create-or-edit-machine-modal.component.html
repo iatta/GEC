@@ -12,12 +12,12 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                 
+
 
 					<div class="form-group m-form__group">
                         <label for="OrganizationUnitDisplayName">{{l("OrganizationUnit")}}</label>
                         <div class="input-group">
-                            <input class="form-control" id="OrganizationUnitDisplayName" name="organizationUnitDisplayName" [(ngModel)]="organizationUnitDisplayName" type="text" disabled>     
+                            <input class="form-control" id="OrganizationUnitDisplayName" name="organizationUnitDisplayName" [(ngModel)]="organizationUnitDisplayName" type="text" disabled>
                             <div class="input-group-append">
                                 <button class="btn btn-primary blue" (click)="openSelectOrganizationUnitModal()" type="button"><i class="fa fa-search"></i> {{l("Pick")}}</button>
                             </div> <div class="input-group-prepend">
@@ -26,49 +26,51 @@
                         </div>
                     </div>
                     <input class="form-control" name="machine.organizationUnitId" [(ngModel)]="machine.organizationUnitId" type="text"  hidden>
-		 
+
 
 								<div class="form-group">
 									<label for="Machine_NameAr">{{l("NameAr")}}</label>
 									<input type="text" id="Machine_NameAr" class="form-control" [(ngModel)]="machine.nameAr" name="NameAr"    />
 								</div>
-					
+
 								<div class="form-group">
 									<label for="Machine_NameEn">{{l("NameEn")}}</label>
 									<input type="text" id="Machine_NameEn" class="form-control" [(ngModel)]="machine.nameEn" name="NameEn"    />
 								</div>
-					
+
 								<div class="form-group">
 									<label for="Machine_IpAddress">{{l("IpAddress")}}</label>
 									<input type="text" id="Machine_IpAddress" class="form-control" [(ngModel)]="machine.ipAddress" name="IpAddress"    />
 								</div>
-					
+
 								<div class="form-group">
 									<label for="Machine_SubNet">{{l("SubNet")}}</label>
 									<input type="text" id="Machine_SubNet" class="form-control" [(ngModel)]="machine.subNet" name="SubNet"    />
 								</div>
-					
-								<br/><div class="m-checkbox-list">
-									<label for="Machine_Status" class="kt-checkbox">
-										<input id="Machine_Status" type="checkbox" name="Status" [(ngModel)]="machine.status"> 
-										{{l("Status")}}
-										<span></span>
-									</label>
-								</div>
-					
+
+
+
 								<div class="form-group">
 									<label for="Machine_Port">{{l("Port")}}</label>
 									<input type="text" id="Machine_Port" class="form-control" [(ngModel)]="machine.port" name="Port"    />
 								</div>
-					
-								<br/><div class="m-checkbox-list">
-									<label for="Machine_Online" class="kt-checkbox">
-										<input id="Machine_Online" type="checkbox" name="Online" [(ngModel)]="machine.online"> 
-										{{l("Online")}}
-										<span></span>
-									</label>
-								</div>
-					
+                                <div class="form-group">
+                                    <div class="checkbox-inline">
+                                        <label for="Machine_Status" class="kt-checkbox">
+                                            <input id="Machine_Status" type="checkbox" name="Status" [(ngModel)]="machine.status">
+                                            {{l("Status")}}
+                                            <span></span>
+                                        </label>
+                                        <label for="Machine_Online" class="kt-checkbox" style="margin-left: 10px;">
+                                            <input id="Machine_Online" type="checkbox" name="Online" [(ngModel)]="machine.online">
+                                            {{l("Online")}}
+                                            <span></span>
+                                        </label>
+                                    </div>
+
+                                </div>
+
+
 
                 </div>
                 <div class="modal-footer">
@@ -79,5 +81,5 @@
         </div>
     </div>
 <machineOrganizationUnitLookupTableModal #machineOrganizationUnitLookupTableModal (modalSave)="getNewOrganizationUnitId()"></machineOrganizationUnitLookupTableModal>
-		 
+
 </div>

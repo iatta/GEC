@@ -23,6 +23,8 @@ namespace Pixel.Attendance.Setting
 
 		
 		Task<PagedResultDto<MachineOrganizationUnitLookupTableDto>> GetAllOrganizationUnitForLookupTable(GetAllForLookupTableInput input);
-		
-    }
+		Task<PagedResultDto<MachineLookupTableDto>> GetAllMachinesForLookupTable(GetAllForLookupTableInput input);
+
+
+	}
 }

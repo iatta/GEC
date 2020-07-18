@@ -201,6 +201,7 @@ import { ProjectManagerTransactionsComponent } from './operations/manualTransact
 import { UnitManagerTransactionsComponent } from './operations/manualTransactions/transaction-unit-manager.component';
 import { EditTimeTransactionModalComponent } from './operations/manualTransactions/edit-transaction-time-modal.component';
 import { HrTransactionsComponent } from './operations/manualTransactions/transaction-hr.component';
+import { AssignProjectMachineLookupTableModalComponent } from './operations/projects/assign-project-machine-lookup-table-modal.component';
 
 
 NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
@@ -346,7 +347,8 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
         ProjectManagerTransactionsComponent,
         UnitManagerTransactionsComponent,
         EditTimeTransactionModalComponent,
-        HrTransactionsComponent
+        HrTransactionsComponent,
+        AssignProjectMachineLookupTableModalComponent
 
     ],
     providers: [

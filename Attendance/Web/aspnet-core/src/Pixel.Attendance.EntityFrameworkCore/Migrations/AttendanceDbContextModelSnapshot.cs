@@ -2413,6 +2413,9 @@ namespace Pixel.Attendance.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Code")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime2");
 
@@ -2446,6 +2449,9 @@ namespace Pixel.Attendance.Migrations
                     b.Property<string>("NameEn")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Number")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<long?>("OrganizationUnitId")
                         .HasColumnType("bigint");
 
@@ -2458,6 +2464,21 @@ namespace Pixel.Attendance.Migrations
                     b.HasIndex("OrganizationUnitId");
 
                     b.ToTable("Projects");
+                });
+
+            modelBuilder.Entity("Pixel.Attendance.Operations.ProjectMachine", b =>
+                {
+                    b.Property<int>("MachineId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProjectId")
+                        .HasColumnType("int");
+
+                    b.HasKey("MachineId", "ProjectId");
+
+                    b.HasIndex("ProjectId");
+
+                    b.ToTable("ProjectMachines");
                 });
 
             modelBuilder.Entity("Pixel.Attendance.Operations.ProjectUser", b =>
@@ -4408,6 +4429,21 @@ namespace Pixel.Attendance.Migrations
                     b.HasOne("Abp.Organizations.OrganizationUnit", "OrganizationUnitFk")
                         .WithMany()
                         .HasForeignKey("OrganizationUnitId");
+                });
+
+            modelBuilder.Entity("Pixel.Attendance.Operations.ProjectMachine", b =>
+                {
+                    b.HasOne("Pixel.Attendance.Setting.Machine", "Machine")
+                        .WithMany("Projects")
+                        .HasForeignKey("MachineId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Pixel.Attendance.Operations.Project", "Project")
+                        .WithMany("Machines")
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Pixel.Attendance.Operations.ProjectUser", b =>

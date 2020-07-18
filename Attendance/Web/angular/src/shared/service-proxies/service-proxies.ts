@@ -10325,6 +10325,77 @@ export class MachinesServiceProxy {
         }
         return _observableOf<PagedResultDtoOfMachineOrganizationUnitLookupTableDto>(<any>null);
     }
+
+    /**
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
+     * @return Success
+     */
+    getAllMachinesForLookupTable(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfMachineLookupTableDto> {
+        let url_ = this.baseUrl + "/api/services/app/Machines/GetAllMachinesForLookupTable?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllMachinesForLookupTable(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllMachinesForLookupTable(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfMachineLookupTableDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfMachineLookupTableDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAllMachinesForLookupTable(response: HttpResponseBase): Observable<PagedResultDtoOfMachineLookupTableDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfMachineLookupTableDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfMachineLookupTableDto>(<any>null);
+    }
 }
 
 @Injectable()
@@ -16743,6 +16814,118 @@ export class ProjectsServiceProxy {
     }
 
     protected processUpdateProjectUsers(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param projectId (optional) 
+     * @return Success
+     */
+    getProjecMachines(projectId: number | undefined): Observable<ProjectMachineDto[]> {
+        let url_ = this.baseUrl + "/api/services/app/Projects/GetProjecMachines?";
+        if (projectId === null)
+            throw new Error("The parameter 'projectId' cannot be null.");
+        else if (projectId !== undefined)
+            url_ += "projectId=" + encodeURIComponent("" + projectId) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetProjecMachines(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetProjecMachines(<any>response_);
+                } catch (e) {
+                    return <Observable<ProjectMachineDto[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ProjectMachineDto[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetProjecMachines(response: HttpResponseBase): Observable<ProjectMachineDto[]> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(ProjectMachineDto.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ProjectMachineDto[]>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    updateProjecMachines(body: ProjectMachineInputDto | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Projects/UpdateProjecMachines";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json", 
+            })
+        };
+
+        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processUpdateProjecMachines(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processUpdateProjecMachines(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processUpdateProjecMachines(response: HttpResponseBase): Observable<void> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
@@ -37458,6 +37641,102 @@ export interface IPagedResultDtoOfMachineOrganizationUnitLookupTableDto {
     items: MachineOrganizationUnitLookupTableDto[] | undefined;
 }
 
+export class MachineLookupTableDto implements IMachineLookupTableDto {
+    id!: number;
+    name!: string | undefined;
+    ipAddress!: string | undefined;
+    isSelected!: boolean;
+
+    constructor(data?: IMachineLookupTableDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"];
+            this.name = data["name"];
+            this.ipAddress = data["ipAddress"];
+            this.isSelected = data["isSelected"];
+        }
+    }
+
+    static fromJS(data: any): MachineLookupTableDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new MachineLookupTableDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["name"] = this.name;
+        data["ipAddress"] = this.ipAddress;
+        data["isSelected"] = this.isSelected;
+        return data; 
+    }
+}
+
+export interface IMachineLookupTableDto {
+    id: number;
+    name: string | undefined;
+    ipAddress: string | undefined;
+    isSelected: boolean;
+}
+
+export class PagedResultDtoOfMachineLookupTableDto implements IPagedResultDtoOfMachineLookupTableDto {
+    totalCount!: number;
+    items!: MachineLookupTableDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfMachineLookupTableDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (Array.isArray(data["items"])) {
+                this.items = [] as any;
+                for (let item of data["items"])
+                    this.items!.push(MachineLookupTableDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfMachineLookupTableDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfMachineLookupTableDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfMachineLookupTableDto {
+    totalCount: number;
+    items: MachineLookupTableDto[] | undefined;
+}
+
 export class ManualTransactionDto implements IManualTransactionDto {
     transDate!: moment.Moment;
     transType!: number;
@@ -44508,6 +44787,8 @@ export interface IChangeUserLanguageDto {
 export class ProjectDto implements IProjectDto {
     nameAr!: string | undefined;
     nameEn!: string | undefined;
+    code!: string | undefined;
+    number!: string | undefined;
     managerId!: number | undefined;
     locationId!: number | undefined;
     organizationUnitId!: number | undefined;
@@ -44526,6 +44807,8 @@ export class ProjectDto implements IProjectDto {
         if (data) {
             this.nameAr = data["nameAr"];
             this.nameEn = data["nameEn"];
+            this.code = data["code"];
+            this.number = data["number"];
             this.managerId = data["managerId"];
             this.locationId = data["locationId"];
             this.organizationUnitId = data["organizationUnitId"];
@@ -44544,6 +44827,8 @@ export class ProjectDto implements IProjectDto {
         data = typeof data === 'object' ? data : {};
         data["nameAr"] = this.nameAr;
         data["nameEn"] = this.nameEn;
+        data["code"] = this.code;
+        data["number"] = this.number;
         data["managerId"] = this.managerId;
         data["locationId"] = this.locationId;
         data["organizationUnitId"] = this.organizationUnitId;
@@ -44555,6 +44840,8 @@ export class ProjectDto implements IProjectDto {
 export interface IProjectDto {
     nameAr: string | undefined;
     nameEn: string | undefined;
+    code: string | undefined;
+    number: string | undefined;
     managerId: number | undefined;
     locationId: number | undefined;
     organizationUnitId: number | undefined;
@@ -44660,6 +44947,8 @@ export interface IPagedResultDtoOfGetProjectForViewDto {
 export class CreateOrEditProjectDto implements ICreateOrEditProjectDto {
     nameAr!: string | undefined;
     nameEn!: string | undefined;
+    code!: string | undefined;
+    number!: string | undefined;
     managerId!: number | undefined;
     locationId!: number | undefined;
     organizationUnitId!: number | undefined;
@@ -44678,6 +44967,8 @@ export class CreateOrEditProjectDto implements ICreateOrEditProjectDto {
         if (data) {
             this.nameAr = data["nameAr"];
             this.nameEn = data["nameEn"];
+            this.code = data["code"];
+            this.number = data["number"];
             this.managerId = data["managerId"];
             this.locationId = data["locationId"];
             this.organizationUnitId = data["organizationUnitId"];
@@ -44696,6 +44987,8 @@ export class CreateOrEditProjectDto implements ICreateOrEditProjectDto {
         data = typeof data === 'object' ? data : {};
         data["nameAr"] = this.nameAr;
         data["nameEn"] = this.nameEn;
+        data["code"] = this.code;
+        data["number"] = this.number;
         data["managerId"] = this.managerId;
         data["locationId"] = this.locationId;
         data["organizationUnitId"] = this.organizationUnitId;
@@ -44707,6 +45000,8 @@ export class CreateOrEditProjectDto implements ICreateOrEditProjectDto {
 export interface ICreateOrEditProjectDto {
     nameAr: string | undefined;
     nameEn: string | undefined;
+    code: string | undefined;
+    number: string | undefined;
     managerId: number | undefined;
     locationId: number | undefined;
     organizationUnitId: number | undefined;
@@ -45110,6 +45405,94 @@ export class ProjectUserInputDto implements IProjectUserInputDto {
 
 export interface IProjectUserInputDto {
     projectUsers: ProjectUserDto[] | undefined;
+    projectId: number;
+}
+
+export class ProjectMachineDto implements IProjectMachineDto {
+    machineId!: number;
+    projectId!: number;
+
+    constructor(data?: IProjectMachineDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.machineId = data["machineId"];
+            this.projectId = data["projectId"];
+        }
+    }
+
+    static fromJS(data: any): ProjectMachineDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ProjectMachineDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["machineId"] = this.machineId;
+        data["projectId"] = this.projectId;
+        return data; 
+    }
+}
+
+export interface IProjectMachineDto {
+    machineId: number;
+    projectId: number;
+}
+
+export class ProjectMachineInputDto implements IProjectMachineInputDto {
+    projectMachines!: ProjectMachineDto[] | undefined;
+    projectId!: number;
+
+    constructor(data?: IProjectMachineInputDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            if (Array.isArray(data["projectMachines"])) {
+                this.projectMachines = [] as any;
+                for (let item of data["projectMachines"])
+                    this.projectMachines!.push(ProjectMachineDto.fromJS(item));
+            }
+            this.projectId = data["projectId"];
+        }
+    }
+
+    static fromJS(data: any): ProjectMachineInputDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ProjectMachineInputDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.projectMachines)) {
+            data["projectMachines"] = [];
+            for (let item of this.projectMachines)
+                data["projectMachines"].push(item.toJSON());
+        }
+        data["projectId"] = this.projectId;
+        return data; 
+    }
+}
+
+export interface IProjectMachineInputDto {
+    projectMachines: ProjectMachineDto[] | undefined;
     projectId: number;
 }
 

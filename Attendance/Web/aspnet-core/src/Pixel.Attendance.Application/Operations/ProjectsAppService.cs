@@ -107,7 +107,9 @@ namespace Pixel.Attendance.Operations
 							{
                                 NameAr = o.NameAr,
                                 NameEn = o.NameEn,
-                                Id = o.Id
+                                Id = o.Id,
+                                Code = o.Code,
+                                Number = o.Number
 							},
                          	UserName = s1 == null ? "" : s1.Name.ToString(),
                          	LocationTitleEn = s2 == null ? "" : s2.TitleEn.ToString(),
@@ -239,7 +241,10 @@ namespace Pixel.Attendance.Operations
 							{
                                 NameAr = o.NameAr,
                                 NameEn = o.NameEn,
-                                Id = o.Id
+                                Id = o.Id,
+                                Code = o.Code,
+                                Number = o.Number
+                                
 							},
                          	UserName = s1 == null ? "" : s1.Name.ToString(),
                          	LocationTitleEn = s2 == null ? "" : s2.TitleEn.ToString(),
@@ -312,7 +317,9 @@ namespace Pixel.Attendance.Operations
             );
          }
 
-		[AbpAuthorize(AppPermissions.Pages_Projects)]
+       
+
+        [AbpAuthorize(AppPermissions.Pages_Projects)]
          public async Task<PagedResultDto<ProjectOrganizationUnitLookupTableDto>> GetAllOrganizationUnitForLookupTable(GetAllForLookupTableInput input)
          {
              var query = _lookup_organizationUnitRepository.GetAll().WhereIf(
@@ -342,6 +349,8 @@ namespace Pixel.Attendance.Operations
          }
 
 
+
+
         //project users 
         public async Task<List<ProjectUserDto>> GetProjectUsers(int projectId)
         {
@@ -369,6 +378,36 @@ namespace Pixel.Attendance.Operations
             await _projectRepository.UpdateAsync(project);
 
         }
+
+
+        //project machines 
+        public async Task<List<ProjectMachineDto>> GetProjecMachines(int projectId)
+        {
+            var output = new List<ProjectMachineDto>();
+            var project = await _projectRepository.GetAllIncluding(x => x.Machines).FirstOrDefaultAsync(x => x.Id == projectId);
+
+            foreach (var projecMachine in project.Machines)
+            {
+                output.Add(new ProjectMachineDto { ProjectId = project.Id, MachineId = projecMachine.MachineId });
+            }
+            return output;
+        }
+
+
+        public async Task UpdateProjecMachines(ProjectMachineInputDto input)
+        {
+            var project = await _projectRepository.GetAllIncluding(x => x.Machines).FirstOrDefaultAsync(x => x.Id == input.ProjectId);
+            project.Machines.Clear();
+
+            foreach (var projectUser in input.ProjectMachines)
+            {
+                project.Machines.Add(new ProjectMachine { ProjectId = project.Id, MachineId = projectUser.MachineId });
+            }
+
+            await _projectRepository.UpdateAsync(project);
+
+        }
+
 
 
     }
