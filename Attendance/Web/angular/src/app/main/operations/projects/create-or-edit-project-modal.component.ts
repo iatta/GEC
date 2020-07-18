@@ -94,7 +94,7 @@ export class CreateOrEditProjectModalComponent extends AppComponentBase {
         // this.projectOrganizationUnitLookupTableModal.displayName = this.organizationUnitDisplayName;
         // this.projectOrganizationUnitLookupTableModal.show();
 
-            this.organizationUnitsHorizontalTreeModal.show(this.project.organizationUnitId);
+            this.organizationUnitsHorizontalTreeModal.show();
     }
 
     ouSelected(event: any): void {
