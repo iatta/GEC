@@ -1,4 +1,6 @@
-﻿import { Component, ViewChild, Injector, Output, EventEmitter} from '@angular/core';
+﻿import { TreeNode } from 'primeng/api';
+import { OrganizationUnitsHorizontalTreeModalComponent } from './../../../admin/shared/organization-horizontal-tree-modal.component';
+import { Component, ViewChild, Injector, Output, EventEmitter} from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap';
 import { finalize } from 'rxjs/operators';
 import { ProjectsServiceProxy, CreateOrEditProjectDto } from '@shared/service-proxies/service-proxies';
@@ -18,6 +20,7 @@ export class CreateOrEditProjectModalComponent extends AppComponentBase {
     @ViewChild('projectUserLookupTableModal', { static: true }) projectUserLookupTableModal: ProjectUserLookupTableModalComponent;
     @ViewChild('projectLocationLookupTableModal', { static: true }) projectLocationLookupTableModal: ProjectLocationLookupTableModalComponent;
     @ViewChild('projectOrganizationUnitLookupTableModal', { static: true }) projectOrganizationUnitLookupTableModal: ProjectOrganizationUnitLookupTableModalComponent;
+    @ViewChild('organizationUnitsHorizontalTreeModal', { static: true }) organizationUnitsHorizontalTreeModal: OrganizationUnitsHorizontalTreeModalComponent;
 
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
 
@@ -29,7 +32,7 @@ export class CreateOrEditProjectModalComponent extends AppComponentBase {
     userName = '';
     locationTitleEn = '';
     organizationUnitDisplayName = '';
-
+    selectedNode: TreeNode;
 
     constructor(
         injector: Injector,
@@ -66,7 +69,7 @@ export class CreateOrEditProjectModalComponent extends AppComponentBase {
     save(): void {
             this.saving = true;
 
-			
+
             this._projectsServiceProxy.createOrEdit(this.project)
              .pipe(finalize(() => { this.saving = false;}))
              .subscribe(() => {
@@ -87,11 +90,19 @@ export class CreateOrEditProjectModalComponent extends AppComponentBase {
         this.projectLocationLookupTableModal.show();
     }
     openSelectOrganizationUnitModal() {
-        this.projectOrganizationUnitLookupTableModal.id = this.project.organizationUnitId;
-        this.projectOrganizationUnitLookupTableModal.displayName = this.organizationUnitDisplayName;
-        this.projectOrganizationUnitLookupTableModal.show();
+        // this.projectOrganizationUnitLookupTableModal.id = this.project.organizationUnitId;
+        // this.projectOrganizationUnitLookupTableModal.displayName = this.organizationUnitDisplayName;
+        // this.projectOrganizationUnitLookupTableModal.show();
+
+            this.organizationUnitsHorizontalTreeModal.show(this.project.organizationUnitId);
     }
 
+    ouSelected(event: any): void {
+        debugger
+        this.project.organizationUnitId = event.id;
+        this.organizationUnitDisplayName = event.displayName;
+        //console.log(event);
+    }
 
     setManagerIdNull() {
         this.project.managerId = null;

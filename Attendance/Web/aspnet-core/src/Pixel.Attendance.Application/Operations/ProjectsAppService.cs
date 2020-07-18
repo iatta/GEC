@@ -262,10 +262,11 @@ namespace Pixel.Attendance.Operations
 		[AbpAuthorize(AppPermissions.Pages_Projects)]
          public async Task<PagedResultDto<ProjectUserLookupTableDto>> GetAllUserForLookupTable(GetAllForLookupTableInput input)
          {
-             var query = _lookup_userRepository.GetAll().WhereIf(
-                    !string.IsNullOrWhiteSpace(input.Filter),
-                   e=> e.Name.ToString().Contains(input.Filter)
-                );
+            var query = _lookup_userRepository.GetAll();
+            if (!string.IsNullOrEmpty(input.Filter))
+            {
+                query = query.Where(x => x.Name.ToLower().Contains(input.Filter.ToLower()));
+            }
 
             var totalCount = await query.CountAsync();
 
@@ -291,10 +292,12 @@ namespace Pixel.Attendance.Operations
 		[AbpAuthorize(AppPermissions.Pages_Projects)]
          public async Task<PagedResultDto<ProjectLocationLookupTableDto>> GetAllLocationForLookupTable(GetAllForLookupTableInput input)
          {
-             var query = _lookup_locationRepository.GetAll().WhereIf(
-                    !string.IsNullOrWhiteSpace(input.Filter),
-                   e=> e.TitleEn.ToString().Contains(input.Filter)
-                );
+            var query = _lookup_locationRepository.GetAll();
+
+            if (!string.IsNullOrEmpty(input.Filter))
+            {
+                query = query.Where(x => x.TitleEn.ToLower().Contains(input.Filter.ToLower()));
+            }
 
             var totalCount = await query.CountAsync();
 
@@ -322,10 +325,11 @@ namespace Pixel.Attendance.Operations
         [AbpAuthorize(AppPermissions.Pages_Projects)]
          public async Task<PagedResultDto<ProjectOrganizationUnitLookupTableDto>> GetAllOrganizationUnitForLookupTable(GetAllForLookupTableInput input)
          {
-             var query = _lookup_organizationUnitRepository.GetAll().WhereIf(
-                    !string.IsNullOrWhiteSpace(input.Filter),
-                   e=> e.DisplayName.ToString().Contains(input.Filter)
-                );
+            var query = _lookup_organizationUnitRepository.GetAll();
+            if (!string.IsNullOrEmpty(input.Filter))
+            {
+                query = query.Where(x => x.DisplayName.ToLower().Contains(input.Filter.ToLower()));
+            }
 
             var totalCount = await query.CountAsync();
 
