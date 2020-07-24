@@ -57,6 +57,8 @@ namespace Pixel.Attendance
     {
         public static void CreateMappings(IMapperConfigurationExpression configuration)
         {
+            configuration.CreateMap<CreateOrEditUserTimeSheetApproveDto, UserTimeSheetApprove>().ReverseMap();
+            configuration.CreateMap<UserTimeSheetApproveDto, UserTimeSheetApprove>().ReverseMap();
             configuration.CreateMap<CreateOrEditBeaconDto, Beacon>().ReverseMap();
             configuration.CreateMap<BeaconDto, Beacon>().ReverseMap();
             configuration.CreateMap<CreateOrEditUserShiftDto, UserShift>().ReverseMap();

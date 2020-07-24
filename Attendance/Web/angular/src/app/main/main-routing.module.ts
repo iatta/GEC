@@ -1,5 +1,6 @@
 ﻿import { SummerizeReportComponent } from './operations/reports/summerize.component';
 import { ReportComponent } from './operations/reports/report.component';
+import { UserTimeSheetApprovesComponent } from './operations/userTimeSheetApproves/userTimeSheetApproves.component';
 import { EmployeeReportComponent } from './operations/reports/employee-report.component';
 import { BeaconsComponent } from './operations/beacons/beacons.component';
 import { UserShiftsComponent } from './operations/userShifts/userShifts.component';
@@ -53,6 +54,7 @@ import { HrTransactionsComponent } from './operations/manualTransactions/transac
             {
                 path: '',
                 children: [
+                    { path: 'operations/userTimeSheetApproves', component: UserTimeSheetApprovesComponent, data: { permission: 'Pages.UserTimeSheetApproves' }  },
 
 
                     { path: 'operations/summerizeReport', component: SummerizeReportComponent, data: { permission: 'Pages.Beacons' }  },

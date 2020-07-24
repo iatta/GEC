@@ -2,6 +2,11 @@
 import { AssignProjectUserLookupTableModalComponent } from './operations/projects/assign-project-user-lookup-table-modal.component';
 import { PermitReportComponent } from './operations/reports/permit.component';
 import { LateInEarlyOutComponent } from './operations/reports/Late-in-early-out.component';
+import { UserTimeSheetApprovesComponent } from './operations/userTimeSheetApproves/userTimeSheetApproves.component';
+import { ViewUserTimeSheetApproveModalComponent } from './operations/userTimeSheetApproves/view-userTimeSheetApprove-modal.component';
+import { CreateOrEditUserTimeSheetApproveModalComponent } from './operations/userTimeSheetApproves/create-or-edit-userTimeSheetApprove-modal.component';
+import { UserTimeSheetApproveUserLookupTableModalComponent } from './operations/userTimeSheetApproves/userTimeSheetApprove-user-lookup-table-modal.component';
+
 import { AbsentComponent } from './operations/reports/absent.component';
 import { ManualTransactionsComponent } from './operations/manualTransactions/manualTransactions.component';
 import { ViewManualTransactionModalComponent } from './operations/manualTransactions/view-manualTransaction-modal.component';
@@ -252,6 +257,9 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
           }),
     ],
     declarations: [
+		UserTimeSheetApprovesComponent,
+		ViewUserTimeSheetApproveModalComponent,		CreateOrEditUserTimeSheetApproveModalComponent,
+    UserTimeSheetApproveUserLookupTableModalComponent,
 		ManualTransactionsComponent,
 		ViewManualTransactionModalComponent,		CreateOrEditManualTransactionModalComponent,
     ManualTransactionMachineLookupTableModalComponent,

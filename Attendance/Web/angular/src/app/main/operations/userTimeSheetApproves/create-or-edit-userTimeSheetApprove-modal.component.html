@@ -1,0 +1,97 @@
+﻿<div bsModal #createOrEditModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="createOrEditModal" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form *ngIf="active" #userTimeSheetApproveForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="userTimeSheetApprove.id">{{l("EditUserTimeSheetApprove")}}</span>
+                        <span *ngIf="!userTimeSheetApprove.id">{{l("CreateNewUserTimeSheetApprove")}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close" [disabled]="saving">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                 
+
+					<div class="form-group m-form__group">
+                        <label for="UserName">{{l("User")}}</label>
+                        <div class="input-group">
+                            <input class="form-control" id="UserName" name="userName" [(ngModel)]="userName" type="text" disabled>     
+                            <div class="input-group-append">
+                                <button class="btn btn-primary blue" (click)="openSelectUserModal()" type="button"><i class="fa fa-search"></i> {{l("Pick")}}</button>
+                            </div> <div class="input-group-prepend">
+                                <button class="btn btn-danger btn-icon" type="button" (click)="setUserIdNull()"><i class="fa fa-times"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <input class="form-control" name="userTimeSheetApprove.userId" [(ngModel)]="userTimeSheetApprove.userId" type="text"  hidden>
+		 
+					<div class="form-group m-form__group">
+                        <label for="UserName2">{{l("User")}}</label>
+                        <div class="input-group">
+                            <input class="form-control" id="UserName2" name="userName2" [(ngModel)]="userName2" type="text" disabled>     
+                            <div class="input-group-append">
+                                <button class="btn btn-primary blue" (click)="openSelectUserModal2()" type="button"><i class="fa fa-search"></i> {{l("Pick")}}</button>
+                            </div> <div class="input-group-prepend">
+                                <button class="btn btn-danger btn-icon" type="button" (click)="setProjectManagerIdNull()"><i class="fa fa-times"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <input class="form-control" name="userTimeSheetApprove.projectManagerId" [(ngModel)]="userTimeSheetApprove.projectManagerId" type="text"  hidden>
+		 
+
+								<div class="form-group">
+									<label for="UserTimeSheetApprove_Month">{{l("Month")}}</label>
+									<input type="number" id="UserTimeSheetApprove_Month" class="form-control" [(ngModel)]="userTimeSheetApprove.month" name="Month"  />
+								</div>
+					
+								<div class="form-group">
+									<label for="UserTimeSheetApprove_Year">{{l("Year")}}</label>
+									<input type="number" id="UserTimeSheetApprove_Year" class="form-control" [(ngModel)]="userTimeSheetApprove.year" name="Year"  />
+								</div>
+					
+								<div class="form-group">
+									<label for="UserTimeSheetApprove_FromDate">{{l("FromDate")}}</label>
+									 <input class="form-control m-input" type="datetime" bsDatepicker [(ngModel)]="fromDate" id="UserTimeSheetApprove_FromDate" name="UserTimeSheetApprove_FromDate">
+								</div>
+					
+								<div class="form-group">
+									<label for="UserTimeSheetApprove_ToDate">{{l("ToDate")}}</label>
+									 <input class="form-control m-input" type="datetime" bsDatepicker [(ngModel)]="toDate" id="UserTimeSheetApprove_ToDate" name="UserTimeSheetApprove_ToDate">
+								</div>
+					
+								<div class="form-group">
+									<label for="UserTimeSheetApprove_ApprovedUnits">{{l("ApprovedUnits")}}</label>
+									<input type="text" id="UserTimeSheetApprove_ApprovedUnits" class="form-control" [(ngModel)]="userTimeSheetApprove.approvedUnits" name="ApprovedUnits"    />
+								</div>
+					
+								<br/><div class="m-checkbox-list">
+									<label for="UserTimeSheetApprove_ProjectManagerApprove" class="kt-checkbox">
+										<input id="UserTimeSheetApprove_ProjectManagerApprove" type="checkbox" name="ProjectManagerApprove" [(ngModel)]="userTimeSheetApprove.projectManagerApprove"> 
+										{{l("ProjectManagerApprove")}}
+										<span></span>
+									</label>
+								</div>
+					
+								<br/><div class="m-checkbox-list">
+									<label for="UserTimeSheetApprove_IsClosed" class="kt-checkbox">
+										<input id="UserTimeSheetApprove_IsClosed" type="checkbox" name="IsClosed" [(ngModel)]="userTimeSheetApprove.isClosed"> 
+										{{l("IsClosed")}}
+										<span></span>
+									</label>
+								</div>
+					
+
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-default" (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!userTimeSheetApproveForm.form.valid" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i> <span>{{l("Save")}}</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+<userTimeSheetApproveUserLookupTableModal #userTimeSheetApproveUserLookupTableModal (modalSave)="getNewUserId()"></userTimeSheetApproveUserLookupTableModal>
+		 <userTimeSheetApproveUserLookupTableModal #userTimeSheetApproveUserLookupTableModal2 (modalSave)="getNewProjectManagerId()"></userTimeSheetApproveUserLookupTableModal>
+		 
+</div>

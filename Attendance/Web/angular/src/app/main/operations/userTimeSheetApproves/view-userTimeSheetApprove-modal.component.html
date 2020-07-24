@@ -1,0 +1,62 @@
+﻿<div bsModal #createOrEditModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="createOrEditModal" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    <span>{{l("Details")}}</span>
+                </h4>
+                <button type="button" class="close" (click)="close()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="row">
+                    <div class="col-6 mb-3">
+                        <h6>{{l("Month")}} :</h6>
+                        {{ item.userTimeSheetApprove.month }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("Year")}} :</h6>
+                        {{ item.userTimeSheetApprove.year }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("FromDate")}} :</h6>
+                        {{ item.userTimeSheetApprove.fromDate | momentFormat:'YYYY-MM-DD HH:mm:ss' }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("ToDate")}} :</h6>
+                        {{ item.userTimeSheetApprove.toDate | momentFormat:'YYYY-MM-DD HH:mm:ss' }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("ApprovedUnits")}} :</h6>
+                        {{ item.userTimeSheetApprove.approvedUnits }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("ProjectManagerApprove")}} :</h6>
+                        {{ item.userTimeSheetApprove.projectManagerApprove }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("IsClosed")}} :</h6>
+                        {{ item.userTimeSheetApprove.isClosed }}
+                    </div>
+
+                    <div class="col-6 mb-3">
+                        <h6>({{l("User")}}) {{l("Name")}} :</h6>
+                        {{item.userName}}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>({{l("User")}}) {{l("Name")}} :</h6>
+                        {{item.userName2}}
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button [disabled]="saving" type="button" class="btn btn-primary blue" (click)="close()">{{l("Close")}}</button>
+            </div>
+        </div>
+    </div>
+
+</div>

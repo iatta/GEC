@@ -6,6 +6,11 @@
     /// </summary>
     public static class AppPermissions
     {
+        public const string Pages_UserTimeSheetApproves = "Pages.UserTimeSheetApproves";
+        public const string Pages_UserTimeSheetApproves_Create = "Pages.UserTimeSheetApproves.Create";
+        public const string Pages_UserTimeSheetApproves_Edit = "Pages.UserTimeSheetApproves.Edit";
+        public const string Pages_UserTimeSheetApproves_Delete = "Pages.UserTimeSheetApproves.Delete";
+
         public const string Pages_Beacons = "Pages.Beacons";
         public const string Pages_Beacons_Create = "Pages.Beacons.Create";
         public const string Pages_Beacons_Edit = "Pages.Beacons.Edit";

@@ -27756,6 +27756,562 @@ export class UserShiftsServiceProxy {
 }
 
 @Injectable()
+export class UserTimeSheetApprovesServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param maxMonthFilter (optional) 
+     * @param minMonthFilter (optional) 
+     * @param maxYearFilter (optional) 
+     * @param minYearFilter (optional) 
+     * @param maxFromDateFilter (optional) 
+     * @param minFromDateFilter (optional) 
+     * @param maxToDateFilter (optional) 
+     * @param minToDateFilter (optional) 
+     * @param approvedUnitsFilter (optional) 
+     * @param projectManagerApproveFilter (optional) 
+     * @param isClosedFilter (optional) 
+     * @param userNameFilter (optional) 
+     * @param userName2Filter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
+     * @return Success
+     */
+    getAll(filter: string | undefined, maxMonthFilter: number | undefined, minMonthFilter: number | undefined, maxYearFilter: number | undefined, minYearFilter: number | undefined, maxFromDateFilter: moment.Moment | undefined, minFromDateFilter: moment.Moment | undefined, maxToDateFilter: moment.Moment | undefined, minToDateFilter: moment.Moment | undefined, approvedUnitsFilter: string | undefined, projectManagerApproveFilter: number | undefined, isClosedFilter: number | undefined, userNameFilter: string | undefined, userName2Filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetUserTimeSheetApproveForViewDto> {
+        let url_ = this.baseUrl + "/api/services/app/UserTimeSheetApproves/GetAll?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (maxMonthFilter === null)
+            throw new Error("The parameter 'maxMonthFilter' cannot be null.");
+        else if (maxMonthFilter !== undefined)
+            url_ += "MaxMonthFilter=" + encodeURIComponent("" + maxMonthFilter) + "&"; 
+        if (minMonthFilter === null)
+            throw new Error("The parameter 'minMonthFilter' cannot be null.");
+        else if (minMonthFilter !== undefined)
+            url_ += "MinMonthFilter=" + encodeURIComponent("" + minMonthFilter) + "&"; 
+        if (maxYearFilter === null)
+            throw new Error("The parameter 'maxYearFilter' cannot be null.");
+        else if (maxYearFilter !== undefined)
+            url_ += "MaxYearFilter=" + encodeURIComponent("" + maxYearFilter) + "&"; 
+        if (minYearFilter === null)
+            throw new Error("The parameter 'minYearFilter' cannot be null.");
+        else if (minYearFilter !== undefined)
+            url_ += "MinYearFilter=" + encodeURIComponent("" + minYearFilter) + "&"; 
+        if (maxFromDateFilter === null)
+            throw new Error("The parameter 'maxFromDateFilter' cannot be null.");
+        else if (maxFromDateFilter !== undefined)
+            url_ += "MaxFromDateFilter=" + encodeURIComponent(maxFromDateFilter ? "" + maxFromDateFilter.toJSON() : "") + "&"; 
+        if (minFromDateFilter === null)
+            throw new Error("The parameter 'minFromDateFilter' cannot be null.");
+        else if (minFromDateFilter !== undefined)
+            url_ += "MinFromDateFilter=" + encodeURIComponent(minFromDateFilter ? "" + minFromDateFilter.toJSON() : "") + "&"; 
+        if (maxToDateFilter === null)
+            throw new Error("The parameter 'maxToDateFilter' cannot be null.");
+        else if (maxToDateFilter !== undefined)
+            url_ += "MaxToDateFilter=" + encodeURIComponent(maxToDateFilter ? "" + maxToDateFilter.toJSON() : "") + "&"; 
+        if (minToDateFilter === null)
+            throw new Error("The parameter 'minToDateFilter' cannot be null.");
+        else if (minToDateFilter !== undefined)
+            url_ += "MinToDateFilter=" + encodeURIComponent(minToDateFilter ? "" + minToDateFilter.toJSON() : "") + "&"; 
+        if (approvedUnitsFilter === null)
+            throw new Error("The parameter 'approvedUnitsFilter' cannot be null.");
+        else if (approvedUnitsFilter !== undefined)
+            url_ += "ApprovedUnitsFilter=" + encodeURIComponent("" + approvedUnitsFilter) + "&"; 
+        if (projectManagerApproveFilter === null)
+            throw new Error("The parameter 'projectManagerApproveFilter' cannot be null.");
+        else if (projectManagerApproveFilter !== undefined)
+            url_ += "ProjectManagerApproveFilter=" + encodeURIComponent("" + projectManagerApproveFilter) + "&"; 
+        if (isClosedFilter === null)
+            throw new Error("The parameter 'isClosedFilter' cannot be null.");
+        else if (isClosedFilter !== undefined)
+            url_ += "IsClosedFilter=" + encodeURIComponent("" + isClosedFilter) + "&"; 
+        if (userNameFilter === null)
+            throw new Error("The parameter 'userNameFilter' cannot be null.");
+        else if (userNameFilter !== undefined)
+            url_ += "UserNameFilter=" + encodeURIComponent("" + userNameFilter) + "&"; 
+        if (userName2Filter === null)
+            throw new Error("The parameter 'userName2Filter' cannot be null.");
+        else if (userName2Filter !== undefined)
+            url_ += "UserName2Filter=" + encodeURIComponent("" + userName2Filter) + "&"; 
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAll(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfGetUserTimeSheetApproveForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfGetUserTimeSheetApproveForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfGetUserTimeSheetApproveForViewDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfGetUserTimeSheetApproveForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfGetUserTimeSheetApproveForViewDto>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getUserTimeSheetApproveForView(id: number | undefined): Observable<GetUserTimeSheetApproveForViewDto> {
+        let url_ = this.baseUrl + "/api/services/app/UserTimeSheetApproves/GetUserTimeSheetApproveForView?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetUserTimeSheetApproveForView(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetUserTimeSheetApproveForView(<any>response_);
+                } catch (e) {
+                    return <Observable<GetUserTimeSheetApproveForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetUserTimeSheetApproveForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetUserTimeSheetApproveForView(response: HttpResponseBase): Observable<GetUserTimeSheetApproveForViewDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetUserTimeSheetApproveForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetUserTimeSheetApproveForViewDto>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getUserTimeSheetApproveForEdit(id: number | undefined): Observable<GetUserTimeSheetApproveForEditOutput> {
+        let url_ = this.baseUrl + "/api/services/app/UserTimeSheetApproves/GetUserTimeSheetApproveForEdit?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetUserTimeSheetApproveForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetUserTimeSheetApproveForEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<GetUserTimeSheetApproveForEditOutput>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetUserTimeSheetApproveForEditOutput>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetUserTimeSheetApproveForEdit(response: HttpResponseBase): Observable<GetUserTimeSheetApproveForEditOutput> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetUserTimeSheetApproveForEditOutput.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetUserTimeSheetApproveForEditOutput>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    createOrEdit(body: CreateOrEditUserTimeSheetApproveDto | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/UserTimeSheetApproves/CreateOrEdit";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json", 
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOrEdit(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    delete(id: number | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/UserTimeSheetApproves/Delete?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDelete(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDelete(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDelete(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param maxMonthFilter (optional) 
+     * @param minMonthFilter (optional) 
+     * @param maxYearFilter (optional) 
+     * @param minYearFilter (optional) 
+     * @param maxFromDateFilter (optional) 
+     * @param minFromDateFilter (optional) 
+     * @param maxToDateFilter (optional) 
+     * @param minToDateFilter (optional) 
+     * @param approvedUnitsFilter (optional) 
+     * @param projectManagerApproveFilter (optional) 
+     * @param isClosedFilter (optional) 
+     * @param userNameFilter (optional) 
+     * @param userName2Filter (optional) 
+     * @return Success
+     */
+    getUserTimeSheetApprovesToExcel(filter: string | undefined, maxMonthFilter: number | undefined, minMonthFilter: number | undefined, maxYearFilter: number | undefined, minYearFilter: number | undefined, maxFromDateFilter: moment.Moment | undefined, minFromDateFilter: moment.Moment | undefined, maxToDateFilter: moment.Moment | undefined, minToDateFilter: moment.Moment | undefined, approvedUnitsFilter: string | undefined, projectManagerApproveFilter: number | undefined, isClosedFilter: number | undefined, userNameFilter: string | undefined, userName2Filter: string | undefined): Observable<FileDto> {
+        let url_ = this.baseUrl + "/api/services/app/UserTimeSheetApproves/GetUserTimeSheetApprovesToExcel?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (maxMonthFilter === null)
+            throw new Error("The parameter 'maxMonthFilter' cannot be null.");
+        else if (maxMonthFilter !== undefined)
+            url_ += "MaxMonthFilter=" + encodeURIComponent("" + maxMonthFilter) + "&"; 
+        if (minMonthFilter === null)
+            throw new Error("The parameter 'minMonthFilter' cannot be null.");
+        else if (minMonthFilter !== undefined)
+            url_ += "MinMonthFilter=" + encodeURIComponent("" + minMonthFilter) + "&"; 
+        if (maxYearFilter === null)
+            throw new Error("The parameter 'maxYearFilter' cannot be null.");
+        else if (maxYearFilter !== undefined)
+            url_ += "MaxYearFilter=" + encodeURIComponent("" + maxYearFilter) + "&"; 
+        if (minYearFilter === null)
+            throw new Error("The parameter 'minYearFilter' cannot be null.");
+        else if (minYearFilter !== undefined)
+            url_ += "MinYearFilter=" + encodeURIComponent("" + minYearFilter) + "&"; 
+        if (maxFromDateFilter === null)
+            throw new Error("The parameter 'maxFromDateFilter' cannot be null.");
+        else if (maxFromDateFilter !== undefined)
+            url_ += "MaxFromDateFilter=" + encodeURIComponent(maxFromDateFilter ? "" + maxFromDateFilter.toJSON() : "") + "&"; 
+        if (minFromDateFilter === null)
+            throw new Error("The parameter 'minFromDateFilter' cannot be null.");
+        else if (minFromDateFilter !== undefined)
+            url_ += "MinFromDateFilter=" + encodeURIComponent(minFromDateFilter ? "" + minFromDateFilter.toJSON() : "") + "&"; 
+        if (maxToDateFilter === null)
+            throw new Error("The parameter 'maxToDateFilter' cannot be null.");
+        else if (maxToDateFilter !== undefined)
+            url_ += "MaxToDateFilter=" + encodeURIComponent(maxToDateFilter ? "" + maxToDateFilter.toJSON() : "") + "&"; 
+        if (minToDateFilter === null)
+            throw new Error("The parameter 'minToDateFilter' cannot be null.");
+        else if (minToDateFilter !== undefined)
+            url_ += "MinToDateFilter=" + encodeURIComponent(minToDateFilter ? "" + minToDateFilter.toJSON() : "") + "&"; 
+        if (approvedUnitsFilter === null)
+            throw new Error("The parameter 'approvedUnitsFilter' cannot be null.");
+        else if (approvedUnitsFilter !== undefined)
+            url_ += "ApprovedUnitsFilter=" + encodeURIComponent("" + approvedUnitsFilter) + "&"; 
+        if (projectManagerApproveFilter === null)
+            throw new Error("The parameter 'projectManagerApproveFilter' cannot be null.");
+        else if (projectManagerApproveFilter !== undefined)
+            url_ += "ProjectManagerApproveFilter=" + encodeURIComponent("" + projectManagerApproveFilter) + "&"; 
+        if (isClosedFilter === null)
+            throw new Error("The parameter 'isClosedFilter' cannot be null.");
+        else if (isClosedFilter !== undefined)
+            url_ += "IsClosedFilter=" + encodeURIComponent("" + isClosedFilter) + "&"; 
+        if (userNameFilter === null)
+            throw new Error("The parameter 'userNameFilter' cannot be null.");
+        else if (userNameFilter !== undefined)
+            url_ += "UserNameFilter=" + encodeURIComponent("" + userNameFilter) + "&"; 
+        if (userName2Filter === null)
+            throw new Error("The parameter 'userName2Filter' cannot be null.");
+        else if (userName2Filter !== undefined)
+            url_ += "UserName2Filter=" + encodeURIComponent("" + userName2Filter) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetUserTimeSheetApprovesToExcel(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetUserTimeSheetApprovesToExcel(<any>response_);
+                } catch (e) {
+                    return <Observable<FileDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<FileDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetUserTimeSheetApprovesToExcel(response: HttpResponseBase): Observable<FileDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = FileDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<FileDto>(<any>null);
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
+     * @return Success
+     */
+    getAllUserForLookupTable(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfUserTimeSheetApproveUserLookupTableDto> {
+        let url_ = this.baseUrl + "/api/services/app/UserTimeSheetApproves/GetAllUserForLookupTable?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllUserForLookupTable(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllUserForLookupTable(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfUserTimeSheetApproveUserLookupTableDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfUserTimeSheetApproveUserLookupTableDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAllUserForLookupTable(response: HttpResponseBase): Observable<PagedResultDtoOfUserTimeSheetApproveUserLookupTableDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfUserTimeSheetApproveUserLookupTableDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfUserTimeSheetApproveUserLookupTableDto>(<any>null);
+    }
+}
+
+@Injectable()
 export class WarningTypesServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -56047,6 +56603,374 @@ export class PagedResultDtoOfUserShiftShiftLookupTableDto implements IPagedResul
 export interface IPagedResultDtoOfUserShiftShiftLookupTableDto {
     totalCount: number;
     items: UserShiftShiftLookupTableDto[] | undefined;
+}
+
+export class UserTimeSheetApproveDto implements IUserTimeSheetApproveDto {
+    month!: number;
+    year!: number;
+    fromDate!: moment.Moment | undefined;
+    toDate!: moment.Moment | undefined;
+    approvedUnits!: string | undefined;
+    projectManagerApprove!: boolean;
+    isClosed!: boolean;
+    userId!: number | undefined;
+    projectManagerId!: number | undefined;
+    id!: number;
+
+    constructor(data?: IUserTimeSheetApproveDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.month = data["month"];
+            this.year = data["year"];
+            this.fromDate = data["fromDate"] ? moment(data["fromDate"].toString()) : <any>undefined;
+            this.toDate = data["toDate"] ? moment(data["toDate"].toString()) : <any>undefined;
+            this.approvedUnits = data["approvedUnits"];
+            this.projectManagerApprove = data["projectManagerApprove"];
+            this.isClosed = data["isClosed"];
+            this.userId = data["userId"];
+            this.projectManagerId = data["projectManagerId"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): UserTimeSheetApproveDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new UserTimeSheetApproveDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["month"] = this.month;
+        data["year"] = this.year;
+        data["fromDate"] = this.fromDate ? this.fromDate.toISOString() : <any>undefined;
+        data["toDate"] = this.toDate ? this.toDate.toISOString() : <any>undefined;
+        data["approvedUnits"] = this.approvedUnits;
+        data["projectManagerApprove"] = this.projectManagerApprove;
+        data["isClosed"] = this.isClosed;
+        data["userId"] = this.userId;
+        data["projectManagerId"] = this.projectManagerId;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IUserTimeSheetApproveDto {
+    month: number;
+    year: number;
+    fromDate: moment.Moment | undefined;
+    toDate: moment.Moment | undefined;
+    approvedUnits: string | undefined;
+    projectManagerApprove: boolean;
+    isClosed: boolean;
+    userId: number | undefined;
+    projectManagerId: number | undefined;
+    id: number;
+}
+
+export class GetUserTimeSheetApproveForViewDto implements IGetUserTimeSheetApproveForViewDto {
+    userTimeSheetApprove!: UserTimeSheetApproveDto | undefined;
+    userName!: string | undefined;
+    userName2!: string | undefined;
+
+    constructor(data?: IGetUserTimeSheetApproveForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.userTimeSheetApprove = data["userTimeSheetApprove"] ? UserTimeSheetApproveDto.fromJS(data["userTimeSheetApprove"]) : <any>undefined;
+            this.userName = data["userName"];
+            this.userName2 = data["userName2"];
+        }
+    }
+
+    static fromJS(data: any): GetUserTimeSheetApproveForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetUserTimeSheetApproveForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["userTimeSheetApprove"] = this.userTimeSheetApprove ? this.userTimeSheetApprove.toJSON() : <any>undefined;
+        data["userName"] = this.userName;
+        data["userName2"] = this.userName2;
+        return data; 
+    }
+}
+
+export interface IGetUserTimeSheetApproveForViewDto {
+    userTimeSheetApprove: UserTimeSheetApproveDto | undefined;
+    userName: string | undefined;
+    userName2: string | undefined;
+}
+
+export class PagedResultDtoOfGetUserTimeSheetApproveForViewDto implements IPagedResultDtoOfGetUserTimeSheetApproveForViewDto {
+    totalCount!: number;
+    items!: GetUserTimeSheetApproveForViewDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfGetUserTimeSheetApproveForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (Array.isArray(data["items"])) {
+                this.items = [] as any;
+                for (let item of data["items"])
+                    this.items!.push(GetUserTimeSheetApproveForViewDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfGetUserTimeSheetApproveForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfGetUserTimeSheetApproveForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfGetUserTimeSheetApproveForViewDto {
+    totalCount: number;
+    items: GetUserTimeSheetApproveForViewDto[] | undefined;
+}
+
+export class CreateOrEditUserTimeSheetApproveDto implements ICreateOrEditUserTimeSheetApproveDto {
+    month!: number;
+    year!: number;
+    fromDate!: moment.Moment | undefined;
+    toDate!: moment.Moment | undefined;
+    approvedUnits!: string | undefined;
+    projectManagerApprove!: boolean;
+    isClosed!: boolean;
+    userId!: number | undefined;
+    projectManagerId!: number | undefined;
+    id!: number | undefined;
+
+    constructor(data?: ICreateOrEditUserTimeSheetApproveDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.month = data["month"];
+            this.year = data["year"];
+            this.fromDate = data["fromDate"] ? moment(data["fromDate"].toString()) : <any>undefined;
+            this.toDate = data["toDate"] ? moment(data["toDate"].toString()) : <any>undefined;
+            this.approvedUnits = data["approvedUnits"];
+            this.projectManagerApprove = data["projectManagerApprove"];
+            this.isClosed = data["isClosed"];
+            this.userId = data["userId"];
+            this.projectManagerId = data["projectManagerId"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): CreateOrEditUserTimeSheetApproveDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateOrEditUserTimeSheetApproveDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["month"] = this.month;
+        data["year"] = this.year;
+        data["fromDate"] = this.fromDate ? this.fromDate.toISOString() : <any>undefined;
+        data["toDate"] = this.toDate ? this.toDate.toISOString() : <any>undefined;
+        data["approvedUnits"] = this.approvedUnits;
+        data["projectManagerApprove"] = this.projectManagerApprove;
+        data["isClosed"] = this.isClosed;
+        data["userId"] = this.userId;
+        data["projectManagerId"] = this.projectManagerId;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface ICreateOrEditUserTimeSheetApproveDto {
+    month: number;
+    year: number;
+    fromDate: moment.Moment | undefined;
+    toDate: moment.Moment | undefined;
+    approvedUnits: string | undefined;
+    projectManagerApprove: boolean;
+    isClosed: boolean;
+    userId: number | undefined;
+    projectManagerId: number | undefined;
+    id: number | undefined;
+}
+
+export class GetUserTimeSheetApproveForEditOutput implements IGetUserTimeSheetApproveForEditOutput {
+    userTimeSheetApprove!: CreateOrEditUserTimeSheetApproveDto | undefined;
+    userName!: string | undefined;
+    projectManagerName!: string | undefined;
+
+    constructor(data?: IGetUserTimeSheetApproveForEditOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.userTimeSheetApprove = data["userTimeSheetApprove"] ? CreateOrEditUserTimeSheetApproveDto.fromJS(data["userTimeSheetApprove"]) : <any>undefined;
+            this.userName = data["userName"];
+            this.projectManagerName = data["projectManagerName"];
+        }
+    }
+
+    static fromJS(data: any): GetUserTimeSheetApproveForEditOutput {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetUserTimeSheetApproveForEditOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["userTimeSheetApprove"] = this.userTimeSheetApprove ? this.userTimeSheetApprove.toJSON() : <any>undefined;
+        data["userName"] = this.userName;
+        data["projectManagerName"] = this.projectManagerName;
+        return data; 
+    }
+}
+
+export interface IGetUserTimeSheetApproveForEditOutput {
+    userTimeSheetApprove: CreateOrEditUserTimeSheetApproveDto | undefined;
+    userName: string | undefined;
+    projectManagerName: string | undefined;
+}
+
+export class UserTimeSheetApproveUserLookupTableDto implements IUserTimeSheetApproveUserLookupTableDto {
+    id!: number;
+    displayName!: string | undefined;
+
+    constructor(data?: IUserTimeSheetApproveUserLookupTableDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"];
+            this.displayName = data["displayName"];
+        }
+    }
+
+    static fromJS(data: any): UserTimeSheetApproveUserLookupTableDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new UserTimeSheetApproveUserLookupTableDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["displayName"] = this.displayName;
+        return data; 
+    }
+}
+
+export interface IUserTimeSheetApproveUserLookupTableDto {
+    id: number;
+    displayName: string | undefined;
+}
+
+export class PagedResultDtoOfUserTimeSheetApproveUserLookupTableDto implements IPagedResultDtoOfUserTimeSheetApproveUserLookupTableDto {
+    totalCount!: number;
+    items!: UserTimeSheetApproveUserLookupTableDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfUserTimeSheetApproveUserLookupTableDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (Array.isArray(data["items"])) {
+                this.items = [] as any;
+                for (let item of data["items"])
+                    this.items!.push(UserTimeSheetApproveUserLookupTableDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfUserTimeSheetApproveUserLookupTableDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfUserTimeSheetApproveUserLookupTableDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfUserTimeSheetApproveUserLookupTableDto {
+    totalCount: number;
+    items: UserTimeSheetApproveUserLookupTableDto[] | undefined;
 }
 
 export class WarningTypeDto implements IWarningTypeDto {

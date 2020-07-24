@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Pixel.Attendance.EntityFrameworkCore;
 
 namespace Pixel.Attendance.Migrations
 {
     [DbContext(typeof(AttendanceDbContext))]
-    partial class AttendanceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200724103825_Added_UserTimeSheetApprove")]
+    partial class Added_UserTimeSheetApprove
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2929,9 +2931,6 @@ namespace Pixel.Attendance.Migrations
                     b.Property<DateTime?>("FromDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsClosed")
-                        .HasColumnType("bit");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -2944,12 +2943,6 @@ namespace Pixel.Attendance.Migrations
                     b.Property<int>("Month")
                         .HasColumnType("int");
 
-                    b.Property<bool>("ProjectManagerApprove")
-                        .HasColumnType("bit");
-
-                    b.Property<long?>("ProjectManagerId")
-                        .HasColumnType("bigint");
-
                     b.Property<DateTime?>("ToDate")
                         .HasColumnType("datetime2");
 
@@ -2960,8 +2953,6 @@ namespace Pixel.Attendance.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ProjectManagerId");
 
                     b.HasIndex("UserId");
 
@@ -4598,10 +4589,6 @@ namespace Pixel.Attendance.Migrations
 
             modelBuilder.Entity("Pixel.Attendance.Operations.UserTimeSheetApprove", b =>
                 {
-                    b.HasOne("Pixel.Attendance.Authorization.Users.User", "ProjectManagerFk")
-                        .WithMany()
-                        .HasForeignKey("ProjectManagerId");
-
                     b.HasOne("Pixel.Attendance.Authorization.Users.User", "UserFk")
                         .WithMany()
                         .HasForeignKey("UserId");

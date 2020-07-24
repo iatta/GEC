@@ -80,16 +80,7 @@ namespace Pixel.Attendance.Organizations
 
         public async Task<PagedResultDto<OrganizationUnitUserListDto>> GetOrganizationUnitUsers(GetOrganizationUnitUsersInput input)
         {
-            //var query = from ouUser in _userOrganizationUnitRepository.GetAll()
-            //            join ou in _organizationUnitRepository.GetAll() on ouUser.OrganizationUnitId equals ou.Id
-            //            join user in UserManager.Users on ouUser.UserId equals user.Id
-            //            where ouUser.OrganizationUnitId == input.Id
-            //            select new
-            //            {
-            //                ouUser,
-            //                user
-            //            };  
-
+            
             var usersQuery = UserManager.Users.Where(x => x.OrganizationUnitId == input.Id);
 
             var totalCount = await usersQuery.CountAsync();

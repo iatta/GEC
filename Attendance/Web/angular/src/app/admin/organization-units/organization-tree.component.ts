@@ -124,8 +124,6 @@ export class OrganizationTreeComponent extends AppComponentBase implements OnIni
     private getTreeDataFromServer(): void {
         let self = this;
         this._organizationUnitService.getOrganizationUnits().subscribe((result: ListResultDtoOfOrganizationUnitDto) => {
-            debugger;
-            console.log(result);
             this.totalUnitCount = result.items.length;
             this.treeData = this._arrayToTreeConverterService.createTree(result.items,
                 'parentId',

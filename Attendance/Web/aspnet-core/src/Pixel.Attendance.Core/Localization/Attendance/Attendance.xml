@@ -1,6 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
-  <texts>    <text name="MachineNameEn">Machine name en</text>
+  <texts>    <text name="IsClosed">Is closed</text>
+    <text name="NotIsClosed">Not is closed</text>
+    <text name="ProjectManagerApprove">Project manager approve</text>
+    <text name="NotProjectManagerApprove">Not project manager approve</text>
+    <text name="UserTimeSheetApprove">User time sheet approve</text>
+    <text name="Month">Month</text>
+    <text name="Year">Year</text>
+    <text name="ApprovedUnits">Approved units</text>
+    <text name="UserTimeSheetApprovesHeaderInfo">User time sheet approves header info</text>
+    <text name="CreateNewUserTimeSheetApprove">Create new user time sheet approve</text>
+    <text name="EditUserTimeSheetApprove">Edit user time sheet approve</text>
+    <text name="DeleteUserTimeSheetApprove">Delete user time sheet approve</text>
+    <text name="UserTimeSheetApproves">User time sheet approves</text>
+    <text name="MachineNameEn">Machine name en</text>
     <text name="PickMachine">Pick machine</text>
     <text name="Beacon">Beacon</text>
     <text name="Uid">Uid</text>
