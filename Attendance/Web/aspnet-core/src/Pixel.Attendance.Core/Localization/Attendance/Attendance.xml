@@ -1,6 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
-  <texts>    <text name="Beacon">Beacon</text>
+  <texts>    <text name="MachineNameEn">Machine name en</text>
+    <text name="PickMachine">Pick machine</text>
+    <text name="Beacon">Beacon</text>
     <text name="Uid">Uid</text>
     <text name="Minor">Minor</text>
     <text name="Major">Major</text>
@@ -1416,7 +1418,7 @@
     <text name="DeductType">Deduct Type   </text>
     
   <text name="CardNumber"> Card Number   </text>
-    <text name="fingerPassword"> Finger Password  </text>
+    <text name="FingerPassword"> Finger Password  </text>
     <text name="Telephone_2"> Telephone_2  </text>
     <text name="Extension"> Extension  </text>
     <text name="DateOfBirth"> Birthday  </text>
@@ -1478,8 +1480,9 @@
     <text name="SendNotification"> Send Notification </text>
     <text name="SendNotificationMessage"> Send Notification Message </text>
     <text name="SuccessfullySent"> Successfully Sent </text>
+    <text name="IsFixedOverTimeAllowed"> Allow Fixed Overtime </text>
+    <text name="SummerizeReport"> Summarize Report </text>
     
-
 
 
 

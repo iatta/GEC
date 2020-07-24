@@ -8,6 +8,8 @@ namespace Pixel.Attendance.Operations.Dtos
     {
 		public CreateOrEditTransactionDto Transaction { get; set; }
         public string UserName { get; set; }
+        public string MachineNameEn { get; set; }
+
 
     }
 }

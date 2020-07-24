@@ -80,6 +80,7 @@ namespace Pixel.Attendance.Authorization.Users
         public bool IsFaceRegistered { get; set; }
         public string MobilePassword { get; set; }
         public string BeaconUid { get; set; }
+        public bool IsFixedOverTimeAllowed { get; set; }
 
         public ICollection<ProjectUser> Projects { get; set; }
         

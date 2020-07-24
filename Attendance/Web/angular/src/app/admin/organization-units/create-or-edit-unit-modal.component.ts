@@ -12,6 +12,7 @@ export interface IOrganizationUnitOnEdit {
     displayName?: string;
     managerId?:number;
     userName?:string;
+    hasApprove?:boolean;
 }
 
 @Component({
@@ -70,6 +71,7 @@ export class CreateOrEditUnitModalComponent extends AppComponentBase {
         createInput.parentId = this.organizationUnit.parentId;
         createInput.displayName = this.organizationUnit.displayName;
         createInput.managerId = this.organizationUnit.managerId;
+        createInput.hasApprove = this.organizationUnit.hasApprove;
 
 
         this.saving = true;
@@ -85,11 +87,12 @@ export class CreateOrEditUnitModalComponent extends AppComponentBase {
     }
 
     updateUnit() {
-        debugger
+
         const updateInput = new UpdateOrganizationUnitInput();
         updateInput.id = this.organizationUnit.id;
         updateInput.displayName = this.organizationUnit.displayName;
         updateInput.managerId = this.organizationUnit.managerId;
+        updateInput.hasApprove = this.organizationUnit.hasApprove;
 
         this.saving = true;
         this._organizationUnitService

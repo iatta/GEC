@@ -135,6 +135,7 @@ namespace Pixel.Attendance.Organizations
         {
             var organizationUnit = new OrganizationUnitExtended(AbpSession.TenantId, input.DisplayName, input.ParentId);
             organizationUnit.ManagerId = input.ManagerId;
+            organizationUnit.HasApprove = input.HasApprove;
             await _organizationUnitManager.CreateAsync(organizationUnit);
             await CurrentUnitOfWork.SaveChangesAsync();
 
@@ -147,6 +148,7 @@ namespace Pixel.Attendance.Organizations
             var organizationUnit = await _organizationUnitRepository.GetAsync(input.Id);
             organizationUnit.ManagerId = input.ManagerId;
             organizationUnit.DisplayName = input.DisplayName;
+            organizationUnit.HasApprove = input.HasApprove;
 
             await _organizationUnitManager.UpdateAsync(organizationUnit);
 

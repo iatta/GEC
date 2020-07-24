@@ -1,4 +1,5 @@
-﻿import { ReportComponent } from './operations/reports/report.component';
+﻿import { SummerizeReportComponent } from './operations/reports/summerize.component';
+import { ReportComponent } from './operations/reports/report.component';
 import { EmployeeReportComponent } from './operations/reports/employee-report.component';
 import { BeaconsComponent } from './operations/beacons/beacons.component';
 import { UserShiftsComponent } from './operations/userShifts/userShifts.component';
@@ -52,6 +53,9 @@ import { HrTransactionsComponent } from './operations/manualTransactions/transac
             {
                 path: '',
                 children: [
+
+
+                    { path: 'operations/summerizeReport', component: SummerizeReportComponent, data: { permission: 'Pages.Beacons' }  },
                     { path: 'operations/beacons', component: BeaconsComponent, data: { permission: 'Pages.Beacons' }  },
                     { path: 'operations/manageUserShifts', component: ManageUserShiftComponent, data: { permission: 'Pages.ManageUserShifts' }  },
                     // { path: 'operations/userShifts', component: UserShiftsComponent, data: { permission: 'Pages.UserShifts' }  },

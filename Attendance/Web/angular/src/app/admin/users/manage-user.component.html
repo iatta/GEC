@@ -220,7 +220,6 @@
                                     </select>
                                 </div>
                             </div>
-
                             <div class="form-group row">
                                 <div class="col-lg-4">
                                     <label for="selectedUsers">{{l("Manager")}}</label>
@@ -230,6 +229,14 @@
                                     <button class="btn btn-warning" type="button" (click)="openUnitModal()" >{{l('ChooseUnit')}}</button>
                                 </div>
 
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-lg-6">
+                                    <div class="checkbox-inline">
+                                        <label for="isFixedOverTimeAllowed"> {{l('IsFixedOverTimeAllowed')}}</label>
+                                        <input style="width: 15px;" type="checkbox" class="form-control" name="isFixedOverTimeAllowed" [(ngModel)]="user.isFixedOverTimeAllowed" [ngModelOptions]="{standalone: true}"></div>
+                                </div>
                                 <div class="col-lg-2">
                                     <label for="terminated">{{l("Status")}}</label><br>
                                     <p-radioButton name="terminated" [label]="l('Active')" [value]=false [(ngModel)]="user.terminated"></p-radioButton>
@@ -259,11 +266,9 @@
                         </tab>
                         <tab heading="{{'OrganizationUnits' | localize}}" name="fourth">
                             <organization-unit-tree [cascadeSelectEnabled]="false" #organizationUnitTree></organization-unit-tree>
-                            <!-- <organization-unit-hierarchical-tree #organizationUnitTree></organization-unit-hierarchical-tree> -->
-                            <!-- <organization-unit-horizontal-tree [cascadeSelectEnabled]="false" #organizationUnitTree></organization-unit-horizontal-tree> -->
                         </tab>
 
-                        <tab heading="{{'Locations' | localize}}" name="fourth">
+                        <!-- <tab heading="{{'Locations' | localize}}" name="fourth">
 
                             <div class="form-group row">
                                 <div class="col-lg-3">
@@ -324,8 +329,8 @@
                                 </p-table>
                             </div>
 
-                        </tab>
-                        <tab heading="{{'Shift' | localize}}" name="fifth">
+                        </tab> -->
+                        <!-- <tab heading="{{'Shift' | localize}}" name="fifth">
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div  class="form-group row">
@@ -352,7 +357,7 @@
                             </div>
                             <br>
                             <div class="row align-items-center">
-                                <!--<Primeng-Datatable-Start>-->
+
                                 <div class="primeng-datatable-container col-12">
                                     <p-table
                                     #dt
@@ -366,9 +371,7 @@
                                     >
                                         <ng-template pTemplate="caption">
                                             {{l('UserShifts')}}
-                                            <!-- <div class="ui-table-globalfilter-container">
-                                                <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Global Search" />
-                                            </div> -->
+
                                         </ng-template>
                                         <ng-template pTemplate="header">
                                             <tr>
@@ -409,7 +412,7 @@
                                     </p-table>
                                 </div>
                             </div>
-                        </tab>
+                        </tab> -->
                         <tab heading="{{'Beacon' | localize}}" name="sixth">
                             <div class="row">
                                 <div class="col-lg-12">

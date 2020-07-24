@@ -15,5 +15,7 @@ namespace Pixel.Attendance.Organizations.Dto
         public int RoleCount { get; set; }
         public long? ManagerId { get; set; }
         public string ManagerName { get; set; }
+
+        public bool HasApprove { get; set; }
     }
 }

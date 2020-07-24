@@ -1,0 +1,20 @@
+.absent{
+    background-color: orange !important;
+}
+.overTime{
+    background-color: yellow !important;
+}
+
+.late{
+    background-color: red !important;
+    color: white;
+}
+
+.center{
+    text-align: center;
+}
+
+.colorInfo{
+    width: 20px;
+    height: 20px;
+}

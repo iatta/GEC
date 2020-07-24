@@ -29,6 +29,7 @@ namespace Pixel.Attendance.Operations
         Task<PagedResultDto<GetTransactionForViewDto>> GetAllTransactionForProjectManager(GetTransactionDto input);
         Task<PagedResultDto<GetTransactionForViewDto>> GetAllTransactionForHr(GetTransactionDto input);
         Task UpdateSingleTransaction(GetTransactionForViewDto input);
+        Task<List<ActualSummerizeTimeSheetDto>> GetActualSummerizeTimeSheet(ActualSummerizeInput input);
 
 
     }

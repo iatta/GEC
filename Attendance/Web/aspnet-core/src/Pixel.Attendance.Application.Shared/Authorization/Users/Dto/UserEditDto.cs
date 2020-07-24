@@ -91,6 +91,7 @@ namespace Pixel.Attendance.Authorization.Users.Dto
         public string Address2 { get; set; }
         public string MobilePasword { get; set; }
         public string BeaconUid { get; set; }
+        public bool IsFixedOverTimeAllowed { get; set; }
 
 
         //public CreateOrEditTimeProfileDto TimeProfile { get; set; }

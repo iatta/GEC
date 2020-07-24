@@ -14,7 +14,7 @@
         <div class="kt-subheader__toolbar">
             <div class="kt-subheader__wrapper">
 				<button (click)="exportToExcel()" class="btn btn-outline-success"><i class="fa fa-file-excel"></i> {{l("ExportToExcel")}}</button>
-                <button *ngIf="isGranted('Pages.ManualTransactions.Create')" (click)="createManualTransaction()" 
+                <button *ngIf="isGranted('Pages.ManualTransactions.Create')" (click)="createManualTransaction()"
 			class="btn btn-primary blue"><i class="fa fa-plus"></i> {{l("CreateNewManualTransaction")}}</button>
             </div>
         </div>
@@ -23,7 +23,59 @@
     <div [class]="containerClass + ' kt-grid__item kt-grid__item--fluid'">
         <div class="kt-portlet kt-portlet--mobile">
             <div class="kt-portlet__body">
-               
+                <form class="kt-form" autocomplete="off">
+                    <div>
+                        <div class="row align-items-center">
+                            <div class="col-xl-12">
+                                <div class="form-group m-form__group align-items-center">
+                                    <div class="input-group">
+                                        <input [(ngModel)]="filterText" name="filterText" autoFocus class="form-control m-input" [placeholder]="l('SearchWithThreeDot')" type="text">
+                                        <span class="input-group-btn">
+                                            <button (click)="getManualTransactions()" class="btn btn-primary" type="submit"><i class="flaticon-search-1"></i></button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+						 <div class="row" [hidden]="!advancedFiltersAreShown">
+						 	<div class="col-md-12">
+						         <div class="kt-separator kt-separator--border-dashed"></div>
+						     </div>
+
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+									<label  for="MinTransDateFilter">{{l("TransDateRange")}}</label>
+									<div class="input-group">
+                                        <input class="form-control m-input" id="MinTransDateFilter" name="MinTransDateFilter" type="datetime" bsDatepicker  placeholder="{{l('MinValue')}}" [(ngModel)]="minTransDateFilter">
+			                            <span style="line-height: 40px;padding: 0 15px 0 15px;"> &mdash; </span>
+                                        <input class="form-control m-input" id="MaxTransDateFilter" name="MaxTransDateFilter" type="datetime" bsDatepicker  placeholder="{{l('MaxValue')}}" [(ngModel)]="maxTransDateFilter">
+									</div>
+                                </div>
+                            </div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="UserNameFilter">({{l("User")}}) {{l("Name")}}</label>
+									<input type="text" class="form-control" id="UserNameFilter" name="userNameFilter" [(ngModel)]="userNameFilter">
+                                </div>
+                            </div>
+							<div class="col-md-3">
+								<div class="form-group">
+									<label for="MachineNameEnFilter">({{l("Machine")}}) {{l("NameEn")}}</label>
+									<input type="text" class="form-control" id="MachineNameEnFilter" name="machineNameEnFilter" [(ngModel)]="machineNameEnFilter">
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-sm-12">
+                                <span class="clickable-item text-muted" *ngIf="!advancedFiltersAreShown" (click)="advancedFiltersAreShown=!advancedFiltersAreShown"><i class="fa fa-angle-down"></i> {{l("ShowAdvancedFilters")}}</span>
+                                <span class="clickable-item text-muted" *ngIf="advancedFiltersAreShown" (click)="advancedFiltersAreShown=!advancedFiltersAreShown"><i class="fa fa-angle-up"></i> {{l("HideAdvancedFilters")}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
                 <div class="row align-items-center">
                     <!--<Primeng-Datatable-Start>-->
                     <div class="primeng-datatable-container col-12"
@@ -62,7 +114,7 @@
                                     </th>
 
                                 </tr>
-                            </ng-template>                           
+                            </ng-template>
 							<ng-template pTemplate="body" let-record="$implicit">
                                 <tr>
                                     <td style="width: 130px"
@@ -78,11 +130,11 @@
 												</li>
 												<li>
 													<a href="javascript:;" *ngIf="permission.isGranted('Pages.ManualTransactions.Edit')"
-														(click)="createOrEditManualTransactionModal.show(record.transaction.id)">{{l('Edit')}}</a>
+                                                    (click)="createOrEditManualTransactionModal.show(record.transaction.id)">{{l('Edit')}}</a>
 												</li>
 												<li>
 											        <a href="javascript:;" *ngIf="permission.isGranted('Pages.ManualTransactions.Delete')"
-														(click)="deleteManualTransaction(record.transaction)">{{l('Delete')}}</a>
+                                                    (click)="deleteManualTransaction(record.transaction)">{{l('Delete')}}</a>
 												</li>
                                             </ul>
                                         </div>
@@ -91,26 +143,25 @@
 												<span class="ui-column-title"> {{l('Name')}}</span>
 												{{record.userName}}
 											</td>
-                                    <td style="width:150px">
-										<span class="ui-column-title"> {{l('TransactionDate')}}</span>
-                                        <span *ngIf="record.transaction.transaction_Date">
-											{{record.transaction.transaction_Date | momentFormat:'L'}}
-                                        </span>
-                                        <span *ngIf="!record.transaction.transaction_Date">-</span>
-                                    </td>
-                                    <td style="width:150px">
-											<span class="ui-column-title"> {{l('KeyType')}}</span>
-											{{record.transaction.keyType == 1 ? l('In') : l('Out')}}
-                                        </td>
-                                        <td style="width:150px">
-											<span class="ui-column-title"> {{l('time')}}</span>
-											{{record.transaction.time }}
-                                        </td>
-                                        <td style="width:150px">
-											<span class="ui-column-title"> {{l('CreationTime')}}</span>
-											{{record.transaction.creationTime |  momentFormat:'L'}}
-										</td>
-
+                                            <td style="width:150px">
+                                                <span class="ui-column-title"> {{l('TransactionDate')}}</span>
+                                                <span *ngIf="record.transaction.transaction_Date">
+                                                    {{record.transaction.transaction_Date | momentFormat:'L'}}
+                                                </span>
+                                                <span *ngIf="!record.transaction.transaction_Date">-</span>
+                                            </td>
+                                            <td style="width:150px">
+                                                    <span class="ui-column-title"> {{l('KeyType')}}</span>
+                                                    {{record.transaction.keyType == 1 ? l('In') : l('Out')}}
+                                                </td>
+                                                <td style="width:150px">
+                                                    <span class="ui-column-title"> {{l('time')}}</span>
+                                                    {{record.transaction.time }}
+                                                </td>
+                                                <td style="width:150px">
+                                                    <span class="ui-column-title"> {{l('CreationTime')}}</span>
+                                                    {{record.transaction.creationTime |  momentFormat:'L'}}
+                                                </td>
                                 </tr>
                             </ng-template>
                         </p-table>
@@ -137,6 +188,6 @@
 
     <createOrEditManualTransactionModal #createOrEditManualTransactionModal (modalSave)="getManualTransactions()"></createOrEditManualTransactionModal>
     <viewManualTransactionModal #viewManualTransactionModal></viewManualTransactionModal>
-    
+
   </div>
 </div>

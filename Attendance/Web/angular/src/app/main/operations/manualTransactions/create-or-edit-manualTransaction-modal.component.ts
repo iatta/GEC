@@ -5,8 +5,8 @@ import { TransactionsServiceProxy, CreateOrEditTransactionDto } from '@shared/se
 import { AppComponentBase } from '@shared/common/app-component-base';
 import * as moment from 'moment';
 import { ManualTransactionUserLookupTableModalComponent } from './manualTransaction-user-lookup-table-modal.component';
+import { ManualTransactionMachineLookupTableModalComponent } from './manualTransaction-machine-lookup-table-modal.component';
 import { result } from 'lodash';
-
 @Component({
     selector: 'createOrEditManualTransactionModal',
     templateUrl: './create-or-edit-manualTransaction-modal.component.html'
@@ -15,6 +15,7 @@ export class CreateOrEditManualTransactionModalComponent extends AppComponentBas
 
     @ViewChild('createOrEditModal', { static: true }) modal: ModalDirective;
     @ViewChild('manualTransactionUserLookupTableModal', { static: true }) manualTransactionUserLookupTableModal: ManualTransactionUserLookupTableModalComponent;
+    @ViewChild('manualTransactionMachineLookupTableModal', { static: true }) manualTransactionMachineLookupTableModal: ManualTransactionMachineLookupTableModalComponent;
 
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
 
@@ -29,6 +30,9 @@ export class CreateOrEditManualTransactionModalComponent extends AppComponentBas
     manualTransactionId:number;
 
     transactionLoaded = false;
+    machineNameEn = '';
+
+
     constructor(
         injector: Injector,
         private _transactionsServiceProxy: TransactionsServiceProxy
@@ -42,10 +46,9 @@ export class CreateOrEditManualTransactionModalComponent extends AppComponentBas
             this.manualTransaction = new CreateOrEditTransactionDto();
             this.manualTransaction.id = manualTransactionId;
             this.manualTransaction.transaction_Date = moment();
-
-
             this.timeObj.setHours(8);
             this.userName = '';
+            this.machineNameEn = '';
 
             this.active = true;
             this.modal.show();
@@ -60,6 +63,7 @@ export class CreateOrEditManualTransactionModalComponent extends AppComponentBas
                 this.timeObj.setMinutes(minutes % 60);
 
                 this.userName = result.userName;
+                this.machineNameEn = result.machineNameEn;
 
                 this.active = true;
                 this.modal.show();
@@ -70,7 +74,6 @@ export class CreateOrEditManualTransactionModalComponent extends AppComponentBas
     save(): void {
         if( !this.manualTransaction.id && !this.transactionLoaded){
             this._transactionsServiceProxy.transactionExist(this.manualTransaction).subscribe((result)=>{
-                debugger
                 console.log(result);
                 if(result.isExist){
                     this.message.confirm('This Transaction Alread Exist With Same Date And Same Type',' Do You Want To Reload It ?',(isConfirmed) => {
@@ -117,9 +120,6 @@ export class CreateOrEditManualTransactionModalComponent extends AppComponentBas
                 this.modalSave.emit(null);
             });
         }
-
-
-
     }
 
     openSelectUserModal() {
@@ -127,17 +127,30 @@ export class CreateOrEditManualTransactionModalComponent extends AppComponentBas
         this.manualTransactionUserLookupTableModal.displayName = this.userName;
         this.manualTransactionUserLookupTableModal.show();
     }
+    openSelectMachineModal() {
+        this.manualTransactionMachineLookupTableModal.id = this.manualTransaction.machineId;
+        this.manualTransactionMachineLookupTableModal.displayName = this.machineNameEn;
+        this.manualTransactionMachineLookupTableModal.show();
+    }
 
 
     setUserIdNull() {
         this.manualTransaction.pin = null;
         this.userName = '';
     }
+    setMachineIdNull() {
+        this.manualTransaction.machineId = null;
+        this.machineNameEn = '';
+    }
 
 
     getNewUserId() {
         this.manualTransaction.pin = this.manualTransactionUserLookupTableModal.id;
         this.userName = this.manualTransactionUserLookupTableModal.displayName;
+    }
+    getNewMachineId() {
+        this.manualTransaction.machineId = this.manualTransactionMachineLookupTableModal.id;
+        this.machineNameEn = this.manualTransactionMachineLookupTableModal.displayName;
     }
 
 

@@ -28,6 +28,7 @@ export interface IOrganizationUnitOnTree extends IBasicOrganizationUnitInfo {
     text: string;
     state: any;
     managerId:number;
+    hasApprove:boolean;
 }
 
 @Component({
@@ -184,7 +185,8 @@ export class OrganizationTreeComponent extends AppComponentBase implements OnIni
                         userName:this.selectedOu.data.managerName,
                         id: this.selectedOu.data.id,
                         displayName: this.selectedOu.data.displayName,
-                        managerId: this.selectedOu.data.managerId
+                        managerId: this.selectedOu.data.managerId,
+                        hasApprove: this.selectedOu.data.hasApprove
                     });
                 }
             },
@@ -309,6 +311,7 @@ export class OrganizationTreeComponent extends AppComponentBase implements OnIni
         item.data.displayName = ou.displayName;
         item.label = ou.displayName;
         item.data.managerName = ou.managerName;
+        item.data.hasApprove = ou.hasApprove;
         item.memberCount = ou.memberCount;
         item.roleCount = ou.roleCount;
     }

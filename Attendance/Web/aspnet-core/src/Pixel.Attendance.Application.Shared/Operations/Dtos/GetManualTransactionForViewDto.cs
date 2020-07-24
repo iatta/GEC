@@ -6,6 +6,8 @@
 
 		public string UserName { get; set;}
 
+		public string MachineNameEn { get; set;}
+
 
     }
 }

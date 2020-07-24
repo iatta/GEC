@@ -1548,6 +1548,9 @@ namespace Pixel.Attendance.Migrations
                     b.Property<bool>("IsFaceRegistered")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsFixedOverTimeAllowed")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("IsLockoutEnabled")
                         .HasColumnType("bit");
 
@@ -2390,6 +2393,9 @@ namespace Pixel.Attendance.Migrations
                     b.Property<long?>("LastModifierUserId")
                         .HasColumnType("bigint");
 
+                    b.Property<int?>("MachineId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("TransDate")
                         .HasColumnType("datetime2");
 
@@ -2400,6 +2406,8 @@ namespace Pixel.Attendance.Migrations
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("MachineId");
 
                     b.HasIndex("UserId");
 
@@ -2799,6 +2807,9 @@ namespace Pixel.Attendance.Migrations
                     b.Property<long?>("LastModifierUserId")
                         .HasColumnType("bigint");
 
+                    b.Property<int>("MachineId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Manual")
                         .HasColumnType("int");
 
@@ -2839,6 +2850,8 @@ namespace Pixel.Attendance.Migrations
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("MachineId");
 
                     b.HasIndex("Pin");
 
@@ -4150,6 +4163,9 @@ namespace Pixel.Attendance.Migrations
                 {
                     b.HasBaseType("Abp.Organizations.OrganizationUnit");
 
+                    b.Property<bool>("HasApprove")
+                        .HasColumnType("bit");
+
                     b.Property<long?>("ManagerId")
                         .HasColumnType("bigint");
 
@@ -4411,6 +4427,10 @@ namespace Pixel.Attendance.Migrations
 
             modelBuilder.Entity("Pixel.Attendance.Operations.ManualTransaction", b =>
                 {
+                    b.HasOne("Pixel.Attendance.Setting.Machine", "MachineFk")
+                        .WithMany()
+                        .HasForeignKey("MachineId");
+
                     b.HasOne("Pixel.Attendance.Authorization.Users.User", "UserFk")
                         .WithMany()
                         .HasForeignKey("UserId");
@@ -4488,6 +4508,12 @@ namespace Pixel.Attendance.Migrations
 
             modelBuilder.Entity("Pixel.Attendance.Operations.Transaction", b =>
                 {
+                    b.HasOne("Pixel.Attendance.Setting.Machine", "Machine")
+                        .WithMany()
+                        .HasForeignKey("MachineId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Pixel.Attendance.Authorization.Users.User", "User")
                         .WithMany()
                         .HasForeignKey("Pin")

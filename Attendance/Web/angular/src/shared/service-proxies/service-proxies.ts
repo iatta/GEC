@@ -10414,12 +10414,13 @@ export class ManualTransactionsServiceProxy {
      * @param maxTransDateFilter (optional) 
      * @param minTransDateFilter (optional) 
      * @param userNameFilter (optional) 
+     * @param machineNameEnFilter (optional) 
      * @param sorting (optional) 
      * @param skipCount (optional) 
      * @param maxResultCount (optional) 
      * @return Success
      */
-    getAll(filter: string | undefined, maxTransDateFilter: moment.Moment | undefined, minTransDateFilter: moment.Moment | undefined, userNameFilter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetManualTransactionForViewDto> {
+    getAll(filter: string | undefined, maxTransDateFilter: moment.Moment | undefined, minTransDateFilter: moment.Moment | undefined, userNameFilter: string | undefined, machineNameEnFilter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetManualTransactionForViewDto> {
         let url_ = this.baseUrl + "/api/services/app/ManualTransactions/GetAll?";
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
@@ -10437,6 +10438,10 @@ export class ManualTransactionsServiceProxy {
             throw new Error("The parameter 'userNameFilter' cannot be null.");
         else if (userNameFilter !== undefined)
             url_ += "UserNameFilter=" + encodeURIComponent("" + userNameFilter) + "&"; 
+        if (machineNameEnFilter === null)
+            throw new Error("The parameter 'machineNameEnFilter' cannot be null.");
+        else if (machineNameEnFilter !== undefined)
+            url_ += "MachineNameEnFilter=" + encodeURIComponent("" + machineNameEnFilter) + "&"; 
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
@@ -10716,9 +10721,10 @@ export class ManualTransactionsServiceProxy {
      * @param maxTransDateFilter (optional) 
      * @param minTransDateFilter (optional) 
      * @param userNameFilter (optional) 
+     * @param machineNameEnFilter (optional) 
      * @return Success
      */
-    getManualTransactionsToExcel(filter: string | undefined, maxTransDateFilter: moment.Moment | undefined, minTransDateFilter: moment.Moment | undefined, userNameFilter: string | undefined): Observable<FileDto> {
+    getManualTransactionsToExcel(filter: string | undefined, maxTransDateFilter: moment.Moment | undefined, minTransDateFilter: moment.Moment | undefined, userNameFilter: string | undefined, machineNameEnFilter: string | undefined): Observable<FileDto> {
         let url_ = this.baseUrl + "/api/services/app/ManualTransactions/GetManualTransactionsToExcel?";
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
@@ -10736,6 +10742,10 @@ export class ManualTransactionsServiceProxy {
             throw new Error("The parameter 'userNameFilter' cannot be null.");
         else if (userNameFilter !== undefined)
             url_ += "UserNameFilter=" + encodeURIComponent("" + userNameFilter) + "&"; 
+        if (machineNameEnFilter === null)
+            throw new Error("The parameter 'machineNameEnFilter' cannot be null.");
+        else if (machineNameEnFilter !== undefined)
+            url_ += "MachineNameEnFilter=" + encodeURIComponent("" + machineNameEnFilter) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -10851,6 +10861,77 @@ export class ManualTransactionsServiceProxy {
             }));
         }
         return _observableOf<PagedResultDtoOfManualTransactionUserLookupTableDto>(<any>null);
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
+     * @return Success
+     */
+    getAllMachineForLookupTable(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfManualTransactionMachineLookupTableDto> {
+        let url_ = this.baseUrl + "/api/services/app/ManualTransactions/GetAllMachineForLookupTable?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllMachineForLookupTable(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllMachineForLookupTable(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfManualTransactionMachineLookupTableDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfManualTransactionMachineLookupTableDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAllMachineForLookupTable(response: HttpResponseBase): Observable<PagedResultDtoOfManualTransactionMachineLookupTableDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfManualTransactionMachineLookupTableDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfManualTransactionMachineLookupTableDto>(<any>null);
     }
 }
 
@@ -24242,6 +24323,76 @@ export class TransactionsServiceProxy {
             }));
         }
         return _observableOf<PagedResultDtoOfGetTransactionForViewDto>(<any>null);
+    }
+
+    /**
+     * @param projectId (optional) 
+     * @param startDate (optional) 
+     * @param endDate (optional) 
+     * @return Success
+     */
+    getActualSummerizeTimeSheet(projectId: number | undefined, startDate: moment.Moment | undefined, endDate: moment.Moment | undefined): Observable<ActualSummerizeTimeSheetDto[]> {
+        let url_ = this.baseUrl + "/api/services/app/Transactions/GetActualSummerizeTimeSheet?";
+        if (projectId === null)
+            throw new Error("The parameter 'projectId' cannot be null.");
+        else if (projectId !== undefined)
+            url_ += "ProjectId=" + encodeURIComponent("" + projectId) + "&"; 
+        if (startDate === null)
+            throw new Error("The parameter 'startDate' cannot be null.");
+        else if (startDate !== undefined)
+            url_ += "StartDate=" + encodeURIComponent(startDate ? "" + startDate.toJSON() : "") + "&"; 
+        if (endDate === null)
+            throw new Error("The parameter 'endDate' cannot be null.");
+        else if (endDate !== undefined)
+            url_ += "EndDate=" + encodeURIComponent(endDate ? "" + endDate.toJSON() : "") + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetActualSummerizeTimeSheet(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetActualSummerizeTimeSheet(<any>response_);
+                } catch (e) {
+                    return <Observable<ActualSummerizeTimeSheetDto[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ActualSummerizeTimeSheetDto[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetActualSummerizeTimeSheet(response: HttpResponseBase): Observable<ActualSummerizeTimeSheetDto[]> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(ActualSummerizeTimeSheetDto.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ActualSummerizeTimeSheetDto[]>(<any>null);
     }
 }
 
@@ -37741,6 +37892,7 @@ export class ManualTransactionDto implements IManualTransactionDto {
     transDate!: moment.Moment;
     transType!: number;
     userId!: number | undefined;
+    machineId!: number | undefined;
     id!: number;
 
     constructor(data?: IManualTransactionDto) {
@@ -37757,6 +37909,7 @@ export class ManualTransactionDto implements IManualTransactionDto {
             this.transDate = data["transDate"] ? moment(data["transDate"].toString()) : <any>undefined;
             this.transType = data["transType"];
             this.userId = data["userId"];
+            this.machineId = data["machineId"];
             this.id = data["id"];
         }
     }
@@ -37773,6 +37926,7 @@ export class ManualTransactionDto implements IManualTransactionDto {
         data["transDate"] = this.transDate ? this.transDate.toISOString() : <any>undefined;
         data["transType"] = this.transType;
         data["userId"] = this.userId;
+        data["machineId"] = this.machineId;
         data["id"] = this.id;
         return data; 
     }
@@ -37782,12 +37936,14 @@ export interface IManualTransactionDto {
     transDate: moment.Moment;
     transType: number;
     userId: number | undefined;
+    machineId: number | undefined;
     id: number;
 }
 
 export class GetManualTransactionForViewDto implements IGetManualTransactionForViewDto {
     manualTransaction!: ManualTransactionDto | undefined;
     userName!: string | undefined;
+    machineNameEn!: string | undefined;
 
     constructor(data?: IGetManualTransactionForViewDto) {
         if (data) {
@@ -37802,6 +37958,7 @@ export class GetManualTransactionForViewDto implements IGetManualTransactionForV
         if (data) {
             this.manualTransaction = data["manualTransaction"] ? ManualTransactionDto.fromJS(data["manualTransaction"]) : <any>undefined;
             this.userName = data["userName"];
+            this.machineNameEn = data["machineNameEn"];
         }
     }
 
@@ -37816,6 +37973,7 @@ export class GetManualTransactionForViewDto implements IGetManualTransactionForV
         data = typeof data === 'object' ? data : {};
         data["manualTransaction"] = this.manualTransaction ? this.manualTransaction.toJSON() : <any>undefined;
         data["userName"] = this.userName;
+        data["machineNameEn"] = this.machineNameEn;
         return data; 
     }
 }
@@ -37823,6 +37981,7 @@ export class GetManualTransactionForViewDto implements IGetManualTransactionForV
 export interface IGetManualTransactionForViewDto {
     manualTransaction: ManualTransactionDto | undefined;
     userName: string | undefined;
+    machineNameEn: string | undefined;
 }
 
 export class PagedResultDtoOfGetManualTransactionForViewDto implements IPagedResultDtoOfGetManualTransactionForViewDto {
@@ -37877,6 +38036,7 @@ export class CreateOrEditManualTransactionDto implements ICreateOrEditManualTran
     transDate!: moment.Moment;
     transType!: number;
     userId!: number | undefined;
+    machineId!: number | undefined;
     id!: number | undefined;
 
     constructor(data?: ICreateOrEditManualTransactionDto) {
@@ -37893,6 +38053,7 @@ export class CreateOrEditManualTransactionDto implements ICreateOrEditManualTran
             this.transDate = data["transDate"] ? moment(data["transDate"].toString()) : <any>undefined;
             this.transType = data["transType"];
             this.userId = data["userId"];
+            this.machineId = data["machineId"];
             this.id = data["id"];
         }
     }
@@ -37909,6 +38070,7 @@ export class CreateOrEditManualTransactionDto implements ICreateOrEditManualTran
         data["transDate"] = this.transDate ? this.transDate.toISOString() : <any>undefined;
         data["transType"] = this.transType;
         data["userId"] = this.userId;
+        data["machineId"] = this.machineId;
         data["id"] = this.id;
         return data; 
     }
@@ -37918,12 +38080,14 @@ export interface ICreateOrEditManualTransactionDto {
     transDate: moment.Moment;
     transType: number;
     userId: number | undefined;
+    machineId: number | undefined;
     id: number | undefined;
 }
 
 export class GetManualTransactionForEditOutput implements IGetManualTransactionForEditOutput {
     manualTransaction!: CreateOrEditManualTransactionDto | undefined;
     userName!: string | undefined;
+    machineNameEn!: string | undefined;
 
     constructor(data?: IGetManualTransactionForEditOutput) {
         if (data) {
@@ -37938,6 +38102,7 @@ export class GetManualTransactionForEditOutput implements IGetManualTransactionF
         if (data) {
             this.manualTransaction = data["manualTransaction"] ? CreateOrEditManualTransactionDto.fromJS(data["manualTransaction"]) : <any>undefined;
             this.userName = data["userName"];
+            this.machineNameEn = data["machineNameEn"];
         }
     }
 
@@ -37952,6 +38117,7 @@ export class GetManualTransactionForEditOutput implements IGetManualTransactionF
         data = typeof data === 'object' ? data : {};
         data["manualTransaction"] = this.manualTransaction ? this.manualTransaction.toJSON() : <any>undefined;
         data["userName"] = this.userName;
+        data["machineNameEn"] = this.machineNameEn;
         return data; 
     }
 }
@@ -37959,6 +38125,7 @@ export class GetManualTransactionForEditOutput implements IGetManualTransactionF
 export interface IGetManualTransactionForEditOutput {
     manualTransaction: CreateOrEditManualTransactionDto | undefined;
     userName: string | undefined;
+    machineNameEn: string | undefined;
 }
 
 export class ManualTransactionUserLookupTableDto implements IManualTransactionUserLookupTableDto {
@@ -38047,6 +38214,94 @@ export class PagedResultDtoOfManualTransactionUserLookupTableDto implements IPag
 export interface IPagedResultDtoOfManualTransactionUserLookupTableDto {
     totalCount: number;
     items: ManualTransactionUserLookupTableDto[] | undefined;
+}
+
+export class ManualTransactionMachineLookupTableDto implements IManualTransactionMachineLookupTableDto {
+    id!: number;
+    displayName!: string | undefined;
+
+    constructor(data?: IManualTransactionMachineLookupTableDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"];
+            this.displayName = data["displayName"];
+        }
+    }
+
+    static fromJS(data: any): ManualTransactionMachineLookupTableDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ManualTransactionMachineLookupTableDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["displayName"] = this.displayName;
+        return data; 
+    }
+}
+
+export interface IManualTransactionMachineLookupTableDto {
+    id: number;
+    displayName: string | undefined;
+}
+
+export class PagedResultDtoOfManualTransactionMachineLookupTableDto implements IPagedResultDtoOfManualTransactionMachineLookupTableDto {
+    totalCount!: number;
+    items!: ManualTransactionMachineLookupTableDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfManualTransactionMachineLookupTableDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (Array.isArray(data["items"])) {
+                this.items = [] as any;
+                for (let item of data["items"])
+                    this.items!.push(ManualTransactionMachineLookupTableDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfManualTransactionMachineLookupTableDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfManualTransactionMachineLookupTableDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfManualTransactionMachineLookupTableDto {
+    totalCount: number;
+    items: ManualTransactionMachineLookupTableDto[] | undefined;
 }
 
 export class MobileTransactionDto implements IMobileTransactionDto {
@@ -42693,6 +42948,7 @@ export class OrganizationUnitDto implements IOrganizationUnitDto {
     roleCount!: number;
     managerId!: number | undefined;
     managerName!: string | undefined;
+    hasApprove!: boolean;
     lastModificationTime!: moment.Moment | undefined;
     lastModifierUserId!: number | undefined;
     creationTime!: moment.Moment;
@@ -42717,6 +42973,7 @@ export class OrganizationUnitDto implements IOrganizationUnitDto {
             this.roleCount = data["roleCount"];
             this.managerId = data["managerId"];
             this.managerName = data["managerName"];
+            this.hasApprove = data["hasApprove"];
             this.lastModificationTime = data["lastModificationTime"] ? moment(data["lastModificationTime"].toString()) : <any>undefined;
             this.lastModifierUserId = data["lastModifierUserId"];
             this.creationTime = data["creationTime"] ? moment(data["creationTime"].toString()) : <any>undefined;
@@ -42741,6 +42998,7 @@ export class OrganizationUnitDto implements IOrganizationUnitDto {
         data["roleCount"] = this.roleCount;
         data["managerId"] = this.managerId;
         data["managerName"] = this.managerName;
+        data["hasApprove"] = this.hasApprove;
         data["lastModificationTime"] = this.lastModificationTime ? this.lastModificationTime.toISOString() : <any>undefined;
         data["lastModifierUserId"] = this.lastModifierUserId;
         data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
@@ -42758,6 +43016,7 @@ export interface IOrganizationUnitDto {
     roleCount: number;
     managerId: number | undefined;
     managerName: string | undefined;
+    hasApprove: boolean;
     lastModificationTime: moment.Moment | undefined;
     lastModifierUserId: number | undefined;
     creationTime: moment.Moment;
@@ -43017,6 +43276,7 @@ export class CreateOrganizationUnitInput implements ICreateOrganizationUnitInput
     parentId!: number | undefined;
     displayName!: string;
     managerId!: number | undefined;
+    hasApprove!: boolean;
 
     constructor(data?: ICreateOrganizationUnitInput) {
         if (data) {
@@ -43032,6 +43292,7 @@ export class CreateOrganizationUnitInput implements ICreateOrganizationUnitInput
             this.parentId = data["parentId"];
             this.displayName = data["displayName"];
             this.managerId = data["managerId"];
+            this.hasApprove = data["hasApprove"];
         }
     }
 
@@ -43047,6 +43308,7 @@ export class CreateOrganizationUnitInput implements ICreateOrganizationUnitInput
         data["parentId"] = this.parentId;
         data["displayName"] = this.displayName;
         data["managerId"] = this.managerId;
+        data["hasApprove"] = this.hasApprove;
         return data; 
     }
 }
@@ -43055,12 +43317,14 @@ export interface ICreateOrganizationUnitInput {
     parentId: number | undefined;
     displayName: string;
     managerId: number | undefined;
+    hasApprove: boolean;
 }
 
 export class UpdateOrganizationUnitInput implements IUpdateOrganizationUnitInput {
     id!: number;
     displayName!: string;
     managerId!: number | undefined;
+    hasApprove!: boolean;
 
     constructor(data?: IUpdateOrganizationUnitInput) {
         if (data) {
@@ -43076,6 +43340,7 @@ export class UpdateOrganizationUnitInput implements IUpdateOrganizationUnitInput
             this.id = data["id"];
             this.displayName = data["displayName"];
             this.managerId = data["managerId"];
+            this.hasApprove = data["hasApprove"];
         }
     }
 
@@ -43091,6 +43356,7 @@ export class UpdateOrganizationUnitInput implements IUpdateOrganizationUnitInput
         data["id"] = this.id;
         data["displayName"] = this.displayName;
         data["managerId"] = this.managerId;
+        data["hasApprove"] = this.hasApprove;
         return data; 
     }
 }
@@ -43099,6 +43365,7 @@ export interface IUpdateOrganizationUnitInput {
     id: number;
     displayName: string;
     managerId: number | undefined;
+    hasApprove: boolean;
 }
 
 export class MoveOrganizationUnitInput implements IMoveOrganizationUnitInput {
@@ -51909,6 +52176,8 @@ export class GetTransactionForViewDto implements IGetTransactionForViewDto {
     attendance_EarlyOut!: number;
     totalOverTime!: number;
     totalUserCount!: number;
+    machineNameEn!: string | undefined;
+    machineId!: number;
 
     constructor(data?: IGetTransactionForViewDto) {
         if (data) {
@@ -51942,6 +52211,8 @@ export class GetTransactionForViewDto implements IGetTransactionForViewDto {
             this.attendance_EarlyOut = data["attendance_EarlyOut"];
             this.totalOverTime = data["totalOverTime"];
             this.totalUserCount = data["totalUserCount"];
+            this.machineNameEn = data["machineNameEn"];
+            this.machineId = data["machineId"];
         }
     }
 
@@ -51975,6 +52246,8 @@ export class GetTransactionForViewDto implements IGetTransactionForViewDto {
         data["attendance_EarlyOut"] = this.attendance_EarlyOut;
         data["totalOverTime"] = this.totalOverTime;
         data["totalUserCount"] = this.totalUserCount;
+        data["machineNameEn"] = this.machineNameEn;
+        data["machineId"] = this.machineId;
         return data; 
     }
 }
@@ -52001,6 +52274,8 @@ export interface IGetTransactionForViewDto {
     attendance_EarlyOut: number;
     totalOverTime: number;
     totalUserCount: number;
+    machineNameEn: string | undefined;
+    machineId: number;
 }
 
 export class PagedResultDtoOfGetTransactionForViewDto implements IPagedResultDtoOfGetTransactionForViewDto {
@@ -52072,6 +52347,7 @@ export class CreateOrEditTransactionDto implements ICreateOrEditTransactionDto {
     time!: string | undefined;
     projectManagerApprove!: boolean;
     unitManagerApprove!: boolean;
+    machineId!: number;
     id!: number | undefined;
 
     constructor(data?: ICreateOrEditTransactionDto) {
@@ -52105,6 +52381,7 @@ export class CreateOrEditTransactionDto implements ICreateOrEditTransactionDto {
             this.time = data["time"];
             this.projectManagerApprove = data["projectManagerApprove"];
             this.unitManagerApprove = data["unitManagerApprove"];
+            this.machineId = data["machineId"];
             this.id = data["id"];
         }
     }
@@ -52138,6 +52415,7 @@ export class CreateOrEditTransactionDto implements ICreateOrEditTransactionDto {
         data["time"] = this.time;
         data["projectManagerApprove"] = this.projectManagerApprove;
         data["unitManagerApprove"] = this.unitManagerApprove;
+        data["machineId"] = this.machineId;
         data["id"] = this.id;
         return data; 
     }
@@ -52164,12 +52442,14 @@ export interface ICreateOrEditTransactionDto {
     time: string | undefined;
     projectManagerApprove: boolean;
     unitManagerApprove: boolean;
+    machineId: number;
     id: number | undefined;
 }
 
 export class GetTransactionForEditOutput implements IGetTransactionForEditOutput {
     transaction!: CreateOrEditTransactionDto | undefined;
     userName!: string | undefined;
+    machineNameEn!: string | undefined;
 
     constructor(data?: IGetTransactionForEditOutput) {
         if (data) {
@@ -52184,6 +52464,7 @@ export class GetTransactionForEditOutput implements IGetTransactionForEditOutput
         if (data) {
             this.transaction = data["transaction"] ? CreateOrEditTransactionDto.fromJS(data["transaction"]) : <any>undefined;
             this.userName = data["userName"];
+            this.machineNameEn = data["machineNameEn"];
         }
     }
 
@@ -52198,6 +52479,7 @@ export class GetTransactionForEditOutput implements IGetTransactionForEditOutput
         data = typeof data === 'object' ? data : {};
         data["transaction"] = this.transaction ? this.transaction.toJSON() : <any>undefined;
         data["userName"] = this.userName;
+        data["machineNameEn"] = this.machineNameEn;
         return data; 
     }
 }
@@ -52205,6 +52487,7 @@ export class GetTransactionForEditOutput implements IGetTransactionForEditOutput
 export interface IGetTransactionForEditOutput {
     transaction: CreateOrEditTransactionDto | undefined;
     userName: string | undefined;
+    machineNameEn: string | undefined;
 }
 
 export class EntityExistDto implements IEntityExistDto {
@@ -52245,6 +52528,142 @@ export class EntityExistDto implements IEntityExistDto {
 export interface IEntityExistDto {
     isExist: boolean;
     id: number | undefined;
+}
+
+export class ActualSummerizeTimeSheetDetailDto implements IActualSummerizeTimeSheetDetailDto {
+    day!: moment.Moment;
+    totalHours!: number;
+    isAbsent!: boolean;
+    isSick!: boolean;
+    isWorkInAnotherProject!: boolean;
+    isLeave!: boolean;
+    isUnpaid!: boolean;
+    isDelay!: boolean;
+    overtime!: number;
+    delay!: number;
+
+    constructor(data?: IActualSummerizeTimeSheetDetailDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.day = data["day"] ? moment(data["day"].toString()) : <any>undefined;
+            this.totalHours = data["totalHours"];
+            this.isAbsent = data["isAbsent"];
+            this.isSick = data["isSick"];
+            this.isWorkInAnotherProject = data["isWorkInAnotherProject"];
+            this.isLeave = data["isLeave"];
+            this.isUnpaid = data["isUnpaid"];
+            this.isDelay = data["isDelay"];
+            this.overtime = data["overtime"];
+            this.delay = data["delay"];
+        }
+    }
+
+    static fromJS(data: any): ActualSummerizeTimeSheetDetailDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ActualSummerizeTimeSheetDetailDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["day"] = this.day ? this.day.toISOString() : <any>undefined;
+        data["totalHours"] = this.totalHours;
+        data["isAbsent"] = this.isAbsent;
+        data["isSick"] = this.isSick;
+        data["isWorkInAnotherProject"] = this.isWorkInAnotherProject;
+        data["isLeave"] = this.isLeave;
+        data["isUnpaid"] = this.isUnpaid;
+        data["isDelay"] = this.isDelay;
+        data["overtime"] = this.overtime;
+        data["delay"] = this.delay;
+        return data; 
+    }
+}
+
+export interface IActualSummerizeTimeSheetDetailDto {
+    day: moment.Moment;
+    totalHours: number;
+    isAbsent: boolean;
+    isSick: boolean;
+    isWorkInAnotherProject: boolean;
+    isLeave: boolean;
+    isUnpaid: boolean;
+    isDelay: boolean;
+    overtime: number;
+    delay: number;
+}
+
+export class ActualSummerizeTimeSheetDto implements IActualSummerizeTimeSheetDto {
+    userId!: number;
+    code!: string | undefined;
+    userName!: string | undefined;
+    totalAttendance!: number;
+    totalDeductionHours!: number;
+    details!: ActualSummerizeTimeSheetDetailDto[] | undefined;
+
+    constructor(data?: IActualSummerizeTimeSheetDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.userId = data["userId"];
+            this.code = data["code"];
+            this.userName = data["userName"];
+            this.totalAttendance = data["totalAttendance"];
+            this.totalDeductionHours = data["totalDeductionHours"];
+            if (Array.isArray(data["details"])) {
+                this.details = [] as any;
+                for (let item of data["details"])
+                    this.details!.push(ActualSummerizeTimeSheetDetailDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): ActualSummerizeTimeSheetDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ActualSummerizeTimeSheetDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["userId"] = this.userId;
+        data["code"] = this.code;
+        data["userName"] = this.userName;
+        data["totalAttendance"] = this.totalAttendance;
+        data["totalDeductionHours"] = this.totalDeductionHours;
+        if (Array.isArray(this.details)) {
+            data["details"] = [];
+            for (let item of this.details)
+                data["details"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IActualSummerizeTimeSheetDto {
+    userId: number;
+    code: string | undefined;
+    userName: string | undefined;
+    totalAttendance: number;
+    totalDeductionHours: number;
+    details: ActualSummerizeTimeSheetDetailDto[] | undefined;
 }
 
 export class TypesOfPermitDto implements ITypesOfPermitDto {
@@ -53097,6 +53516,7 @@ export class UserEditDto implements IUserEditDto {
     address2!: string | undefined;
     mobilePasword!: string | undefined;
     beaconUid!: string | undefined;
+    isFixedOverTimeAllowed!: boolean;
     userShifts!: GetUserShiftForViewDto[] | undefined;
 
     constructor(data?: IUserEditDto) {
@@ -53147,6 +53567,7 @@ export class UserEditDto implements IUserEditDto {
             this.address2 = data["address2"];
             this.mobilePasword = data["mobilePasword"];
             this.beaconUid = data["beaconUid"];
+            this.isFixedOverTimeAllowed = data["isFixedOverTimeAllowed"];
             if (Array.isArray(data["userShifts"])) {
                 this.userShifts = [] as any;
                 for (let item of data["userShifts"])
@@ -53201,6 +53622,7 @@ export class UserEditDto implements IUserEditDto {
         data["address2"] = this.address2;
         data["mobilePasword"] = this.mobilePasword;
         data["beaconUid"] = this.beaconUid;
+        data["isFixedOverTimeAllowed"] = this.isFixedOverTimeAllowed;
         if (Array.isArray(this.userShifts)) {
             data["userShifts"] = [];
             for (let item of this.userShifts)
@@ -53248,6 +53670,7 @@ export interface IUserEditDto {
     address2: string | undefined;
     mobilePasword: string | undefined;
     beaconUid: string | undefined;
+    isFixedOverTimeAllowed: boolean;
     userShifts: GetUserShiftForViewDto[] | undefined;
 }
 
@@ -53794,6 +54217,7 @@ export class CreateOrUpdateUserInput implements ICreateOrUpdateUserInput {
     titleId!: number | undefined;
     managerId!: number | undefined;
     userLoaded!: boolean;
+    isFixedOverTimeAllowed!: boolean;
     userShifts!: GetUserShiftForViewDto[] | undefined;
 
     constructor(data?: ICreateOrUpdateUserInput) {
@@ -53854,6 +54278,7 @@ export class CreateOrUpdateUserInput implements ICreateOrUpdateUserInput {
             this.titleId = data["titleId"];
             this.managerId = data["managerId"];
             this.userLoaded = data["userLoaded"];
+            this.isFixedOverTimeAllowed = data["isFixedOverTimeAllowed"];
             if (Array.isArray(data["userShifts"])) {
                 this.userShifts = [] as any;
                 for (let item of data["userShifts"])
@@ -53914,6 +54339,7 @@ export class CreateOrUpdateUserInput implements ICreateOrUpdateUserInput {
         data["titleId"] = this.titleId;
         data["managerId"] = this.managerId;
         data["userLoaded"] = this.userLoaded;
+        data["isFixedOverTimeAllowed"] = this.isFixedOverTimeAllowed;
         if (Array.isArray(this.userShifts)) {
             data["userShifts"] = [];
             for (let item of this.userShifts)
@@ -53955,6 +54381,7 @@ export interface ICreateOrUpdateUserInput {
     titleId: number | undefined;
     managerId: number | undefined;
     userLoaded: boolean;
+    isFixedOverTimeAllowed: boolean;
     userShifts: GetUserShiftForViewDto[] | undefined;
 }
 

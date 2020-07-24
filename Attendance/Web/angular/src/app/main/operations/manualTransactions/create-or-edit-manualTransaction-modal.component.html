@@ -26,28 +26,40 @@
                         </div>
                     </div>
                     <input class="form-control" name="manualTransaction.pin" [(ngModel)]="manualTransaction.pin" type="text"  hidden>
+                    <div class="form-group">
+                        <label for="ManualTransaction_TransDate">{{l("TransactionDate")}}</label>
+                         <input required class="form-control m-input" type="datetime" bsDatepicker [(ngModel)]="manualTransaction.transaction_Date._d" id="ManualTransaction_transaction_Date" name="ManualTransaction_transaction_Date">
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-6">
+                            <label for="timeObjInput">{{l("Time")}}</label>
+                            <timepicker  id="timeObjInput" [(ngModel)]="timeObj" #timeObjObjInput="ngModel"  name="timeObj" [showMeridian]="meridian"></timepicker>
+                        </div>
+                    </div>
 
+					<div class="form-group m-form__group">
+                        <label for="MachineNameEn">{{l("Machine")}}</label>
+                        <div class="input-group">
+                            <input class="form-control" id="MachineNameEn" name="machineNameEn" [(ngModel)]="machineNameEn" type="text" disabled>
+                            <div class="input-group-append">
+                                <button class="btn btn-primary blue" (click)="openSelectMachineModal()" type="button"><i class="fa fa-search"></i> {{l("Pick")}}</button>
+                            </div> <div class="input-group-prepend">
+                                <button class="btn btn-danger btn-icon" type="button" (click)="setMachineIdNull()"><i class="fa fa-times"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <input class="form-control" name="manualTransaction.machineId" [(ngModel)]="manualTransaction.machineId" type="text"  hidden>
 
-								<div class="form-group">
-									<label for="ManualTransaction_TransDate">{{l("TransactionDate")}}</label>
-									 <input required class="form-control m-input" type="datetime" bsDatepicker [(ngModel)]="manualTransaction.transaction_Date._d" id="ManualTransaction_transaction_Date" name="ManualTransaction_transaction_Date">
-                                </div>
                                 <div class="form-group">
-                                    <div class="col-lg-6">
-                                        <label for="timeObjInput">{{l("Time")}}</label>
-                                        <timepicker  id="timeObjInput" [(ngModel)]="timeObj" #timeObjObjInput="ngModel"  name="timeObj" [showMeridian]="meridian"></timepicker>
-                                    </div>
-                                </div>
-
-								<div class="form-group">
-									<label for="ManualTransaction_KeyType">{{l("TransactionType")}}</label>
+                                    <label for="ManualTransaction_KeyType">{{l("TransactionType")}}</label>
 
                                     <select id="ManualTransaction_KeyType" class="form-control" [(ngModel)]="manualTransaction.keyType" name="KeyType">
                                         <option value="1">{{l('In')}}</option>
                                         <option value="2">{{l('Out')}}</option>
                                     </select>
 
-								</div>
+                                </div>
+
 
 
                 </div>
@@ -59,5 +71,6 @@
         </div>
     </div>
 <manualTransactionUserLookupTableModal #manualTransactionUserLookupTableModal (modalSave)="getNewUserId()"></manualTransactionUserLookupTableModal>
+		 <manualTransactionMachineLookupTableModal #manualTransactionMachineLookupTableModal (modalSave)="getNewMachineId()"></manualTransactionMachineLookupTableModal>
 
 </div>

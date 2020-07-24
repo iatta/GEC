@@ -28,12 +28,14 @@ export class ManualTransactionsComponent extends AppComponentBase {
 
     advancedFiltersAreShown = false;
     filterText = '';
-    maxTransTypeFilter : number;
-    maxTransTypeFilterEmpty : number;
-    minTransTypeFilter : number;
-    minTransTypeFilterEmpty : number;
-
-
+    maxTransDateFilter : moment.Moment;
+		minTransDateFilter : moment.Moment;
+        userNameFilter = '';
+        machineNameEnFilter = '';
+        maxTransTypeFilter : number;
+        maxTransTypeFilterEmpty : number;
+        minTransTypeFilter : number;
+        minTransTypeFilterEmpty : number;
 
 
 
@@ -49,7 +51,6 @@ export class ManualTransactionsComponent extends AppComponentBase {
     }
 
     getManualTransactions(event?: LazyLoadEvent) {
-        
         if (this.primengTableHelper.shouldResetPaging(event)) {
             this.paginator.changePage(0);
             return;

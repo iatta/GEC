@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Abp.Domain.Entities.Auditing;
 using Abp.Domain.Entities;
 using Pixel.Attendance.Authorization.Users;
+using Pixel.Attendance.Setting;
 
 namespace Pixel.Attendance.Operations
 {
@@ -50,7 +51,10 @@ namespace Pixel.Attendance.Operations
 		public bool ProjectManagerApprove { get; set; }
 		public bool UnitManagerApprove { get; set; }
 		public bool HrApprove { get; set; }
+		public int MachineId { get; set; }
 
+		[ForeignKey("MachineId")]
+		public Machine Machine { get; set; }
 
 	}
 }

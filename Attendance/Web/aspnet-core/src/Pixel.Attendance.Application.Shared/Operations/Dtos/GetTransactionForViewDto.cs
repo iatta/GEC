@@ -37,6 +37,9 @@ namespace Pixel.Attendance.Operations.Dtos
 		public int TotalOverTime { get; set; }
 		public int TotalUserCount { get; set; }
 
+		public string MachineNameEn { get; set; }
+		public int MachineId { get; set; }
+
 
 	}
 }

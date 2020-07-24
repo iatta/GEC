@@ -1,7 +1,13 @@
-﻿import { AssignProjectUserLookupTableModalComponent } from './operations/projects/assign-project-user-lookup-table-modal.component';
+﻿import { SummerizeReportComponent } from './operations/reports/summerize.component';
+import { AssignProjectUserLookupTableModalComponent } from './operations/projects/assign-project-user-lookup-table-modal.component';
 import { PermitReportComponent } from './operations/reports/permit.component';
 import { LateInEarlyOutComponent } from './operations/reports/Late-in-early-out.component';
 import { AbsentComponent } from './operations/reports/absent.component';
+import { ManualTransactionsComponent } from './operations/manualTransactions/manualTransactions.component';
+import { ViewManualTransactionModalComponent } from './operations/manualTransactions/view-manualTransaction-modal.component';
+import { CreateOrEditManualTransactionModalComponent } from './operations/manualTransactions/create-or-edit-manualTransaction-modal.component';
+import { ManualTransactionMachineLookupTableModalComponent } from './operations/manualTransactions/manualTransaction-machine-lookup-table-modal.component';
+
 import { BeaconsComponent } from './operations/beacons/beacons.component';
 import { ViewBeaconModalComponent } from './operations/beacons/view-beacon-modal.component';
 import { CreateOrEditBeaconModalComponent } from './operations/beacons/create-or-edit-beacon-modal.component';
@@ -40,9 +46,6 @@ import { UploadEmpVacationComponent } from './operations/employeeVacations/uploa
 import { UploadTimeProfileComponent } from './operations/timeProfiles/upload-timeProfile.component';
 import { ManageLocationComponent } from './setting/locations/manage-location.component';
 import { OrganizationUnitsHorizontalTreeModalComponent } from './../admin/shared/organization-horizontal-tree-modal.component';
-import { ManualTransactionsComponent } from './operations/manualTransactions/manualTransactions.component';
-import { ViewManualTransactionModalComponent } from './operations/manualTransactions/view-manualTransaction-modal.component';
-import { CreateOrEditManualTransactionModalComponent } from './operations/manualTransactions/create-or-edit-manualTransaction-modal.component';
 import { ManualTransactionUserLookupTableModalComponent } from './operations/manualTransactions/manualTransaction-user-lookup-table-modal.component';
 
 import { TransComponent } from './operations/trans/trans.component';
@@ -202,13 +205,15 @@ import { UnitManagerTransactionsComponent } from './operations/manualTransaction
 import { EditTimeTransactionModalComponent } from './operations/manualTransactions/edit-transaction-time-modal.component';
 import { HrTransactionsComponent } from './operations/manualTransactions/transaction-hr.component';
 import { AssignProjectMachineLookupTableModalComponent } from './operations/projects/assign-project-machine-lookup-table-modal.component';
-
+import {PanelModule} from 'primeng/panel';
+import { MinutesToStringPipe } from '@app/Custom/minutesToString.pipe';
 
 NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
 
 @NgModule({
     imports: [
       PdfViewerModule,
+      PanelModule,
       NgxExtendedPdfViewerModule,
 		FileUploadModule,
 		AutoCompleteModule,
@@ -247,6 +252,9 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
           }),
     ],
     declarations: [
+		ManualTransactionsComponent,
+		ViewManualTransactionModalComponent,		CreateOrEditManualTransactionModalComponent,
+    ManualTransactionMachineLookupTableModalComponent,
 		BeaconsComponent,
 		ViewBeaconModalComponent,		CreateOrEditBeaconModalComponent,
 		UserShiftsComponent,
@@ -332,6 +340,7 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
         DashboardComponent,
         MinutesToTimePipe,
         MinutesToTimePipe24,
+        MinutesToStringPipe,
         ManageShiftComponent,ManageTimeProfileComponent,
         OrganizationUnitsHorizontalTreeModalComponent,
         EmployeePermitsManagerComponent,ManageOfficialTaskComponent,
@@ -348,7 +357,8 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
         UnitManagerTransactionsComponent,
         EditTimeTransactionModalComponent,
         HrTransactionsComponent,
-        AssignProjectMachineLookupTableModalComponent
+        AssignProjectMachineLookupTableModalComponent,
+        SummerizeReportComponent
 
     ],
     providers: [

@@ -37,14 +37,16 @@ namespace Pixel.Attendance.Operations.Exporting
                         sheet,
                         L("TransDate"),
                         L("TransType"),
-                        (L("User")) + L("Name")
+                        (L("User")) + L("Name"),
+                        (L("Machine")) + L("NameEn")
                         );
 
                     AddObjects(
                         sheet, 2, manualTransactions,
                         _ => _timeZoneConverter.Convert(_.ManualTransaction.TransDate, _abpSession.TenantId, _abpSession.GetUserId()),
                         _ => _.ManualTransaction.TransType,
-                        _ => _.UserName
+                        _ => _.UserName,
+                        _ => _.MachineNameEn
                         );
 
 					var transDateColumn = sheet.Column(1);

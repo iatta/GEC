@@ -30,12 +30,17 @@
                             <input class="form-control" id="UserName" name="userName" [(ngModel)]="userName" type="text" disabled>
                             <div class="input-group-append">
                                 <button class="btn btn-primary blue" (click)="openSelectUserModal()" type="button"><i class="fa fa-search"></i> {{l("Pick")}}</button>
-                            </div> <div class="input-group-prepend">
+                            </div>
+                            <div class="input-group-prepend">
                                 <button class="btn btn-danger btn-icon" type="button" (click)="setUserIdNull()"><i class="fa fa-times"></i></button>
                             </div>
                         </div>
                     </div>
                     <input class="form-control" name="organizationUnit.managerId" [(ngModel)]="organizationUnit.managerId" type="text"  hidden>
+
+                    <div class="form-group">
+                        <p-checkbox [(ngModel)]="organizationUnit.hasApprove" label="Approve" name="hasApprove" binary="true"></p-checkbox>
+                    </div>
 
                 </div>
 

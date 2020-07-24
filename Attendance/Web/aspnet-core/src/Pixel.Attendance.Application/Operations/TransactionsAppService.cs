@@ -23,6 +23,7 @@ using Microsoft.Data.SqlClient;
 using Pixel.Attendance.Setting;
 using OfficeOpenXml.FormulaParsing.Excel.Functions.DateTime;
 using PayPalCheckoutSdk.Orders;
+using NUglify.Helpers;
 
 namespace Pixel.Attendance.Operations
 {
@@ -37,9 +38,11 @@ namespace Pixel.Attendance.Operations
         private readonly ITransactionsExcelExporter _transactionsExcelExporter;
         private readonly UserManager _userManager;
         private readonly IRepository<User, long> _lookup_userRepository;
+        private readonly IRepository<Machine, int> _lookup_machineRepository;
+        private readonly IRepository<EmployeeVacation> _employeeVacation;
+        
 
-
-        public TransactionsAppService(IRepository<Shift> shiftRepository ,IRepository<UserShift> userShiftRepository, IRepository<OrganizationUnitExtended, long>  organizationUnit,IRepository<Transaction> transactionRepository, IRepository<Project> projectRepository, ITransactionsExcelExporter transactionsExcelExporter, UserManager userManager, IRepository<User, long> lookup_userRepository)
+        public TransactionsAppService(IRepository<EmployeeVacation> employeeVacation , IRepository<Shift> shiftRepository ,IRepository<UserShift> userShiftRepository, IRepository<OrganizationUnitExtended, long>  organizationUnit,IRepository<Transaction> transactionRepository, IRepository<Project> projectRepository, ITransactionsExcelExporter transactionsExcelExporter, UserManager userManager, IRepository<User, long> lookup_userRepository, IRepository<Machine, int> lookup_machineRepository)
         {
             _transactionRepository = transactionRepository;
             _transactionsExcelExporter = transactionsExcelExporter;
@@ -49,6 +52,8 @@ namespace Pixel.Attendance.Operations
             _organizationUnitRepository = organizationUnit;
             _UserShiftRepository = userShiftRepository;
             _shiftRepository = shiftRepository;
+            _lookup_machineRepository = lookup_machineRepository;
+            _employeeVacation = employeeVacation;
 
         }
 
@@ -70,6 +75,9 @@ namespace Pixel.Attendance.Operations
             var transactions = from o in pagedAndFilteredTransactions
                                join o1 in _lookup_userRepository.GetAll() on o.Pin equals o1.Id into j1
                                from s1 in j1.DefaultIfEmpty()
+                               
+                               join o2 in _lookup_machineRepository.GetAll() on o.MachineId equals o2.Id into j2
+                               from s2 in j2.DefaultIfEmpty()
                                select new GetTransactionForViewDto()
                                 {
                                     Transaction = new TransactionDto
@@ -84,7 +92,9 @@ namespace Pixel.Attendance.Operations
                                         ProjectManagerApprove=o.ProjectManagerApprove,
                                         UnitManagerApprove=o.UnitManagerApprove
                                     },
-                                    UserName = s1 == null ? "" : s1.Name.ToString()
+                                    UserName = s1 == null ? "" : s1.Name.ToString(),
+                                    MachineNameEn = s2 == null ? "" : s2.NameEn.ToString(),
+                                    MachineId = s2.Id,
 
                                };
 
@@ -122,6 +132,8 @@ namespace Pixel.Attendance.Operations
             {
                 var _lookupUser = await _lookup_userRepository.FirstOrDefaultAsync((long)output.Transaction.Pin);
                 output.UserName = _lookupUser.Name.ToString();
+                var _lookupMachine = await _lookup_machineRepository.FirstOrDefaultAsync(x => x.Id == output.Transaction.MachineId);
+                output.MachineNameEn = _lookupMachine.NameEn.ToString();
             }
 
             return output;
@@ -477,6 +489,94 @@ namespace Pixel.Attendance.Operations
                 totalCount,
                data
             );
+        }
+
+        public async Task<List<ActualSummerizeTimeSheetDto>> GetActualSummerizeTimeSheet(ActualSummerizeInput input)
+        {
+            //get all project machines 
+            var project = await _projectRepository.GetAllIncluding(x => x.Machines).FirstOrDefaultAsync(x => x.Id == input.ProjectId);
+            var machines = project.Machines.Select(x => x.MachineId).ToList();
+
+            // get all transactions for these machines 
+            var transactions = _transactionRepository.GetAllIncluding(x => x.User)
+                               .Where(x => machines.Contains(x.MachineId))
+                               .Where(x => x.Transaction_Date.Date >= input.StartDate.Date && x.Transaction_Date.Date <= input.EndDate.Date).ToList();
+
+            var users = transactions.GroupBy(x => x.User.Id).Select(x => x.First().User).ToList();
+
+            //generate the output
+            var output = new List<ActualSummerizeTimeSheetDto>();
+
+            // add users
+            foreach (var user in users)
+            {
+                var summaryToAdd = new ActualSummerizeTimeSheetDto();
+                summaryToAdd.UserId = user.Id;
+                summaryToAdd.UserName = user.Name;
+                summaryToAdd.Code = user.Code;
+
+
+                // add days to users 
+                for (var day = input.StartDate.Date; day <= input.EndDate.Date; day = day.AddDays(1))
+                {
+                    var detailToAdd = new ActualSummerizeTimeSheetDetailDto();
+                    detailToAdd.Day = day;
+
+                    var userTransactions = transactions.Where(x => x.Pin == user.Id && x.Transaction_Date.Date == day.Date).Select(x => x.Time).ToList();
+                    var transCount = userTransactions.Count();
+
+                    if (transCount == 0)
+                    {
+                        //check for vacation
+                        var hasVacation = _employeeVacation.FirstOrDefault(x => x.UserId == user.Id && day >= x.FromDate && day <= x.ToDate);
+                        if (hasVacation != null)
+                            detailToAdd.IsLeave = true;
+                        else
+                            detailToAdd.IsAbsent = true;
+
+                    }
+                    else if (transCount == 2)
+                    {
+                        double inMinutes = 0;
+                        double outMinutes = 0;
+                        //in transaction
+                        var inTransaction = userTransactions.FirstOrDefault();
+                        if (!string.IsNullOrEmpty(inTransaction))
+                         inMinutes = (Double.Parse(inTransaction.Split(":")[0]) * 60) + (Double.Parse(inTransaction.Split(":")[1]));
+
+                        var outTransaction = userTransactions.Skip(transCount - 1).FirstOrDefault();
+                        if (!string.IsNullOrEmpty(outTransaction))
+                            outMinutes = (Double.Parse(outTransaction.Split(":")[0]) * 60) + (Double.Parse(outTransaction.Split(":")[1]));
+
+                        detailToAdd.TotalHours = outMinutes - inMinutes;
+                        if (detailToAdd.TotalHours > 480) // 8 hours
+                        {
+                            detailToAdd.Overtime = detailToAdd.TotalHours - 480; // 8 hours
+                            if (!user.IsFixedOverTimeAllowed)
+                            {
+                                // 4 hours 
+                                if (detailToAdd.Overtime > 240) {
+                                    var timeToDeduct = detailToAdd.Overtime - 240;
+                                    detailToAdd.Overtime = detailToAdd.Overtime - timeToDeduct;
+                                }  
+                            }
+                        }
+                        else if(detailToAdd.TotalHours < 480)
+                        {
+                            detailToAdd.IsDelay = true;
+                            detailToAdd.Delay = 480 - detailToAdd.TotalHours;
+                        }
+
+                    } 
+                    summaryToAdd.Details.Add(detailToAdd);
+                }
+                    
+
+                output.Add(summaryToAdd);
+            }
+            return output;
+
+
         }
     }
 }

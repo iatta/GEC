@@ -10,6 +10,8 @@ namespace Pixel.Attendance.Operations.Dtos
 
 		public string UserName { get; set;}
 
+		public string MachineNameEn { get; set;}
+
 
     }
 }

@@ -65,6 +65,8 @@ namespace Pixel.Attendance.Authorization.Users.Dto
         public int? ManagerId { get; set; }
 
         public bool UserLoaded { get; set; }
+        public bool IsFixedOverTimeAllowed { get; set; }
+        
 
         //public CreateOrEditTimeProfileDto TimeProfile { get; set; }
         [NotMapped]

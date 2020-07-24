@@ -13,6 +13,8 @@ namespace Pixel.Attendance.Operations.Dtos
 
 		 public string UserNameFilter { get; set; }
 
+		 		 public string MachineNameEnFilter { get; set; }
+
 		 
     }
 }

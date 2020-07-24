@@ -12,5 +12,6 @@ namespace Pixel.Attendance.Organizations.Dto
         [StringLength(OrganizationUnit.MaxDisplayNameLength)]
         public string DisplayName { get; set; }
         public long? ManagerId { get; set; }
+        public bool HasApprove { get; set; }
     }
 }

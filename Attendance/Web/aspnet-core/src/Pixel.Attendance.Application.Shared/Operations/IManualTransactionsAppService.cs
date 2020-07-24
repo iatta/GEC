@@ -24,5 +24,7 @@ namespace Pixel.Attendance.Operations
 		
 		Task<PagedResultDto<ManualTransactionUserLookupTableDto>> GetAllUserForLookupTable(GetAllForLookupTableInput input);
 		
+		Task<PagedResultDto<ManualTransactionMachineLookupTableDto>> GetAllMachineForLookupTable(GetAllForLookupTableInput input);
+		
     }
 }

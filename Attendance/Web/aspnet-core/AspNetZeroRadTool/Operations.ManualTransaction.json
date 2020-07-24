@@ -1,5 +1,5 @@
 {
-  "IsRegenerate": false,
+  "IsRegenerate": true,
   "MenuPosition": "main",
   "RelativeNamespace": "Operations",
   "EntityName": "ManualTransaction",
@@ -40,8 +40,8 @@
     {
       "Name": "TransDate",
       "Type": "DateTime",
-      "MaxLength": 0,
-      "MinLength": 0,
+      "MaxLength": -1,
+      "MinLength": -1,
       "Range": {
         "IsRangeSet": false,
         "MinimumValue": 0,
@@ -59,8 +59,8 @@
     {
       "Name": "TransType",
       "Type": "int",
-      "MaxLength": 0,
-      "MinLength": 0,
+      "MaxLength": -1,
+      "MinLength": -1,
       "Range": {
         "IsRangeSet": false,
         "MinimumValue": 0,
@@ -122,6 +122,16 @@
       "IsNullable": true,
       "PropertyName": "UserId",
       "DisplayPropertyName": "Name",
+      "DuplicationNumber": 0,
+      "RelationType": "single"
+    },
+    {
+      "Namespace": "Pixel.Attendance.Setting",
+      "ForeignEntityName": "Machine",
+      "IdType": "int",
+      "IsNullable": true,
+      "PropertyName": "MachineId",
+      "DisplayPropertyName": "NameEn",
       "DuplicationNumber": 0,
       "RelationType": "single"
     }

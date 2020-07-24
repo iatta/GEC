@@ -1,4 +1,5 @@
 ﻿using Pixel.Attendance.Authorization.Users;
+using Pixel.Attendance.Setting;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -26,6 +27,11 @@ namespace Pixel.Attendance.Operations
 		
         [ForeignKey("UserId")]
 		public User UserFk { get; set; }
+		
+		public virtual int? MachineId { get; set; }
+		
+        [ForeignKey("MachineId")]
+		public Machine MachineFk { get; set; }
 		
     }
 }

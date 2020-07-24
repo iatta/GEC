@@ -17,5 +17,6 @@ namespace Pixel.Attendance.Extended
 
         [ForeignKey("ManagerId")]
         public User Manager { get; set; }
+        public bool HasApprove { get; set; }
     }
 }
