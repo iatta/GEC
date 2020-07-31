@@ -30,6 +30,8 @@ namespace Pixel.Attendance.Operations.Dtos
 
 		 		 public string UserName2Filter { get; set; }
 
+		 		 public string ProjectNameEnFilter { get; set; }
+
 		 
     }
 }

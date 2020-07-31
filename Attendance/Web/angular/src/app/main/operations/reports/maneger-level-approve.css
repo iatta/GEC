@@ -1,0 +1,35 @@
+.absent{
+    background-color: orange !important;
+}
+.overTime{
+    background-color: yellow !important;
+}
+
+.late{
+    background-color: red !important;
+    color: white;
+}
+
+.center{
+    text-align: center;
+}
+
+.colorInfo{
+    width: 20px;
+    height: 20px;
+}
+.colCoror{
+    max-width: 6%;
+    margin-top: 5px;
+}
+.pendingProjectManager{
+    background-color: #c5c7cd !important;
+}
+
+.pendingManager{
+    background-color: #8d96c3 !important;
+}
+.approved{
+    background-color:  #0abb87 !important
+}
+

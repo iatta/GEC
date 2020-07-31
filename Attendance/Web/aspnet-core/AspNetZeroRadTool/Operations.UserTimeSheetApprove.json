@@ -135,8 +135,8 @@
     {
       "Name": "IsClosed",
       "Type": "bool",
-      "MaxLength": 0,
-      "MinLength": 0,
+      "MaxLength": -1,
+      "MinLength": -1,
       "Range": {
         "IsRangeSet": false,
         "MinimumValue": 0,
@@ -171,6 +171,16 @@
       "PropertyName": "ProjectManagerId",
       "DisplayPropertyName": "Name",
       "DuplicationNumber": 2,
+      "RelationType": "single"
+    },
+    {
+      "Namespace": "Pixel.Attendance.Operations",
+      "ForeignEntityName": "Project",
+      "IdType": "int",
+      "IsNullable": true,
+      "PropertyName": "ProjectId",
+      "DisplayPropertyName": "NameEn",
+      "DuplicationNumber": 0,
       "RelationType": "single"
     }
   ],

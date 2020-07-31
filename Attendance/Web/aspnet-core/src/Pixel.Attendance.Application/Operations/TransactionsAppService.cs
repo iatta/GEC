@@ -24,6 +24,7 @@ using Pixel.Attendance.Setting;
 using OfficeOpenXml.FormulaParsing.Excel.Functions.DateTime;
 using PayPalCheckoutSdk.Orders;
 using NUglify.Helpers;
+using Abp.Collections.Extensions;
 
 namespace Pixel.Attendance.Operations
 {
@@ -40,9 +41,11 @@ namespace Pixel.Attendance.Operations
         private readonly IRepository<User, long> _lookup_userRepository;
         private readonly IRepository<Machine, int> _lookup_machineRepository;
         private readonly IRepository<EmployeeVacation> _employeeVacation;
+        private readonly IRepository<UserTimeSheetApprove> _userTimeSheetApproveRepository;
         
 
-        public TransactionsAppService(IRepository<EmployeeVacation> employeeVacation , IRepository<Shift> shiftRepository ,IRepository<UserShift> userShiftRepository, IRepository<OrganizationUnitExtended, long>  organizationUnit,IRepository<Transaction> transactionRepository, IRepository<Project> projectRepository, ITransactionsExcelExporter transactionsExcelExporter, UserManager userManager, IRepository<User, long> lookup_userRepository, IRepository<Machine, int> lookup_machineRepository)
+
+        public TransactionsAppService(IRepository<UserTimeSheetApprove> userTimeSheetApproveRepository  ,IRepository<EmployeeVacation> employeeVacation , IRepository<Shift> shiftRepository ,IRepository<UserShift> userShiftRepository, IRepository<OrganizationUnitExtended, long>  organizationUnit,IRepository<Transaction> transactionRepository, IRepository<Project> projectRepository, ITransactionsExcelExporter transactionsExcelExporter, UserManager userManager, IRepository<User, long> lookup_userRepository, IRepository<Machine, int> lookup_machineRepository)
         {
             _transactionRepository = transactionRepository;
             _transactionsExcelExporter = transactionsExcelExporter;
@@ -54,6 +57,7 @@ namespace Pixel.Attendance.Operations
             _shiftRepository = shiftRepository;
             _lookup_machineRepository = lookup_machineRepository;
             _employeeVacation = employeeVacation;
+            _userTimeSheetApproveRepository = userTimeSheetApproveRepository;
 
         }
 
@@ -491,7 +495,8 @@ namespace Pixel.Attendance.Operations
             );
         }
 
-        public async Task<List<ActualSummerizeTimeSheetDto>> GetActualSummerizeTimeSheet(ActualSummerizeInput input)
+        //project manager
+        public async Task<ActualSummerizeTimeSheetOutput> GetActualSummerizeTimeSheet(ActualSummerizeInput input)
         {
             //get all project machines 
             var project = await _projectRepository.GetAllIncluding(x => x.Machines).FirstOrDefaultAsync(x => x.Id == input.ProjectId);
@@ -500,12 +505,17 @@ namespace Pixel.Attendance.Operations
             // get all transactions for these machines 
             var transactions = _transactionRepository.GetAllIncluding(x => x.User)
                                .Where(x => machines.Contains(x.MachineId))
-                               .Where(x => x.Transaction_Date.Date >= input.StartDate.Date && x.Transaction_Date.Date <= input.EndDate.Date).ToList();
+                               .Where(x => x.Transaction_Date.Month == input.Month && x.Transaction_Date.Year == input.Year).ToList();
 
             var users = transactions.GroupBy(x => x.User.Id).Select(x => x.First().User).ToList();
+           
 
+
+            var firstDayOfMonth = new DateTime(input.Year, input.Month, 1);
+            var lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
             //generate the output
-            var output = new List<ActualSummerizeTimeSheetDto>();
+            var output = new ActualSummerizeTimeSheetOutput();
+            
 
             // add users
             foreach (var user in users)
@@ -514,10 +524,11 @@ namespace Pixel.Attendance.Operations
                 summaryToAdd.UserId = user.Id;
                 summaryToAdd.UserName = user.Name;
                 summaryToAdd.Code = user.Code;
-
+               
+                output.UserIds.Add(new UserTimeSheetInput() { UserId = user.Id });
 
                 // add days to users 
-                for (var day = input.StartDate.Date; day <= input.EndDate.Date; day = day.AddDays(1))
+                for (var day = firstDayOfMonth.Date; day <= lastDayOfMonth.Date; day = day.AddDays(1))
                 {
                     var detailToAdd = new ActualSummerizeTimeSheetDetailDto();
                     detailToAdd.Day = day;
@@ -572,9 +583,299 @@ namespace Pixel.Attendance.Operations
                 }
                     
 
-                output.Add(summaryToAdd);
+                output.Data.Add(summaryToAdd);
             }
+
             return output;
+
+
+        }
+
+        //unit manager
+        public async Task<ActualSummerizeTimeSheetOutput> GetMangerUsersToApprove(ActualSummerizeInput input)
+        {
+            var output = new ActualSummerizeTimeSheetOutput();
+            //get all project machines 
+            var project = await _projectRepository.GetAllIncluding(x => x.Machines).FirstOrDefaultAsync(x => x.Id == input.ProjectId);
+            var machines = project.Machines.Select(x => x.MachineId).ToList();
+
+            // get all transactions for these machines 
+            var transactions = _transactionRepository.GetAllIncluding(x => x.User)
+                               .Where(x => machines.Contains(x.MachineId))
+                               .Where(x => x.Transaction_Date.Month == input.Month && x.Transaction_Date.Year == input.Year).ToList();
+
+
+         
+            
+            var allUnits = _organizationUnitRepository.GetAll().ToList();
+            var managerUnit = await _organizationUnitRepository.GetAllIncluding(x => x.Children).Where(x => x.ManagerId == GetCurrentUser().Id).FirstOrDefaultAsync();
+            
+            var units = new List<long?>();
+            var unitsToApprove = new List<long?>();
+            units.Add(managerUnit.Id);
+            var childs = GetChildes(unitsToApprove, managerUnit, allUnits);
+            units.AddRange(childs);
+            
+            output.RemainingUnitsApprove = allUnits.Where(x => output.ParentUnitIds.Contains(x.Id)).Select(x => x.DisplayName).ToList();
+
+
+            //
+            var users = transactions.GroupBy(x => x.User.Id).Select(x => x.First().User);
+            var managerUsers = users.Where(x => units.Contains(x.OrganizationUnitId)).ToList();
+            
+
+            var firstDayOfMonth = new DateTime(input.Year, input.Month, 1);
+            var lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
+            //generate the output
+            
+
+            // add users
+            foreach (var user in managerUsers)
+            {
+                var summaryToAdd = new ActualSummerizeTimeSheetDto();
+                summaryToAdd.UserId = user.Id;
+                summaryToAdd.UserName = user.Name;
+                summaryToAdd.Code = user.Code;
+                var userTimeSheet = _userTimeSheetApproveRepository.FirstOrDefault(x => x.UserId == user.Id && x.ProjectManagerApprove == true && x.Month == input.Month && x.Year == input.Year && x.ProjectId == input.ProjectId);
+                // check if project manager approve 
+                if(userTimeSheet  != null)
+                {
+                    summaryToAdd.IsProjectManagerApproved = true;
+
+                    // check if there is pending approve 
+                    var userUnit = await _organizationUnitRepository.GetAll().Where(x => x.Id == user.OrganizationUnitId).FirstOrDefaultAsync();
+                    var userUnitParents = new List<long>();
+                    var userUnitParentsToApprove = new List<long>();
+                    var parents =   GetParents(userUnitParentsToApprove, userUnit, allUnits);
+                    userUnitParents.AddRange(parents);
+                    userUnitParents.Add(userUnit.Id);
+
+                    var currentunit = GetCurrentUser().OrganizationUnitId;
+
+                    var remainingUnits = new List<long>();
+                    var approvedUnits = new List<long>();
+                    if (!string.IsNullOrEmpty(userTimeSheet.ApprovedUnits))
+                    {
+                        approvedUnits = userTimeSheet.ApprovedUnits.Split(",").Select(long.Parse).ToList();
+                        summaryToAdd.IsCurrentUnitApproved = approvedUnits.Any(x => x == currentunit);
+                    }
+
+                    remainingUnits = userUnitParents.Where(x => !approvedUnits.Contains(x)).Select(x => x).ToList();
+                    if (approvedUnits.Any(x => x == userUnit.Id))
+                    {
+                        
+                        //check if current unit is the next unit to approve 
+                        var nextUnitToApprove = remainingUnits.Where(x => x != userUnit.Id).OrderByDescending(x => x).FirstOrDefault();
+                     
+
+                        if (nextUnitToApprove == currentunit)
+                        {
+                            summaryToAdd.CanManagerApprove = true;
+                            
+                            //last one
+                            if (remainingUnits.Count == 1)
+                                summaryToAdd.YesClose = true;
+                            
+                            
+                            output.UserIds.Add(new UserTimeSheetInput() { UserId = user.Id, YesClose = summaryToAdd.YesClose });
+                        }
+
+                    }
+                    else
+                    {
+                        var nextUnitToApprove = remainingUnits.OrderByDescending(x => x).FirstOrDefault();
+                       
+                        if (nextUnitToApprove == currentunit)
+                        {
+                            summaryToAdd.CanManagerApprove = true;
+                            //last one
+                            if (remainingUnits.Count == 1)
+                                summaryToAdd.YesClose = true;
+
+                            output.UserIds.Add(new UserTimeSheetInput() { UserId = user.Id, YesClose = summaryToAdd.YesClose });
+                        }
+                    }
+                }
+                // add days to users 
+                for (var day = firstDayOfMonth.Date; day <= lastDayOfMonth.Date; day = day.AddDays(1))
+                {
+                    var detailToAdd = new ActualSummerizeTimeSheetDetailDto();
+                    detailToAdd.Day = day;
+
+                    var userTransactions = transactions.Where(x => x.Pin == user.Id && x.Transaction_Date.Date == day.Date).Select(x => x.Time).ToList();
+                    var transCount = userTransactions.Count();
+
+                    if (transCount == 0)
+                    {
+                        //check for vacation
+                        var hasVacation = _employeeVacation.FirstOrDefault(x => x.UserId == user.Id && day >= x.FromDate && day <= x.ToDate);
+                        if (hasVacation != null)
+                            detailToAdd.IsLeave = true;
+                        else
+                            detailToAdd.IsAbsent = true;
+
+                    }
+                    else if (transCount == 2)
+                    {
+                        double inMinutes = 0;
+                        double outMinutes = 0;
+                        //in transaction
+                        var inTransaction = userTransactions.FirstOrDefault();
+                        if (!string.IsNullOrEmpty(inTransaction))
+                            inMinutes = (Double.Parse(inTransaction.Split(":")[0]) * 60) + (Double.Parse(inTransaction.Split(":")[1]));
+
+                        var outTransaction = userTransactions.Skip(transCount - 1).FirstOrDefault();
+                        if (!string.IsNullOrEmpty(outTransaction))
+                            outMinutes = (Double.Parse(outTransaction.Split(":")[0]) * 60) + (Double.Parse(outTransaction.Split(":")[1]));
+
+                        detailToAdd.TotalHours = outMinutes - inMinutes;
+                        if (detailToAdd.TotalHours > 480) // 8 hours
+                        {
+                            detailToAdd.Overtime = detailToAdd.TotalHours - 480; // 8 hours
+                            if (!user.IsFixedOverTimeAllowed)
+                            {
+                                // 4 hours 
+                                if (detailToAdd.Overtime > 240)
+                                {
+                                    var timeToDeduct = detailToAdd.Overtime - 240;
+                                    detailToAdd.Overtime = detailToAdd.Overtime - timeToDeduct;
+                                }
+                            }
+                        }
+                        else if (detailToAdd.TotalHours < 480)
+                        {
+                            detailToAdd.IsDelay = true;
+                            detailToAdd.Delay = 480 - detailToAdd.TotalHours;
+                        }
+
+                    }
+                    summaryToAdd.Details.Add(detailToAdd);
+                }
+
+
+                output.Data.Add(summaryToAdd);
+               
+            }
+            output.CanApprove = !output.Data.Any(x => x.CanManagerApprove == false);
+            return output;
+        }
+        public async Task PojectManagerApprove(ProjectManagerApproveInput input)
+        {
+            if (input.UserIds.Count > 0)
+            {
+                foreach (var user in input.UserIds)
+                {
+                    var userTimeSheet = _userTimeSheetApproveRepository.FirstOrDefault(x => x.UserId == user.UserId && x.Month == input.Month && x.Year == input.Year && x.ProjectId == input.ProjectId);
+                    if (userTimeSheet == null)
+                    {
+                        var userTimeSheetToAdd = new UserTimeSheetApprove();
+                        userTimeSheetToAdd.UserId = user.UserId;
+                        userTimeSheetToAdd.ProjectId = input.ProjectId;
+                        userTimeSheetToAdd.ProjectManagerApprove = true;
+                        userTimeSheetToAdd.Year = input.Year;
+                        userTimeSheetToAdd.Month = input.Month;
+                        userTimeSheetToAdd.ProjectManagerId = GetCurrentUser().Id;
+
+                        await _userTimeSheetApproveRepository.InsertAsync(userTimeSheetToAdd);
+                    }
+                    else
+                    {
+                        userTimeSheet.ProjectManagerApprove = true;
+                        await _userTimeSheetApproveRepository.UpdateAsync(userTimeSheet);
+
+                    }
+                }
+            }
+            
+        }
+        public async Task PojectManagerReject(ProjectManagerApproveInput input)
+        {
+            if (input.UserIds.Count > 0)
+            {
+                foreach (var user in input.UserIds)
+                {
+                    //check if exist 
+                    var userTimeSheet = _userTimeSheetApproveRepository.FirstOrDefault(x => x.UserId == user.UserId && x.Month == input.Month && x.Year == input.Year && x.ProjectId == input.ProjectId);
+                    if(userTimeSheet != null)
+                    {
+                        userTimeSheet.ProjectManagerApprove = false;
+                        await _userTimeSheetApproveRepository.UpdateAsync(userTimeSheet);
+                    }
+                    else
+                    {
+                        var userTimeSheetToAdd = new UserTimeSheetApprove();
+                        userTimeSheetToAdd.UserId = user.UserId;
+                        userTimeSheetToAdd.ProjectId = input.ProjectId;
+                        userTimeSheetToAdd.ProjectManagerApprove = false;
+                        userTimeSheetToAdd.Year = input.Year;
+                        userTimeSheetToAdd.Month = input.Month;
+                        userTimeSheetToAdd.ProjectManagerId = GetCurrentUser().Id;
+
+                        await _userTimeSheetApproveRepository.InsertAsync(userTimeSheetToAdd);
+                    }
+                  
+                }
+            }
+        }
+
+        public async Task UnitManagerToApprove(ProjectManagerApproveInput input)
+        {
+            var loggedInManagerUnit = GetCurrentUser().OrganizationUnitId;
+
+            foreach (var user in input.UserIds)
+            {
+                var approvedUnits = new List<long>();
+                var uerToUpdate = await _userTimeSheetApproveRepository.FirstOrDefaultAsync(x => x.UserId == user.UserId);
+                if(uerToUpdate.ApprovedUnits != null)
+                    approvedUnits =  uerToUpdate.ApprovedUnits.Split(',').Select(long.Parse).ToList();
+
+                if (!approvedUnits.Any(x => x == loggedInManagerUnit.Value))
+                {
+                    approvedUnits.Add(loggedInManagerUnit.Value);
+                }
+
+                uerToUpdate.ApprovedUnits = string.Join(",", approvedUnits);
+                uerToUpdate.IsClosed = user.YesClose;
+                await _userTimeSheetApproveRepository.UpdateAsync(uerToUpdate);
+            }
+           
+        }
+        private static List<long> GetParents(List <long> parents , OrganizationUnitExtended unit , List<OrganizationUnitExtended> units)
+        {
+            if (unit.ParentId != null )
+            {
+                var parent = units.FirstOrDefault(d => d.Id == unit.ParentId);
+                if (parent != null || parent.HasApprove)
+                    parents.Add(parent.Id);
+
+                if (parent.ParentId != null && unit.HasApprove)
+                    GetParents(parents,parent, units);
+            }
+
+            return parents;
+
+
+
+        }
+
+        private List<long?> GetChildes(List<long?> childs, OrganizationUnitExtended unit, List<OrganizationUnitExtended> units)
+        {
+            if (unit.Children.Count > 0)
+            {
+                foreach (var child in unit.Children)
+                {
+                    childs.Add(child.Id);
+                    var newEntity = _organizationUnitRepository.GetAllIncluding(x => x.Children).FirstOrDefault(d => d.Id == child.Id);
+                    if (newEntity.Children.Count > 0)
+                    {
+                        GetChildes(childs, newEntity, units);
+                    }
+                }
+
+            }
+
+            return childs;
+
 
 
         }

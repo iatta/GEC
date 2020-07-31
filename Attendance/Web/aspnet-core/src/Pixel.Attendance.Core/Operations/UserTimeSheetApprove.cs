@@ -1,5 +1,6 @@
 ﻿using Pixel.Attendance.Authorization.Users;
 using Pixel.Attendance.Authorization.Users;
+using Pixel.Attendance.Operations;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -38,6 +39,11 @@ namespace Pixel.Attendance.Operations
 		
         [ForeignKey("ProjectManagerId")]
 		public User ProjectManagerFk { get; set; }
+		
+		public virtual int? ProjectId { get; set; }
+		
+        [ForeignKey("ProjectId")]
+		public Project ProjectFk { get; set; }
 		
     }
 }

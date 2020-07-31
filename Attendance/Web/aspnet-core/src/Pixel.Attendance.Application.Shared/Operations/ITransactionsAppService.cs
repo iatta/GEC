@@ -29,7 +29,14 @@ namespace Pixel.Attendance.Operations
         Task<PagedResultDto<GetTransactionForViewDto>> GetAllTransactionForProjectManager(GetTransactionDto input);
         Task<PagedResultDto<GetTransactionForViewDto>> GetAllTransactionForHr(GetTransactionDto input);
         Task UpdateSingleTransaction(GetTransactionForViewDto input);
-        Task<List<ActualSummerizeTimeSheetDto>> GetActualSummerizeTimeSheet(ActualSummerizeInput input);
+        Task<ActualSummerizeTimeSheetOutput> GetActualSummerizeTimeSheet(ActualSummerizeInput input);
+        Task<ActualSummerizeTimeSheetOutput> GetMangerUsersToApprove(ActualSummerizeInput input);
+        Task UnitManagerToApprove(ProjectManagerApproveInput input);
+        Task PojectManagerApprove(ProjectManagerApproveInput input);
+        Task PojectManagerReject(ProjectManagerApproveInput input);
+        
+
+
 
 
     }

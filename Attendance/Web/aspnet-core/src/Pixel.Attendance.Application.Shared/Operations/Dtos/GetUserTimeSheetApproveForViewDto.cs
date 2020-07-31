@@ -8,6 +8,8 @@
 
 		public string UserName2 { get; set;}
 
+		public string ProjectNameEn { get; set;}
+
 
     }
 }

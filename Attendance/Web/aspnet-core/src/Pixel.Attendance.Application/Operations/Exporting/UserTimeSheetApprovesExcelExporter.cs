@@ -43,7 +43,8 @@ namespace Pixel.Attendance.Operations.Exporting
                         L("ProjectManagerApprove"),
                         L("IsClosed"),
                         (L("User")) + L("Name"),
-                        (L("User")) + L("Name")
+                        (L("User")) + L("Name"),
+                        (L("Project")) + L("NameEn")
                         );
 
                     AddObjects(
@@ -56,7 +57,8 @@ namespace Pixel.Attendance.Operations.Exporting
                         _ => _.UserTimeSheetApprove.ProjectManagerApprove,
                         _ => _.UserTimeSheetApprove.IsClosed,
                         _ => _.UserName,
-                        _ => _.UserName2
+                        _ => _.UserName2,
+                        _ => _.ProjectNameEn
                         );
 
 					var fromDateColumn = sheet.Column(3);

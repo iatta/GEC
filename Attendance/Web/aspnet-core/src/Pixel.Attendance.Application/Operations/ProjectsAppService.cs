@@ -31,9 +31,10 @@ namespace Pixel.Attendance.Operations
 		 private readonly IRepository<User,long> _lookup_userRepository;
 		 private readonly IRepository<Location,int> _lookup_locationRepository;
 		 private readonly IRepository<OrganizationUnitExtended,long> _lookup_organizationUnitRepository;
-		 
+        
 
-		  public ProjectsAppService(IRepository<Project> projectRepository, IProjectsExcelExporter projectsExcelExporter , IRepository<User, long> lookup_userRepository, IRepository<Location, int> lookup_locationRepository, IRepository<OrganizationUnitExtended, long> lookup_organizationUnitRepository) 
+
+          public ProjectsAppService(IRepository<Project> projectRepository, IProjectsExcelExporter projectsExcelExporter , IRepository<User, long> lookup_userRepository, IRepository<Location, int> lookup_locationRepository, IRepository<OrganizationUnitExtended, long> lookup_organizationUnitRepository) 
 		  {
 			_projectRepository = projectRepository;
 			_projectsExcelExporter = projectsExcelExporter;
@@ -54,15 +55,21 @@ namespace Pixel.Attendance.Operations
         {
 
             var data = await _projectRepository.GetAll().Where(x => x.ManagerId == GetCurrentUser().Id).ToListAsync();
+
             return ObjectMapper.Map<List<ProjectDto>>(data);
         }
 
         public async Task<List<ProjectDto>> GetAllFlatForOrganizationUnitManager()
         {
-            var userUnits = _lookup_organizationUnitRepository.GetAll().Where(x => x.ManagerId == GetCurrentUser().Id).Select(x => x.Id).ToList();
-
-
-            var data = await _projectRepository.GetAll().Where(x => userUnits.Contains(x.OrganizationUnitId.Value)).ToListAsync();
+            var units = new List<long>();
+            var childUnits = new List<long>();
+            var curentUserUnit = _lookup_organizationUnitRepository.GetAllIncluding(x => x.Children).Where(u => u.ManagerId == GetCurrentUser().Id).FirstOrDefault();
+            var allUnits = _lookup_organizationUnitRepository.GetAll().ToList();
+            units.Add(curentUserUnit.Id);
+            childUnits = GetChildes(childUnits, curentUserUnit, allUnits);
+            units.AddRange(childUnits);
+            
+            var data = await _projectRepository.GetAll().Where(x => units.Contains(x.OrganizationUnitId.Value)).ToListAsync();
             return ObjectMapper.Map<List<ProjectDto>>(data);
 
            
@@ -412,7 +419,40 @@ namespace Pixel.Attendance.Operations
 
         }
 
+        private  List<long> GetChildes(List<long> childs, OrganizationUnitExtended unit, List<OrganizationUnitExtended> units)
+        {
+            if (unit.Children.Count > 0)
+            {
+                foreach (var child in unit.Children)
+                {
+                    childs.Add(child.Id);
+                    var newEntity = _lookup_organizationUnitRepository.GetAllIncluding(x => x.Children).FirstOrDefault(d => d.Id == child.Id);
+                    if (newEntity.Children.Count > 0)
+                    {
+                        GetChildes(childs, newEntity, units);
+                    }
+                }
+                
+            }
 
+            return childs;
+
+
+
+        }
+        //public static List<long> GetChildren(List<long> childs, int parentId)
+        //{
+        //    return comments
+        //            .Where(c => c.ParentId == parentId)
+        //            .Select(c => new Comment
+        //            {
+        //                Id = c.Id,
+        //                Text = c.Text,
+        //                ParentId = c.ParentId,
+        //                Children = GetChildren(comments, c.Id)
+        //            })
+        //            .ToList();
+        //}
 
     }
 }

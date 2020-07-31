@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
-  <texts>    <text name="IsClosed">Is closed</text>
+  <texts>    <text name="PickProject">Pick project</text>
+    <text name="IsClosed">Is closed</text>
     <text name="NotIsClosed">Not is closed</text>
     <text name="ProjectManagerApprove">Project manager approve</text>
     <text name="NotProjectManagerApprove">Not project manager approve</text>

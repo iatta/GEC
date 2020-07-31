@@ -28,8 +28,8 @@
 
                         <p-panel header="Informations" [toggleable]="true" [style]="{'margin-bottom':'20px'}">
                             <div class="row">
-                                <div class="col-lg-3 row" style="max-width: 12%;">
-                                    <div class="col-lg-2">
+                                <div class="col-lg-2 row colCoror" style="margin-right: 4%;">
+                                    <div class="col-lg-1" style="margin-right: 5px;">
                                         <div class="colorInfo late"></div>
                                     </div>
                                     <div class="col-lg-1">
@@ -38,8 +38,8 @@
 
 
                                 </div>
-                                <div class="col-lg-3 row" style="max-width: 12%;">
-                                    <div class="col-lg-2">
+                                <div class="col-lg-2 row colCoror" style="margin-right: 4%;">
+                                    <div class="col-lg-1" style="margin-right: 5px;">
                                         <div class="colorInfo overTime"></div>
                                     </div>
                                     <div class="col-lg-1">
@@ -48,9 +48,36 @@
 
 
                                 </div>
-                                <div class="col-lg-3 row"></div>
-                                <div class="col-lg-3 row">
-                                    <button type="button" (click)="approve()"  class="btn btn-success mr-2">{{l('Approve')}}</button>
+                                <div class="col-lg-2 row colCoror" style="margin-right: 14%;">
+                                    <div class="col-lg-1" style="margin-right: 5px;">
+                                        <div class="colorInfo pendingProjectManager"></div>
+                                    </div>
+                                    <div class="col-lg-1">
+                                        <p>{{l('WitingForProjectManager')}}</p>
+                                    </div>
+
+
+                                </div>
+                                <div class="col-lg-2 row colCoror" style="margin-right: 14%;">
+                                    <div class="col-lg-1" style="margin-right: 5px;">
+                                        <div class="colorInfo pendingManager"></div>
+                                    </div>
+                                    <div class="col-lg-1">
+                                        <p>{{l('WitingForManager')}}</p>
+                                    </div>
+
+
+                                </div>
+                                <div class="col-lg-2 row colCoror" style="margin-right: 14%;">
+                                    <div class="col-lg-1" style="margin-right: 5px;">
+                                        <div class="colorInfo approved"></div>
+                                    </div>
+                                    <div class="col-lg-1">
+                                        <p>{{l('approved')}}</p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 row">
+                                    <button type="button" [disabled]="!response.canApprove"  (click)="approve()"  class="btn btn-success mr-2">{{l('Approve')}}</button>
                                     <!-- <button type="button" (click)="reject()" class="btn btn-danger mr-2">{{l('Reject')}}</button> -->
                                 </div>
                             </div>
@@ -67,7 +94,7 @@
                                 </tr>
                             </ng-template>
                             <ng-template pTemplate="body" let-rowData let-columns="columns">
-                                <tr [@rowsAnimation]="">
+                                <tr [@rowsAnimation]="" [ngClass]="getRowClass(rowData)">
 
                                         <td  class="center" *ngFor="let col of columns">
                                             <ng-container *ngIf="!isDate(col.field)" >

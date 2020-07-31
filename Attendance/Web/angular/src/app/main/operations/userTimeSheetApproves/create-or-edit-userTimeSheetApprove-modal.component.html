@@ -40,6 +40,19 @@
                     </div>
                     <input class="form-control" name="userTimeSheetApprove.projectManagerId" [(ngModel)]="userTimeSheetApprove.projectManagerId" type="text"  hidden>
 		 
+					<div class="form-group m-form__group">
+                        <label for="ProjectNameEn">{{l("Project")}}</label>
+                        <div class="input-group">
+                            <input class="form-control" id="ProjectNameEn" name="projectNameEn" [(ngModel)]="projectNameEn" type="text" disabled>     
+                            <div class="input-group-append">
+                                <button class="btn btn-primary blue" (click)="openSelectProjectModal()" type="button"><i class="fa fa-search"></i> {{l("Pick")}}</button>
+                            </div> <div class="input-group-prepend">
+                                <button class="btn btn-danger btn-icon" type="button" (click)="setProjectIdNull()"><i class="fa fa-times"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <input class="form-control" name="userTimeSheetApprove.projectId" [(ngModel)]="userTimeSheetApprove.projectId" type="text"  hidden>
+		 
 
 								<div class="form-group">
 									<label for="UserTimeSheetApprove_Month">{{l("Month")}}</label>
@@ -93,5 +106,6 @@
     </div>
 <userTimeSheetApproveUserLookupTableModal #userTimeSheetApproveUserLookupTableModal (modalSave)="getNewUserId()"></userTimeSheetApproveUserLookupTableModal>
 		 <userTimeSheetApproveUserLookupTableModal #userTimeSheetApproveUserLookupTableModal2 (modalSave)="getNewProjectManagerId()"></userTimeSheetApproveUserLookupTableModal>
+		 <userTimeSheetApproveProjectLookupTableModal #userTimeSheetApproveProjectLookupTableModal (modalSave)="getNewProjectId()"></userTimeSheetApproveProjectLookupTableModal>
 		 
 </div>

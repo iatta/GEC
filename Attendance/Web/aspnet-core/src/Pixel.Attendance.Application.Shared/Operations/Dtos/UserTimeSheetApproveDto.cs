@@ -25,6 +25,8 @@ namespace Pixel.Attendance.Operations.Dtos
 
 		 		 public long? ProjectManagerId { get; set; }
 
+		 		 public int? ProjectId { get; set; }
+
 		 
     }
 }

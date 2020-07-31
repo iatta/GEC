@@ -24329,9 +24329,11 @@ export class TransactionsServiceProxy {
      * @param projectId (optional) 
      * @param startDate (optional) 
      * @param endDate (optional) 
+     * @param month (optional) 
+     * @param year (optional) 
      * @return Success
      */
-    getActualSummerizeTimeSheet(projectId: number | undefined, startDate: moment.Moment | undefined, endDate: moment.Moment | undefined): Observable<ActualSummerizeTimeSheetDto[]> {
+    getActualSummerizeTimeSheet(projectId: number | undefined, startDate: moment.Moment | undefined, endDate: moment.Moment | undefined, month: number | undefined, year: number | undefined): Observable<ActualSummerizeTimeSheetOutput> {
         let url_ = this.baseUrl + "/api/services/app/Transactions/GetActualSummerizeTimeSheet?";
         if (projectId === null)
             throw new Error("The parameter 'projectId' cannot be null.");
@@ -24345,6 +24347,14 @@ export class TransactionsServiceProxy {
             throw new Error("The parameter 'endDate' cannot be null.");
         else if (endDate !== undefined)
             url_ += "EndDate=" + encodeURIComponent(endDate ? "" + endDate.toJSON() : "") + "&"; 
+        if (month === null)
+            throw new Error("The parameter 'month' cannot be null.");
+        else if (month !== undefined)
+            url_ += "Month=" + encodeURIComponent("" + month) + "&"; 
+        if (year === null)
+            throw new Error("The parameter 'year' cannot be null.");
+        else if (year !== undefined)
+            url_ += "Year=" + encodeURIComponent("" + year) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -24362,14 +24372,14 @@ export class TransactionsServiceProxy {
                 try {
                     return this.processGetActualSummerizeTimeSheet(<any>response_);
                 } catch (e) {
-                    return <Observable<ActualSummerizeTimeSheetDto[]>><any>_observableThrow(e);
+                    return <Observable<ActualSummerizeTimeSheetOutput>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<ActualSummerizeTimeSheetDto[]>><any>_observableThrow(response_);
+                return <Observable<ActualSummerizeTimeSheetOutput>><any>_observableThrow(response_);
         }));
     }
 
-    protected processGetActualSummerizeTimeSheet(response: HttpResponseBase): Observable<ActualSummerizeTimeSheetDto[]> {
+    protected processGetActualSummerizeTimeSheet(response: HttpResponseBase): Observable<ActualSummerizeTimeSheetOutput> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
@@ -24380,11 +24390,7 @@ export class TransactionsServiceProxy {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            if (Array.isArray(resultData200)) {
-                result200 = [] as any;
-                for (let item of resultData200)
-                    result200!.push(ActualSummerizeTimeSheetDto.fromJS(item));
-            }
+            result200 = ActualSummerizeTimeSheetOutput.fromJS(resultData200);
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -24392,7 +24398,239 @@ export class TransactionsServiceProxy {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<ActualSummerizeTimeSheetDto[]>(<any>null);
+        return _observableOf<ActualSummerizeTimeSheetOutput>(<any>null);
+    }
+
+    /**
+     * @param projectId (optional) 
+     * @param startDate (optional) 
+     * @param endDate (optional) 
+     * @param month (optional) 
+     * @param year (optional) 
+     * @return Success
+     */
+    getMangerUsersToApprove(projectId: number | undefined, startDate: moment.Moment | undefined, endDate: moment.Moment | undefined, month: number | undefined, year: number | undefined): Observable<ActualSummerizeTimeSheetOutput> {
+        let url_ = this.baseUrl + "/api/services/app/Transactions/GetMangerUsersToApprove?";
+        if (projectId === null)
+            throw new Error("The parameter 'projectId' cannot be null.");
+        else if (projectId !== undefined)
+            url_ += "ProjectId=" + encodeURIComponent("" + projectId) + "&"; 
+        if (startDate === null)
+            throw new Error("The parameter 'startDate' cannot be null.");
+        else if (startDate !== undefined)
+            url_ += "StartDate=" + encodeURIComponent(startDate ? "" + startDate.toJSON() : "") + "&"; 
+        if (endDate === null)
+            throw new Error("The parameter 'endDate' cannot be null.");
+        else if (endDate !== undefined)
+            url_ += "EndDate=" + encodeURIComponent(endDate ? "" + endDate.toJSON() : "") + "&"; 
+        if (month === null)
+            throw new Error("The parameter 'month' cannot be null.");
+        else if (month !== undefined)
+            url_ += "Month=" + encodeURIComponent("" + month) + "&"; 
+        if (year === null)
+            throw new Error("The parameter 'year' cannot be null.");
+        else if (year !== undefined)
+            url_ += "Year=" + encodeURIComponent("" + year) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetMangerUsersToApprove(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetMangerUsersToApprove(<any>response_);
+                } catch (e) {
+                    return <Observable<ActualSummerizeTimeSheetOutput>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ActualSummerizeTimeSheetOutput>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetMangerUsersToApprove(response: HttpResponseBase): Observable<ActualSummerizeTimeSheetOutput> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ActualSummerizeTimeSheetOutput.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ActualSummerizeTimeSheetOutput>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    pojectManagerApprove(body: ProjectManagerApproveInput | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Transactions/PojectManagerApprove";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json", 
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processPojectManagerApprove(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processPojectManagerApprove(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processPojectManagerApprove(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    pojectManagerReject(body: ProjectManagerApproveInput | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Transactions/PojectManagerReject";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json", 
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processPojectManagerReject(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processPojectManagerReject(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processPojectManagerReject(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    unitManagerToApprove(body: ProjectManagerApproveInput | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Transactions/UnitManagerToApprove";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json", 
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processUnitManagerToApprove(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processUnitManagerToApprove(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processUnitManagerToApprove(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
     }
 }
 
@@ -27781,12 +28019,13 @@ export class UserTimeSheetApprovesServiceProxy {
      * @param isClosedFilter (optional) 
      * @param userNameFilter (optional) 
      * @param userName2Filter (optional) 
+     * @param projectNameEnFilter (optional) 
      * @param sorting (optional) 
      * @param skipCount (optional) 
      * @param maxResultCount (optional) 
      * @return Success
      */
-    getAll(filter: string | undefined, maxMonthFilter: number | undefined, minMonthFilter: number | undefined, maxYearFilter: number | undefined, minYearFilter: number | undefined, maxFromDateFilter: moment.Moment | undefined, minFromDateFilter: moment.Moment | undefined, maxToDateFilter: moment.Moment | undefined, minToDateFilter: moment.Moment | undefined, approvedUnitsFilter: string | undefined, projectManagerApproveFilter: number | undefined, isClosedFilter: number | undefined, userNameFilter: string | undefined, userName2Filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetUserTimeSheetApproveForViewDto> {
+    getAll(filter: string | undefined, maxMonthFilter: number | undefined, minMonthFilter: number | undefined, maxYearFilter: number | undefined, minYearFilter: number | undefined, maxFromDateFilter: moment.Moment | undefined, minFromDateFilter: moment.Moment | undefined, maxToDateFilter: moment.Moment | undefined, minToDateFilter: moment.Moment | undefined, approvedUnitsFilter: string | undefined, projectManagerApproveFilter: number | undefined, isClosedFilter: number | undefined, userNameFilter: string | undefined, userName2Filter: string | undefined, projectNameEnFilter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetUserTimeSheetApproveForViewDto> {
         let url_ = this.baseUrl + "/api/services/app/UserTimeSheetApproves/GetAll?";
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
@@ -27844,6 +28083,10 @@ export class UserTimeSheetApprovesServiceProxy {
             throw new Error("The parameter 'userName2Filter' cannot be null.");
         else if (userName2Filter !== undefined)
             url_ += "UserName2Filter=" + encodeURIComponent("" + userName2Filter) + "&"; 
+        if (projectNameEnFilter === null)
+            throw new Error("The parameter 'projectNameEnFilter' cannot be null.");
+        else if (projectNameEnFilter !== undefined)
+            url_ += "ProjectNameEnFilter=" + encodeURIComponent("" + projectNameEnFilter) + "&"; 
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
@@ -28133,9 +28376,10 @@ export class UserTimeSheetApprovesServiceProxy {
      * @param isClosedFilter (optional) 
      * @param userNameFilter (optional) 
      * @param userName2Filter (optional) 
+     * @param projectNameEnFilter (optional) 
      * @return Success
      */
-    getUserTimeSheetApprovesToExcel(filter: string | undefined, maxMonthFilter: number | undefined, minMonthFilter: number | undefined, maxYearFilter: number | undefined, minYearFilter: number | undefined, maxFromDateFilter: moment.Moment | undefined, minFromDateFilter: moment.Moment | undefined, maxToDateFilter: moment.Moment | undefined, minToDateFilter: moment.Moment | undefined, approvedUnitsFilter: string | undefined, projectManagerApproveFilter: number | undefined, isClosedFilter: number | undefined, userNameFilter: string | undefined, userName2Filter: string | undefined): Observable<FileDto> {
+    getUserTimeSheetApprovesToExcel(filter: string | undefined, maxMonthFilter: number | undefined, minMonthFilter: number | undefined, maxYearFilter: number | undefined, minYearFilter: number | undefined, maxFromDateFilter: moment.Moment | undefined, minFromDateFilter: moment.Moment | undefined, maxToDateFilter: moment.Moment | undefined, minToDateFilter: moment.Moment | undefined, approvedUnitsFilter: string | undefined, projectManagerApproveFilter: number | undefined, isClosedFilter: number | undefined, userNameFilter: string | undefined, userName2Filter: string | undefined, projectNameEnFilter: string | undefined): Observable<FileDto> {
         let url_ = this.baseUrl + "/api/services/app/UserTimeSheetApproves/GetUserTimeSheetApprovesToExcel?";
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
@@ -28193,6 +28437,10 @@ export class UserTimeSheetApprovesServiceProxy {
             throw new Error("The parameter 'userName2Filter' cannot be null.");
         else if (userName2Filter !== undefined)
             url_ += "UserName2Filter=" + encodeURIComponent("" + userName2Filter) + "&"; 
+        if (projectNameEnFilter === null)
+            throw new Error("The parameter 'projectNameEnFilter' cannot be null.");
+        else if (projectNameEnFilter !== undefined)
+            url_ += "ProjectNameEnFilter=" + encodeURIComponent("" + projectNameEnFilter) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -28308,6 +28556,77 @@ export class UserTimeSheetApprovesServiceProxy {
             }));
         }
         return _observableOf<PagedResultDtoOfUserTimeSheetApproveUserLookupTableDto>(<any>null);
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
+     * @return Success
+     */
+    getAllProjectForLookupTable(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfUserTimeSheetApproveProjectLookupTableDto> {
+        let url_ = this.baseUrl + "/api/services/app/UserTimeSheetApproves/GetAllProjectForLookupTable?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllProjectForLookupTable(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllProjectForLookupTable(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfUserTimeSheetApproveProjectLookupTableDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfUserTimeSheetApproveProjectLookupTableDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAllProjectForLookupTable(response: HttpResponseBase): Observable<PagedResultDtoOfUserTimeSheetApproveProjectLookupTableDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfUserTimeSheetApproveProjectLookupTableDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfUserTimeSheetApproveProjectLookupTableDto>(<any>null);
     }
 }
 
@@ -53164,6 +53483,13 @@ export class ActualSummerizeTimeSheetDto implements IActualSummerizeTimeSheetDto
     userName!: string | undefined;
     totalAttendance!: number;
     totalDeductionHours!: number;
+    isProjectManagerApproved!: boolean;
+    canManagerApprove!: boolean;
+    canProjectManagerReject!: boolean;
+    waitForManagerToApprove!: boolean;
+    unitsToApprove!: string[] | undefined;
+    isCurrentUnitApproved!: boolean;
+    yesClose!: boolean;
     details!: ActualSummerizeTimeSheetDetailDto[] | undefined;
 
     constructor(data?: IActualSummerizeTimeSheetDto) {
@@ -53182,6 +53508,17 @@ export class ActualSummerizeTimeSheetDto implements IActualSummerizeTimeSheetDto
             this.userName = data["userName"];
             this.totalAttendance = data["totalAttendance"];
             this.totalDeductionHours = data["totalDeductionHours"];
+            this.isProjectManagerApproved = data["isProjectManagerApproved"];
+            this.canManagerApprove = data["canManagerApprove"];
+            this.canProjectManagerReject = data["canProjectManagerReject"];
+            this.waitForManagerToApprove = data["waitForManagerToApprove"];
+            if (Array.isArray(data["unitsToApprove"])) {
+                this.unitsToApprove = [] as any;
+                for (let item of data["unitsToApprove"])
+                    this.unitsToApprove!.push(item);
+            }
+            this.isCurrentUnitApproved = data["isCurrentUnitApproved"];
+            this.yesClose = data["yesClose"];
             if (Array.isArray(data["details"])) {
                 this.details = [] as any;
                 for (let item of data["details"])
@@ -53204,6 +53541,17 @@ export class ActualSummerizeTimeSheetDto implements IActualSummerizeTimeSheetDto
         data["userName"] = this.userName;
         data["totalAttendance"] = this.totalAttendance;
         data["totalDeductionHours"] = this.totalDeductionHours;
+        data["isProjectManagerApproved"] = this.isProjectManagerApproved;
+        data["canManagerApprove"] = this.canManagerApprove;
+        data["canProjectManagerReject"] = this.canProjectManagerReject;
+        data["waitForManagerToApprove"] = this.waitForManagerToApprove;
+        if (Array.isArray(this.unitsToApprove)) {
+            data["unitsToApprove"] = [];
+            for (let item of this.unitsToApprove)
+                data["unitsToApprove"].push(item);
+        }
+        data["isCurrentUnitApproved"] = this.isCurrentUnitApproved;
+        data["yesClose"] = this.yesClose;
         if (Array.isArray(this.details)) {
             data["details"] = [];
             for (let item of this.details)
@@ -53219,7 +53567,214 @@ export interface IActualSummerizeTimeSheetDto {
     userName: string | undefined;
     totalAttendance: number;
     totalDeductionHours: number;
+    isProjectManagerApproved: boolean;
+    canManagerApprove: boolean;
+    canProjectManagerReject: boolean;
+    waitForManagerToApprove: boolean;
+    unitsToApprove: string[] | undefined;
+    isCurrentUnitApproved: boolean;
+    yesClose: boolean;
     details: ActualSummerizeTimeSheetDetailDto[] | undefined;
+}
+
+export class UserTimeSheetInput implements IUserTimeSheetInput {
+    userId!: number;
+    yesClose!: boolean;
+
+    constructor(data?: IUserTimeSheetInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.userId = data["userId"];
+            this.yesClose = data["yesClose"];
+        }
+    }
+
+    static fromJS(data: any): UserTimeSheetInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new UserTimeSheetInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["userId"] = this.userId;
+        data["yesClose"] = this.yesClose;
+        return data; 
+    }
+}
+
+export interface IUserTimeSheetInput {
+    userId: number;
+    yesClose: boolean;
+}
+
+export class ActualSummerizeTimeSheetOutput implements IActualSummerizeTimeSheetOutput {
+    data!: ActualSummerizeTimeSheetDto[] | undefined;
+    userIds!: UserTimeSheetInput[] | undefined;
+    parentUnitIds!: number[] | undefined;
+    childtUnitIds!: number[] | undefined;
+    remainingUnitsApprove!: string[] | undefined;
+    totalPending!: number;
+    totalApproved!: number;
+    canApprove!: boolean;
+
+    constructor(data?: IActualSummerizeTimeSheetOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            if (Array.isArray(data["data"])) {
+                this.data = [] as any;
+                for (let item of data["data"])
+                    this.data!.push(ActualSummerizeTimeSheetDto.fromJS(item));
+            }
+            if (Array.isArray(data["userIds"])) {
+                this.userIds = [] as any;
+                for (let item of data["userIds"])
+                    this.userIds!.push(UserTimeSheetInput.fromJS(item));
+            }
+            if (Array.isArray(data["parentUnitIds"])) {
+                this.parentUnitIds = [] as any;
+                for (let item of data["parentUnitIds"])
+                    this.parentUnitIds!.push(item);
+            }
+            if (Array.isArray(data["childtUnitIds"])) {
+                this.childtUnitIds = [] as any;
+                for (let item of data["childtUnitIds"])
+                    this.childtUnitIds!.push(item);
+            }
+            if (Array.isArray(data["remainingUnitsApprove"])) {
+                this.remainingUnitsApprove = [] as any;
+                for (let item of data["remainingUnitsApprove"])
+                    this.remainingUnitsApprove!.push(item);
+            }
+            this.totalPending = data["totalPending"];
+            this.totalApproved = data["totalApproved"];
+            this.canApprove = data["canApprove"];
+        }
+    }
+
+    static fromJS(data: any): ActualSummerizeTimeSheetOutput {
+        data = typeof data === 'object' ? data : {};
+        let result = new ActualSummerizeTimeSheetOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.data)) {
+            data["data"] = [];
+            for (let item of this.data)
+                data["data"].push(item.toJSON());
+        }
+        if (Array.isArray(this.userIds)) {
+            data["userIds"] = [];
+            for (let item of this.userIds)
+                data["userIds"].push(item.toJSON());
+        }
+        if (Array.isArray(this.parentUnitIds)) {
+            data["parentUnitIds"] = [];
+            for (let item of this.parentUnitIds)
+                data["parentUnitIds"].push(item);
+        }
+        if (Array.isArray(this.childtUnitIds)) {
+            data["childtUnitIds"] = [];
+            for (let item of this.childtUnitIds)
+                data["childtUnitIds"].push(item);
+        }
+        if (Array.isArray(this.remainingUnitsApprove)) {
+            data["remainingUnitsApprove"] = [];
+            for (let item of this.remainingUnitsApprove)
+                data["remainingUnitsApprove"].push(item);
+        }
+        data["totalPending"] = this.totalPending;
+        data["totalApproved"] = this.totalApproved;
+        data["canApprove"] = this.canApprove;
+        return data; 
+    }
+}
+
+export interface IActualSummerizeTimeSheetOutput {
+    data: ActualSummerizeTimeSheetDto[] | undefined;
+    userIds: UserTimeSheetInput[] | undefined;
+    parentUnitIds: number[] | undefined;
+    childtUnitIds: number[] | undefined;
+    remainingUnitsApprove: string[] | undefined;
+    totalPending: number;
+    totalApproved: number;
+    canApprove: boolean;
+}
+
+export class ProjectManagerApproveInput implements IProjectManagerApproveInput {
+    userIds!: UserTimeSheetInput[] | undefined;
+    projectId!: number;
+    month!: number;
+    year!: number;
+
+    constructor(data?: IProjectManagerApproveInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            if (Array.isArray(data["userIds"])) {
+                this.userIds = [] as any;
+                for (let item of data["userIds"])
+                    this.userIds!.push(UserTimeSheetInput.fromJS(item));
+            }
+            this.projectId = data["projectId"];
+            this.month = data["month"];
+            this.year = data["year"];
+        }
+    }
+
+    static fromJS(data: any): ProjectManagerApproveInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new ProjectManagerApproveInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.userIds)) {
+            data["userIds"] = [];
+            for (let item of this.userIds)
+                data["userIds"].push(item.toJSON());
+        }
+        data["projectId"] = this.projectId;
+        data["month"] = this.month;
+        data["year"] = this.year;
+        return data; 
+    }
+}
+
+export interface IProjectManagerApproveInput {
+    userIds: UserTimeSheetInput[] | undefined;
+    projectId: number;
+    month: number;
+    year: number;
 }
 
 export class TypesOfPermitDto implements ITypesOfPermitDto {
@@ -56615,6 +57170,7 @@ export class UserTimeSheetApproveDto implements IUserTimeSheetApproveDto {
     isClosed!: boolean;
     userId!: number | undefined;
     projectManagerId!: number | undefined;
+    projectId!: number | undefined;
     id!: number;
 
     constructor(data?: IUserTimeSheetApproveDto) {
@@ -56637,6 +57193,7 @@ export class UserTimeSheetApproveDto implements IUserTimeSheetApproveDto {
             this.isClosed = data["isClosed"];
             this.userId = data["userId"];
             this.projectManagerId = data["projectManagerId"];
+            this.projectId = data["projectId"];
             this.id = data["id"];
         }
     }
@@ -56659,6 +57216,7 @@ export class UserTimeSheetApproveDto implements IUserTimeSheetApproveDto {
         data["isClosed"] = this.isClosed;
         data["userId"] = this.userId;
         data["projectManagerId"] = this.projectManagerId;
+        data["projectId"] = this.projectId;
         data["id"] = this.id;
         return data; 
     }
@@ -56674,6 +57232,7 @@ export interface IUserTimeSheetApproveDto {
     isClosed: boolean;
     userId: number | undefined;
     projectManagerId: number | undefined;
+    projectId: number | undefined;
     id: number;
 }
 
@@ -56681,6 +57240,7 @@ export class GetUserTimeSheetApproveForViewDto implements IGetUserTimeSheetAppro
     userTimeSheetApprove!: UserTimeSheetApproveDto | undefined;
     userName!: string | undefined;
     userName2!: string | undefined;
+    projectNameEn!: string | undefined;
 
     constructor(data?: IGetUserTimeSheetApproveForViewDto) {
         if (data) {
@@ -56696,6 +57256,7 @@ export class GetUserTimeSheetApproveForViewDto implements IGetUserTimeSheetAppro
             this.userTimeSheetApprove = data["userTimeSheetApprove"] ? UserTimeSheetApproveDto.fromJS(data["userTimeSheetApprove"]) : <any>undefined;
             this.userName = data["userName"];
             this.userName2 = data["userName2"];
+            this.projectNameEn = data["projectNameEn"];
         }
     }
 
@@ -56711,6 +57272,7 @@ export class GetUserTimeSheetApproveForViewDto implements IGetUserTimeSheetAppro
         data["userTimeSheetApprove"] = this.userTimeSheetApprove ? this.userTimeSheetApprove.toJSON() : <any>undefined;
         data["userName"] = this.userName;
         data["userName2"] = this.userName2;
+        data["projectNameEn"] = this.projectNameEn;
         return data; 
     }
 }
@@ -56719,6 +57281,7 @@ export interface IGetUserTimeSheetApproveForViewDto {
     userTimeSheetApprove: UserTimeSheetApproveDto | undefined;
     userName: string | undefined;
     userName2: string | undefined;
+    projectNameEn: string | undefined;
 }
 
 export class PagedResultDtoOfGetUserTimeSheetApproveForViewDto implements IPagedResultDtoOfGetUserTimeSheetApproveForViewDto {
@@ -56779,6 +57342,7 @@ export class CreateOrEditUserTimeSheetApproveDto implements ICreateOrEditUserTim
     isClosed!: boolean;
     userId!: number | undefined;
     projectManagerId!: number | undefined;
+    projectId!: number | undefined;
     id!: number | undefined;
 
     constructor(data?: ICreateOrEditUserTimeSheetApproveDto) {
@@ -56801,6 +57365,7 @@ export class CreateOrEditUserTimeSheetApproveDto implements ICreateOrEditUserTim
             this.isClosed = data["isClosed"];
             this.userId = data["userId"];
             this.projectManagerId = data["projectManagerId"];
+            this.projectId = data["projectId"];
             this.id = data["id"];
         }
     }
@@ -56823,6 +57388,7 @@ export class CreateOrEditUserTimeSheetApproveDto implements ICreateOrEditUserTim
         data["isClosed"] = this.isClosed;
         data["userId"] = this.userId;
         data["projectManagerId"] = this.projectManagerId;
+        data["projectId"] = this.projectId;
         data["id"] = this.id;
         return data; 
     }
@@ -56838,13 +57404,15 @@ export interface ICreateOrEditUserTimeSheetApproveDto {
     isClosed: boolean;
     userId: number | undefined;
     projectManagerId: number | undefined;
+    projectId: number | undefined;
     id: number | undefined;
 }
 
 export class GetUserTimeSheetApproveForEditOutput implements IGetUserTimeSheetApproveForEditOutput {
     userTimeSheetApprove!: CreateOrEditUserTimeSheetApproveDto | undefined;
     userName!: string | undefined;
-    projectManagerName!: string | undefined;
+    userName2!: string | undefined;
+    projectNameEn!: string | undefined;
 
     constructor(data?: IGetUserTimeSheetApproveForEditOutput) {
         if (data) {
@@ -56859,7 +57427,8 @@ export class GetUserTimeSheetApproveForEditOutput implements IGetUserTimeSheetAp
         if (data) {
             this.userTimeSheetApprove = data["userTimeSheetApprove"] ? CreateOrEditUserTimeSheetApproveDto.fromJS(data["userTimeSheetApprove"]) : <any>undefined;
             this.userName = data["userName"];
-            this.projectManagerName = data["projectManagerName"];
+            this.userName2 = data["userName2"];
+            this.projectNameEn = data["projectNameEn"];
         }
     }
 
@@ -56874,7 +57443,8 @@ export class GetUserTimeSheetApproveForEditOutput implements IGetUserTimeSheetAp
         data = typeof data === 'object' ? data : {};
         data["userTimeSheetApprove"] = this.userTimeSheetApprove ? this.userTimeSheetApprove.toJSON() : <any>undefined;
         data["userName"] = this.userName;
-        data["projectManagerName"] = this.projectManagerName;
+        data["userName2"] = this.userName2;
+        data["projectNameEn"] = this.projectNameEn;
         return data; 
     }
 }
@@ -56882,7 +57452,8 @@ export class GetUserTimeSheetApproveForEditOutput implements IGetUserTimeSheetAp
 export interface IGetUserTimeSheetApproveForEditOutput {
     userTimeSheetApprove: CreateOrEditUserTimeSheetApproveDto | undefined;
     userName: string | undefined;
-    projectManagerName: string | undefined;
+    userName2: string | undefined;
+    projectNameEn: string | undefined;
 }
 
 export class UserTimeSheetApproveUserLookupTableDto implements IUserTimeSheetApproveUserLookupTableDto {
@@ -56971,6 +57542,94 @@ export class PagedResultDtoOfUserTimeSheetApproveUserLookupTableDto implements I
 export interface IPagedResultDtoOfUserTimeSheetApproveUserLookupTableDto {
     totalCount: number;
     items: UserTimeSheetApproveUserLookupTableDto[] | undefined;
+}
+
+export class UserTimeSheetApproveProjectLookupTableDto implements IUserTimeSheetApproveProjectLookupTableDto {
+    id!: number;
+    displayName!: string | undefined;
+
+    constructor(data?: IUserTimeSheetApproveProjectLookupTableDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"];
+            this.displayName = data["displayName"];
+        }
+    }
+
+    static fromJS(data: any): UserTimeSheetApproveProjectLookupTableDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new UserTimeSheetApproveProjectLookupTableDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["displayName"] = this.displayName;
+        return data; 
+    }
+}
+
+export interface IUserTimeSheetApproveProjectLookupTableDto {
+    id: number;
+    displayName: string | undefined;
+}
+
+export class PagedResultDtoOfUserTimeSheetApproveProjectLookupTableDto implements IPagedResultDtoOfUserTimeSheetApproveProjectLookupTableDto {
+    totalCount!: number;
+    items!: UserTimeSheetApproveProjectLookupTableDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfUserTimeSheetApproveProjectLookupTableDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (Array.isArray(data["items"])) {
+                this.items = [] as any;
+                for (let item of data["items"])
+                    this.items!.push(UserTimeSheetApproveProjectLookupTableDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfUserTimeSheetApproveProjectLookupTableDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfUserTimeSheetApproveProjectLookupTableDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfUserTimeSheetApproveProjectLookupTableDto {
+    totalCount: number;
+    items: UserTimeSheetApproveProjectLookupTableDto[] | undefined;
 }
 
 export class WarningTypeDto implements IWarningTypeDto {

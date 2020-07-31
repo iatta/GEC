@@ -47,6 +47,7 @@ export class UserTimeSheetApprovesComponent extends AppComponentBase {
     isClosedFilter = -1;
         userNameFilter = '';
         userName2Filter = '';
+        projectNameEnFilter = '';
 
 
     _entityTypeFullName = 'Pixel.Attendance.Operations.UserTimeSheetApprove';
@@ -95,6 +96,7 @@ export class UserTimeSheetApprovesComponent extends AppComponentBase {
             this.isClosedFilter,
             this.userNameFilter,
             this.userName2Filter,
+            this.projectNameEnFilter,
             this.primengTableHelper.getSorting(this.dataTable),
             this.primengTableHelper.getSkipCount(this.paginator, event),
             this.primengTableHelper.getMaxResultCount(this.paginator, event)
@@ -153,6 +155,7 @@ export class UserTimeSheetApprovesComponent extends AppComponentBase {
             this.isClosedFilter,
             this.userNameFilter,
             this.userName2Filter,
+            this.projectNameEnFilter,
         )
         .subscribe(result => {
             this._fileDownloadService.downloadTempFile(result);

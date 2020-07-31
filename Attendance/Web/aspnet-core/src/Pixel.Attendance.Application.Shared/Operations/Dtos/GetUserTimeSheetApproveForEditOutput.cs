@@ -10,7 +10,9 @@ namespace Pixel.Attendance.Operations.Dtos
 
 		public string UserName { get; set;}
 
-		public string ProjectManagerName { get; set;}
+		public string UserName2 { get; set;}
+
+		public string ProjectNameEn { get; set;}
 
 
     }

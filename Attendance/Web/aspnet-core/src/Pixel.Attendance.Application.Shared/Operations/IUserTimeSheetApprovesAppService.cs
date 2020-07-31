@@ -24,5 +24,7 @@ namespace Pixel.Attendance.Operations
 		
 		Task<PagedResultDto<UserTimeSheetApproveUserLookupTableDto>> GetAllUserForLookupTable(GetAllForLookupTableInput input);
 		
+		Task<PagedResultDto<UserTimeSheetApproveProjectLookupTableDto>> GetAllProjectForLookupTable(GetAllForLookupTableInput input);
+		
     }
 }

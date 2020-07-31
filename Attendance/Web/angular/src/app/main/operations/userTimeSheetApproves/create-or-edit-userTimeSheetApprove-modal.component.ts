@@ -5,6 +5,7 @@ import { UserTimeSheetApprovesServiceProxy, CreateOrEditUserTimeSheetApproveDto 
 import { AppComponentBase } from '@shared/common/app-component-base';
 import * as moment from 'moment';
 import { UserTimeSheetApproveUserLookupTableModalComponent } from './userTimeSheetApprove-user-lookup-table-modal.component';
+import { UserTimeSheetApproveProjectLookupTableModalComponent } from './userTimeSheetApprove-project-lookup-table-modal.component';
 
 @Component({
     selector: 'createOrEditUserTimeSheetApproveModal',
@@ -15,6 +16,7 @@ export class CreateOrEditUserTimeSheetApproveModalComponent extends AppComponent
     @ViewChild('createOrEditModal', { static: true }) modal: ModalDirective;
     @ViewChild('userTimeSheetApproveUserLookupTableModal', { static: true }) userTimeSheetApproveUserLookupTableModal: UserTimeSheetApproveUserLookupTableModalComponent;
     @ViewChild('userTimeSheetApproveUserLookupTableModal2', { static: true }) userTimeSheetApproveUserLookupTableModal2: UserTimeSheetApproveUserLookupTableModalComponent;
+    @ViewChild('userTimeSheetApproveProjectLookupTableModal', { static: true }) userTimeSheetApproveProjectLookupTableModal: UserTimeSheetApproveProjectLookupTableModalComponent;
 
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
 
@@ -27,6 +29,7 @@ export class CreateOrEditUserTimeSheetApproveModalComponent extends AppComponent
     toDate: Date;
     userName = '';
     userName2 = '';
+    projectNameEn = '';
 
 
     constructor(
@@ -45,6 +48,7 @@ export class CreateOrEditUserTimeSheetApproveModalComponent extends AppComponent
             this.userTimeSheetApprove.id = userTimeSheetApproveId;
             this.userName = '';
             this.userName2 = '';
+            this.projectNameEn = '';
 
             this.active = true;
             this.modal.show();
@@ -59,7 +63,8 @@ export class CreateOrEditUserTimeSheetApproveModalComponent extends AppComponent
 					this.toDate = this.userTimeSheetApprove.toDate.toDate();
                 }
                 this.userName = result.userName;
-                this.userName2 = result.projectManagerName;
+                this.userName2 = result.userName2;
+                this.projectNameEn = result.projectNameEn;
 
                 this.active = true;
                 this.modal.show();
@@ -70,7 +75,7 @@ export class CreateOrEditUserTimeSheetApproveModalComponent extends AppComponent
     save(): void {
             this.saving = true;
 
-
+			
         if (this.fromDate) {
             if (!this.userTimeSheetApprove.fromDate) {
                 this.userTimeSheetApprove.fromDate = moment(this.fromDate).startOf('day');
@@ -112,6 +117,11 @@ export class CreateOrEditUserTimeSheetApproveModalComponent extends AppComponent
         this.userTimeSheetApproveUserLookupTableModal2.displayName = this.userName;
         this.userTimeSheetApproveUserLookupTableModal2.show();
     }
+    openSelectProjectModal() {
+        this.userTimeSheetApproveProjectLookupTableModal.id = this.userTimeSheetApprove.projectId;
+        this.userTimeSheetApproveProjectLookupTableModal.displayName = this.projectNameEn;
+        this.userTimeSheetApproveProjectLookupTableModal.show();
+    }
 
 
     setUserIdNull() {
@@ -122,6 +132,10 @@ export class CreateOrEditUserTimeSheetApproveModalComponent extends AppComponent
         this.userTimeSheetApprove.projectManagerId = null;
         this.userName2 = '';
     }
+    setProjectIdNull() {
+        this.userTimeSheetApprove.projectId = null;
+        this.projectNameEn = '';
+    }
 
 
     getNewUserId() {
@@ -131,6 +145,10 @@ export class CreateOrEditUserTimeSheetApproveModalComponent extends AppComponent
     getNewProjectManagerId() {
         this.userTimeSheetApprove.projectManagerId = this.userTimeSheetApproveUserLookupTableModal2.id;
         this.userName2 = this.userTimeSheetApproveUserLookupTableModal2.displayName;
+    }
+    getNewProjectId() {
+        this.userTimeSheetApprove.projectId = this.userTimeSheetApproveProjectLookupTableModal.id;
+        this.projectNameEn = this.userTimeSheetApproveProjectLookupTableModal.displayName;
     }
 
 

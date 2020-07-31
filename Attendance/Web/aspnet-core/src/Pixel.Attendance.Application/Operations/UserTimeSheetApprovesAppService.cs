@@ -1,4 +1,8 @@
 ﻿using Pixel.Attendance.Authorization.Users;
+using Pixel.Attendance.Authorization.Users;
+using Pixel.Attendance.Operations;
+
+
 using System;
 using System.Linq;
 using System.Linq.Dynamic.Core;
@@ -23,13 +27,15 @@ namespace Pixel.Attendance.Operations
 		 private readonly IRepository<UserTimeSheetApprove> _userTimeSheetApproveRepository;
 		 private readonly IUserTimeSheetApprovesExcelExporter _userTimeSheetApprovesExcelExporter;
 		 private readonly IRepository<User,long> _lookup_userRepository;
+		 private readonly IRepository<Project,int> _lookup_projectRepository;
 		 
 
-		  public UserTimeSheetApprovesAppService(IRepository<UserTimeSheetApprove> userTimeSheetApproveRepository, IUserTimeSheetApprovesExcelExporter userTimeSheetApprovesExcelExporter , IRepository<User, long> lookup_userRepository) 
+		  public UserTimeSheetApprovesAppService(IRepository<UserTimeSheetApprove> userTimeSheetApproveRepository, IUserTimeSheetApprovesExcelExporter userTimeSheetApprovesExcelExporter , IRepository<User, long> lookup_userRepository, IRepository<Project, int> lookup_projectRepository) 
 		  {
 			_userTimeSheetApproveRepository = userTimeSheetApproveRepository;
 			_userTimeSheetApprovesExcelExporter = userTimeSheetApprovesExcelExporter;
 			_lookup_userRepository = lookup_userRepository;
+		_lookup_projectRepository = lookup_projectRepository;
 		
 		  }
 
@@ -39,6 +45,7 @@ namespace Pixel.Attendance.Operations
 			var filteredUserTimeSheetApproves = _userTimeSheetApproveRepository.GetAll()
 						.Include( e => e.UserFk)
 						.Include( e => e.ProjectManagerFk)
+						.Include( e => e.ProjectFk)
 						.WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false  || e.ApprovedUnits.Contains(input.Filter))
 						.WhereIf(input.MinMonthFilter != null, e => e.Month >= input.MinMonthFilter)
 						.WhereIf(input.MaxMonthFilter != null, e => e.Month <= input.MaxMonthFilter)
@@ -52,7 +59,8 @@ namespace Pixel.Attendance.Operations
 						.WhereIf(input.ProjectManagerApproveFilter > -1,  e => (input.ProjectManagerApproveFilter == 1 && e.ProjectManagerApprove) || (input.ProjectManagerApproveFilter == 0 && !e.ProjectManagerApprove) )
 						.WhereIf(input.IsClosedFilter > -1,  e => (input.IsClosedFilter == 1 && e.IsClosed) || (input.IsClosedFilter == 0 && !e.IsClosed) )
 						.WhereIf(!string.IsNullOrWhiteSpace(input.UserNameFilter), e => e.UserFk != null && e.UserFk.Name == input.UserNameFilter)
-						.WhereIf(!string.IsNullOrWhiteSpace(input.UserName2Filter), e => e.ProjectManagerFk != null && e.ProjectManagerFk.Name == input.UserName2Filter);
+						.WhereIf(!string.IsNullOrWhiteSpace(input.UserName2Filter), e => e.ProjectManagerFk != null && e.ProjectManagerFk.Name == input.UserName2Filter)
+						.WhereIf(!string.IsNullOrWhiteSpace(input.ProjectNameEnFilter), e => e.ProjectFk != null && e.ProjectFk.NameEn == input.ProjectNameEnFilter);
 
 			var pagedAndFilteredUserTimeSheetApproves = filteredUserTimeSheetApproves
                 .OrderBy(input.Sorting ?? "id asc")
@@ -64,6 +72,9 @@ namespace Pixel.Attendance.Operations
                          
                          join o2 in _lookup_userRepository.GetAll() on o.ProjectManagerId equals o2.Id into j2
                          from s2 in j2.DefaultIfEmpty()
+                         
+                         join o3 in _lookup_projectRepository.GetAll() on o.ProjectId equals o3.Id into j3
+                         from s3 in j3.DefaultIfEmpty()
                          
                          select new GetUserTimeSheetApproveForViewDto() {
 							UserTimeSheetApprove = new UserTimeSheetApproveDto
@@ -78,7 +89,8 @@ namespace Pixel.Attendance.Operations
                                 Id = o.Id
 							},
                          	UserName = s1 == null ? "" : s1.Name.ToString(),
-                         	UserName2 = s2 == null ? "" : s2.Name.ToString()
+                         	UserName2 = s2 == null ? "" : s2.Name.ToString(),
+                         	ProjectNameEn = s3 == null ? "" : s3.NameEn.ToString()
 						};
 
             var totalCount = await filteredUserTimeSheetApproves.CountAsync();
@@ -106,6 +118,12 @@ namespace Pixel.Attendance.Operations
                 var _lookupUser = await _lookup_userRepository.FirstOrDefaultAsync((long)output.UserTimeSheetApprove.ProjectManagerId);
                 output.UserName2 = _lookupUser.Name.ToString();
             }
+
+		    if (output.UserTimeSheetApprove.ProjectId != null)
+            {
+                var _lookupProject = await _lookup_projectRepository.FirstOrDefaultAsync((int)output.UserTimeSheetApprove.ProjectId);
+                output.ProjectNameEn = _lookupProject.NameEn.ToString();
+            }
 			
             return output;
          }
@@ -126,7 +144,13 @@ namespace Pixel.Attendance.Operations
 		    if (output.UserTimeSheetApprove.ProjectManagerId != null)
             {
                 var _lookupUser = await _lookup_userRepository.FirstOrDefaultAsync((long)output.UserTimeSheetApprove.ProjectManagerId);
-                output.ProjectManagerName = _lookupUser.Name.ToString();
+                output.UserName2 = _lookupUser.Name.ToString();
+            }
+
+		    if (output.UserTimeSheetApprove.ProjectId != null)
+            {
+                var _lookupProject = await _lookup_projectRepository.FirstOrDefaultAsync((int)output.UserTimeSheetApprove.ProjectId);
+                output.ProjectNameEn = _lookupProject.NameEn.ToString();
             }
 			
             return output;
@@ -171,6 +195,7 @@ namespace Pixel.Attendance.Operations
 			var filteredUserTimeSheetApproves = _userTimeSheetApproveRepository.GetAll()
 						.Include( e => e.UserFk)
 						.Include( e => e.ProjectManagerFk)
+						.Include( e => e.ProjectFk)
 						.WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false  || e.ApprovedUnits.Contains(input.Filter))
 						.WhereIf(input.MinMonthFilter != null, e => e.Month >= input.MinMonthFilter)
 						.WhereIf(input.MaxMonthFilter != null, e => e.Month <= input.MaxMonthFilter)
@@ -184,7 +209,8 @@ namespace Pixel.Attendance.Operations
 						.WhereIf(input.ProjectManagerApproveFilter > -1,  e => (input.ProjectManagerApproveFilter == 1 && e.ProjectManagerApprove) || (input.ProjectManagerApproveFilter == 0 && !e.ProjectManagerApprove) )
 						.WhereIf(input.IsClosedFilter > -1,  e => (input.IsClosedFilter == 1 && e.IsClosed) || (input.IsClosedFilter == 0 && !e.IsClosed) )
 						.WhereIf(!string.IsNullOrWhiteSpace(input.UserNameFilter), e => e.UserFk != null && e.UserFk.Name == input.UserNameFilter)
-						.WhereIf(!string.IsNullOrWhiteSpace(input.UserName2Filter), e => e.ProjectManagerFk != null && e.ProjectManagerFk.Name == input.UserName2Filter);
+						.WhereIf(!string.IsNullOrWhiteSpace(input.UserName2Filter), e => e.ProjectManagerFk != null && e.ProjectManagerFk.Name == input.UserName2Filter)
+						.WhereIf(!string.IsNullOrWhiteSpace(input.ProjectNameEnFilter), e => e.ProjectFk != null && e.ProjectFk.NameEn == input.ProjectNameEnFilter);
 
 			var query = (from o in filteredUserTimeSheetApproves
                          join o1 in _lookup_userRepository.GetAll() on o.UserId equals o1.Id into j1
@@ -192,6 +218,9 @@ namespace Pixel.Attendance.Operations
                          
                          join o2 in _lookup_userRepository.GetAll() on o.ProjectManagerId equals o2.Id into j2
                          from s2 in j2.DefaultIfEmpty()
+                         
+                         join o3 in _lookup_projectRepository.GetAll() on o.ProjectId equals o3.Id into j3
+                         from s3 in j3.DefaultIfEmpty()
                          
                          select new GetUserTimeSheetApproveForViewDto() { 
 							UserTimeSheetApprove = new UserTimeSheetApproveDto
@@ -206,7 +235,8 @@ namespace Pixel.Attendance.Operations
                                 Id = o.Id
 							},
                          	UserName = s1 == null ? "" : s1.Name.ToString(),
-                         	UserName2 = s2 == null ? "" : s2.Name.ToString()
+                         	UserName2 = s2 == null ? "" : s2.Name.ToString(),
+                         	ProjectNameEn = s3 == null ? "" : s3.NameEn.ToString()
 						 });
 
 
@@ -241,6 +271,35 @@ namespace Pixel.Attendance.Operations
 			}
 
             return new PagedResultDto<UserTimeSheetApproveUserLookupTableDto>(
+                totalCount,
+                lookupTableDtoList
+            );
+         }
+
+		[AbpAuthorize(AppPermissions.Pages_UserTimeSheetApproves)]
+         public async Task<PagedResultDto<UserTimeSheetApproveProjectLookupTableDto>> GetAllProjectForLookupTable(GetAllForLookupTableInput input)
+         {
+             var query = _lookup_projectRepository.GetAll().WhereIf(
+                    !string.IsNullOrWhiteSpace(input.Filter),
+                   e=> e.NameEn.ToString().Contains(input.Filter)
+                );
+
+            var totalCount = await query.CountAsync();
+
+            var projectList = await query
+                .PageBy(input)
+                .ToListAsync();
+
+			var lookupTableDtoList = new List<UserTimeSheetApproveProjectLookupTableDto>();
+			foreach(var project in projectList){
+				lookupTableDtoList.Add(new UserTimeSheetApproveProjectLookupTableDto
+				{
+					Id = project.Id,
+					DisplayName = project.NameEn?.ToString()
+				});
+			}
+
+            return new PagedResultDto<UserTimeSheetApproveProjectLookupTableDto>(
                 totalCount,
                 lookupTableDtoList
             );

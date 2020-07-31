@@ -92,9 +92,10 @@ export class AppNavigationService {
 
             new AppMenuItem('Beacons', 'Pages.Beacons', 'flaticon-laptop', '/app/main/operations/beacons'),
             new AppMenuItem('SummerizeReport', 'Pages.Reports', 'flaticon-graph', '/app/main/operations/summerizeReport'),
+            new AppMenuItem('ManagerLevelApproveComponent', 'Pages.Reports', 'flaticon-graph', '/app/main/operations/managerLevelApproveComponent'),
 
             // new AppMenuItem('ManualTransactions', 'Pages.ManualTransactions', 'flaticon-more', '/app/main/operations/manualTransactions'),
-            
+
             new AppMenuItem('UserTimeSheetApproves', 'Pages.UserTimeSheetApproves', 'flaticon-more', '/app/main/operations/userTimeSheetApproves'),
              new AppMenuItem('Administration', '', 'flaticon-interface-8', '', [
                 new AppMenuItem('OrganizationUnits', 'Pages.Administration.OrganizationUnits', 'flaticon-map', '/app/admin/organization-units'),
