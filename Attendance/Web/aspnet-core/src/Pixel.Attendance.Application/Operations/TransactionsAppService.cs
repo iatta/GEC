@@ -42,10 +42,11 @@ namespace Pixel.Attendance.Operations
         private readonly IRepository<Machine, int> _lookup_machineRepository;
         private readonly IRepository<EmployeeVacation> _employeeVacation;
         private readonly IRepository<UserTimeSheetApprove> _userTimeSheetApproveRepository;
-        
+        private readonly IRepository<UserDelegation> _userDelegationRepository;
 
 
-        public TransactionsAppService(IRepository<UserTimeSheetApprove> userTimeSheetApproveRepository  ,IRepository<EmployeeVacation> employeeVacation , IRepository<Shift> shiftRepository ,IRepository<UserShift> userShiftRepository, IRepository<OrganizationUnitExtended, long>  organizationUnit,IRepository<Transaction> transactionRepository, IRepository<Project> projectRepository, ITransactionsExcelExporter transactionsExcelExporter, UserManager userManager, IRepository<User, long> lookup_userRepository, IRepository<Machine, int> lookup_machineRepository)
+
+        public TransactionsAppService(IRepository<UserDelegation> userDelegationRepository ,IRepository<UserTimeSheetApprove> userTimeSheetApproveRepository  ,IRepository<EmployeeVacation> employeeVacation , IRepository<Shift> shiftRepository ,IRepository<UserShift> userShiftRepository, IRepository<OrganizationUnitExtended, long>  organizationUnit,IRepository<Transaction> transactionRepository, IRepository<Project> projectRepository, ITransactionsExcelExporter transactionsExcelExporter, UserManager userManager, IRepository<User, long> lookup_userRepository, IRepository<Machine, int> lookup_machineRepository)
         {
             _transactionRepository = transactionRepository;
             _transactionsExcelExporter = transactionsExcelExporter;
@@ -58,7 +59,7 @@ namespace Pixel.Attendance.Operations
             _lookup_machineRepository = lookup_machineRepository;
             _employeeVacation = employeeVacation;
             _userTimeSheetApproveRepository = userTimeSheetApproveRepository;
-
+            _userDelegationRepository = userDelegationRepository;
         }
 
         public async Task<PagedResultDto<GetTransactionForViewDto>> GetAll(GetAllTransactionsInput input)
@@ -632,6 +633,10 @@ namespace Pixel.Attendance.Operations
             // add users
             foreach (var user in managerUsers)
             {
+
+                //CHECK IF USER HAS DELEGATION 
+                
+
                 var summaryToAdd = new ActualSummerizeTimeSheetDto();
                 summaryToAdd.UserId = user.Id;
                 summaryToAdd.UserName = user.Name;

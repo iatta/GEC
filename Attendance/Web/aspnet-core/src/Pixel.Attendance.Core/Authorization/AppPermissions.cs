@@ -6,6 +6,11 @@
     /// </summary>
     public static class AppPermissions
     {
+        public const string Pages_UserDelegations = "Pages.UserDelegations";
+        public const string Pages_UserDelegations_Create = "Pages.UserDelegations.Create";
+        public const string Pages_UserDelegations_Edit = "Pages.UserDelegations.Edit";
+        public const string Pages_UserDelegations_Delete = "Pages.UserDelegations.Delete";
+
         public const string Pages_UserTimeSheetApproves = "Pages.UserTimeSheetApproves";
         public const string Pages_UserTimeSheetApproves_Create = "Pages.UserTimeSheetApproves.Create";
         public const string Pages_UserTimeSheetApproves_Edit = "Pages.UserTimeSheetApproves.Edit";
@@ -207,6 +212,7 @@
         public const string Pages_Administration_Roles_Delete = "Pages.Administration.Roles.Delete";
 
         public const string Pages_Administration_Users = "Pages.Administration.Users";
+        public const string Pages_Administration_DelegatedUsers = "Pages.Administration.DelegatedUsers";
         public const string Pages_Administration_Users_Create = "Pages.Administration.Users.Create";
         public const string Pages_Administration_Users_Edit = "Pages.Administration.Users.Edit";
         public const string Pages_Administration_Users_Delete = "Pages.Administration.Users.Delete";

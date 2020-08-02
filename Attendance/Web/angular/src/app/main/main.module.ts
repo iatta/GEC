@@ -2,6 +2,11 @@
 import { SummerizeReportComponent } from './operations/reports/summerize.component';
 import { AssignProjectUserLookupTableModalComponent } from './operations/projects/assign-project-user-lookup-table-modal.component';
 import { PermitReportComponent } from './operations/reports/permit.component';
+import { UserDelegationsComponent } from './operations/userDelegations/userDelegations.component';
+import { ViewUserDelegationModalComponent } from './operations/userDelegations/view-userDelegation-modal.component';
+import { CreateOrEditUserDelegationModalComponent } from './operations/userDelegations/create-or-edit-userDelegation-modal.component';
+import { UserDelegationUserLookupTableModalComponent } from './operations/userDelegations/userDelegation-user-lookup-table-modal.component';
+
 import { UserTimeSheetApprovesComponent } from './operations/userTimeSheetApproves/userTimeSheetApproves.component';
 import { ViewUserTimeSheetApproveModalComponent } from './operations/userTimeSheetApproves/view-userTimeSheetApprove-modal.component';
 import { CreateOrEditUserTimeSheetApproveModalComponent } from './operations/userTimeSheetApproves/create-or-edit-userTimeSheetApprove-modal.component';
@@ -260,6 +265,9 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
           }),
     ],
     declarations: [
+		UserDelegationsComponent,
+		ViewUserDelegationModalComponent,		CreateOrEditUserDelegationModalComponent,
+    UserDelegationUserLookupTableModalComponent,
 		UserTimeSheetApprovesComponent,
 		ViewUserTimeSheetApproveModalComponent,		CreateOrEditUserTimeSheetApproveModalComponent,
     UserTimeSheetApproveProjectLookupTableModalComponent,

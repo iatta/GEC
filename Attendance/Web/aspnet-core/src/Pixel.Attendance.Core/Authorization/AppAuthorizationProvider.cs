@@ -30,6 +30,13 @@ namespace Pixel.Attendance.Authorization
 
             var pages = context.GetPermissionOrNull(AppPermissions.Pages) ?? context.CreatePermission(AppPermissions.Pages, L("Pages"));
 
+            var userDelegations = pages.CreateChildPermission(AppPermissions.Pages_UserDelegations, L("UserDelegations"));
+            userDelegations.CreateChildPermission(AppPermissions.Pages_UserDelegations_Create, L("CreateNewUserDelegation"));
+            userDelegations.CreateChildPermission(AppPermissions.Pages_UserDelegations_Edit, L("EditUserDelegation"));
+            userDelegations.CreateChildPermission(AppPermissions.Pages_UserDelegations_Delete, L("DeleteUserDelegation"));
+
+
+
             var userTimeSheetApproves = pages.CreateChildPermission(AppPermissions.Pages_UserTimeSheetApproves, L("UserTimeSheetApproves"));
             userTimeSheetApproves.CreateChildPermission(AppPermissions.Pages_UserTimeSheetApproves_Create, L("CreateNewUserTimeSheetApprove"));
             userTimeSheetApproves.CreateChildPermission(AppPermissions.Pages_UserTimeSheetApproves_Edit, L("EditUserTimeSheetApprove"));
@@ -293,6 +300,7 @@ namespace Pixel.Attendance.Authorization
             roles.CreateChildPermission(AppPermissions.Pages_Administration_Roles_Delete, L("DeletingRole"));
 
             var users = administration.CreateChildPermission(AppPermissions.Pages_Administration_Users, L("Users"));
+            users.CreateChildPermission(AppPermissions.Pages_Administration_DelegatedUsers, L("DelegatedUsers"));
             users.CreateChildPermission(AppPermissions.Pages_Administration_Users_Create, L("CreatingNewUser"));
             users.CreateChildPermission(AppPermissions.Pages_Administration_Users_SendNotification, L("SendNotification"));
             

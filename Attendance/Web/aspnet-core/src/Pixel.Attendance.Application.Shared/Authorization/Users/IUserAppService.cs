@@ -40,5 +40,6 @@ namespace Pixel.Attendance.Authorization.Users
         Task<List<PermitReportOutput>> GeneratePermitReport(ReportInput input);
         Task<List<EmployeeReportOutput>> CalculateDaysReport(ReportInput input);
         Task<NotificationResponseDto> SendNotification(NotificaionInput input);
+        Task<PagedResultDto<DelegatedUserListDto>> GetDelegatedUsers(GetUsersInput input);
     }
 }

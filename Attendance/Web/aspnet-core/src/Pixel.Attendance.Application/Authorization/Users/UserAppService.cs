@@ -83,6 +83,7 @@ namespace Pixel.Attendance.Authorization.Users
         private readonly IRepository<User, long> _userRepository;
         private readonly IRepository<Shift> _shiftRepository;
         private readonly IRepository<Beacon> _beaconRepository;
+        private readonly IRepository<UserDelegation> _userDelegationRepository;
 
 
 
@@ -116,7 +117,8 @@ namespace Pixel.Attendance.Authorization.Users
             IRepository<UserShift> userShift,
             IRepository<Shift> shift,
             IRepository<Beacon> beaconRepository,
-            IActiveTransactionProvider transactionProvider)
+            IActiveTransactionProvider transactionProvider,
+            IRepository<UserDelegation> userDelegationRepository)
         {
             _roleManager = roleManager;
             _userEmailer = userEmailer;
@@ -147,6 +149,7 @@ namespace Pixel.Attendance.Authorization.Users
             _shiftRepository = shift;
             _userShiftRepository = userShift;
             _beaconRepository = beaconRepository;
+            _userDelegationRepository = userDelegationRepository;
         }
 
         public async Task<PagedResultDto<UserListDto>> GetUsers(GetUsersInput input)
@@ -178,6 +181,42 @@ namespace Pixel.Attendance.Authorization.Users
             return new PagedResultDto<UserListDto>(
                 userCount,
                 userListDtos
+                );
+        }
+
+        public async Task<PagedResultDto<DelegatedUserListDto>> GetDelegatedUsers(GetUsersInput input)
+        {
+            var currentUserId = GetCurrentUser().Id;
+            var query = from user in _userDelegationRepository.GetAll()
+                    join ur in _userRepository.GetAll() on user.UserId equals ur.Id into urJoined
+                    from ur in urJoined.DefaultIfEmpty()
+                    where user.DelegatedUserId == currentUserId
+                        select new DelegatedUserListDto()
+                        {
+                            Id = ur.Id,
+                            Name = ur.Name,
+                            UserName = ur.UserName,
+                            Surname = ur.Surname,
+                            FromDate = user.FromDate,
+                            ToDate = user.ToDate
+                        };
+
+
+
+            //var query = _userDelegationRepository.GetAll().Where(x => x.DelegatedUserId == GetCurrentUser().Id).Select(x => x.DelegatedUserFk);
+
+            var userCount = await query.CountAsync();
+
+            var users = await query
+                .OrderBy(input.Sorting)
+                .PageBy(input)
+                .ToListAsync();
+
+            //var userListDtos = ObjectMapper.Map<List<DelegatedUserListDto>>(users);
+
+            return new PagedResultDto<DelegatedUserListDto>(
+                userCount,
+                users
                 );
         }
 

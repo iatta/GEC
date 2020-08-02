@@ -1,6 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
-  <texts>    <text name="PickProject">Pick project</text>
+  <texts>    <text name="UserDelegation">User delegation</text>
+    <text name="UserDelegationsHeaderInfo">User delegations header info</text>
+    <text name="CreateNewUserDelegation">Create new user delegation</text>
+    <text name="EditUserDelegation">Edit user delegation</text>
+    <text name="DeleteUserDelegation">Delete user delegation</text>
+    <text name="UserDelegations">User delegations</text>
+    <text name="PickProject">Pick project</text>
     <text name="IsClosed">Is closed</text>
     <text name="NotIsClosed">Not is closed</text>
     <text name="ProjectManagerApprove">Project manager approve</text>
@@ -1496,8 +1502,13 @@
     <text name="SuccessfullySent"> Successfully Sent </text>
     <text name="IsFixedOverTimeAllowed"> Allow Fixed Overtime </text>
     <text name="SummerizeReport"> Summarize Report </text>
-    
 
+    <text name="DelegatedEmployees"> Delegated Employees  </text>
+    <text name="DelegatedUsers"> Delegated User  </text>
+    <text name="ManagerLevelApproveComponent"> Manager Summarize Report </text>
+    <text name="DElegatedEmployee"> Delegated Employee  </text>
+    <text name="DelegatedEmployee"> Delegated Employee  </text>
+    
 
 
 

@@ -1,5 +1,6 @@
 ﻿import { ManagerLevelApproveComponent } from './operations/reports/maneger-level-approve';
 import { SummerizeReportComponent } from './operations/reports/summerize.component';
+import { UserDelegationsComponent } from './operations/userDelegations/userDelegations.component';
 import { ReportComponent } from './operations/reports/report.component';
 import { UserTimeSheetApprovesComponent } from './operations/userTimeSheetApproves/userTimeSheetApproves.component';
 import { EmployeeReportComponent } from './operations/reports/employee-report.component';
@@ -55,6 +56,7 @@ import { HrTransactionsComponent } from './operations/manualTransactions/transac
             {
                 path: '',
                 children: [
+                    { path: 'operations/userDelegations', component: UserDelegationsComponent, data: { permission: 'Pages.UserDelegations' }  },
                     { path: 'operations/userTimeSheetApproves', component: UserTimeSheetApprovesComponent, data: { permission: 'Pages.UserTimeSheetApproves' }  },
                     { path: 'operations/managerLevelApproveComponent', component: ManagerLevelApproveComponent, data: { permission: 'Pages.UserTimeSheetApproves' }  },
 

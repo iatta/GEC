@@ -1,3 +1,4 @@
+import { DelegatedUsersComponent } from './users/delegated-users.component';
 import { OrganizationManagerModalComponent } from './organization-units/organization-manager-modal';
 import { ManageFaceIdComponent } from './users/manage-face-id.component';
 import { OrganizationUnitsHorizontalTreeModalUserComponent } from './shared/organization-horizontal-tree-modal-user.component';
@@ -220,7 +221,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         ManageUserComponent,
         OrganizationUnitsHorizontalTreeModalUserComponent,
         ManageFaceIdComponent,
-        OrganizationManagerModalComponent
+        OrganizationManagerModalComponent,
+        DelegatedUsersComponent
 
     ],
     exports: [

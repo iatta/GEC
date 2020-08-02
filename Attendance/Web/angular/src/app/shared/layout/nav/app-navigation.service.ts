@@ -96,12 +96,15 @@ export class AppNavigationService {
 
             // new AppMenuItem('ManualTransactions', 'Pages.ManualTransactions', 'flaticon-more', '/app/main/operations/manualTransactions'),
 
-            new AppMenuItem('UserTimeSheetApproves', 'Pages.UserTimeSheetApproves', 'flaticon-more', '/app/main/operations/userTimeSheetApproves'),
+            // new AppMenuItem('UserTimeSheetApproves', 'Pages.UserTimeSheetApproves', 'flaticon-more', '/app/main/operations/userTimeSheetApproves'),
+
+            new AppMenuItem('UserDelegations', 'Pages.UserDelegations', 'flaticon-rotate', '/app/main/operations/userDelegations'),
              new AppMenuItem('Administration', '', 'flaticon-interface-8', '', [
                 new AppMenuItem('OrganizationUnits', 'Pages.Administration.OrganizationUnits', 'flaticon-map', '/app/admin/organization-units'),
                 new AppMenuItem('JobTitles', 'Pages.JobTitles', 'flaticon2-list-3', '/app/main/setting/jobTitles'),
                 new AppMenuItem('Roles', 'Pages.Administration.Roles', 'flaticon-suitcase', '/app/admin/roles'),
                 new AppMenuItem('Users', 'Pages.Administration.Users', 'flaticon-users', '/app/admin/users'),
+                new AppMenuItem('DelegatedUsers', 'Pages.Administration.DelegatedUsers', 'flaticon-users', '/app/admin/delegatedUsers'),
                 new AppMenuItem('Machines', 'Pages.Machines', 'flaticon-delete-2', '/app/main/setting/machines'),
                 new AppMenuItem('Projects', 'Pages.Projects', 'flaticon2-map', '/app/main/operations/projects'),
                 new AppMenuItem('Languages', 'Pages.Administration.Languages', 'flaticon-tabs', '/app/admin/languages'),

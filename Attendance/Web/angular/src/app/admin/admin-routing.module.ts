@@ -22,6 +22,7 @@ import { WebhookSubscriptionComponent } from './webhook-subscription/webhook-sub
 import { WebhookSubscriptionDetailComponent } from './webhook-subscription/webhook-subscription-detail.component';
 import { WebhookEventDetailComponent } from './webhook-subscription/webhook-event-detail.component';
 import {ManageUserComponent} from './users/manage-user.component';
+import { DelegatedUsersComponent } from './users/delegated-users.component';
 
 @NgModule({
     imports: [
@@ -33,6 +34,7 @@ import {ManageUserComponent} from './users/manage-user.component';
                     { path: 'users/manage/:id', component: ManageUserComponent, data: { permission: 'Pages.Administration.Users' } },
                     { path: 'users/manage', component: ManageUserComponent, data: { permission: 'Pages.Administration.Users' } },
                     { path: 'users', component: UsersComponent, data: { permission: 'Pages.Administration.Users' } },
+                    { path: 'delegatedUsers', component: DelegatedUsersComponent, data: { permission: 'Pages.Administration.DelegatedUsers' } },
                     { path: 'roles', component: RolesComponent, data: { permission: 'Pages.Administration.Roles' } },
                     { path: 'auditLogs', component: AuditLogsComponent, data: { permission: 'Pages.Administration.AuditLogs' } },
                     { path: 'maintenance', component: MaintenanceComponent, data: { permission: 'Pages.Administration.Host.Maintenance' } },
