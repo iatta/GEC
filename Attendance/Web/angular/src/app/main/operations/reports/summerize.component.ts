@@ -92,7 +92,7 @@ export class SummerizeReportComponent extends AppComponentBase implements OnInit
                 if(result.data.length > 0){
                     this.userIds = result.userIds;
                     this.cols = [
-                        { field: 'code', header: 'code' },
+                        { field: 'fingerCode', header: 'code' },
                         {field: 'userName', header: 'userName' }
                     ];
                     let firstDay = new Date(this.year, this.month - 1, 1);
@@ -126,7 +126,7 @@ export class SummerizeReportComponent extends AppComponentBase implements OnInit
     }
 
     isDate(field:any): boolean{
-        if(field == 'code' || field == 'userName')
+        if(field == 'fingerCode' || field == 'userName')
             return false;
         else
         return true

@@ -7,6 +7,7 @@ namespace Pixel.Attendance.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+          
             migrationBuilder.CreateTable(
                 name: "Beacons",
                 columns: table => new

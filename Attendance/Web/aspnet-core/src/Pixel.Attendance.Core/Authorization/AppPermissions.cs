@@ -6,6 +6,11 @@
     /// </summary>
     public static class AppPermissions
     {
+
+        public const string Pages_Beacons = "Pages.Beacons";
+        public const string Pages_SummerizeReport = "Pages.SummerizeReport";
+        
+
         public const string Pages_UserDelegations = "Pages.UserDelegations";
         public const string Pages_UserDelegations_Create = "Pages.UserDelegations.Create";
         public const string Pages_UserDelegations_Edit = "Pages.UserDelegations.Edit";
@@ -16,7 +21,11 @@
         public const string Pages_UserTimeSheetApproves_Edit = "Pages.UserTimeSheetApproves.Edit";
         public const string Pages_UserTimeSheetApproves_Delete = "Pages.UserTimeSheetApproves.Delete";
 
-        public const string Pages_Beacons = "Pages.Beacons";
+        public const string Pages_FixedOvertime = "Pages.FixedOvertime";
+        public const string Pages_NormalOvertime = "Pages.NormalOvertime";
+        public const string Pages_ManagerLevelApprove = "Pages.ManagerLevelApprove";
+
+
         public const string Pages_Beacons_Create = "Pages.Beacons.Create";
         public const string Pages_Beacons_Edit = "Pages.Beacons.Edit";
         public const string Pages_Beacons_Delete = "Pages.Beacons.Delete";

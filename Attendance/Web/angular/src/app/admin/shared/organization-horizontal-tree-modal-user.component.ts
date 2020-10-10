@@ -45,6 +45,7 @@ export class OrganizationUnitsHorizontalTreeModalUserComponent extends AppCompon
     private getTreeDataFromServer(): void {
         let self = this;
         this._organizationUnitService.getOrganizationUnits().subscribe((result: ListResultDtoOfOrganizationUnitDto) => {
+            debugger
             this.treeData = this._arrayToTreeConverterService.createTree(result.items,
                 'parentId',
                 'id',

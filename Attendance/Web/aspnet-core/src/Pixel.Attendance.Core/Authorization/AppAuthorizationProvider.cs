@@ -43,15 +43,17 @@ namespace Pixel.Attendance.Authorization
             userTimeSheetApproves.CreateChildPermission(AppPermissions.Pages_UserTimeSheetApproves_Delete, L("DeleteUserTimeSheetApprove"));
 
 
-
             var beacons = pages.CreateChildPermission(AppPermissions.Pages_Beacons, L("Beacons"));
             beacons.CreateChildPermission(AppPermissions.Pages_Beacons_Create, L("CreateNewBeacon"));
             beacons.CreateChildPermission(AppPermissions.Pages_Beacons_Edit, L("EditBeacon"));
             beacons.CreateChildPermission(AppPermissions.Pages_Beacons_Delete, L("DeleteBeacon"));
 
+            var fixedOvertime = pages.CreateChildPermission(AppPermissions.Pages_FixedOvertime, L("FixedOvertime"));
+            var normalOvertime = pages.CreateChildPermission(AppPermissions.Pages_NormalOvertime, L("NormalOvertime"));
+            var managerLevelApprove = pages.CreateChildPermission(AppPermissions.Pages_ManagerLevelApprove, L("ManagerLevelApprove"));
+            var summerizeReport = pages.CreateChildPermission(AppPermissions.Pages_SummerizeReport, L("SummerizeReport"));
 
 
-            
             var ManageUserShifts = pages.CreateChildPermission(AppPermissions.Pages_ManageUserShifts, L("ManageUserShiftsPermission"));
             var FingerPrints = pages.CreateChildPermission(AppPermissions.Pages_FingerPrint, L("FingerPrint"));
             FingerPrints.CreateChildPermission(AppPermissions.Pages_ProjectManagerTransactions, L("ProjectManagerTransactionsPermission"));

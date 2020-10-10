@@ -24632,6 +24632,136 @@ export class TransactionsServiceProxy {
         }
         return _observableOf<void>(<any>null);
     }
+
+    /**
+     * @param fromDate (optional) 
+     * @param toDate (optional) 
+     * @return Success
+     */
+    getNormalOverTime(fromDate: moment.Moment | undefined, toDate: moment.Moment | undefined): Observable<NormalOverTimeReportOutput[]> {
+        let url_ = this.baseUrl + "/api/services/app/Transactions/GetNormalOverTime?";
+        if (fromDate === null)
+            throw new Error("The parameter 'fromDate' cannot be null.");
+        else if (fromDate !== undefined)
+            url_ += "FromDate=" + encodeURIComponent(fromDate ? "" + fromDate.toJSON() : "") + "&"; 
+        if (toDate === null)
+            throw new Error("The parameter 'toDate' cannot be null.");
+        else if (toDate !== undefined)
+            url_ += "ToDate=" + encodeURIComponent(toDate ? "" + toDate.toJSON() : "") + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetNormalOverTime(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetNormalOverTime(<any>response_);
+                } catch (e) {
+                    return <Observable<NormalOverTimeReportOutput[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<NormalOverTimeReportOutput[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetNormalOverTime(response: HttpResponseBase): Observable<NormalOverTimeReportOutput[]> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(NormalOverTimeReportOutput.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<NormalOverTimeReportOutput[]>(<any>null);
+    }
+
+    /**
+     * @param fromDate (optional) 
+     * @param toDate (optional) 
+     * @return Success
+     */
+    getFixedOverTime(fromDate: moment.Moment | undefined, toDate: moment.Moment | undefined): Observable<NormalOverTimeReportOutput[]> {
+        let url_ = this.baseUrl + "/api/services/app/Transactions/GetFixedOverTime?";
+        if (fromDate === null)
+            throw new Error("The parameter 'fromDate' cannot be null.");
+        else if (fromDate !== undefined)
+            url_ += "FromDate=" + encodeURIComponent(fromDate ? "" + fromDate.toJSON() : "") + "&"; 
+        if (toDate === null)
+            throw new Error("The parameter 'toDate' cannot be null.");
+        else if (toDate !== undefined)
+            url_ += "ToDate=" + encodeURIComponent(toDate ? "" + toDate.toJSON() : "") + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetFixedOverTime(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetFixedOverTime(<any>response_);
+                } catch (e) {
+                    return <Observable<NormalOverTimeReportOutput[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<NormalOverTimeReportOutput[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetFixedOverTime(response: HttpResponseBase): Observable<NormalOverTimeReportOutput[]> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(NormalOverTimeReportOutput.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<NormalOverTimeReportOutput[]>(<any>null);
+    }
 }
 
 @Injectable()
@@ -54052,6 +54182,7 @@ export interface IActualSummerizeTimeSheetDetailDto {
 export class ActualSummerizeTimeSheetDto implements IActualSummerizeTimeSheetDto {
     userId!: number;
     code!: string | undefined;
+    fingerCode!: string | undefined;
     userName!: string | undefined;
     totalAttendance!: number;
     totalDeductionHours!: number;
@@ -54077,6 +54208,7 @@ export class ActualSummerizeTimeSheetDto implements IActualSummerizeTimeSheetDto
         if (data) {
             this.userId = data["userId"];
             this.code = data["code"];
+            this.fingerCode = data["fingerCode"];
             this.userName = data["userName"];
             this.totalAttendance = data["totalAttendance"];
             this.totalDeductionHours = data["totalDeductionHours"];
@@ -54110,6 +54242,7 @@ export class ActualSummerizeTimeSheetDto implements IActualSummerizeTimeSheetDto
         data = typeof data === 'object' ? data : {};
         data["userId"] = this.userId;
         data["code"] = this.code;
+        data["fingerCode"] = this.fingerCode;
         data["userName"] = this.userName;
         data["totalAttendance"] = this.totalAttendance;
         data["totalDeductionHours"] = this.totalDeductionHours;
@@ -54136,6 +54269,7 @@ export class ActualSummerizeTimeSheetDto implements IActualSummerizeTimeSheetDto
 export interface IActualSummerizeTimeSheetDto {
     userId: number;
     code: string | undefined;
+    fingerCode: string | undefined;
     userName: string | undefined;
     totalAttendance: number;
     totalDeductionHours: number;
@@ -54347,6 +54481,82 @@ export interface IProjectManagerApproveInput {
     projectId: number;
     month: number;
     year: number;
+}
+
+export class NormalOverTimeReportOutput implements INormalOverTimeReportOutput {
+    businessUnit!: string | undefined;
+    documentEntry!: string | undefined;
+    attendanceDate!: moment.Moment;
+    personName!: string | undefined;
+    personNumber!: string | undefined;
+    projectName!: string | undefined;
+    projectNumber!: string | undefined;
+    taskName!: string | undefined;
+    taskNo!: string | undefined;
+    expenditureType!: string | undefined;
+    hours!: number;
+
+    constructor(data?: INormalOverTimeReportOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.businessUnit = data["businessUnit"];
+            this.documentEntry = data["documentEntry"];
+            this.attendanceDate = data["attendanceDate"] ? moment(data["attendanceDate"].toString()) : <any>undefined;
+            this.personName = data["personName"];
+            this.personNumber = data["personNumber"];
+            this.projectName = data["projectName"];
+            this.projectNumber = data["projectNumber"];
+            this.taskName = data["taskName"];
+            this.taskNo = data["taskNo"];
+            this.expenditureType = data["expenditureType"];
+            this.hours = data["hours"];
+        }
+    }
+
+    static fromJS(data: any): NormalOverTimeReportOutput {
+        data = typeof data === 'object' ? data : {};
+        let result = new NormalOverTimeReportOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["businessUnit"] = this.businessUnit;
+        data["documentEntry"] = this.documentEntry;
+        data["attendanceDate"] = this.attendanceDate ? this.attendanceDate.toISOString() : <any>undefined;
+        data["personName"] = this.personName;
+        data["personNumber"] = this.personNumber;
+        data["projectName"] = this.projectName;
+        data["projectNumber"] = this.projectNumber;
+        data["taskName"] = this.taskName;
+        data["taskNo"] = this.taskNo;
+        data["expenditureType"] = this.expenditureType;
+        data["hours"] = this.hours;
+        return data; 
+    }
+}
+
+export interface INormalOverTimeReportOutput {
+    businessUnit: string | undefined;
+    documentEntry: string | undefined;
+    attendanceDate: moment.Moment;
+    personName: string | undefined;
+    personNumber: string | undefined;
+    projectName: string | undefined;
+    projectNumber: string | undefined;
+    taskName: string | undefined;
+    taskNo: string | undefined;
+    expenditureType: string | undefined;
+    hours: number;
 }
 
 export class TypesOfPermitDto implements ITypesOfPermitDto {

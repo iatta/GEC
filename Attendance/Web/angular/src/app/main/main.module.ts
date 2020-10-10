@@ -1,4 +1,7 @@
-﻿import { ManagerLevelApproveComponent } from './operations/reports/maneger-level-approve';
+﻿import { NormalOvertimeComponent } from './operations/reports/normal-overtime.component';
+import { FixedOvertimeComponent } from './operations/reports/fixed-overtime.component';
+
+import { ManagerLevelApproveComponent } from './operations/reports/maneger-level-approve';
 import { SummerizeReportComponent } from './operations/reports/summerize.component';
 import { AssignProjectUserLookupTableModalComponent } from './operations/projects/assign-project-user-lookup-table-modal.component';
 import { PermitReportComponent } from './operations/reports/permit.component';
@@ -381,7 +384,9 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
         HrTransactionsComponent,
         AssignProjectMachineLookupTableModalComponent,
         SummerizeReportComponent,
-        ManagerLevelApproveComponent
+        ManagerLevelApproveComponent,
+        NormalOvertimeComponent,
+        FixedOvertimeComponent
 
     ],
     providers: [

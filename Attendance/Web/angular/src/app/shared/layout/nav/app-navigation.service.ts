@@ -58,10 +58,10 @@ export class AppNavigationService {
 
             new AppMenuItem('Fingerprints', '', 'flaticon-interface-6', '', [
                 new AppMenuItem('FaceId', 'Pages.Administration.Users', 'flaticon-users', '/app/admin/manageFaceId'),
-                new AppMenuItem('ManualTransactions', 'Pages.ManualTransactions', 'flaticon2-notepad', '/app/main/operations/manualTransactions'),
-                new AppMenuItem('ProjectManagerTransactions', 'Pages.FingerPrint.ProjectManagerTransactions', 'flaticon-rotate', '/app/main/operations/ProjectManagerTransactions'),
-                new AppMenuItem('UnitManagerTransactions', 'Pages.FingerPrint.UnitManagerTransactions', 'flaticon-rotate', '/app/main/operations/UnitManagerTransactions'),
-                new AppMenuItem('HrTransactions', 'Pages.FingerPrint.HrTransactions', 'flaticon-rotate', '/app/main/operations/HrTransactions'),
+                // new AppMenuItem('ManualTransactions', 'Pages.ManualTransactions', 'flaticon2-notepad', '/app/main/operations/manualTransactions'),
+                // new AppMenuItem('ProjectManagerTransactions', 'Pages.FingerPrint.ProjectManagerTransactions', 'flaticon-rotate', '/app/main/operations/ProjectManagerTransactions'),
+                // new AppMenuItem('UnitManagerTransactions', 'Pages.FingerPrint.UnitManagerTransactions', 'flaticon-rotate', '/app/main/operations/UnitManagerTransactions'),
+                // new AppMenuItem('HrTransactions', 'Pages.FingerPrint.HrTransactions', 'flaticon-rotate', '/app/main/operations/HrTransactions'),
 
             ]),
 
@@ -91,8 +91,7 @@ export class AppNavigationService {
 
 
             new AppMenuItem('Beacons', 'Pages.Beacons', 'flaticon-laptop', '/app/main/operations/beacons'),
-            new AppMenuItem('SummerizeReport', 'Pages.Reports', 'flaticon-graph', '/app/main/operations/summerizeReport'),
-            new AppMenuItem('ManagerLevelApproveComponent', 'Pages.Reports', 'flaticon-graph', '/app/main/operations/managerLevelApproveComponent'),
+
 
             // new AppMenuItem('ManualTransactions', 'Pages.ManualTransactions', 'flaticon-more', '/app/main/operations/manualTransactions'),
 
@@ -122,7 +121,14 @@ export class AppNavigationService {
             //     new AppMenuItem('TimeProfileReport', 'Pages.TimeProfileReport', 'flaticon-line-graph', '/app/main/operations/timeProfileReport'),
 
             // ]),
-            new AppMenuItem('DemoUiComponents', 'Pages.DemoUiComponents', 'flaticon-shapes', '/app/admin/demo-ui-components'),
+
+            new AppMenuItem('Reports', '', 'flaticon-graph', '', [
+                new AppMenuItem('SummerizeReport', 'Pages.SummerizeReport', 'flaticon-graph', '/app/main/operations/summerizeReport'),
+                new AppMenuItem('ManagerLevelApprove', 'Pages.ManagerLevelApprove', 'flaticon-profile', '/app/main/operations/managerLevelApprove'),
+                new AppMenuItem('NormalOvertime', 'Pages.NormalOvertime', 'flaticon-time', '/app/main/operations/normalOvertime'),
+                new AppMenuItem('FixedOvertime', 'Pages.FixedOvertime', 'flaticon-time', '/app/main/operations/fixedOvertime')
+            ]),
+            // new AppMenuItem('DemoUiComponents', 'Pages.DemoUiComponents', 'flaticon-shapes', '/app/admin/demo-ui-components'),
 
         ]);
     }

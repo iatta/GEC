@@ -1508,6 +1508,12 @@
     <text name="ManagerLevelApproveComponent"> Manager Summarize Report </text>
     <text name="DElegatedEmployee"> Delegated Employee  </text>
     <text name="DelegatedEmployee"> Delegated Employee  </text>
+    <text name="NormalOvertime"> Normal Overtime </text>
+    <text name="ManagerLevelApprove"> Summarize Report Manager  </text>
+    <text name="FixedOvertime"> Fixed Overtime </text>
+    <text name="SummerizeReportManager"> Summarize Report Manager  </text>
+    <text name="SummerizeReportProjectManager"> Summarize Report Project Manager </text>
+    
     
 
 

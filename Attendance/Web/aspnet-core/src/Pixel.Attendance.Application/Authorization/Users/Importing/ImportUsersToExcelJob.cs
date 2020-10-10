@@ -84,7 +84,7 @@ namespace Pixel.Attendance.Authorization.Users.Importing
                 var file = AsyncHelper.RunSync(() => _binaryObjectManager.GetOrNullAsync(args.BinaryObjectId));
                 return _userListExcelDataReader.GetUsersFromExcel(file.Bytes);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return null;
             }

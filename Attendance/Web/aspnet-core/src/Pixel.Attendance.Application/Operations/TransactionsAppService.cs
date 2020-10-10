@@ -25,10 +25,11 @@ using OfficeOpenXml.FormulaParsing.Excel.Functions.DateTime;
 using PayPalCheckoutSdk.Orders;
 using NUglify.Helpers;
 using Abp.Collections.Extensions;
+using NUglify;
 
 namespace Pixel.Attendance.Operations
 {
-    [AbpAuthorize(AppPermissions.Pages_ManualTransactions)]
+    //[AbpAuthorize(AppPermissions.Pages_ManualTransactions)]
     public class TransactionsAppService : AttendanceAppServiceBase, ITransactionsAppService
     {
         private readonly IRepository<Transaction> _transactionRepository;
@@ -43,6 +44,7 @@ namespace Pixel.Attendance.Operations
         private readonly IRepository<EmployeeVacation> _employeeVacation;
         private readonly IRepository<UserTimeSheetApprove> _userTimeSheetApproveRepository;
         private readonly IRepository<UserDelegation> _userDelegationRepository;
+
 
 
 
@@ -525,7 +527,8 @@ namespace Pixel.Attendance.Operations
                 summaryToAdd.UserId = user.Id;
                 summaryToAdd.UserName = user.Name;
                 summaryToAdd.Code = user.Code;
-               
+                summaryToAdd.FingerCode = user.FingerCode;
+
                 output.UserIds.Add(new UserTimeSheetInput() { UserId = user.Id });
 
                 // add days to users 
@@ -561,6 +564,7 @@ namespace Pixel.Attendance.Operations
                             outMinutes = (Double.Parse(outTransaction.Split(":")[0]) * 60) + (Double.Parse(outTransaction.Split(":")[1]));
 
                         detailToAdd.TotalHours = outMinutes - inMinutes;
+                        detailToAdd.TotalHours = detailToAdd.TotalHours < 0 ? (detailToAdd.TotalHours * -1) : detailToAdd.TotalHours;
                         if (detailToAdd.TotalHours > 480) // 8 hours
                         {
                             detailToAdd.Overtime = detailToAdd.TotalHours - 480; // 8 hours
@@ -641,6 +645,7 @@ namespace Pixel.Attendance.Operations
                 summaryToAdd.UserId = user.Id;
                 summaryToAdd.UserName = user.Name;
                 summaryToAdd.Code = user.Code;
+                summaryToAdd.FingerCode = user.FingerCode;
                 var userTimeSheet = _userTimeSheetApproveRepository.FirstOrDefault(x => x.UserId == user.Id && x.ProjectManagerApprove == true && x.Month == input.Month && x.Year == input.Year && x.ProjectId == input.ProjectId);
                 // check if project manager approve 
                 if(userTimeSheet  != null)
@@ -704,6 +709,10 @@ namespace Pixel.Attendance.Operations
                 // add days to users 
                 for (var day = firstDayOfMonth.Date; day <= lastDayOfMonth.Date; day = day.AddDays(1))
                 {
+                    if (day.Day == 31)
+                    {
+
+                    }
                     var detailToAdd = new ActualSummerizeTimeSheetDetailDto();
                     detailToAdd.Day = day;
 
@@ -720,7 +729,7 @@ namespace Pixel.Attendance.Operations
                             detailToAdd.IsAbsent = true;
 
                     }
-                    else if (transCount == 2)
+                    else if (transCount >= 2)
                     {
                         double inMinutes = 0;
                         double outMinutes = 0;
@@ -733,7 +742,8 @@ namespace Pixel.Attendance.Operations
                         if (!string.IsNullOrEmpty(outTransaction))
                             outMinutes = (Double.Parse(outTransaction.Split(":")[0]) * 60) + (Double.Parse(outTransaction.Split(":")[1]));
 
-                        detailToAdd.TotalHours = outMinutes - inMinutes;
+                        detailToAdd.TotalHours =  outMinutes - inMinutes;
+                        detailToAdd.TotalHours = detailToAdd.TotalHours < 0 ? (detailToAdd.TotalHours * -1) : detailToAdd.TotalHours;
                         if (detailToAdd.TotalHours > 480) // 8 hours
                         {
                             detailToAdd.Overtime = detailToAdd.TotalHours - 480; // 8 hours
@@ -881,8 +891,140 @@ namespace Pixel.Attendance.Operations
 
             return childs;
 
+        }
 
+        public async Task<List<NormalOverTimeReportOutput>> GetNormalOverTime(NormalOverTimeReportInput input)
+        {
+            var output = new List<NormalOverTimeReportOutput>();
+
+            // get transactions between two dates 
+            var transactions = _transactionRepository.GetAllIncluding(x => x.User)
+                              .Where(x => x.Transaction_Date.Date >= input.FromDate.Date && x.Transaction_Date.Date <= input.ToDate.Date).ToList();
+
+            // get distincit users
+            var users = transactions.GroupBy(x => x.User.Id).Select(x => x.First().User);
+            foreach (var user in users)
+            {
+                for (var day = input.FromDate.Date; day <= input.ToDate.Date; day = day.AddDays(1))
+                {
+                    // first trans
+                    var userTransactions = transactions.Where(x => x.Pin == user.Id && x.Transaction_Date.Date == day.Date).ToList();
+                    var transCount = userTransactions.Count();
+                    if (transCount >= 2)
+                    {
+                        double inMinutes = 0;
+                        double outMinutes = 0;
+                        //in transaction
+                        var inTransaction = userTransactions.FirstOrDefault();
+
+                        if (!string.IsNullOrEmpty(inTransaction.Time))
+                            inMinutes = (Double.Parse(inTransaction.Time.Split(":")[0]) * 60) + (Double.Parse(inTransaction.Time.Split(":")[1]));
+
+                        var outTransaction = userTransactions.Skip(transCount - 1).FirstOrDefault();
+                        if (!string.IsNullOrEmpty(outTransaction.Time))
+                            outMinutes = (Double.Parse(outTransaction.Time.Split(":")[0]) * 60) + (Double.Parse(outTransaction.Time.Split(":")[1]));
+
+                       var totalHours = outMinutes - inMinutes;
+                        var overtime = totalHours - 480; // 8 hours
+                        if (!user.IsFixedOverTimeAllowed)
+                        {
+                            // 4 hours 
+                            if (overtime > 240)
+                            {
+                                var timeToDeduct = overtime - 240;
+                                overtime = overtime - timeToDeduct;
+                            }
+                        }
+
+                        if (overtime > 0)
+                        {
+                            var normalOvertimeObj = new NormalOverTimeReportOutput();
+                            normalOvertimeObj.AttendanceDate = day;
+                            var unit = await _organizationUnitRepository.FirstOrDefaultAsync(x => x.Id == user.OrganizationUnitId);
+                            var project = _projectRepository.FirstOrDefault(x => x.Machines.FirstOrDefault(y => y.MachineId == inTransaction.MachineId) != null);
+                            normalOvertimeObj.BusinessUnit = unit.DisplayName;
+                            normalOvertimeObj.ProjectName = project.NameEn;
+                            normalOvertimeObj.ProjectNumber = project.Number;
+                            normalOvertimeObj.Hours = overtime / 60;
+                            normalOvertimeObj.PersonName = user.Name;
+                            normalOvertimeObj.PersonNumber = user.Code;
+                            normalOvertimeObj.DocumentEntry = "Overtime";
+                            
+                            output.Add(normalOvertimeObj);
+                        }
+                       
+
+                    }
+
+                }
+                   
+            }
+
+            return output;
 
         }
+        public async Task<List<NormalOverTimeReportOutput>> GetFixedOverTime(NormalOverTimeReportInput input)
+        {
+            var output = new List<NormalOverTimeReportOutput>();
+
+            // get transactions between two dates 
+            var transactions = _transactionRepository.GetAllIncluding(x => x.User)
+                              .Where(x => x.Transaction_Date >= input.FromDate && x.Transaction_Date <= input.ToDate).ToList();
+
+            // get distincit users
+            var users = transactions.GroupBy(x => x.User.Id).Select(x => x.First().User);
+            foreach (var user in users)
+            {
+                for (var day = input.FromDate.Date; day <= input.ToDate.Date; day = day.AddDays(1))
+                {
+                    // first trans
+                    var userTransactions = transactions.Where(x => x.Pin == user.Id && x.Transaction_Date.Date == day.Date).ToList();
+                    var transCount = userTransactions.Count();
+                    if (transCount >= 2)
+                    {
+                        double inMinutes = 0;
+                        double outMinutes = 0;
+                        //in transaction
+                        var inTransaction = userTransactions.FirstOrDefault();
+
+                        if (!string.IsNullOrEmpty(inTransaction.Time))
+                            inMinutes = (Double.Parse(inTransaction.Time.Split(":")[0]) * 60) + (Double.Parse(inTransaction.Time.Split(":")[1]));
+
+                        var outTransaction = userTransactions.Skip(transCount - 1).FirstOrDefault();
+                        if (!string.IsNullOrEmpty(outTransaction.Time))
+                            outMinutes = (Double.Parse(outTransaction.Time.Split(":")[0]) * 60) + (Double.Parse(outTransaction.Time.Split(":")[1]));
+
+                        var totalHours = outMinutes - inMinutes;
+                        var overtime = totalHours - 480; // 8 hours
+                       
+
+                        if (overtime > 240)
+                        {
+                            var normalOvertimeObj = new NormalOverTimeReportOutput();
+                            normalOvertimeObj.AttendanceDate = day;
+                            var unit = await _organizationUnitRepository.FirstOrDefaultAsync(x => x.Id == user.OrganizationUnitId);
+                            var project = _projectRepository.FirstOrDefault(x => x.Machines.FirstOrDefault(y => y.MachineId == inTransaction.MachineId) != null);
+                            normalOvertimeObj.BusinessUnit = unit.DisplayName;
+                            normalOvertimeObj.ProjectName = project.NameEn;
+                            normalOvertimeObj.ProjectNumber = project.Number;
+                            normalOvertimeObj.Hours = overtime / 60;
+                            normalOvertimeObj.PersonName = user.Name;
+                            normalOvertimeObj.PersonNumber = user.FingerCode;
+                            normalOvertimeObj.DocumentEntry = "FixedOvertime";
+
+                            output.Add(normalOvertimeObj);
+                        }
+
+
+                    }
+
+                }
+
+            }
+
+            return output;
+
+        }
+
     }
 }

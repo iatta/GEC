@@ -1,4 +1,6 @@
-﻿import { ManagerLevelApproveComponent } from './operations/reports/maneger-level-approve';
+﻿import { FixedOvertimeComponent } from './operations/reports/fixed-overtime.component';
+import { NormalOvertimeComponent } from './operations/reports/normal-overtime.component';
+import { ManagerLevelApproveComponent } from './operations/reports/maneger-level-approve';
 import { SummerizeReportComponent } from './operations/reports/summerize.component';
 import { UserDelegationsComponent } from './operations/userDelegations/userDelegations.component';
 import { ReportComponent } from './operations/reports/report.component';
@@ -58,10 +60,11 @@ import { HrTransactionsComponent } from './operations/manualTransactions/transac
                 children: [
                     { path: 'operations/userDelegations', component: UserDelegationsComponent, data: { permission: 'Pages.UserDelegations' }  },
                     { path: 'operations/userTimeSheetApproves', component: UserTimeSheetApprovesComponent, data: { permission: 'Pages.UserTimeSheetApproves' }  },
-                    { path: 'operations/managerLevelApproveComponent', component: ManagerLevelApproveComponent, data: { permission: 'Pages.UserTimeSheetApproves' }  },
+                    { path: 'operations/managerLevelApprove', component: ManagerLevelApproveComponent, data: { permission: 'Pages.ManagerLevelApprove' }  },
+                    { path: 'operations/normalOvertime', component: NormalOvertimeComponent, data: { permission: 'Pages.NormalOvertime' }  },
+                    { path: 'operations/fixedOvertime', component: FixedOvertimeComponent, data: { permission: 'Pages.FixedOvertime' }  },
 
-
-                    { path: 'operations/summerizeReport', component: SummerizeReportComponent, data: { permission: 'Pages.Beacons' }  },
+                    { path: 'operations/summerizeReport', component: SummerizeReportComponent, data: { permission: 'Pages.SummerizeReport' }  },
                     { path: 'operations/beacons', component: BeaconsComponent, data: { permission: 'Pages.Beacons' }  },
                     { path: 'operations/manageUserShifts', component: ManageUserShiftComponent, data: { permission: 'Pages.ManageUserShifts' }  },
                     // { path: 'operations/userShifts', component: UserShiftsComponent, data: { permission: 'Pages.UserShifts' }  },

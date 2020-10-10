@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Abp.Localization;
@@ -35,13 +36,18 @@ namespace Pixel.Attendance.Authorization.Users.Importing
 
             try
             {
-                user.UserName = GetRequiredValueFromRowOrNull(worksheet, row, 1, nameof(user.UserName), exceptionMessage);
-                user.Name = GetRequiredValueFromRowOrNull(worksheet, row, 2, nameof(user.Name), exceptionMessage);
+                user.UserName = GetRequiredValueFromRowOrNull(worksheet, row, 1, nameof(user.UserName), exceptionMessage).Replace(" ", "");
+                user.Name = GetRequiredValueFromRowOrNull(worksheet, row, 2, nameof(user.Name), exceptionMessage).Replace(" ", "");
                 user.Surname = GetRequiredValueFromRowOrNull(worksheet, row, 3, nameof(user.Surname), exceptionMessage);
-                user.EmailAddress = GetRequiredValueFromRowOrNull(worksheet, row, 4, nameof(user.EmailAddress), exceptionMessage);
+                //user.EmailAddress = GetRequiredValueFromRowOrNull(worksheet, row, 4, nameof(user.EmailAddress), exceptionMessage);
+                user.EmailAddress = getSaltString();
                 user.PhoneNumber = worksheet.Cells[row, 5].Value?.ToString();
                 user.Password = GetRequiredValueFromRowOrNull(worksheet, row, 6, nameof(user.Password), exceptionMessage);
                 user.AssignedRoleNames = GetAssignedRoleNamesFromRow(worksheet, row, 7);
+                user.FingerCode = worksheet.Cells[row, 8].Value?.ToString();
+                user.Code = worksheet.Cells[row, 9].Value?.ToString();
+                user.CivilId = worksheet.Cells[row, 10].Value?.ToString();
+                user.OrganizationUnitId =Convert.ToInt32(worksheet.Cells[row, 11].Value?.ToString());
             }
             catch (System.Exception exception)
             {
@@ -49,6 +55,15 @@ namespace Pixel.Attendance.Authorization.Users.Importing
             }
 
             return user;
+        }
+
+        protected String getSaltString()
+        {
+            Random random = new Random();
+            // Generate 10 random email addresses. 
+           string address = string.Format("qa{0:0000}@test.com", random.Next(10000));
+            return address;
+
         }
 
         private string GetRequiredValueFromRowOrNull(ExcelWorksheet worksheet, int row, int column, string columnName, StringBuilder exceptionMessage)

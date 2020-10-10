@@ -13,6 +13,10 @@
         public string PhoneNumber { get; set; }
         
         public string Password { get; set; }
+        public string FingerCode { get; set; }
+        public string Code { get; set; }
+        public string CivilId { get; set; }
+        public long? OrganizationUnitId { get; set; }
 
         /// <summary>
         /// comma separated list

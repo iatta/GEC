@@ -21,6 +21,7 @@ export class OrganizationUnitsTreeComponent extends AppComponentBase {
     @Input() cascadeSelectEnabled = true;
 
     set data(data: IOrganizationUnitsTreeComponentData) {
+        debugger
         this.setTreeData(data.allOrganizationUnits);
         this.setSelectedNodes(data.selectedOrganizationUnit);
 
@@ -45,6 +46,7 @@ export class OrganizationUnitsTreeComponent extends AppComponentBase {
     }
 
     setTreeData(organizationUnits: OrganizationUnitDto[]) {
+        debugger
         this.treeData = this._arrayToTreeConverterService.createTree(organizationUnits, 'parentId', 'id', null, 'children',
             [{
                 target: 'label',

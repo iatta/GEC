@@ -34,7 +34,9 @@ namespace Pixel.Attendance.Operations
         Task UnitManagerToApprove(ProjectManagerApproveInput input);
         Task PojectManagerApprove(ProjectManagerApproveInput input);
         Task PojectManagerReject(ProjectManagerApproveInput input);
-        
+        Task<List<NormalOverTimeReportOutput>> GetNormalOverTime(NormalOverTimeReportInput input);
+
+        Task<List<NormalOverTimeReportOutput>> GetFixedOverTime(NormalOverTimeReportInput input);
 
 
 
