@@ -54332,6 +54332,7 @@ export class ActualSummerizeTimeSheetOutput implements IActualSummerizeTimeSheet
     totalPending!: number;
     totalApproved!: number;
     canApprove!: boolean;
+    userIdsToApprove!: UserTimeSheetInput[] | undefined;
 
     constructor(data?: IActualSummerizeTimeSheetOutput) {
         if (data) {
@@ -54372,6 +54373,11 @@ export class ActualSummerizeTimeSheetOutput implements IActualSummerizeTimeSheet
             this.totalPending = data["totalPending"];
             this.totalApproved = data["totalApproved"];
             this.canApprove = data["canApprove"];
+            if (Array.isArray(data["userIdsToApprove"])) {
+                this.userIdsToApprove = [] as any;
+                for (let item of data["userIdsToApprove"])
+                    this.userIdsToApprove!.push(UserTimeSheetInput.fromJS(item));
+            }
         }
     }
 
@@ -54412,6 +54418,11 @@ export class ActualSummerizeTimeSheetOutput implements IActualSummerizeTimeSheet
         data["totalPending"] = this.totalPending;
         data["totalApproved"] = this.totalApproved;
         data["canApprove"] = this.canApprove;
+        if (Array.isArray(this.userIdsToApprove)) {
+            data["userIdsToApprove"] = [];
+            for (let item of this.userIdsToApprove)
+                data["userIdsToApprove"].push(item.toJSON());
+        }
         return data; 
     }
 }
@@ -54425,6 +54436,7 @@ export interface IActualSummerizeTimeSheetOutput {
     totalPending: number;
     totalApproved: number;
     canApprove: boolean;
+    userIdsToApprove: UserTimeSheetInput[] | undefined;
 }
 
 export class ProjectManagerApproveInput implements IProjectManagerApproveInput {

@@ -498,6 +498,8 @@ namespace Pixel.Attendance.Operations
             );
         }
 
+        #region GEC Reports 
+
         //project manager
         public async Task<ActualSummerizeTimeSheetOutput> GetActualSummerizeTimeSheet(ActualSummerizeInput input)
         {
@@ -511,14 +513,14 @@ namespace Pixel.Attendance.Operations
                                .Where(x => x.Transaction_Date.Month == input.Month && x.Transaction_Date.Year == input.Year).ToList();
 
             var users = transactions.GroupBy(x => x.User.Id).Select(x => x.First().User).ToList();
-           
+
 
 
             var firstDayOfMonth = new DateTime(input.Year, input.Month, 1);
             var lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
             //generate the output
             var output = new ActualSummerizeTimeSheetOutput();
-            
+
 
             // add users
             foreach (var user in users)
@@ -557,7 +559,7 @@ namespace Pixel.Attendance.Operations
                         //in transaction
                         var inTransaction = userTransactions.FirstOrDefault();
                         if (!string.IsNullOrEmpty(inTransaction))
-                         inMinutes = (Double.Parse(inTransaction.Split(":")[0]) * 60) + (Double.Parse(inTransaction.Split(":")[1]));
+                            inMinutes = (Double.Parse(inTransaction.Split(":")[0]) * 60) + (Double.Parse(inTransaction.Split(":")[1]));
 
                         var outTransaction = userTransactions.Skip(transCount - 1).FirstOrDefault();
                         if (!string.IsNullOrEmpty(outTransaction))
@@ -571,22 +573,23 @@ namespace Pixel.Attendance.Operations
                             if (!user.IsFixedOverTimeAllowed)
                             {
                                 // 4 hours 
-                                if (detailToAdd.Overtime > 240) {
+                                if (detailToAdd.Overtime > 240)
+                                {
                                     var timeToDeduct = detailToAdd.Overtime - 240;
                                     detailToAdd.Overtime = detailToAdd.Overtime - timeToDeduct;
-                                }  
+                                }
                             }
                         }
-                        else if(detailToAdd.TotalHours < 480)
+                        else if (detailToAdd.TotalHours < 480)
                         {
                             detailToAdd.IsDelay = true;
                             detailToAdd.Delay = 480 - detailToAdd.TotalHours;
                         }
 
-                    } 
+                    }
                     summaryToAdd.Details.Add(detailToAdd);
                 }
-                    
+
 
                 output.Data.Add(summaryToAdd);
             }
@@ -610,36 +613,36 @@ namespace Pixel.Attendance.Operations
                                .Where(x => x.Transaction_Date.Month == input.Month && x.Transaction_Date.Year == input.Year).ToList();
 
 
-         
-            
+
+
             var allUnits = _organizationUnitRepository.GetAll().ToList();
             var managerUnit = await _organizationUnitRepository.GetAllIncluding(x => x.Children).Where(x => x.ManagerId == GetCurrentUser().Id).FirstOrDefaultAsync();
-            
+
             var units = new List<long?>();
             var unitsToApprove = new List<long?>();
             units.Add(managerUnit.Id);
             var childs = GetChildes(unitsToApprove, managerUnit, allUnits);
             units.AddRange(childs);
-            
+
             output.RemainingUnitsApprove = allUnits.Where(x => output.ParentUnitIds.Contains(x.Id)).Select(x => x.DisplayName).ToList();
 
 
             //
             var users = transactions.GroupBy(x => x.User.Id).Select(x => x.First().User);
             var managerUsers = users.Where(x => units.Contains(x.OrganizationUnitId)).ToList();
-            
+
 
             var firstDayOfMonth = new DateTime(input.Year, input.Month, 1);
             var lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
             //generate the output
-            
+
 
             // add users
             foreach (var user in managerUsers)
             {
 
                 //CHECK IF USER HAS DELEGATION 
-                
+
 
                 var summaryToAdd = new ActualSummerizeTimeSheetDto();
                 summaryToAdd.UserId = user.Id;
@@ -648,7 +651,7 @@ namespace Pixel.Attendance.Operations
                 summaryToAdd.FingerCode = user.FingerCode;
                 var userTimeSheet = _userTimeSheetApproveRepository.FirstOrDefault(x => x.UserId == user.Id && x.ProjectManagerApprove == true && x.Month == input.Month && x.Year == input.Year && x.ProjectId == input.ProjectId);
                 // check if project manager approve 
-                if(userTimeSheet  != null)
+                if (userTimeSheet != null)
                 {
                     summaryToAdd.IsProjectManagerApproved = true;
 
@@ -656,7 +659,7 @@ namespace Pixel.Attendance.Operations
                     var userUnit = await _organizationUnitRepository.GetAll().Where(x => x.Id == user.OrganizationUnitId).FirstOrDefaultAsync();
                     var userUnitParents = new List<long>();
                     var userUnitParentsToApprove = new List<long>();
-                    var parents =   GetParents(userUnitParentsToApprove, userUnit, allUnits);
+                    var parents = GetParents(userUnitParentsToApprove, userUnit, allUnits);
                     userUnitParents.AddRange(parents);
                     userUnitParents.Add(userUnit.Id);
 
@@ -673,28 +676,29 @@ namespace Pixel.Attendance.Operations
                     remainingUnits = userUnitParents.Where(x => !approvedUnits.Contains(x)).Select(x => x).ToList();
                     if (approvedUnits.Any(x => x == userUnit.Id))
                     {
-                        
+
                         //check if current unit is the next unit to approve 
                         var nextUnitToApprove = remainingUnits.Where(x => x != userUnit.Id).OrderByDescending(x => x).FirstOrDefault();
-                     
+
 
                         if (nextUnitToApprove == currentunit)
                         {
                             summaryToAdd.CanManagerApprove = true;
-                            
+
                             //last one
                             if (remainingUnits.Count == 1)
                                 summaryToAdd.YesClose = true;
-                            
-                            
+
+
                             output.UserIds.Add(new UserTimeSheetInput() { UserId = user.Id, YesClose = summaryToAdd.YesClose });
+                            output.UserIdsToApprove.Add(new UserTimeSheetInput() { UserId = user.Id, YesClose = summaryToAdd.YesClose });
                         }
 
                     }
                     else
                     {
                         var nextUnitToApprove = remainingUnits.OrderByDescending(x => x).FirstOrDefault();
-                       
+
                         if (nextUnitToApprove == currentunit)
                         {
                             summaryToAdd.CanManagerApprove = true;
@@ -703,6 +707,7 @@ namespace Pixel.Attendance.Operations
                                 summaryToAdd.YesClose = true;
 
                             output.UserIds.Add(new UserTimeSheetInput() { UserId = user.Id, YesClose = summaryToAdd.YesClose });
+                            output.UserIdsToApprove.Add(new UserTimeSheetInput() { UserId = user.Id, YesClose = summaryToAdd.YesClose });
                         }
                     }
                 }
@@ -742,7 +747,7 @@ namespace Pixel.Attendance.Operations
                         if (!string.IsNullOrEmpty(outTransaction))
                             outMinutes = (Double.Parse(outTransaction.Split(":")[0]) * 60) + (Double.Parse(outTransaction.Split(":")[1]));
 
-                        detailToAdd.TotalHours =  outMinutes - inMinutes;
+                        detailToAdd.TotalHours = outMinutes - inMinutes;
                         detailToAdd.TotalHours = detailToAdd.TotalHours < 0 ? (detailToAdd.TotalHours * -1) : detailToAdd.TotalHours;
                         if (detailToAdd.TotalHours > 480) // 8 hours
                         {
@@ -769,9 +774,10 @@ namespace Pixel.Attendance.Operations
 
 
                 output.Data.Add(summaryToAdd);
-               
+
             }
-            output.CanApprove = !output.Data.Any(x => x.CanManagerApprove == false);
+            output.CanApprove = output.Data.Any(x => x.CanManagerApprove == true);
+
             return output;
         }
         public async Task PojectManagerApprove(ProjectManagerApproveInput input)
@@ -801,7 +807,7 @@ namespace Pixel.Attendance.Operations
                     }
                 }
             }
-            
+
         }
         public async Task PojectManagerReject(ProjectManagerApproveInput input)
         {
@@ -811,7 +817,7 @@ namespace Pixel.Attendance.Operations
                 {
                     //check if exist 
                     var userTimeSheet = _userTimeSheetApproveRepository.FirstOrDefault(x => x.UserId == user.UserId && x.Month == input.Month && x.Year == input.Year && x.ProjectId == input.ProjectId);
-                    if(userTimeSheet != null)
+                    if (userTimeSheet != null)
                     {
                         userTimeSheet.ProjectManagerApprove = false;
                         await _userTimeSheetApproveRepository.UpdateAsync(userTimeSheet);
@@ -828,7 +834,7 @@ namespace Pixel.Attendance.Operations
 
                         await _userTimeSheetApproveRepository.InsertAsync(userTimeSheetToAdd);
                     }
-                  
+
                 }
             }
         }
@@ -841,8 +847,8 @@ namespace Pixel.Attendance.Operations
             {
                 var approvedUnits = new List<long>();
                 var uerToUpdate = await _userTimeSheetApproveRepository.FirstOrDefaultAsync(x => x.UserId == user.UserId);
-                if(uerToUpdate.ApprovedUnits != null)
-                    approvedUnits =  uerToUpdate.ApprovedUnits.Split(',').Select(long.Parse).ToList();
+                if (uerToUpdate.ApprovedUnits != null)
+                    approvedUnits = uerToUpdate.ApprovedUnits.Split(',').Select(long.Parse).ToList();
 
                 if (!approvedUnits.Any(x => x == loggedInManagerUnit.Value))
                 {
@@ -853,18 +859,18 @@ namespace Pixel.Attendance.Operations
                 uerToUpdate.IsClosed = user.YesClose;
                 await _userTimeSheetApproveRepository.UpdateAsync(uerToUpdate);
             }
-           
+
         }
-        private static List<long> GetParents(List <long> parents , OrganizationUnitExtended unit , List<OrganizationUnitExtended> units)
+        private static List<long> GetParents(List<long> parents, OrganizationUnitExtended unit, List<OrganizationUnitExtended> units)
         {
-            if (unit.ParentId != null )
+            if (unit.ParentId != null)
             {
                 var parent = units.FirstOrDefault(d => d.Id == unit.ParentId);
                 if (parent != null || parent.HasApprove)
                     parents.Add(parent.Id);
 
                 if (parent.ParentId != null && unit.HasApprove)
-                    GetParents(parents,parent, units);
+                    GetParents(parents, parent, units);
             }
 
             return parents;
@@ -893,6 +899,7 @@ namespace Pixel.Attendance.Operations
 
         }
 
+        //normal overtime 
         public async Task<List<NormalOverTimeReportOutput>> GetNormalOverTime(NormalOverTimeReportInput input)
         {
             var output = new List<NormalOverTimeReportOutput>();
@@ -924,7 +931,8 @@ namespace Pixel.Attendance.Operations
                         if (!string.IsNullOrEmpty(outTransaction.Time))
                             outMinutes = (Double.Parse(outTransaction.Time.Split(":")[0]) * 60) + (Double.Parse(outTransaction.Time.Split(":")[1]));
 
-                       var totalHours = outMinutes - inMinutes;
+                        var totalHours = outMinutes - inMinutes;
+                        totalHours = totalHours < 0 ? (totalHours * -1) : totalHours;
                         var overtime = totalHours - 480; // 8 hours
                         if (!user.IsFixedOverTimeAllowed)
                         {
@@ -947,22 +955,25 @@ namespace Pixel.Attendance.Operations
                             normalOvertimeObj.ProjectNumber = project.Number;
                             normalOvertimeObj.Hours = overtime / 60;
                             normalOvertimeObj.PersonName = user.Name;
-                            normalOvertimeObj.PersonNumber = user.Code;
+                            normalOvertimeObj.PersonNumber = user.FingerCode;
                             normalOvertimeObj.DocumentEntry = "Overtime";
                             
+
                             output.Add(normalOvertimeObj);
                         }
-                       
+
 
                     }
 
                 }
-                   
+
             }
 
             return output;
 
         }
+
+        //more than 8 hours 
         public async Task<List<NormalOverTimeReportOutput>> GetFixedOverTime(NormalOverTimeReportInput input)
         {
             var output = new List<NormalOverTimeReportOutput>();
@@ -995,8 +1006,9 @@ namespace Pixel.Attendance.Operations
                             outMinutes = (Double.Parse(outTransaction.Time.Split(":")[0]) * 60) + (Double.Parse(outTransaction.Time.Split(":")[1]));
 
                         var totalHours = outMinutes - inMinutes;
+                        totalHours = totalHours < 0 ? (totalHours * -1) : totalHours;
                         var overtime = totalHours - 480; // 8 hours
-                       
+
 
                         if (overtime > 240)
                         {
@@ -1005,12 +1017,17 @@ namespace Pixel.Attendance.Operations
                             var unit = await _organizationUnitRepository.FirstOrDefaultAsync(x => x.Id == user.OrganizationUnitId);
                             var project = _projectRepository.FirstOrDefault(x => x.Machines.FirstOrDefault(y => y.MachineId == inTransaction.MachineId) != null);
                             normalOvertimeObj.BusinessUnit = unit.DisplayName;
-                            normalOvertimeObj.ProjectName = project.NameEn;
-                            normalOvertimeObj.ProjectNumber = project.Number;
-                            normalOvertimeObj.Hours = overtime / 60;
+                            normalOvertimeObj.AttendanceDate = day;
                             normalOvertimeObj.PersonName = user.Name;
                             normalOvertimeObj.PersonNumber = user.FingerCode;
-                            normalOvertimeObj.DocumentEntry = "FixedOvertime";
+                            normalOvertimeObj.ProjectName = project.NameEn;
+                            normalOvertimeObj.ProjectNumber = project.Number;
+                            normalOvertimeObj.ExpenditureType = "Fixed Overtime";
+                            normalOvertimeObj.Hours = overtime / 60;
+                          
+                          
+
+                      
 
                             output.Add(normalOvertimeObj);
                         }
@@ -1025,6 +1042,8 @@ namespace Pixel.Attendance.Operations
             return output;
 
         }
+        #endregion
+
 
     }
 }

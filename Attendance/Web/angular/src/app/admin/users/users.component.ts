@@ -147,6 +147,7 @@ export class UsersComponent extends AppComponentBase implements AfterViewInit {
             .post<any>(this.uploadUrl, formData)
             .pipe(finalize(() => this.excelFileUpload.clear()))
             .subscribe(response => {
+                debugger
                 if (response.success) {
                     this.notify.success(this.l('ImportUsersProcessStart'));
                 } else if (response.error != null) {

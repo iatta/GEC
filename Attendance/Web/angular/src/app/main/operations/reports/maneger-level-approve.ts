@@ -30,6 +30,7 @@ export class ManagerLevelApproveComponent extends AppComponentBase implements On
     year:number;
     selectedDate='';
     userIds:UserTimeSheetInput[] = [];
+    userIdsToApprove: UserTimeSheetInput[] = [];
 
     constructor(
         injector: Injector,
@@ -79,6 +80,8 @@ export class ManagerLevelApproveComponent extends AppComponentBase implements On
                 this.response =result;
                 if(result.data.length > 0){
                     this.userIds = result.userIds;
+                    this.userIdsToApprove = result.userIdsToApprove;
+
                     this.cols = [
                         { field: 'fingerCode', header: 'code' },
                         {field: 'userName', header: 'userName' }
@@ -122,7 +125,6 @@ export class ManagerLevelApproveComponent extends AppComponentBase implements On
     }
 
     getRowClass(rowData:any):string {
-        debugger
         if(!rowData.isProjectManagerApproved)
             return 'pendingProjectManager';
 
@@ -135,8 +137,9 @@ export class ManagerLevelApproveComponent extends AppComponentBase implements On
     }
 
     approve(){
+debugger
         let modelToPass = new ProjectManagerApproveInput();
-        modelToPass.userIds = this.userIds;
+        modelToPass.userIds = this.userIdsToApprove;
         modelToPass.projectId = this.selectedProject.id;
         modelToPass.month = this.month;
         modelToPass.year = this.year;

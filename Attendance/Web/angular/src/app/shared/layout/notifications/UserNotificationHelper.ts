@@ -90,6 +90,10 @@ export class UserNotificationHelper extends AppComponentBase {
         //Application notification
         abp.notifications.showUiNotifyForUserNotification(userNotification, {
             onOpen: (toast) => {
+                if (url) {
+                    location.href = url;
+                }
+
                 toast.addEventListener('click', () => {
                     //Take action when user clicks to live toastr notification
                     if (url) {

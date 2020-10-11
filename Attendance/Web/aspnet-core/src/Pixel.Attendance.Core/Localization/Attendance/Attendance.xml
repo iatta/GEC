@@ -1513,10 +1513,17 @@
     <text name="FixedOvertime"> Fixed Overtime </text>
     <text name="SummerizeReportManager"> Summarize Report Manager  </text>
     <text name="SummerizeReportProjectManager"> Summarize Report Project Manager </text>
+    <text name="BusinessUnit"> Business Unit</text>
+    <text name="AttendanceDate"> Attendance Date</text>
+    <text name="PersonName">Person Name </text>
+    <text name="PersonNumber">Person Number </text>
+    <text name="ProjectName">Project Name </text>
+    <text name="ProjectNumber">Project Number </text>
+    <text name="ExpenditureType"> Expenditure Type</text>
+    <text name="TaskName">Task Name </text>
+    <text name="DocumentEntry">Document Entry </text>
+    <text name="TaskNo"> Task No</text>
     
-    
-
-
 
   </texts>
 </localizationDictionary>

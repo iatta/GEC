@@ -10,6 +10,7 @@ namespace Pixel.Attendance.Dto
         {
             Data = new List<ActualSummerizeTimeSheetDto>();
             UserIds = new List<UserTimeSheetInput>();
+            UserIdsToApprove = new List<UserTimeSheetInput>();
             ParentUnitIds = new List<long>();
             ChildtUnitIds = new List<long>();
         }
@@ -22,6 +23,6 @@ namespace Pixel.Attendance.Dto
         public int TotalPending { get; set; }
         public int TotalApproved { get; set; }
         public bool CanApprove { get; set; }
-
+        public List<UserTimeSheetInput> UserIdsToApprove { get; set; }
     }
 }
