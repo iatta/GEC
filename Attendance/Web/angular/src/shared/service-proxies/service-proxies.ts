@@ -13041,6 +13041,57 @@ export class OrganizationUnitServiceProxy {
     /**
      * @return Success
      */
+    getCurrentManagerUnits(): Observable<ListResultDtoOfOrganizationUnitDto> {
+        let url_ = this.baseUrl + "/api/services/app/OrganizationUnit/GetCurrentManagerUnits";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetCurrentManagerUnits(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetCurrentManagerUnits(<any>response_);
+                } catch (e) {
+                    return <Observable<ListResultDtoOfOrganizationUnitDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ListResultDtoOfOrganizationUnitDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetCurrentManagerUnits(response: HttpResponseBase): Observable<ListResultDtoOfOrganizationUnitDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ListResultDtoOfOrganizationUnitDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ListResultDtoOfOrganizationUnitDto>(<any>null);
+    }
+
+    /**
+     * @return Success
+     */
     getOrganizationUnits(): Observable<ListResultDtoOfOrganizationUnitDto> {
         let url_ = this.baseUrl + "/api/services/app/OrganizationUnit/GetOrganizationUnits";
         url_ = url_.replace(/[?&]$/, "");
@@ -24323,6 +24374,76 @@ export class TransactionsServiceProxy {
             }));
         }
         return _observableOf<PagedResultDtoOfGetTransactionForViewDto>(<any>null);
+    }
+
+    /**
+     * @param organizationUnitId (optional) 
+     * @param fromDate (optional) 
+     * @param toDate (optional) 
+     * @return Success
+     */
+    getDepartmentTransactions(organizationUnitId: number | undefined, fromDate: moment.Moment | undefined, toDate: moment.Moment | undefined): Observable<NormalOverTimeReportOutput[]> {
+        let url_ = this.baseUrl + "/api/services/app/Transactions/GetDepartmentTransactions?";
+        if (organizationUnitId === null)
+            throw new Error("The parameter 'organizationUnitId' cannot be null.");
+        else if (organizationUnitId !== undefined)
+            url_ += "OrganizationUnitId=" + encodeURIComponent("" + organizationUnitId) + "&"; 
+        if (fromDate === null)
+            throw new Error("The parameter 'fromDate' cannot be null.");
+        else if (fromDate !== undefined)
+            url_ += "FromDate=" + encodeURIComponent(fromDate ? "" + fromDate.toJSON() : "") + "&"; 
+        if (toDate === null)
+            throw new Error("The parameter 'toDate' cannot be null.");
+        else if (toDate !== undefined)
+            url_ += "ToDate=" + encodeURIComponent(toDate ? "" + toDate.toJSON() : "") + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetDepartmentTransactions(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetDepartmentTransactions(<any>response_);
+                } catch (e) {
+                    return <Observable<NormalOverTimeReportOutput[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<NormalOverTimeReportOutput[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetDepartmentTransactions(response: HttpResponseBase): Observable<NormalOverTimeReportOutput[]> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(NormalOverTimeReportOutput.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<NormalOverTimeReportOutput[]>(<any>null);
     }
 
     /**
@@ -47654,6 +47775,7 @@ export class UserLoginInfoDto implements IUserLoginInfoDto {
     userName!: string | undefined;
     emailAddress!: string | undefined;
     profilePictureId!: string | undefined;
+    organizationUnitId!: number | undefined;
     id!: number;
 
     constructor(data?: IUserLoginInfoDto) {
@@ -47672,6 +47794,7 @@ export class UserLoginInfoDto implements IUserLoginInfoDto {
             this.userName = data["userName"];
             this.emailAddress = data["emailAddress"];
             this.profilePictureId = data["profilePictureId"];
+            this.organizationUnitId = data["organizationUnitId"];
             this.id = data["id"];
         }
     }
@@ -47690,6 +47813,7 @@ export class UserLoginInfoDto implements IUserLoginInfoDto {
         data["userName"] = this.userName;
         data["emailAddress"] = this.emailAddress;
         data["profilePictureId"] = this.profilePictureId;
+        data["organizationUnitId"] = this.organizationUnitId;
         data["id"] = this.id;
         return data; 
     }
@@ -47701,6 +47825,7 @@ export interface IUserLoginInfoDto {
     userName: string | undefined;
     emailAddress: string | undefined;
     profilePictureId: string | undefined;
+    organizationUnitId: number | undefined;
     id: number;
 }
 
@@ -54107,6 +54232,90 @@ export interface IEntityExistDto {
     id: number | undefined;
 }
 
+export class NormalOverTimeReportOutput implements INormalOverTimeReportOutput {
+    businessUnit!: string | undefined;
+    documentEntry!: string | undefined;
+    attendanceDate!: moment.Moment;
+    personName!: string | undefined;
+    personNumber!: string | undefined;
+    projectName!: string | undefined;
+    projectNumber!: string | undefined;
+    taskName!: string | undefined;
+    taskNo!: string | undefined;
+    expenditureType!: string | undefined;
+    hours!: number;
+    timeIn!: string | undefined;
+    timeOut!: string | undefined;
+
+    constructor(data?: INormalOverTimeReportOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.businessUnit = data["businessUnit"];
+            this.documentEntry = data["documentEntry"];
+            this.attendanceDate = data["attendanceDate"] ? moment(data["attendanceDate"].toString()) : <any>undefined;
+            this.personName = data["personName"];
+            this.personNumber = data["personNumber"];
+            this.projectName = data["projectName"];
+            this.projectNumber = data["projectNumber"];
+            this.taskName = data["taskName"];
+            this.taskNo = data["taskNo"];
+            this.expenditureType = data["expenditureType"];
+            this.hours = data["hours"];
+            this.timeIn = data["timeIn"];
+            this.timeOut = data["timeOut"];
+        }
+    }
+
+    static fromJS(data: any): NormalOverTimeReportOutput {
+        data = typeof data === 'object' ? data : {};
+        let result = new NormalOverTimeReportOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["businessUnit"] = this.businessUnit;
+        data["documentEntry"] = this.documentEntry;
+        data["attendanceDate"] = this.attendanceDate ? this.attendanceDate.toISOString() : <any>undefined;
+        data["personName"] = this.personName;
+        data["personNumber"] = this.personNumber;
+        data["projectName"] = this.projectName;
+        data["projectNumber"] = this.projectNumber;
+        data["taskName"] = this.taskName;
+        data["taskNo"] = this.taskNo;
+        data["expenditureType"] = this.expenditureType;
+        data["hours"] = this.hours;
+        data["timeIn"] = this.timeIn;
+        data["timeOut"] = this.timeOut;
+        return data; 
+    }
+}
+
+export interface INormalOverTimeReportOutput {
+    businessUnit: string | undefined;
+    documentEntry: string | undefined;
+    attendanceDate: moment.Moment;
+    personName: string | undefined;
+    personNumber: string | undefined;
+    projectName: string | undefined;
+    projectNumber: string | undefined;
+    taskName: string | undefined;
+    taskNo: string | undefined;
+    expenditureType: string | undefined;
+    hours: number;
+    timeIn: string | undefined;
+    timeOut: string | undefined;
+}
+
 export class ActualSummerizeTimeSheetDetailDto implements IActualSummerizeTimeSheetDetailDto {
     day!: moment.Moment;
     totalHours!: number;
@@ -54118,6 +54327,8 @@ export class ActualSummerizeTimeSheetDetailDto implements IActualSummerizeTimeSh
     isDelay!: boolean;
     overtime!: number;
     delay!: number;
+    timeIn!: string | undefined;
+    timeOut!: string | undefined;
 
     constructor(data?: IActualSummerizeTimeSheetDetailDto) {
         if (data) {
@@ -54140,6 +54351,8 @@ export class ActualSummerizeTimeSheetDetailDto implements IActualSummerizeTimeSh
             this.isDelay = data["isDelay"];
             this.overtime = data["overtime"];
             this.delay = data["delay"];
+            this.timeIn = data["timeIn"];
+            this.timeOut = data["timeOut"];
         }
     }
 
@@ -54162,6 +54375,8 @@ export class ActualSummerizeTimeSheetDetailDto implements IActualSummerizeTimeSh
         data["isDelay"] = this.isDelay;
         data["overtime"] = this.overtime;
         data["delay"] = this.delay;
+        data["timeIn"] = this.timeIn;
+        data["timeOut"] = this.timeOut;
         return data; 
     }
 }
@@ -54177,6 +54392,8 @@ export interface IActualSummerizeTimeSheetDetailDto {
     isDelay: boolean;
     overtime: number;
     delay: number;
+    timeIn: string | undefined;
+    timeOut: string | undefined;
 }
 
 export class ActualSummerizeTimeSheetDto implements IActualSummerizeTimeSheetDto {
@@ -54493,82 +54710,6 @@ export interface IProjectManagerApproveInput {
     projectId: number;
     month: number;
     year: number;
-}
-
-export class NormalOverTimeReportOutput implements INormalOverTimeReportOutput {
-    businessUnit!: string | undefined;
-    documentEntry!: string | undefined;
-    attendanceDate!: moment.Moment;
-    personName!: string | undefined;
-    personNumber!: string | undefined;
-    projectName!: string | undefined;
-    projectNumber!: string | undefined;
-    taskName!: string | undefined;
-    taskNo!: string | undefined;
-    expenditureType!: string | undefined;
-    hours!: number;
-
-    constructor(data?: INormalOverTimeReportOutput) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(data?: any) {
-        if (data) {
-            this.businessUnit = data["businessUnit"];
-            this.documentEntry = data["documentEntry"];
-            this.attendanceDate = data["attendanceDate"] ? moment(data["attendanceDate"].toString()) : <any>undefined;
-            this.personName = data["personName"];
-            this.personNumber = data["personNumber"];
-            this.projectName = data["projectName"];
-            this.projectNumber = data["projectNumber"];
-            this.taskName = data["taskName"];
-            this.taskNo = data["taskNo"];
-            this.expenditureType = data["expenditureType"];
-            this.hours = data["hours"];
-        }
-    }
-
-    static fromJS(data: any): NormalOverTimeReportOutput {
-        data = typeof data === 'object' ? data : {};
-        let result = new NormalOverTimeReportOutput();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["businessUnit"] = this.businessUnit;
-        data["documentEntry"] = this.documentEntry;
-        data["attendanceDate"] = this.attendanceDate ? this.attendanceDate.toISOString() : <any>undefined;
-        data["personName"] = this.personName;
-        data["personNumber"] = this.personNumber;
-        data["projectName"] = this.projectName;
-        data["projectNumber"] = this.projectNumber;
-        data["taskName"] = this.taskName;
-        data["taskNo"] = this.taskNo;
-        data["expenditureType"] = this.expenditureType;
-        data["hours"] = this.hours;
-        return data; 
-    }
-}
-
-export interface INormalOverTimeReportOutput {
-    businessUnit: string | undefined;
-    documentEntry: string | undefined;
-    attendanceDate: moment.Moment;
-    personName: string | undefined;
-    personNumber: string | undefined;
-    projectName: string | undefined;
-    projectNumber: string | undefined;
-    taskName: string | undefined;
-    taskNo: string | undefined;
-    expenditureType: string | undefined;
-    hours: number;
 }
 
 export class TypesOfPermitDto implements ITypesOfPermitDto {

@@ -17,5 +17,7 @@ namespace Pixel.Attendance.Dto
         public string TaskNo { get; set; }
         public string ExpenditureType { get; set; }
         public double Hours { get; set; }
+        public string TimeIn { get; set; }
+        public string TimeOut { get; set; }
     }
 }

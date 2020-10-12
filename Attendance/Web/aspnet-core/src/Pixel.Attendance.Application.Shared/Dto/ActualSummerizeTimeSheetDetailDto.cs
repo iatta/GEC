@@ -17,6 +17,8 @@ namespace Pixel.Attendance.Dto
         public bool IsDelay  { get; set; }
         public double Overtime { get; set; }
         public double Delay { get; set; }
+        public string TimeIn { get; set; }
+        public string TimeOut { get; set; }
 
     }
 }

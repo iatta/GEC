@@ -13,5 +13,6 @@ namespace Pixel.Attendance.Sessions.Dto
         public string EmailAddress { get; set; }
 
         public string ProfilePictureId { get; set; }
+        public int? OrganizationUnitId { get; set; }
     }
 }

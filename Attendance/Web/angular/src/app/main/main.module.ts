@@ -1,4 +1,5 @@
-﻿import { NormalOvertimeComponent } from './operations/reports/normal-overtime.component';
+﻿import { ManagerReportComponent } from './operations/reports/manager-report.component';
+import { NormalOvertimeComponent } from './operations/reports/normal-overtime.component';
 import { FixedOvertimeComponent } from './operations/reports/fixed-overtime.component';
 
 import { ManagerLevelApproveComponent } from './operations/reports/maneger-level-approve';
@@ -223,6 +224,7 @@ import { HrTransactionsComponent } from './operations/manualTransactions/transac
 import { AssignProjectMachineLookupTableModalComponent } from './operations/projects/assign-project-machine-lookup-table-modal.component';
 import {PanelModule} from 'primeng/panel';
 import { MinutesToStringPipe } from '@app/Custom/minutesToString.pipe';
+import { ManagerUnitsModalComponent } from './../admin/shared/manager-units-modal.component';
 
 NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
 
@@ -386,7 +388,10 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
         SummerizeReportComponent,
         ManagerLevelApproveComponent,
         NormalOvertimeComponent,
-        FixedOvertimeComponent
+        FixedOvertimeComponent,
+
+        ManagerUnitsModalComponent
+        ,ManagerReportComponent,
 
     ],
     providers: [

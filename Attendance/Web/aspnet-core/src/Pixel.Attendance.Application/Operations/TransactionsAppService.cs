@@ -35,7 +35,7 @@ namespace Pixel.Attendance.Operations
         private readonly IRepository<Transaction> _transactionRepository;
         private readonly IRepository<Shift> _shiftRepository;
         private readonly IRepository<UserShift> _UserShiftRepository;
-        private readonly IRepository<OrganizationUnitExtended,long> _organizationUnitRepository;
+        private readonly IRepository<OrganizationUnitExtended, long> _organizationUnitRepository;
         private readonly IRepository<Project> _projectRepository;
         private readonly ITransactionsExcelExporter _transactionsExcelExporter;
         private readonly UserManager _userManager;
@@ -48,7 +48,7 @@ namespace Pixel.Attendance.Operations
 
 
 
-        public TransactionsAppService(IRepository<UserDelegation> userDelegationRepository ,IRepository<UserTimeSheetApprove> userTimeSheetApproveRepository  ,IRepository<EmployeeVacation> employeeVacation , IRepository<Shift> shiftRepository ,IRepository<UserShift> userShiftRepository, IRepository<OrganizationUnitExtended, long>  organizationUnit,IRepository<Transaction> transactionRepository, IRepository<Project> projectRepository, ITransactionsExcelExporter transactionsExcelExporter, UserManager userManager, IRepository<User, long> lookup_userRepository, IRepository<Machine, int> lookup_machineRepository)
+        public TransactionsAppService(IRepository<UserDelegation> userDelegationRepository, IRepository<UserTimeSheetApprove> userTimeSheetApproveRepository, IRepository<EmployeeVacation> employeeVacation, IRepository<Shift> shiftRepository, IRepository<UserShift> userShiftRepository, IRepository<OrganizationUnitExtended, long> organizationUnit, IRepository<Transaction> transactionRepository, IRepository<Project> projectRepository, ITransactionsExcelExporter transactionsExcelExporter, UserManager userManager, IRepository<User, long> lookup_userRepository, IRepository<Machine, int> lookup_machineRepository)
         {
             _transactionRepository = transactionRepository;
             _transactionsExcelExporter = transactionsExcelExporter;
@@ -72,8 +72,8 @@ namespace Pixel.Attendance.Operations
                         .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.Time.Contains(input.Filter) || e.Address.Contains(input.Filter) || e.Reason.Contains(input.Filter) || e.Remark.Contains(input.Filter))
                         .WhereIf(input.MinTransTypeFilter != null, e => e.TransType >= input.MinTransTypeFilter)
                         .WhereIf(input.MaxTransTypeFilter != null, e => e.TransType <= input.MaxTransTypeFilter);
-                        
-                        
+
+
 
             var pagedAndFilteredTransactions = filteredTransactions
                 .OrderBy(input.Sorting ?? "id asc")
@@ -82,26 +82,26 @@ namespace Pixel.Attendance.Operations
             var transactions = from o in pagedAndFilteredTransactions
                                join o1 in _lookup_userRepository.GetAll() on o.Pin equals o1.Id into j1
                                from s1 in j1.DefaultIfEmpty()
-                               
+
                                join o2 in _lookup_machineRepository.GetAll() on o.MachineId equals o2.Id into j2
                                from s2 in j2.DefaultIfEmpty()
                                select new GetTransactionForViewDto()
-                                {
-                                    Transaction = new TransactionDto
-                                    {
-                                        TransType = o.TransType,
-                                        KeyType = o.KeyType,
-                                        CreationTime = o.CreationTime,
-                                        Transaction_Date = o.Transaction_Date,
-                                        Pin = o.Pin,
-                                        Time = o.Time,
-                                        Id = o.Id,
-                                        ProjectManagerApprove=o.ProjectManagerApprove,
-                                        UnitManagerApprove=o.UnitManagerApprove
-                                    },
-                                    UserName = s1 == null ? "" : s1.Name.ToString(),
-                                    MachineNameEn = s2 == null ? "" : s2.NameEn.ToString(),
-                                    MachineId = s2.Id,
+                               {
+                                   Transaction = new TransactionDto
+                                   {
+                                       TransType = o.TransType,
+                                       KeyType = o.KeyType,
+                                       CreationTime = o.CreationTime,
+                                       Transaction_Date = o.Transaction_Date,
+                                       Pin = o.Pin,
+                                       Time = o.Time,
+                                       Id = o.Id,
+                                       ProjectManagerApprove = o.ProjectManagerApprove,
+                                       UnitManagerApprove = o.UnitManagerApprove
+                                   },
+                                   UserName = s1 == null ? "" : s1.Name.ToString(),
+                                   MachineNameEn = s2 == null ? "" : s2.NameEn.ToString(),
+                                   MachineId = s2.Id,
 
                                };
 
@@ -135,7 +135,7 @@ namespace Pixel.Attendance.Operations
 
             var output = new GetTransactionForEditOutput { Transaction = ObjectMapper.Map<CreateOrEditTransactionDto>(transaction) };
 
-            if (output.Transaction.Pin  > 0)
+            if (output.Transaction.Pin > 0)
             {
                 var _lookupUser = await _lookup_userRepository.FirstOrDefaultAsync((long)output.Transaction.Pin);
                 output.UserName = _lookupUser.Name.ToString();
@@ -148,7 +148,7 @@ namespace Pixel.Attendance.Operations
 
         public async Task CreateOrEdit(CreateOrEditTransactionDto input)
         {
-            
+
             if (input.Id == null)
             {
                 await Create(input);
@@ -213,7 +213,7 @@ namespace Pixel.Attendance.Operations
         public async Task<EntityExistDto> TransactionExist(CreateOrEditTransactionDto input)
         {
             var entity = await _transactionRepository.FirstOrDefaultAsync(x => x.Pin == input.Pin && x.KeyType == input.KeyType && x.Transaction_Date.Date == input.Transaction_Date.Date);
-            return new EntityExistDto { IsExist = entity != null ,Id = entity?.Id};
+            return new EntityExistDto { IsExist = entity != null, Id = entity?.Id };
         }
 
         public async Task<PagedResultDto<GetTransactionForViewDto>> GetAllTransactionForProjectManager(GetTransactionDto input)
@@ -221,7 +221,7 @@ namespace Pixel.Attendance.Operations
             var project = _projectRepository.GetAllIncluding(x => x.Users).Where(x => x.Id == input.ProjectId && x.ManagerId == GetCurrentUser().Id).FirstOrDefault();
             var userIds = project.Users.Select(x => x.UserId).ToArray();
 
-            var query = from  t1 in _transactionRepository.GetAll().Where(x => userIds.Contains(x.Pin))
+            var query = from t1 in _transactionRepository.GetAll().Where(x => userIds.Contains(x.Pin))
                         join u1 in _lookup_userRepository.GetAll() on t1.Pin equals u1.Id
                         where t1.Transaction_Date.Date >= input.FromDate.Date && t1.Transaction_Date.Date <= input.ToDate.Date
 
@@ -255,7 +255,7 @@ namespace Pixel.Attendance.Operations
                 {
                     foreach (var userShift in userShifts)
                     {
-                        
+
                         var minutes = (Double.Parse(item.Transaction.Time.Split(":")[0]) * 60) + (Double.Parse(item.Transaction.Time.Split(":")[1]));
                         //var TransTime = new DateTime(1990, 11, 20).AddMinutes(minutes);
                         var TransactionShift = _shiftRepository.FirstOrDefault(x => x.TimeInRangeFrom <= minutes && x.TimeOutRangeTo >= minutes && x.Id == userShift.ShiftId);
@@ -269,14 +269,14 @@ namespace Pixel.Attendance.Operations
                             item.EarlyIn = TransactionShift.EarlyIn;
                             item.EarlyOut = TransactionShift.EarlyOut;
 
-                            
+
 
                             if (item.Transaction.KeyType == 1)
                             {
                                 if ((int)minutes > TransactionShift.TimeIn)
                                     item.Attendance_LateIn = (int)minutes - TransactionShift.TimeIn;
                             }
-                                
+
 
                             if (item.Transaction.KeyType == 2)
                             {
@@ -288,17 +288,17 @@ namespace Pixel.Attendance.Operations
                                 else
                                     item.Attendance_EarlyOut = TransactionShift.TimeOut - (int)minutes;
                             }
-                                
+
 
 
                         }
-                        
+
 
                     }
                 }
-                
+
             }
-           
+
 
             return new PagedResultDto<GetTransactionForViewDto>(
                 totalCount,
@@ -309,13 +309,13 @@ namespace Pixel.Attendance.Operations
         public async Task<PagedResultDto<GetTransactionForViewDto>> GetAllTransactionForUnitManager(GetTransactionDto input)
         {
 
-             
+
             var project = _projectRepository.GetAllIncluding(x => x.Users).Where(x => x.Id == input.ProjectId).FirstOrDefault();
             var userIds = project.Users.Select(x => x.UserId).ToArray();
 
             var query = from t1 in _transactionRepository.GetAll().Where(x => userIds.Contains(x.Pin))
                         join u1 in _lookup_userRepository.GetAll() on t1.Pin equals u1.Id
-                        where  t1.Transaction_Date.Date >= input.FromDate.Date && t1.Transaction_Date.Date <= input.ToDate.Date
+                        where t1.Transaction_Date.Date >= input.FromDate.Date && t1.Transaction_Date.Date <= input.ToDate.Date
                         select new GetTransactionForViewDto()
                         {
                             Transaction = new TransactionDto
@@ -337,7 +337,7 @@ namespace Pixel.Attendance.Operations
             var data = await query.ToListAsync();
 
             var totalCount = await query.CountAsync();
-           
+
             foreach (var item in data)
             {
                 var userShifts = _UserShiftRepository.GetAll().Where(x => x.UserId == item.Transaction.Pin && x.Date.Date == item.Transaction.Transaction_Date.Date).ToList();
@@ -385,9 +385,9 @@ namespace Pixel.Attendance.Operations
 
                     }
                 }
-                
+
             }
-            
+
 
             return new PagedResultDto<GetTransactionForViewDto>(
                 totalCount,
@@ -406,8 +406,8 @@ namespace Pixel.Attendance.Operations
 
         public async Task UpdateSingleTransaction(GetTransactionForViewDto input)
         {
-                var transaction = await _transactionRepository.FirstOrDefaultAsync(input.Transaction.Id);
-                ObjectMapper.Map(input.Transaction, transaction);
+            var transaction = await _transactionRepository.FirstOrDefaultAsync(input.Transaction.Id);
+            ObjectMapper.Map(input.Transaction, transaction);
         }
 
         public async Task<PagedResultDto<GetTransactionForViewDto>> GetAllTransactionForHr(GetTransactionDto input)
@@ -477,7 +477,7 @@ namespace Pixel.Attendance.Operations
                                     item.Overtime = (int)minutes - TransactionShift.TimeOut;
                                     data[0].TotalOverTime += (int)minutes - TransactionShift.TimeOut;
                                 }
-                                    
+
                                 else
                                     item.Attendance_EarlyOut = TransactionShift.TimeOut - (int)minutes;
                             }
@@ -488,7 +488,7 @@ namespace Pixel.Attendance.Operations
 
                     }
                 }
-                
+
             }
 
 
@@ -500,9 +500,78 @@ namespace Pixel.Attendance.Operations
 
         #region GEC Reports 
 
+        //get unit transactions
+        public async Task<List<NormalOverTimeReportOutput>> GetDepartmentTransactions(UnitTransactionsReportInput input)
+        {
+            //generate the output
+            var output = new List<NormalOverTimeReportOutput>();
+            //get unit users 
+            var users = await _lookup_userRepository.GetAll().Where(x => x.OrganizationUnitId == input.OrganizationUnitId).Select(x => x.Id).ToListAsync();
+            var transactions = await _transactionRepository.GetAllIncluding(x => x.User)
+                               .Where(x => users.Contains(x.Pin))
+                               .Where(x => x.Transaction_Date.Date >= input.FromDate && x.Transaction_Date.Date <= input.ToDate.Date).ToListAsync();
+
+
+            var groupedUsers = transactions.GroupBy(x => x.User.Id).Select(x => x.First().User).ToList();
+
+            // add users
+            foreach (var user in groupedUsers)
+            {
+                for (var day = input.FromDate.Date; day <= input.ToDate.Date; day = day.AddDays(1))
+                {
+                    // first trans
+                    var userTransactions = transactions.Where(x => x.Pin == user.Id && x.Transaction_Date.Date == day.Date).ToList();
+                    var transCount = userTransactions.Count();
+                    if (transCount >= 2)
+                    {
+                        double inMinutes = 0;
+                        double outMinutes = 0;
+                        //in transaction
+                        var inTransaction = userTransactions.FirstOrDefault();
+
+                        if (!string.IsNullOrEmpty(inTransaction.Time))
+                            inMinutes = (Double.Parse(inTransaction.Time.Split(":")[0]) * 60) + (Double.Parse(inTransaction.Time.Split(":")[1]));
+
+                        var outTransaction = userTransactions.Skip(transCount - 1).FirstOrDefault();
+                        if (!string.IsNullOrEmpty(outTransaction.Time))
+                            outMinutes = (Double.Parse(outTransaction.Time.Split(":")[0]) * 60) + (Double.Parse(outTransaction.Time.Split(":")[1]));
+
+                        var totalHours = outMinutes - inMinutes;
+                        totalHours = totalHours < 0 ? (totalHours * -1) : totalHours;
+                        var overtime = totalHours - 480; // 8 hours
+
+
+                        var normalOvertimeObj = new NormalOverTimeReportOutput();
+                        normalOvertimeObj.AttendanceDate = day;
+                        var unit = await _organizationUnitRepository.FirstOrDefaultAsync(x => x.Id == user.OrganizationUnitId);
+                        
+                        normalOvertimeObj.BusinessUnit = unit.DisplayName;
+                        normalOvertimeObj.AttendanceDate = day;
+                        normalOvertimeObj.PersonName = user.Name;
+                        normalOvertimeObj.PersonNumber = user.FingerCode;
+
+                        var intimeLength = inTransaction.Time.IndexOf(".");
+                        var outtimeLength = outTransaction.Time.IndexOf(".");
+
+
+                        normalOvertimeObj.TimeIn = inTransaction.Time.Substring(0, intimeLength);
+                       
+                        normalOvertimeObj.TimeOut = outTransaction.Time.Substring(0, outtimeLength);
+                        normalOvertimeObj.Hours = overtime / 60;
+                        output.Add(normalOvertimeObj);
+                    }
+
+                }
+            }
+
+            return output;
+
+        }
+
         //project manager
         public async Task<ActualSummerizeTimeSheetOutput> GetActualSummerizeTimeSheet(ActualSummerizeInput input)
         {
+
             //get all project machines 
             var project = await _projectRepository.GetAllIncluding(x => x.Machines).FirstOrDefaultAsync(x => x.Id == input.ProjectId);
             var machines = project.Machines.Select(x => x.MachineId).ToList();
@@ -957,7 +1026,7 @@ namespace Pixel.Attendance.Operations
                             normalOvertimeObj.PersonName = user.Name;
                             normalOvertimeObj.PersonNumber = user.FingerCode;
                             normalOvertimeObj.DocumentEntry = "Overtime";
-                            
+
 
                             output.Add(normalOvertimeObj);
                         }
@@ -1024,10 +1093,6 @@ namespace Pixel.Attendance.Operations
                             normalOvertimeObj.ProjectNumber = project.Number;
                             normalOvertimeObj.ExpenditureType = "Fixed Overtime";
                             normalOvertimeObj.Hours = overtime / 60;
-                          
-                          
-
-                      
 
                             output.Add(normalOvertimeObj);
                         }
@@ -1042,6 +1107,8 @@ namespace Pixel.Attendance.Operations
             return output;
 
         }
+
+
         #endregion
 
 

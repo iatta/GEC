@@ -1523,7 +1523,8 @@
     <text name="TaskName">Task Name </text>
     <text name="DocumentEntry">Document Entry </text>
     <text name="TaskNo"> Task No</text>
-    
+    <text name="ManagerReport"> Manager Report</text>
 
+    
   </texts>
 </localizationDictionary>

@@ -1,4 +1,5 @@
-﻿import { FixedOvertimeComponent } from './operations/reports/fixed-overtime.component';
+﻿import { ManagerReportComponent } from './operations/reports/manager-report.component';
+import { FixedOvertimeComponent } from './operations/reports/fixed-overtime.component';
 import { NormalOvertimeComponent } from './operations/reports/normal-overtime.component';
 import { ManagerLevelApproveComponent } from './operations/reports/maneger-level-approve';
 import { SummerizeReportComponent } from './operations/reports/summerize.component';
@@ -63,6 +64,7 @@ import { HrTransactionsComponent } from './operations/manualTransactions/transac
                     { path: 'operations/managerLevelApprove', component: ManagerLevelApproveComponent, data: { permission: 'Pages.ManagerLevelApprove' }  },
                     { path: 'operations/normalOvertime', component: NormalOvertimeComponent, data: { permission: 'Pages.NormalOvertime' }  },
                     { path: 'operations/fixedOvertime', component: FixedOvertimeComponent, data: { permission: 'Pages.FixedOvertime' }  },
+                    { path: 'operations/managerReportComponent', component: ManagerReportComponent, data: { permission: 'Pages.ManagerReport' }  },
 
                     { path: 'operations/summerizeReport', component: SummerizeReportComponent, data: { permission: 'Pages.SummerizeReport' }  },
                     { path: 'operations/beacons', component: BeaconsComponent, data: { permission: 'Pages.Beacons' }  },

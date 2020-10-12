@@ -9,7 +9,9 @@
 
         public const string Pages_Beacons = "Pages.Beacons";
         public const string Pages_SummerizeReport = "Pages.SummerizeReport";
-        
+        public const string Pages_ManagerReport = "Pages.ManagerReport";
+        public const string Pages_HrReport = "Pages.HrReport";
+
 
         public const string Pages_UserDelegations = "Pages.UserDelegations";
         public const string Pages_UserDelegations_Create = "Pages.UserDelegations.Create";

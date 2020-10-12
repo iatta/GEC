@@ -24,6 +24,7 @@ namespace Pixel.Attendance.Dto
         public List<string> UnitsToApprove { get; set; }
         public bool IsCurrentUnitApproved { get; set; }
         public bool YesClose { get; set; }
+      
         public ICollection<ActualSummerizeTimeSheetDetailDto> Details { get; set; }
 
     }

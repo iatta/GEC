@@ -15,6 +15,7 @@ using Pixel.Attendance.Authorization.Roles;
 using Pixel.Attendance.Extended;
 using Pixel.Attendance.Authorization.Users;
 using Twilio.Exceptions;
+using System.Collections.Generic;
 
 namespace Pixel.Attendance.Organizations
 {
@@ -42,6 +43,65 @@ namespace Pixel.Attendance.Organizations
             _roleManager = roleManager;
             _organizationUnitRoleRepository = organizationUnitRoleRepository;
             _userRepository = userRepository;
+        }
+
+
+        
+
+        public async Task<ListResultDto<OrganizationUnitDto>> GetCurrentManagerUnits()
+        {
+            //
+            var organizationUnits = new List<OrganizationUnitExtended>();
+            var childUnits = new List<OrganizationUnitExtended>();
+
+            //get current user 
+            var user = GetCurrentUser();
+
+            // check if user is manager
+            var unitManger = await _organizationUnitRepository.FirstOrDefaultAsync(x => x.ManagerId == user.Id);
+
+            if (unitManger != null)
+            {
+                // user is manger  
+                // get all sub units 
+               
+                var allUnits = _organizationUnitRepository.GetAll().ToList();
+                organizationUnits.Add(unitManger);
+                childUnits = GetChildes(childUnits, unitManger, allUnits);
+                organizationUnits.AddRange(childUnits);
+
+            }
+
+            //var organizationUnits = await _organizationUnitRepository.GetAllListAsync();
+
+            var organizationUnitMemberCounts = await UserManager.Users.Where(x => x.OrganizationUnitId != null)
+                .GroupBy(x => x.OrganizationUnitId)
+                .Select(groupedUsers => new
+                {
+                    organizationUnitId = groupedUsers.Key,
+                    count = groupedUsers.Count()
+                }).ToDictionaryAsync(x => x.organizationUnitId, y => y.count);
+
+            var organizationUnitRoleCounts = await _organizationUnitRoleRepository.GetAll()
+                .GroupBy(x => x.OrganizationUnitId)
+                .Select(groupedRoles => new
+                {
+                    organizationUnitId = groupedRoles.Key,
+                    count = groupedRoles.Count()
+                }).ToDictionaryAsync(x => x.organizationUnitId, y => y.count);
+
+            return new ListResultDto<OrganizationUnitDto>(
+                organizationUnits.Select(ou =>
+                {
+                    var organizationUnitDto = ObjectMapper.Map<OrganizationUnitDto>(ou);
+                    organizationUnitDto.MemberCount = organizationUnitMemberCounts.ContainsKey((int)ou.Id) ? organizationUnitMemberCounts[(int)ou.Id] : 0;
+                    organizationUnitDto.RoleCount = organizationUnitRoleCounts.ContainsKey(ou.Id) ? organizationUnitRoleCounts[ou.Id] : 0;
+                    var manager = _userRepository.FirstOrDefault(x => x.Id == organizationUnitDto.ManagerId);
+                    if (manager != null)
+                        organizationUnitDto.ManagerName = manager.Name;
+
+                    return organizationUnitDto;
+                }).ToList());
         }
 
         public async Task<ListResultDto<OrganizationUnitDto>> GetOrganizationUnits()
@@ -292,6 +352,26 @@ namespace Pixel.Attendance.Organizations
             var dto = ObjectMapper.Map<OrganizationUnitDto>(organizationUnit);
             dto.MemberCount = await _userOrganizationUnitRepository.CountAsync(uou => uou.OrganizationUnitId == organizationUnit.Id);
             return dto;
+        }
+
+        private List<OrganizationUnitExtended> GetChildes(List<OrganizationUnitExtended> childs, OrganizationUnitExtended unit, List<OrganizationUnitExtended> units)
+        {
+            if (unit.Children.Count > 0)
+            {
+                foreach (var child in unit.Children)
+                {
+                    childs.Add(ObjectMapper.Map<OrganizationUnitExtended>(child));
+                    var newEntity = _organizationUnitRepository.GetAllIncluding(x => x.Children).FirstOrDefault(d => d.Id == child.Id);
+                    if (newEntity.Children.Count > 0)
+                    {
+                        GetChildes(childs, newEntity, units);
+                    }
+                }
+
+            }
+
+            return childs;
+
         }
     }
 }

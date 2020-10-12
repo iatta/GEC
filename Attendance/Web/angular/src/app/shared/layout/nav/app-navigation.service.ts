@@ -123,6 +123,8 @@ export class AppNavigationService {
             // ]),
 
             new AppMenuItem('Reports', '', 'flaticon-graph', '', [
+
+                new AppMenuItem('ManagerReport', 'Pages.ManagerReport', 'flaticon-graph', '/app/main/operations/managerReportComponent'),
                 new AppMenuItem('SummerizeReport', 'Pages.SummerizeReport', 'flaticon-graph', '/app/main/operations/summerizeReport'),
                 new AppMenuItem('ManagerLevelApprove', 'Pages.ManagerLevelApprove', 'flaticon-profile', '/app/main/operations/managerLevelApprove'),
                 new AppMenuItem('NormalOvertime', 'Pages.NormalOvertime', 'flaticon-time', '/app/main/operations/normalOvertime'),

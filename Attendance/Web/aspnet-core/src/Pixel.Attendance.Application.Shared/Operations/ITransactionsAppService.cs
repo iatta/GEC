@@ -38,6 +38,8 @@ namespace Pixel.Attendance.Operations
 
         Task<List<NormalOverTimeReportOutput>> GetFixedOverTime(NormalOverTimeReportInput input);
 
+        Task<List<NormalOverTimeReportOutput>> GetDepartmentTransactions(UnitTransactionsReportInput input);
+
 
 
 
