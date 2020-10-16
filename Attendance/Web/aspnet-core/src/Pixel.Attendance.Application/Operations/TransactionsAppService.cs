@@ -32,6 +32,9 @@ namespace Pixel.Attendance.Operations
     //[AbpAuthorize(AppPermissions.Pages_ManualTransactions)]
     public class TransactionsAppService : AttendanceAppServiceBase, ITransactionsAppService
     {
+        private readonly IRepository<OrganizationLocation> _organizationLocationRepository;
+        private readonly IRepository<LocationMachine> _locationMachineRepository;
+
         private readonly IRepository<Transaction> _transactionRepository;
         private readonly IRepository<Shift> _shiftRepository;
         private readonly IRepository<UserShift> _UserShiftRepository;
@@ -48,8 +51,10 @@ namespace Pixel.Attendance.Operations
 
 
 
-        public TransactionsAppService(IRepository<UserDelegation> userDelegationRepository, IRepository<UserTimeSheetApprove> userTimeSheetApproveRepository, IRepository<EmployeeVacation> employeeVacation, IRepository<Shift> shiftRepository, IRepository<UserShift> userShiftRepository, IRepository<OrganizationUnitExtended, long> organizationUnit, IRepository<Transaction> transactionRepository, IRepository<Project> projectRepository, ITransactionsExcelExporter transactionsExcelExporter, UserManager userManager, IRepository<User, long> lookup_userRepository, IRepository<Machine, int> lookup_machineRepository)
+        public TransactionsAppService(IRepository<OrganizationLocation> organizationLocationRepository , IRepository<LocationMachine> locationMachineRepository,IRepository<UserDelegation> userDelegationRepository, IRepository<UserTimeSheetApprove> userTimeSheetApproveRepository, IRepository<EmployeeVacation> employeeVacation, IRepository<Shift> shiftRepository, IRepository<UserShift> userShiftRepository, IRepository<OrganizationUnitExtended, long> organizationUnit, IRepository<Transaction> transactionRepository, IRepository<Project> projectRepository, ITransactionsExcelExporter transactionsExcelExporter, UserManager userManager, IRepository<User, long> lookup_userRepository, IRepository<Machine, int> lookup_machineRepository)
         {
+            _locationMachineRepository = locationMachineRepository;
+            _organizationLocationRepository = organizationLocationRepository;
             _transactionRepository = transactionRepository;
             _transactionsExcelExporter = transactionsExcelExporter;
             _userManager = userManager;
@@ -500,15 +505,32 @@ namespace Pixel.Attendance.Operations
 
         #region GEC Reports 
 
-        //get unit transactions
+        //get unit transactions used for hr 
         public async Task<List<NormalOverTimeReportOutput>> GetDepartmentTransactions(UnitTransactionsReportInput input)
         {
             //generate the output
             var output = new List<NormalOverTimeReportOutput>();
+
+            var allUnits = _organizationUnitRepository.GetAll().ToList();
+            // get requested unit
+            var Requestedunit = await _organizationUnitRepository.GetAllIncluding(x => x.Children).Where(x => x.Id == input.OrganizationUnitId).FirstOrDefaultAsync();
+
+            var units = new List<long?>();
+            var unitsList = new List<long?>();
+            units.Add(Requestedunit.Id);
+            var childs = GetChildes(unitsList, Requestedunit, allUnits);
+            units.AddRange(childs);
+
+            // get units machines 
+            var locationIDs = await _organizationLocationRepository.GetAll().Where(x => units.Contains(x.OrganizationUnitId)).Select(y => y.LocationId).ToListAsync();
+
+
+            //get locationMachines 
+            var machineIds = await _locationMachineRepository.GetAll().Where(x => locationIDs.Contains(x.LocationId)).Select(x => x.MachineId).Distinct().ToListAsync();
             //get unit users 
-            var users = await _lookup_userRepository.GetAll().Where(x => x.OrganizationUnitId == input.OrganizationUnitId).Select(x => x.Id).ToListAsync();
+            //var users = await _lookup_userRepository.GetAll().Where(x => x.OrganizationUnitId == input.OrganizationUnitId).Select(x => x.Id).ToListAsync();
             var transactions = await _transactionRepository.GetAllIncluding(x => x.User)
-                               .Where(x => users.Contains(x.Pin))
+                               .Where(x => machineIds.Contains(x.MachineId))
                                .Where(x => x.Transaction_Date.Date >= input.FromDate && x.Transaction_Date.Date <= input.ToDate.Date).ToListAsync();
 
 
@@ -517,51 +539,74 @@ namespace Pixel.Attendance.Operations
             // add users
             foreach (var user in groupedUsers)
             {
-                for (var day = input.FromDate.Date; day <= input.ToDate.Date; day = day.AddDays(1))
+                if (units.Contains(user.OrganizationUnitId))
                 {
-                    // first trans
-                    var userTransactions = transactions.Where(x => x.Pin == user.Id && x.Transaction_Date.Date == day.Date).ToList();
-                    var transCount = userTransactions.Count();
-                    if (transCount >= 2)
+                    for (var day = input.FromDate.Date; day <= input.ToDate.Date; day = day.AddDays(1))
                     {
-                        double inMinutes = 0;
-                        double outMinutes = 0;
-                        //in transaction
-                        var inTransaction = userTransactions.FirstOrDefault();
+                        // first trans
+                        var userTransactions = transactions.Where(x => x.Pin == user.Id && x.Transaction_Date.Date == day.Date).ToList();
+                        var transCount = userTransactions.Count();
+                        if (transCount >= 2)
+                        {
+                            double inMinutes = 0;
+                            double outMinutes = 0;
+                            //in transaction
+                            var inTransaction = userTransactions.FirstOrDefault();
 
-                        if (!string.IsNullOrEmpty(inTransaction.Time))
-                            inMinutes = (Double.Parse(inTransaction.Time.Split(":")[0]) * 60) + (Double.Parse(inTransaction.Time.Split(":")[1]));
+                            if (!string.IsNullOrEmpty(inTransaction.Time))
+                                inMinutes = (Double.Parse(inTransaction.Time.Split(":")[0]) * 60) + (Double.Parse(inTransaction.Time.Split(":")[1]));
 
-                        var outTransaction = userTransactions.Skip(transCount - 1).FirstOrDefault();
-                        if (!string.IsNullOrEmpty(outTransaction.Time))
-                            outMinutes = (Double.Parse(outTransaction.Time.Split(":")[0]) * 60) + (Double.Parse(outTransaction.Time.Split(":")[1]));
-
-                        var totalHours = outMinutes - inMinutes;
-                        totalHours = totalHours < 0 ? (totalHours * -1) : totalHours;
-                        var overtime = totalHours - 480; // 8 hours
-
-
-                        var normalOvertimeObj = new NormalOverTimeReportOutput();
-                        normalOvertimeObj.AttendanceDate = day;
-                        var unit = await _organizationUnitRepository.FirstOrDefaultAsync(x => x.Id == user.OrganizationUnitId);
-                        
-                        normalOvertimeObj.BusinessUnit = unit.DisplayName;
-                        normalOvertimeObj.AttendanceDate = day;
-                        normalOvertimeObj.PersonName = user.Name;
-                        normalOvertimeObj.PersonNumber = user.FingerCode;
-
-                        var intimeLength = inTransaction.Time.IndexOf(".");
-                        var outtimeLength = outTransaction.Time.IndexOf(".");
+                            var outTransaction = userTransactions.Skip(transCount - 1).FirstOrDefault();
+                            if (!string.IsNullOrEmpty(outTransaction.Time))
+                                outMinutes = (Double.Parse(outTransaction.Time.Split(":")[0]) * 60) + (Double.Parse(outTransaction.Time.Split(":")[1]));
 
 
-                        normalOvertimeObj.TimeIn = inTransaction.Time.Substring(0, intimeLength);
-                       
-                        normalOvertimeObj.TimeOut = outTransaction.Time.Substring(0, outtimeLength);
-                        normalOvertimeObj.Hours = overtime / 60;
-                        output.Add(normalOvertimeObj);
+
+                            //store in temp
+                            var tempInMinutes = inMinutes;
+                            var tempOutMinutes = outMinutes;
+                            var outTransactionTemp = outTransaction;
+                            var inTransactionTemp = inTransaction;
+
+                            //check total
+                            if (tempInMinutes > tempOutMinutes)
+                            {
+                                inMinutes = tempOutMinutes;
+                                outMinutes = tempInMinutes;
+                                inTransaction = outTransactionTemp;
+                                outTransaction = inTransactionTemp;
+                            }
+                                
+
+
+                            var totalHours = outMinutes - inMinutes;
+                            totalHours = totalHours < 0 ? (totalHours * -1) : totalHours;
+                            var overtime = totalHours - 480; // 8 hours
+
+
+                            var normalOvertimeObj = new NormalOverTimeReportOutput();
+                            normalOvertimeObj.AttendanceDate = day;
+                            var unit = await _organizationUnitRepository.FirstOrDefaultAsync(x => x.Id == user.OrganizationUnitId);
+
+                            normalOvertimeObj.BusinessUnit = unit.DisplayName;
+                            normalOvertimeObj.AttendanceDate = day;
+                            normalOvertimeObj.PersonName = user.Name;
+                            normalOvertimeObj.PersonNumber = user.FingerCode;
+
+                            var intimeLength = inTransaction.Time.IndexOf(".");
+                            var outtimeLength = outTransaction.Time.IndexOf(".");
+
+
+                            normalOvertimeObj.TimeIn = inTransaction.Time.Substring(0, intimeLength);
+
+                            normalOvertimeObj.TimeOut = outTransaction.Time.Substring(0, outtimeLength);
+                            normalOvertimeObj.Hours = totalHours;
+                            output.Add(normalOvertimeObj);
+                        }
+
                     }
-
                 }
+               
             }
 
             return output;

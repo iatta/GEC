@@ -72,6 +72,8 @@ export class HrReportComponent extends AppComponentBase implements OnInit {
     }
 
     generate(){
+        this.dataLoaded=false;
+        this.data = [];
         this._trnsactionService.getDepartmentTransactions(this.organizationUnitId,this.fromDate,this.toDate).subscribe((result) => {
             if(result.length > 0){
                 this.data = result;

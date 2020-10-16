@@ -80,7 +80,7 @@
                                         <td>{{record.personNumber}}</td>
                                         <td>{{record.timeIn}}</td>
                                         <td>{{record.timeOut}}</td>
-                                        <td>{{record.hours}}</td>
+                                        <td>{{record.hours | minutesToTime24}}</td>
                                     </tr>
                                 </ng-template>
                             </p-table>
