@@ -3,6 +3,12 @@ import { NormalOvertimeComponent } from './operations/reports/normal-overtime.co
 import { FixedOvertimeComponent } from './operations/reports/fixed-overtime.component';
 
 import { ManagerLevelApproveComponent } from './operations/reports/maneger-level-approve';
+import { ProjectLocationsComponent } from './operations/projectLocations/projectLocations.component';
+import { ViewProjectLocationModalComponent } from './operations/projectLocations/view-projectLocation-modal.component';
+import { CreateOrEditProjectLocationModalComponent } from './operations/projectLocations/create-or-edit-projectLocation-modal.component';
+import { ProjectLocationProjectLookupTableModalComponent } from './operations/projectLocations/projectLocation-project-lookup-table-modal.component';
+import { ProjectLocationLocationLookupTableModalComponent } from './operations/projectLocations/projectLocation-location-lookup-table-modal.component';
+
 import { LocationMachinesComponent } from './setting/locationMachines/locationMachines.component';
 import { ViewLocationMachineModalComponent } from './setting/locationMachines/view-locationMachine-modal.component';
 import { CreateOrEditLocationMachineModalComponent } from './setting/locationMachines/create-or-edit-locationMachine-modal.component';
@@ -277,6 +283,10 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
           }),
     ],
     declarations: [
+		ProjectLocationsComponent,
+		ViewProjectLocationModalComponent,		CreateOrEditProjectLocationModalComponent,
+    ProjectLocationProjectLookupTableModalComponent,
+    ProjectLocationLocationLookupTableModalComponent,
 		LocationMachinesComponent,
 		ViewLocationMachineModalComponent,		CreateOrEditLocationMachineModalComponent,
     LocationMachineLocationLookupTableModalComponent,

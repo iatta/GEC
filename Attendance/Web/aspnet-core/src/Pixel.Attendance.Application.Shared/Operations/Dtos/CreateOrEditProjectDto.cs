@@ -2,12 +2,17 @@
 using System;
 using Abp.Application.Services.Dto;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace Pixel.Attendance.Operations.Dtos
 {
     public class CreateOrEditProjectDto : EntityDto<int?>
     {
+        public CreateOrEditProjectDto()
+        {
+			Locations = new List<ProjectLocationDto>();
 
+		}
 		public string NameAr { get; set; }
 		
 		
@@ -20,7 +25,8 @@ namespace Pixel.Attendance.Operations.Dtos
 		public int? LocationId { get; set; }
 		 
 		public long? OrganizationUnitId { get; set; }
-		 
-		 
+        public ICollection<ProjectLocationDto> Locations { get; set; }
+
+
     }
 }

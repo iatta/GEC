@@ -16533,6 +16533,523 @@ export class ProfileServiceProxy {
 }
 
 @Injectable()
+export class ProjectLocationsServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param projectNameEnFilter (optional) 
+     * @param locationTitleEnFilter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
+     * @return Success
+     */
+    getAll(filter: string | undefined, projectNameEnFilter: string | undefined, locationTitleEnFilter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetProjectLocationForViewDto> {
+        let url_ = this.baseUrl + "/api/services/app/ProjectLocations/GetAll?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (projectNameEnFilter === null)
+            throw new Error("The parameter 'projectNameEnFilter' cannot be null.");
+        else if (projectNameEnFilter !== undefined)
+            url_ += "ProjectNameEnFilter=" + encodeURIComponent("" + projectNameEnFilter) + "&"; 
+        if (locationTitleEnFilter === null)
+            throw new Error("The parameter 'locationTitleEnFilter' cannot be null.");
+        else if (locationTitleEnFilter !== undefined)
+            url_ += "LocationTitleEnFilter=" + encodeURIComponent("" + locationTitleEnFilter) + "&"; 
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAll(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfGetProjectLocationForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfGetProjectLocationForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfGetProjectLocationForViewDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfGetProjectLocationForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfGetProjectLocationForViewDto>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getProjectLocationForView(id: number | undefined): Observable<GetProjectLocationForViewDto> {
+        let url_ = this.baseUrl + "/api/services/app/ProjectLocations/GetProjectLocationForView?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetProjectLocationForView(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetProjectLocationForView(<any>response_);
+                } catch (e) {
+                    return <Observable<GetProjectLocationForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetProjectLocationForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetProjectLocationForView(response: HttpResponseBase): Observable<GetProjectLocationForViewDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetProjectLocationForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetProjectLocationForViewDto>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getProjectLocationForEdit(id: number | undefined): Observable<GetProjectLocationForEditOutput> {
+        let url_ = this.baseUrl + "/api/services/app/ProjectLocations/GetProjectLocationForEdit?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetProjectLocationForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetProjectLocationForEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<GetProjectLocationForEditOutput>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetProjectLocationForEditOutput>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetProjectLocationForEdit(response: HttpResponseBase): Observable<GetProjectLocationForEditOutput> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetProjectLocationForEditOutput.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetProjectLocationForEditOutput>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    createOrEdit(body: CreateOrEditProjectLocationDto | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/ProjectLocations/CreateOrEdit";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json", 
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOrEdit(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    delete(id: number | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/ProjectLocations/Delete?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDelete(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDelete(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDelete(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param projectNameEnFilter (optional) 
+     * @param locationTitleEnFilter (optional) 
+     * @return Success
+     */
+    getProjectLocationsToExcel(filter: string | undefined, projectNameEnFilter: string | undefined, locationTitleEnFilter: string | undefined): Observable<FileDto> {
+        let url_ = this.baseUrl + "/api/services/app/ProjectLocations/GetProjectLocationsToExcel?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (projectNameEnFilter === null)
+            throw new Error("The parameter 'projectNameEnFilter' cannot be null.");
+        else if (projectNameEnFilter !== undefined)
+            url_ += "ProjectNameEnFilter=" + encodeURIComponent("" + projectNameEnFilter) + "&"; 
+        if (locationTitleEnFilter === null)
+            throw new Error("The parameter 'locationTitleEnFilter' cannot be null.");
+        else if (locationTitleEnFilter !== undefined)
+            url_ += "LocationTitleEnFilter=" + encodeURIComponent("" + locationTitleEnFilter) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetProjectLocationsToExcel(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetProjectLocationsToExcel(<any>response_);
+                } catch (e) {
+                    return <Observable<FileDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<FileDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetProjectLocationsToExcel(response: HttpResponseBase): Observable<FileDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = FileDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<FileDto>(<any>null);
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
+     * @return Success
+     */
+    getAllProjectForLookupTable(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfProjectLocationProjectLookupTableDto> {
+        let url_ = this.baseUrl + "/api/services/app/ProjectLocations/GetAllProjectForLookupTable?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllProjectForLookupTable(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllProjectForLookupTable(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfProjectLocationProjectLookupTableDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfProjectLocationProjectLookupTableDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAllProjectForLookupTable(response: HttpResponseBase): Observable<PagedResultDtoOfProjectLocationProjectLookupTableDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfProjectLocationProjectLookupTableDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfProjectLocationProjectLookupTableDto>(<any>null);
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
+     * @return Success
+     */
+    getAllLocationForLookupTable(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfProjectLocationLocationLookupTableDto> {
+        let url_ = this.baseUrl + "/api/services/app/ProjectLocations/GetAllLocationForLookupTable?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllLocationForLookupTable(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllLocationForLookupTable(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfProjectLocationLocationLookupTableDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfProjectLocationLocationLookupTableDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAllLocationForLookupTable(response: HttpResponseBase): Observable<PagedResultDtoOfProjectLocationLocationLookupTableDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfProjectLocationLocationLookupTableDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfProjectLocationLocationLookupTableDto>(<any>null);
+    }
+}
+
+@Injectable()
 export class ProjectsServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -47682,6 +48199,410 @@ export interface IChangeUserLanguageDto {
     languageName: string;
 }
 
+export class ProjectLocationDto implements IProjectLocationDto {
+    projectId!: number | undefined;
+    locationId!: number | undefined;
+    locationName!: string | undefined;
+    id!: number;
+
+    constructor(data?: IProjectLocationDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.projectId = data["projectId"];
+            this.locationId = data["locationId"];
+            this.locationName = data["locationName"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): ProjectLocationDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ProjectLocationDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["projectId"] = this.projectId;
+        data["locationId"] = this.locationId;
+        data["locationName"] = this.locationName;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IProjectLocationDto {
+    projectId: number | undefined;
+    locationId: number | undefined;
+    locationName: string | undefined;
+    id: number;
+}
+
+export class GetProjectLocationForViewDto implements IGetProjectLocationForViewDto {
+    projectLocation!: ProjectLocationDto | undefined;
+    projectNameEn!: string | undefined;
+    locationTitleEn!: string | undefined;
+
+    constructor(data?: IGetProjectLocationForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.projectLocation = data["projectLocation"] ? ProjectLocationDto.fromJS(data["projectLocation"]) : <any>undefined;
+            this.projectNameEn = data["projectNameEn"];
+            this.locationTitleEn = data["locationTitleEn"];
+        }
+    }
+
+    static fromJS(data: any): GetProjectLocationForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetProjectLocationForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["projectLocation"] = this.projectLocation ? this.projectLocation.toJSON() : <any>undefined;
+        data["projectNameEn"] = this.projectNameEn;
+        data["locationTitleEn"] = this.locationTitleEn;
+        return data; 
+    }
+}
+
+export interface IGetProjectLocationForViewDto {
+    projectLocation: ProjectLocationDto | undefined;
+    projectNameEn: string | undefined;
+    locationTitleEn: string | undefined;
+}
+
+export class PagedResultDtoOfGetProjectLocationForViewDto implements IPagedResultDtoOfGetProjectLocationForViewDto {
+    totalCount!: number;
+    items!: GetProjectLocationForViewDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfGetProjectLocationForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (Array.isArray(data["items"])) {
+                this.items = [] as any;
+                for (let item of data["items"])
+                    this.items!.push(GetProjectLocationForViewDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfGetProjectLocationForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfGetProjectLocationForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfGetProjectLocationForViewDto {
+    totalCount: number;
+    items: GetProjectLocationForViewDto[] | undefined;
+}
+
+export class CreateOrEditProjectLocationDto implements ICreateOrEditProjectLocationDto {
+    projectId!: number | undefined;
+    locationId!: number | undefined;
+    id!: number | undefined;
+
+    constructor(data?: ICreateOrEditProjectLocationDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.projectId = data["projectId"];
+            this.locationId = data["locationId"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): CreateOrEditProjectLocationDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateOrEditProjectLocationDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["projectId"] = this.projectId;
+        data["locationId"] = this.locationId;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface ICreateOrEditProjectLocationDto {
+    projectId: number | undefined;
+    locationId: number | undefined;
+    id: number | undefined;
+}
+
+export class GetProjectLocationForEditOutput implements IGetProjectLocationForEditOutput {
+    projectLocation!: CreateOrEditProjectLocationDto | undefined;
+    projectNameEn!: string | undefined;
+    locationTitleEn!: string | undefined;
+
+    constructor(data?: IGetProjectLocationForEditOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.projectLocation = data["projectLocation"] ? CreateOrEditProjectLocationDto.fromJS(data["projectLocation"]) : <any>undefined;
+            this.projectNameEn = data["projectNameEn"];
+            this.locationTitleEn = data["locationTitleEn"];
+        }
+    }
+
+    static fromJS(data: any): GetProjectLocationForEditOutput {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetProjectLocationForEditOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["projectLocation"] = this.projectLocation ? this.projectLocation.toJSON() : <any>undefined;
+        data["projectNameEn"] = this.projectNameEn;
+        data["locationTitleEn"] = this.locationTitleEn;
+        return data; 
+    }
+}
+
+export interface IGetProjectLocationForEditOutput {
+    projectLocation: CreateOrEditProjectLocationDto | undefined;
+    projectNameEn: string | undefined;
+    locationTitleEn: string | undefined;
+}
+
+export class ProjectLocationProjectLookupTableDto implements IProjectLocationProjectLookupTableDto {
+    id!: number;
+    displayName!: string | undefined;
+
+    constructor(data?: IProjectLocationProjectLookupTableDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"];
+            this.displayName = data["displayName"];
+        }
+    }
+
+    static fromJS(data: any): ProjectLocationProjectLookupTableDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ProjectLocationProjectLookupTableDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["displayName"] = this.displayName;
+        return data; 
+    }
+}
+
+export interface IProjectLocationProjectLookupTableDto {
+    id: number;
+    displayName: string | undefined;
+}
+
+export class PagedResultDtoOfProjectLocationProjectLookupTableDto implements IPagedResultDtoOfProjectLocationProjectLookupTableDto {
+    totalCount!: number;
+    items!: ProjectLocationProjectLookupTableDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfProjectLocationProjectLookupTableDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (Array.isArray(data["items"])) {
+                this.items = [] as any;
+                for (let item of data["items"])
+                    this.items!.push(ProjectLocationProjectLookupTableDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfProjectLocationProjectLookupTableDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfProjectLocationProjectLookupTableDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfProjectLocationProjectLookupTableDto {
+    totalCount: number;
+    items: ProjectLocationProjectLookupTableDto[] | undefined;
+}
+
+export class ProjectLocationLocationLookupTableDto implements IProjectLocationLocationLookupTableDto {
+    id!: number;
+    displayName!: string | undefined;
+
+    constructor(data?: IProjectLocationLocationLookupTableDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"];
+            this.displayName = data["displayName"];
+        }
+    }
+
+    static fromJS(data: any): ProjectLocationLocationLookupTableDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ProjectLocationLocationLookupTableDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["displayName"] = this.displayName;
+        return data; 
+    }
+}
+
+export interface IProjectLocationLocationLookupTableDto {
+    id: number;
+    displayName: string | undefined;
+}
+
+export class PagedResultDtoOfProjectLocationLocationLookupTableDto implements IPagedResultDtoOfProjectLocationLocationLookupTableDto {
+    totalCount!: number;
+    items!: ProjectLocationLocationLookupTableDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfProjectLocationLocationLookupTableDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (Array.isArray(data["items"])) {
+                this.items = [] as any;
+                for (let item of data["items"])
+                    this.items!.push(ProjectLocationLocationLookupTableDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfProjectLocationLocationLookupTableDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfProjectLocationLocationLookupTableDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfProjectLocationLocationLookupTableDto {
+    totalCount: number;
+    items: ProjectLocationLocationLookupTableDto[] | undefined;
+}
+
 export class ProjectDto implements IProjectDto {
     nameAr!: string | undefined;
     nameEn!: string | undefined;
@@ -47850,6 +48771,7 @@ export class CreateOrEditProjectDto implements ICreateOrEditProjectDto {
     managerId!: number | undefined;
     locationId!: number | undefined;
     organizationUnitId!: number | undefined;
+    locations!: ProjectLocationDto[] | undefined;
     id!: number | undefined;
 
     constructor(data?: ICreateOrEditProjectDto) {
@@ -47870,6 +48792,11 @@ export class CreateOrEditProjectDto implements ICreateOrEditProjectDto {
             this.managerId = data["managerId"];
             this.locationId = data["locationId"];
             this.organizationUnitId = data["organizationUnitId"];
+            if (Array.isArray(data["locations"])) {
+                this.locations = [] as any;
+                for (let item of data["locations"])
+                    this.locations!.push(ProjectLocationDto.fromJS(item));
+            }
             this.id = data["id"];
         }
     }
@@ -47890,6 +48817,11 @@ export class CreateOrEditProjectDto implements ICreateOrEditProjectDto {
         data["managerId"] = this.managerId;
         data["locationId"] = this.locationId;
         data["organizationUnitId"] = this.organizationUnitId;
+        if (Array.isArray(this.locations)) {
+            data["locations"] = [];
+            for (let item of this.locations)
+                data["locations"].push(item.toJSON());
+        }
         data["id"] = this.id;
         return data; 
     }
@@ -47903,6 +48835,7 @@ export interface ICreateOrEditProjectDto {
     managerId: number | undefined;
     locationId: number | undefined;
     organizationUnitId: number | undefined;
+    locations: ProjectLocationDto[] | undefined;
     id: number | undefined;
 }
 

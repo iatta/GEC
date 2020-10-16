@@ -57,6 +57,8 @@ namespace Pixel.Attendance
     {
         public static void CreateMappings(IMapperConfigurationExpression configuration)
         {
+            configuration.CreateMap<CreateOrEditProjectLocationDto, ProjectLocation>().ReverseMap();
+            configuration.CreateMap<ProjectLocationDto, ProjectLocation>().ReverseMap();
             configuration.CreateMap<CreateOrEditLocationMachineDto, LocationMachine>().ReverseMap();
             configuration.CreateMap<LocationMachineDto, LocationMachine>().ReverseMap();
             configuration.CreateMap<CreateOrEditUserDelegationDto, UserDelegation>().ReverseMap();

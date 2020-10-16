@@ -1,5 +1,6 @@
 ﻿import { ManagerReportComponent } from './operations/reports/manager-report.component';
 import { FixedOvertimeComponent } from './operations/reports/fixed-overtime.component';
+import { ProjectLocationsComponent } from './operations/projectLocations/projectLocations.component';
 import { LocationMachinesComponent } from './setting/locationMachines/locationMachines.component';
 import { NormalOvertimeComponent } from './operations/reports/normal-overtime.component';
 import { ManagerLevelApproveComponent } from './operations/reports/maneger-level-approve';
@@ -61,6 +62,7 @@ import { HrReportComponent } from './operations/reports/hr-report.component';
             {
                 path: '',
                 children: [
+                    { path: 'operations/projectLocations', component: ProjectLocationsComponent, data: { permission: 'Pages.ProjectLocations' }  },
                     { path: 'setting/locationMachines', component: LocationMachinesComponent, data: { permission: 'Pages.LocationMachines' }  },
                     { path: 'operations/userDelegations', component: UserDelegationsComponent, data: { permission: 'Pages.UserDelegations' }  },
                     { path: 'operations/userTimeSheetApproves', component: UserTimeSheetApprovesComponent, data: { permission: 'Pages.UserTimeSheetApproves' }  },

@@ -15,6 +15,12 @@ namespace Pixel.Attendance.Operations
     [Audited]
     public class Project : FullAuditedEntity 
     {
+        public Project()
+        {
+
+			Locations = new HashSet<ProjectLocation>();
+
+		}
 
 		public virtual string NameAr { get; set; }
 		
@@ -40,6 +46,7 @@ namespace Pixel.Attendance.Operations
 		public ICollection<ProjectUser> Users { get; set; }
 
 		public ICollection<ProjectMachine> Machines { get; set; }
+		public ICollection<ProjectLocation> Locations { get; set; }
 
 	}
 }

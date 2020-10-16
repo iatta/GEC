@@ -30,6 +30,13 @@ namespace Pixel.Attendance.Authorization
 
             var pages = context.GetPermissionOrNull(AppPermissions.Pages) ?? context.CreatePermission(AppPermissions.Pages, L("Pages"));
 
+            var projectLocations = pages.CreateChildPermission(AppPermissions.Pages_ProjectLocations, L("ProjectLocations"));
+            projectLocations.CreateChildPermission(AppPermissions.Pages_ProjectLocations_Create, L("CreateNewProjectLocation"));
+            projectLocations.CreateChildPermission(AppPermissions.Pages_ProjectLocations_Edit, L("EditProjectLocation"));
+            projectLocations.CreateChildPermission(AppPermissions.Pages_ProjectLocations_Delete, L("DeleteProjectLocation"));
+
+
+
             var locationMachines = pages.CreateChildPermission(AppPermissions.Pages_LocationMachines, L("LocationMachines"));
             locationMachines.CreateChildPermission(AppPermissions.Pages_LocationMachines_Create, L("CreateNewLocationMachine"));
             locationMachines.CreateChildPermission(AppPermissions.Pages_LocationMachines_Edit, L("EditLocationMachine"));

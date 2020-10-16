@@ -1,0 +1,44 @@
+{
+  "IsRegenerate": false,
+  "MenuPosition": "main",
+  "RelativeNamespace": "Operations",
+  "EntityName": "ProjectLocation",
+  "EntityNamePlural": "ProjectLocations",
+  "TableName": "ProjectLocations",
+  "PrimaryKeyType": "int",
+  "BaseClass": "FullAuditedEntity",
+  "EntityHistory": true,
+  "AutoMigration": true,
+  "UpdateDatabase": true,
+  "CreateUserInterface": true,
+  "CreateViewOnly": true,
+  "CreateExcelExport": true,
+  "PagePermission": {
+    "Host": false,
+    "Tenant": false
+  },
+  "Properties": [],
+  "NavigationProperties": [
+    {
+      "Namespace": "Pixel.Attendance.Operations",
+      "ForeignEntityName": "Project",
+      "IdType": "int",
+      "IsNullable": true,
+      "PropertyName": "ProjectId",
+      "DisplayPropertyName": "NameEn",
+      "DuplicationNumber": 0,
+      "RelationType": "single"
+    },
+    {
+      "Namespace": "Pixel.Attendance.Setting",
+      "ForeignEntityName": "Location",
+      "IdType": "int",
+      "IsNullable": true,
+      "PropertyName": "LocationId",
+      "DisplayPropertyName": "TitleEn",
+      "DuplicationNumber": 0,
+      "RelationType": "single"
+    }
+  ],
+  "EnumDefinitions": []
+}

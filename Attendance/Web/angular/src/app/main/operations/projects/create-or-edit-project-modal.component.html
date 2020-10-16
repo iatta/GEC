@@ -13,66 +13,96 @@
                 </div>
                 <div class="modal-body">
 
+<tabset>
+    <tab heading="{{'ProjectInformation' | localize}}" name="first">
 
-					<div class="form-group m-form__group">
-                        <label for="UserName">{{l("Project Manager")}}</label>
-                        <div class="input-group">
-                            <input class="form-control" id="UserName" name="userName" [(ngModel)]="userName" type="text" disabled>
-                            <div class="input-group-append">
-                                <button class="btn btn-primary blue" (click)="openSelectUserModal()" type="button"><i class="fa fa-search"></i> {{l("Pick")}}</button>
-                            </div> <div class="input-group-prepend">
-                                <button class="btn btn-danger btn-icon" type="button" (click)="setManagerIdNull()"><i class="fa fa-times"></i></button>
-                            </div>
+        <div class="form-group m-form__group">
+            <label for="UserName">{{l("Project Manager")}}</label>
+            <div class="input-group">
+                <input class="form-control" id="UserName" name="userName" [(ngModel)]="userName" type="text" disabled>
+                <div class="input-group-append">
+                    <button class="btn btn-primary blue" (click)="openSelectUserModal()" type="button"><i class="fa fa-search"></i> {{l("Pick")}}</button>
+                </div> <div class="input-group-prepend">
+                    <button class="btn btn-danger btn-icon" type="button" (click)="setManagerIdNull()"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+        </div>
+        <input class="form-control" name="project.managerId" [(ngModel)]="project.managerId" type="text"  hidden>
+
+
+
+        <div class="form-group m-form__group">
+            <label for="OrganizationUnitDisplayName">{{l("OrganizationUnit")}}</label>
+            <div class="input-group">
+                <input class="form-control" id="OrganizationUnitDisplayName" name="organizationUnitDisplayName" [(ngModel)]="organizationUnitDisplayName" type="text" disabled>
+                <div class="input-group-append">
+                    <button class="btn btn-primary blue" (click)="openSelectOrganizationUnitModal()" type="button"><i class="fa fa-search"></i> {{l("Pick")}}</button>
+                </div> <div class="input-group-prepend">
+                    <button class="btn btn-danger btn-icon" type="button" (click)="setOrganizationUnitIdNull()"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+        </div>
+        <input class="form-control" name="project.organizationUnitId" [(ngModel)]="project.organizationUnitId" type="text"  hidden>
+
+
+                    <div class="form-group">
+                        <label for="Project_NameAr">{{l("NameAr")}}</label>
+                        <input type="text" id="Project_NameAr" class="form-control" [(ngModel)]="project.nameAr" name="NameAr"    />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Project_NameEn">{{l("NameEn")}}</label>
+                        <input type="text" id="Project_NameEn" class="form-control" [(ngModel)]="project.nameEn" name="NameEn"    />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Project_Code">{{l("Code")}}</label>
+                        <input type="text" id="Project_Code" class="form-control" [(ngModel)]="project.code" name="code"    />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Project_Number">{{l("Number")}}</label>
+                        <input type="text" id="Project_Number" class="form-control" [(ngModel)]="project.number" name="number"    />
+                    </div>
+    </tab>
+    <tab heading="{{'ProjectLocations' | localize}}" name="first">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group m-form__group">
+                    <label for="LocationTitleEn">{{l("Location")}}</label>
+                    <div class="input-group">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary blue" (click)="openSelectLocationModal()" type="button"><i class="fa fa-search"></i> {{l("Pick")}}</button>
                         </div>
                     </div>
-                    <input class="form-control" name="project.managerId" [(ngModel)]="project.managerId" type="text"  hidden>
-
-					<div class="form-group m-form__group">
-                        <label for="LocationTitleEn">{{l("Location")}}</label>
-                        <div class="input-group">
-                            <input class="form-control" id="LocationTitleEn" name="locationTitleEn" [(ngModel)]="locationTitleEn" type="text" disabled>
-                            <div class="input-group-append">
-                                <button class="btn btn-primary blue" (click)="openSelectLocationModal()" type="button"><i class="fa fa-search"></i> {{l("Pick")}}</button>
-                            </div> <div class="input-group-prepend">
-                                <button class="btn btn-danger btn-icon" type="button" (click)="setLocationIdNull()"><i class="fa fa-times"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                    <input class="form-control" name="project.locationId" [(ngModel)]="project.locationId" type="text"  hidden>
-
-					<div class="form-group m-form__group">
-                        <label for="OrganizationUnitDisplayName">{{l("OrganizationUnit")}}</label>
-                        <div class="input-group">
-                            <input class="form-control" id="OrganizationUnitDisplayName" name="organizationUnitDisplayName" [(ngModel)]="organizationUnitDisplayName" type="text" disabled>
-                            <div class="input-group-append">
-                                <button class="btn btn-primary blue" (click)="openSelectOrganizationUnitModal()" type="button"><i class="fa fa-search"></i> {{l("Pick")}}</button>
-                            </div> <div class="input-group-prepend">
-                                <button class="btn btn-danger btn-icon" type="button" (click)="setOrganizationUnitIdNull()"><i class="fa fa-times"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                    <input class="form-control" name="project.organizationUnitId" [(ngModel)]="project.organizationUnitId" type="text"  hidden>
-
-
-								<div class="form-group">
-									<label for="Project_NameAr">{{l("NameAr")}}</label>
-									<input type="text" id="Project_NameAr" class="form-control" [(ngModel)]="project.nameAr" name="NameAr"    />
-								</div>
-
-								<div class="form-group">
-									<label for="Project_NameEn">{{l("NameEn")}}</label>
-									<input type="text" id="Project_NameEn" class="form-control" [(ngModel)]="project.nameEn" name="NameEn"    />
-                                </div>
-
-                                <div class="form-group">
-									<label for="Project_Code">{{l("Code")}}</label>
-									<input type="text" id="Project_Code" class="form-control" [(ngModel)]="project.code" name="code"    />
-                                </div>
-
-                                <div class="form-group">
-									<label for="Project_Number">{{l("Number")}}</label>
-									<input type="text" id="Project_Number" class="form-control" [(ngModel)]="project.number" name="number"    />
-								</div>
+                </div>
+                <input class="form-control" name="project.locationId" [(ngModel)]="project.locationId" type="text"  hidden>
+            </div>
+        </div>
+        <div class="row">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>
+                                {{l("LocationName")}}
+                            </th>
+                            <th>
+                                {{l("Actions")}}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of project.locations" >
+                            <td>{{item.locationName}}</td>
+                            <td><button class="btn btn-danger" type="button" (click)="removeLocation(item)" >{{l("Delete")}}</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </tab>
+</tabset>
 
 
                 </div>

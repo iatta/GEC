@@ -3,7 +3,7 @@ import { OrganizationUnitsHorizontalTreeModalComponent } from './../../../admin/
 import { Component, ViewChild, Injector, Output, EventEmitter} from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap';
 import { finalize } from 'rxjs/operators';
-import { ProjectsServiceProxy, CreateOrEditProjectDto } from '@shared/service-proxies/service-proxies';
+import { ProjectsServiceProxy, CreateOrEditProjectDto, ProjectLocationDto } from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import * as moment from 'moment';
 import { ProjectUserLookupTableModalComponent } from './project-user-lookup-table-modal.component';
@@ -46,6 +46,7 @@ export class CreateOrEditProjectModalComponent extends AppComponentBase {
         if (!projectId) {
             this.project = new CreateOrEditProjectDto();
             this.project.id = projectId;
+            this.project.locations = [];
             this.userName = '';
             this.locationTitleEn = '';
             this.organizationUnitDisplayName = '';
@@ -55,6 +56,8 @@ export class CreateOrEditProjectModalComponent extends AppComponentBase {
         } else {
             this._projectsServiceProxy.getProjectForEdit(projectId).subscribe(result => {
                 this.project = result.project;
+                if(!this.project.locations)
+                    this.project.locations = [];
 
                 this.userName = result.userName;
                 this.locationTitleEn = result.locationTitleEn;
@@ -122,7 +125,19 @@ export class CreateOrEditProjectModalComponent extends AppComponentBase {
         this.project.managerId = this.projectUserLookupTableModal.id;
         this.userName = this.projectUserLookupTableModal.displayName;
     }
+
     getNewLocationId() {
+        if(this.isLocationExist(this.projectLocationLookupTableModal.id)){
+            this.message.warn("Location Already Added To This Project");
+        }else{
+            if(this.projectLocationLookupTableModal.id > 0){
+                let projectLocationToAdd = new ProjectLocationDto();
+                projectLocationToAdd.locationId = this.projectLocationLookupTableModal.id;
+                projectLocationToAdd.locationName = this.projectLocationLookupTableModal.displayName;
+                this.project.locations.push(projectLocationToAdd);
+            }
+
+        }
         this.project.locationId = this.projectLocationLookupTableModal.id;
         this.locationTitleEn = this.projectLocationLookupTableModal.displayName;
     }
@@ -131,6 +146,35 @@ export class CreateOrEditProjectModalComponent extends AppComponentBase {
         this.organizationUnitDisplayName = this.projectOrganizationUnitLookupTableModal.displayName;
     }
 
+
+    isLocationExist(locationId:number){
+        debugger
+        if(this.project.locations.length  == 0)
+            return false;
+
+        let exist = this.project.locations.findIndex(x =>  x.locationId == locationId);
+
+        return exist > -1;
+    }
+
+    removeLocation(machine: ProjectLocationDto){
+        this.message.confirm(
+            '',
+            this.l('AreYouSure'),
+            (isConfirmed) => {
+                if (isConfirmed) {
+
+                    let index = this.project.locations.indexOf(machine);
+                    if(index > -1){
+                        this.project.locations.splice(index,1);
+                        this.notify.success(this.l('SuccessfullyDeleted'));
+                    }
+
+                }
+            }
+        );
+
+    }
 
     close(): void {
         this.active = false;

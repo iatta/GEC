@@ -27,22 +27,25 @@ namespace Pixel.Attendance.Operations
     {
         
         private readonly IRepository<Project> _projectRepository;
-		 private readonly IProjectsExcelExporter _projectsExcelExporter;
+        private readonly IRepository<ProjectLocation> _projectLocationRepository;
+        private readonly IProjectsExcelExporter _projectsExcelExporter;
 		 private readonly IRepository<User,long> _lookup_userRepository;
 		 private readonly IRepository<Location,int> _lookup_locationRepository;
 		 private readonly IRepository<OrganizationUnitExtended,long> _lookup_organizationUnitRepository;
         
 
 
-          public ProjectsAppService(IRepository<Project> projectRepository, IProjectsExcelExporter projectsExcelExporter , IRepository<User, long> lookup_userRepository, IRepository<Location, int> lookup_locationRepository, IRepository<OrganizationUnitExtended, long> lookup_organizationUnitRepository) 
+          public ProjectsAppService(IRepository<ProjectLocation> projectLocationRepository , IRepository<Project> projectRepository, IProjectsExcelExporter projectsExcelExporter , IRepository<User, long> lookup_userRepository, IRepository<Location, int> lookup_locationRepository, IRepository<OrganizationUnitExtended, long> lookup_organizationUnitRepository) 
 		  {
 			_projectRepository = projectRepository;
 			_projectsExcelExporter = projectsExcelExporter;
 			_lookup_userRepository = lookup_userRepository;
 		_lookup_locationRepository = lookup_locationRepository;
 		_lookup_organizationUnitRepository = lookup_organizationUnitRepository;
-		
-		  }
+            _projectLocationRepository = projectLocationRepository;
+
+
+          }
 
         public async Task<List<ProjectDto>> GetAllFlatForHr()
         {
@@ -162,8 +165,9 @@ namespace Pixel.Attendance.Operations
 		 public async Task<GetProjectForEditOutput> GetProjectForEdit(EntityDto input)
          {
             var project = await _projectRepository.FirstOrDefaultAsync(input.Id);
-           
-		    var output = new GetProjectForEditOutput {Project = ObjectMapper.Map<CreateOrEditProjectDto>(project)};
+            project.Locations = _projectLocationRepository.GetAll().Where(x => x.ProjectId == project.Id).ToList();
+
+            var output = new GetProjectForEditOutput {Project = ObjectMapper.Map<CreateOrEditProjectDto>(project)};
 
 		    if (output.Project.ManagerId != null)
             {
@@ -182,7 +186,12 @@ namespace Pixel.Attendance.Operations
                 var _lookupOrganizationUnit = await _lookup_organizationUnitRepository.FirstOrDefaultAsync((long)output.Project.OrganizationUnitId);
                 output.OrganizationUnitDisplayName = _lookupOrganizationUnit.DisplayName.ToString();
             }
-			
+            foreach (var projectLocation in output.Project.Locations)
+            {
+                projectLocation.LocationName = _lookup_locationRepository.FirstOrDefault(x => x.Id == projectLocation.Id).TitleEn;
+
+            }
+            
             return output;
          }
 
@@ -200,8 +209,17 @@ namespace Pixel.Attendance.Operations
 		 protected virtual async Task Create(CreateOrEditProjectDto input)
          {
             var project = ObjectMapper.Map<Project>(input);
+            project.Locations = new List<ProjectLocation>();
 
-			
+            if (input.Locations.Count > 0)
+            {
+                foreach (var item in input.Locations)
+                {
+                    project.Locations.Add(ObjectMapper.Map<ProjectLocation>(item));
+                }
+
+            }
+
 
             await _projectRepository.InsertAsync(project);
          }
@@ -210,7 +228,32 @@ namespace Pixel.Attendance.Operations
 		 protected virtual async Task Update(CreateOrEditProjectDto input)
          {
             var project = await _projectRepository.FirstOrDefaultAsync((int)input.Id);
-             ObjectMapper.Map(input, project);
+            project.Locations = _projectLocationRepository.GetAll().Where(x => x.ProjectId == project.Id).ToList();
+            var oldProjectLocations = new HashSet<ProjectLocation>(project.Locations.ToList());
+            var newProjectLocations = new HashSet<ProjectLocationDto>(input.Locations.ToList());
+
+            foreach (var detail in oldProjectLocations)
+            {
+                if (!newProjectLocations.Any(x => x.Id == detail.Id))
+                {
+                    project.Locations.Remove(detail);
+                }
+                else
+                {
+                    var inputDetail = newProjectLocations.Where(x => x.Id == detail.Id).FirstOrDefault();
+                }
+
+            }
+
+            foreach (var item in newProjectLocations)
+            {
+                if (item.Id == 0)
+                {
+                    project.Locations.Add(ObjectMapper.Map<ProjectLocation>(item));
+                }
+            }
+            await _projectRepository.UpdateAsync(project);
+            
          }
 
 		 [AbpAuthorize(AppPermissions.Pages_Projects_Delete)]
