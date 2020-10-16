@@ -14,6 +14,7 @@ namespace Pixel.Attendance.Setting
 		public Location()
 		{
 			LocationCredentials = new HashSet<LocationCredential>();
+			Machines = new HashSet<LocationMachine>();
 		}
 
 		public virtual string TitleAr { get; set; }
@@ -21,5 +22,7 @@ namespace Pixel.Attendance.Setting
 		public virtual string TitleEn { get; set; }
 
 		public ICollection<LocationCredential> LocationCredentials { get; set; }
-	}
+        public ICollection<LocationMachine> Machines { get; set; }
+    }
+
 }

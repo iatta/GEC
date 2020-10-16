@@ -23,6 +23,8 @@ namespace Pixel.Attendance.EntityFrameworkCore
 {
     public class AttendanceDbContext : AbpZeroDbContext<Tenant, Role, User, AttendanceDbContext>, IAbpPersistedGrantDbContext
     {
+        public virtual DbSet<LocationMachine> LocationMachines { get; set; }
+
         public virtual DbSet<UserDelegation> UserDelegations { get; set; }
 
         public virtual DbSet<UserTimeSheetApprove> UserTimeSheetApproves { get; set; }
@@ -146,6 +148,11 @@ namespace Pixel.Attendance.EntityFrameworkCore
 
             modelBuilder.Entity<Location>()
                .HasMany(c => c.LocationCredentials)
+               .WithOne(e => e.LocationFk);
+
+
+            modelBuilder.Entity<Location>()
+               .HasMany(c => c.Machines)
                .WithOne(e => e.LocationFk);
 
 

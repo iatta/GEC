@@ -9467,6 +9467,523 @@ export class LocationCredentialsServiceProxy {
 }
 
 @Injectable()
+export class LocationMachinesServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param locationTitleArFilter (optional) 
+     * @param machineNameEnFilter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
+     * @return Success
+     */
+    getAll(filter: string | undefined, locationTitleArFilter: string | undefined, machineNameEnFilter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetLocationMachineForViewDto> {
+        let url_ = this.baseUrl + "/api/services/app/LocationMachines/GetAll?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (locationTitleArFilter === null)
+            throw new Error("The parameter 'locationTitleArFilter' cannot be null.");
+        else if (locationTitleArFilter !== undefined)
+            url_ += "LocationTitleArFilter=" + encodeURIComponent("" + locationTitleArFilter) + "&"; 
+        if (machineNameEnFilter === null)
+            throw new Error("The parameter 'machineNameEnFilter' cannot be null.");
+        else if (machineNameEnFilter !== undefined)
+            url_ += "MachineNameEnFilter=" + encodeURIComponent("" + machineNameEnFilter) + "&"; 
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAll(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfGetLocationMachineForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfGetLocationMachineForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfGetLocationMachineForViewDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfGetLocationMachineForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfGetLocationMachineForViewDto>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getLocationMachineForView(id: number | undefined): Observable<GetLocationMachineForViewDto> {
+        let url_ = this.baseUrl + "/api/services/app/LocationMachines/GetLocationMachineForView?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetLocationMachineForView(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetLocationMachineForView(<any>response_);
+                } catch (e) {
+                    return <Observable<GetLocationMachineForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetLocationMachineForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetLocationMachineForView(response: HttpResponseBase): Observable<GetLocationMachineForViewDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetLocationMachineForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetLocationMachineForViewDto>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getLocationMachineForEdit(id: number | undefined): Observable<GetLocationMachineForEditOutput> {
+        let url_ = this.baseUrl + "/api/services/app/LocationMachines/GetLocationMachineForEdit?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetLocationMachineForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetLocationMachineForEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<GetLocationMachineForEditOutput>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetLocationMachineForEditOutput>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetLocationMachineForEdit(response: HttpResponseBase): Observable<GetLocationMachineForEditOutput> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetLocationMachineForEditOutput.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetLocationMachineForEditOutput>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    createOrEdit(body: CreateOrEditLocationMachineDto | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/LocationMachines/CreateOrEdit";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json", 
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOrEdit(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    delete(id: number | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/LocationMachines/Delete?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDelete(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDelete(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDelete(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param locationTitleArFilter (optional) 
+     * @param machineNameEnFilter (optional) 
+     * @return Success
+     */
+    getLocationMachinesToExcel(filter: string | undefined, locationTitleArFilter: string | undefined, machineNameEnFilter: string | undefined): Observable<FileDto> {
+        let url_ = this.baseUrl + "/api/services/app/LocationMachines/GetLocationMachinesToExcel?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (locationTitleArFilter === null)
+            throw new Error("The parameter 'locationTitleArFilter' cannot be null.");
+        else if (locationTitleArFilter !== undefined)
+            url_ += "LocationTitleArFilter=" + encodeURIComponent("" + locationTitleArFilter) + "&"; 
+        if (machineNameEnFilter === null)
+            throw new Error("The parameter 'machineNameEnFilter' cannot be null.");
+        else if (machineNameEnFilter !== undefined)
+            url_ += "MachineNameEnFilter=" + encodeURIComponent("" + machineNameEnFilter) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetLocationMachinesToExcel(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetLocationMachinesToExcel(<any>response_);
+                } catch (e) {
+                    return <Observable<FileDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<FileDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetLocationMachinesToExcel(response: HttpResponseBase): Observable<FileDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = FileDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<FileDto>(<any>null);
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
+     * @return Success
+     */
+    getAllLocationForLookupTable(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfLocationMachineLocationLookupTableDto> {
+        let url_ = this.baseUrl + "/api/services/app/LocationMachines/GetAllLocationForLookupTable?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllLocationForLookupTable(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllLocationForLookupTable(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfLocationMachineLocationLookupTableDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfLocationMachineLocationLookupTableDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAllLocationForLookupTable(response: HttpResponseBase): Observable<PagedResultDtoOfLocationMachineLocationLookupTableDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfLocationMachineLocationLookupTableDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfLocationMachineLocationLookupTableDto>(<any>null);
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
+     * @return Success
+     */
+    getAllMachineForLookupTable(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfLocationMachineMachineLookupTableDto> {
+        let url_ = this.baseUrl + "/api/services/app/LocationMachines/GetAllMachineForLookupTable?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllMachineForLookupTable(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllMachineForLookupTable(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfLocationMachineMachineLookupTableDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfLocationMachineMachineLookupTableDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAllMachineForLookupTable(response: HttpResponseBase): Observable<PagedResultDtoOfLocationMachineMachineLookupTableDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfLocationMachineMachineLookupTableDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfLocationMachineMachineLookupTableDto>(<any>null);
+    }
+}
+
+@Injectable()
 export class LocationsServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -38926,6 +39443,410 @@ export interface IPagedResultDtoOfLocationCredentialLocationLookupTableDto {
     items: LocationCredentialLocationLookupTableDto[] | undefined;
 }
 
+export class LocationMachineDto implements ILocationMachineDto {
+    locationId!: number | undefined;
+    machineId!: number | undefined;
+    machineName!: string | undefined;
+    id!: number;
+
+    constructor(data?: ILocationMachineDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.locationId = data["locationId"];
+            this.machineId = data["machineId"];
+            this.machineName = data["machineName"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): LocationMachineDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new LocationMachineDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["locationId"] = this.locationId;
+        data["machineId"] = this.machineId;
+        data["machineName"] = this.machineName;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface ILocationMachineDto {
+    locationId: number | undefined;
+    machineId: number | undefined;
+    machineName: string | undefined;
+    id: number;
+}
+
+export class GetLocationMachineForViewDto implements IGetLocationMachineForViewDto {
+    locationMachine!: LocationMachineDto | undefined;
+    locationTitleAr!: string | undefined;
+    machineNameEn!: string | undefined;
+
+    constructor(data?: IGetLocationMachineForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.locationMachine = data["locationMachine"] ? LocationMachineDto.fromJS(data["locationMachine"]) : <any>undefined;
+            this.locationTitleAr = data["locationTitleAr"];
+            this.machineNameEn = data["machineNameEn"];
+        }
+    }
+
+    static fromJS(data: any): GetLocationMachineForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetLocationMachineForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["locationMachine"] = this.locationMachine ? this.locationMachine.toJSON() : <any>undefined;
+        data["locationTitleAr"] = this.locationTitleAr;
+        data["machineNameEn"] = this.machineNameEn;
+        return data; 
+    }
+}
+
+export interface IGetLocationMachineForViewDto {
+    locationMachine: LocationMachineDto | undefined;
+    locationTitleAr: string | undefined;
+    machineNameEn: string | undefined;
+}
+
+export class PagedResultDtoOfGetLocationMachineForViewDto implements IPagedResultDtoOfGetLocationMachineForViewDto {
+    totalCount!: number;
+    items!: GetLocationMachineForViewDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfGetLocationMachineForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (Array.isArray(data["items"])) {
+                this.items = [] as any;
+                for (let item of data["items"])
+                    this.items!.push(GetLocationMachineForViewDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfGetLocationMachineForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfGetLocationMachineForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfGetLocationMachineForViewDto {
+    totalCount: number;
+    items: GetLocationMachineForViewDto[] | undefined;
+}
+
+export class CreateOrEditLocationMachineDto implements ICreateOrEditLocationMachineDto {
+    locationId!: number | undefined;
+    machineId!: number | undefined;
+    id!: number | undefined;
+
+    constructor(data?: ICreateOrEditLocationMachineDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.locationId = data["locationId"];
+            this.machineId = data["machineId"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): CreateOrEditLocationMachineDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateOrEditLocationMachineDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["locationId"] = this.locationId;
+        data["machineId"] = this.machineId;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface ICreateOrEditLocationMachineDto {
+    locationId: number | undefined;
+    machineId: number | undefined;
+    id: number | undefined;
+}
+
+export class GetLocationMachineForEditOutput implements IGetLocationMachineForEditOutput {
+    locationMachine!: CreateOrEditLocationMachineDto | undefined;
+    locationTitleAr!: string | undefined;
+    machineNameEn!: string | undefined;
+
+    constructor(data?: IGetLocationMachineForEditOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.locationMachine = data["locationMachine"] ? CreateOrEditLocationMachineDto.fromJS(data["locationMachine"]) : <any>undefined;
+            this.locationTitleAr = data["locationTitleAr"];
+            this.machineNameEn = data["machineNameEn"];
+        }
+    }
+
+    static fromJS(data: any): GetLocationMachineForEditOutput {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetLocationMachineForEditOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["locationMachine"] = this.locationMachine ? this.locationMachine.toJSON() : <any>undefined;
+        data["locationTitleAr"] = this.locationTitleAr;
+        data["machineNameEn"] = this.machineNameEn;
+        return data; 
+    }
+}
+
+export interface IGetLocationMachineForEditOutput {
+    locationMachine: CreateOrEditLocationMachineDto | undefined;
+    locationTitleAr: string | undefined;
+    machineNameEn: string | undefined;
+}
+
+export class LocationMachineLocationLookupTableDto implements ILocationMachineLocationLookupTableDto {
+    id!: number;
+    displayName!: string | undefined;
+
+    constructor(data?: ILocationMachineLocationLookupTableDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"];
+            this.displayName = data["displayName"];
+        }
+    }
+
+    static fromJS(data: any): LocationMachineLocationLookupTableDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new LocationMachineLocationLookupTableDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["displayName"] = this.displayName;
+        return data; 
+    }
+}
+
+export interface ILocationMachineLocationLookupTableDto {
+    id: number;
+    displayName: string | undefined;
+}
+
+export class PagedResultDtoOfLocationMachineLocationLookupTableDto implements IPagedResultDtoOfLocationMachineLocationLookupTableDto {
+    totalCount!: number;
+    items!: LocationMachineLocationLookupTableDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfLocationMachineLocationLookupTableDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (Array.isArray(data["items"])) {
+                this.items = [] as any;
+                for (let item of data["items"])
+                    this.items!.push(LocationMachineLocationLookupTableDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfLocationMachineLocationLookupTableDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfLocationMachineLocationLookupTableDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfLocationMachineLocationLookupTableDto {
+    totalCount: number;
+    items: LocationMachineLocationLookupTableDto[] | undefined;
+}
+
+export class LocationMachineMachineLookupTableDto implements ILocationMachineMachineLookupTableDto {
+    id!: number;
+    displayName!: string | undefined;
+
+    constructor(data?: ILocationMachineMachineLookupTableDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"];
+            this.displayName = data["displayName"];
+        }
+    }
+
+    static fromJS(data: any): LocationMachineMachineLookupTableDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new LocationMachineMachineLookupTableDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["displayName"] = this.displayName;
+        return data; 
+    }
+}
+
+export interface ILocationMachineMachineLookupTableDto {
+    id: number;
+    displayName: string | undefined;
+}
+
+export class PagedResultDtoOfLocationMachineMachineLookupTableDto implements IPagedResultDtoOfLocationMachineMachineLookupTableDto {
+    totalCount!: number;
+    items!: LocationMachineMachineLookupTableDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfLocationMachineMachineLookupTableDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (Array.isArray(data["items"])) {
+                this.items = [] as any;
+                for (let item of data["items"])
+                    this.items!.push(LocationMachineMachineLookupTableDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfLocationMachineMachineLookupTableDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfLocationMachineMachineLookupTableDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfLocationMachineMachineLookupTableDto {
+    totalCount: number;
+    items: LocationMachineMachineLookupTableDto[] | undefined;
+}
+
 export class LocationDto implements ILocationDto {
     titleAr!: string | undefined;
     titleEn!: string | undefined;
@@ -39058,6 +39979,7 @@ export class CreateOrEditLocationDto implements ICreateOrEditLocationDto {
     titleAr!: string | undefined;
     titleEn!: string | undefined;
     locationCredentials!: LocationCredentialDto[] | undefined;
+    machines!: LocationMachineDto[] | undefined;
     id!: number | undefined;
 
     constructor(data?: ICreateOrEditLocationDto) {
@@ -39077,6 +39999,11 @@ export class CreateOrEditLocationDto implements ICreateOrEditLocationDto {
                 this.locationCredentials = [] as any;
                 for (let item of data["locationCredentials"])
                     this.locationCredentials!.push(LocationCredentialDto.fromJS(item));
+            }
+            if (Array.isArray(data["machines"])) {
+                this.machines = [] as any;
+                for (let item of data["machines"])
+                    this.machines!.push(LocationMachineDto.fromJS(item));
             }
             this.id = data["id"];
         }
@@ -39098,6 +40025,11 @@ export class CreateOrEditLocationDto implements ICreateOrEditLocationDto {
             for (let item of this.locationCredentials)
                 data["locationCredentials"].push(item.toJSON());
         }
+        if (Array.isArray(this.machines)) {
+            data["machines"] = [];
+            for (let item of this.machines)
+                data["machines"].push(item.toJSON());
+        }
         data["id"] = this.id;
         return data; 
     }
@@ -39107,6 +40039,7 @@ export interface ICreateOrEditLocationDto {
     titleAr: string | undefined;
     titleEn: string | undefined;
     locationCredentials: LocationCredentialDto[] | undefined;
+    machines: LocationMachineDto[] | undefined;
     id: number | undefined;
 }
 

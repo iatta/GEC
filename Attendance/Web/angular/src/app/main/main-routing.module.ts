@@ -1,5 +1,6 @@
 ﻿import { ManagerReportComponent } from './operations/reports/manager-report.component';
 import { FixedOvertimeComponent } from './operations/reports/fixed-overtime.component';
+import { LocationMachinesComponent } from './setting/locationMachines/locationMachines.component';
 import { NormalOvertimeComponent } from './operations/reports/normal-overtime.component';
 import { ManagerLevelApproveComponent } from './operations/reports/maneger-level-approve';
 import { SummerizeReportComponent } from './operations/reports/summerize.component';
@@ -52,6 +53,7 @@ import { ManageUserShiftComponent } from './operations/userShifts/manage-user-sh
 import { ProjectManagerTransactionsComponent } from './operations/manualTransactions/transaction-project-manager.component.';
 import { UnitManagerTransactionsComponent } from './operations/manualTransactions/transaction-unit-manager.component';
 import { HrTransactionsComponent } from './operations/manualTransactions/transaction-hr.component';
+import { HrReportComponent } from './operations/reports/hr-report.component';
 
 @NgModule({
     imports: [
@@ -59,12 +61,14 @@ import { HrTransactionsComponent } from './operations/manualTransactions/transac
             {
                 path: '',
                 children: [
+                    { path: 'setting/locationMachines', component: LocationMachinesComponent, data: { permission: 'Pages.LocationMachines' }  },
                     { path: 'operations/userDelegations', component: UserDelegationsComponent, data: { permission: 'Pages.UserDelegations' }  },
                     { path: 'operations/userTimeSheetApproves', component: UserTimeSheetApprovesComponent, data: { permission: 'Pages.UserTimeSheetApproves' }  },
                     { path: 'operations/managerLevelApprove', component: ManagerLevelApproveComponent, data: { permission: 'Pages.ManagerLevelApprove' }  },
                     { path: 'operations/normalOvertime', component: NormalOvertimeComponent, data: { permission: 'Pages.NormalOvertime' }  },
                     { path: 'operations/fixedOvertime', component: FixedOvertimeComponent, data: { permission: 'Pages.FixedOvertime' }  },
                     { path: 'operations/managerReportComponent', component: ManagerReportComponent, data: { permission: 'Pages.ManagerReport' }  },
+                    { path: 'operations/hrReportComponent', component: HrReportComponent, data: { permission: 'Pages.HrReport' }  },
 
                     { path: 'operations/summerizeReport', component: SummerizeReportComponent, data: { permission: 'Pages.SummerizeReport' }  },
                     { path: 'operations/beacons', component: BeaconsComponent, data: { permission: 'Pages.Beacons' }  },

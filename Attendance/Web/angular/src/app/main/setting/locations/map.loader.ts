@@ -1,10 +1,14 @@
 import { environment } from './../../../../environments/environment';
+
+
 export class MapLoaderService {
+
     private static promise: Promise<any>;
     public static load(): Promise<any> {
       let browserKey = environment.googleMapKey;
       let map = {
         URL: 'https://maps.googleapis.com/maps/api/js?libraries=geometry,drawing&key=' + browserKey + '&callback=__onGoogleLoaded',
+
       }
 
       // First time 'load' is called?
@@ -13,6 +17,7 @@ export class MapLoaderService {
         // Make promise to load
         this.promise = new Promise(resolve => {
           this.loadScript(map.URL);
+
           // Set callback for when google maps is loaded.
           window['__onGoogleLoaded'] = ($event) => {
             resolve('google maps api loaded');

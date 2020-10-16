@@ -1,0 +1,44 @@
+{
+  "IsRegenerate": true,
+  "MenuPosition": "main",
+  "RelativeNamespace": "Setting",
+  "EntityName": "LocationMachine",
+  "EntityNamePlural": "LocationMachines",
+  "TableName": "LocationMachines",
+  "PrimaryKeyType": "int",
+  "BaseClass": "FullAuditedEntity",
+  "EntityHistory": true,
+  "AutoMigration": true,
+  "UpdateDatabase": true,
+  "CreateUserInterface": true,
+  "CreateViewOnly": true,
+  "CreateExcelExport": true,
+  "PagePermission": {
+    "Host": false,
+    "Tenant": false
+  },
+  "Properties": [],
+  "NavigationProperties": [
+    {
+      "Namespace": "Pixel.Attendance.Setting",
+      "ForeignEntityName": "Location",
+      "IdType": "int",
+      "IsNullable": true,
+      "PropertyName": "LocationId",
+      "DisplayPropertyName": "TitleAr",
+      "DuplicationNumber": 0,
+      "RelationType": "single"
+    },
+    {
+      "Namespace": "Pixel.Attendance.Setting",
+      "ForeignEntityName": "Machine",
+      "IdType": "int",
+      "IsNullable": true,
+      "PropertyName": "MachineId",
+      "DisplayPropertyName": "NameEn",
+      "DuplicationNumber": 0,
+      "RelationType": "single"
+    }
+  ],
+  "EnumDefinitions": []
+}

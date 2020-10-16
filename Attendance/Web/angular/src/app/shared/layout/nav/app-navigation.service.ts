@@ -98,6 +98,8 @@ export class AppNavigationService {
             // new AppMenuItem('UserTimeSheetApproves', 'Pages.UserTimeSheetApproves', 'flaticon-more', '/app/main/operations/userTimeSheetApproves'),
 
             new AppMenuItem('UserDelegations', 'Pages.UserDelegations', 'flaticon-rotate', '/app/main/operations/userDelegations'),
+            
+            new AppMenuItem('LocationMachines', 'Pages.LocationMachines', 'flaticon-more', '/app/main/setting/locationMachines'),
              new AppMenuItem('Administration', '', 'flaticon-interface-8', '', [
                 new AppMenuItem('OrganizationUnits', 'Pages.Administration.OrganizationUnits', 'flaticon-map', '/app/admin/organization-units'),
                 new AppMenuItem('JobTitles', 'Pages.JobTitles', 'flaticon2-list-3', '/app/main/setting/jobTitles'),
@@ -124,6 +126,7 @@ export class AppNavigationService {
 
             new AppMenuItem('Reports', '', 'flaticon-graph', '', [
 
+                new AppMenuItem('HrReport', 'Pages.HrReport', 'flaticon-graph', '/app/main/operations/hrReportComponent'),
                 new AppMenuItem('ManagerReport', 'Pages.ManagerReport', 'flaticon-graph', '/app/main/operations/managerReportComponent'),
                 new AppMenuItem('SummerizeReport', 'Pages.SummerizeReport', 'flaticon-graph', '/app/main/operations/summerizeReport'),
                 new AppMenuItem('ManagerLevelApprove', 'Pages.ManagerLevelApprove', 'flaticon-profile', '/app/main/operations/managerLevelApprove'),

@@ -22,15 +22,18 @@ namespace Pixel.Attendance.Setting
     public class LocationsAppService : AttendanceAppServiceBase, ILocationsAppService
     {
 		 private readonly IRepository<Location> _locationRepository;
-		 private readonly ILocationsExcelExporter _locationsExcelExporter;
+        private readonly IRepository<Machine> _machineRepository;
+        private readonly ILocationsExcelExporter _locationsExcelExporter;
 		 
 
-		  public LocationsAppService(IRepository<Location> locationRepository, ILocationsExcelExporter locationsExcelExporter ) 
+		  public LocationsAppService(IRepository<Machine> machineRepository,IRepository<Location> locationRepository, ILocationsExcelExporter locationsExcelExporter ) 
 		  {
 			_locationRepository = locationRepository;
 			_locationsExcelExporter = locationsExcelExporter;
-			
-		  }
+            _machineRepository = machineRepository;
+
+
+          }
 
 		 public async Task<PagedResultDto<GetLocationForViewDto>> GetAll(GetAllLocationsInput input)
          {
@@ -74,9 +77,13 @@ namespace Pixel.Attendance.Setting
 		 [AbpAuthorize(AppPermissions.Pages_Locations_Edit)]
 		 public async Task<GetLocationForEditOutput> GetLocationForEdit(EntityDto input)
          {
-            var location = await _locationRepository.GetAllIncluding(a => a.LocationCredentials).FirstOrDefaultAsync(x => x.Id == input.Id);
+            var location = await _locationRepository.GetAllIncluding(a => a.LocationCredentials,x => x.Machines).FirstOrDefaultAsync(x => x.Id == input.Id);
            
 		    var output = new GetLocationForEditOutput {Location = ObjectMapper.Map<CreateOrEditLocationDto>(location)};
+            foreach (var locationMachine in output.Location.Machines)
+            {
+                locationMachine.MachineName = _machineRepository.FirstOrDefault(x => x.Id == locationMachine.MachineId).NameEn;
+            }
 			
             return output;
          }
@@ -96,7 +103,7 @@ namespace Pixel.Attendance.Setting
          {
             var location = ObjectMapper.Map<Location>(input);
 
-
+            location.Machines = new List<LocationMachine>();
             location.LocationCredentials = new List<LocationCredential>();
 
             if (input.LocationCredentials.Count > 0)
@@ -108,6 +115,15 @@ namespace Pixel.Attendance.Setting
 
             }
 
+            if (input.Machines.Count > 0)
+            {
+                foreach (var item in input.Machines)
+                {
+                    location.Machines.Add(ObjectMapper.Map<LocationMachine>(item));
+                }
+
+            }
+
 
             await _locationRepository.InsertAsync(location);
          }
@@ -115,7 +131,10 @@ namespace Pixel.Attendance.Setting
 		 [AbpAuthorize(AppPermissions.Pages_Locations_Edit)]
 		 protected virtual async Task Update(CreateOrEditLocationDto input)
          {
-            var location = await _locationRepository.GetAllIncluding(m => m.LocationCredentials).FirstOrDefaultAsync(x => x.Id == (int)input.Id);
+            var location = await _locationRepository.GetAllIncluding(m => m.LocationCredentials,x => x.Machines).FirstOrDefaultAsync(x => x.Id == (int)input.Id);
+
+            var oldLocationMachines = new HashSet<LocationMachine>(location.Machines.ToList());
+            var newLocationMachines = new HashSet<LocationMachineDto>(input.Machines.ToList());
 
             var oldLocationCredentials = new HashSet<LocationCredential>(location.LocationCredentials.ToList());
             var newLocationCredentials = new HashSet<LocationCredentialDto>(input.LocationCredentials.ToList());
@@ -143,6 +162,28 @@ namespace Pixel.Attendance.Setting
                     location.LocationCredentials.Add(ObjectMapper.Map<LocationCredential>(item));
                 }
             }
+
+            foreach (var detail in oldLocationMachines)
+            {
+                if (!newLocationMachines.Any(x => x.Id == detail.Id))
+                {
+                    location.Machines.Remove(detail);
+                }
+                else
+                {
+                    var inputDetail = newLocationMachines.Where(x => x.Id == detail.Id).FirstOrDefault();
+                }
+
+            }
+
+            foreach (var item in newLocationMachines)
+            {
+                if (item.Id == 0)
+                {
+                    location.Machines.Add(ObjectMapper.Map<LocationMachine>(item));
+                }
+            }
+
             location.TitleAr = input.TitleAr;
             location.TitleEn = input.TitleEn;
 

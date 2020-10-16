@@ -1,6 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
-  <texts>    <text name="UserDelegation">User delegation</text>
+  <texts>    <text name="LocationMachine">Location machine</text>
+    <text name="LocationMachinesHeaderInfo">Location machines header info</text>
+    <text name="CreateNewLocationMachine">Create new location machine</text>
+    <text name="EditLocationMachine">Edit location machine</text>
+    <text name="DeleteLocationMachine">Delete location machine</text>
+    <text name="LocationMachines">Location machines</text>
+    <text name="LocationTitleAr">Location title ar</text>
+    <text name="UserDelegation">User delegation</text>
     <text name="UserDelegationsHeaderInfo">User delegations header info</text>
     <text name="CreateNewUserDelegation">Create new user delegation</text>
     <text name="EditUserDelegation">Edit user delegation</text>
@@ -1524,7 +1531,9 @@
     <text name="DocumentEntry">Document Entry </text>
     <text name="TaskNo"> Task No</text>
     <text name="ManagerReport"> Manager Report</text>
-
+    <text name="HrReport"> Hr Report</text>
     
+
+
   </texts>
 </localizationDictionary>

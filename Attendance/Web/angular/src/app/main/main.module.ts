@@ -3,6 +3,12 @@ import { NormalOvertimeComponent } from './operations/reports/normal-overtime.co
 import { FixedOvertimeComponent } from './operations/reports/fixed-overtime.component';
 
 import { ManagerLevelApproveComponent } from './operations/reports/maneger-level-approve';
+import { LocationMachinesComponent } from './setting/locationMachines/locationMachines.component';
+import { ViewLocationMachineModalComponent } from './setting/locationMachines/view-locationMachine-modal.component';
+import { CreateOrEditLocationMachineModalComponent } from './setting/locationMachines/create-or-edit-locationMachine-modal.component';
+import { LocationMachineLocationLookupTableModalComponent } from './setting/locationMachines/locationMachine-location-lookup-table-modal.component';
+import { LocationMachineMachineLookupTableModalComponent } from './setting/locationMachines/locationMachine-machine-lookup-table-modal.component';
+
 import { SummerizeReportComponent } from './operations/reports/summerize.component';
 import { AssignProjectUserLookupTableModalComponent } from './operations/projects/assign-project-user-lookup-table-modal.component';
 import { PermitReportComponent } from './operations/reports/permit.component';
@@ -225,6 +231,7 @@ import { AssignProjectMachineLookupTableModalComponent } from './operations/proj
 import {PanelModule} from 'primeng/panel';
 import { MinutesToStringPipe } from '@app/Custom/minutesToString.pipe';
 import { ManagerUnitsModalComponent } from './../admin/shared/manager-units-modal.component';
+import { HrReportComponent } from './operations/reports/hr-report.component';
 
 NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
 
@@ -270,6 +277,10 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
           }),
     ],
     declarations: [
+		LocationMachinesComponent,
+		ViewLocationMachineModalComponent,		CreateOrEditLocationMachineModalComponent,
+    LocationMachineLocationLookupTableModalComponent,
+    LocationMachineMachineLookupTableModalComponent,
 		UserDelegationsComponent,
 		ViewUserDelegationModalComponent,		CreateOrEditUserDelegationModalComponent,
     UserDelegationUserLookupTableModalComponent,
@@ -389,7 +400,7 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
         ManagerLevelApproveComponent,
         NormalOvertimeComponent,
         FixedOvertimeComponent,
-
+        HrReportComponent,
         ManagerUnitsModalComponent
         ,ManagerReportComponent,
 

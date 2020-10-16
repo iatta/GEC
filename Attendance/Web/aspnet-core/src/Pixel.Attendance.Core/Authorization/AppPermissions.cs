@@ -6,6 +6,11 @@
     /// </summary>
     public static class AppPermissions
     {
+        public const string Pages_LocationMachines = "Pages.LocationMachines";
+        public const string Pages_LocationMachines_Create = "Pages.LocationMachines.Create";
+        public const string Pages_LocationMachines_Edit = "Pages.LocationMachines.Edit";
+        public const string Pages_LocationMachines_Delete = "Pages.LocationMachines.Delete";
+
 
         public const string Pages_Beacons = "Pages.Beacons";
         public const string Pages_SummerizeReport = "Pages.SummerizeReport";

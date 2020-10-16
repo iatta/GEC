@@ -15,6 +15,8 @@ namespace Pixel.Attendance.Setting.Dtos
 		public string TitleEn { get; set; }
 
 		public ICollection<LocationCredentialDto> LocationCredentials { get; set; }
+		public ICollection<LocationMachineDto> Machines { get; set; }
+		
 
 
 
