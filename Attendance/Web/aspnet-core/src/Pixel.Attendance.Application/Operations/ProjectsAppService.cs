@@ -229,6 +229,7 @@ namespace Pixel.Attendance.Operations
          {
             var project = await _projectRepository.FirstOrDefaultAsync((int)input.Id);
             project.Locations = _projectLocationRepository.GetAll().Where(x => x.ProjectId == project.Id).ToList();
+
             var oldProjectLocations = new HashSet<ProjectLocation>(project.Locations.ToList());
             var newProjectLocations = new HashSet<ProjectLocationDto>(input.Locations.ToList());
 

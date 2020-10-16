@@ -1,3 +1,4 @@
+import { OrganizationLocationLocationLookupTableModalComponent } from './../../main/operations/organizationLocations/organizationLocation-location-lookup-table-modal.component';
 import { AbpModule } from '@abp/abp.module';
 import * as ngCommon from '@angular/common';
 import { ModuleWithProviders, NgModule } from '@angular/core';
@@ -82,7 +83,8 @@ import { AppBsModalModule } from '@shared/common/appBsModal/app-bs-modal.module'
         WidgetSubscriptionExpiringTenantsComponent,
         WidgetTopStatsComponent,
         FilterDateRangePickerComponent,
-        AddWidgetModalComponent
+        AddWidgetModalComponent,
+        OrganizationLocationLocationLookupTableModalComponent
     ],
     exports: [
         TimeZoneComboComponent,
@@ -92,7 +94,8 @@ import { AppBsModalModule } from '@shared/common/appBsModal/app-bs-modal.module'
         DateRangePickerInitialValueSetterDirective,
         DatePickerInitialValueSetterDirective,
         CustomizableDashboardComponent,
-        NgxChartsModule
+        NgxChartsModule,
+        OrganizationLocationLocationLookupTableModalComponent
     ],
     providers: [
         DateTimeService,

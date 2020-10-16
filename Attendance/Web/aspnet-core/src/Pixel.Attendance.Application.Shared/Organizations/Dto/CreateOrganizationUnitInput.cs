@@ -1,5 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using Abp.Organizations;
+using Pixel.Attendance.Operations.Dtos;
 
 namespace Pixel.Attendance.Organizations.Dto
 {
@@ -12,5 +14,6 @@ namespace Pixel.Attendance.Organizations.Dto
         public string DisplayName { get; set; }
         public long? ManagerId { get; set; }
         public bool HasApprove { get; set; }
+        public ICollection<OrganizationLocationDto> Locations { get; set; }
     }
 }

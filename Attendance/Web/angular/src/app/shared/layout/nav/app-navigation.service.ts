@@ -102,6 +102,8 @@ export class AppNavigationService {
             new AppMenuItem('LocationMachines', 'Pages.LocationMachines', 'flaticon-more', '/app/main/setting/locationMachines'),
             
             new AppMenuItem('ProjectLocations', 'Pages.ProjectLocations', 'flaticon-more', '/app/main/operations/projectLocations'),
+            
+            new AppMenuItem('OrganizationLocations', 'Pages.OrganizationLocations', 'flaticon-more', '/app/main/operations/organizationLocations'),
              new AppMenuItem('Administration', '', 'flaticon-interface-8', '', [
                 new AppMenuItem('OrganizationUnits', 'Pages.Administration.OrganizationUnits', 'flaticon-map', '/app/admin/organization-units'),
                 new AppMenuItem('JobTitles', 'Pages.JobTitles', 'flaticon2-list-3', '/app/main/setting/jobTitles'),

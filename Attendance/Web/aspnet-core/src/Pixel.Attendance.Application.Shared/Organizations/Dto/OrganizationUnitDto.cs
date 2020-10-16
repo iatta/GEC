@@ -1,4 +1,6 @@
 ﻿using Abp.Application.Services.Dto;
+using Pixel.Attendance.Operations.Dtos;
+using System.Collections.Generic;
 
 namespace Pixel.Attendance.Organizations.Dto
 {
@@ -17,5 +19,6 @@ namespace Pixel.Attendance.Organizations.Dto
         public string ManagerName { get; set; }
 
         public bool HasApprove { get; set; }
+        public List<OrganizationLocationDto> Locations { get; set; }
     }
 }

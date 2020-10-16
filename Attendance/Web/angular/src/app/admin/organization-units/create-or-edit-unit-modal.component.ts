@@ -1,8 +1,9 @@
+import { OrganizationLocationLocationLookupTableModalComponent } from './../../main/operations/organizationLocations/organizationLocation-location-lookup-table-modal.component';
 import { NgForm } from '@angular/forms';
 import { OrganizationManagerModalComponent } from './organization-manager-modal';
 import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Injector, Output, ViewChild } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
-import { CreateOrganizationUnitInput, OrganizationUnitDto, OrganizationUnitServiceProxy, UpdateOrganizationUnitInput } from '@shared/service-proxies/service-proxies';
+import { CreateOrganizationUnitInput, OrganizationLocationDto, OrganizationUnitDto, OrganizationUnitServiceProxy, UpdateOrganizationUnitInput } from '@shared/service-proxies/service-proxies';
 import { ModalDirective } from 'ngx-bootstrap';
 import { finalize } from 'rxjs/operators';
 
@@ -13,6 +14,7 @@ export interface IOrganizationUnitOnEdit {
     managerId?:number;
     userName?:string;
     hasApprove?:boolean;
+    locations?:OrganizationLocationDto[];
 }
 
 @Component({
@@ -24,7 +26,7 @@ export class CreateOrEditUnitModalComponent extends AppComponentBase {
     @ViewChild('createOrEditModal', {static: true}) modal: ModalDirective;
     @ViewChild('organizationUnitDisplayName', {static: true}) organizationUnitDisplayNameInput: ElementRef;
     @ViewChild('organizationManagerModal', { static: true }) organizationManagerModal: OrganizationManagerModalComponent;
-
+    @ViewChild('organizationLocationLocationLookupTableModal', { static: true }) organizationLocationLocationLookupTableModal: OrganizationLocationLocationLookupTableModalComponent;
     @Output() unitCreated: EventEmitter<OrganizationUnitDto> = new EventEmitter<OrganizationUnitDto>();
     @Output() unitUpdated: EventEmitter<OrganizationUnitDto> = new EventEmitter<OrganizationUnitDto>();
 
@@ -49,6 +51,11 @@ export class CreateOrEditUnitModalComponent extends AppComponentBase {
     show(organizationUnit: IOrganizationUnitOnEdit): void {
 
         this.organizationUnit = organizationUnit;
+        this.organizationUnit.locations = organizationUnit.locations;
+        if(!this.organizationUnit.locations)
+            this.organizationUnit.locations = [];
+
+
         this.userName = organizationUnit.userName;
         this.active = true;
         this.modal.show();
@@ -72,7 +79,7 @@ export class CreateOrEditUnitModalComponent extends AppComponentBase {
         createInput.displayName = this.organizationUnit.displayName;
         createInput.managerId = this.organizationUnit.managerId;
         createInput.hasApprove = this.organizationUnit.hasApprove;
-
+        createInput.locations = this.organizationUnit.locations;
 
         this.saving = true;
         this._organizationUnitService
@@ -93,7 +100,7 @@ export class CreateOrEditUnitModalComponent extends AppComponentBase {
         updateInput.displayName = this.organizationUnit.displayName;
         updateInput.managerId = this.organizationUnit.managerId;
         updateInput.hasApprove = this.organizationUnit.hasApprove;
-
+        updateInput.locations = this.organizationUnit.locations;
         this.saving = true;
         this._organizationUnitService
             .updateOrganizationUnit(updateInput)
@@ -129,6 +136,68 @@ export class CreateOrEditUnitModalComponent extends AppComponentBase {
         this.organizationUnit.managerId = this.organizationManagerModal.id;
         this.userName = this.organizationManagerModal.displayName;
     }
+
+    openSelectLocationModal() {
+        debugger
+        // this.organizationLocationLocationLookupTableModal.id = this.organizationLocation.locationId;
+        // this.organizationLocationLocationLookupTableModal.displayName = this.locationTitleEn;
+        this.organizationLocationLocationLookupTableModal.show();
+    }
+
+
+    setOrganizationUnitIdNull() {
+        // this.organizationLocation.organizationUnitId = null;
+        // this.organizationUnitDisplayName = '';
+    }
+    setLocationIdNull() {
+        // this.organizationLocation.locationId = null;
+        // this.locationTitleEn = '';
+    }
+
+    getNewLocationId() {
+        // this.organizationLocation.locationId = this.organiz
+        if(this.isLocationExist(this.organizationLocationLocationLookupTableModal.id)){
+            this.message.warn("Location Already Added To This Unit");
+        }else{
+            if(this.organizationLocationLocationLookupTableModal.id > 0){
+                let locationToAdd = new OrganizationLocationDto();
+                locationToAdd.locationId = this.organizationLocationLocationLookupTableModal.id;
+                locationToAdd.locationName = this.organizationLocationLocationLookupTableModal.displayName;
+                this.organizationUnit.locations.push(locationToAdd);
+            }
+
+        }
+    }
+
+
+    isLocationExist(locationId:number){
+        if(this.organizationUnit.locations.length  == 0)
+            return false;
+
+        let exist = this.organizationUnit.locations.findIndex(x =>  x.locationId == locationId);
+
+        return exist > -1;
+    }
+
+    removeLocation(location: OrganizationLocationDto){
+        this.message.confirm(
+            '',
+            this.l('AreYouSure'),
+            (isConfirmed) => {
+                if (isConfirmed) {
+
+                    let index = this.organizationUnit.locations.indexOf(location);
+                    if(index > -1){
+                        this.organizationUnit.locations.splice(index,1);
+                        this.notify.success(this.l('SuccessfullyDeleted'));
+                    }
+
+                }
+            }
+        );
+
+    }
+
 
 
 }

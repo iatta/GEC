@@ -101,7 +101,6 @@ export class CreateOrEditProjectModalComponent extends AppComponentBase {
     }
 
     ouSelected(event: any): void {
-        debugger
         this.project.organizationUnitId = event.id;
         this.organizationUnitDisplayName = event.displayName;
         //console.log(event);

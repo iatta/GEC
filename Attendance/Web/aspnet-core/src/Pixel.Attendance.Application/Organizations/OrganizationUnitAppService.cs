@@ -16,6 +16,9 @@ using Pixel.Attendance.Extended;
 using Pixel.Attendance.Authorization.Users;
 using Twilio.Exceptions;
 using System.Collections.Generic;
+using Pixel.Attendance.Operations;
+using Pixel.Attendance.Operations.Dtos;
+using Pixel.Attendance.Setting;
 
 namespace Pixel.Attendance.Organizations
 {
@@ -28,9 +31,13 @@ namespace Pixel.Attendance.Organizations
         private readonly IRepository<OrganizationUnitRole, long> _organizationUnitRoleRepository;
         private readonly IRepository<User, long> _userRepository;
         private readonly RoleManager _roleManager;
-
+        private readonly IRepository<OrganizationLocation> _organizationLocationRepository;
+        private readonly IRepository<Location> _locationRepository;
+        
         public OrganizationUnitAppService(
             OrganizationUnitManager organizationUnitManager,
+            IRepository<Location> locationRepository,
+            IRepository<OrganizationLocation> organizationLocationRepository,
             IRepository<OrganizationUnitExtended, long> organizationUnitRepository,
             IRepository<UserOrganizationUnit, long> userOrganizationUnitRepository,
             RoleManager roleManager,
@@ -43,7 +50,9 @@ namespace Pixel.Attendance.Organizations
             _roleManager = roleManager;
             _organizationUnitRoleRepository = organizationUnitRoleRepository;
             _userRepository = userRepository;
-        }
+            _organizationLocationRepository = organizationLocationRepository;
+            _locationRepository = locationRepository;
+    }
 
 
         
@@ -106,7 +115,7 @@ namespace Pixel.Attendance.Organizations
 
         public async Task<ListResultDto<OrganizationUnitDto>> GetOrganizationUnits()
         {
-            var organizationUnits = await _organizationUnitRepository.GetAllListAsync();
+            var organizationUnits = await _organizationUnitRepository.GetAllIncluding(x => x.Locations).ToListAsync();
 
             var organizationUnitMemberCounts = await UserManager.Users.Where(x => x.OrganizationUnitId != null)
                 .GroupBy(x => x.OrganizationUnitId)
@@ -124,7 +133,7 @@ namespace Pixel.Attendance.Organizations
                     count = groupedRoles.Count()
                 }).ToDictionaryAsync(x => x.organizationUnitId, y => y.count);
 
-            return new ListResultDto<OrganizationUnitDto>(
+            var output = new ListResultDto<OrganizationUnitDto>(
                 organizationUnits.Select(ou =>
                 {
                     var organizationUnitDto = ObjectMapper.Map<OrganizationUnitDto>(ou);
@@ -136,6 +145,15 @@ namespace Pixel.Attendance.Organizations
 
                     return organizationUnitDto;
                 }).ToList());
+
+            foreach (var item in output.Items)
+            {
+                foreach (var location in item.Locations)
+                {
+                    location.LocationName = _locationRepository.FirstOrDefault(x => x.Id == location.LocationId).TitleEn;
+                }
+            }
+            return output;
         }
 
         public async Task<PagedResultDto<OrganizationUnitUserListDto>> GetOrganizationUnitUsers(GetOrganizationUnitUsersInput input)
@@ -187,6 +205,17 @@ namespace Pixel.Attendance.Organizations
             var organizationUnit = new OrganizationUnitExtended(AbpSession.TenantId, input.DisplayName, input.ParentId);
             organizationUnit.ManagerId = input.ManagerId;
             organizationUnit.HasApprove = input.HasApprove;
+            organizationUnit.Locations = new List<OrganizationLocation>();
+            if (input.Locations.Count > 0)
+            {
+                foreach (var item in input.Locations)
+                {
+                    organizationUnit.Locations.Add(ObjectMapper.Map<OrganizationLocation>(item));
+                }
+
+            }
+
+
             await _organizationUnitManager.CreateAsync(organizationUnit);
             await CurrentUnitOfWork.SaveChangesAsync();
 
@@ -200,6 +229,31 @@ namespace Pixel.Attendance.Organizations
             organizationUnit.ManagerId = input.ManagerId;
             organizationUnit.DisplayName = input.DisplayName;
             organizationUnit.HasApprove = input.HasApprove;
+            organizationUnit.Locations = _organizationLocationRepository.GetAll().Where(x => x.OrganizationUnitId == organizationUnit.Id).ToList();
+
+            var oldOrganizationLocations = new HashSet<OrganizationLocation>(organizationUnit.Locations.ToList());
+            var newOrganizationLocations = new HashSet<OrganizationLocationDto>(input.Locations.ToList());
+
+            foreach (var detail in oldOrganizationLocations)
+            {
+                if (!newOrganizationLocations.Any(x => x.Id == detail.Id))
+                {
+                    organizationUnit.Locations.Remove(detail);
+                }
+                else
+                {
+                    var inputDetail = newOrganizationLocations.Where(x => x.Id == detail.Id).FirstOrDefault();
+                }
+
+            }
+
+            foreach (var item in newOrganizationLocations)
+            {
+                if (item.Id == 0)
+                {
+                    organizationUnit.Locations.Add(ObjectMapper.Map<OrganizationLocation>(item));
+                }
+            }
 
             await _organizationUnitManager.UpdateAsync(organizationUnit);
 
@@ -230,6 +284,8 @@ namespace Pixel.Attendance.Organizations
                     user.OrganizationUnitId = null;
                     await UserManager.UpdateAsync(user);
                 }
+                await _organizationLocationRepository.DeleteAsync(x => x.OrganizationUnitId == input.Id);
+
                 await _userOrganizationUnitRepository.DeleteAsync(x => x.OrganizationUnitId == input.Id);
                 await _organizationUnitRoleRepository.DeleteAsync(x => x.OrganizationUnitId == input.Id);
 

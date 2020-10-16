@@ -1,7 +1,7 @@
 import { OnInit, Component, EventEmitter, Injector, Output, ViewChild } from '@angular/core';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { HtmlHelper } from '@shared/helpers/HtmlHelper';
-import { ListResultDtoOfOrganizationUnitDto, MoveOrganizationUnitInput, OrganizationUnitDto, OrganizationUnitServiceProxy } from '@shared/service-proxies/service-proxies';
+import { ListResultDtoOfOrganizationUnitDto, MoveOrganizationUnitInput, OrganizationLocationDto, OrganizationUnitDto, OrganizationUnitServiceProxy } from '@shared/service-proxies/service-proxies';
 import * as _ from 'lodash';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -29,6 +29,7 @@ export interface IOrganizationUnitOnTree extends IBasicOrganizationUnitInfo {
     state: any;
     managerId:number;
     hasApprove:boolean;
+    locations:OrganizationLocationDto[];
 }
 
 @Component({
@@ -184,7 +185,8 @@ export class OrganizationTreeComponent extends AppComponentBase implements OnIni
                         id: this.selectedOu.data.id,
                         displayName: this.selectedOu.data.displayName,
                         managerId: this.selectedOu.data.managerId,
-                        hasApprove: this.selectedOu.data.hasApprove
+                        hasApprove: this.selectedOu.data.hasApprove,
+                        locations:this.selectedOu.data.locations
                     });
                 }
             },

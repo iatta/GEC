@@ -17,30 +17,76 @@
                 </div>
 
                 <div class="modal-body">
-
-                    <div class="form-group form-md-line-input form-md-floating-label no-hint">
-                        <label for="OrganizationUnitDisplayName">{{"Name" | localize}} *</label>
-                        <input id="OrganizationUnitDisplayName" [ngClass]="{ 'is-invalid': editForm.submitted && organizationUnitDisplayName.invalid}" #organizationUnitDisplayName="ngModel" class="form-control" type="text" name="displayName" [ngClass]="{'edited': organizationUnit.displayName}" [(ngModel)]="organizationUnit.displayName" required maxlength="128">
-                        <validation-messages [frm]="editForm" [formCtrl]="organizationUnitDisplayName"></validation-messages>
-                    </div>
-
-                    <div class="form-group m-form__group">
-                        <label for="UserName">{{l("UnitManager")}}</label>
-                        <div class="input-group">
-                            <input class="form-control" id="UserName" name="userName" [(ngModel)]="userName" type="text" disabled>
-                            <div class="input-group-append">
-                                <button class="btn btn-primary blue" (click)="openSelectUserModal()" type="button"><i class="fa fa-search"></i> {{l("Pick")}}</button>
+                    <tabset>
+                        <tab heading="{{'OrganizationDetails' | localize}}" name="first">
+                            <div class="form-group form-md-line-input form-md-floating-label no-hint">
+                                <label for="OrganizationUnitDisplayName">{{"Name" | localize}} *</label>
+                                <input id="OrganizationUnitDisplayName" [ngClass]="{ 'is-invalid': editForm.submitted && organizationUnitDisplayName.invalid}" #organizationUnitDisplayName="ngModel" class="form-control" type="text" name="displayName" [ngClass]="{'edited': organizationUnit.displayName}" [(ngModel)]="organizationUnit.displayName" required maxlength="128">
+                                <validation-messages [frm]="editForm" [formCtrl]="organizationUnitDisplayName"></validation-messages>
                             </div>
-                            <div class="input-group-prepend">
-                                <button class="btn btn-danger btn-icon" type="button" (click)="setUserIdNull()"><i class="fa fa-times"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                    <input class="form-control" name="organizationUnit.managerId" [(ngModel)]="organizationUnit.managerId" type="text"  hidden>
 
-                    <div class="form-group">
-                        <p-checkbox [(ngModel)]="organizationUnit.hasApprove" label="Has Approve" name="hasApprove" binary="true"></p-checkbox>
-                    </div>
+                            <div class="form-group m-form__group">
+                                <label for="UserName">{{l("UnitManager")}}</label>
+                                <div class="input-group">
+                                    <input class="form-control" id="UserName" name="userName" [(ngModel)]="userName" type="text" disabled>
+                                    <div class="input-group-append">
+                                        <button class="btn btn-primary blue" (click)="openSelectUserModal()" type="button"><i class="fa fa-search"></i> {{l("Pick")}}</button>
+                                    </div>
+                                    <div class="input-group-prepend">
+                                        <button class="btn btn-danger btn-icon" type="button" (click)="setUserIdNull()"><i class="fa fa-times"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <input class="form-control" name="organizationUnit.managerId" [(ngModel)]="organizationUnit.managerId" type="text"  hidden>
+
+                            <div class="form-group">
+                                <p-checkbox [(ngModel)]="organizationUnit.hasApprove" label="Has Approve" name="hasApprove" binary="true"></p-checkbox>
+                            </div>
+                        </tab>
+                        <tab heading="{{'OrganizationLocations' | localize}}" name="first">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group m-form__group">
+                                        <label for="LocationTitleEn">{{l("Location")}}</label>
+                                        <div class="input-group">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-primary blue" (click)="openSelectLocationModal()" type="button"><i class="fa fa-search"></i> {{l("Pick")}}</button>
+                                            </div> <div class="input-group-prepend">
+                                                <button class="btn btn-danger btn-icon" type="button" (click)="setLocationIdNull()"><i class="fa fa-times"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    {{l("LocationName")}}
+                                                </th>
+                                                <th>
+                                                    {{l("Actions")}}
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let item of organizationUnit.locations" >
+                                                <td>{{item.locationName}}</td>
+                                                <td><button class="btn btn-danger" type="button" (click)="removeLocation(item)" >{{l("Delete")}}</button></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+
+                        </tab>
+                    </tabset>
+
 
                 </div>
 
@@ -54,4 +100,5 @@
         </div>
     </div>
     <organizationManagerModal #organizationManagerModal (modalSave)="getNewUserId()"></organizationManagerModal>
+    <organizationLocationLocationLookupTableModal #organizationLocationLocationLookupTableModal (modalSave)="getNewLocationId()"></organizationLocationLocationLookupTableModal>
 </div>

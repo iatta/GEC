@@ -1,3 +1,4 @@
+import { OrganizationLocationLocationLookupTableModalComponent } from './../main/operations/organizationLocations/organizationLocation-location-lookup-table-modal.component';
 import { DelegatedUsersComponent } from './users/delegated-users.component';
 import { OrganizationManagerModalComponent } from './organization-units/organization-manager-modal';
 import { ManageFaceIdComponent } from './users/manage-face-id.component';
@@ -223,6 +224,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         ManageFaceIdComponent,
         OrganizationManagerModalComponent,
         DelegatedUsersComponent
+
 
     ],
     exports: [

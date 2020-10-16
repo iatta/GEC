@@ -13545,6 +13545,523 @@ export class OfficialTaskTypesServiceProxy {
 }
 
 @Injectable()
+export class OrganizationLocationsServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param organizationUnitDisplayNameFilter (optional) 
+     * @param locationTitleEnFilter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
+     * @return Success
+     */
+    getAll(filter: string | undefined, organizationUnitDisplayNameFilter: string | undefined, locationTitleEnFilter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetOrganizationLocationForViewDto> {
+        let url_ = this.baseUrl + "/api/services/app/OrganizationLocations/GetAll?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (organizationUnitDisplayNameFilter === null)
+            throw new Error("The parameter 'organizationUnitDisplayNameFilter' cannot be null.");
+        else if (organizationUnitDisplayNameFilter !== undefined)
+            url_ += "OrganizationUnitDisplayNameFilter=" + encodeURIComponent("" + organizationUnitDisplayNameFilter) + "&"; 
+        if (locationTitleEnFilter === null)
+            throw new Error("The parameter 'locationTitleEnFilter' cannot be null.");
+        else if (locationTitleEnFilter !== undefined)
+            url_ += "LocationTitleEnFilter=" + encodeURIComponent("" + locationTitleEnFilter) + "&"; 
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAll(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfGetOrganizationLocationForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfGetOrganizationLocationForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfGetOrganizationLocationForViewDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfGetOrganizationLocationForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfGetOrganizationLocationForViewDto>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getOrganizationLocationForView(id: number | undefined): Observable<GetOrganizationLocationForViewDto> {
+        let url_ = this.baseUrl + "/api/services/app/OrganizationLocations/GetOrganizationLocationForView?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetOrganizationLocationForView(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetOrganizationLocationForView(<any>response_);
+                } catch (e) {
+                    return <Observable<GetOrganizationLocationForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetOrganizationLocationForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetOrganizationLocationForView(response: HttpResponseBase): Observable<GetOrganizationLocationForViewDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetOrganizationLocationForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetOrganizationLocationForViewDto>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getOrganizationLocationForEdit(id: number | undefined): Observable<GetOrganizationLocationForEditOutput> {
+        let url_ = this.baseUrl + "/api/services/app/OrganizationLocations/GetOrganizationLocationForEdit?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetOrganizationLocationForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetOrganizationLocationForEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<GetOrganizationLocationForEditOutput>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetOrganizationLocationForEditOutput>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetOrganizationLocationForEdit(response: HttpResponseBase): Observable<GetOrganizationLocationForEditOutput> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetOrganizationLocationForEditOutput.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetOrganizationLocationForEditOutput>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    createOrEdit(body: CreateOrEditOrganizationLocationDto | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/OrganizationLocations/CreateOrEdit";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json", 
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOrEdit(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    delete(id: number | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/OrganizationLocations/Delete?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDelete(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDelete(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDelete(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param organizationUnitDisplayNameFilter (optional) 
+     * @param locationTitleEnFilter (optional) 
+     * @return Success
+     */
+    getOrganizationLocationsToExcel(filter: string | undefined, organizationUnitDisplayNameFilter: string | undefined, locationTitleEnFilter: string | undefined): Observable<FileDto> {
+        let url_ = this.baseUrl + "/api/services/app/OrganizationLocations/GetOrganizationLocationsToExcel?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (organizationUnitDisplayNameFilter === null)
+            throw new Error("The parameter 'organizationUnitDisplayNameFilter' cannot be null.");
+        else if (organizationUnitDisplayNameFilter !== undefined)
+            url_ += "OrganizationUnitDisplayNameFilter=" + encodeURIComponent("" + organizationUnitDisplayNameFilter) + "&"; 
+        if (locationTitleEnFilter === null)
+            throw new Error("The parameter 'locationTitleEnFilter' cannot be null.");
+        else if (locationTitleEnFilter !== undefined)
+            url_ += "LocationTitleEnFilter=" + encodeURIComponent("" + locationTitleEnFilter) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetOrganizationLocationsToExcel(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetOrganizationLocationsToExcel(<any>response_);
+                } catch (e) {
+                    return <Observable<FileDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<FileDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetOrganizationLocationsToExcel(response: HttpResponseBase): Observable<FileDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = FileDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<FileDto>(<any>null);
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
+     * @return Success
+     */
+    getAllOrganizationUnitForLookupTable(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfOrganizationLocationOrganizationUnitLookupTableDto> {
+        let url_ = this.baseUrl + "/api/services/app/OrganizationLocations/GetAllOrganizationUnitForLookupTable?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllOrganizationUnitForLookupTable(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllOrganizationUnitForLookupTable(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfOrganizationLocationOrganizationUnitLookupTableDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfOrganizationLocationOrganizationUnitLookupTableDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAllOrganizationUnitForLookupTable(response: HttpResponseBase): Observable<PagedResultDtoOfOrganizationLocationOrganizationUnitLookupTableDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfOrganizationLocationOrganizationUnitLookupTableDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfOrganizationLocationOrganizationUnitLookupTableDto>(<any>null);
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
+     * @return Success
+     */
+    getAllLocationForLookupTable(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfOrganizationLocationLocationLookupTableDto> {
+        let url_ = this.baseUrl + "/api/services/app/OrganizationLocations/GetAllLocationForLookupTable?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllLocationForLookupTable(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllLocationForLookupTable(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfOrganizationLocationLocationLookupTableDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfOrganizationLocationLocationLookupTableDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAllLocationForLookupTable(response: HttpResponseBase): Observable<PagedResultDtoOfOrganizationLocationLocationLookupTableDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfOrganizationLocationLocationLookupTableDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfOrganizationLocationLocationLookupTableDto>(<any>null);
+    }
+}
+
+@Injectable()
 export class OrganizationUnitServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -46088,6 +46605,410 @@ export interface IGetOfficialTaskTypeForEditOutput {
     officialTaskType: CreateOrEditOfficialTaskTypeDto | undefined;
 }
 
+export class OrganizationLocationDto implements IOrganizationLocationDto {
+    organizationUnitId!: number | undefined;
+    locationId!: number | undefined;
+    locationName!: string | undefined;
+    id!: number;
+
+    constructor(data?: IOrganizationLocationDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.organizationUnitId = data["organizationUnitId"];
+            this.locationId = data["locationId"];
+            this.locationName = data["locationName"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): OrganizationLocationDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new OrganizationLocationDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["organizationUnitId"] = this.organizationUnitId;
+        data["locationId"] = this.locationId;
+        data["locationName"] = this.locationName;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IOrganizationLocationDto {
+    organizationUnitId: number | undefined;
+    locationId: number | undefined;
+    locationName: string | undefined;
+    id: number;
+}
+
+export class GetOrganizationLocationForViewDto implements IGetOrganizationLocationForViewDto {
+    organizationLocation!: OrganizationLocationDto | undefined;
+    organizationUnitDisplayName!: string | undefined;
+    locationTitleEn!: string | undefined;
+
+    constructor(data?: IGetOrganizationLocationForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.organizationLocation = data["organizationLocation"] ? OrganizationLocationDto.fromJS(data["organizationLocation"]) : <any>undefined;
+            this.organizationUnitDisplayName = data["organizationUnitDisplayName"];
+            this.locationTitleEn = data["locationTitleEn"];
+        }
+    }
+
+    static fromJS(data: any): GetOrganizationLocationForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetOrganizationLocationForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["organizationLocation"] = this.organizationLocation ? this.organizationLocation.toJSON() : <any>undefined;
+        data["organizationUnitDisplayName"] = this.organizationUnitDisplayName;
+        data["locationTitleEn"] = this.locationTitleEn;
+        return data; 
+    }
+}
+
+export interface IGetOrganizationLocationForViewDto {
+    organizationLocation: OrganizationLocationDto | undefined;
+    organizationUnitDisplayName: string | undefined;
+    locationTitleEn: string | undefined;
+}
+
+export class PagedResultDtoOfGetOrganizationLocationForViewDto implements IPagedResultDtoOfGetOrganizationLocationForViewDto {
+    totalCount!: number;
+    items!: GetOrganizationLocationForViewDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfGetOrganizationLocationForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (Array.isArray(data["items"])) {
+                this.items = [] as any;
+                for (let item of data["items"])
+                    this.items!.push(GetOrganizationLocationForViewDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfGetOrganizationLocationForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfGetOrganizationLocationForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfGetOrganizationLocationForViewDto {
+    totalCount: number;
+    items: GetOrganizationLocationForViewDto[] | undefined;
+}
+
+export class CreateOrEditOrganizationLocationDto implements ICreateOrEditOrganizationLocationDto {
+    organizationUnitId!: number | undefined;
+    locationId!: number | undefined;
+    id!: number | undefined;
+
+    constructor(data?: ICreateOrEditOrganizationLocationDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.organizationUnitId = data["organizationUnitId"];
+            this.locationId = data["locationId"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): CreateOrEditOrganizationLocationDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateOrEditOrganizationLocationDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["organizationUnitId"] = this.organizationUnitId;
+        data["locationId"] = this.locationId;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface ICreateOrEditOrganizationLocationDto {
+    organizationUnitId: number | undefined;
+    locationId: number | undefined;
+    id: number | undefined;
+}
+
+export class GetOrganizationLocationForEditOutput implements IGetOrganizationLocationForEditOutput {
+    organizationLocation!: CreateOrEditOrganizationLocationDto | undefined;
+    organizationUnitDisplayName!: string | undefined;
+    locationTitleEn!: string | undefined;
+
+    constructor(data?: IGetOrganizationLocationForEditOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.organizationLocation = data["organizationLocation"] ? CreateOrEditOrganizationLocationDto.fromJS(data["organizationLocation"]) : <any>undefined;
+            this.organizationUnitDisplayName = data["organizationUnitDisplayName"];
+            this.locationTitleEn = data["locationTitleEn"];
+        }
+    }
+
+    static fromJS(data: any): GetOrganizationLocationForEditOutput {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetOrganizationLocationForEditOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["organizationLocation"] = this.organizationLocation ? this.organizationLocation.toJSON() : <any>undefined;
+        data["organizationUnitDisplayName"] = this.organizationUnitDisplayName;
+        data["locationTitleEn"] = this.locationTitleEn;
+        return data; 
+    }
+}
+
+export interface IGetOrganizationLocationForEditOutput {
+    organizationLocation: CreateOrEditOrganizationLocationDto | undefined;
+    organizationUnitDisplayName: string | undefined;
+    locationTitleEn: string | undefined;
+}
+
+export class OrganizationLocationOrganizationUnitLookupTableDto implements IOrganizationLocationOrganizationUnitLookupTableDto {
+    id!: number;
+    displayName!: string | undefined;
+
+    constructor(data?: IOrganizationLocationOrganizationUnitLookupTableDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"];
+            this.displayName = data["displayName"];
+        }
+    }
+
+    static fromJS(data: any): OrganizationLocationOrganizationUnitLookupTableDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new OrganizationLocationOrganizationUnitLookupTableDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["displayName"] = this.displayName;
+        return data; 
+    }
+}
+
+export interface IOrganizationLocationOrganizationUnitLookupTableDto {
+    id: number;
+    displayName: string | undefined;
+}
+
+export class PagedResultDtoOfOrganizationLocationOrganizationUnitLookupTableDto implements IPagedResultDtoOfOrganizationLocationOrganizationUnitLookupTableDto {
+    totalCount!: number;
+    items!: OrganizationLocationOrganizationUnitLookupTableDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfOrganizationLocationOrganizationUnitLookupTableDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (Array.isArray(data["items"])) {
+                this.items = [] as any;
+                for (let item of data["items"])
+                    this.items!.push(OrganizationLocationOrganizationUnitLookupTableDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfOrganizationLocationOrganizationUnitLookupTableDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfOrganizationLocationOrganizationUnitLookupTableDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfOrganizationLocationOrganizationUnitLookupTableDto {
+    totalCount: number;
+    items: OrganizationLocationOrganizationUnitLookupTableDto[] | undefined;
+}
+
+export class OrganizationLocationLocationLookupTableDto implements IOrganizationLocationLocationLookupTableDto {
+    id!: number;
+    displayName!: string | undefined;
+
+    constructor(data?: IOrganizationLocationLocationLookupTableDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"];
+            this.displayName = data["displayName"];
+        }
+    }
+
+    static fromJS(data: any): OrganizationLocationLocationLookupTableDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new OrganizationLocationLocationLookupTableDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["displayName"] = this.displayName;
+        return data; 
+    }
+}
+
+export interface IOrganizationLocationLocationLookupTableDto {
+    id: number;
+    displayName: string | undefined;
+}
+
+export class PagedResultDtoOfOrganizationLocationLocationLookupTableDto implements IPagedResultDtoOfOrganizationLocationLocationLookupTableDto {
+    totalCount!: number;
+    items!: OrganizationLocationLocationLookupTableDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfOrganizationLocationLocationLookupTableDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (Array.isArray(data["items"])) {
+                this.items = [] as any;
+                for (let item of data["items"])
+                    this.items!.push(OrganizationLocationLocationLookupTableDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfOrganizationLocationLocationLookupTableDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfOrganizationLocationLocationLookupTableDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfOrganizationLocationLocationLookupTableDto {
+    totalCount: number;
+    items: OrganizationLocationLocationLookupTableDto[] | undefined;
+}
+
 export class OrganizationUnitDto implements IOrganizationUnitDto {
     parentId!: number | undefined;
     code!: string | undefined;
@@ -46097,6 +47018,7 @@ export class OrganizationUnitDto implements IOrganizationUnitDto {
     managerId!: number | undefined;
     managerName!: string | undefined;
     hasApprove!: boolean;
+    locations!: OrganizationLocationDto[] | undefined;
     lastModificationTime!: moment.Moment | undefined;
     lastModifierUserId!: number | undefined;
     creationTime!: moment.Moment;
@@ -46122,6 +47044,11 @@ export class OrganizationUnitDto implements IOrganizationUnitDto {
             this.managerId = data["managerId"];
             this.managerName = data["managerName"];
             this.hasApprove = data["hasApprove"];
+            if (Array.isArray(data["locations"])) {
+                this.locations = [] as any;
+                for (let item of data["locations"])
+                    this.locations!.push(OrganizationLocationDto.fromJS(item));
+            }
             this.lastModificationTime = data["lastModificationTime"] ? moment(data["lastModificationTime"].toString()) : <any>undefined;
             this.lastModifierUserId = data["lastModifierUserId"];
             this.creationTime = data["creationTime"] ? moment(data["creationTime"].toString()) : <any>undefined;
@@ -46147,6 +47074,11 @@ export class OrganizationUnitDto implements IOrganizationUnitDto {
         data["managerId"] = this.managerId;
         data["managerName"] = this.managerName;
         data["hasApprove"] = this.hasApprove;
+        if (Array.isArray(this.locations)) {
+            data["locations"] = [];
+            for (let item of this.locations)
+                data["locations"].push(item.toJSON());
+        }
         data["lastModificationTime"] = this.lastModificationTime ? this.lastModificationTime.toISOString() : <any>undefined;
         data["lastModifierUserId"] = this.lastModifierUserId;
         data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
@@ -46165,6 +47097,7 @@ export interface IOrganizationUnitDto {
     managerId: number | undefined;
     managerName: string | undefined;
     hasApprove: boolean;
+    locations: OrganizationLocationDto[] | undefined;
     lastModificationTime: moment.Moment | undefined;
     lastModifierUserId: number | undefined;
     creationTime: moment.Moment;
@@ -46425,6 +47358,7 @@ export class CreateOrganizationUnitInput implements ICreateOrganizationUnitInput
     displayName!: string;
     managerId!: number | undefined;
     hasApprove!: boolean;
+    locations!: OrganizationLocationDto[] | undefined;
 
     constructor(data?: ICreateOrganizationUnitInput) {
         if (data) {
@@ -46441,6 +47375,11 @@ export class CreateOrganizationUnitInput implements ICreateOrganizationUnitInput
             this.displayName = data["displayName"];
             this.managerId = data["managerId"];
             this.hasApprove = data["hasApprove"];
+            if (Array.isArray(data["locations"])) {
+                this.locations = [] as any;
+                for (let item of data["locations"])
+                    this.locations!.push(OrganizationLocationDto.fromJS(item));
+            }
         }
     }
 
@@ -46457,6 +47396,11 @@ export class CreateOrganizationUnitInput implements ICreateOrganizationUnitInput
         data["displayName"] = this.displayName;
         data["managerId"] = this.managerId;
         data["hasApprove"] = this.hasApprove;
+        if (Array.isArray(this.locations)) {
+            data["locations"] = [];
+            for (let item of this.locations)
+                data["locations"].push(item.toJSON());
+        }
         return data; 
     }
 }
@@ -46466,6 +47410,7 @@ export interface ICreateOrganizationUnitInput {
     displayName: string;
     managerId: number | undefined;
     hasApprove: boolean;
+    locations: OrganizationLocationDto[] | undefined;
 }
 
 export class UpdateOrganizationUnitInput implements IUpdateOrganizationUnitInput {
@@ -46473,6 +47418,7 @@ export class UpdateOrganizationUnitInput implements IUpdateOrganizationUnitInput
     displayName!: string;
     managerId!: number | undefined;
     hasApprove!: boolean;
+    locations!: OrganizationLocationDto[] | undefined;
 
     constructor(data?: IUpdateOrganizationUnitInput) {
         if (data) {
@@ -46489,6 +47435,11 @@ export class UpdateOrganizationUnitInput implements IUpdateOrganizationUnitInput
             this.displayName = data["displayName"];
             this.managerId = data["managerId"];
             this.hasApprove = data["hasApprove"];
+            if (Array.isArray(data["locations"])) {
+                this.locations = [] as any;
+                for (let item of data["locations"])
+                    this.locations!.push(OrganizationLocationDto.fromJS(item));
+            }
         }
     }
 
@@ -46505,6 +47456,11 @@ export class UpdateOrganizationUnitInput implements IUpdateOrganizationUnitInput
         data["displayName"] = this.displayName;
         data["managerId"] = this.managerId;
         data["hasApprove"] = this.hasApprove;
+        if (Array.isArray(this.locations)) {
+            data["locations"] = [];
+            for (let item of this.locations)
+                data["locations"].push(item.toJSON());
+        }
         return data; 
     }
 }
@@ -46514,6 +47470,7 @@ export interface IUpdateOrganizationUnitInput {
     displayName: string;
     managerId: number | undefined;
     hasApprove: boolean;
+    locations: OrganizationLocationDto[] | undefined;
 }
 
 export class MoveOrganizationUnitInput implements IMoveOrganizationUnitInput {

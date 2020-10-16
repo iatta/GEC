@@ -1,5 +1,6 @@
 ﻿using Abp.Organizations;
 using Pixel.Attendance.Authorization.Users;
+using Pixel.Attendance.Operations;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -18,5 +19,6 @@ namespace Pixel.Attendance.Extended
         [ForeignKey("ManagerId")]
         public User Manager { get; set; }
         public bool HasApprove { get; set; }
+        public ICollection<OrganizationLocation> Locations { get; set; }
     }
 }
