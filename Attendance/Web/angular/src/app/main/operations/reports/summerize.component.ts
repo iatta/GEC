@@ -83,7 +83,8 @@ export class SummerizeReportComponent extends AppComponentBase implements OnInit
 
     generateReport(){
         if(this.validateForm()){
-
+            this.data = [];
+            this.dataLoaded = false;
             let date = new Date(this.selectedDate);
             this.month = date.getMonth() + 1;
             this.year = date.getFullYear();

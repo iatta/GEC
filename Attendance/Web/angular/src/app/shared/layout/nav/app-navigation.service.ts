@@ -135,7 +135,10 @@ export class AppNavigationService {
                 new AppMenuItem('SummerizeReport', 'Pages.SummerizeReport', 'flaticon-graph', '/app/main/operations/summerizeReport'),
                 new AppMenuItem('ManagerLevelApprove', 'Pages.ManagerLevelApprove', 'flaticon-profile', '/app/main/operations/managerLevelApprove'),
                 new AppMenuItem('NormalOvertime', 'Pages.NormalOvertime', 'flaticon-time', '/app/main/operations/normalOvertime'),
-                new AppMenuItem('FixedOvertime', 'Pages.FixedOvertime', 'flaticon-time', '/app/main/operations/fixedOvertime')
+                new AppMenuItem('FixedOvertime', 'Pages.FixedOvertime', 'flaticon-time', '/app/main/operations/fixedOvertime'),
+                new AppMenuItem('RegularHours', 'Pages.FixedOvertime', 'flaticon-time', '/app/main/operations/regularHours'),
+                new AppMenuItem('FridayOvertime', 'Pages.FixedOvertime', 'flaticon-time', '/app/main/operations/fridayOvertime'),
+                new AppMenuItem('ProjectSheet', 'Pages.FixedOvertime', 'flaticon-time', '/app/main/operations/projectSheet')
             ]),
             // new AppMenuItem('DemoUiComponents', 'Pages.DemoUiComponents', 'flaticon-shapes', '/app/admin/demo-ui-components'),
 

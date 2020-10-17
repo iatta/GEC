@@ -40,8 +40,10 @@ namespace Pixel.Attendance.Operations
 
         Task<List<NormalOverTimeReportOutput>> GetDepartmentTransactions(UnitTransactionsReportInput input);
 
+        Task<List<NormalOverTimeReportOutput>> GetProjectSheet(NormalOverTimeReportInput input);
 
-
+        Task<List<NormalOverTimeReportOutput>> GetFridayOverTime(NormalOverTimeReportInput input);
+        Task<List<NormalOverTimeReportOutput>> GetRegularHours(NormalOverTimeReportInput input);
 
     }
 }

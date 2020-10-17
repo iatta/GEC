@@ -244,6 +244,9 @@ import {PanelModule} from 'primeng/panel';
 import { MinutesToStringPipe } from '@app/Custom/minutesToString.pipe';
 import { ManagerUnitsModalComponent } from './../admin/shared/manager-units-modal.component';
 import { HrReportComponent } from './operations/reports/hr-report.component';
+import { RegularHoursComponent } from './operations/reports/regular-hours.component';
+import { FridayOvertimeComponent } from './operations/reports/friday-overtime.component';
+import { ProjectSheetComponent } from './operations/reports/project-sheet.component';
 
 NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
 
@@ -423,6 +426,9 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
         HrReportComponent,
         ManagerUnitsModalComponent
         ,ManagerReportComponent,
+        RegularHoursComponent,
+        FridayOvertimeComponent,
+        ProjectSheetComponent
 
     ],
     providers: [

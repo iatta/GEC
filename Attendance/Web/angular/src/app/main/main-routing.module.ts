@@ -56,6 +56,9 @@ import { ProjectManagerTransactionsComponent } from './operations/manualTransact
 import { UnitManagerTransactionsComponent } from './operations/manualTransactions/transaction-unit-manager.component';
 import { HrTransactionsComponent } from './operations/manualTransactions/transaction-hr.component';
 import { HrReportComponent } from './operations/reports/hr-report.component';
+import { RegularHoursComponent } from './operations/reports/regular-hours.component';
+import { FridayOvertimeComponent } from './operations/reports/friday-overtime.component';
+import { ProjectSheetComponent } from './operations/reports/project-sheet.component';
 
 @NgModule({
     imports: [
@@ -70,6 +73,12 @@ import { HrReportComponent } from './operations/reports/hr-report.component';
                     { path: 'operations/userTimeSheetApproves', component: UserTimeSheetApprovesComponent, data: { permission: 'Pages.UserTimeSheetApproves' }  },
                     { path: 'operations/managerLevelApprove', component: ManagerLevelApproveComponent, data: { permission: 'Pages.ManagerLevelApprove' }  },
                     { path: 'operations/normalOvertime', component: NormalOvertimeComponent, data: { permission: 'Pages.NormalOvertime' }  },
+                    { path: 'operations/regularHours', component: RegularHoursComponent, data: { permission: 'Pages.NormalOvertime' }  },
+                    { path: 'operations/fridayOvertime', component: FridayOvertimeComponent, data: { permission: 'Pages.NormalOvertime' }  },
+                    { path: 'operations/projectSheet', component: ProjectSheetComponent, data: { permission: 'Pages.NormalOvertime' }  },
+
+
+
                     { path: 'operations/fixedOvertime', component: FixedOvertimeComponent, data: { permission: 'Pages.FixedOvertime' }  },
                     { path: 'operations/managerReportComponent', component: ManagerReportComponent, data: { permission: 'Pages.ManagerReport' }  },
                     { path: 'operations/hrReportComponent', component: HrReportComponent, data: { permission: 'Pages.HrReport' }  },
