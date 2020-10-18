@@ -82,6 +82,10 @@
                                 </div>
                             </div>
 
+                            <div class="row">
+                             <b>{{l('Units To Approve')}} : </b>  {{response.remainingUnitsApprove.join(',')}}
+                            </div>
+
                         </p-panel>
 
                         <p-table [lazy]="!dataIsLoading"  [paginator]="true" [rows]="1" [responsive]="true" [resizableColumns]="true" columnResizeMode="expand"  [columns]="cols" [value]="data">

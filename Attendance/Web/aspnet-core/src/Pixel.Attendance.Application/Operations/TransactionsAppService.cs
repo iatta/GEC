@@ -516,14 +516,14 @@ namespace Pixel.Attendance.Operations
             // get requested unit
             var Requestedunit = await _organizationUnitRepository.GetAllIncluding(x => x.Children).Where(x => x.Id == input.OrganizationUnitId).FirstOrDefaultAsync();
 
-            var units = new List<long?>();
-            var unitsList = new List<long?>();
+            var units = new List<long>();
+            var unitsList = new List<long>();
             units.Add(Requestedunit.Id);
             var childs = GetChildes(unitsList, Requestedunit, allUnits);
             units.AddRange(childs);
 
             // get units machines 
-            var locationIDs = await _organizationLocationRepository.GetAll().Where(x => units.Contains(x.OrganizationUnitId)).Select(y => y.LocationId).ToListAsync();
+            var locationIDs = await _organizationLocationRepository.GetAll().Where(x => units.Contains(x.OrganizationUnitId.Value)).Select(y => y.LocationId).ToListAsync();
 
 
             //get locationMachines 
@@ -540,7 +540,7 @@ namespace Pixel.Attendance.Operations
             // add users
             foreach (var user in groupedUsers)
             {
-                if (units.Contains(user.OrganizationUnitId))
+                if (units.Contains(user.OrganizationUnitId.Value))
                 {
                     for (var day = input.FromDate.Date; day <= input.ToDate.Date; day = day.AddDays(1))
                     {
@@ -723,8 +723,15 @@ namespace Pixel.Attendance.Operations
         {
             var output = new ActualSummerizeTimeSheetOutput();
             //get all project machines 
-            var project = await _projectRepository.GetAllIncluding(x => x.Machines).FirstOrDefaultAsync(x => x.Id == input.ProjectId);
-            var machines = project.Machines.Select(x => x.MachineId).ToList();
+            var project = await _projectRepository.GetAllIncluding(x => x.Locations).FirstOrDefaultAsync(x => x.Id == input.ProjectId);
+
+           
+            
+
+            var projectLocationIds = project.Locations.Select(x => x.LocationId).ToList();
+            var machines = _locationMachineRepository.GetAll().Where(x => projectLocationIds.Contains(x.LocationId)).Select(y => y.MachineId).ToList();
+
+            
 
             // get all transactions for these machines 
             var transactions = _transactionRepository.GetAllIncluding(x => x.User)
@@ -733,22 +740,51 @@ namespace Pixel.Attendance.Operations
 
 
 
+            // get project unit .
+            var projectUnit = await _organizationUnitRepository.FirstOrDefaultAsync(x => x.Id == project.OrganizationUnitId);
+            var currentUserUnits  = await _organizationUnitRepository.GetAllIncluding(x => x.Children).Where(x => x.ManagerId == GetCurrentUser().Id).ToListAsync(); // in case of current user is manager for multi units
+            var currentUserUnitsIds = currentUserUnits.Select(x => x.Id).ToList();
+            // get project Unit Parents That have to approve 
 
             var allUnits = _organizationUnitRepository.GetAll().ToList();
-            var managerUnit = await _organizationUnitRepository.GetAllIncluding(x => x.Children).Where(x => x.ManagerId == GetCurrentUser().Id).FirstOrDefaultAsync();
+            var projectUnitParents = new List<long>();
+            projectUnitParents  = GetParents(projectUnitParents, projectUnit, allUnits);
 
-            var units = new List<long?>();
-            var unitsToApprove = new List<long?>();
-            units.Add(managerUnit.Id);
-            var childs = GetChildes(unitsToApprove, managerUnit, allUnits);
-            units.AddRange(childs);
+            var remainingUnits = new List<long>();
+            if (projectUnit.HasApprove)
+            {
+                remainingUnits.Add(projectUnit.Id);
+            }
+            remainingUnits.AddRange(projectUnitParents);
 
-            output.RemainingUnitsApprove = allUnits.Where(x => output.ParentUnitIds.Contains(x.Id)).Select(x => x.DisplayName).ToList();
+            //check if current user is the one who has to approve 
 
 
+
+            //var managerUnitIds = managerUnits.Select(x => x.Id).ToList();
+
+            //var units = new List<long>();
+
+
+            //units.AddRange(managerUnitIds);
+            //foreach (var unit in managerUnits)
+            //{
+            //    var unitsToApprove = new List<long>();
+            //    unitsToApprove = GetChildes(unitsToApprove, unit, allUnits);
+            //    units.AddRange(unitsToApprove);
+            //}
+
+
+            //output.RemainingUnitsApprove = new ;
+
+            var temRemainingUnits = new List<long>(remainingUnits.Count) ;
+            remainingUnits.ForEach((item) =>
+            {
+                temRemainingUnits.Add(item);
+            });
             //
-            var users = transactions.GroupBy(x => x.User.Id).Select(x => x.First().User);
-            var managerUsers = users.Where(x => units.Contains(x.OrganizationUnitId)).ToList();
+            var users = transactions.GroupBy(x => x.User.Id).Select(x => x.First().User).ToList();
+            var projectUnitUsers = users.Where(x => x.OrganizationUnitId.Value == projectUnit.Id).ToList();
 
 
             var firstDayOfMonth = new DateTime(input.Year, input.Month, 1);
@@ -757,9 +793,12 @@ namespace Pixel.Attendance.Operations
 
 
             // add users
-            foreach (var user in managerUsers)
+            foreach (var user in projectUnitUsers)
             {
 
+                //get user previous approved
+                var userTimeSheet = _userTimeSheetApproveRepository.FirstOrDefault(x => x.UserId == user.Id && x.ProjectManagerApprove == true && x.Month == input.Month && x.Year == input.Year && x.ProjectId == input.ProjectId);
+          
                 //CHECK IF USER HAS DELEGATION 
 
 
@@ -768,68 +807,61 @@ namespace Pixel.Attendance.Operations
                 summaryToAdd.UserName = user.Name;
                 summaryToAdd.Code = user.Code;
                 summaryToAdd.FingerCode = user.FingerCode;
-                var userTimeSheet = _userTimeSheetApproveRepository.FirstOrDefault(x => x.UserId == user.Id && x.ProjectManagerApprove == true && x.Month == input.Month && x.Year == input.Year && x.ProjectId == input.ProjectId);
+
+             
+                
                 // check if project manager approve 
                 if (userTimeSheet != null)
                 {
                     summaryToAdd.IsProjectManagerApproved = true;
-
-                    // check if there is pending approve 
-                    var userUnit = await _organizationUnitRepository.GetAll().Where(x => x.Id == user.OrganizationUnitId).FirstOrDefaultAsync();
-                    var userUnitParents = new List<long>();
-                    var userUnitParentsToApprove = new List<long>();
-                    var parents = GetParents(userUnitParentsToApprove, userUnit, allUnits);
-                    userUnitParents.AddRange(parents);
-                    userUnitParents.Add(userUnit.Id);
-
-                    var currentunit = GetCurrentUser().OrganizationUnitId;
-
-                    var remainingUnits = new List<long>();
-                    var approvedUnits = new List<long>();
-                    if (!string.IsNullOrEmpty(userTimeSheet.ApprovedUnits))
+                    var unitToApprove = 0;
+                    // check if there is pending approve
+                    if (string.IsNullOrEmpty(userTimeSheet.ApprovedUnits))
                     {
-                        approvedUnits = userTimeSheet.ApprovedUnits.Split(",").Select(long.Parse).ToList();
-                        summaryToAdd.IsCurrentUnitApproved = approvedUnits.Any(x => x == currentunit);
-                    }
-
-                    remainingUnits = userUnitParents.Where(x => !approvedUnits.Contains(x)).Select(x => x).ToList();
-                    if (approvedUnits.Any(x => x == userUnit.Id))
-                    {
-
-                        //check if current unit is the next unit to approve 
-                        var nextUnitToApprove = remainingUnits.Where(x => x != userUnit.Id).OrderByDescending(x => x).FirstOrDefault();
-
-
-                        if (nextUnitToApprove == currentunit)
-                        {
-                            summaryToAdd.CanManagerApprove = true;
-
-                            //last one
-                            if (remainingUnits.Count == 1)
-                                summaryToAdd.YesClose = true;
-
-
-                            output.UserIds.Add(new UserTimeSheetInput() { UserId = user.Id, YesClose = summaryToAdd.YesClose });
-                            output.UserIdsToApprove.Add(new UserTimeSheetInput() { UserId = user.Id, YesClose = summaryToAdd.YesClose });
-                        }
-
+                        // no one approved so we have to check if for the next one 
+                        unitToApprove = (int)remainingUnits[0];
+                        output.UnitIdToApprove = unitToApprove;
                     }
                     else
                     {
-                        var nextUnitToApprove = remainingUnits.OrderByDescending(x => x).FirstOrDefault();
-
-                        if (nextUnitToApprove == currentunit)
+                        var previousApprovedUnits = userTimeSheet.ApprovedUnits.Split(",").Select(long.Parse).ToList();
+                        //check for the next one 
+                        for (int i = 0; i < remainingUnits.Count; i++)
                         {
-                            summaryToAdd.CanManagerApprove = true;
-                            //last one
-                            if (remainingUnits.Count == 1)
-                                summaryToAdd.YesClose = true;
+                            if (!previousApprovedUnits.Contains(remainingUnits[i]))
+                            {
+                                unitToApprove = (int)remainingUnits[i];
+                                output.UnitIdToApprove = unitToApprove;
+                                break;
+                            }
+                            else
+                            {
+                                // if current logged unit is approved 
+                                if (currentUserUnitsIds.Contains(remainingUnits[i]))
+                                    summaryToAdd.IsCurrentUnitApproved = true;
+                                    
+                                
+                                temRemainingUnits.Remove(remainingUnits[i]);
 
-                            output.UserIds.Add(new UserTimeSheetInput() { UserId = user.Id, YesClose = summaryToAdd.YesClose });
-                            output.UserIdsToApprove.Add(new UserTimeSheetInput() { UserId = user.Id, YesClose = summaryToAdd.YesClose });
+                            }
                         }
                     }
+
+                
+                    if (currentUserUnitsIds.Contains(unitToApprove))
+                    {
+                        summaryToAdd.CanManagerApprove = true;
+                        //check if last one
+                        if (remainingUnits.Last() == output.UnitIdToApprove)
+                        {
+                            summaryToAdd.YesClose = true;
+                        }
+                        output.UserIds.Add(new UserTimeSheetInput() { UserId = user.Id, YesClose = summaryToAdd.YesClose });
+                        output.UserIdsToApprove.Add(new UserTimeSheetInput() { UserId = user.Id, YesClose = summaryToAdd.YesClose });
+
+                    }
                 }
+                output.RemainingUnitsApprove = _organizationUnitRepository.GetAll().Where(x => temRemainingUnits.Contains(x.Id)).Select(x => x.DisplayName).ToList();
                 // add days to users 
                 for (var day = firstDayOfMonth.Date; day <= lastDayOfMonth.Date; day = day.AddDays(1))
                 {
@@ -899,6 +931,7 @@ namespace Pixel.Attendance.Operations
 
             return output;
         }
+
         public async Task PojectManagerApprove(ProjectManagerApproveInput input)
         {
             if (input.UserIds.Count > 0)
@@ -960,7 +993,7 @@ namespace Pixel.Attendance.Operations
 
         public async Task UnitManagerToApprove(ProjectManagerApproveInput input)
         {
-            var loggedInManagerUnit = GetCurrentUser().OrganizationUnitId;
+          
 
             foreach (var user in input.UserIds)
             {
@@ -969,9 +1002,9 @@ namespace Pixel.Attendance.Operations
                 if (uerToUpdate.ApprovedUnits != null)
                     approvedUnits = uerToUpdate.ApprovedUnits.Split(',').Select(long.Parse).ToList();
 
-                if (!approvedUnits.Any(x => x == loggedInManagerUnit.Value))
+                if (!approvedUnits.Any(x => x == input.UnitIdToApprove))
                 {
-                    approvedUnits.Add(loggedInManagerUnit.Value);
+                    approvedUnits.Add(input.UnitIdToApprove);
                 }
 
                 uerToUpdate.ApprovedUnits = string.Join(",", approvedUnits);
@@ -985,10 +1018,10 @@ namespace Pixel.Attendance.Operations
             if (unit.ParentId != null)
             {
                 var parent = units.FirstOrDefault(d => d.Id == unit.ParentId);
-                if (parent != null || parent.HasApprove)
+                if (parent != null && parent.HasApprove)
                     parents.Add(parent.Id);
 
-                if (parent.ParentId != null && unit.HasApprove)
+                if (parent.ParentId != null)
                     GetParents(parents, parent, units);
             }
 
@@ -998,7 +1031,7 @@ namespace Pixel.Attendance.Operations
 
         }
 
-        private List<long?> GetChildes(List<long?> childs, OrganizationUnitExtended unit, List<OrganizationUnitExtended> units)
+        private List<long> GetChildes(List<long> childs, OrganizationUnitExtended unit, List<OrganizationUnitExtended> units)
         {
             if (unit.Children.Count > 0)
             {

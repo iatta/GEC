@@ -31,6 +31,7 @@ export class ManagerLevelApproveComponent extends AppComponentBase implements On
     selectedDate='';
     userIds:UserTimeSheetInput[] = [];
     userIdsToApprove: UserTimeSheetInput[] = [];
+    unitIdToApprove:number;
 
     constructor(
         injector: Injector,
@@ -79,9 +80,10 @@ export class ManagerLevelApproveComponent extends AppComponentBase implements On
                 console.log(result);
                 this.response =result;
                 if(result.data.length > 0){
+                    debugger
                     this.userIds = result.userIds;
                     this.userIdsToApprove = result.userIdsToApprove;
-
+                    this.unitIdToApprove = result.unitIdToApprove;
                     this.cols = [
                         { field: 'fingerCode', header: 'code' },
                         {field: 'userName', header: 'userName' }
@@ -143,6 +145,7 @@ debugger
         modelToPass.projectId = this.selectedProject.id;
         modelToPass.month = this.month;
         modelToPass.year = this.year;
+        modelToPass.unitIdToApprove = this.unitIdToApprove;
         this._transactionService.unitManagerToApprove(modelToPass).subscribe((result) => {
             this.clearData();
             this.message.success('Approved');

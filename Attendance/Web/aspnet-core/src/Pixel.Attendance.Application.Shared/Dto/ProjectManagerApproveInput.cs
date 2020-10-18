@@ -10,5 +10,6 @@ namespace Pixel.Attendance.Dto
         public int ProjectId { get; set; }
         public int Month { get; set; }
         public int Year { get; set; }
+        public int UnitIdToApprove { get; set; }
     }
 }

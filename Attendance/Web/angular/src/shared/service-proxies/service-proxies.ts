@@ -57567,6 +57567,7 @@ export class ActualSummerizeTimeSheetOutput implements IActualSummerizeTimeSheet
     totalPending!: number;
     totalApproved!: number;
     canApprove!: boolean;
+    unitIdToApprove!: number;
     userIdsToApprove!: UserTimeSheetInput[] | undefined;
 
     constructor(data?: IActualSummerizeTimeSheetOutput) {
@@ -57608,6 +57609,7 @@ export class ActualSummerizeTimeSheetOutput implements IActualSummerizeTimeSheet
             this.totalPending = data["totalPending"];
             this.totalApproved = data["totalApproved"];
             this.canApprove = data["canApprove"];
+            this.unitIdToApprove = data["unitIdToApprove"];
             if (Array.isArray(data["userIdsToApprove"])) {
                 this.userIdsToApprove = [] as any;
                 for (let item of data["userIdsToApprove"])
@@ -57653,6 +57655,7 @@ export class ActualSummerizeTimeSheetOutput implements IActualSummerizeTimeSheet
         data["totalPending"] = this.totalPending;
         data["totalApproved"] = this.totalApproved;
         data["canApprove"] = this.canApprove;
+        data["unitIdToApprove"] = this.unitIdToApprove;
         if (Array.isArray(this.userIdsToApprove)) {
             data["userIdsToApprove"] = [];
             for (let item of this.userIdsToApprove)
@@ -57671,6 +57674,7 @@ export interface IActualSummerizeTimeSheetOutput {
     totalPending: number;
     totalApproved: number;
     canApprove: boolean;
+    unitIdToApprove: number;
     userIdsToApprove: UserTimeSheetInput[] | undefined;
 }
 
@@ -57679,6 +57683,7 @@ export class ProjectManagerApproveInput implements IProjectManagerApproveInput {
     projectId!: number;
     month!: number;
     year!: number;
+    unitIdToApprove!: number;
 
     constructor(data?: IProjectManagerApproveInput) {
         if (data) {
@@ -57699,6 +57704,7 @@ export class ProjectManagerApproveInput implements IProjectManagerApproveInput {
             this.projectId = data["projectId"];
             this.month = data["month"];
             this.year = data["year"];
+            this.unitIdToApprove = data["unitIdToApprove"];
         }
     }
 
@@ -57719,6 +57725,7 @@ export class ProjectManagerApproveInput implements IProjectManagerApproveInput {
         data["projectId"] = this.projectId;
         data["month"] = this.month;
         data["year"] = this.year;
+        data["unitIdToApprove"] = this.unitIdToApprove;
         return data; 
     }
 }
@@ -57728,6 +57735,7 @@ export interface IProjectManagerApproveInput {
     projectId: number;
     month: number;
     year: number;
+    unitIdToApprove: number;
 }
 
 export class TypesOfPermitDto implements ITypesOfPermitDto {

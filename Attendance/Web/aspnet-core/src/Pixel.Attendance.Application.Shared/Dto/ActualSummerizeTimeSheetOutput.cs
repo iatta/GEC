@@ -23,6 +23,7 @@ namespace Pixel.Attendance.Dto
         public int TotalPending { get; set; }
         public int TotalApproved { get; set; }
         public bool CanApprove { get; set; }
+        public int UnitIdToApprove { get; set; }
         public List<UserTimeSheetInput> UserIdsToApprove { get; set; }
 
     }

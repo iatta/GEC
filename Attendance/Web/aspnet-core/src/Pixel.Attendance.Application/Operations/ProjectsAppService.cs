@@ -65,12 +65,19 @@ namespace Pixel.Attendance.Operations
         public async Task<List<ProjectDto>> GetAllFlatForOrganizationUnitManager()
         {
             var units = new List<long>();
-            var childUnits = new List<long>();
-            var curentUserUnit = _lookup_organizationUnitRepository.GetAllIncluding(x => x.Children).Where(u => u.ManagerId == GetCurrentUser().Id).FirstOrDefault();
+          
+            var curentUserUnits = await _lookup_organizationUnitRepository.GetAllIncluding(x => x.Children).Where(u => u.ManagerId == GetCurrentUser().Id).ToListAsync();
+            var userunitIds = curentUserUnits.Select(x => x.Id).ToList();
             var allUnits = _lookup_organizationUnitRepository.GetAll().ToList();
-            units.Add(curentUserUnit.Id);
-            childUnits = GetChildes(childUnits, curentUserUnit, allUnits);
-            units.AddRange(childUnits);
+            units.AddRange(userunitIds);
+            foreach (var unit in curentUserUnits)
+            {
+                var childUnits = new List<long>();
+                childUnits = GetChildes(childUnits, unit, allUnits);
+                units.AddRange(childUnits);
+            }
+           
+           
             
             var data = await _projectRepository.GetAll().Where(x => units.Contains(x.OrganizationUnitId.Value)).ToListAsync();
             return ObjectMapper.Map<List<ProjectDto>>(data);
@@ -188,7 +195,9 @@ namespace Pixel.Attendance.Operations
             }
             foreach (var projectLocation in output.Project.Locations)
             {
-                projectLocation.LocationName = _lookup_locationRepository.FirstOrDefault(x => x.Id == projectLocation.Id).TitleEn;
+                var location = _lookup_locationRepository.FirstOrDefault(x => x.Id == projectLocation.Id);
+                if(location != null)
+                    projectLocation.LocationName =location.TitleEn;
 
             }
             
