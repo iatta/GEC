@@ -133,29 +133,20 @@
 
 
                             <div class="form-group row">
-                                <div class="col-lg-6">
-                                    <label for="Code">{{"Code" | localize}} *</label>
-                                    <input [ngClass]="{ 'is-invalid': userForm.submitted && codeInput.invalid}" #codeInput="ngModel" id="Code" type="text" name="Code" class="form-control" [(ngModel)]="user.code" maxlength="32" required>
-                                </div>
+
                                 <div class="col-lg-6">
                                     <label for="fingerCode">{{"FingerCode" | localize}} *</label>
                                     <input  [ngClass]="{ 'is-invalid': userForm.submitted && fingerInput.invalid}" #fingerInput="ngModel" id="fingerCode" type="text" name="fingerCode" class="form-control" [(ngModel)]="user.fingerCode" maxlength="32" required>
                                 </div>
-
-
-                            </div>
-                            <div class="form-group row">
                                 <div class="col-lg-6">
-                                    <label for="cardNumber">{{"CardNumber" | localize}} *</label>
-                                    <input  [ngClass]="{ 'is-invalid': userForm.submitted && cardInput.invalid}" #cardInput="ngModel" id="cardNumber" type="text" name="cardNumber" class="form-control" [(ngModel)]="user.cardNumber" maxlength="32" required>
-                                </div>
-                                <div class="col-lg-6">
-                                    <label for="fingerPassword">{{"FingerPassword" | localize}} *</label>
-                                    <input  [ngClass]="{ 'is-invalid': userForm.submitted && fingerPasswordInput.invalid}" #fingerPasswordInput="ngModel" id="fingerPassword" type="text" name="fingerPassword" class="form-control" [(ngModel)]="user.fingerPassword" maxlength="32" required>
+                                    <label for="title">{{"EmployyeType" | localize}}</label>
+                                    <!-- <input id="title" type="text" name="title" class="form-control" [(ngModel)]="user.title" maxlength="32"> -->
+                                    <p-dropdown [ngClass]="{ 'is-invalid': userForm.submitted && userTypeInput.invalid}" #userTypeInput="ngModel" styleClass="form-control" [options]="userTypes" [(ngModel)]="user.userType" name="userTypeInput" [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'"></p-dropdown>
+
                                 </div>
 
-
                             </div>
+
                             <div class="form-group row">
                                 <div class="col-lg-6">
                                     <label for="title">{{"Title" | localize}}</label>
@@ -169,16 +160,6 @@
                                     <p-dropdown [ngClass]="{ 'is-invalid': userForm.submitted && nationalityInput.invalid}" #nationalityInput="ngModel" styleClass="form-control" [options]="nationalities" [(ngModel)]="user.nationalityId" name="nationality" [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'"></p-dropdown>
                                 </div>
 
-                            </div>
-                            <div class="form-group row">
-                               <div class="col-lg-6">
-                                <label for="telephone_2">{{"Telephone_2" | localize}}</label>
-                                <input id="telephone_2" type="text" name="telephone_2" class="form-control" [(ngModel)]="user.telephone_2" maxlength="32">
-                               </div>
-                               <div class="col-lg-6">
-                                <label for="extension">{{"Extension" | localize}}</label>
-                                <input id="extension" type="text" name="extension" class="form-control" [(ngModel)]="user.extension" maxlength="32">
-                               </div>
                             </div>
 
                             <div class="form-group row">
@@ -232,20 +213,31 @@
                             </div>
 
                             <div class="form-group row">
-                                <div class="col-lg-6">
-                                    <div class="checkbox-inline">
-                                        <label for="isFixedOverTimeAllowed"> {{l('IsFixedOverTimeAllowed')}}</label>
-                                        <input style="width: 15px;" type="checkbox" class="form-control" name="isFixedOverTimeAllowed" [(ngModel)]="user.isFixedOverTimeAllowed" [ngModelOptions]="{standalone: true}"></div>
+                                <div class="col-lg-6" style="display: inline-flex;">
+                                    <div class="col-lg-3">
+                                        <div class="checkbox-inline">
+                                            <label for="isOvertimeAllowed"> {{l('isOvertimeAllowed')}}</label>
+                                            <input style="width: 15px;" type="checkbox" class="form-control" name="isOvertimeAllowed"  (change)="overTimeChanged($event)" [(ngModel)]="user.isOvertimeAllowed" [ngModelOptions]="{standalone: true}"></div>
+                                    </div>
+                                    <div class="col-lg-3" *ngIf="user.isOvertimeAllowed" >
+                                        <div class="checkbox-inline">
+                                            <label for="isFixedOverTimeAllowed"> {{l('IsFixedOverTimeAllowed')}}</label>
+                                            <input style="width: 15px;" type="checkbox" class="form-control" name="isFixedOverTimeAllowed" [(ngModel)]="user.isFixedOverTimeAllowed" [ngModelOptions]="{standalone: true}"></div>
+                                    </div>
                                 </div>
-                                <div class="col-lg-2">
-                                    <label for="terminated">{{l("Status")}}</label><br>
-                                    <p-radioButton name="terminated" [label]="l('Active')" [value]=false [(ngModel)]="user.terminated"></p-radioButton>
-                                    <p-radioButton name="terminated" [label]="l('Terminated')" [value]=true [(ngModel)]="user.terminated"></p-radioButton>
+                                <div class="col-lg-6" style="display: inline-flex;">
+                                    <div class="col-lg-3">
+                                        <label for="terminated">{{l("Status")}}</label><br>
+                                        <p-radioButton name="terminated" [label]="l('Active')" [value]=false [(ngModel)]="user.terminated"></p-radioButton>
+                                        <p-radioButton name="terminated" [label]="l('Terminated')" [value]=true [(ngModel)]="user.terminated"></p-radioButton>
+                                    </div>
+                                    <div class="col-lg-3" *ngIf="user.terminated">
+                                        <label for="User_TerminationDate">{{l("TerminationDate")}}</label>
+                                        <input class="form-control m-input" type="datetime" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY',isAnimated: true }" bsDatepicker [(ngModel)]="user.terminationDate._d" id="User_TerminationDate" name="User_TerminationDate">
+                                    </div>
                                 </div>
-                                <div class="col-lg-4" *ngIf="user.terminated">
-                                    <label for="User_TerminationDate">{{l("TerminationDate")}}</label>
-                                    <input class="form-control m-input" type="datetime" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY',isAnimated: true }" bsDatepicker [(ngModel)]="user.terminationDate._d" id="User_TerminationDate" name="User_TerminationDate">
-                                </div>
+
+
 
                             </div>
 
@@ -267,152 +259,6 @@
                         <tab heading="{{'OrganizationUnits' | localize}}" name="fourth">
                             <organization-unit-tree [cascadeSelectEnabled]="false" #organizationUnitTree></organization-unit-tree>
                         </tab>
-
-                        <!-- <tab heading="{{'Locations' | localize}}" name="fourth">
-
-                            <div class="form-group row">
-                                <div class="col-lg-3">
-                                    <label for="selectedLocation">{{l("LocationName")}}</label>
-                                    <p-dropdown styleClass="form-control" name="selectedLocation" [options]="locationsList" [(ngModel)]="selectedLocation"></p-dropdown>
-                                </div>
-                                <div class="col-lg-3">
-                                    <label for="locationDateFrom">{{l("FromDate")}}</label>
-                                    <input [required]="true" required class="form-control m-input" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY',isAnimated: true }" type="datetime" bsDatepicker [(ngModel)]="locationDateFrom._d"  onkeydown="return false" id="locationDateFrom" name="locationDateFrom">
-                                </div>
-                                <div class="col-lg-3">
-                                    <label for="locationDateTo">{{l("ToDate")}}</label>
-                                    <input [required]="true" required class="form-control m-input" [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY',isAnimated: true }" type="datetime" bsDatepicker [(ngModel)]="locationDateTo._d"  onkeydown="return false" id="locationDateTo" name="locationDateTo">
-                                </div>
-                                <div class="col-lg-3" style="padding-top: 23px;">
-                                    <button type="button" class="btn btn-success" (click)="addUserLocation()" >{{l('Add')}}</button>
-                                </div>
-
-                            </div>
-                            <div class="form-group row" [hidden]="!assignedLocation.length > 0">
-                                <p-table  [value]="assignedLocation">
-                                    <ng-template pTemplate="header" >
-                                        <tr>
-                                            <th >
-                                                {{l('LocationName')}}
-                                            </th>
-                                            <th>
-                                                {{l('FromDate')}}
-                                            </th>
-                                            <th>
-                                                {{l('ToDate')}}
-                                            </th>
-                                            <th>{{l('Action')}}</th>
-                                        </tr>
-                                    </ng-template>
-                                    <ng-template pTemplate="body" let-rowData>
-                                        <tr>
-                                            <td>
-                                                {{rowData.locationDisplayName}}
-
-                                            </td>
-                                            <td>
-                                                {{rowData.fromDate | momentFormat:'DD/MM/YYYY'}}
-
-                                            </td>
-                                            <td>
-                                                {{rowData.toDate | momentFormat:'DD/MM/YYYY'}}
-
-                                            </td>
-                                            <td>
-                                                <div class="btn-group">
-                                                    <button type="button" class="btn btn-danger" (click)="removeUserLocation(rowData)"  icon="pi pi-trash">{{l('Remove')}}</button>
-                                                </div>
-
-                                            </td>
-                                        </tr>
-                                    </ng-template>
-                                </p-table>
-                            </div>
-
-                        </tab> -->
-                        <!-- <tab heading="{{'Shift' | localize}}" name="fifth">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div  class="form-group row">
-                                        <div class="col-lg-3">
-                                            <label for="TimeProfile_StartDate">{{l("StartDate")}}</label>
-                                            <input required class="form-control m-input" type="datetime" bsDatepicker  [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY',isAnimated: true }" [(ngModel)]="startDate._d" id="startDate" name="startDate">
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <label for="endDate">{{l("EndDate")}}</label>
-                                            <input required class="form-control m-input" type="datetime" bsDatepicker  [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY',isAnimated: true }" [(ngModel)]="endDate._d" id="endDate" name="endDate">
-                                        </div>
-
-                                        <div class="col-lg-3">
-                                            <label for="Shift">{{l("Shift")}}</label>
-                                            <p-dropdown styleClass="form-control" optionLabel="shift.nameEn" [options]="shiftList" [(ngModel)]="selectedShift" name="selectedShift"  placeholder="Select a Shift" [showClear]="true"></p-dropdown>
-
-                                        </div>
-
-                                        <div class="col-lg-3" style="margin-top: auto;">
-                                            <a href="javascript:void(0)" (click)="addShifts()"  class="btn btn-success btn-shadow-hover font-weight-bold mr-2">{{l("Add")}}</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <br>
-                            <div class="row align-items-center">
-
-                                <div class="primeng-datatable-container col-12">
-                                    <p-table
-                                    #dt
-                                    styleClass="ui-table-customers"
-                                    [value]="user.userShifts"
-                                    [responsive]="true"
-                                    [paginator]="true"
-                                    [rowHover]="true"
-                                    [rows]="10"
-                                    [rowsPerPageOptions]="[10,25,50]"
-                                    >
-                                        <ng-template pTemplate="caption">
-                                            {{l('UserShifts')}}
-
-                                        </ng-template>
-                                        <ng-template pTemplate="header">
-                                            <tr>
-                                                <th pSortableColumn="userShift.date">Day <p-sortIcon field="userShift.date"></p-sortIcon></th>
-                                                <th>{{l('Shift')}}</th>
-                                                <th>{{l('Action')}}</th>
-                                            </tr>
-                                            <tr>
-                                                <th>
-                                                    <p-calendar
-                                                    (onSelect)="onDateSelect($event)"
-                                                     (onClearClick)="dt.filter('', 'userShift.date', 'equals')"
-                                                     [showButtonBar]="true"
-                                                     styleClass="ui-column-filter"
-                                                     placeholder="Day"
-                                                      [readonlyInput]="true"
-                                                      dateFormat="dd/mm/yy"></p-calendar>
-                                                </th>
-                                                <th></th>
-                                                <th></th>
-                                            </tr>
-
-                                        </ng-template>
-                                        <ng-template pTemplate="body" let-userShiftView>
-                                            <tr [@rowsAnimation]="" *ngIf="!userShiftView.userShift.isDeleted">
-
-                                                <td>
-                                                    {{userShiftView.userShift.date | momentFormat:'DD/MM/YYYY' }}
-                                                </td>
-                                                <td>
-                                                    {{userShiftView.shiftNameEn}}
-                                                </td>
-                                                <td>
-                                                    <button type="button" (click)="deleteUserShift(userShiftView)"  class="btn btn-danger">{{l("Delete")}}</button>
-                                                </td>
-                                        </tr>
-                                        </ng-template>
-                                    </p-table>
-                                </div>
-                            </div>
-                        </tab> -->
                         <tab heading="{{'Beacon' | localize}}" name="sixth">
                             <div class="row">
                                 <div class="col-lg-12">

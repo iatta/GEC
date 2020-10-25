@@ -58662,6 +58662,11 @@ export interface IGetUserShiftForViewDto {
     shiftNames: string[] | undefined;
 }
 
+export enum UserTypeDto {
+    Staff = 1,
+    Labor = 2,
+}
+
 export class UserEditDto implements IUserEditDto {
     id!: number | undefined;
     name!: string;
@@ -58702,6 +58707,8 @@ export class UserEditDto implements IUserEditDto {
     beaconUid!: string | undefined;
     isFixedOverTimeAllowed!: boolean;
     userShifts!: GetUserShiftForViewDto[] | undefined;
+    userType!: UserTypeDto;
+    isOvertimeAllowed!: boolean;
 
     constructor(data?: IUserEditDto) {
         if (data) {
@@ -58757,6 +58764,8 @@ export class UserEditDto implements IUserEditDto {
                 for (let item of data["userShifts"])
                     this.userShifts!.push(GetUserShiftForViewDto.fromJS(item));
             }
+            this.userType = data["userType"];
+            this.isOvertimeAllowed = data["isOvertimeAllowed"];
         }
     }
 
@@ -58812,6 +58821,8 @@ export class UserEditDto implements IUserEditDto {
             for (let item of this.userShifts)
                 data["userShifts"].push(item.toJSON());
         }
+        data["userType"] = this.userType;
+        data["isOvertimeAllowed"] = this.isOvertimeAllowed;
         return data; 
     }
 }
@@ -58856,6 +58867,8 @@ export interface IUserEditDto {
     beaconUid: string | undefined;
     isFixedOverTimeAllowed: boolean;
     userShifts: GetUserShiftForViewDto[] | undefined;
+    userType: UserTypeDto;
+    isOvertimeAllowed: boolean;
 }
 
 export class UserRoleDto implements IUserRoleDto {

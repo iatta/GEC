@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using Abp.Auditing;
 using Abp.Authorization.Users;
 using Abp.Domain.Entities;
+using Pixel.Attendance.Dto;
 using Pixel.Attendance.Operations.Dtos;
 using Pixel.Attendance.Setting.Dtos;
 
@@ -96,6 +97,8 @@ namespace Pixel.Attendance.Authorization.Users.Dto
 
         //public CreateOrEditTimeProfileDto TimeProfile { get; set; }
         public List<GetUserShiftForViewDto> UserShifts { get; set; }
-        
+        public UserTypeDto UserType { get; set; }
+        public bool IsOvertimeAllowed { get; set; }
+
     }
 }

@@ -418,7 +418,7 @@ namespace Pixel.Attendance.Authorization.Users
             else
             {
                 //Editing an existing user
-                var user = await UserManager.Users.Include(x => x.Locations).FirstOrDefaultAsync(x => x.Id == input.Id.Value);
+                var user = await UserManager.Users.FirstOrDefaultAsync(x => x.Id == input.Id.Value);
 
                 output.User = ObjectMapper.Map<UserEditDto>(user);
 
@@ -460,16 +460,16 @@ namespace Pixel.Attendance.Authorization.Users
                     userRoleDto.InheritedFromOrganizationUnit = allRolesOfUsersOrganizationUnits.Contains(userRoleDto.RoleName);
                 }
 
-                foreach (var userLocationDto in userLocationDtos)
-                {
-                    userLocationDto.IsAssigned = user.Locations.Any(x => x.LocationId == userLocationDto.LocationId);
-                    if (userLocationDto.IsAssigned)
-                    {
-                        userLocationDto.FromDate = user.Locations.Where(x => x.LocationId == userLocationDto.LocationId).FirstOrDefault().FromDate;
-                        userLocationDto.ToDate = user.Locations.Where(x => x.LocationId == userLocationDto.LocationId).FirstOrDefault().ToDate;
-                    }
+                //foreach (var userLocationDto in userLocationDtos)
+                //{
+                //    userLocationDto.IsAssigned = user.Locations.Any(x => x.LocationId == userLocationDto.LocationId);
+                //    if (userLocationDto.IsAssigned)
+                //    {
+                //        userLocationDto.FromDate = user.Locations.Where(x => x.LocationId == userLocationDto.LocationId).FirstOrDefault().FromDate;
+                //        userLocationDto.ToDate = user.Locations.Where(x => x.LocationId == userLocationDto.LocationId).FirstOrDefault().ToDate;
+                //    }
                         
-                }
+                //}
             }
 
             return output;

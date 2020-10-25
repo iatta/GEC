@@ -80,7 +80,6 @@ export class ManagerLevelApproveComponent extends AppComponentBase implements On
                 console.log(result);
                 this.response =result;
                 if(result.data.length > 0){
-                    debugger
                     this.userIds = result.userIds;
                     this.userIdsToApprove = result.userIdsToApprove;
                     this.unitIdToApprove = result.unitIdToApprove;

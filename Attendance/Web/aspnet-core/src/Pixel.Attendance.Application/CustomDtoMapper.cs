@@ -71,8 +71,10 @@ namespace Pixel.Attendance
             configuration.CreateMap<BeaconDto, Beacon>().ReverseMap();
             configuration.CreateMap<CreateOrEditUserShiftDto, UserShift>().ReverseMap();
             configuration.CreateMap<UserShiftDto, UserShift>().ReverseMap();
+
             
-             configuration.CreateMap<ShiftTypeEnumDto, ShiftTypeEnum>().ReverseMap();
+             configuration.CreateMap<UserTypeDto, UserType>().ReverseMap();
+            configuration.CreateMap<ShiftTypeEnumDto, ShiftTypeEnum>().ReverseMap();
             configuration.CreateMap<CreateOrEditProjectDto, Project>().ReverseMap();
             configuration.CreateMap<ProjectDto, Project>().ReverseMap();
             configuration.CreateMap<CreateOrEditMobileWebPageDto, MobileWebPage>().ReverseMap();

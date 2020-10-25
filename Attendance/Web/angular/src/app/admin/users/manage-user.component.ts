@@ -68,6 +68,7 @@ export class ManageUserComponent extends AppComponentBase implements OnInit {
     jobTitles:  JobTitleDto[];
     userId: number;
     titles:SelectItem[] = [];
+    userTypes:SelectItem[] = [];
     nationalities:SelectItem[] = [];
 
     test:moment.Moment;
@@ -127,7 +128,7 @@ export class ManageUserComponent extends AppComponentBase implements OnInit {
         {label: 'Mrs', value:2 },{label: 'Miss', value: 3});
 
         this.nationalities.push({label: this.l('ChooseNationality'), value: null},{label: this.l('Kuwait'), value: 'Kuwait'});
-
+        this.userTypes.push({label: this.l('ChooseType'), value: null},{label: this.l('Staff'), value: 1},{label: this.l('Labor'), value: 2})
         this._jobTitleServiceProxy.getAllFlat().subscribe(result => {
            this.jobTitles = result;
         });
@@ -146,6 +147,10 @@ export class ManageUserComponent extends AppComponentBase implements OnInit {
     this._shiftsServiceProxy.getAllFlat().subscribe((result)=>{
             this.shiftList = result;
         });
+    }
+    overTimeChanged(event:any){
+        if(!event.target.checked)
+            this.user.isFixedOverTimeAllowed = false;
     }
 
     show(): void {

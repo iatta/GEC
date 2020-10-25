@@ -757,26 +757,6 @@ namespace Pixel.Attendance.Operations
             }
             remainingUnits.AddRange(projectUnitParents);
 
-            //check if current user is the one who has to approve 
-
-
-
-            //var managerUnitIds = managerUnits.Select(x => x.Id).ToList();
-
-            //var units = new List<long>();
-
-
-            //units.AddRange(managerUnitIds);
-            //foreach (var unit in managerUnits)
-            //{
-            //    var unitsToApprove = new List<long>();
-            //    unitsToApprove = GetChildes(unitsToApprove, unit, allUnits);
-            //    units.AddRange(unitsToApprove);
-            //}
-
-
-            //output.RemainingUnitsApprove = new ;
-
             var temRemainingUnits = new List<long>(remainingUnits.Count) ;
             remainingUnits.ForEach((item) =>
             {
@@ -808,8 +788,6 @@ namespace Pixel.Attendance.Operations
                 summaryToAdd.Code = user.Code;
                 summaryToAdd.FingerCode = user.FingerCode;
 
-             
-                
                 // check if project manager approve 
                 if (userTimeSheet != null)
                 {
@@ -865,10 +843,6 @@ namespace Pixel.Attendance.Operations
                 // add days to users 
                 for (var day = firstDayOfMonth.Date; day <= lastDayOfMonth.Date; day = day.AddDays(1))
                 {
-                    if (day.Day == 31)
-                    {
-
-                    }
                     var detailToAdd = new ActualSummerizeTimeSheetDetailDto();
                     detailToAdd.Day = day;
 

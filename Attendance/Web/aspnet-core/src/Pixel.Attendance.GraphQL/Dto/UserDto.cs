@@ -35,6 +35,8 @@ namespace Pixel.Attendance.Dto
         public IEnumerable<RoleDto> Roles { get; set; }
 
         public IEnumerable<OrganizationUnitDto> OrganizationUnits { get; set; }
+        public UserTypeDto UserType { get; set; }
+        public bool IsOvertimeAllowed { get; set; }
 
         public UserDto()
         {
