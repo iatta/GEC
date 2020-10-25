@@ -58,7 +58,7 @@ export class AppNavigationService {
 
             new AppMenuItem('Fingerprints', '', 'flaticon-interface-6', '', [
                 new AppMenuItem('FaceId', 'Pages.Administration.Users', 'flaticon-users', '/app/admin/manageFaceId'),
-                // new AppMenuItem('ManualTransactions', 'Pages.ManualTransactions', 'flaticon2-notepad', '/app/main/operations/manualTransactions'),
+                new AppMenuItem('ManualTransactions', 'Pages.ManualTransactions', 'flaticon2-notepad', '/app/main/operations/manualTransactions'),
                 // new AppMenuItem('ProjectManagerTransactions', 'Pages.FingerPrint.ProjectManagerTransactions', 'flaticon-rotate', '/app/main/operations/ProjectManagerTransactions'),
                 // new AppMenuItem('UnitManagerTransactions', 'Pages.FingerPrint.UnitManagerTransactions', 'flaticon-rotate', '/app/main/operations/UnitManagerTransactions'),
                 // new AppMenuItem('HrTransactions', 'Pages.FingerPrint.HrTransactions', 'flaticon-rotate', '/app/main/operations/HrTransactions'),
@@ -104,7 +104,7 @@ export class AppNavigationService {
             // new AppMenuItem('ProjectLocations', 'Pages.ProjectLocations', 'flaticon-more', '/app/main/operations/projectLocations'),
 
             // new AppMenuItem('OrganizationLocations', 'Pages.OrganizationLocations', 'flaticon-more', '/app/main/operations/organizationLocations'),
-            
+
             new AppMenuItem('EmployeeTempTransfers', 'Pages.EmployeeTempTransfers', 'flaticon-more', '/app/main/operations/employeeTempTransfers'),
              new AppMenuItem('Administration', '', 'flaticon-interface-8', '', [
                 new AppMenuItem('OrganizationUnits', 'Pages.Administration.OrganizationUnits', 'flaticon-map', '/app/admin/organization-units'),

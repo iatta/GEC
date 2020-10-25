@@ -100,10 +100,7 @@
                                         {{l('TransactionDate')}}
                                         <p-sortIcon field="manualTransaction.transaction_Date"></p-sortIcon>
                                     </th>
-                                    <th style="width: 150px" pSortableColumn="keyType">
-                                        {{l('KeyType')}}
-                                        <p-sortIcon field="manualTransaction.keyType"></p-sortIcon>
-                                    </th>
+
                                     <th style="width: 150px" pSortableColumn="time">
                                         {{l('Time')}}
                                         <p-sortIcon field="manualTransaction.time"></p-sortIcon>
@@ -150,13 +147,10 @@
                                                 </span>
                                                 <span *ngIf="!record.transaction.transaction_Date">-</span>
                                             </td>
-                                            <td style="width:150px">
-                                                    <span class="ui-column-title"> {{l('KeyType')}}</span>
-                                                    {{record.transaction.keyType == 1 ? l('In') : l('Out')}}
-                                                </td>
+
                                                 <td style="width:150px">
                                                     <span class="ui-column-title"> {{l('time')}}</span>
-                                                    {{record.transaction.time }}
+                                                    {{record.transaction.time.substr(0,5) }}
                                                 </td>
                                                 <td style="width:150px">
                                                     <span class="ui-column-title"> {{l('CreationTime')}}</span>

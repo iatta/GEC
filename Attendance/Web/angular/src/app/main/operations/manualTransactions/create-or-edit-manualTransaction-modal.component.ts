@@ -93,8 +93,15 @@ export class CreateOrEditManualTransactionModalComponent extends AppComponentBas
 
                 }else{
                     this.saving = true;
+                    let strhour= ''
+                    let hours = this.timeObj.getHours();
+                    debugger
+                    if(hours<10)
+                        strhour = '0'+hours.toString();
+                        else
+                        strhour = hours.toString();
 
-                const time = this.timeObj.getHours() + ':' + this.timeObj.getMinutes();
+                    const time =  strhour + ':' + this.timeObj.getMinutes();
                 this.manualTransaction.time = time.toString();
 
                 this._transactionsServiceProxy.createOrEdit(this.manualTransaction)
@@ -108,8 +115,15 @@ export class CreateOrEditManualTransactionModalComponent extends AppComponentBas
             });
         }else{
             this.saving = true;
+            let strhour= ''
+            let hours = this.timeObj.getHours();
+            debugger
+            if(hours<10)
+                strhour = '0'+hours.toString();
+                else
+                strhour = hours.toString();
 
-            const time = this.timeObj.getHours() + ':' + this.timeObj.getMinutes();
+            const time =  strhour + ':' + this.timeObj.getMinutes();
             this.manualTransaction.time = time.toString();
 
             this._transactionsServiceProxy.createOrEdit(this.manualTransaction)
