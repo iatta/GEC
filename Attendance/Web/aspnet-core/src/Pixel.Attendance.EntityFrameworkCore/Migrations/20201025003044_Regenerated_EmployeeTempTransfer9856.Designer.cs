@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Pixel.Attendance.EntityFrameworkCore;
 
 namespace Pixel.Attendance.Migrations
 {
     [DbContext(typeof(AttendanceDbContext))]
-    partial class AttendanceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201025003044_Regenerated_EmployeeTempTransfer9856")]
+    partial class Regenerated_EmployeeTempTransfer9856
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2289,8 +2291,8 @@ namespace Pixel.Attendance.Migrations
                     b.Property<long?>("OrganizationUnitId")
                         .HasColumnType("bigint");
 
-                    b.Property<DateTime>("ToDate")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("ToDate")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<long?>("UserId")
                         .HasColumnType("bigint");

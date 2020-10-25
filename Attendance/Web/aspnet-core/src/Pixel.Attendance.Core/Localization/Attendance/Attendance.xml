@@ -1,6 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
-  <texts>    <text name="OrganizationLocation">Organization location</text>
+  <texts>    <text name="EmployeeTempTransfer">Employee temp transfer</text>
+    <text name="EmployeeTempTransfersHeaderInfo">Employee temp transfers header info</text>
+    <text name="CreateNewEmployeeTempTransfer">Create new employee temp transfer</text>
+    <text name="EditEmployeeTempTransfer">Edit employee temp transfer</text>
+    <text name="DeleteEmployeeTempTransfer">Delete employee temp transfer</text>
+    <text name="EmployeeTempTransfers">Employee temp transfers</text>
+    <text name="OrganizationLocation">Organization location</text>
     <text name="OrganizationLocationsHeaderInfo">Organization locations header info</text>
     <text name="CreateNewOrganizationLocation">Create new organization location</text>
     <text name="EditOrganizationLocation">Edit organization location</text>

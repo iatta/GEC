@@ -3,6 +3,12 @@ import { NormalOvertimeComponent } from './operations/reports/normal-overtime.co
 import { FixedOvertimeComponent } from './operations/reports/fixed-overtime.component';
 
 import { ManagerLevelApproveComponent } from './operations/reports/maneger-level-approve';
+import { EmployeeTempTransfersComponent } from './operations/employeeTempTransfers/employeeTempTransfers.component';
+import { ViewEmployeeTempTransferModalComponent } from './operations/employeeTempTransfers/view-employeeTempTransfer-modal.component';
+import { CreateOrEditEmployeeTempTransferModalComponent } from './operations/employeeTempTransfers/create-or-edit-employeeTempTransfer-modal.component';
+import { EmployeeTempTransferOrganizationUnitLookupTableModalComponent } from './operations/employeeTempTransfers/employeeTempTransfer-organizationUnit-lookup-table-modal.component';
+import { EmployeeTempTransferUserLookupTableModalComponent } from './operations/employeeTempTransfers/employeeTempTransfer-user-lookup-table-modal.component';
+
 import { OrganizationLocationsComponent } from './operations/organizationLocations/organizationLocations.component';
 import { ViewOrganizationLocationModalComponent } from './operations/organizationLocations/view-organizationLocation-modal.component';
 import { CreateOrEditOrganizationLocationModalComponent } from './operations/organizationLocations/create-or-edit-organizationLocation-modal.component';
@@ -292,6 +298,10 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
           }),
     ],
     declarations: [
+		EmployeeTempTransfersComponent,
+		ViewEmployeeTempTransferModalComponent,		CreateOrEditEmployeeTempTransferModalComponent,
+    EmployeeTempTransferOrganizationUnitLookupTableModalComponent,
+    EmployeeTempTransferUserLookupTableModalComponent,
 		OrganizationLocationsComponent,
 		ViewOrganizationLocationModalComponent,		CreateOrEditOrganizationLocationModalComponent,
     OrganizationLocationOrganizationUnitLookupTableModalComponent,

@@ -6,6 +6,11 @@
     /// </summary>
     public static class AppPermissions
     {
+        public const string Pages_EmployeeTempTransfers = "Pages.EmployeeTempTransfers";
+        public const string Pages_EmployeeTempTransfers_Create = "Pages.EmployeeTempTransfers.Create";
+        public const string Pages_EmployeeTempTransfers_Edit = "Pages.EmployeeTempTransfers.Edit";
+        public const string Pages_EmployeeTempTransfers_Delete = "Pages.EmployeeTempTransfers.Delete";
+
         public const string Pages_OrganizationLocations = "Pages.OrganizationLocations";
         public const string Pages_OrganizationLocations_Create = "Pages.OrganizationLocations.Create";
         public const string Pages_OrganizationLocations_Edit = "Pages.OrganizationLocations.Edit";
