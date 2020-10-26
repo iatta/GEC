@@ -26560,9 +26560,10 @@ export class TransactionsServiceProxy {
      * @param endDate (optional) 
      * @param month (optional) 
      * @param year (optional) 
+     * @param userType (optional) 
      * @return Success
      */
-    getActualSummerizeTimeSheet(projectId: number | undefined, startDate: moment.Moment | undefined, endDate: moment.Moment | undefined, month: number | undefined, year: number | undefined): Observable<ActualSummerizeTimeSheetOutput> {
+    getActualSummerizeTimeSheet(projectId: number | undefined, startDate: moment.Moment | undefined, endDate: moment.Moment | undefined, month: number | undefined, year: number | undefined, userType: number | undefined): Observable<ActualSummerizeTimeSheetOutput> {
         let url_ = this.baseUrl + "/api/services/app/Transactions/GetActualSummerizeTimeSheet?";
         if (projectId === null)
             throw new Error("The parameter 'projectId' cannot be null.");
@@ -26584,6 +26585,10 @@ export class TransactionsServiceProxy {
             throw new Error("The parameter 'year' cannot be null.");
         else if (year !== undefined)
             url_ += "Year=" + encodeURIComponent("" + year) + "&"; 
+        if (userType === null)
+            throw new Error("The parameter 'userType' cannot be null.");
+        else if (userType !== undefined)
+            url_ += "UserType=" + encodeURIComponent("" + userType) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -26636,9 +26641,10 @@ export class TransactionsServiceProxy {
      * @param endDate (optional) 
      * @param month (optional) 
      * @param year (optional) 
+     * @param userType (optional) 
      * @return Success
      */
-    getMangerUsersToApprove(projectId: number | undefined, startDate: moment.Moment | undefined, endDate: moment.Moment | undefined, month: number | undefined, year: number | undefined): Observable<ActualSummerizeTimeSheetOutput> {
+    getMangerUsersToApprove(projectId: number | undefined, startDate: moment.Moment | undefined, endDate: moment.Moment | undefined, month: number | undefined, year: number | undefined, userType: number | undefined): Observable<ActualSummerizeTimeSheetOutput> {
         let url_ = this.baseUrl + "/api/services/app/Transactions/GetMangerUsersToApprove?";
         if (projectId === null)
             throw new Error("The parameter 'projectId' cannot be null.");
@@ -26660,6 +26666,10 @@ export class TransactionsServiceProxy {
             throw new Error("The parameter 'year' cannot be null.");
         else if (year !== undefined)
             url_ += "Year=" + encodeURIComponent("" + year) + "&"; 
+        if (userType === null)
+            throw new Error("The parameter 'userType' cannot be null.");
+        else if (userType !== undefined)
+            url_ += "UserType=" + encodeURIComponent("" + userType) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -58309,10 +58319,19 @@ export interface INormalOverTimeReportOutput {
 
 export class ActualSummerizeTimeSheetDetailDto implements IActualSummerizeTimeSheetDetailDto {
     day!: moment.Moment;
+    inTransactionId!: number;
+    outTransactionId!: number;
     totalHours!: number;
     isAbsent!: boolean;
     isSick!: boolean;
     isWorkInAnotherProject!: boolean;
+    canManagerApprove!: boolean;
+    canProjectManagerReject!: boolean;
+    waitForManagerToApprove!: boolean;
+    isProjectManagerApproved!: boolean;
+    isCurrentUnitApproved!: boolean;
+    yesClose!: boolean;
+    unitsToApprove!: string[] | undefined;
     isLeave!: boolean;
     isUnpaid!: boolean;
     isDelay!: boolean;
@@ -58320,6 +58339,7 @@ export class ActualSummerizeTimeSheetDetailDto implements IActualSummerizeTimeSh
     delay!: number;
     timeIn!: string | undefined;
     timeOut!: string | undefined;
+    isTransferred!: boolean;
 
     constructor(data?: IActualSummerizeTimeSheetDetailDto) {
         if (data) {
@@ -58333,10 +58353,23 @@ export class ActualSummerizeTimeSheetDetailDto implements IActualSummerizeTimeSh
     init(data?: any) {
         if (data) {
             this.day = data["day"] ? moment(data["day"].toString()) : <any>undefined;
+            this.inTransactionId = data["inTransactionId"];
+            this.outTransactionId = data["outTransactionId"];
             this.totalHours = data["totalHours"];
             this.isAbsent = data["isAbsent"];
             this.isSick = data["isSick"];
             this.isWorkInAnotherProject = data["isWorkInAnotherProject"];
+            this.canManagerApprove = data["canManagerApprove"];
+            this.canProjectManagerReject = data["canProjectManagerReject"];
+            this.waitForManagerToApprove = data["waitForManagerToApprove"];
+            this.isProjectManagerApproved = data["isProjectManagerApproved"];
+            this.isCurrentUnitApproved = data["isCurrentUnitApproved"];
+            this.yesClose = data["yesClose"];
+            if (Array.isArray(data["unitsToApprove"])) {
+                this.unitsToApprove = [] as any;
+                for (let item of data["unitsToApprove"])
+                    this.unitsToApprove!.push(item);
+            }
             this.isLeave = data["isLeave"];
             this.isUnpaid = data["isUnpaid"];
             this.isDelay = data["isDelay"];
@@ -58344,6 +58377,7 @@ export class ActualSummerizeTimeSheetDetailDto implements IActualSummerizeTimeSh
             this.delay = data["delay"];
             this.timeIn = data["timeIn"];
             this.timeOut = data["timeOut"];
+            this.isTransferred = data["isTransferred"];
         }
     }
 
@@ -58357,10 +58391,23 @@ export class ActualSummerizeTimeSheetDetailDto implements IActualSummerizeTimeSh
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["day"] = this.day ? this.day.toISOString() : <any>undefined;
+        data["inTransactionId"] = this.inTransactionId;
+        data["outTransactionId"] = this.outTransactionId;
         data["totalHours"] = this.totalHours;
         data["isAbsent"] = this.isAbsent;
         data["isSick"] = this.isSick;
         data["isWorkInAnotherProject"] = this.isWorkInAnotherProject;
+        data["canManagerApprove"] = this.canManagerApprove;
+        data["canProjectManagerReject"] = this.canProjectManagerReject;
+        data["waitForManagerToApprove"] = this.waitForManagerToApprove;
+        data["isProjectManagerApproved"] = this.isProjectManagerApproved;
+        data["isCurrentUnitApproved"] = this.isCurrentUnitApproved;
+        data["yesClose"] = this.yesClose;
+        if (Array.isArray(this.unitsToApprove)) {
+            data["unitsToApprove"] = [];
+            for (let item of this.unitsToApprove)
+                data["unitsToApprove"].push(item);
+        }
         data["isLeave"] = this.isLeave;
         data["isUnpaid"] = this.isUnpaid;
         data["isDelay"] = this.isDelay;
@@ -58368,16 +58415,26 @@ export class ActualSummerizeTimeSheetDetailDto implements IActualSummerizeTimeSh
         data["delay"] = this.delay;
         data["timeIn"] = this.timeIn;
         data["timeOut"] = this.timeOut;
+        data["isTransferred"] = this.isTransferred;
         return data; 
     }
 }
 
 export interface IActualSummerizeTimeSheetDetailDto {
     day: moment.Moment;
+    inTransactionId: number;
+    outTransactionId: number;
     totalHours: number;
     isAbsent: boolean;
     isSick: boolean;
     isWorkInAnotherProject: boolean;
+    canManagerApprove: boolean;
+    canProjectManagerReject: boolean;
+    waitForManagerToApprove: boolean;
+    isProjectManagerApproved: boolean;
+    isCurrentUnitApproved: boolean;
+    yesClose: boolean;
+    unitsToApprove: string[] | undefined;
     isLeave: boolean;
     isUnpaid: boolean;
     isDelay: boolean;
@@ -58385,6 +58442,7 @@ export interface IActualSummerizeTimeSheetDetailDto {
     delay: number;
     timeIn: string | undefined;
     timeOut: string | undefined;
+    isTransferred: boolean;
 }
 
 export class ActualSummerizeTimeSheetDto implements IActualSummerizeTimeSheetDto {
@@ -58394,13 +58452,13 @@ export class ActualSummerizeTimeSheetDto implements IActualSummerizeTimeSheetDto
     userName!: string | undefined;
     totalAttendance!: number;
     totalDeductionHours!: number;
-    isProjectManagerApproved!: boolean;
-    canManagerApprove!: boolean;
-    canProjectManagerReject!: boolean;
-    waitForManagerToApprove!: boolean;
-    unitsToApprove!: string[] | undefined;
-    isCurrentUnitApproved!: boolean;
-    yesClose!: boolean;
+    totalSickLeaveHours!: number;
+    totalaAbsenceHours!: number;
+    totalLeaveHours!: number;
+    totalOverTimeNormal!: number;
+    totalOverTimeFriday!: number;
+    totalOverTimeHolidays!: number;
+    totalFOT!: number;
     details!: ActualSummerizeTimeSheetDetailDto[] | undefined;
 
     constructor(data?: IActualSummerizeTimeSheetDto) {
@@ -58420,17 +58478,13 @@ export class ActualSummerizeTimeSheetDto implements IActualSummerizeTimeSheetDto
             this.userName = data["userName"];
             this.totalAttendance = data["totalAttendance"];
             this.totalDeductionHours = data["totalDeductionHours"];
-            this.isProjectManagerApproved = data["isProjectManagerApproved"];
-            this.canManagerApprove = data["canManagerApprove"];
-            this.canProjectManagerReject = data["canProjectManagerReject"];
-            this.waitForManagerToApprove = data["waitForManagerToApprove"];
-            if (Array.isArray(data["unitsToApprove"])) {
-                this.unitsToApprove = [] as any;
-                for (let item of data["unitsToApprove"])
-                    this.unitsToApprove!.push(item);
-            }
-            this.isCurrentUnitApproved = data["isCurrentUnitApproved"];
-            this.yesClose = data["yesClose"];
+            this.totalSickLeaveHours = data["totalSickLeaveHours"];
+            this.totalaAbsenceHours = data["totalaAbsenceHours"];
+            this.totalLeaveHours = data["totalLeaveHours"];
+            this.totalOverTimeNormal = data["totalOverTimeNormal"];
+            this.totalOverTimeFriday = data["totalOverTimeFriday"];
+            this.totalOverTimeHolidays = data["totalOverTimeHolidays"];
+            this.totalFOT = data["totalFOT"];
             if (Array.isArray(data["details"])) {
                 this.details = [] as any;
                 for (let item of data["details"])
@@ -58454,17 +58508,13 @@ export class ActualSummerizeTimeSheetDto implements IActualSummerizeTimeSheetDto
         data["userName"] = this.userName;
         data["totalAttendance"] = this.totalAttendance;
         data["totalDeductionHours"] = this.totalDeductionHours;
-        data["isProjectManagerApproved"] = this.isProjectManagerApproved;
-        data["canManagerApprove"] = this.canManagerApprove;
-        data["canProjectManagerReject"] = this.canProjectManagerReject;
-        data["waitForManagerToApprove"] = this.waitForManagerToApprove;
-        if (Array.isArray(this.unitsToApprove)) {
-            data["unitsToApprove"] = [];
-            for (let item of this.unitsToApprove)
-                data["unitsToApprove"].push(item);
-        }
-        data["isCurrentUnitApproved"] = this.isCurrentUnitApproved;
-        data["yesClose"] = this.yesClose;
+        data["totalSickLeaveHours"] = this.totalSickLeaveHours;
+        data["totalaAbsenceHours"] = this.totalaAbsenceHours;
+        data["totalLeaveHours"] = this.totalLeaveHours;
+        data["totalOverTimeNormal"] = this.totalOverTimeNormal;
+        data["totalOverTimeFriday"] = this.totalOverTimeFriday;
+        data["totalOverTimeHolidays"] = this.totalOverTimeHolidays;
+        data["totalFOT"] = this.totalFOT;
         if (Array.isArray(this.details)) {
             data["details"] = [];
             for (let item of this.details)
@@ -58481,19 +58531,20 @@ export interface IActualSummerizeTimeSheetDto {
     userName: string | undefined;
     totalAttendance: number;
     totalDeductionHours: number;
-    isProjectManagerApproved: boolean;
-    canManagerApprove: boolean;
-    canProjectManagerReject: boolean;
-    waitForManagerToApprove: boolean;
-    unitsToApprove: string[] | undefined;
-    isCurrentUnitApproved: boolean;
-    yesClose: boolean;
+    totalSickLeaveHours: number;
+    totalaAbsenceHours: number;
+    totalLeaveHours: number;
+    totalOverTimeNormal: number;
+    totalOverTimeFriday: number;
+    totalOverTimeHolidays: number;
+    totalFOT: number;
     details: ActualSummerizeTimeSheetDetailDto[] | undefined;
 }
 
 export class UserTimeSheetInput implements IUserTimeSheetInput {
     userId!: number;
     yesClose!: boolean;
+    daysToApprove!: moment.Moment[] | undefined;
 
     constructor(data?: IUserTimeSheetInput) {
         if (data) {
@@ -58508,6 +58559,11 @@ export class UserTimeSheetInput implements IUserTimeSheetInput {
         if (data) {
             this.userId = data["userId"];
             this.yesClose = data["yesClose"];
+            if (Array.isArray(data["daysToApprove"])) {
+                this.daysToApprove = [] as any;
+                for (let item of data["daysToApprove"])
+                    this.daysToApprove!.push(moment(item));
+            }
         }
     }
 
@@ -58522,6 +58578,11 @@ export class UserTimeSheetInput implements IUserTimeSheetInput {
         data = typeof data === 'object' ? data : {};
         data["userId"] = this.userId;
         data["yesClose"] = this.yesClose;
+        if (Array.isArray(this.daysToApprove)) {
+            data["daysToApprove"] = [];
+            for (let item of this.daysToApprove)
+                data["daysToApprove"].push(item.toISOString());
+        }
         return data; 
     }
 }
@@ -58529,6 +58590,7 @@ export class UserTimeSheetInput implements IUserTimeSheetInput {
 export interface IUserTimeSheetInput {
     userId: number;
     yesClose: boolean;
+    daysToApprove: moment.Moment[] | undefined;
 }
 
 export class ActualSummerizeTimeSheetOutput implements IActualSummerizeTimeSheetOutput {
@@ -58541,6 +58603,16 @@ export class ActualSummerizeTimeSheetOutput implements IActualSummerizeTimeSheet
     totalApproved!: number;
     canApprove!: boolean;
     unitIdToApprove!: number;
+    totalAttendanceHours!: number;
+    totalDeductioneHours!: number;
+    totalEmployee!: number;
+    totalSickLeaveHours!: number;
+    totalAbsenceHours!: number;
+    totalLeaveDayHours!: number;
+    totalOvertimeHours!: number;
+    totalOvertimeFriday!: number;
+    totalOvertimeHoliday!: number;
+    totalFOT!: number;
     userIdsToApprove!: UserTimeSheetInput[] | undefined;
 
     constructor(data?: IActualSummerizeTimeSheetOutput) {
@@ -58583,6 +58655,16 @@ export class ActualSummerizeTimeSheetOutput implements IActualSummerizeTimeSheet
             this.totalApproved = data["totalApproved"];
             this.canApprove = data["canApprove"];
             this.unitIdToApprove = data["unitIdToApprove"];
+            this.totalAttendanceHours = data["totalAttendanceHours"];
+            this.totalDeductioneHours = data["totalDeductioneHours"];
+            this.totalEmployee = data["totalEmployee"];
+            this.totalSickLeaveHours = data["totalSickLeaveHours"];
+            this.totalAbsenceHours = data["totalAbsenceHours"];
+            this.totalLeaveDayHours = data["totalLeaveDayHours"];
+            this.totalOvertimeHours = data["totalOvertimeHours"];
+            this.totalOvertimeFriday = data["totalOvertimeFriday"];
+            this.totalOvertimeHoliday = data["totalOvertimeHoliday"];
+            this.totalFOT = data["totalFOT"];
             if (Array.isArray(data["userIdsToApprove"])) {
                 this.userIdsToApprove = [] as any;
                 for (let item of data["userIdsToApprove"])
@@ -58629,6 +58711,16 @@ export class ActualSummerizeTimeSheetOutput implements IActualSummerizeTimeSheet
         data["totalApproved"] = this.totalApproved;
         data["canApprove"] = this.canApprove;
         data["unitIdToApprove"] = this.unitIdToApprove;
+        data["totalAttendanceHours"] = this.totalAttendanceHours;
+        data["totalDeductioneHours"] = this.totalDeductioneHours;
+        data["totalEmployee"] = this.totalEmployee;
+        data["totalSickLeaveHours"] = this.totalSickLeaveHours;
+        data["totalAbsenceHours"] = this.totalAbsenceHours;
+        data["totalLeaveDayHours"] = this.totalLeaveDayHours;
+        data["totalOvertimeHours"] = this.totalOvertimeHours;
+        data["totalOvertimeFriday"] = this.totalOvertimeFriday;
+        data["totalOvertimeHoliday"] = this.totalOvertimeHoliday;
+        data["totalFOT"] = this.totalFOT;
         if (Array.isArray(this.userIdsToApprove)) {
             data["userIdsToApprove"] = [];
             for (let item of this.userIdsToApprove)
@@ -58648,6 +58740,16 @@ export interface IActualSummerizeTimeSheetOutput {
     totalApproved: number;
     canApprove: boolean;
     unitIdToApprove: number;
+    totalAttendanceHours: number;
+    totalDeductioneHours: number;
+    totalEmployee: number;
+    totalSickLeaveHours: number;
+    totalAbsenceHours: number;
+    totalLeaveDayHours: number;
+    totalOvertimeHours: number;
+    totalOvertimeFriday: number;
+    totalOvertimeHoliday: number;
+    totalFOT: number;
     userIdsToApprove: UserTimeSheetInput[] | undefined;
 }
 

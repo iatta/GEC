@@ -1,3 +1,4 @@
+import { SelectItem } from 'primeng/api';
 import { ActualSummerizeTimeSheetDto, ProjectManagerApproveInput, ActualSummerizeTimeSheetOutput, UserTimeSheetInput } from './../../../../shared/service-proxies/service-proxies';
 import { TransactionsServiceProxy, ProjectsServiceProxy, ProjectDto } from '@shared/service-proxies/service-proxies';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -32,6 +33,10 @@ export class ManagerLevelApproveComponent extends AppComponentBase implements On
     userIds:UserTimeSheetInput[] = [];
     userIdsToApprove: UserTimeSheetInput[] = [];
     unitIdToApprove:number;
+    selectedUserType:SelectItem;
+    userTypes:SelectItem[]= [];
+    summeryRowSpan=0;
+
 
     constructor(
         injector: Injector,
@@ -46,6 +51,7 @@ export class ManagerLevelApproveComponent extends AppComponentBase implements On
 
 
     ngOnInit(): void {
+        this.userTypes.push({label: this.l('All'), value: 0},{label: this.l('Staff'), value: 1},{label: this.l('Labor'), value: 2});
 
         this._projectServiceProxy.getAllFlatForOrganizationUnitManager().subscribe((result)=>{
             this.projectList = result;
@@ -76,7 +82,7 @@ export class ManagerLevelApproveComponent extends AppComponentBase implements On
             this.month = date.getMonth() + 1;
             this.year = date.getFullYear();
             this.dataIsLoading=true;
-            this._transactionService.getMangerUsersToApprove(this.selectedProject.id,this.startDate,this.endDate,this.month,this.year).subscribe((result) => {
+            this._transactionService.getMangerUsersToApprove(this.selectedProject.id,this.startDate,this.endDate,this.month,this.year,this.selectedUserType.value).subscribe((result) => {
                 console.log(result);
                 this.response =result;
                 if(result.data.length > 0){
@@ -85,7 +91,7 @@ export class ManagerLevelApproveComponent extends AppComponentBase implements On
                     this.unitIdToApprove = result.unitIdToApprove;
                     this.cols = [
                         { field: 'fingerCode', header: 'code' },
-                        {field: 'userName', header: 'userName' }
+                        {field: 'userName', header: 'Employee' }
                     ];
                     let firstDay = new Date(this.year, this.month - 1, 1);
                     let lastDay = new Date(this.year, this.month, 0);
@@ -101,6 +107,7 @@ export class ManagerLevelApproveComponent extends AppComponentBase implements On
                         this.cols.push({field: dateIndex, header:  dateHeader })
                     }
                     console.log(this.cols);
+                    this.summeryRowSpan =  this.cols.length;
                     this.data = result.data;
                     this.dataLoaded = true;
                     this.dataIsLoading=false;
@@ -125,20 +132,22 @@ export class ManagerLevelApproveComponent extends AppComponentBase implements On
 
     }
 
-    getRowClass(rowData:any):string {
-        if(!rowData.isProjectManagerApproved)
+    getRowClass(rowData:any,col:any):string {
+        if(this.isDate(col.field)){
+            if(rowData.details[col.field]['isTransferred'])
+                return 'transferred'
+            if(!rowData.details[col.field]['isProjectManagerApproved'])
             return 'pendingProjectManager';
 
-        if(rowData.isCurrentUnitApproved)
+        if( rowData.details[col.field]['isCurrentUnitApproved'])
                 return 'approved';
 
-        if(!rowData.canManagerApprove)
+        if(!rowData.details[col.field]['canManagerApprove'])
                 return 'pendingManager';
-
+        }
     }
 
     approve(){
-debugger
         let modelToPass = new ProjectManagerApproveInput();
         modelToPass.userIds = this.userIdsToApprove;
         modelToPass.projectId = this.selectedProject.id;

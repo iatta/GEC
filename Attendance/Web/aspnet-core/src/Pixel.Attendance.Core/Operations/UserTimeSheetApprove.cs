@@ -15,6 +15,8 @@ namespace Pixel.Attendance.Operations
     public class UserTimeSheetApprove : FullAuditedEntity 
     {
 
+		public virtual DateTime? Day { get; set; }
+
 		public virtual int Month { get; set; }
 		
 		public virtual int Year { get; set; }

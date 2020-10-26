@@ -1,13 +1,14 @@
-import { FilterUtils } from 'primeng/api';
+import { FilterUtils, SelectItem } from 'primeng/api';
 import { result } from 'lodash';
-import { ActualSummerizeTimeSheetDto, ProjectManagerApproveInput, UserTimeSheetInput } from './../../../../shared/service-proxies/service-proxies';
+import { ActualSummerizeTimeSheetDto, ProjectManagerApproveInput, UserTimeSheetInput, ActualSummerizeTimeSheetOutput } from './../../../../shared/service-proxies/service-proxies';
 import { TransactionsServiceProxy, ProjectDto, ProjectsServiceProxy } from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/common/app-component-base';
-import { Component, OnInit, Injector } from '@angular/core';
+import { Component, OnInit, Injector, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap ,Params } from '@angular/router';
 import * as moment from 'moment';
 import { start } from 'repl';
 import { rowsAnimation } from '@shared/animations/template.animations';
+import { CreateOrEditAttendanceModalComponent } from '../manualTransactions/create-or-edit-attendance-modal.component';
 
 
 
@@ -19,6 +20,7 @@ import { rowsAnimation } from '@shared/animations/template.animations';
 
 
 export class SummerizeReportComponent extends AppComponentBase implements OnInit {
+    @ViewChild('createOrEditAttendanceModal', { static: true }) createOrEditAttendanceModal: CreateOrEditAttendanceModalComponent;
 
     startDate:moment.Moment = moment().startOf('day');
     endDate:moment.Moment = moment().startOf('day');
@@ -35,7 +37,10 @@ export class SummerizeReportComponent extends AppComponentBase implements OnInit
     year:number;
     selectedDate='';
     userIds:UserTimeSheetInput[] = [];
-
+    userTypes:SelectItem[]= [];
+    selectedUserType:SelectItem;
+    summeryRowSpan=0;
+    response:ActualSummerizeTimeSheetOutput;
     constructor(
         injector: Injector,
         private route: ActivatedRoute,
@@ -48,6 +53,7 @@ export class SummerizeReportComponent extends AppComponentBase implements OnInit
     }
 
     ngOnInit(): void {
+        this.userTypes.push({label: this.l('All'), value: 0},{label: this.l('Staff'), value: 1},{label: this.l('Labor'), value: 2});
 
         this._projectServiceProxy.getAllFlatForProjectManager().subscribe((result)=>{
             this.projectList = result;
@@ -89,12 +95,14 @@ export class SummerizeReportComponent extends AppComponentBase implements OnInit
             this.month = date.getMonth() + 1;
             this.year = date.getFullYear();
             this.dataIsLoading=true;
-            this._transactionService.getActualSummerizeTimeSheet(this.selectedProject.id,this.startDate,this.endDate,this.month,this.year).subscribe((result) => {
+            debugger
+            this._transactionService.getActualSummerizeTimeSheet(this.selectedProject.id,this.startDate,this.endDate,this.month,this.year,this.selectedUserType.value).subscribe((result) => {
+               console.log(result);
                 if(result.data.length > 0){
                     this.userIds = result.userIds;
                     this.cols = [
                         { field: 'fingerCode', header: 'code' },
-                        {field: 'userName', header: 'userName' }
+                        {field: 'userName', header: 'Employee' }
                     ];
                     let firstDay = new Date(this.year, this.month - 1, 1);
                     let lastDay = new Date(this.year, this.month, 0);
@@ -109,8 +117,11 @@ export class SummerizeReportComponent extends AppComponentBase implements OnInit
                         let dateIndex = result.data[0].details.findIndex(x => x.day.isSame(dateToCompare,'day'));
                         this.cols.push({field: dateIndex, header:  dateHeader })
                     }
+                    debugger
                     console.log(this.cols);
+                    this.summeryRowSpan =  this.cols.length;
                     this.data = result.data;
+                    this.response = result;
                     this.dataLoaded = true;
                     this.dataIsLoading=false;
 
@@ -161,4 +172,17 @@ export class SummerizeReportComponent extends AppComponentBase implements OnInit
         this.dataLoaded = false;
         this.data = [];
     }
+
+    openCreateOrEditTransaction(intransId:number,outTransId:number,transDate:moment.Moment,userId:number){
+        debugger
+        this.createOrEditAttendanceModal.show(intransId,outTransId,transDate,userId);
+    }
+
+    // getRowClass(data:any,col:any){
+    //     if(this.isDate(col.field)){
+    //         if(data.details[col.field]['isProjectManagerApproved'] == true)
+    //             return 'approved center';
+    //     }
+    //     return 'center';
+    // }
 }

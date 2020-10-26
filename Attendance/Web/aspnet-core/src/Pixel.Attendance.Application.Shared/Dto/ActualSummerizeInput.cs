@@ -11,6 +11,7 @@ namespace Pixel.Attendance.Dto
         public DateTime EndDate { get; set; }
         public int Month { get; set; }
         public int Year { get; set; }
-        
+        public int? UserType { get; set; }
+
     }
 }

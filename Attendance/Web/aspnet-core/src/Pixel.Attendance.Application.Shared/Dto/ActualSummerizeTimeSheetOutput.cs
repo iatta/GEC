@@ -24,6 +24,18 @@ namespace Pixel.Attendance.Dto
         public int TotalApproved { get; set; }
         public bool CanApprove { get; set; }
         public int UnitIdToApprove { get; set; }
+
+        public double TotalAttendanceHours { get; set; }
+        public double TotalDeductioneHours { get; set; }
+        public double TotalEmployee { get; set; }
+        public double TotalSickLeaveHours { get; set; }
+        public double TotalAbsenceHours { get; set; }
+        public double TotalLeaveDayHours { get; set; }
+        public double TotalOvertimeHours { get; set; }
+        public double TotalOvertimeFriday { get; set; }
+        public double TotalOvertimeHoliday { get; set; }
+        public double TotalFOT { get; set; }
+
         public List<UserTimeSheetInput> UserIdsToApprove { get; set; }
 
     }

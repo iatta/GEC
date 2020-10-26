@@ -26,6 +26,7 @@ using PayPalCheckoutSdk.Orders;
 using NUglify.Helpers;
 using Abp.Collections.Extensions;
 using NUglify;
+using Pixel.Attendance.Enums;
 
 namespace Pixel.Attendance.Operations
 {
@@ -34,7 +35,8 @@ namespace Pixel.Attendance.Operations
     {
         private readonly IRepository<OrganizationLocation> _organizationLocationRepository;
         private readonly IRepository<LocationMachine> _locationMachineRepository;
-        
+        private readonly IRepository<EmployeeTempTransfer> _employeeTempTransferRepository;
+
 
         private readonly IRepository<Transaction> _transactionRepository;
         private readonly IRepository<Shift> _shiftRepository;
@@ -52,8 +54,9 @@ namespace Pixel.Attendance.Operations
 
 
 
-        public TransactionsAppService(IRepository<OrganizationLocation> organizationLocationRepository , IRepository<LocationMachine> locationMachineRepository,IRepository<UserDelegation> userDelegationRepository, IRepository<UserTimeSheetApprove> userTimeSheetApproveRepository, IRepository<EmployeeVacation> employeeVacation, IRepository<Shift> shiftRepository, IRepository<UserShift> userShiftRepository, IRepository<OrganizationUnitExtended, long> organizationUnit, IRepository<Transaction> transactionRepository, IRepository<Project> projectRepository, ITransactionsExcelExporter transactionsExcelExporter, UserManager userManager, IRepository<User, long> lookup_userRepository, IRepository<Machine, int> lookup_machineRepository)
+        public TransactionsAppService(IRepository<EmployeeTempTransfer> employeeTempTransferRepository,IRepository<OrganizationLocation> organizationLocationRepository , IRepository<LocationMachine> locationMachineRepository,IRepository<UserDelegation> userDelegationRepository, IRepository<UserTimeSheetApprove> userTimeSheetApproveRepository, IRepository<EmployeeVacation> employeeVacation, IRepository<Shift> shiftRepository, IRepository<UserShift> userShiftRepository, IRepository<OrganizationUnitExtended, long> organizationUnit, IRepository<Transaction> transactionRepository, IRepository<Project> projectRepository, ITransactionsExcelExporter transactionsExcelExporter, UserManager userManager, IRepository<User, long> lookup_userRepository, IRepository<Machine, int> lookup_machineRepository)
         {
+            _employeeTempTransferRepository = employeeTempTransferRepository;
             _locationMachineRepository = locationMachineRepository;
             _organizationLocationRepository = organizationLocationRepository;
             _transactionRepository = transactionRepository;
@@ -624,16 +627,23 @@ namespace Pixel.Attendance.Operations
             var projectLocationIds = project.Locations.Select(x => x.LocationId).ToList();
             //get location machines 
 
-            var machines = _locationMachineRepository.GetAll().Where(x => projectLocationIds.Contains(x.LocationId)).Select(y => y.MachineId).ToList();
+            var machines = _locationMachineRepository.GetAll().Where(x => projectLocationIds.Contains(x.LocationId)).Select(y => y.MachineId);
 
             // get all transactions for these machines 
             var transactions = _transactionRepository.GetAllIncluding(x => x.User)
                                .Where(x => machines.Contains(x.MachineId))
-                               .Where(x => x.Transaction_Date.Month == input.Month && x.Transaction_Date.Year == input.Year).ToList();
+                               .Where(x => x.Transaction_Date.Month == input.Month && x.Transaction_Date.Year == input.Year);
 
-            var users = transactions.GroupBy(x => x.User.Id).Select(x => x.First().User).ToList();
+            if (input.UserType.Value != 0)
+            {
+                var userType = ObjectMapper.Map<UserType>(input.UserType);
+                transactions = transactions.Where(x => x.User.UserType == userType);
+            }
+            var alltransactions = transactions.ToList();
 
+            var users = alltransactions.GroupBy(x => x.User.Id).Select(x => x.First().User).ToList();
 
+            //users = users.Where(x => x.OrganizationUnitId == project.OrganizationUnitId).ToList();
 
             var firstDayOfMonth = new DateTime(input.Year, input.Month, 1);
             var lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
@@ -646,47 +656,112 @@ namespace Pixel.Attendance.Operations
             {
                 var summaryToAdd = new ActualSummerizeTimeSheetDto();
                 summaryToAdd.UserId = user.Id;
-                summaryToAdd.UserName = user.Name;
+                summaryToAdd.UserName = user.FullName;
                 summaryToAdd.Code = user.Code;
                 summaryToAdd.FingerCode = user.FingerCode;
 
-                output.UserIds.Add(new UserTimeSheetInput() { UserId = user.Id });
+                var userIdObjToAdd = new UserTimeSheetInput() { UserId = user.Id };
+                
 
                 // add days to users 
                 for (var day = firstDayOfMonth.Date; day <= lastDayOfMonth.Date; day = day.AddDays(1))
                 {
                     var detailToAdd = new ActualSummerizeTimeSheetDetailDto();
                     detailToAdd.Day = day;
+                    //detailToAdd.UserId = user.Id;
 
-                    var userTransactions = transactions.Where(x => x.Pin == user.Id && x.Transaction_Date.Date == day.Date).Select(x => x.Time).ToList();
+                    var userTransactions = alltransactions.Where(x => x.Pin == user.Id && x.Transaction_Date.Date == day.Date).ToList();
                     var transCount = userTransactions.Count();
 
+
+                    // if no trans check for another project
                     if (transCount == 0)
+                    {
+                        //check if user transfared in this day 
+                        var userTransferedObj = await _employeeTempTransferRepository.FirstOrDefaultAsync(x => x.UserId == user.Id && x.ToDate.Date >= day.Date && x.FromDate <= day.Date);
+                        if (userTransferedObj != null)
+                        {
+                            //get unit projects 
+                            var unitProjects = _projectRepository.GetAllIncluding(x => x.Locations).Where(x => x.OrganizationUnitId == userTransferedObj.OrganizationUnitId).ToList();
+                            //var unitProjectsOrgUnitId = unitProjects.Select(x => x.OrganizationUnitId).ToList();
+
+                            var locationIds = new List<int?>();
+                            foreach (var unitProject in unitProjects)
+                            {
+                                locationIds.AddRange(unitProject.Locations.Select(x => x.LocationId).ToList());
+                            }
+
+                            var unitMachines = _locationMachineRepository.GetAll().Where(x => locationIds.Contains(x.LocationId)).Select(y => y.MachineId);
+
+                            userTransactions = _transactionRepository.GetAll()
+                                                .Where(x => unitMachines.Contains(x.MachineId))
+                                                .Where(x => x.Transaction_Date.Date == day.Date && x.Pin == user.Id).ToList();
+
+
+
+                              transCount = userTransactions.Count();
+                            if (transCount >= 2 || userTransferedObj.OrganizationUnitId != user.OrganizationUnitId)
+                                detailToAdd.IsWorkInAnotherProject = true;
+                            
+                        }
+                    }
+
+
+
+
+                    if (transCount == 0 || transCount == 1)
                     {
                         //check for vacation
                         var hasVacation = _employeeVacation.FirstOrDefault(x => x.UserId == user.Id && day >= x.FromDate && day <= x.ToDate);
+                       
                         if (hasVacation != null)
+                        {
                             detailToAdd.IsLeave = true;
-                        else
+                            summaryToAdd.TotalLeaveHours += 8;
+                            userIdObjToAdd.DaysToApprove.Add(day);
+                            
+                        }
+                        else if(project.OrganizationUnitId == user.OrganizationUnitId || user.OrganizationUnitId == null)
+                        {
+
                             detailToAdd.IsAbsent = true;
+                            summaryToAdd.TotalaAbsenceHours += 8;
+                            userIdObjToAdd.DaysToApprove.Add(day);
+
+                        }
+                        else
+                        {
+                            detailToAdd.IsWorkInAnotherProject = true;
+                        }
 
                     }
-                    else if (transCount == 2)
+                    else if (transCount >= 2)
                     {
                         double inMinutes = 0;
                         double outMinutes = 0;
                         //in transaction
                         var inTransaction = userTransactions.FirstOrDefault();
-                        if (!string.IsNullOrEmpty(inTransaction))
-                            inMinutes = (Double.Parse(inTransaction.Split(":")[0]) * 60) + (Double.Parse(inTransaction.Split(":")[1]));
+                        var inTransactionString = inTransaction.Time;
+                        if (!string.IsNullOrEmpty(inTransactionString))
+                            inMinutes = (Double.Parse(inTransactionString.Split(":")[0]) * 60) + (Double.Parse(inTransactionString.Split(":")[1]));
+
+
+                        detailToAdd.InTransactionId = inTransaction.Id;
 
                         var outTransaction = userTransactions.Skip(transCount - 1).FirstOrDefault();
-                        if (!string.IsNullOrEmpty(outTransaction))
-                            outMinutes = (Double.Parse(outTransaction.Split(":")[0]) * 60) + (Double.Parse(outTransaction.Split(":")[1]));
+                        var outTransactionString = outTransaction.Time;
+                        if (!string.IsNullOrEmpty(outTransactionString))
+                            outMinutes = (Double.Parse(outTransactionString.Split(":")[0]) * 60) + (Double.Parse(outTransactionString.Split(":")[1]));
+
+
+                        detailToAdd.OutTransactionId = outTransaction.Id;
 
                         detailToAdd.TotalHours = outMinutes - inMinutes;
                         detailToAdd.TotalHours = detailToAdd.TotalHours < 0 ? (detailToAdd.TotalHours * -1) : detailToAdd.TotalHours;
-                        if (detailToAdd.TotalHours > 480) // 8 hours
+
+                        summaryToAdd.TotalAttendance += detailToAdd.TotalHours;
+
+                        if (detailToAdd.TotalHours > 480 && user.IsOvertimeAllowed) // 8 hours
                         {
                             detailToAdd.Overtime = detailToAdd.TotalHours - 480; // 8 hours
                             if (!user.IsFixedOverTimeAllowed)
@@ -695,9 +770,13 @@ namespace Pixel.Attendance.Operations
                                 if (detailToAdd.Overtime > 240)
                                 {
                                     var timeToDeduct = detailToAdd.Overtime - 240;
+                                    summaryToAdd.TotalDeductionHours += timeToDeduct;
                                     detailToAdd.Overtime = detailToAdd.Overtime - timeToDeduct;
                                 }
                             }
+                            summaryToAdd.TotalOverTimeNormal += detailToAdd.Overtime;
+
+
                         }
                         else if (detailToAdd.TotalHours < 480)
                         {
@@ -705,14 +784,25 @@ namespace Pixel.Attendance.Operations
                             detailToAdd.Delay = 480 - detailToAdd.TotalHours;
                         }
 
+                        if (!detailToAdd.IsWorkInAnotherProject)
+                        {
+                            userIdObjToAdd.DaysToApprove.Add(day);
+                        }
+
                     }
+                   
                     summaryToAdd.Details.Add(detailToAdd);
                 }
 
-
+                output.UserIds.Add(userIdObjToAdd);
                 output.Data.Add(summaryToAdd);
             }
-
+            output.TotalLeaveDayHours = output.Data.Sum(x => x.TotalLeaveHours);
+            output.TotalDeductioneHours = output.Data.Sum(x => x.TotalDeductionHours);
+            output.TotalAttendanceHours = output.Data.Sum(x => x.TotalAttendance);
+            output.TotalAbsenceHours = output.Data.Sum(x => x.TotalaAbsenceHours);
+            output.TotalEmployee = output.UserIds.Count();
+            output.TotalOvertimeHours = output.Data.Sum(x => x.TotalOverTimeNormal);
             return output;
 
 
@@ -736,10 +826,14 @@ namespace Pixel.Attendance.Operations
             // get all transactions for these machines 
             var transactions = _transactionRepository.GetAllIncluding(x => x.User)
                                .Where(x => machines.Contains(x.MachineId))
-                               .Where(x => x.Transaction_Date.Month == input.Month && x.Transaction_Date.Year == input.Year).ToList();
+                               .Where(x => x.Transaction_Date.Month == input.Month && x.Transaction_Date.Year == input.Year);
 
-
-
+            if (input.UserType.Value != 0)
+            {
+                var userType = ObjectMapper.Map<UserType>(input.UserType);
+                transactions = transactions.Where(x => x.User.UserType == userType);
+            }
+            var transactionsList = transactions.ToList();
             // get project unit .
             var projectUnit = await _organizationUnitRepository.FirstOrDefaultAsync(x => x.Id == project.OrganizationUnitId);
             var currentUserUnits  = await _organizationUnitRepository.GetAllIncluding(x => x.Children).Where(x => x.ManagerId == GetCurrentUser().Id).ToListAsync(); // in case of current user is manager for multi units
@@ -763,8 +857,8 @@ namespace Pixel.Attendance.Operations
                 temRemainingUnits.Add(item);
             });
             //
-            var users = transactions.GroupBy(x => x.User.Id).Select(x => x.First().User).ToList();
-            var projectUnitUsers = users.Where(x => x.OrganizationUnitId.Value == projectUnit.Id).ToList();
+            var users = transactionsList.GroupBy(x => x.User.Id).Select(x => x.First().User).ToList();
+            //var projectUnitUsers = users.Where(x => x.OrganizationUnitId.Value == projectUnit.Id).ToList();
 
 
             var firstDayOfMonth = new DateTime(input.Year, input.Month, 1);
@@ -773,11 +867,11 @@ namespace Pixel.Attendance.Operations
 
 
             // add users
-            foreach (var user in projectUnitUsers)
+            foreach (var user in users)
             {
 
                 //get user previous approved
-                var userTimeSheet = _userTimeSheetApproveRepository.FirstOrDefault(x => x.UserId == user.Id && x.ProjectManagerApprove == true && x.Month == input.Month && x.Year == input.Year && x.ProjectId == input.ProjectId);
+                
           
                 //CHECK IF USER HAS DELEGATION 
 
@@ -788,65 +882,78 @@ namespace Pixel.Attendance.Operations
                 summaryToAdd.Code = user.Code;
                 summaryToAdd.FingerCode = user.FingerCode;
 
-                // check if project manager approve 
-                if (userTimeSheet != null)
-                {
-                    summaryToAdd.IsProjectManagerApproved = true;
-                    var unitToApprove = 0;
-                    // check if there is pending approve
-                    if (string.IsNullOrEmpty(userTimeSheet.ApprovedUnits))
-                    {
-                        // no one approved so we have to check if for the next one 
-                        unitToApprove = (int)remainingUnits[0];
-                        output.UnitIdToApprove = unitToApprove;
-                    }
-                    else
-                    {
-                        var previousApprovedUnits = userTimeSheet.ApprovedUnits.Split(",").Select(long.Parse).ToList();
-                        //check for the next one 
-                        for (int i = 0; i < remainingUnits.Count; i++)
-                        {
-                            if (!previousApprovedUnits.Contains(remainingUnits[i]))
-                            {
-                                unitToApprove = (int)remainingUnits[i];
-                                output.UnitIdToApprove = unitToApprove;
-                                break;
-                            }
-                            else
-                            {
-                                // if current logged unit is approved 
-                                if (currentUserUnitsIds.Contains(remainingUnits[i]))
-                                    summaryToAdd.IsCurrentUnitApproved = true;
-                                    
-                                
-                                temRemainingUnits.Remove(remainingUnits[i]);
-
-                            }
-                        }
-                    }
-
-                
-                    if (currentUserUnitsIds.Contains(unitToApprove))
-                    {
-                        summaryToAdd.CanManagerApprove = true;
-                        //check if last one
-                        if (remainingUnits.Last() == output.UnitIdToApprove)
-                        {
-                            summaryToAdd.YesClose = true;
-                        }
-                        output.UserIds.Add(new UserTimeSheetInput() { UserId = user.Id, YesClose = summaryToAdd.YesClose });
-                        output.UserIdsToApprove.Add(new UserTimeSheetInput() { UserId = user.Id, YesClose = summaryToAdd.YesClose });
-
-                    }
-                }
+                var UserIdToApproveObj = new UserTimeSheetInput() { UserId = user.Id };
                 output.RemainingUnitsApprove = _organizationUnitRepository.GetAll().Where(x => temRemainingUnits.Contains(x.Id)).Select(x => x.DisplayName).ToList();
                 // add days to users 
                 for (var day = firstDayOfMonth.Date; day <= lastDayOfMonth.Date; day = day.AddDays(1))
                 {
                     var detailToAdd = new ActualSummerizeTimeSheetDetailDto();
+                    var userTimeSheet = _userTimeSheetApproveRepository.FirstOrDefault(x => x.UserId == user.Id && x.ProjectManagerApprove == true && x.Day.Value.Date == day.Date && x.ProjectId == input.ProjectId);
+
+                    // check if project manager approve 
+                    if (userTimeSheet != null)
+                    {
+                        detailToAdd.IsProjectManagerApproved = true;
+                        var unitToApprove = 0;
+                        // check if there is pending approve
+                        if (string.IsNullOrEmpty(userTimeSheet.ApprovedUnits))
+                        {
+                            // no one approved so we have to check if for the next one 
+                            unitToApprove = (int)remainingUnits[0];
+                            output.UnitIdToApprove = unitToApprove;
+                        }
+                        else
+                        {
+                            var previousApprovedUnits = userTimeSheet.ApprovedUnits.Split(",").Select(long.Parse).ToList();
+                            //check for the next one 
+                            for (int i = 0; i < remainingUnits.Count; i++)
+                            {
+                                if (!previousApprovedUnits.Contains(remainingUnits[i]))
+                                {
+                                    unitToApprove = (int)remainingUnits[i];
+                                    output.UnitIdToApprove = unitToApprove;
+                                    break;
+                                }
+                                else
+                                {
+                                    // if current logged unit is approved 
+                                    if (currentUserUnitsIds.Contains(remainingUnits[i]))
+                                        detailToAdd.IsCurrentUnitApproved = true;
+
+
+                                    temRemainingUnits.Remove(remainingUnits[i]);
+
+                                }
+                            }
+                        }
+
+
+                        if (currentUserUnitsIds.Contains(unitToApprove))
+                        {
+                            detailToAdd.CanManagerApprove = true;
+                            //check if last one
+                            if (remainingUnits.Last() == output.UnitIdToApprove)
+                            {
+                                detailToAdd.YesClose = true;
+                            }
+                            output.UserIds.Add(new UserTimeSheetInput() { UserId = user.Id, YesClose = detailToAdd.YesClose });
+                            UserIdToApproveObj.YesClose = detailToAdd.YesClose;
+                            //output.UserIdsToApprove.Add(new UserTimeSheetInput() { UserId = user.Id, YesClose = detailToAdd.YesClose });
+
+                        }
+                    }
+                    else
+                    {
+                        //check if transfered 
+                        var userTransferedObj = await _employeeTempTransferRepository.FirstOrDefaultAsync(x => x.UserId == user.Id && x.ToDate.Date >= day.Date && x.FromDate <= day.Date);
+                        detailToAdd.IsTransferred = true;
+
+                    }
+
+                    
                     detailToAdd.Day = day;
 
-                    var userTransactions = transactions.Where(x => x.Pin == user.Id && x.Transaction_Date.Date == day.Date).Select(x => x.Time).ToList();
+                    var userTransactions = transactionsList.Where(x => x.Pin == user.Id && x.Transaction_Date.Date == day.Date).Select(x => x.Time).ToList();
                     var transCount = userTransactions.Count();
 
                     if (transCount == 0)
@@ -874,7 +981,9 @@ namespace Pixel.Attendance.Operations
 
                         detailToAdd.TotalHours = outMinutes - inMinutes;
                         detailToAdd.TotalHours = detailToAdd.TotalHours < 0 ? (detailToAdd.TotalHours * -1) : detailToAdd.TotalHours;
-                        if (detailToAdd.TotalHours > 480) // 8 hours
+                        summaryToAdd.TotalAttendance += detailToAdd.TotalHours;
+
+                        if (detailToAdd.TotalHours > 480 && user.IsOvertimeAllowed) // 8 hours
                         {
                             detailToAdd.Overtime = detailToAdd.TotalHours - 480; // 8 hours
                             if (!user.IsFixedOverTimeAllowed)
@@ -883,8 +992,10 @@ namespace Pixel.Attendance.Operations
                                 if (detailToAdd.Overtime > 240)
                                 {
                                     var timeToDeduct = detailToAdd.Overtime - 240;
+                                    summaryToAdd.TotalDeductionHours += timeToDeduct;
                                     detailToAdd.Overtime = detailToAdd.Overtime - timeToDeduct;
                                 }
+                                summaryToAdd.TotalOverTimeNormal += detailToAdd.Overtime;
                             }
                         }
                         else if (detailToAdd.TotalHours < 480)
@@ -894,15 +1005,34 @@ namespace Pixel.Attendance.Operations
                         }
 
                     }
+
+                    if (detailToAdd.CanManagerApprove)
+                        UserIdToApproveObj.DaysToApprove.Add(day);
+                    
+
                     summaryToAdd.Details.Add(detailToAdd);
                 }
 
-
+                output.UserIdsToApprove.Add(UserIdToApproveObj);
                 output.Data.Add(summaryToAdd);
 
             }
-            output.CanApprove = output.Data.Any(x => x.CanManagerApprove == true);
 
+            var approveList = new List<bool>();
+            var details = output.Data.Select(x => x.Details).ToList();
+            foreach (var item in details)
+            {
+                approveList.AddRange(item.Select(x => x.CanManagerApprove));
+            }
+            
+            output.CanApprove = approveList.Any(x => x == true);
+
+            output.TotalLeaveDayHours = output.Data.Sum(x => x.TotalLeaveHours);
+            output.TotalDeductioneHours = output.Data.Sum(x => x.TotalDeductionHours);
+            output.TotalAttendanceHours = output.Data.Sum(x => x.TotalAttendance);
+            output.TotalAbsenceHours = output.Data.Sum(x => x.TotalaAbsenceHours);
+            output.TotalEmployee = output.UserIds.Count();
+            output.TotalOvertimeHours = output.Data.Sum(x => x.TotalOverTimeNormal);
             return output;
         }
 
@@ -912,25 +1042,34 @@ namespace Pixel.Attendance.Operations
             {
                 foreach (var user in input.UserIds)
                 {
-                    var userTimeSheet = _userTimeSheetApproveRepository.FirstOrDefault(x => x.UserId == user.UserId && x.Month == input.Month && x.Year == input.Year && x.ProjectId == input.ProjectId);
-                    if (userTimeSheet == null)
-                    {
-                        var userTimeSheetToAdd = new UserTimeSheetApprove();
-                        userTimeSheetToAdd.UserId = user.UserId;
-                        userTimeSheetToAdd.ProjectId = input.ProjectId;
-                        userTimeSheetToAdd.ProjectManagerApprove = true;
-                        userTimeSheetToAdd.Year = input.Year;
-                        userTimeSheetToAdd.Month = input.Month;
-                        userTimeSheetToAdd.ProjectManagerId = GetCurrentUser().Id;
+                    //approve each day 
+                    var firstDayOfMonth = new DateTime(input.Year, input.Month, 1);
+                    var lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
 
-                        await _userTimeSheetApproveRepository.InsertAsync(userTimeSheetToAdd);
-                    }
-                    else
+                    foreach (var day in user.DaysToApprove)
                     {
-                        userTimeSheet.ProjectManagerApprove = true;
-                        await _userTimeSheetApproveRepository.UpdateAsync(userTimeSheet);
+                        var userTimeSheet = _userTimeSheetApproveRepository.FirstOrDefault(x => x.UserId == user.UserId && x.Day.Value.Date == day.Date && x.ProjectId == input.ProjectId);
+                        if (userTimeSheet == null)
+                        {
+                            var userTimeSheetToAdd = new UserTimeSheetApprove();
+                            userTimeSheetToAdd.UserId = user.UserId;
+                            userTimeSheetToAdd.ProjectId = input.ProjectId;
+                            userTimeSheetToAdd.ProjectManagerApprove = true;
+                            userTimeSheetToAdd.Year = input.Year;
+                            userTimeSheetToAdd.Month = input.Month;
+                            userTimeSheetToAdd.Day = day;
+                            userTimeSheetToAdd.ProjectManagerId = GetCurrentUser().Id;
 
+                            await _userTimeSheetApproveRepository.InsertAsync(userTimeSheetToAdd);
+                        }
+                        else
+                        {
+                            userTimeSheet.ProjectManagerApprove = true;
+                            await _userTimeSheetApproveRepository.UpdateAsync(userTimeSheet);
+
+                        }
                     }
+                   
                 }
             }
 
@@ -971,19 +1110,23 @@ namespace Pixel.Attendance.Operations
 
             foreach (var user in input.UserIds)
             {
-                var approvedUnits = new List<long>();
-                var uerToUpdate = await _userTimeSheetApproveRepository.FirstOrDefaultAsync(x => x.UserId == user.UserId);
-                if (uerToUpdate.ApprovedUnits != null)
-                    approvedUnits = uerToUpdate.ApprovedUnits.Split(',').Select(long.Parse).ToList();
-
-                if (!approvedUnits.Any(x => x == input.UnitIdToApprove))
+                
+                foreach (var day in user.DaysToApprove)
                 {
-                    approvedUnits.Add(input.UnitIdToApprove);
-                }
+                    var approvedUnits = new List<long>();
+                    var uerToUpdate = await _userTimeSheetApproveRepository.FirstOrDefaultAsync(x => x.UserId == user.UserId && x.Day.Value.Date == day.Date);
+                    if (uerToUpdate.ApprovedUnits != null)
+                        approvedUnits = uerToUpdate.ApprovedUnits.Split(',').Select(long.Parse).ToList();
 
-                uerToUpdate.ApprovedUnits = string.Join(",", approvedUnits);
-                uerToUpdate.IsClosed = user.YesClose;
-                await _userTimeSheetApproveRepository.UpdateAsync(uerToUpdate);
+                    if (!approvedUnits.Any(x => x == input.UnitIdToApprove))
+                    {
+                        approvedUnits.Add(input.UnitIdToApprove);
+                    }
+
+                    uerToUpdate.ApprovedUnits = string.Join(",", approvedUnits);
+                    uerToUpdate.IsClosed = user.YesClose;
+                    await _userTimeSheetApproveRepository.UpdateAsync(uerToUpdate);
+                }
             }
 
         }

@@ -106,4 +106,6 @@ export class ManualTransactionsComponent extends AppComponentBase {
             this._fileDownloadService.downloadTempFile(result);
          });
     }
+
+
 }

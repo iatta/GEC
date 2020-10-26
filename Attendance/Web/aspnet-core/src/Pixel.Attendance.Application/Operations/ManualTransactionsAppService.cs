@@ -207,7 +207,7 @@ namespace Pixel.Attendance.Operations
          {
              var query = _lookup_userRepository.GetAll().WhereIf(
                     !string.IsNullOrWhiteSpace(input.Filter),
-                   e=> e.Name.ToString().Contains(input.Filter)
+                   e=> e.Name.Contains(input.Filter)
                 );
 
             var totalCount = await query.CountAsync();
@@ -236,7 +236,7 @@ namespace Pixel.Attendance.Operations
          {
              var query = _lookup_machineRepository.GetAll().WhereIf(
                     !string.IsNullOrWhiteSpace(input.Filter),
-                   e=> e.NameEn.ToString().Contains(input.Filter)
+                   e=> e.NameEn.Contains(input.Filter)
                 );
 
             var totalCount = await query.CountAsync();
