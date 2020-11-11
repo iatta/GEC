@@ -12,10 +12,25 @@ namespace Pixel.Attendance.Setting.Dtos
 		public string NameEn { get; set; }
 
 		public string Code { get; set; }
+		public virtual DayDto DayOff { get; set; }
 
+		public  DayDto DayRest { get; set; }
+		public  bool IsDayRestCalculated { get; set; }
+		public  int TotalHoursPerDay { get; set; }
+		public bool IsInOutWithoutClculateHours { get; set; }
+
+		public  bool IsFlexible { get; set; }
+		public  bool IsOneFingerprint { get; set; }
+		public  bool IsTwoFingerprint { get; set; }
 		public int TimeIn { get; set; }
 
 		public int TimeOut { get; set; }
+		public int TotalLateMinutesPerMonth { get; set; }
+		public int TotalLateMinutesPerMonthRamadan { get; set; }
+		public bool HasRamadanSetting { get; set; }
+		public  int TotalHoursPerDayRamadan { get; set; }
+		public  int TimeInRamadan { get; set; }
+		public  int TimeOutRamadan { get; set; }
 
 		public int EarlyIn { get; set; }
 

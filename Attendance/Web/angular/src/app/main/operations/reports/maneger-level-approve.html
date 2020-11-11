@@ -157,12 +157,15 @@
                                                     <ng-container *ngIf="rowData.details[col.field]['overtime'] > 0">
                                                         <br> {{rowData.details[col.field]['overtime'] | minutesToString}}
                                                      </ng-container>
-
+                                                     <div>
+                                                        <a style="margin-top: 10px;" type="button" class="btn btn-warning" (click)="openCreateOrEditTransaction(rowData.details[col.field]['inTransactionId'],rowData.details[col.field]['outTransactionId'],rowData.details[col.field]['day'],rowData.userId)" >{{l('Edit')}}</a>
+                                                     </div>
 
                                                 </div>
-                                                <p *ngIf="rowData.details[col.field]['totalHours'] == 0 && rowData.details[col.field]['isTransferred'] == false">
+                                                <div style="display: grid;" *ngIf="rowData.details[col.field]['totalHours'] == 0 && rowData.details[col.field]['isTransferred'] == false">
                                                     {{l('A')}}
-                                                </p>
+                                                    <a style="margin-top: 10px;" type="button" class="btn btn-warning" (click)="openCreateOrEditTransaction(rowData.details[col.field]['inTransactionId'],rowData.details[col.field]['outTransactionId'],rowData.details[col.field]['day'],rowData.userId)">{{l('Add')}}</a>
+                                                </div>
                                                 <p *ngIf="rowData.details[col.field]['isTransferred'] == true">
                                                     {{l('Transferred')}}
                                                 </p>

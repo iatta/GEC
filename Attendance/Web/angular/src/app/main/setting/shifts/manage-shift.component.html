@@ -82,17 +82,35 @@
                                 </div>
 
                                 <div class="col-lg-4">
-                                    <label for="ShiftType">{{l("ShiftType")}}</label>
-                                    <select class="form-control" name="shiftType" [ngClass]="{ 'is-invalid': shiftForm.submitted && shiftTypeInput.invalid}"  #shiftTypeInput="ngModel" id="shiftType" [(ngModel)]="shift.shiftType" required>
-                                        <validation-messages [formCtrl]="shiftTypeInput" [frm]="shiftForm"></validation-messages>
-                                    <option value="1">{{l('Normal')}}</option>
-                                    <option value="2">{{l('FixedOverTime')}}</option>
-                                    </select>
+
+
                                 </div>
                             </div>
-
                             <div class="from-group row">
-                                <div class="col-lg-4 timeGroup">
+                            <p-checkbox [(ngModel)]="shift.isDayRestCalculated" name="IsDayRestCalculated" binary="true"></p-checkbox>
+                                 <label style="padding: 5px;" for="IsDayRestCalculated">{{l("IsDayRestCalculated")}}</label>
+
+                                    <p-checkbox (onChange)="onFlexibleChanged()" [(ngModel)]="shift.isFlexible" name="IsFlexible" id="IsFlexible" binary="true"></p-checkbox>
+                                   <label style="padding: 5px;" for="IsFlexible">{{l("IsFlexible")}}</label>
+
+
+                                    <p-checkbox (onChange)="oneFingerprintChanged()"  [(ngModel)]="shift.isOneFingerprint" name="IsOneFingerprint" id="IsOneFingerprint" binary="true"></p-checkbox>
+                                     <label style="padding: 5px;" for="IsOneFingerprint">{{l("IsOneFingerprint")}}</label>
+
+
+                                    <p-checkbox (onChange)="onTwoFingerprintChanged()" [(ngModel)]="shift.isTwoFingerprint" name="IsTwoFingerprint" binary="true"></p-checkbox>
+                                     <label style="padding: 5px;" for="IsTwoFingerprint">{{l("IsTwoFingerprint")}}</label>
+
+
+                                    <p-checkbox (onChange)="onInOutWithoutClculateHoursChanged()" [(ngModel)]="shift.isInOutWithoutClculateHours"  name="IsInOutWithoutClculateHours" binary="true"></p-checkbox>
+                                     <label style="padding: 5px;" for="IsInOutWithoutClculateHours">{{l("IsInOutWithoutClculateHours")}}</label>
+
+                                     <p-checkbox [(ngModel)]="shift.hasRamadanSetting" name="HasRamadanSetting" binary="true"></p-checkbox>
+                                     <label style="padding: 5px;" for="HasRamadanSetting">{{l("HasRamadanSetting")}}</label>
+
+                            </div>
+                            <div class="from-group row">
+                                <div class="col-lg-4" *ngIf="shift.isTwoFingerprint" [ngClass]="{'timeGroup marginRight': this.localization.currentLanguage['isRightToLeft'],'timeGroupEn': !this.localization.currentLanguage['isRightToLeft']}">
                                     <div class="col-lg-2" >
                                         <label for="Shift_TimeIn">{{l("TimeIn")}}</label>
                                         <timepicker  [(ngModel)]="TimeInObj"  name="TimeInObj"  [showMeridian]="meridian"></timepicker>
@@ -103,81 +121,42 @@
                                     </div>
 
                                 </div>
-                                <div class="col-lg-4" [ngClass]="{'timeGroup marginRight': this.localization.currentLanguage['isRightToLeft'],'timeGroupEn marginLeft': !this.localization.currentLanguage['isRightToLeft']}">
 
-                                    <div class="col-lg-5">
-
-                                        <label for="deductType">{{l("DeductType")}}</label>
-                                        <div [ngClass]="{'option-right': this.localization.currentLanguage['isRightToLeft']}">
-                                            <p-radioButton name="deductType"   [label]="l('Actual')" value="0"  [(ngModel)]="shift.deductType"></p-radioButton>
-                                            <p-radioButton name="deductType"  [label]="l('Tolerance')"   value="1"    [(ngModel)]="shift.deductType"></p-radioButton>
-                                        </div>
+                                <div class="col-lg-4" *ngIf="shift.hasRamadanSetting && shift.isTwoFingerprint"  [ngClass]="{'timeGroup marginLeft': this.localization.currentLanguage['isRightToLeft'],'timeGroupEn marginLeft': !this.localization.currentLanguage['isRightToLeft']}">
+                                    <div class="col-lg-2" >
+                                        <label for="Shift_TimeInRamadan">{{l("TimeInRamadan")}}</label>
+                                        <timepicker  [(ngModel)]="TimeInRamadanObj"  name="TimeInRamadanObj"  [showMeridian]="meridian"></timepicker>
                                     </div>
-                                <div class="col-lg-3">
-                                    <label for="IsOverTimeAllowed">{{l("IsOverTimeAllowed")}}</label>
-                                    <p-checkbox [(ngModel)]="shift.isOverTimeAllowed" name="isOverTimeAllowed" binary="true"></p-checkbox>
+                                    <div class="col-lg-2">
+                                        <label for="Shift_TimeOutRamadan">{{l("TimeOutRamadan")}}</label>
+                                        <timepicker [(ngModel)]="TimeOutRamadanObj"  name="TimeOutRamadanObj" [showMeridian]="meridian"></timepicker>
+                                    </div>
+
                                 </div>
+                            </div>
+                            <div class="form-group row" >
+                                <div class="col-lg-4" *ngIf="shift.isFlexible">
+                                    <label for="Shift_TotalHoursPerDay">{{l("TotalHoursPerDay")}} *</label>
+                                    <input type="number" min="0" id="Shift_TotalHoursPerDay" class="form-control" [(ngModel)]="shift.totalHoursPerDay" name="TotalHoursPerDay"/>
+                                </div>
+                                <div class="col-lg-4" *ngIf="shift.isFlexible || shift.isTwoFingerprint">
+                                    <label for="TotalLateMinutesPerMonth">{{l("TotalLateMinutesPerMonth")}} *</label>
+                                    <input type="number" min="0" id="Shift_TotalLateMinutesPerMonth" class="form-control" [(ngModel)]="shift.totalLateMinutesPerMonth" name="TotalLateMinutesPerMonth"/>
+                                </div>
+
+                                <div class="col-lg-4" *ngIf="shift.isFlexible && shift.hasRamadanSetting">
+
+                                        <label for="Shift_TotalHoursPerDayRamadan">{{l("TotalHoursPerDayRamadan")}} </label>
+                                         <input type="number" min="0"  id="Shift_TotalHoursPerDayRamadan" class="form-control" [(ngModel)]="shift.totalHoursPerDayRamadan" name="TotalHoursPerDayRamadan"/>
 
                                 </div>
 
+                                <div class="col-lg-4" *ngIf="(shift.isFlexible || shift.isTwoFingerprint) && shift.hasRamadanSetting">
+
+                                    <label for="Shift_TotalLateMinutesPerMonthRamadan">{{l("TotalLateMinutesPerMonthRamadan")}} </label>
+                                     <input type="number" min="0"  id="Shift_TotalLateMinutesPerMonthRamadan" class="form-control" [(ngModel)]="shift.totalLateMinutesPerMonthRamadan" name="TotalLateMinutesPerMonthRamadan"/>
 
                             </div>
-                            <div class="form-group row">
-
-                            <div class="col-lg-4 timeGroup">
-                                <div class="col lg 2">
-                                    <label for="Shift_LateOut">{{l("LateOut")}}</label>
-                                    <timepicker  [(ngModel)]="LateOutObj"  name="LateOutObj" [showMeridian]="meridian"></timepicker>
-                                </div>
-                                <div class="col lg 2">
-                                    <label for="Shift_EarlyOut">{{l("EarlyOut")}}</label>
-                                    <timepicker [(ngModel)]="EarlyOutObj"  name="EarlyOutObj" [showMeridian]="meridian"></timepicker>
-                                </div>
-
-                            </div>
-                            <div class="col-lg-4" [ngClass]="{'timeGroup marginRight': this.localization.currentLanguage['isRightToLeft'],'timeGroupEn marginLeft': !this.localization.currentLanguage['isRightToLeft']}">
-                                <div class="col-lg-2">
-                                    <label for="Shift_LateIn">{{l("LateIn")}}</label>
-                                    <timepicker  [(ngModel)]="LateInObj"  name="LateInObj" [showMeridian]="meridian"></timepicker>
-                                </div>
-                                <div class="col-lg-2">
-                                    <label for="Shift_EarlyIn">{{l("EarlyIn")}}</label>
-                                    <timepicker [(ngModel)]="EarlyInObj"  name="EarlyInObj" [showMeridian]="meridian"></timepicker>
-                                </div>
-
-
-                            </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-lg-4 timeGroup">
-                                    <div class="col lg 2">
-                                        <label for="Shift_TimeOutRangeFrom">{{l("TimeOutRangeFrom")}}</label>
-                                        <timepicker [(ngModel)]="TimeOutRangeFromObj"  name="TimeOutRangeFromObj" [showMeridian]="meridian"></timepicker>
-                                    </div>
-
-                                    <div class="col lg 2">
-                                        <label for="Shift_TimeOutRangeTo">{{l("TimeOutRangeTo")}}</label>
-                                        <timepicker [(ngModel)]="TimeOutRangeToObj"  name="TimeOutRangeToObj" [showMeridian]="meridian"></timepicker>
-                                    </div>
-
-                                </div>
-
-                                <div class="col-lg-4" [ngClass]="{'timeGroup marginRight': this.localization.currentLanguage['isRightToLeft'],'timeGroupEn marginLeft': !this.localization.currentLanguage['isRightToLeft']}">
-
-                                    <div class="col lg 2">
-                                        <label for="Shift_TimeInRangeFrom">{{l("TimeInRangeFrom")}}</label>
-                                        <timepicker  [(ngModel)]="TimeInRangeFromObj"  name="TimeInRangeFromObj" [showMeridian]="meridian"></timepicker>
-
-                                    </div>
-                                    <div class="col lg 2">
-                                        <label for="Shift_TimeInRangeTo">{{l("TimeInRangeTo")}}</label>
-                                        <timepicker  [(ngModel)]="TimeInRangeToObj"  name="TimeInRangeToObj" [showMeridian]="meridian"></timepicker>
-                                    </div>
-
-
-
-
-                                </div>
 
 
                             </div>

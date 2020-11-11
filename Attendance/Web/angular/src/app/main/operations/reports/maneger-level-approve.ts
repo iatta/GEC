@@ -3,9 +3,10 @@ import { ActualSummerizeTimeSheetDto, ProjectManagerApproveInput, ActualSummeriz
 import { TransactionsServiceProxy, ProjectsServiceProxy, ProjectDto } from '@shared/service-proxies/service-proxies';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppComponentBase } from '@shared/common/app-component-base';
-import { Component, OnInit, Injector } from '@angular/core';
+import { Component, OnInit, Injector, ViewChild } from '@angular/core';
 import { rowsAnimation } from '@shared/animations/template.animations';
 import * as moment from 'moment';
+import { CreateOrEditAttendanceModalComponent } from '../manualTransactions/create-or-edit-attendance-modal.component';
 
 @Component({
     templateUrl: './maneger-level-approve.html',
@@ -14,6 +15,8 @@ import * as moment from 'moment';
 })
 
 export class ManagerLevelApproveComponent extends AppComponentBase implements OnInit {
+    @ViewChild('createOrEditAttendanceModal', { static: true }) createOrEditAttendanceModal: CreateOrEditAttendanceModalComponent;
+
     startDate:moment.Moment = moment().startOf('day');
     endDate:moment.Moment = moment().startOf('day');
     projectId:number;
@@ -173,6 +176,12 @@ export class ManagerLevelApproveComponent extends AppComponentBase implements On
         this.dataLoaded = false;
         this.data = [];
 
+    }
+
+
+    openCreateOrEditTransaction(intransId:number,outTransId:number,transDate:moment.Moment,userId:number){
+        debugger
+        this.createOrEditAttendanceModal.show(intransId,outTransId,transDate,userId);
     }
 
 }

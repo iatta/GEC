@@ -35,6 +35,8 @@ export class ManageShiftComponent extends AppComponentBase implements OnInit {
     TimeOutObj: Date = new Date();
     EarlyInObj: Date = new Date();
     LateInObj: Date = new Date();
+    TimeInRamadanObj: Date = new Date();
+    TimeOutRamadanObj: Date = new Date();
     EarlyOutObj: Date = new Date();
     LateOutObj: Date = new Date();
     TimeInRangeFromObj: Date = new Date();
@@ -91,6 +93,14 @@ export class ManageShiftComponent extends AppComponentBase implements OnInit {
                 this.TimeOutObj.setMinutes(this.shift.timeOut % 60);
 
 
+                this.TimeInRamadanObj.setHours( Math.floor(this.shift.timeInRamadan / 60));
+                this.TimeInRamadanObj.setMinutes(this.shift.timeInRamadan % 60);
+
+
+
+                this.TimeOutRamadanObj.setHours( Math.floor(this.shift.timeOutRamadan / 60));
+                this.TimeOutRamadanObj.setMinutes(this.shift.timeOut % 60);
+
                 this.EarlyInObj.setHours(Math.floor(this.shift.earlyIn / 60));
                 this.EarlyInObj.setMinutes( this.shift.earlyIn % 60);
 
@@ -123,6 +133,39 @@ export class ManageShiftComponent extends AppComponentBase implements OnInit {
             });
         }
     }
+    oneFingerprintChanged(){
+        if(this.shift.isOneFingerprint){
+            this.shift.isTwoFingerprint = false;
+            this.shift.isInOutWithoutClculateHours = false;
+            this.shift.isFlexible = false;
+        }
+    }
+
+    onTwoFingerprintChanged(){
+        if(this.shift.isTwoFingerprint){
+            this.shift.isOneFingerprint = false;
+            this.shift.isInOutWithoutClculateHours = false;
+            this.shift.isFlexible = false;
+        }
+    }
+
+    onFlexibleChanged(){
+        if(this.shift.isFlexible){
+            this.shift.isTwoFingerprint = false;
+            this.shift.isInOutWithoutClculateHours = false;
+            this.shift.isOneFingerprint = false;
+
+        }
+    }
+
+    onInOutWithoutClculateHoursChanged(){
+        if(this.shift.isInOutWithoutClculateHours){
+            this.shift.isTwoFingerprint = false;
+            this.shift.isFlexible = false;
+            this.shift.isOneFingerprint = false;
+        }
+    }
+
 
     save(shiftForm : NgForm): void {
         if(shiftForm.form.valid){
@@ -133,6 +176,9 @@ export class ManageShiftComponent extends AppComponentBase implements OnInit {
             this.shift.lateIn = (this.LateInObj.getHours() * 60) + this.LateInObj.getMinutes();
             this.shift.earlyOut = (this.EarlyOutObj.getHours() * 60) + this.EarlyOutObj.getMinutes();
             this.shift.lateOut = (this.LateOutObj.getHours() * 60) + this.LateOutObj.getMinutes();
+
+            this.shift.timeInRamadan = (this.TimeInRamadanObj.getHours() * 60) + this.TimeInRamadanObj.getMinutes();
+            this.shift.timeOutRamadan = (this.TimeOutRamadanObj.getHours() * 60) + this.TimeOutRamadanObj.getMinutes();
 
             this.shift.timeInRangeFrom = (this.TimeInRangeFromObj.getHours() * 60) + this.TimeInRangeFromObj.getMinutes();
             this.shift.timeInRangeTo = (this.TimeInRangeToObj.getHours() * 60) + this.TimeInRangeToObj.getMinutes();
@@ -147,7 +193,7 @@ export class ManageShiftComponent extends AppComponentBase implements OnInit {
                 this._router.navigate(['app/main/setting/shifts']);
              });
         }
-           
+
     }
 
 

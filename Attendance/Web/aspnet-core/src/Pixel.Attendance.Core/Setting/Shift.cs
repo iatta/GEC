@@ -23,11 +23,26 @@ namespace Pixel.Attendance.Setting
 		public virtual Day DayOff { get; set; }
 		
 		public virtual Day DayRest { get; set; }
-		
+        public virtual bool IsDayRestCalculated { get; set; }
+        public virtual int TotalHoursPerDay { get; set; }
+        public virtual bool IsFlexible { get; set; }
+        public virtual bool IsOneFingerprint { get; set; }
+		public virtual bool IsTwoFingerprint { get; set; }
+
 		public virtual int TimeIn { get; set; }
 		
 		public virtual int TimeOut { get; set; }
-		
+
+		public int TotalLateMinutesPerMonth { get; set; }
+		public int TotalLateMinutesPerMonthRamadan { get; set; }
+		public bool IsInOutWithoutClculateHours { get; set; }
+		public bool HasRamadanSetting { get; set; }
+		public virtual int TotalHoursPerDayRamadan { get; set; }
+		public virtual int TimeInRamadan { get; set; }
+
+		public virtual int TimeOutRamadan { get; set; }
+
+
 		public virtual int EarlyIn { get; set; }
 		
 		public virtual int LateIn { get; set; }

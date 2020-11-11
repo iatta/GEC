@@ -92,34 +92,32 @@
                                 <tr>
                                     <th style="width: 30px"></th>
                                     <th  [hidden]="!isGrantedAny('Pages.Shifts.Edit', 'Pages.Shifts.Delete')">{{l('Actions')}}</th>
-                                    <th  pSortableColumn="nameAr">
-                                        {{l('NameAr')}}
-                                        <p-sortIcon field="shift.nameAr"></p-sortIcon>
-                                    </th>
+
                                     <th  pSortableColumn="nameEn">
-                                        {{l('NameEn')}}
+                                        {{l('Name')}}
                                         <p-sortIcon field="shift.nameEn"></p-sortIcon>
                                     </th>
                                     <th  pSortableColumn="code">
                                         {{l('Code')}}
                                         <p-sortIcon field="shift.code"></p-sortIcon>
                                     </th>
-                                    <th  pSortableColumn="timeIn">
-                                        {{l('TimeIn')}}
-                                        <p-sortIcon field="shift.timeIn"></p-sortIcon>
+                                    <th  pSortableColumn="IsFlexible">
+                                        {{l('IsFlexible')}}
+                                        <p-sortIcon field="shift.isFlexible"></p-sortIcon>
                                     </th>
-                                    <th  pSortableColumn="timeOut">
-                                        {{l('TimeOut')}}
-                                        <p-sortIcon field="shift.timeOut"></p-sortIcon>
+                                    <th  pSortableColumn="IsOneFingerprint">
+                                        {{l('IsOneFingerprint')}}
+                                        <p-sortIcon field="shift.isOneFingerprint"></p-sortIcon>
                                     </th>
-                                    <th  pSortableColumn="earlyIn">
-                                        {{l('EarlyIn')}}
-                                        <p-sortIcon field="shift.earlyIn"></p-sortIcon>
+                                    <th  pSortableColumn="IsTwoFingerprint">
+                                        {{l('IsTwoFingerprint')}}
+                                        <p-sortIcon field="shift.isTwoFingerprint"></p-sortIcon>
                                     </th>
-                                    <th  pSortableColumn="lateIn">
-                                        {{l('LateIn')}}
-                                        <p-sortIcon field="shift.lateIn"></p-sortIcon>
+                                    <th  pSortableColumn="IsInOutWithoutClculateHours">
+                                        {{l('IsInOutWithoutClculateHours')}}
+                                        <p-sortIcon field="shift.isInOutWithoutClculateHours"></p-sortIcon>
                                     </th>
+
 
                                 </tr>
                             </ng-template>
@@ -153,34 +151,49 @@
                                             </ul>
                                         </div>
                                     </td>
+
                                     <td >
-											<span class="ui-column-title"> {{l('NameAr')}}</span>
-											{{record.shift.nameAr}}
-										</td>
-                                    <td >
-											<span class="ui-column-title"> {{l('NameEn')}}</span>
+											<span class="ui-column-title"> {{l('Name')}}</span>
 											{{record.shift.nameEn}}
 										</td>
                                     <td >
 											<span class="ui-column-title"> {{l('Code')}}</span>
 											{{record.shift.code}}
-										</td>
-                                    <td >
-											<span class="ui-column-title"> {{l('TimeIn')}}</span>
-											{{record.shift.timeIn | minutesToTime}}
-										</td>
-                                    <td >
-											<span class="ui-column-title"> {{l('TimeOut')}}</span>
-											{{record.shift.timeOut | minutesToTime}}
-										</td>
-                                    <td >
-											<span class="ui-column-title"> {{l('EarlyIn')}}</span>
-											{{record.shift.earlyIn | minutesToTime}}
-										</td>
-                                    <td >
-											<span class="ui-column-title"> {{l('LateIn')}}</span>
-											{{record.shift.lateIn | minutesToTime}}
-										</td>
+                                        </td>
+
+                                        <td>
+                                            <span class="ui-column-title"> {{'IsFlexible' | localize}}</span>
+                                            <span class="kt-badge kt-badge--success kt-badge--inline"
+                                                *ngIf="record.shift.isFlexible">{{'Yes' | localize}}</span>
+                                            <span class="kt-badge kt-badge--dark kt-badge--inline"
+                                                *ngIf="!record.shift.isFlexible">{{'No' | localize}}</span>
+                                        </td>
+
+                                        <td>
+                                            <span class="ui-column-title"> {{'IsOneFingerprint' | localize}}</span>
+                                            <span class="kt-badge kt-badge--success kt-badge--inline"
+                                                *ngIf="record.shift.isOneFingerprint">{{'Yes' | localize}}</span>
+                                            <span class="kt-badge kt-badge--dark kt-badge--inline"
+                                                *ngIf="!record.shift.isOneFingerprint">{{'No' | localize}}</span>
+                                        </td>
+
+                                        <td>
+                                            <span class="ui-column-title"> {{'IsTwoFingerprint' | localize}}</span>
+                                            <span class="kt-badge kt-badge--success kt-badge--inline"
+                                                *ngIf="record.shift.isTwoFingerprint">{{'Yes' | localize}}</span>
+                                            <span class="kt-badge kt-badge--dark kt-badge--inline"
+                                                *ngIf="!record.shift.isTwoFingerprint">{{'No' | localize}}</span>
+                                        </td>
+
+                                        <td>
+                                            <span class="ui-column-title"> {{'IsInOutWithoutClculateHours' | localize}}</span>
+                                            <span class="kt-badge kt-badge--success kt-badge--inline"
+                                                *ngIf="record.shift.isInOutWithoutClculateHours">{{'Yes' | localize}}</span>
+                                            <span class="kt-badge kt-badge--dark kt-badge--inline"
+                                                *ngIf="!record.shift.isInOutWithoutClculateHours">{{'No' | localize}}</span>
+                                        </td>
+
+
                                 </tr>
                             </ng-template>
                             <ng-template pTemplate="rowexpansion" let-record="$implicit">
@@ -191,16 +204,16 @@
                                             <div class="ui-g-12 ui-md-12">
                                                 <div class="ui-g">
                                                     <div class="ui-g-12">
-                                                        <b> {{l('EarlyOut')}} :</b>{{record.shift.earlyOut | minutesToTime}}
+                                                        <b> {{l('TimeIn')}} :</b>{{record.shift.timeIn | minutesToTime}}
                                                     </div>
                                                     <div class="ui-g-12">
-                                                        <b>{{l('LateOut')}} :</b>{{record.shift.lateOut | minutesToTime}}
+                                                        <b>{{l('TimeOut')}} :</b>{{record.shift.timeOut | minutesToTime}}
                                                     </div>
                                                     <div class="ui-g-12">
-                                                        <b>{{l('TimeInRangeFrom')}} :</b> {{record.shift.timeInRangeFrom | minutesToTime}} <b>{{l('To')}} :</b> {{record.shift.timeInRangeTo | minutesToTime}}
+                                                        <b>{{l('TotalHoursPerDay')}} :</b> {{record.shift.totalHoursPerDay | minutesToTime24}}
                                                     </div>
                                                     <div class="ui-g-12">
-                                                        <b>{{l('TimeOutRangeFrom')}} :</b> {{record.shift.timeOutRangeFrom | minutesToTime}} <b>{{l('To')}} :</b> {{record.shift.timeOutRangeTo | minutesToTime}}
+                                                        <b>{{l('totalLateMinutesPerMonth')}} :</b> {{record.shift.totalLateMinutesPerMonth | minutesToTime24}}
                                                     </div>
 
                                                 </div>

@@ -2999,6 +2999,55 @@ namespace Pixel.Attendance.Migrations
                     b.ToTable("Transactions");
                 });
 
+            modelBuilder.Entity("Pixel.Attendance.Operations.TransactionLog", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long?>("ActionBy")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("CreatorUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("DeleterUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("LastModifierUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("NewValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OldValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("TransactionId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ActionBy");
+
+                    b.HasIndex("TransactionId");
+
+                    b.ToTable("TransactionLogs");
+                });
+
             modelBuilder.Entity("Pixel.Attendance.Operations.UserDelegation", b =>
                 {
                     b.Property<int>("Id")
@@ -3773,6 +3822,52 @@ namespace Pixel.Attendance.Migrations
                     b.ToTable("OfficialTaskTypes");
                 });
 
+            modelBuilder.Entity("Pixel.Attendance.Setting.OverrideShift", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("CreatorUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("Day")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("DeleterUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("LastModifierUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int?>("ShiftId")
+                        .HasColumnType("int");
+
+                    b.Property<long?>("UserId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ShiftId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("OverrideShifts");
+                });
+
             modelBuilder.Entity("Pixel.Attendance.Setting.Permit", b =>
                 {
                     b.Property<int>("Id")
@@ -3915,10 +4010,28 @@ namespace Pixel.Attendance.Migrations
                     b.Property<int>("EarlyOut")
                         .HasColumnType("int");
 
+                    b.Property<bool>("HasRamadanSetting")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDayRestCalculated")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsFlexible")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsInOutWithoutClculateHours")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsOneFingerprint")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("IsOverTimeAllowed")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsTwoFingerprint")
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("LastModificationTime")
@@ -3947,6 +4060,9 @@ namespace Pixel.Attendance.Migrations
                     b.Property<int>("TimeIn")
                         .HasColumnType("int");
 
+                    b.Property<int>("TimeInRamadan")
+                        .HasColumnType("int");
+
                     b.Property<int>("TimeInRangeFrom")
                         .HasColumnType("int");
 
@@ -3956,10 +4072,25 @@ namespace Pixel.Attendance.Migrations
                     b.Property<int>("TimeOut")
                         .HasColumnType("int");
 
+                    b.Property<int>("TimeOutRamadan")
+                        .HasColumnType("int");
+
                     b.Property<int>("TimeOutRangeFrom")
                         .HasColumnType("int");
 
                     b.Property<int>("TimeOutRangeTo")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TotalHoursPerDay")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TotalHoursPerDayRamadan")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TotalLateMinutesPerMonth")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TotalLateMinutesPerMonthRamadan")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -4838,6 +4969,17 @@ namespace Pixel.Attendance.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Pixel.Attendance.Operations.TransactionLog", b =>
+                {
+                    b.HasOne("Pixel.Attendance.Authorization.Users.User", "ActionFk")
+                        .WithMany()
+                        .HasForeignKey("ActionBy");
+
+                    b.HasOne("Pixel.Attendance.Operations.Transaction", "TransactionFk")
+                        .WithMany()
+                        .HasForeignKey("TransactionId");
+                });
+
             modelBuilder.Entity("Pixel.Attendance.Operations.UserDelegation", b =>
                 {
                     b.HasOne("Pixel.Attendance.Authorization.Users.User", "DelegatedUserFk")
@@ -4898,6 +5040,17 @@ namespace Pixel.Attendance.Migrations
                     b.HasOne("Abp.Organizations.OrganizationUnit", "OrganizationUnitFk")
                         .WithMany()
                         .HasForeignKey("OrganizationUnitId");
+                });
+
+            modelBuilder.Entity("Pixel.Attendance.Setting.OverrideShift", b =>
+                {
+                    b.HasOne("Pixel.Attendance.Setting.Shift", "ShiftFk")
+                        .WithMany()
+                        .HasForeignKey("ShiftId");
+
+                    b.HasOne("Pixel.Attendance.Authorization.Users.User", "UserFk")
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Pixel.Attendance.Setting.PermitType", b =>

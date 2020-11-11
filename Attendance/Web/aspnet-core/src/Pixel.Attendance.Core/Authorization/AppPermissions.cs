@@ -6,6 +6,16 @@
     /// </summary>
     public static class AppPermissions
     {
+        public const string Pages_TransactionLogs = "Pages.TransactionLogs";
+        public const string Pages_TransactionLogs_Create = "Pages.TransactionLogs.Create";
+        public const string Pages_TransactionLogs_Edit = "Pages.TransactionLogs.Edit";
+        public const string Pages_TransactionLogs_Delete = "Pages.TransactionLogs.Delete";
+
+        public const string Pages_OverrideShifts = "Pages.OverrideShifts";
+        public const string Pages_OverrideShifts_Create = "Pages.OverrideShifts.Create";
+        public const string Pages_OverrideShifts_Edit = "Pages.OverrideShifts.Edit";
+        public const string Pages_OverrideShifts_Delete = "Pages.OverrideShifts.Delete";
+
         public const string Pages_EmployeeTempTransfers = "Pages.EmployeeTempTransfers";
         public const string Pages_EmployeeTempTransfers_Create = "Pages.EmployeeTempTransfers.Create";
         public const string Pages_EmployeeTempTransfers_Edit = "Pages.EmployeeTempTransfers.Edit";

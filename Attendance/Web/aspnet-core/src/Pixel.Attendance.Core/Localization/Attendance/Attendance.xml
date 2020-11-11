@@ -1,6 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
-  <texts>    <text name="EmployeeTempTransfer">Employee temp transfer</text>
+  <texts>    <text name="TransactionLog">Transaction log</text>
+    <text name="OldValue">Old value</text>
+    <text name="TransactionLogsHeaderInfo">Transaction logs header info</text>
+    <text name="CreateNewTransactionLog">Create new transaction log</text>
+    <text name="EditTransactionLog">Edit transaction log</text>
+    <text name="DeleteTransactionLog">Delete transaction log</text>
+    <text name="TransactionLogs">Transaction logs</text>
+    <text name="TransactionTransaction_Date">Transaction transaction _ date</text>
+    <text name="PickTransaction">Pick transaction</text>
+    <text name="OverrideShift">Override shift</text>
+    <text name="OverrideShiftsHeaderInfo">Override shifts header info</text>
+    <text name="CreateNewOverrideShift">Create new override shift</text>
+    <text name="EditOverrideShift">Edit override shift</text>
+    <text name="DeleteOverrideShift">Delete override shift</text>
+    <text name="OverrideShifts">Override shifts</text>
+    <text name="DayRange">Day range</text>
+    <text name="EmployeeTempTransfer">Employee temp transfer</text>
     <text name="EmployeeTempTransfersHeaderInfo">Employee temp transfers header info</text>
     <text name="CreateNewEmployeeTempTransfer">Create new employee temp transfer</text>
     <text name="EditEmployeeTempTransfer">Edit employee temp transfer</text>
@@ -1550,6 +1566,20 @@
     <text name="TaskNo"> Task No</text>
     <text name="ManagerReport"> Manager Report</text>
     <text name="HrReport"> Hr Report</text>
+    
+    <text name="TotalLateMinutesPerMonth">Total Late Minutes Per Month</text>
+    <text name="TotalLateMinutesPerMonthRamadan">Total Late Minutes Per Month Ramadan</text>
+    <text name="IsInOutWithoutClculateHours">In Out Without Calculate Hours</text>
+    <text name="HasRamadanSetting"> Has Ramadan Time</text>
+    <text name="TotalHoursPerDayRamadan"> Total Hours Per Day In Ramadan</text>
+    <text name="TimeInRamadan">Ramadan Time In </text>
+    <text name="TimeOutRamadan">Ramadan Time Out </text>
+    
+    <text name="IsTwoFingerprint"> In Out </text>
+    <text name="IsOneFingerprint"> One Finger </text>
+    <text name="IsFlexible"> Flexible </text>
+    <text name="IsDayRestCalculated"> Calculate Day Rest </text>
+    
     
 
 

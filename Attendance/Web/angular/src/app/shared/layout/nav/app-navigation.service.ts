@@ -106,6 +106,10 @@ export class AppNavigationService {
             // new AppMenuItem('OrganizationLocations', 'Pages.OrganizationLocations', 'flaticon-more', '/app/main/operations/organizationLocations'),
 
             new AppMenuItem('EmployeeTempTransfers', 'Pages.EmployeeTempTransfers', 'flaticon-more', '/app/main/operations/employeeTempTransfers'),
+            
+            new AppMenuItem('OverrideShifts', 'Pages.OverrideShifts', 'flaticon-more', '/app/main/setting/overrideShifts'),
+            
+            new AppMenuItem('TransactionLogs', 'Pages.TransactionLogs', 'flaticon-more', '/app/main/operations/transactionLogs'),
              new AppMenuItem('Administration', '', 'flaticon-interface-8', '', [
                 new AppMenuItem('OrganizationUnits', 'Pages.Administration.OrganizationUnits', 'flaticon-map', '/app/admin/organization-units'),
                 new AppMenuItem('JobTitles', 'Pages.JobTitles', 'flaticon2-list-3', '/app/main/setting/jobTitles'),

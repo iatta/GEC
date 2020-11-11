@@ -15425,6 +15425,543 @@ export class OrganizationUnitServiceProxy {
 }
 
 @Injectable()
+export class OverrideShiftsServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param maxDayFilter (optional) 
+     * @param minDayFilter (optional) 
+     * @param userNameFilter (optional) 
+     * @param shiftNameEnFilter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
+     * @return Success
+     */
+    getAll(filter: string | undefined, maxDayFilter: moment.Moment | undefined, minDayFilter: moment.Moment | undefined, userNameFilter: string | undefined, shiftNameEnFilter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetOverrideShiftForViewDto> {
+        let url_ = this.baseUrl + "/api/services/app/OverrideShifts/GetAll?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (maxDayFilter === null)
+            throw new Error("The parameter 'maxDayFilter' cannot be null.");
+        else if (maxDayFilter !== undefined)
+            url_ += "MaxDayFilter=" + encodeURIComponent(maxDayFilter ? "" + maxDayFilter.toJSON() : "") + "&"; 
+        if (minDayFilter === null)
+            throw new Error("The parameter 'minDayFilter' cannot be null.");
+        else if (minDayFilter !== undefined)
+            url_ += "MinDayFilter=" + encodeURIComponent(minDayFilter ? "" + minDayFilter.toJSON() : "") + "&"; 
+        if (userNameFilter === null)
+            throw new Error("The parameter 'userNameFilter' cannot be null.");
+        else if (userNameFilter !== undefined)
+            url_ += "UserNameFilter=" + encodeURIComponent("" + userNameFilter) + "&"; 
+        if (shiftNameEnFilter === null)
+            throw new Error("The parameter 'shiftNameEnFilter' cannot be null.");
+        else if (shiftNameEnFilter !== undefined)
+            url_ += "ShiftNameEnFilter=" + encodeURIComponent("" + shiftNameEnFilter) + "&"; 
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAll(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfGetOverrideShiftForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfGetOverrideShiftForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfGetOverrideShiftForViewDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfGetOverrideShiftForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfGetOverrideShiftForViewDto>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getOverrideShiftForView(id: number | undefined): Observable<GetOverrideShiftForViewDto> {
+        let url_ = this.baseUrl + "/api/services/app/OverrideShifts/GetOverrideShiftForView?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetOverrideShiftForView(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetOverrideShiftForView(<any>response_);
+                } catch (e) {
+                    return <Observable<GetOverrideShiftForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetOverrideShiftForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetOverrideShiftForView(response: HttpResponseBase): Observable<GetOverrideShiftForViewDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetOverrideShiftForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetOverrideShiftForViewDto>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getOverrideShiftForEdit(id: number | undefined): Observable<GetOverrideShiftForEditOutput> {
+        let url_ = this.baseUrl + "/api/services/app/OverrideShifts/GetOverrideShiftForEdit?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetOverrideShiftForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetOverrideShiftForEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<GetOverrideShiftForEditOutput>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetOverrideShiftForEditOutput>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetOverrideShiftForEdit(response: HttpResponseBase): Observable<GetOverrideShiftForEditOutput> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetOverrideShiftForEditOutput.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetOverrideShiftForEditOutput>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    createOrEdit(body: CreateOrEditOverrideShiftDto | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/OverrideShifts/CreateOrEdit";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json", 
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOrEdit(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    delete(id: number | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/OverrideShifts/Delete?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDelete(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDelete(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDelete(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param maxDayFilter (optional) 
+     * @param minDayFilter (optional) 
+     * @param userNameFilter (optional) 
+     * @param shiftNameEnFilter (optional) 
+     * @return Success
+     */
+    getOverrideShiftsToExcel(filter: string | undefined, maxDayFilter: moment.Moment | undefined, minDayFilter: moment.Moment | undefined, userNameFilter: string | undefined, shiftNameEnFilter: string | undefined): Observable<FileDto> {
+        let url_ = this.baseUrl + "/api/services/app/OverrideShifts/GetOverrideShiftsToExcel?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (maxDayFilter === null)
+            throw new Error("The parameter 'maxDayFilter' cannot be null.");
+        else if (maxDayFilter !== undefined)
+            url_ += "MaxDayFilter=" + encodeURIComponent(maxDayFilter ? "" + maxDayFilter.toJSON() : "") + "&"; 
+        if (minDayFilter === null)
+            throw new Error("The parameter 'minDayFilter' cannot be null.");
+        else if (minDayFilter !== undefined)
+            url_ += "MinDayFilter=" + encodeURIComponent(minDayFilter ? "" + minDayFilter.toJSON() : "") + "&"; 
+        if (userNameFilter === null)
+            throw new Error("The parameter 'userNameFilter' cannot be null.");
+        else if (userNameFilter !== undefined)
+            url_ += "UserNameFilter=" + encodeURIComponent("" + userNameFilter) + "&"; 
+        if (shiftNameEnFilter === null)
+            throw new Error("The parameter 'shiftNameEnFilter' cannot be null.");
+        else if (shiftNameEnFilter !== undefined)
+            url_ += "ShiftNameEnFilter=" + encodeURIComponent("" + shiftNameEnFilter) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetOverrideShiftsToExcel(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetOverrideShiftsToExcel(<any>response_);
+                } catch (e) {
+                    return <Observable<FileDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<FileDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetOverrideShiftsToExcel(response: HttpResponseBase): Observable<FileDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = FileDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<FileDto>(<any>null);
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
+     * @return Success
+     */
+    getAllUserForLookupTable(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfOverrideShiftUserLookupTableDto> {
+        let url_ = this.baseUrl + "/api/services/app/OverrideShifts/GetAllUserForLookupTable?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllUserForLookupTable(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllUserForLookupTable(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfOverrideShiftUserLookupTableDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfOverrideShiftUserLookupTableDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAllUserForLookupTable(response: HttpResponseBase): Observable<PagedResultDtoOfOverrideShiftUserLookupTableDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfOverrideShiftUserLookupTableDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfOverrideShiftUserLookupTableDto>(<any>null);
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
+     * @return Success
+     */
+    getAllShiftForLookupTable(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfOverrideShiftShiftLookupTableDto> {
+        let url_ = this.baseUrl + "/api/services/app/OverrideShifts/GetAllShiftForLookupTable?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllShiftForLookupTable(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllShiftForLookupTable(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfOverrideShiftShiftLookupTableDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfOverrideShiftShiftLookupTableDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAllShiftForLookupTable(response: HttpResponseBase): Observable<PagedResultDtoOfOverrideShiftShiftLookupTableDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfOverrideShiftShiftLookupTableDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfOverrideShiftShiftLookupTableDto>(<any>null);
+    }
+}
+
+@Injectable()
 export class PaymentServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -25749,6 +26286,543 @@ export class TransServiceProxy {
             }));
         }
         return _observableOf<PagedResultDtoOfTranUserLookupTableDto>(<any>null);
+    }
+}
+
+@Injectable()
+export class TransactionLogsServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param oldValueFilter (optional) 
+     * @param newValueFilter (optional) 
+     * @param transactionTransaction_DateFilter (optional) 
+     * @param userNameFilter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
+     * @return Success
+     */
+    getAll(filter: string | undefined, oldValueFilter: string | undefined, newValueFilter: string | undefined, transactionTransaction_DateFilter: string | undefined, userNameFilter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetTransactionLogForViewDto> {
+        let url_ = this.baseUrl + "/api/services/app/TransactionLogs/GetAll?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (oldValueFilter === null)
+            throw new Error("The parameter 'oldValueFilter' cannot be null.");
+        else if (oldValueFilter !== undefined)
+            url_ += "OldValueFilter=" + encodeURIComponent("" + oldValueFilter) + "&"; 
+        if (newValueFilter === null)
+            throw new Error("The parameter 'newValueFilter' cannot be null.");
+        else if (newValueFilter !== undefined)
+            url_ += "NewValueFilter=" + encodeURIComponent("" + newValueFilter) + "&"; 
+        if (transactionTransaction_DateFilter === null)
+            throw new Error("The parameter 'transactionTransaction_DateFilter' cannot be null.");
+        else if (transactionTransaction_DateFilter !== undefined)
+            url_ += "TransactionTransaction_DateFilter=" + encodeURIComponent("" + transactionTransaction_DateFilter) + "&"; 
+        if (userNameFilter === null)
+            throw new Error("The parameter 'userNameFilter' cannot be null.");
+        else if (userNameFilter !== undefined)
+            url_ += "UserNameFilter=" + encodeURIComponent("" + userNameFilter) + "&"; 
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAll(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfGetTransactionLogForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfGetTransactionLogForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfGetTransactionLogForViewDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfGetTransactionLogForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfGetTransactionLogForViewDto>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getTransactionLogForView(id: number | undefined): Observable<GetTransactionLogForViewDto> {
+        let url_ = this.baseUrl + "/api/services/app/TransactionLogs/GetTransactionLogForView?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetTransactionLogForView(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetTransactionLogForView(<any>response_);
+                } catch (e) {
+                    return <Observable<GetTransactionLogForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetTransactionLogForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetTransactionLogForView(response: HttpResponseBase): Observable<GetTransactionLogForViewDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetTransactionLogForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetTransactionLogForViewDto>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getTransactionLogForEdit(id: number | undefined): Observable<GetTransactionLogForEditOutput> {
+        let url_ = this.baseUrl + "/api/services/app/TransactionLogs/GetTransactionLogForEdit?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetTransactionLogForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetTransactionLogForEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<GetTransactionLogForEditOutput>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetTransactionLogForEditOutput>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetTransactionLogForEdit(response: HttpResponseBase): Observable<GetTransactionLogForEditOutput> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetTransactionLogForEditOutput.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetTransactionLogForEditOutput>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    createOrEdit(body: CreateOrEditTransactionLogDto | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/TransactionLogs/CreateOrEdit";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json", 
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOrEdit(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    delete(id: number | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/TransactionLogs/Delete?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDelete(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDelete(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDelete(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param oldValueFilter (optional) 
+     * @param newValueFilter (optional) 
+     * @param transactionTransaction_DateFilter (optional) 
+     * @param userNameFilter (optional) 
+     * @return Success
+     */
+    getTransactionLogsToExcel(filter: string | undefined, oldValueFilter: string | undefined, newValueFilter: string | undefined, transactionTransaction_DateFilter: string | undefined, userNameFilter: string | undefined): Observable<FileDto> {
+        let url_ = this.baseUrl + "/api/services/app/TransactionLogs/GetTransactionLogsToExcel?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (oldValueFilter === null)
+            throw new Error("The parameter 'oldValueFilter' cannot be null.");
+        else if (oldValueFilter !== undefined)
+            url_ += "OldValueFilter=" + encodeURIComponent("" + oldValueFilter) + "&"; 
+        if (newValueFilter === null)
+            throw new Error("The parameter 'newValueFilter' cannot be null.");
+        else if (newValueFilter !== undefined)
+            url_ += "NewValueFilter=" + encodeURIComponent("" + newValueFilter) + "&"; 
+        if (transactionTransaction_DateFilter === null)
+            throw new Error("The parameter 'transactionTransaction_DateFilter' cannot be null.");
+        else if (transactionTransaction_DateFilter !== undefined)
+            url_ += "TransactionTransaction_DateFilter=" + encodeURIComponent("" + transactionTransaction_DateFilter) + "&"; 
+        if (userNameFilter === null)
+            throw new Error("The parameter 'userNameFilter' cannot be null.");
+        else if (userNameFilter !== undefined)
+            url_ += "UserNameFilter=" + encodeURIComponent("" + userNameFilter) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetTransactionLogsToExcel(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetTransactionLogsToExcel(<any>response_);
+                } catch (e) {
+                    return <Observable<FileDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<FileDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetTransactionLogsToExcel(response: HttpResponseBase): Observable<FileDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = FileDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<FileDto>(<any>null);
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
+     * @return Success
+     */
+    getAllTransactionForLookupTable(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfTransactionLogTransactionLookupTableDto> {
+        let url_ = this.baseUrl + "/api/services/app/TransactionLogs/GetAllTransactionForLookupTable?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllTransactionForLookupTable(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllTransactionForLookupTable(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfTransactionLogTransactionLookupTableDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfTransactionLogTransactionLookupTableDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAllTransactionForLookupTable(response: HttpResponseBase): Observable<PagedResultDtoOfTransactionLogTransactionLookupTableDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfTransactionLogTransactionLookupTableDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfTransactionLogTransactionLookupTableDto>(<any>null);
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
+     * @return Success
+     */
+    getAllUserForLookupTable(filter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfTransactionLogUserLookupTableDto> {
+        let url_ = this.baseUrl + "/api/services/app/TransactionLogs/GetAllUserForLookupTable?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllUserForLookupTable(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllUserForLookupTable(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfTransactionLogUserLookupTableDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfTransactionLogUserLookupTableDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAllUserForLookupTable(response: HttpResponseBase): Observable<PagedResultDtoOfTransactionLogUserLookupTableDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfTransactionLogUserLookupTableDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfTransactionLogUserLookupTableDto>(<any>null);
     }
 }
 
@@ -48883,6 +49957,414 @@ export interface IFindOrganizationUnitRolesInput {
     filter: string | undefined;
 }
 
+export class OverrideShiftDto implements IOverrideShiftDto {
+    day!: moment.Moment;
+    userId!: number | undefined;
+    shiftId!: number | undefined;
+    id!: number;
+
+    constructor(data?: IOverrideShiftDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.day = data["day"] ? moment(data["day"].toString()) : <any>undefined;
+            this.userId = data["userId"];
+            this.shiftId = data["shiftId"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): OverrideShiftDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new OverrideShiftDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["day"] = this.day ? this.day.toISOString() : <any>undefined;
+        data["userId"] = this.userId;
+        data["shiftId"] = this.shiftId;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IOverrideShiftDto {
+    day: moment.Moment;
+    userId: number | undefined;
+    shiftId: number | undefined;
+    id: number;
+}
+
+export class GetOverrideShiftForViewDto implements IGetOverrideShiftForViewDto {
+    overrideShift!: OverrideShiftDto | undefined;
+    userName!: string | undefined;
+    shiftNameEn!: string | undefined;
+
+    constructor(data?: IGetOverrideShiftForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.overrideShift = data["overrideShift"] ? OverrideShiftDto.fromJS(data["overrideShift"]) : <any>undefined;
+            this.userName = data["userName"];
+            this.shiftNameEn = data["shiftNameEn"];
+        }
+    }
+
+    static fromJS(data: any): GetOverrideShiftForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetOverrideShiftForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["overrideShift"] = this.overrideShift ? this.overrideShift.toJSON() : <any>undefined;
+        data["userName"] = this.userName;
+        data["shiftNameEn"] = this.shiftNameEn;
+        return data; 
+    }
+}
+
+export interface IGetOverrideShiftForViewDto {
+    overrideShift: OverrideShiftDto | undefined;
+    userName: string | undefined;
+    shiftNameEn: string | undefined;
+}
+
+export class PagedResultDtoOfGetOverrideShiftForViewDto implements IPagedResultDtoOfGetOverrideShiftForViewDto {
+    totalCount!: number;
+    items!: GetOverrideShiftForViewDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfGetOverrideShiftForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (Array.isArray(data["items"])) {
+                this.items = [] as any;
+                for (let item of data["items"])
+                    this.items!.push(GetOverrideShiftForViewDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfGetOverrideShiftForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfGetOverrideShiftForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfGetOverrideShiftForViewDto {
+    totalCount: number;
+    items: GetOverrideShiftForViewDto[] | undefined;
+}
+
+export class CreateOrEditOverrideShiftDto implements ICreateOrEditOverrideShiftDto {
+    day!: moment.Moment;
+    userId!: number | undefined;
+    shiftId!: number | undefined;
+    id!: number | undefined;
+
+    constructor(data?: ICreateOrEditOverrideShiftDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.day = data["day"] ? moment(data["day"].toString()) : <any>undefined;
+            this.userId = data["userId"];
+            this.shiftId = data["shiftId"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): CreateOrEditOverrideShiftDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateOrEditOverrideShiftDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["day"] = this.day ? this.day.toISOString() : <any>undefined;
+        data["userId"] = this.userId;
+        data["shiftId"] = this.shiftId;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface ICreateOrEditOverrideShiftDto {
+    day: moment.Moment;
+    userId: number | undefined;
+    shiftId: number | undefined;
+    id: number | undefined;
+}
+
+export class GetOverrideShiftForEditOutput implements IGetOverrideShiftForEditOutput {
+    overrideShift!: CreateOrEditOverrideShiftDto | undefined;
+    userName!: string | undefined;
+    shiftNameEn!: string | undefined;
+
+    constructor(data?: IGetOverrideShiftForEditOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.overrideShift = data["overrideShift"] ? CreateOrEditOverrideShiftDto.fromJS(data["overrideShift"]) : <any>undefined;
+            this.userName = data["userName"];
+            this.shiftNameEn = data["shiftNameEn"];
+        }
+    }
+
+    static fromJS(data: any): GetOverrideShiftForEditOutput {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetOverrideShiftForEditOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["overrideShift"] = this.overrideShift ? this.overrideShift.toJSON() : <any>undefined;
+        data["userName"] = this.userName;
+        data["shiftNameEn"] = this.shiftNameEn;
+        return data; 
+    }
+}
+
+export interface IGetOverrideShiftForEditOutput {
+    overrideShift: CreateOrEditOverrideShiftDto | undefined;
+    userName: string | undefined;
+    shiftNameEn: string | undefined;
+}
+
+export class OverrideShiftUserLookupTableDto implements IOverrideShiftUserLookupTableDto {
+    id!: number;
+    displayName!: string | undefined;
+
+    constructor(data?: IOverrideShiftUserLookupTableDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"];
+            this.displayName = data["displayName"];
+        }
+    }
+
+    static fromJS(data: any): OverrideShiftUserLookupTableDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new OverrideShiftUserLookupTableDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["displayName"] = this.displayName;
+        return data; 
+    }
+}
+
+export interface IOverrideShiftUserLookupTableDto {
+    id: number;
+    displayName: string | undefined;
+}
+
+export class PagedResultDtoOfOverrideShiftUserLookupTableDto implements IPagedResultDtoOfOverrideShiftUserLookupTableDto {
+    totalCount!: number;
+    items!: OverrideShiftUserLookupTableDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfOverrideShiftUserLookupTableDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (Array.isArray(data["items"])) {
+                this.items = [] as any;
+                for (let item of data["items"])
+                    this.items!.push(OverrideShiftUserLookupTableDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfOverrideShiftUserLookupTableDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfOverrideShiftUserLookupTableDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfOverrideShiftUserLookupTableDto {
+    totalCount: number;
+    items: OverrideShiftUserLookupTableDto[] | undefined;
+}
+
+export class OverrideShiftShiftLookupTableDto implements IOverrideShiftShiftLookupTableDto {
+    id!: number;
+    displayName!: string | undefined;
+
+    constructor(data?: IOverrideShiftShiftLookupTableDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"];
+            this.displayName = data["displayName"];
+        }
+    }
+
+    static fromJS(data: any): OverrideShiftShiftLookupTableDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new OverrideShiftShiftLookupTableDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["displayName"] = this.displayName;
+        return data; 
+    }
+}
+
+export interface IOverrideShiftShiftLookupTableDto {
+    id: number;
+    displayName: string | undefined;
+}
+
+export class PagedResultDtoOfOverrideShiftShiftLookupTableDto implements IPagedResultDtoOfOverrideShiftShiftLookupTableDto {
+    totalCount!: number;
+    items!: OverrideShiftShiftLookupTableDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfOverrideShiftShiftLookupTableDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (Array.isArray(data["items"])) {
+                this.items = [] as any;
+                for (let item of data["items"])
+                    this.items!.push(OverrideShiftShiftLookupTableDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfOverrideShiftShiftLookupTableDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfOverrideShiftShiftLookupTableDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfOverrideShiftShiftLookupTableDto {
+    totalCount: number;
+    items: OverrideShiftShiftLookupTableDto[] | undefined;
+}
+
 export class EditionSelectDto implements IEditionSelectDto {
     id!: number;
     name!: string | undefined;
@@ -52476,6 +53958,16 @@ export interface IUpdateUserSignInTokenOutput {
     encodedTenantId: string | undefined;
 }
 
+export enum DayDto {
+    Starday = 1,
+    Sunday = 2,
+    Monday = 3,
+    Tuesday = 4,
+    Wednesday = 5,
+    Thursday = 6,
+    Friday = 7,
+}
+
 export enum ShiftTypeEnumDto {
     Normal = 1,
     OverTime = 2,
@@ -52485,8 +53977,22 @@ export class ShiftDto implements IShiftDto {
     nameAr!: string | undefined;
     nameEn!: string | undefined;
     code!: string | undefined;
+    dayOff!: DayDto;
+    dayRest!: DayDto;
+    isDayRestCalculated!: boolean;
+    totalHoursPerDay!: number;
+    isInOutWithoutClculateHours!: boolean;
+    isFlexible!: boolean;
+    isOneFingerprint!: boolean;
+    isTwoFingerprint!: boolean;
     timeIn!: number;
     timeOut!: number;
+    totalLateMinutesPerMonth!: number;
+    totalLateMinutesPerMonthRamadan!: number;
+    hasRamadanSetting!: boolean;
+    totalHoursPerDayRamadan!: number;
+    timeInRamadan!: number;
+    timeOutRamadan!: number;
     earlyIn!: number;
     lateIn!: number;
     earlyOut!: number;
@@ -52514,8 +54020,22 @@ export class ShiftDto implements IShiftDto {
             this.nameAr = data["nameAr"];
             this.nameEn = data["nameEn"];
             this.code = data["code"];
+            this.dayOff = data["dayOff"];
+            this.dayRest = data["dayRest"];
+            this.isDayRestCalculated = data["isDayRestCalculated"];
+            this.totalHoursPerDay = data["totalHoursPerDay"];
+            this.isInOutWithoutClculateHours = data["isInOutWithoutClculateHours"];
+            this.isFlexible = data["isFlexible"];
+            this.isOneFingerprint = data["isOneFingerprint"];
+            this.isTwoFingerprint = data["isTwoFingerprint"];
             this.timeIn = data["timeIn"];
             this.timeOut = data["timeOut"];
+            this.totalLateMinutesPerMonth = data["totalLateMinutesPerMonth"];
+            this.totalLateMinutesPerMonthRamadan = data["totalLateMinutesPerMonthRamadan"];
+            this.hasRamadanSetting = data["hasRamadanSetting"];
+            this.totalHoursPerDayRamadan = data["totalHoursPerDayRamadan"];
+            this.timeInRamadan = data["timeInRamadan"];
+            this.timeOutRamadan = data["timeOutRamadan"];
             this.earlyIn = data["earlyIn"];
             this.lateIn = data["lateIn"];
             this.earlyOut = data["earlyOut"];
@@ -52543,8 +54063,22 @@ export class ShiftDto implements IShiftDto {
         data["nameAr"] = this.nameAr;
         data["nameEn"] = this.nameEn;
         data["code"] = this.code;
+        data["dayOff"] = this.dayOff;
+        data["dayRest"] = this.dayRest;
+        data["isDayRestCalculated"] = this.isDayRestCalculated;
+        data["totalHoursPerDay"] = this.totalHoursPerDay;
+        data["isInOutWithoutClculateHours"] = this.isInOutWithoutClculateHours;
+        data["isFlexible"] = this.isFlexible;
+        data["isOneFingerprint"] = this.isOneFingerprint;
+        data["isTwoFingerprint"] = this.isTwoFingerprint;
         data["timeIn"] = this.timeIn;
         data["timeOut"] = this.timeOut;
+        data["totalLateMinutesPerMonth"] = this.totalLateMinutesPerMonth;
+        data["totalLateMinutesPerMonthRamadan"] = this.totalLateMinutesPerMonthRamadan;
+        data["hasRamadanSetting"] = this.hasRamadanSetting;
+        data["totalHoursPerDayRamadan"] = this.totalHoursPerDayRamadan;
+        data["timeInRamadan"] = this.timeInRamadan;
+        data["timeOutRamadan"] = this.timeOutRamadan;
         data["earlyIn"] = this.earlyIn;
         data["lateIn"] = this.lateIn;
         data["earlyOut"] = this.earlyOut;
@@ -52565,8 +54099,22 @@ export interface IShiftDto {
     nameAr: string | undefined;
     nameEn: string | undefined;
     code: string | undefined;
+    dayOff: DayDto;
+    dayRest: DayDto;
+    isDayRestCalculated: boolean;
+    totalHoursPerDay: number;
+    isInOutWithoutClculateHours: boolean;
+    isFlexible: boolean;
+    isOneFingerprint: boolean;
+    isTwoFingerprint: boolean;
     timeIn: number;
     timeOut: number;
+    totalLateMinutesPerMonth: number;
+    totalLateMinutesPerMonthRamadan: number;
+    hasRamadanSetting: boolean;
+    totalHoursPerDayRamadan: number;
+    timeInRamadan: number;
+    timeOutRamadan: number;
     earlyIn: number;
     lateIn: number;
     earlyOut: number;
@@ -52665,24 +54213,26 @@ export interface IPagedResultDtoOfGetShiftForViewDto {
     items: GetShiftForViewDto[] | undefined;
 }
 
-export enum DayDto {
-    Starday = 1,
-    Sunday = 2,
-    Monday = 3,
-    Tuesday = 4,
-    Wednesday = 5,
-    Thursday = 6,
-    Friday = 7,
-}
-
 export class CreateOrEditShiftDto implements ICreateOrEditShiftDto {
     nameAr!: string;
     nameEn!: string;
     code!: string;
     dayOff!: DayDto;
     dayRest!: DayDto;
+    isDayRestCalculated!: boolean;
+    totalHoursPerDay!: number;
+    isFlexible!: boolean;
+    isOneFingerprint!: boolean;
+    isTwoFingerprint!: boolean;
+    isInOutWithoutClculateHours!: boolean;
     timeIn!: number;
     timeOut!: number;
+    totalLateMinutesPerMonth!: number;
+    totalLateMinutesPerMonthRamadan!: number;
+    hasRamadanSetting!: boolean;
+    totalHoursPerDayRamadan!: number;
+    timeInRamadan!: number;
+    timeOutRamadan!: number;
     earlyIn!: number;
     lateIn!: number;
     earlyOut!: number;
@@ -52712,8 +54262,20 @@ export class CreateOrEditShiftDto implements ICreateOrEditShiftDto {
             this.code = data["code"];
             this.dayOff = data["dayOff"];
             this.dayRest = data["dayRest"];
+            this.isDayRestCalculated = data["isDayRestCalculated"];
+            this.totalHoursPerDay = data["totalHoursPerDay"];
+            this.isFlexible = data["isFlexible"];
+            this.isOneFingerprint = data["isOneFingerprint"];
+            this.isTwoFingerprint = data["isTwoFingerprint"];
+            this.isInOutWithoutClculateHours = data["isInOutWithoutClculateHours"];
             this.timeIn = data["timeIn"];
             this.timeOut = data["timeOut"];
+            this.totalLateMinutesPerMonth = data["totalLateMinutesPerMonth"];
+            this.totalLateMinutesPerMonthRamadan = data["totalLateMinutesPerMonthRamadan"];
+            this.hasRamadanSetting = data["hasRamadanSetting"];
+            this.totalHoursPerDayRamadan = data["totalHoursPerDayRamadan"];
+            this.timeInRamadan = data["timeInRamadan"];
+            this.timeOutRamadan = data["timeOutRamadan"];
             this.earlyIn = data["earlyIn"];
             this.lateIn = data["lateIn"];
             this.earlyOut = data["earlyOut"];
@@ -52743,8 +54305,20 @@ export class CreateOrEditShiftDto implements ICreateOrEditShiftDto {
         data["code"] = this.code;
         data["dayOff"] = this.dayOff;
         data["dayRest"] = this.dayRest;
+        data["isDayRestCalculated"] = this.isDayRestCalculated;
+        data["totalHoursPerDay"] = this.totalHoursPerDay;
+        data["isFlexible"] = this.isFlexible;
+        data["isOneFingerprint"] = this.isOneFingerprint;
+        data["isTwoFingerprint"] = this.isTwoFingerprint;
+        data["isInOutWithoutClculateHours"] = this.isInOutWithoutClculateHours;
         data["timeIn"] = this.timeIn;
         data["timeOut"] = this.timeOut;
+        data["totalLateMinutesPerMonth"] = this.totalLateMinutesPerMonth;
+        data["totalLateMinutesPerMonthRamadan"] = this.totalLateMinutesPerMonthRamadan;
+        data["hasRamadanSetting"] = this.hasRamadanSetting;
+        data["totalHoursPerDayRamadan"] = this.totalHoursPerDayRamadan;
+        data["timeInRamadan"] = this.timeInRamadan;
+        data["timeOutRamadan"] = this.timeOutRamadan;
         data["earlyIn"] = this.earlyIn;
         data["lateIn"] = this.lateIn;
         data["earlyOut"] = this.earlyOut;
@@ -52767,8 +54341,20 @@ export interface ICreateOrEditShiftDto {
     code: string;
     dayOff: DayDto;
     dayRest: DayDto;
+    isDayRestCalculated: boolean;
+    totalHoursPerDay: number;
+    isFlexible: boolean;
+    isOneFingerprint: boolean;
+    isTwoFingerprint: boolean;
+    isInOutWithoutClculateHours: boolean;
     timeIn: number;
     timeOut: number;
+    totalLateMinutesPerMonth: number;
+    totalLateMinutesPerMonthRamadan: number;
+    hasRamadanSetting: boolean;
+    totalHoursPerDayRamadan: number;
+    timeInRamadan: number;
+    timeOutRamadan: number;
     earlyIn: number;
     lateIn: number;
     earlyOut: number;
@@ -57779,6 +59365,422 @@ export class PagedResultDtoOfTranUserLookupTableDto implements IPagedResultDtoOf
 export interface IPagedResultDtoOfTranUserLookupTableDto {
     totalCount: number;
     items: TranUserLookupTableDto[] | undefined;
+}
+
+export class TransactionLogDto implements ITransactionLogDto {
+    oldValue!: string | undefined;
+    newValue!: string | undefined;
+    transactionId!: number | undefined;
+    actionBy!: number | undefined;
+    id!: number;
+
+    constructor(data?: ITransactionLogDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.oldValue = data["oldValue"];
+            this.newValue = data["newValue"];
+            this.transactionId = data["transactionId"];
+            this.actionBy = data["actionBy"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): TransactionLogDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new TransactionLogDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["oldValue"] = this.oldValue;
+        data["newValue"] = this.newValue;
+        data["transactionId"] = this.transactionId;
+        data["actionBy"] = this.actionBy;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface ITransactionLogDto {
+    oldValue: string | undefined;
+    newValue: string | undefined;
+    transactionId: number | undefined;
+    actionBy: number | undefined;
+    id: number;
+}
+
+export class GetTransactionLogForViewDto implements IGetTransactionLogForViewDto {
+    transactionLog!: TransactionLogDto | undefined;
+    transactionTransaction_Date!: string | undefined;
+    userName!: string | undefined;
+
+    constructor(data?: IGetTransactionLogForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.transactionLog = data["transactionLog"] ? TransactionLogDto.fromJS(data["transactionLog"]) : <any>undefined;
+            this.transactionTransaction_Date = data["transactionTransaction_Date"];
+            this.userName = data["userName"];
+        }
+    }
+
+    static fromJS(data: any): GetTransactionLogForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetTransactionLogForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["transactionLog"] = this.transactionLog ? this.transactionLog.toJSON() : <any>undefined;
+        data["transactionTransaction_Date"] = this.transactionTransaction_Date;
+        data["userName"] = this.userName;
+        return data; 
+    }
+}
+
+export interface IGetTransactionLogForViewDto {
+    transactionLog: TransactionLogDto | undefined;
+    transactionTransaction_Date: string | undefined;
+    userName: string | undefined;
+}
+
+export class PagedResultDtoOfGetTransactionLogForViewDto implements IPagedResultDtoOfGetTransactionLogForViewDto {
+    totalCount!: number;
+    items!: GetTransactionLogForViewDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfGetTransactionLogForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (Array.isArray(data["items"])) {
+                this.items = [] as any;
+                for (let item of data["items"])
+                    this.items!.push(GetTransactionLogForViewDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfGetTransactionLogForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfGetTransactionLogForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfGetTransactionLogForViewDto {
+    totalCount: number;
+    items: GetTransactionLogForViewDto[] | undefined;
+}
+
+export class CreateOrEditTransactionLogDto implements ICreateOrEditTransactionLogDto {
+    oldValue!: string | undefined;
+    newValue!: string | undefined;
+    transactionId!: number | undefined;
+    actionBy!: number | undefined;
+    id!: number | undefined;
+
+    constructor(data?: ICreateOrEditTransactionLogDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.oldValue = data["oldValue"];
+            this.newValue = data["newValue"];
+            this.transactionId = data["transactionId"];
+            this.actionBy = data["actionBy"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): CreateOrEditTransactionLogDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateOrEditTransactionLogDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["oldValue"] = this.oldValue;
+        data["newValue"] = this.newValue;
+        data["transactionId"] = this.transactionId;
+        data["actionBy"] = this.actionBy;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface ICreateOrEditTransactionLogDto {
+    oldValue: string | undefined;
+    newValue: string | undefined;
+    transactionId: number | undefined;
+    actionBy: number | undefined;
+    id: number | undefined;
+}
+
+export class GetTransactionLogForEditOutput implements IGetTransactionLogForEditOutput {
+    transactionLog!: CreateOrEditTransactionLogDto | undefined;
+    transactionTransaction_Date!: string | undefined;
+    userName!: string | undefined;
+
+    constructor(data?: IGetTransactionLogForEditOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.transactionLog = data["transactionLog"] ? CreateOrEditTransactionLogDto.fromJS(data["transactionLog"]) : <any>undefined;
+            this.transactionTransaction_Date = data["transactionTransaction_Date"];
+            this.userName = data["userName"];
+        }
+    }
+
+    static fromJS(data: any): GetTransactionLogForEditOutput {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetTransactionLogForEditOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["transactionLog"] = this.transactionLog ? this.transactionLog.toJSON() : <any>undefined;
+        data["transactionTransaction_Date"] = this.transactionTransaction_Date;
+        data["userName"] = this.userName;
+        return data; 
+    }
+}
+
+export interface IGetTransactionLogForEditOutput {
+    transactionLog: CreateOrEditTransactionLogDto | undefined;
+    transactionTransaction_Date: string | undefined;
+    userName: string | undefined;
+}
+
+export class TransactionLogTransactionLookupTableDto implements ITransactionLogTransactionLookupTableDto {
+    id!: number;
+    displayName!: string | undefined;
+
+    constructor(data?: ITransactionLogTransactionLookupTableDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"];
+            this.displayName = data["displayName"];
+        }
+    }
+
+    static fromJS(data: any): TransactionLogTransactionLookupTableDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new TransactionLogTransactionLookupTableDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["displayName"] = this.displayName;
+        return data; 
+    }
+}
+
+export interface ITransactionLogTransactionLookupTableDto {
+    id: number;
+    displayName: string | undefined;
+}
+
+export class PagedResultDtoOfTransactionLogTransactionLookupTableDto implements IPagedResultDtoOfTransactionLogTransactionLookupTableDto {
+    totalCount!: number;
+    items!: TransactionLogTransactionLookupTableDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfTransactionLogTransactionLookupTableDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (Array.isArray(data["items"])) {
+                this.items = [] as any;
+                for (let item of data["items"])
+                    this.items!.push(TransactionLogTransactionLookupTableDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfTransactionLogTransactionLookupTableDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfTransactionLogTransactionLookupTableDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfTransactionLogTransactionLookupTableDto {
+    totalCount: number;
+    items: TransactionLogTransactionLookupTableDto[] | undefined;
+}
+
+export class TransactionLogUserLookupTableDto implements ITransactionLogUserLookupTableDto {
+    id!: number;
+    displayName!: string | undefined;
+
+    constructor(data?: ITransactionLogUserLookupTableDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"];
+            this.displayName = data["displayName"];
+        }
+    }
+
+    static fromJS(data: any): TransactionLogUserLookupTableDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new TransactionLogUserLookupTableDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["displayName"] = this.displayName;
+        return data; 
+    }
+}
+
+export interface ITransactionLogUserLookupTableDto {
+    id: number;
+    displayName: string | undefined;
+}
+
+export class PagedResultDtoOfTransactionLogUserLookupTableDto implements IPagedResultDtoOfTransactionLogUserLookupTableDto {
+    totalCount!: number;
+    items!: TransactionLogUserLookupTableDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfTransactionLogUserLookupTableDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (Array.isArray(data["items"])) {
+                this.items = [] as any;
+                for (let item of data["items"])
+                    this.items!.push(TransactionLogUserLookupTableDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfTransactionLogUserLookupTableDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfTransactionLogUserLookupTableDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfTransactionLogUserLookupTableDto {
+    totalCount: number;
+    items: TransactionLogUserLookupTableDto[] | undefined;
 }
 
 export class TransactionDto implements ITransactionDto {

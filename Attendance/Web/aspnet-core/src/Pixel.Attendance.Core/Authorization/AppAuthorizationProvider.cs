@@ -30,6 +30,20 @@ namespace Pixel.Attendance.Authorization
 
             var pages = context.GetPermissionOrNull(AppPermissions.Pages) ?? context.CreatePermission(AppPermissions.Pages, L("Pages"));
 
+            var transactionLogs = pages.CreateChildPermission(AppPermissions.Pages_TransactionLogs, L("TransactionLogs"));
+            transactionLogs.CreateChildPermission(AppPermissions.Pages_TransactionLogs_Create, L("CreateNewTransactionLog"));
+            transactionLogs.CreateChildPermission(AppPermissions.Pages_TransactionLogs_Edit, L("EditTransactionLog"));
+            transactionLogs.CreateChildPermission(AppPermissions.Pages_TransactionLogs_Delete, L("DeleteTransactionLog"));
+
+
+
+            var overrideShifts = pages.CreateChildPermission(AppPermissions.Pages_OverrideShifts, L("OverrideShifts"));
+            overrideShifts.CreateChildPermission(AppPermissions.Pages_OverrideShifts_Create, L("CreateNewOverrideShift"));
+            overrideShifts.CreateChildPermission(AppPermissions.Pages_OverrideShifts_Edit, L("EditOverrideShift"));
+            overrideShifts.CreateChildPermission(AppPermissions.Pages_OverrideShifts_Delete, L("DeleteOverrideShift"));
+
+
+
             var employeeTempTransfers = pages.CreateChildPermission(AppPermissions.Pages_EmployeeTempTransfers, L("EmployeeTempTransfers"));
             employeeTempTransfers.CreateChildPermission(AppPermissions.Pages_EmployeeTempTransfers_Create, L("CreateNewEmployeeTempTransfer"));
             employeeTempTransfers.CreateChildPermission(AppPermissions.Pages_EmployeeTempTransfers_Edit, L("EditEmployeeTempTransfer"));

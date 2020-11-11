@@ -1,5 +1,7 @@
 ﻿import { ManagerReportComponent } from './operations/reports/manager-report.component';
 import { FixedOvertimeComponent } from './operations/reports/fixed-overtime.component';
+import { TransactionLogsComponent } from './operations/transactionLogs/transactionLogs.component';
+import { OverrideShiftsComponent } from './setting/overrideShifts/overrideShifts.component';
 import { EmployeeTempTransfersComponent } from './operations/employeeTempTransfers/employeeTempTransfers.component';
 import { OrganizationLocationsComponent } from './operations/organizationLocations/organizationLocations.component';
 import { ProjectLocationsComponent } from './operations/projectLocations/projectLocations.component';
@@ -67,6 +69,8 @@ import { ProjectSheetComponent } from './operations/reports/project-sheet.compon
             {
                 path: '',
                 children: [
+                    { path: 'operations/transactionLogs', component: TransactionLogsComponent, data: { permission: 'Pages.TransactionLogs' }  },
+                    { path: 'setting/overrideShifts', component: OverrideShiftsComponent, data: { permission: 'Pages.OverrideShifts' }  },
                     { path: 'operations/employeeTempTransfers', component: EmployeeTempTransfersComponent, data: { permission: 'Pages.EmployeeTempTransfers' }  },
                     { path: 'operations/organizationLocations', component: OrganizationLocationsComponent, data: { permission: 'Pages.OrganizationLocations' }  },
                     { path: 'operations/projectLocations', component: ProjectLocationsComponent, data: { permission: 'Pages.ProjectLocations' }  },

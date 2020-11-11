@@ -3,6 +3,18 @@ import { NormalOvertimeComponent } from './operations/reports/normal-overtime.co
 import { FixedOvertimeComponent } from './operations/reports/fixed-overtime.component';
 
 import { ManagerLevelApproveComponent } from './operations/reports/maneger-level-approve';
+import { TransactionLogsComponent } from './operations/transactionLogs/transactionLogs.component';
+import { ViewTransactionLogModalComponent } from './operations/transactionLogs/view-transactionLog-modal.component';
+import { CreateOrEditTransactionLogModalComponent } from './operations/transactionLogs/create-or-edit-transactionLog-modal.component';
+import { TransactionLogTransactionLookupTableModalComponent } from './operations/transactionLogs/transactionLog-transaction-lookup-table-modal.component';
+import { TransactionLogUserLookupTableModalComponent } from './operations/transactionLogs/transactionLog-user-lookup-table-modal.component';
+
+import { OverrideShiftsComponent } from './setting/overrideShifts/overrideShifts.component';
+import { ViewOverrideShiftModalComponent } from './setting/overrideShifts/view-overrideShift-modal.component';
+import { CreateOrEditOverrideShiftModalComponent } from './setting/overrideShifts/create-or-edit-overrideShift-modal.component';
+import { OverrideShiftUserLookupTableModalComponent } from './setting/overrideShifts/overrideShift-user-lookup-table-modal.component';
+import { OverrideShiftShiftLookupTableModalComponent } from './setting/overrideShifts/overrideShift-shift-lookup-table-modal.component';
+
 import { EmployeeTempTransfersComponent } from './operations/employeeTempTransfers/employeeTempTransfers.component';
 import { ViewEmployeeTempTransferModalComponent } from './operations/employeeTempTransfers/view-employeeTempTransfer-modal.component';
 import { CreateOrEditEmployeeTempTransferModalComponent } from './operations/employeeTempTransfers/create-or-edit-employeeTempTransfer-modal.component';
@@ -299,6 +311,14 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
           }),
     ],
     declarations: [
+		TransactionLogsComponent,
+		ViewTransactionLogModalComponent,		CreateOrEditTransactionLogModalComponent,
+    TransactionLogTransactionLookupTableModalComponent,
+    TransactionLogUserLookupTableModalComponent,
+		OverrideShiftsComponent,
+		ViewOverrideShiftModalComponent,		CreateOrEditOverrideShiftModalComponent,
+    OverrideShiftUserLookupTableModalComponent,
+    OverrideShiftShiftLookupTableModalComponent,
 		EmployeeTempTransfersComponent,
 		ViewEmployeeTempTransferModalComponent,		CreateOrEditEmployeeTempTransferModalComponent,
     EmployeeTempTransferOrganizationUnitLookupTableModalComponent,

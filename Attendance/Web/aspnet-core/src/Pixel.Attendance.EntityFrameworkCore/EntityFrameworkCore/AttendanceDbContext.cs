@@ -23,6 +23,10 @@ namespace Pixel.Attendance.EntityFrameworkCore
 {
     public class AttendanceDbContext : AbpZeroDbContext<Tenant, Role, User, AttendanceDbContext>, IAbpPersistedGrantDbContext
     {
+        public virtual DbSet<TransactionLog> TransactionLogs { get; set; }
+
+        public virtual DbSet<OverrideShift> OverrideShifts { get; set; }
+
         public virtual DbSet<EmployeeTempTransfer> EmployeeTempTransfers { get; set; }
 
         public virtual DbSet<OrganizationLocation> OrganizationLocations { get; set; }
