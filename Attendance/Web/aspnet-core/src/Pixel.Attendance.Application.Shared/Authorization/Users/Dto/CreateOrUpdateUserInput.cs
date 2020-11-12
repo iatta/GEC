@@ -41,8 +41,8 @@ namespace Pixel.Attendance.Authorization.Users.Dto
 
         public string Extension { get; set; }
         public int? JobTitleId { get; set; }
+        public int? ShiftId { get; set; }
 
-        
         public virtual JobTitleDto JobTitle { get; set; }
 
         //public string Nationality { get; set; }
@@ -66,7 +66,7 @@ namespace Pixel.Attendance.Authorization.Users.Dto
 
         public bool UserLoaded { get; set; }
         public bool IsFixedOverTimeAllowed { get; set; }
-        
+        public bool IsNormalOverTimeAllowed { get; set; }
 
         //public CreateOrEditTimeProfileDto TimeProfile { get; set; }
         [NotMapped]

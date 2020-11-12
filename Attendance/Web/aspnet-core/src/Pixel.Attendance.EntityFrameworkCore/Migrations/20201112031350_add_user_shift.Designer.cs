@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Pixel.Attendance.EntityFrameworkCore;
 
 namespace Pixel.Attendance.Migrations
 {
     [DbContext(typeof(AttendanceDbContext))]
-    partial class AttendanceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201112031350_add_user_shift")]
+    partial class add_user_shift
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1552,9 +1554,6 @@ namespace Pixel.Attendance.Migrations
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsLockoutEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsNormalOverTimeAllowed")
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsOvertimeAllowed")

@@ -296,14 +296,15 @@ namespace Pixel.Attendance.Authorization.Users
                 .ToArrayAsync();
 
             var allOrganizationUnits = await _organizationUnitRepository.GetAllListAsync();
-
+                var allShifts = await _shiftRepository.GetAllListAsync();
 
             var output = new GetUserForEditOutput
             {
                 Roles = userRoleDtos,
                 AllOrganizationUnits = ObjectMapper.Map<List<OrganizationUnitDto>>(allOrganizationUnits),
                 MemberedOrganizationUnits = new List<string>(),
-                MemberOrganizationUnit = ""
+                MemberOrganizationUnit = "",
+                Shifts = ObjectMapper.Map<List<ShiftDto>>(allShifts)
             };
 
             if (user != null)
@@ -382,7 +383,7 @@ namespace Pixel.Attendance.Authorization.Users
             var allOrganizationUnits = await _organizationUnitRepository.GetAllListAsync();
             var nationalities = await _nationalityRepository.GetAllListAsync();
             var allBeacons = await _beaconRepository.GetAllListAsync();
-
+            var allShifts = await _shiftRepository.GetAllListAsync();
             //user shifts 
 
 
@@ -390,6 +391,7 @@ namespace Pixel.Attendance.Authorization.Users
             {
                 
                 Locations = userLocationDtos,
+                Shifts = ObjectMapper.Map<List<ShiftDto>>(allShifts),
                 Nationalities = ObjectMapper.Map<List<NationalityDto>>(nationalities),
                 Roles = userRoleDtos,
                 AllOrganizationUnits = ObjectMapper.Map<List<OrganizationUnitDto>>(allOrganizationUnits),

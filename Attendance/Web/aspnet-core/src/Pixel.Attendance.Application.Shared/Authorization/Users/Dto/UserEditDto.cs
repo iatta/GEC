@@ -53,7 +53,7 @@ namespace Pixel.Attendance.Authorization.Users.Dto
         public virtual bool IsTwoFactorEnabled { get; set; }
 
         public virtual bool IsLockoutEnabled { get; set; }
-
+        public int? ShiftId { get; set; }
         public string Code { get; set; }
         public string FingerCode { get; set; }
         public string CardNumber { get; set; }
@@ -94,7 +94,7 @@ namespace Pixel.Attendance.Authorization.Users.Dto
         public string BeaconUid { get; set; }
         public bool IsFixedOverTimeAllowed { get; set; }
 
-
+        public bool IsNormalOverTimeAllowed { get; set; }
         //public CreateOrEditTimeProfileDto TimeProfile { get; set; }
         public List<GetUserShiftForViewDto> UserShifts { get; set; }
         public List<GetOverrideShiftForViewDto> OverrideShifts { get; set; }

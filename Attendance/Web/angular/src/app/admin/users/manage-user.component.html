@@ -209,20 +209,35 @@
                                 <div class="col-lg-2 input-group-prepend" style="margin-top: 27px;">
                                     <button class="btn btn-warning" type="button" (click)="openUnitModal()" >{{l('ChooseUnit')}}</button>
                                 </div>
+                                 <div class="col-lg-6">
+                                    <label for="ShiftId">{{"Shift" | localize}}</label>
+                                    <select [ngClass]="{ 'is-invalid': userForm.submitted && shiftIdInput.invalid}" required #shiftIdInput="ngModel" name="ShiftId" class="form-control bs-select" [(ngModel)]="user.shiftId">
+                                        <option *ngFor="let shift of shifts" [value]="shift.id">
+                                            {{shift.nameEn}}
+                                        </option>
+                                    </select>
+                                </div>
 
                             </div>
 
                             <div class="form-group row">
                                 <div class="col-lg-6" style="display: inline-flex;">
+
                                     <div class="col-lg-3">
                                         <div class="checkbox-inline">
                                             <label for="isOvertimeAllowed"> {{l('isOvertimeAllowed')}}</label>
-                                            <input style="width: 15px;" type="checkbox" class="form-control" name="isOvertimeAllowed"  (change)="overTimeChanged($event)" [(ngModel)]="user.isOvertimeAllowed" [ngModelOptions]="{standalone: true}"></div>
+                                            <input style="width: 15px;" type="checkbox" class="form-control" name="isOvertimeAllowed"    [(ngModel)]="user.isOvertimeAllowed" [ngModelOptions]="{standalone: true}"></div>
                                     </div>
-                                    <div class="col-lg-3" *ngIf="user.isOvertimeAllowed" >
+                                    <div class="col-lg-3">
+                                        <div class="checkbox-inline">
+                                            <label for="isNormalOvertimeAllowed"> {{l('isOvertimeAllowed')}}</label>
+                                            <input style="width: 15px;" type="checkbox" class="form-control" name="isNormalOvertimeAllowed"  (change)="normalOvertimeChanged($event)" [(ngModel)]="user.isNormalOverTimeAllowed" [ngModelOptions]="{standalone: true}"></div>
+                                    </div>
+
+                                    <div class="col-lg-3">
                                         <div class="checkbox-inline">
                                             <label for="isFixedOverTimeAllowed"> {{l('IsFixedOverTimeAllowed')}}</label>
-                                            <input style="width: 15px;" type="checkbox" class="form-control" name="isFixedOverTimeAllowed" [(ngModel)]="user.isFixedOverTimeAllowed" [ngModelOptions]="{standalone: true}"></div>
+                                            <input style="width: 15px;" type="checkbox" class="form-control" name="isFixedOverTimeAllowed" (change)="fixedOvertimeChanged($event)" [(ngModel)]="user.isFixedOverTimeAllowed" [ngModelOptions]="{standalone: true}"></div>
                                     </div>
                                 </div>
                                 <div class="col-lg-6" style="display: inline-flex;">

@@ -1,5 +1,5 @@
 import { Table } from 'primeng/table';
-import { UserLocationDto, AssignedLocationDto, TimeProfileDetailDto } from './../../../shared/service-proxies/service-proxies';
+import { UserLocationDto, AssignedLocationDto, TimeProfileDetailDto ,ShiftDto } from './../../../shared/service-proxies/service-proxies';
 import { NgForm } from '@angular/forms';
 import { OrganizationUnitsHorizontalTreeModalUserComponent } from './../shared/organization-horizontal-tree-modal-user.component';
 import { OrganizationUnitsHorizontalTreeModalComponent } from './../shared/organization-horizontal-tree-modal.component';
@@ -66,6 +66,7 @@ export class ManageUserComponent extends AppComponentBase implements OnInit {
     memberedOrganizationUnit:string;
     userPasswordRepeat = '';
     jobTitles:  JobTitleDto[];
+    shifts:  ShiftDto[];
     userId: number;
     titles:SelectItem[] = [];
     userTypes:SelectItem[] = [];
@@ -174,6 +175,7 @@ export class ManageUserComponent extends AppComponentBase implements OnInit {
 
             debugger
             this.user = userResult.user;
+            this.shifts = userResult.shifts;
             console.log(this.user);
             this.userLoaded = true;
             if(!this.user.overrideShifts)
@@ -530,6 +532,14 @@ export class ManageUserComponent extends AppComponentBase implements OnInit {
 
 
         this.table.reset();
+    }
+
+    normalOvertimeChanged(val){
+        this.user.isFixedOverTimeAllowed =  !this.user.isNormalOverTimeAllowed;
+    }
+
+    fixedOvertimeChanged(val){
+        this.user.isNormalOverTimeAllowed = !this.user.isFixedOverTimeAllowed;
     }
 
 }

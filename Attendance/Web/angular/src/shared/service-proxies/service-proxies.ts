@@ -61155,10 +61155,12 @@ export class UserListDto implements IUserListDto {
     telephone_2!: string | undefined;
     extension!: string | undefined;
     jobTitleId!: number | undefined;
+    shiftId!: number | undefined;
     jobTitle!: JobTitleDto | undefined;
     titleId!: number;
     nationalityId!: number | undefined;
     nationality!: NationalityDto | undefined;
+    isNormalOverTimeAllowed!: boolean;
     dateOfBirth!: moment.Moment;
     terminationDate!: moment.Moment | undefined;
     joinDate!: moment.Moment;
@@ -61209,10 +61211,12 @@ export class UserListDto implements IUserListDto {
             this.telephone_2 = data["telephone_2"];
             this.extension = data["extension"];
             this.jobTitleId = data["jobTitleId"];
+            this.shiftId = data["shiftId"];
             this.jobTitle = data["jobTitle"] ? JobTitleDto.fromJS(data["jobTitle"]) : <any>undefined;
             this.titleId = data["titleId"];
             this.nationalityId = data["nationalityId"];
             this.nationality = data["nationality"] ? NationalityDto.fromJS(data["nationality"]) : <any>undefined;
+            this.isNormalOverTimeAllowed = data["isNormalOverTimeAllowed"];
             this.dateOfBirth = data["dateOfBirth"] ? moment(data["dateOfBirth"].toString()) : <any>undefined;
             this.terminationDate = data["terminationDate"] ? moment(data["terminationDate"].toString()) : <any>undefined;
             this.joinDate = data["joinDate"] ? moment(data["joinDate"].toString()) : <any>undefined;
@@ -61263,10 +61267,12 @@ export class UserListDto implements IUserListDto {
         data["telephone_2"] = this.telephone_2;
         data["extension"] = this.extension;
         data["jobTitleId"] = this.jobTitleId;
+        data["shiftId"] = this.shiftId;
         data["jobTitle"] = this.jobTitle ? this.jobTitle.toJSON() : <any>undefined;
         data["titleId"] = this.titleId;
         data["nationalityId"] = this.nationalityId;
         data["nationality"] = this.nationality ? this.nationality.toJSON() : <any>undefined;
+        data["isNormalOverTimeAllowed"] = this.isNormalOverTimeAllowed;
         data["dateOfBirth"] = this.dateOfBirth ? this.dateOfBirth.toISOString() : <any>undefined;
         data["terminationDate"] = this.terminationDate ? this.terminationDate.toISOString() : <any>undefined;
         data["joinDate"] = this.joinDate ? this.joinDate.toISOString() : <any>undefined;
@@ -61306,10 +61312,12 @@ export interface IUserListDto {
     telephone_2: string | undefined;
     extension: string | undefined;
     jobTitleId: number | undefined;
+    shiftId: number | undefined;
     jobTitle: JobTitleDto | undefined;
     titleId: number;
     nationalityId: number | undefined;
     nationality: NationalityDto | undefined;
+    isNormalOverTimeAllowed: boolean;
     dateOfBirth: moment.Moment;
     terminationDate: moment.Moment | undefined;
     joinDate: moment.Moment;
@@ -61826,6 +61834,7 @@ export class UserEditDto implements IUserEditDto {
     shouldChangePasswordOnNextLogin!: boolean;
     isTwoFactorEnabled!: boolean;
     isLockoutEnabled!: boolean;
+    shiftId!: number | undefined;
     code!: string | undefined;
     fingerCode!: string | undefined;
     cardNumber!: string | undefined;
@@ -61851,6 +61860,7 @@ export class UserEditDto implements IUserEditDto {
     mobilePasword!: string | undefined;
     beaconUid!: string | undefined;
     isFixedOverTimeAllowed!: boolean;
+    isNormalOverTimeAllowed!: boolean;
     userShifts!: GetUserShiftForViewDto[] | undefined;
     overrideShifts!: GetOverrideShiftForViewDto[] | undefined;
     userType!: UserTypeDto;
@@ -61880,6 +61890,7 @@ export class UserEditDto implements IUserEditDto {
             this.shouldChangePasswordOnNextLogin = data["shouldChangePasswordOnNextLogin"];
             this.isTwoFactorEnabled = data["isTwoFactorEnabled"];
             this.isLockoutEnabled = data["isLockoutEnabled"];
+            this.shiftId = data["shiftId"];
             this.code = data["code"];
             this.fingerCode = data["fingerCode"];
             this.cardNumber = data["cardNumber"];
@@ -61905,6 +61916,7 @@ export class UserEditDto implements IUserEditDto {
             this.mobilePasword = data["mobilePasword"];
             this.beaconUid = data["beaconUid"];
             this.isFixedOverTimeAllowed = data["isFixedOverTimeAllowed"];
+            this.isNormalOverTimeAllowed = data["isNormalOverTimeAllowed"];
             if (Array.isArray(data["userShifts"])) {
                 this.userShifts = [] as any;
                 for (let item of data["userShifts"])
@@ -61942,6 +61954,7 @@ export class UserEditDto implements IUserEditDto {
         data["shouldChangePasswordOnNextLogin"] = this.shouldChangePasswordOnNextLogin;
         data["isTwoFactorEnabled"] = this.isTwoFactorEnabled;
         data["isLockoutEnabled"] = this.isLockoutEnabled;
+        data["shiftId"] = this.shiftId;
         data["code"] = this.code;
         data["fingerCode"] = this.fingerCode;
         data["cardNumber"] = this.cardNumber;
@@ -61967,6 +61980,7 @@ export class UserEditDto implements IUserEditDto {
         data["mobilePasword"] = this.mobilePasword;
         data["beaconUid"] = this.beaconUid;
         data["isFixedOverTimeAllowed"] = this.isFixedOverTimeAllowed;
+        data["isNormalOverTimeAllowed"] = this.isNormalOverTimeAllowed;
         if (Array.isArray(this.userShifts)) {
             data["userShifts"] = [];
             for (let item of this.userShifts)
@@ -61997,6 +62011,7 @@ export interface IUserEditDto {
     shouldChangePasswordOnNextLogin: boolean;
     isTwoFactorEnabled: boolean;
     isLockoutEnabled: boolean;
+    shiftId: number | undefined;
     code: string | undefined;
     fingerCode: string | undefined;
     cardNumber: string | undefined;
@@ -62022,6 +62037,7 @@ export interface IUserEditDto {
     mobilePasword: string | undefined;
     beaconUid: string | undefined;
     isFixedOverTimeAllowed: boolean;
+    isNormalOverTimeAllowed: boolean;
     userShifts: GetUserShiftForViewDto[] | undefined;
     overrideShifts: GetOverrideShiftForViewDto[] | undefined;
     userType: UserTypeDto;
@@ -62141,6 +62157,7 @@ export class GetUserForEditOutput implements IGetUserForEditOutput {
     user!: UserEditDto | undefined;
     roles!: UserRoleDto[] | undefined;
     nationalities!: NationalityDto[] | undefined;
+    shifts!: ShiftDto[] | undefined;
     locations!: UserLocationDto[] | undefined;
     allOrganizationUnits!: OrganizationUnitDto[] | undefined;
     allBeacons!: BeaconDto[] | undefined;
@@ -62192,6 +62209,11 @@ export class GetUserForEditOutput implements IGetUserForEditOutput {
                 this.nationalities = [] as any;
                 for (let item of data["nationalities"])
                     this.nationalities!.push(NationalityDto.fromJS(item));
+            }
+            if (Array.isArray(data["shifts"])) {
+                this.shifts = [] as any;
+                for (let item of data["shifts"])
+                    this.shifts!.push(ShiftDto.fromJS(item));
             }
             if (Array.isArray(data["locations"])) {
                 this.locations = [] as any;
@@ -62261,6 +62283,11 @@ export class GetUserForEditOutput implements IGetUserForEditOutput {
             for (let item of this.nationalities)
                 data["nationalities"].push(item.toJSON());
         }
+        if (Array.isArray(this.shifts)) {
+            data["shifts"] = [];
+            for (let item of this.shifts)
+                data["shifts"].push(item.toJSON());
+        }
         if (Array.isArray(this.locations)) {
             data["locations"] = [];
             for (let item of this.locations)
@@ -62314,6 +62341,7 @@ export interface IGetUserForEditOutput {
     user: UserEditDto | undefined;
     roles: UserRoleDto[] | undefined;
     nationalities: NationalityDto[] | undefined;
+    shifts: ShiftDto[] | undefined;
     locations: UserLocationDto[] | undefined;
     allOrganizationUnits: OrganizationUnitDto[] | undefined;
     allBeacons: BeaconDto[] | undefined;
@@ -62557,6 +62585,7 @@ export class CreateOrUpdateUserInput implements ICreateOrUpdateUserInput {
     telephone_2!: string | undefined;
     extension!: string | undefined;
     jobTitleId!: number | undefined;
+    shiftId!: number | undefined;
     jobTitle!: JobTitleDto | undefined;
     nationalityId!: number | undefined;
     dateOfBirth!: moment.Moment;
@@ -62572,6 +62601,7 @@ export class CreateOrUpdateUserInput implements ICreateOrUpdateUserInput {
     managerId!: number | undefined;
     userLoaded!: boolean;
     isFixedOverTimeAllowed!: boolean;
+    isNormalOverTimeAllowed!: boolean;
     userShifts!: GetUserShiftForViewDto[] | undefined;
     overrideShifts!: GetOverrideShiftForViewDto[] | undefined;
 
@@ -62619,6 +62649,7 @@ export class CreateOrUpdateUserInput implements ICreateOrUpdateUserInput {
             this.telephone_2 = data["telephone_2"];
             this.extension = data["extension"];
             this.jobTitleId = data["jobTitleId"];
+            this.shiftId = data["shiftId"];
             this.jobTitle = data["jobTitle"] ? JobTitleDto.fromJS(data["jobTitle"]) : <any>undefined;
             this.nationalityId = data["nationalityId"];
             this.dateOfBirth = data["dateOfBirth"] ? moment(data["dateOfBirth"].toString()) : <any>undefined;
@@ -62634,6 +62665,7 @@ export class CreateOrUpdateUserInput implements ICreateOrUpdateUserInput {
             this.managerId = data["managerId"];
             this.userLoaded = data["userLoaded"];
             this.isFixedOverTimeAllowed = data["isFixedOverTimeAllowed"];
+            this.isNormalOverTimeAllowed = data["isNormalOverTimeAllowed"];
             if (Array.isArray(data["userShifts"])) {
                 this.userShifts = [] as any;
                 for (let item of data["userShifts"])
@@ -62685,6 +62717,7 @@ export class CreateOrUpdateUserInput implements ICreateOrUpdateUserInput {
         data["telephone_2"] = this.telephone_2;
         data["extension"] = this.extension;
         data["jobTitleId"] = this.jobTitleId;
+        data["shiftId"] = this.shiftId;
         data["jobTitle"] = this.jobTitle ? this.jobTitle.toJSON() : <any>undefined;
         data["nationalityId"] = this.nationalityId;
         data["dateOfBirth"] = this.dateOfBirth ? this.dateOfBirth.toISOString() : <any>undefined;
@@ -62700,6 +62733,7 @@ export class CreateOrUpdateUserInput implements ICreateOrUpdateUserInput {
         data["managerId"] = this.managerId;
         data["userLoaded"] = this.userLoaded;
         data["isFixedOverTimeAllowed"] = this.isFixedOverTimeAllowed;
+        data["isNormalOverTimeAllowed"] = this.isNormalOverTimeAllowed;
         if (Array.isArray(this.userShifts)) {
             data["userShifts"] = [];
             for (let item of this.userShifts)
@@ -62732,6 +62766,7 @@ export interface ICreateOrUpdateUserInput {
     telephone_2: string | undefined;
     extension: string | undefined;
     jobTitleId: number | undefined;
+    shiftId: number | undefined;
     jobTitle: JobTitleDto | undefined;
     nationalityId: number | undefined;
     dateOfBirth: moment.Moment;
@@ -62747,6 +62782,7 @@ export interface ICreateOrUpdateUserInput {
     managerId: number | undefined;
     userLoaded: boolean;
     isFixedOverTimeAllowed: boolean;
+    isNormalOverTimeAllowed: boolean;
     userShifts: GetUserShiftForViewDto[] | undefined;
     overrideShifts: GetOverrideShiftForViewDto[] | undefined;
 }

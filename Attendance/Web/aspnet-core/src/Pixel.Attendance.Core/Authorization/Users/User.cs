@@ -59,6 +59,12 @@ namespace Pixel.Attendance.Authorization.Users
         [ForeignKey("NationalityId")]
         public Nationality Nationality { get; set; }
 
+
+        [ForeignKey("ShiftId")]
+        public Shift Shift { get; set; }
+
+        public int? ShiftId { get; set; }
+
         public DateTime DateOfBirth { get; set; }
         public DateTime? TerminationDate { get; set; }
 
@@ -81,11 +87,12 @@ namespace Pixel.Attendance.Authorization.Users
         public string MobilePassword { get; set; }
         public string BeaconUid { get; set; }
         public bool IsFixedOverTimeAllowed { get; set; }
-
+        public bool IsNormalOverTimeAllowed { get; set; }
+        public bool IsOvertimeAllowed { get; set; }
         public ICollection<ProjectUser> Projects { get; set; }
 
         public UserType UserType { get; set; }
-        public bool IsOvertimeAllowed { get; set; }
+        
 
         //Can add application specific user properties here
 

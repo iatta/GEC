@@ -47,13 +47,13 @@ namespace Pixel.Attendance.Authorization.Users.Dto
 
         public string Extension { get; set; }
         public int? JobTitleId { get; set; }
-
+        public int? ShiftId { get; set; }
         public JobTitleDto JobTitle { get; set; }
         public int TitleId { get; set; }
         public int? NationalityId { get; set; }
 
         public NationalityDto Nationality { get; set; }
-        
+        public bool IsNormalOverTimeAllowed { get; set; }
 
         public DateTime DateOfBirth { get; set; }
         public DateTime? TerminationDate { get; set; }
