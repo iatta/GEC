@@ -17,6 +17,7 @@ using Pixel.Attendance.Authorization;
 using Abp.Extensions;
 using Abp.Authorization;
 using Microsoft.EntityFrameworkCore;
+using Twilio.Exceptions;
 
 namespace Pixel.Attendance.Setting
 {
@@ -249,5 +250,31 @@ namespace Pixel.Attendance.Setting
                 lookupTableDtoList
             );
          }
+        public async Task BulkCreateOrEdit(List<CreateOrEditOverrideShiftDto> input)
+        {
+            if (input.Count == 0)
+                throw new ApiException("Please Select Employees");
+
+            foreach (var userShift in input)
+            {
+
+                //delete if exist
+                var existUserShift = await _overrideShiftRepository.FirstOrDefaultAsync(x => x.Day.Date == userShift.Day.Date && x.UserId == userShift.UserId && x.ShiftId == userShift.ShiftId);
+                if (existUserShift == null)
+                {
+                    var newUserShift = ObjectMapper.Map<OverrideShift>(userShift);
+                    await _overrideShiftRepository.InsertAsync(newUserShift);
+                }
+                else
+                {
+                  await  _overrideShiftRepository.HardDeleteAsync(existUserShift);
+
+                var newUserShift = ObjectMapper.Map<OverrideShift>(userShift);
+                await _overrideShiftRepository.InsertAsync(newUserShift);
+                }
+            }
+
+        }
+        
     }
 }

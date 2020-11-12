@@ -1,4 +1,5 @@
-﻿import { ManagerReportComponent } from './operations/reports/manager-report.component';
+﻿import { OverrideUserShiftComponent } from './operations/userShifts/override-user-shift.component';
+import { ManagerReportComponent } from './operations/reports/manager-report.component';
 import { NormalOvertimeComponent } from './operations/reports/normal-overtime.component';
 import { FixedOvertimeComponent } from './operations/reports/fixed-overtime.component';
 
@@ -439,6 +440,7 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
         ManageLocationComponent,
         UploadTimeProfileComponent,
         UploadEmpVacationComponent,
+        OverrideUserShiftComponent,
         TimeProfileReportComponent,
         ReportComponent,
         InOutComponent,FingerReportComponent,ForgetInOutComponent,AbsentComponent,LateInEarlyOutComponent,PermitReportComponent,

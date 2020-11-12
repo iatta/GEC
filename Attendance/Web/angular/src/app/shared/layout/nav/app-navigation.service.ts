@@ -27,6 +27,8 @@ export class AppNavigationService {
                 // new AppMenuItem('ShiftTypes', 'Pages.ShiftTypes', 'flaticon-file-1', '/app/main/setting/shiftTypes'),
                 new AppMenuItem('Shifts', 'Pages.Shifts', 'flaticon-calendar-with-a-clock-time-tools', '/app/main/setting/shifts'),
                 new AppMenuItem('ManageUserShifts', 'Pages.ManageUserShifts', 'flaticon-calendar-with-a-clock-time-tools', '/app/main/operations/manageUserShifts'),
+                new AppMenuItem('OverrideUserShift', 'Pages.ManageUserShifts', 'flaticon-calendar-with-a-clock-time-tools', '/app/main/operations/overrideUserShifts'),
+
                 // new AppMenuItem('UserShifts', 'Pages.UserShifts', 'flaticon-more', '/app/main/operations/userShifts'),
                 // new AppMenuItem('TimeProfiles', 'Pages.TimeProfiles', 'flaticon-time-1', '/app/main/operations/mangeTimeProfile'),
                 // new AppMenuItem('UploadTimeProfile', 'Pages.UploadTimeProfile', 'flaticon-file-1', '/app/main/operations/uploadTimeProfile')
@@ -106,10 +108,10 @@ export class AppNavigationService {
             // new AppMenuItem('OrganizationLocations', 'Pages.OrganizationLocations', 'flaticon-more', '/app/main/operations/organizationLocations'),
 
             new AppMenuItem('EmployeeTempTransfers', 'Pages.EmployeeTempTransfers', 'flaticon-more', '/app/main/operations/employeeTempTransfers'),
-            
-            new AppMenuItem('OverrideShifts', 'Pages.OverrideShifts', 'flaticon-more', '/app/main/setting/overrideShifts'),
-            
-            new AppMenuItem('TransactionLogs', 'Pages.TransactionLogs', 'flaticon-more', '/app/main/operations/transactionLogs'),
+
+            // new AppMenuItem('OverrideShifts', 'Pages.OverrideShifts', 'flaticon-more', '/app/main/setting/overrideShifts'),
+
+            // new AppMenuItem('TransactionLogs', 'Pages.TransactionLogs', 'flaticon-more', '/app/main/operations/transactionLogs'),
              new AppMenuItem('Administration', '', 'flaticon-interface-8', '', [
                 new AppMenuItem('OrganizationUnits', 'Pages.Administration.OrganizationUnits', 'flaticon-map', '/app/admin/organization-units'),
                 new AppMenuItem('JobTitles', 'Pages.JobTitles', 'flaticon2-list-3', '/app/main/setting/jobTitles'),

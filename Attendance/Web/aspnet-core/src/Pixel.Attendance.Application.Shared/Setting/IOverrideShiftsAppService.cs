@@ -4,6 +4,7 @@ using Abp.Application.Services;
 using Abp.Application.Services.Dto;
 using Pixel.Attendance.Setting.Dtos;
 using Pixel.Attendance.Dto;
+using System.Collections.Generic;
 
 namespace Pixel.Attendance.Setting
 {
@@ -25,6 +26,8 @@ namespace Pixel.Attendance.Setting
 		Task<PagedResultDto<OverrideShiftUserLookupTableDto>> GetAllUserForLookupTable(GetAllForLookupTableInput input);
 		
 		Task<PagedResultDto<OverrideShiftShiftLookupTableDto>> GetAllShiftForLookupTable(GetAllForLookupTableInput input);
-		
-    }
+
+		Task BulkCreateOrEdit(List<CreateOrEditOverrideShiftDto> input);
+
+	}
 }

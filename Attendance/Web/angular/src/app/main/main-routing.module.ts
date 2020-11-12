@@ -1,4 +1,5 @@
-﻿import { ManagerReportComponent } from './operations/reports/manager-report.component';
+﻿import { OverrideUserShiftComponent } from './operations/userShifts/override-user-shift.component';
+import { ManagerReportComponent } from './operations/reports/manager-report.component';
 import { FixedOvertimeComponent } from './operations/reports/fixed-overtime.component';
 import { TransactionLogsComponent } from './operations/transactionLogs/transactionLogs.component';
 import { OverrideShiftsComponent } from './setting/overrideShifts/overrideShifts.component';
@@ -92,6 +93,8 @@ import { ProjectSheetComponent } from './operations/reports/project-sheet.compon
                     { path: 'operations/summerizeReport', component: SummerizeReportComponent, data: { permission: 'Pages.SummerizeReport' }  },
                     { path: 'operations/beacons', component: BeaconsComponent, data: { permission: 'Pages.Beacons' }  },
                     { path: 'operations/manageUserShifts', component: ManageUserShiftComponent, data: { permission: 'Pages.ManageUserShifts' }  },
+                    { path: 'operations/overrideUserShifts', component: OverrideUserShiftComponent, data: { permission: 'Pages.ManageUserShifts' }  },
+
                     // { path: 'operations/userShifts', component: UserShiftsComponent, data: { permission: 'Pages.UserShifts' }  },
                     { path: 'operations/projects', component: ProjectsComponent, data: { permission: 'Pages.Projects' }  },
                     // { path: 'settings/mobileWebPages', component: MobileWebPagesComponent, data: { permission: 'Pages.MobileWebPages' }  },

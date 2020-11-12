@@ -4,7 +4,7 @@ import { OrganizationUnitsHorizontalTreeModalComponent } from './../../../admin/
 import { Component, ViewChild, Injector, Output, EventEmitter, OnInit } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap';
 import { finalize } from 'rxjs/operators';
-import { TimeProfilesServiceProxy, ShiftTypesServiceProxy, ShiftsServiceProxy, ShiftDto, TimeProfileDetailDto, CreateOrEditTimeProfileDto, UserServiceProxy, UserListDto, GetShiftTypeForViewDto, GetShiftForViewDto, OrganizationUnitServiceProxy, CreateOrEditUserShiftDto, UserShiftsServiceProxy } from '@shared/service-proxies/service-proxies';
+import { TimeProfilesServiceProxy, ShiftTypesServiceProxy, ShiftsServiceProxy, ShiftDto, TimeProfileDetailDto, CreateOrEditTimeProfileDto, UserServiceProxy, UserListDto, GetShiftTypeForViewDto, GetShiftForViewDto, OrganizationUnitServiceProxy, CreateOrEditUserShiftDto, UserShiftsServiceProxy, OverrideShiftsServiceProxy, CreateOrEditOverrideShiftDto } from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import * as moment from 'moment';
 import {SelectItem} from 'primeng/api';
@@ -22,10 +22,10 @@ class UserShiftDay{
 @Component({
     selector: 'ManageUserShift',
     styleUrls:['./manager-user-shift.component.less'],
-    templateUrl: './manage-user-shift.component.html',
+    templateUrl: './override-user-shift.component.html',
     animations: [rowsAnimation]
 })
-export class ManageUserShiftComponent extends AppComponentBase implements OnInit {
+export class OverrideUserShiftComponent extends AppComponentBase implements OnInit {
 
     @ViewChild('organizationUnitsHorizontalTreeModal', { static: true }) organizationUnitsHorizontalTreeModal: OrganizationUnitsHorizontalTreeModalComponent;
     @ViewChild('userShiftShiftLookupTableModal', { static: true }) userShiftShiftLookupTableModal: UserShiftShiftLookupTableModalComponent;
@@ -54,7 +54,7 @@ export class ManageUserShiftComponent extends AppComponentBase implements OnInit
 
     constructor(
         injector: Injector,
-        private _userShiftsServiceProxy: UserShiftsServiceProxy,
+        private _userShiftsServiceProxy: OverrideShiftsServiceProxy,
         private _shiftsServiceProxy: ShiftsServiceProxy,
        private _userServiceProxy: UserServiceProxy,
     ) {
@@ -131,7 +131,7 @@ export class ManageUserShiftComponent extends AppComponentBase implements OnInit
 
 
     onDateSelect(value) {
-        this.table.filter(this.formatDate(value), 'date', 'equals');
+        this.table.filter(this.formatDate(value), 'day', 'equals');
     }
 
     formatDate(date) {
@@ -158,14 +158,14 @@ export class ManageUserShiftComponent extends AppComponentBase implements OnInit
         if(this.UserShiftDays.length == 0)
             this.caluculateDays();
 
-        let model: CreateOrEditUserShiftDto[] =[];
+        let model: CreateOrEditOverrideShiftDto[] =[];
         if(this.UserShiftDays.length > 0){
             this.UserShiftDays.forEach(UserShiftDay => {
                 UserShiftDay.shiftIds.forEach(shiftId => {
-                    let modelToAdd = new CreateOrEditUserShiftDto();
+                    let modelToAdd = new CreateOrEditOverrideShiftDto();
                     modelToAdd.userId = UserShiftDay.userId;
                     modelToAdd.shiftId = shiftId;
-                    modelToAdd.date = moment(UserShiftDay.date , 'DD/MM/YYYY');
+                    modelToAdd.day = moment(UserShiftDay.date , 'DD/MM/YYYY');
                     model.push(modelToAdd);
                 });
             });
