@@ -8,7 +8,7 @@ import { OrganizationUnitsHorizontalTreeComponent } from './../shared/organizati
 import { AfterViewChecked, Component, ElementRef, EventEmitter, Injector, Output, ViewChild, OnInit } from '@angular/core';
 import { AppConsts } from '@shared/AppConsts';
 import { AppComponentBase } from '@shared/common/app-component-base';
-import { JobTitleDto, JobTitleServiceProxy, CreateOrUpdateUserInput, OrganizationUnitDto, PasswordComplexitySetting, ProfileServiceProxy, UserEditDto, UserRoleDto, UserServiceProxy, GetShiftForViewDto, ShiftsServiceProxy, CreateOrEditTimeProfileDto, ShiftTypesServiceProxy, GetUserShiftForViewDto, UserShiftDto } from '@shared/service-proxies/service-proxies';
+import { JobTitleDto, JobTitleServiceProxy, CreateOrUpdateUserInput, OrganizationUnitDto, PasswordComplexitySetting, ProfileServiceProxy, UserEditDto, UserRoleDto, UserServiceProxy, GetShiftForViewDto, ShiftsServiceProxy, CreateOrEditTimeProfileDto, ShiftTypesServiceProxy, GetUserShiftForViewDto, UserShiftDto, OverrideShiftDto, GetOverrideShiftForViewDto } from '@shared/service-proxies/service-proxies';
 import { ModalDirective, TabsetComponent } from 'ngx-bootstrap';
 import { IOrganizationUnitsHierarchicalTreeComponentData, OrganizationHierarchicalTreeComponent } from '../shared/organization-hierarchical-tree.component';
 import { IOrganizationUnitsTreeComponentData, OrganizationUnitsTreeComponent } from '../shared/organization-unit-tree.component';
@@ -176,8 +176,8 @@ export class ManageUserComponent extends AppComponentBase implements OnInit {
             this.user = userResult.user;
             console.log(this.user);
             this.userLoaded = true;
-            if(!this.user.userShifts)
-                this.user.userShifts = []
+            if(!this.user.overrideShifts)
+                this.user.overrideShifts = []
 
             this.locationDateTo =  moment().startOf('day');
             this.locationDateFrom =  moment().startOf('day');
@@ -471,7 +471,7 @@ export class ManageUserComponent extends AppComponentBase implements OnInit {
 
     onDateSelect(value) {
         let newDate = moment(moment(value , 'YYYY-MM-DD').toISOString());
-        this.table.filter(newDate, 'userShift.date', 'dateRangeFilter');
+        this.table.filter(newDate, 'overrideShift.date', 'dateRangeFilter');
 
     }
 
@@ -496,37 +496,37 @@ export class ManageUserComponent extends AppComponentBase implements OnInit {
             return;
         }
         for (var m = moment(this.startDate); m.diff(this.endDate, 'days') <= 0; m.add(1, 'days')) {
-            let isExist = this.user.userShifts.findIndex(
-                x => x.userShift.date.isSame(m, 'year') &&
-                x.userShift.date.isSame(m, 'month') &&
-                 x.userShift.date.isSame(m, 'day') &&
-                 x.userShift.shiftId == this.selectedShift.shift.id);
+            let isExist = this.user.overrideShifts.findIndex(
+                x => x.overrideShift.day.isSame(m, 'year') &&
+                x.overrideShift.day.isSame(m, 'month') &&
+                 x.overrideShift.day.isSame(m, 'day') &&
+                 x.overrideShift.shiftId == this.selectedShift.shift.id);
             if(isExist == -1){
-             let userShiftToAdd = new GetUserShiftForViewDto();
+             let userShiftToAdd = new GetOverrideShiftForViewDto();
              userShiftToAdd.shiftNameEn = this.selectedShift.shift.nameEn;
 
-             userShiftToAdd.userShift = new UserShiftDto();
-             userShiftToAdd.userShift.isNew = true;
-             userShiftToAdd.userShift.userId = this.user.id;
+             userShiftToAdd.overrideShift = new OverrideShiftDto();
+             userShiftToAdd.overrideShift.isNew = true;
+             userShiftToAdd.overrideShift.userId = this.user.id;
              let date =moment(m);
-             userShiftToAdd.userShift.date = date;
-             userShiftToAdd.userShift.shiftId = this.selectedShift.shift.id;
-             this.user.userShifts.unshift(userShiftToAdd);
+             userShiftToAdd.overrideShift.day = date;
+             userShiftToAdd.overrideShift.shiftId = this.selectedShift.shift.id;
+             this.user.overrideShifts.unshift(userShiftToAdd);
             }
         }
 
         this.table.reset();
     }
 
-    deleteUserShift(userShiftView: GetUserShiftForViewDto):void{
-        let index = this.user.userShifts.findIndex(
-            x => x.userShift.date.isSame(userShiftView.userShift.date, 'year') &&
-            x.userShift.date.isSame(userShiftView.userShift.date, 'month') &&
-             x.userShift.date.isSame(userShiftView.userShift.date, 'day') &&
-             x.userShift.shiftId == userShiftView.userShift.shiftId);
+    deleteUserShift(userShiftView: GetOverrideShiftForViewDto):void{
+        let index = this.user.overrideShifts.findIndex(
+            x => x.overrideShift.day.isSame(userShiftView.overrideShift.day, 'year') &&
+            x.overrideShift.day.isSame(userShiftView.overrideShift.day, 'month') &&
+             x.overrideShift.day.isSame(userShiftView.overrideShift.day, 'day') &&
+             x.overrideShift.shiftId == userShiftView.overrideShift.shiftId);
 
              if(index > -1)
-                this.user.userShifts[index].userShift.isDeleted = true;
+                this.user.overrideShifts[index].overrideShift.isDeleted = true;
 
 
         this.table.reset();

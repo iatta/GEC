@@ -50009,10 +50009,185 @@ export interface IFindOrganizationUnitRolesInput {
     filter: string | undefined;
 }
 
+export enum DayDto {
+    Starday = 1,
+    Sunday = 2,
+    Monday = 3,
+    Tuesday = 4,
+    Wednesday = 5,
+    Thursday = 6,
+    Friday = 7,
+}
+
+export enum ShiftTypeEnumDto {
+    Normal = 1,
+    OverTime = 2,
+}
+
+export class ShiftDto implements IShiftDto {
+    nameAr!: string | undefined;
+    nameEn!: string | undefined;
+    code!: string | undefined;
+    dayOff!: DayDto;
+    dayRest!: DayDto;
+    isDayRestCalculated!: boolean;
+    totalHoursPerDay!: number;
+    isInOutWithoutClculateHours!: boolean;
+    isFlexible!: boolean;
+    isOneFingerprint!: boolean;
+    isTwoFingerprint!: boolean;
+    timeIn!: number;
+    timeOut!: number;
+    totalLateMinutesPerMonth!: number;
+    totalLateMinutesPerMonthRamadan!: number;
+    hasRamadanSetting!: boolean;
+    totalHoursPerDayRamadan!: number;
+    timeInRamadan!: number;
+    timeOutRamadan!: number;
+    earlyIn!: number;
+    lateIn!: number;
+    earlyOut!: number;
+    lateOut!: number;
+    timeInRangeFrom!: number;
+    timeInRangeTo!: number;
+    timeOutRangeFrom!: number;
+    timeOutRangeTo!: number;
+    deductType!: number;
+    isOverTimeAllowed!: boolean;
+    shiftType!: ShiftTypeEnumDto;
+    id!: number;
+
+    constructor(data?: IShiftDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.nameAr = data["nameAr"];
+            this.nameEn = data["nameEn"];
+            this.code = data["code"];
+            this.dayOff = data["dayOff"];
+            this.dayRest = data["dayRest"];
+            this.isDayRestCalculated = data["isDayRestCalculated"];
+            this.totalHoursPerDay = data["totalHoursPerDay"];
+            this.isInOutWithoutClculateHours = data["isInOutWithoutClculateHours"];
+            this.isFlexible = data["isFlexible"];
+            this.isOneFingerprint = data["isOneFingerprint"];
+            this.isTwoFingerprint = data["isTwoFingerprint"];
+            this.timeIn = data["timeIn"];
+            this.timeOut = data["timeOut"];
+            this.totalLateMinutesPerMonth = data["totalLateMinutesPerMonth"];
+            this.totalLateMinutesPerMonthRamadan = data["totalLateMinutesPerMonthRamadan"];
+            this.hasRamadanSetting = data["hasRamadanSetting"];
+            this.totalHoursPerDayRamadan = data["totalHoursPerDayRamadan"];
+            this.timeInRamadan = data["timeInRamadan"];
+            this.timeOutRamadan = data["timeOutRamadan"];
+            this.earlyIn = data["earlyIn"];
+            this.lateIn = data["lateIn"];
+            this.earlyOut = data["earlyOut"];
+            this.lateOut = data["lateOut"];
+            this.timeInRangeFrom = data["timeInRangeFrom"];
+            this.timeInRangeTo = data["timeInRangeTo"];
+            this.timeOutRangeFrom = data["timeOutRangeFrom"];
+            this.timeOutRangeTo = data["timeOutRangeTo"];
+            this.deductType = data["deductType"];
+            this.isOverTimeAllowed = data["isOverTimeAllowed"];
+            this.shiftType = data["shiftType"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): ShiftDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ShiftDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["nameAr"] = this.nameAr;
+        data["nameEn"] = this.nameEn;
+        data["code"] = this.code;
+        data["dayOff"] = this.dayOff;
+        data["dayRest"] = this.dayRest;
+        data["isDayRestCalculated"] = this.isDayRestCalculated;
+        data["totalHoursPerDay"] = this.totalHoursPerDay;
+        data["isInOutWithoutClculateHours"] = this.isInOutWithoutClculateHours;
+        data["isFlexible"] = this.isFlexible;
+        data["isOneFingerprint"] = this.isOneFingerprint;
+        data["isTwoFingerprint"] = this.isTwoFingerprint;
+        data["timeIn"] = this.timeIn;
+        data["timeOut"] = this.timeOut;
+        data["totalLateMinutesPerMonth"] = this.totalLateMinutesPerMonth;
+        data["totalLateMinutesPerMonthRamadan"] = this.totalLateMinutesPerMonthRamadan;
+        data["hasRamadanSetting"] = this.hasRamadanSetting;
+        data["totalHoursPerDayRamadan"] = this.totalHoursPerDayRamadan;
+        data["timeInRamadan"] = this.timeInRamadan;
+        data["timeOutRamadan"] = this.timeOutRamadan;
+        data["earlyIn"] = this.earlyIn;
+        data["lateIn"] = this.lateIn;
+        data["earlyOut"] = this.earlyOut;
+        data["lateOut"] = this.lateOut;
+        data["timeInRangeFrom"] = this.timeInRangeFrom;
+        data["timeInRangeTo"] = this.timeInRangeTo;
+        data["timeOutRangeFrom"] = this.timeOutRangeFrom;
+        data["timeOutRangeTo"] = this.timeOutRangeTo;
+        data["deductType"] = this.deductType;
+        data["isOverTimeAllowed"] = this.isOverTimeAllowed;
+        data["shiftType"] = this.shiftType;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IShiftDto {
+    nameAr: string | undefined;
+    nameEn: string | undefined;
+    code: string | undefined;
+    dayOff: DayDto;
+    dayRest: DayDto;
+    isDayRestCalculated: boolean;
+    totalHoursPerDay: number;
+    isInOutWithoutClculateHours: boolean;
+    isFlexible: boolean;
+    isOneFingerprint: boolean;
+    isTwoFingerprint: boolean;
+    timeIn: number;
+    timeOut: number;
+    totalLateMinutesPerMonth: number;
+    totalLateMinutesPerMonthRamadan: number;
+    hasRamadanSetting: boolean;
+    totalHoursPerDayRamadan: number;
+    timeInRamadan: number;
+    timeOutRamadan: number;
+    earlyIn: number;
+    lateIn: number;
+    earlyOut: number;
+    lateOut: number;
+    timeInRangeFrom: number;
+    timeInRangeTo: number;
+    timeOutRangeFrom: number;
+    timeOutRangeTo: number;
+    deductType: number;
+    isOverTimeAllowed: boolean;
+    shiftType: ShiftTypeEnumDto;
+    id: number;
+}
+
 export class OverrideShiftDto implements IOverrideShiftDto {
     day!: moment.Moment;
     userId!: number | undefined;
     shiftId!: number | undefined;
+    shift!: ShiftDto | undefined;
+    isNew!: boolean;
+    isModified!: boolean;
+    isDeleted!: boolean;
     id!: number;
 
     constructor(data?: IOverrideShiftDto) {
@@ -50029,6 +50204,10 @@ export class OverrideShiftDto implements IOverrideShiftDto {
             this.day = data["day"] ? moment(data["day"].toString()) : <any>undefined;
             this.userId = data["userId"];
             this.shiftId = data["shiftId"];
+            this.shift = data["shift"] ? ShiftDto.fromJS(data["shift"]) : <any>undefined;
+            this.isNew = data["isNew"];
+            this.isModified = data["isModified"];
+            this.isDeleted = data["isDeleted"];
             this.id = data["id"];
         }
     }
@@ -50045,6 +50224,10 @@ export class OverrideShiftDto implements IOverrideShiftDto {
         data["day"] = this.day ? this.day.toISOString() : <any>undefined;
         data["userId"] = this.userId;
         data["shiftId"] = this.shiftId;
+        data["shift"] = this.shift ? this.shift.toJSON() : <any>undefined;
+        data["isNew"] = this.isNew;
+        data["isModified"] = this.isModified;
+        data["isDeleted"] = this.isDeleted;
         data["id"] = this.id;
         return data; 
     }
@@ -50054,6 +50237,10 @@ export interface IOverrideShiftDto {
     day: moment.Moment;
     userId: number | undefined;
     shiftId: number | undefined;
+    shift: ShiftDto | undefined;
+    isNew: boolean;
+    isModified: boolean;
+    isDeleted: boolean;
     id: number;
 }
 
@@ -54008,177 +54195,6 @@ export interface IUpdateUserSignInTokenOutput {
     signInToken: string | undefined;
     encodedUserId: string | undefined;
     encodedTenantId: string | undefined;
-}
-
-export enum DayDto {
-    Starday = 1,
-    Sunday = 2,
-    Monday = 3,
-    Tuesday = 4,
-    Wednesday = 5,
-    Thursday = 6,
-    Friday = 7,
-}
-
-export enum ShiftTypeEnumDto {
-    Normal = 1,
-    OverTime = 2,
-}
-
-export class ShiftDto implements IShiftDto {
-    nameAr!: string | undefined;
-    nameEn!: string | undefined;
-    code!: string | undefined;
-    dayOff!: DayDto;
-    dayRest!: DayDto;
-    isDayRestCalculated!: boolean;
-    totalHoursPerDay!: number;
-    isInOutWithoutClculateHours!: boolean;
-    isFlexible!: boolean;
-    isOneFingerprint!: boolean;
-    isTwoFingerprint!: boolean;
-    timeIn!: number;
-    timeOut!: number;
-    totalLateMinutesPerMonth!: number;
-    totalLateMinutesPerMonthRamadan!: number;
-    hasRamadanSetting!: boolean;
-    totalHoursPerDayRamadan!: number;
-    timeInRamadan!: number;
-    timeOutRamadan!: number;
-    earlyIn!: number;
-    lateIn!: number;
-    earlyOut!: number;
-    lateOut!: number;
-    timeInRangeFrom!: number;
-    timeInRangeTo!: number;
-    timeOutRangeFrom!: number;
-    timeOutRangeTo!: number;
-    deductType!: number;
-    isOverTimeAllowed!: boolean;
-    shiftType!: ShiftTypeEnumDto;
-    id!: number;
-
-    constructor(data?: IShiftDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(data?: any) {
-        if (data) {
-            this.nameAr = data["nameAr"];
-            this.nameEn = data["nameEn"];
-            this.code = data["code"];
-            this.dayOff = data["dayOff"];
-            this.dayRest = data["dayRest"];
-            this.isDayRestCalculated = data["isDayRestCalculated"];
-            this.totalHoursPerDay = data["totalHoursPerDay"];
-            this.isInOutWithoutClculateHours = data["isInOutWithoutClculateHours"];
-            this.isFlexible = data["isFlexible"];
-            this.isOneFingerprint = data["isOneFingerprint"];
-            this.isTwoFingerprint = data["isTwoFingerprint"];
-            this.timeIn = data["timeIn"];
-            this.timeOut = data["timeOut"];
-            this.totalLateMinutesPerMonth = data["totalLateMinutesPerMonth"];
-            this.totalLateMinutesPerMonthRamadan = data["totalLateMinutesPerMonthRamadan"];
-            this.hasRamadanSetting = data["hasRamadanSetting"];
-            this.totalHoursPerDayRamadan = data["totalHoursPerDayRamadan"];
-            this.timeInRamadan = data["timeInRamadan"];
-            this.timeOutRamadan = data["timeOutRamadan"];
-            this.earlyIn = data["earlyIn"];
-            this.lateIn = data["lateIn"];
-            this.earlyOut = data["earlyOut"];
-            this.lateOut = data["lateOut"];
-            this.timeInRangeFrom = data["timeInRangeFrom"];
-            this.timeInRangeTo = data["timeInRangeTo"];
-            this.timeOutRangeFrom = data["timeOutRangeFrom"];
-            this.timeOutRangeTo = data["timeOutRangeTo"];
-            this.deductType = data["deductType"];
-            this.isOverTimeAllowed = data["isOverTimeAllowed"];
-            this.shiftType = data["shiftType"];
-            this.id = data["id"];
-        }
-    }
-
-    static fromJS(data: any): ShiftDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new ShiftDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["nameAr"] = this.nameAr;
-        data["nameEn"] = this.nameEn;
-        data["code"] = this.code;
-        data["dayOff"] = this.dayOff;
-        data["dayRest"] = this.dayRest;
-        data["isDayRestCalculated"] = this.isDayRestCalculated;
-        data["totalHoursPerDay"] = this.totalHoursPerDay;
-        data["isInOutWithoutClculateHours"] = this.isInOutWithoutClculateHours;
-        data["isFlexible"] = this.isFlexible;
-        data["isOneFingerprint"] = this.isOneFingerprint;
-        data["isTwoFingerprint"] = this.isTwoFingerprint;
-        data["timeIn"] = this.timeIn;
-        data["timeOut"] = this.timeOut;
-        data["totalLateMinutesPerMonth"] = this.totalLateMinutesPerMonth;
-        data["totalLateMinutesPerMonthRamadan"] = this.totalLateMinutesPerMonthRamadan;
-        data["hasRamadanSetting"] = this.hasRamadanSetting;
-        data["totalHoursPerDayRamadan"] = this.totalHoursPerDayRamadan;
-        data["timeInRamadan"] = this.timeInRamadan;
-        data["timeOutRamadan"] = this.timeOutRamadan;
-        data["earlyIn"] = this.earlyIn;
-        data["lateIn"] = this.lateIn;
-        data["earlyOut"] = this.earlyOut;
-        data["lateOut"] = this.lateOut;
-        data["timeInRangeFrom"] = this.timeInRangeFrom;
-        data["timeInRangeTo"] = this.timeInRangeTo;
-        data["timeOutRangeFrom"] = this.timeOutRangeFrom;
-        data["timeOutRangeTo"] = this.timeOutRangeTo;
-        data["deductType"] = this.deductType;
-        data["isOverTimeAllowed"] = this.isOverTimeAllowed;
-        data["shiftType"] = this.shiftType;
-        data["id"] = this.id;
-        return data; 
-    }
-}
-
-export interface IShiftDto {
-    nameAr: string | undefined;
-    nameEn: string | undefined;
-    code: string | undefined;
-    dayOff: DayDto;
-    dayRest: DayDto;
-    isDayRestCalculated: boolean;
-    totalHoursPerDay: number;
-    isInOutWithoutClculateHours: boolean;
-    isFlexible: boolean;
-    isOneFingerprint: boolean;
-    isTwoFingerprint: boolean;
-    timeIn: number;
-    timeOut: number;
-    totalLateMinutesPerMonth: number;
-    totalLateMinutesPerMonthRamadan: number;
-    hasRamadanSetting: boolean;
-    totalHoursPerDayRamadan: number;
-    timeInRamadan: number;
-    timeOutRamadan: number;
-    earlyIn: number;
-    lateIn: number;
-    earlyOut: number;
-    lateOut: number;
-    timeInRangeFrom: number;
-    timeInRangeTo: number;
-    timeOutRangeFrom: number;
-    timeOutRangeTo: number;
-    deductType: number;
-    isOverTimeAllowed: boolean;
-    shiftType: ShiftTypeEnumDto;
-    id: number;
 }
 
 export class GetShiftForViewDto implements IGetShiftForViewDto {
@@ -61836,6 +61852,7 @@ export class UserEditDto implements IUserEditDto {
     beaconUid!: string | undefined;
     isFixedOverTimeAllowed!: boolean;
     userShifts!: GetUserShiftForViewDto[] | undefined;
+    overrideShifts!: GetOverrideShiftForViewDto[] | undefined;
     userType!: UserTypeDto;
     isOvertimeAllowed!: boolean;
 
@@ -61892,6 +61909,11 @@ export class UserEditDto implements IUserEditDto {
                 this.userShifts = [] as any;
                 for (let item of data["userShifts"])
                     this.userShifts!.push(GetUserShiftForViewDto.fromJS(item));
+            }
+            if (Array.isArray(data["overrideShifts"])) {
+                this.overrideShifts = [] as any;
+                for (let item of data["overrideShifts"])
+                    this.overrideShifts!.push(GetOverrideShiftForViewDto.fromJS(item));
             }
             this.userType = data["userType"];
             this.isOvertimeAllowed = data["isOvertimeAllowed"];
@@ -61950,6 +61972,11 @@ export class UserEditDto implements IUserEditDto {
             for (let item of this.userShifts)
                 data["userShifts"].push(item.toJSON());
         }
+        if (Array.isArray(this.overrideShifts)) {
+            data["overrideShifts"] = [];
+            for (let item of this.overrideShifts)
+                data["overrideShifts"].push(item.toJSON());
+        }
         data["userType"] = this.userType;
         data["isOvertimeAllowed"] = this.isOvertimeAllowed;
         return data; 
@@ -61996,6 +62023,7 @@ export interface IUserEditDto {
     beaconUid: string | undefined;
     isFixedOverTimeAllowed: boolean;
     userShifts: GetUserShiftForViewDto[] | undefined;
+    overrideShifts: GetOverrideShiftForViewDto[] | undefined;
     userType: UserTypeDto;
     isOvertimeAllowed: boolean;
 }
@@ -62545,6 +62573,7 @@ export class CreateOrUpdateUserInput implements ICreateOrUpdateUserInput {
     userLoaded!: boolean;
     isFixedOverTimeAllowed!: boolean;
     userShifts!: GetUserShiftForViewDto[] | undefined;
+    overrideShifts!: GetOverrideShiftForViewDto[] | undefined;
 
     constructor(data?: ICreateOrUpdateUserInput) {
         if (data) {
@@ -62610,6 +62639,11 @@ export class CreateOrUpdateUserInput implements ICreateOrUpdateUserInput {
                 for (let item of data["userShifts"])
                     this.userShifts!.push(GetUserShiftForViewDto.fromJS(item));
             }
+            if (Array.isArray(data["overrideShifts"])) {
+                this.overrideShifts = [] as any;
+                for (let item of data["overrideShifts"])
+                    this.overrideShifts!.push(GetOverrideShiftForViewDto.fromJS(item));
+            }
         }
     }
 
@@ -62671,6 +62705,11 @@ export class CreateOrUpdateUserInput implements ICreateOrUpdateUserInput {
             for (let item of this.userShifts)
                 data["userShifts"].push(item.toJSON());
         }
+        if (Array.isArray(this.overrideShifts)) {
+            data["overrideShifts"] = [];
+            for (let item of this.overrideShifts)
+                data["overrideShifts"].push(item.toJSON());
+        }
         return data; 
     }
 }
@@ -62709,6 +62748,7 @@ export interface ICreateOrUpdateUserInput {
     userLoaded: boolean;
     isFixedOverTimeAllowed: boolean;
     userShifts: GetUserShiftForViewDto[] | undefined;
+    overrideShifts: GetOverrideShiftForViewDto[] | undefined;
 }
 
 export class NotificaionInput implements INotificaionInput {

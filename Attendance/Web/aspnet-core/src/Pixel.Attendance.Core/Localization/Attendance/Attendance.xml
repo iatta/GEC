@@ -1579,7 +1579,8 @@
     <text name="IsOneFingerprint"> One Finger </text>
     <text name="IsFlexible"> Flexible </text>
     <text name="IsDayRestCalculated"> Calculate Day Rest </text>
-    
+    <text name="OverrideUserShift"> Assign Temp Shift </text>
+
     
 
 

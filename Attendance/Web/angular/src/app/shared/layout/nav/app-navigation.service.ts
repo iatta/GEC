@@ -26,7 +26,7 @@ export class AppNavigationService {
             new AppMenuItem('Shifts', '', 'flaticon-interface-6', '', [
                 // new AppMenuItem('ShiftTypes', 'Pages.ShiftTypes', 'flaticon-file-1', '/app/main/setting/shiftTypes'),
                 new AppMenuItem('Shifts', 'Pages.Shifts', 'flaticon-calendar-with-a-clock-time-tools', '/app/main/setting/shifts'),
-                new AppMenuItem('ManageUserShifts', 'Pages.ManageUserShifts', 'flaticon-calendar-with-a-clock-time-tools', '/app/main/operations/manageUserShifts'),
+                // new AppMenuItem('ManageUserShifts', 'Pages.ManageUserShifts', 'flaticon-calendar-with-a-clock-time-tools', '/app/main/operations/manageUserShifts'),
                 new AppMenuItem('OverrideUserShift', 'Pages.ManageUserShifts', 'flaticon-calendar-with-a-clock-time-tools', '/app/main/operations/overrideUserShifts'),
 
                 // new AppMenuItem('UserShifts', 'Pages.UserShifts', 'flaticon-more', '/app/main/operations/userShifts'),

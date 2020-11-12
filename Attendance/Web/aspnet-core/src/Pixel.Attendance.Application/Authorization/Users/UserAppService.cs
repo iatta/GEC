@@ -80,6 +80,7 @@ namespace Pixel.Attendance.Authorization.Users
         private readonly IRepository<Nationality> _nationalityRepository;
         private readonly IActiveTransactionProvider _transactionProvider;
         private readonly IRepository<UserShift> _userShiftRepository;
+        private readonly IRepository<OverrideShift> _overrideShiftRepository;
         private readonly IRepository<User, long> _userRepository;
         private readonly IRepository<Shift> _shiftRepository;
         private readonly IRepository<Beacon> _beaconRepository;
@@ -99,6 +100,7 @@ namespace Pixel.Attendance.Authorization.Users
             IRepository<UserPermissionSetting, long> userPermissionRepository,
             IRepository<UserRole, long> userRoleRepository,
             IRepository<Role> roleRepository,
+            IRepository<OverrideShift> overrideShiftRepository,
             IUserPolicy userPolicy,
             IEnumerable<IPasswordValidator<User>> passwordValidators,
             IPasswordHasher<User> passwordHasher,
@@ -122,6 +124,7 @@ namespace Pixel.Attendance.Authorization.Users
         {
             _roleManager = roleManager;
             _userEmailer = userEmailer;
+            _overrideShiftRepository = overrideShiftRepository;
             _userListExcelExporter = userListExcelExporter;
             _notificationSubscriptionManager = notificationSubscriptionManager;
             _appNotifier = appNotifier;
@@ -421,26 +424,45 @@ namespace Pixel.Attendance.Authorization.Users
                 var user = await UserManager.Users.FirstOrDefaultAsync(x => x.Id == input.Id.Value);
 
                 output.User = ObjectMapper.Map<UserEditDto>(user);
-
-                var userShifts = from o in _userShiftRepository.GetAll()
+                var userShifts = from o in _overrideShiftRepository.GetAll()
                                  join o2 in _shiftRepository.GetAll() on o.ShiftId equals o2.Id into j2
                                  from s2 in j2.DefaultIfEmpty()
                                  where o.UserId == input.Id
 
-                                 select new GetUserShiftForViewDto()
+                                 select new GetOverrideShiftForViewDto()
                                  {
-                                     UserShift = new UserShiftDto
+                                     OverrideShift = new OverrideShiftDto
                                      {
-                                         Date = o.Date,
+                                         Day = o.Day,
                                          Id = o.Id,
                                          UserId = o.UserId,
                                          ShiftId = o.ShiftId
                                      },
                                      ShiftNameEn = s2 == null ? "" : s2.NameEn.ToString()
                                  };
-                
 
-                output.User.UserShifts = await userShifts.ToListAsync();
+
+                output.User.OverrideShifts = await userShifts.ToListAsync();
+
+                //var userShifts = from o in _userShiftRepository.GetAll()
+                //                 join o2 in _shiftRepository.GetAll() on o.ShiftId equals o2.Id into j2
+                //                 from s2 in j2.DefaultIfEmpty()
+                //                 where o.UserId == input.Id
+
+                //                 select new GetUserShiftForViewDto()
+                //                 {
+                //                     UserShift = new UserShiftDto
+                //                     {
+                //                         Date = o.Date,
+                //                         Id = o.Id,
+                //                         UserId = o.UserId,
+                //                         ShiftId = o.ShiftId
+                //                     },
+                //                     ShiftNameEn = s2 == null ? "" : s2.NameEn.ToString()
+                //                 };
+
+
+                //output.User.UserShifts = await userShifts.ToListAsync();
 
                 output.ProfilePictureId = user.ProfilePictureId;
 
@@ -615,15 +637,15 @@ namespace Pixel.Attendance.Authorization.Users
             }
 
             //add user shifts here 
-            foreach (var userShiftModel in input.User.UserShifts)
+            foreach (var userShiftModel in input.User.OverrideShifts)
             {
                 //check if new 
-                if (userShiftModel.UserShift.IsNew)
-                    await _userShiftRepository.InsertAsync(ObjectMapper.Map<UserShift>(userShiftModel.UserShift));
+                if (userShiftModel.OverrideShift.IsNew)
+                    await _overrideShiftRepository.InsertAsync(ObjectMapper.Map<OverrideShift>(userShiftModel.OverrideShift));
                                
 
-                if (userShiftModel.UserShift.IsDeleted && userShiftModel.UserShift.Id > 0)
-                    await _userShiftRepository.HardDeleteAsync(ObjectMapper.Map<UserShift>(userShiftModel.UserShift));
+                if (userShiftModel.OverrideShift.IsDeleted && userShiftModel.OverrideShift.Id > 0)
+                    await _overrideShiftRepository.HardDeleteAsync(ObjectMapper.Map<OverrideShift>(userShiftModel.OverrideShift));
 
             }
         }
@@ -698,10 +720,15 @@ namespace Pixel.Attendance.Authorization.Users
             }
 
             //add user shifts 
-            foreach (var userShiftModel in input.User.UserShifts)
+            //foreach (var userShiftModel in input.User.UserShifts)
+            //{
+            //    //add user shift 
+            //    await _userShiftRepository.InsertAsync(ObjectMapper.Map<UserShift>(userShiftModel.UserShift));
+            //}
+            foreach (var userShiftModel in input.User.OverrideShifts)
             {
                 //add user shift 
-                await _userShiftRepository.InsertAsync(ObjectMapper.Map<UserShift>(userShiftModel.UserShift));
+                await _overrideShiftRepository.InsertAsync(ObjectMapper.Map<OverrideShift>(userShiftModel.OverrideShift));
             }
 
         }

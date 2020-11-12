@@ -71,11 +71,13 @@ namespace Pixel.Attendance.Authorization.Users.Dto
         //public CreateOrEditTimeProfileDto TimeProfile { get; set; }
         [NotMapped]
         public List<GetUserShiftForViewDto> UserShifts { get; set; }
+        public List<GetOverrideShiftForViewDto> OverrideShifts { get; set; }
+        
 
         public CreateOrUpdateUserInput()
         {
             OrganizationUnits = new List<long>();
-            UserShifts = new List<GetUserShiftForViewDto>();
+            OverrideShifts = new List<GetOverrideShiftForViewDto>();
         }
     }
 }

@@ -97,6 +97,7 @@ namespace Pixel.Attendance.Authorization.Users.Dto
 
         //public CreateOrEditTimeProfileDto TimeProfile { get; set; }
         public List<GetUserShiftForViewDto> UserShifts { get; set; }
+        public List<GetOverrideShiftForViewDto> OverrideShifts { get; set; }
         public UserTypeDto UserType { get; set; }
         public bool IsOvertimeAllowed { get; set; }
 
