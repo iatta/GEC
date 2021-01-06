@@ -55,6 +55,8 @@ namespace Pixel.Attendance.Operations
 
 		[ForeignKey("MachineId")]
 		public Machine Machine { get; set; }
+        public bool IsTaken { get; set; }
+        public string EditNote { get; set; }
 
-	}
+    }
 }

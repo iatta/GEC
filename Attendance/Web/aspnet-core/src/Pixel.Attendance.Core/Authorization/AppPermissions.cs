@@ -6,6 +6,11 @@
     /// </summary>
     public static class AppPermissions
     {
+        public const string Pages_RamadanDates = "Pages.RamadanDates";
+        public const string Pages_RamadanDates_Create = "Pages.RamadanDates.Create";
+        public const string Pages_RamadanDates_Edit = "Pages.RamadanDates.Edit";
+        public const string Pages_RamadanDates_Delete = "Pages.RamadanDates.Delete";
+
         public const string Pages_TransactionLogs = "Pages.TransactionLogs";
         public const string Pages_TransactionLogs_Create = "Pages.TransactionLogs.Create";
         public const string Pages_TransactionLogs_Edit = "Pages.TransactionLogs.Edit";
@@ -56,6 +61,7 @@
         public const string Pages_FixedOvertime = "Pages.FixedOvertime";
         public const string Pages_NormalOvertime = "Pages.NormalOvertime";
         public const string Pages_ManagerLevelApprove = "Pages.ManagerLevelApprove";
+        public const string Pages_HrLevelApprove = "Pages.HrLevelApprove";
 
 
         public const string Pages_Beacons_Create = "Pages.Beacons.Create";

@@ -30,6 +30,13 @@ namespace Pixel.Attendance.Authorization
 
             var pages = context.GetPermissionOrNull(AppPermissions.Pages) ?? context.CreatePermission(AppPermissions.Pages, L("Pages"));
 
+            var ramadanDates = pages.CreateChildPermission(AppPermissions.Pages_RamadanDates, L("RamadanDates"));
+            ramadanDates.CreateChildPermission(AppPermissions.Pages_RamadanDates_Create, L("CreateNewRamadanDate"));
+            ramadanDates.CreateChildPermission(AppPermissions.Pages_RamadanDates_Edit, L("EditRamadanDate"));
+            ramadanDates.CreateChildPermission(AppPermissions.Pages_RamadanDates_Delete, L("DeleteRamadanDate"));
+
+
+
             var transactionLogs = pages.CreateChildPermission(AppPermissions.Pages_TransactionLogs, L("TransactionLogs"));
             transactionLogs.CreateChildPermission(AppPermissions.Pages_TransactionLogs_Create, L("CreateNewTransactionLog"));
             transactionLogs.CreateChildPermission(AppPermissions.Pages_TransactionLogs_Edit, L("EditTransactionLog"));
@@ -96,6 +103,9 @@ namespace Pixel.Attendance.Authorization
             var fixedOvertime = pages.CreateChildPermission(AppPermissions.Pages_FixedOvertime, L("FixedOvertime"));
             var normalOvertime = pages.CreateChildPermission(AppPermissions.Pages_NormalOvertime, L("NormalOvertime"));
             var managerLevelApprove = pages.CreateChildPermission(AppPermissions.Pages_ManagerLevelApprove, L("ManagerLevelApprove"));
+            var hrLevelApprove = pages.CreateChildPermission(AppPermissions.Pages_HrLevelApprove, L("HrLevelApprove"));
+
+            
             var summerizeReport = pages.CreateChildPermission(AppPermissions.Pages_SummerizeReport, L("SummerizeReport"));
 
 

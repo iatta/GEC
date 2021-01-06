@@ -1,0 +1,38 @@
+<div bsModal #transactionInfoModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="transactionInfoModal" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">
+
+                </h4>
+                <button type="button" class="close" (click)="close()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p-table [value]="data" >
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>Old Value</th>
+                            <th>New Value</th>
+                            <th>User</th>
+                            <th>Time</th>
+
+
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-info>
+                        <tr>
+                            <td>{{info.transactionLog.oldValue}}</td>
+                            <td>{{info.transactionLog.newValue}}</td>
+                            <td>{{info.userName}}</td>
+                            <td>{{info.transactionLog.creationTime | momentFormat:'MMMM Do YYYY, h:mm:ss a'}}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+
+        </div>
+    </div>
+
+</div>

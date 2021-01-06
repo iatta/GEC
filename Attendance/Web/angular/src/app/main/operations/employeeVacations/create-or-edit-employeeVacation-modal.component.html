@@ -44,12 +44,12 @@
 
 								<div class="form-group">
 									<label for="EmployeeVacation_FromDate">{{l("FromDate")}}</label>
-									 <input required class="form-control m-input" type="datetime" bsDatepicker [(ngModel)]="employeeVacation.fromDate._d" id="EmployeeVacation_FromDate" name="EmployeeVacation_FromDate">
+									 <input required class="form-control m-input" type="datetime" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY',isAnimated: true }" [(ngModel)]="employeeVacation.fromDate._d" id="EmployeeVacation_FromDate" name="EmployeeVacation_FromDate">
 								</div>
 
 								<div class="form-group">
 									<label for="EmployeeVacation_ToDate">{{l("ToDate")}}</label>
-									 <input required class="form-control m-input" type="datetime" bsDatepicker [(ngModel)]="employeeVacation.toDate._d" id="EmployeeVacation_ToDate" name="EmployeeVacation_ToDate">
+									 <input required class="form-control m-input" type="datetime" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY',isAnimated: true }" [(ngModel)]="employeeVacation.toDate._d" id="EmployeeVacation_ToDate" name="EmployeeVacation_ToDate">
 								</div>
 
 								<div class="form-group">

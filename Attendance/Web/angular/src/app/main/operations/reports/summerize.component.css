@@ -21,3 +21,27 @@
 .approved{
     background-color: green !important;
 }
+.sick{
+    background-color: hotpink !important;
+}
+.leave{
+    background-color: indianred !important;
+}
+.rest{
+    background-color: lightcoral !important;
+}
+.dayOff{
+    background-color: lightsalmon !important;
+}
+
+.report-info{
+    background-color: #311e1e1c;
+    border: 5px;
+    margin-top: 1rem;
+    border-radius: 15px;
+    height: 50px;
+    text-align: center;
+    padding: 15px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+}

@@ -44,6 +44,12 @@ namespace Pixel.Attendance.Operations
 
         Task<List<NormalOverTimeReportOutput>> GetFridayOverTime(NormalOverTimeReportInput input);
         Task<List<NormalOverTimeReportOutput>> GetRegularHours(NormalOverTimeReportInput input);
+        Task<List<UserFlatDto>> GetUserByProject(ActualSummerizeInput input);
+        Task<List<UserFlatDto>> GetUserByManagerUnit(ActualSummerizeInput input);
+        Task<ActualSummerizeTimeSheetOutput> GetProjextUsersToApproveFromHR(ActualSummerizeInput input);
+
+        Task HrApprove(ProjectManagerApproveInput input);
+
 
     }
 }

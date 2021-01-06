@@ -2929,6 +2929,9 @@ namespace Pixel.Attendance.Migrations
                     b.Property<DateTime?>("DeletionTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("EditNote")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Finger")
                         .HasColumnType("int");
 
@@ -2945,6 +2948,9 @@ namespace Pixel.Attendance.Migrations
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsProcessed")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsTaken")
                         .HasColumnType("bit");
 
                     b.Property<int>("KeyType")
@@ -3157,6 +3163,9 @@ namespace Pixel.Attendance.Migrations
 
                     b.Property<DateTime?>("FromDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<bool>("HrApprove")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("IsClosed")
                         .HasColumnType("bit");
@@ -3980,6 +3989,49 @@ namespace Pixel.Attendance.Migrations
                     b.ToTable("PermitTypes");
                 });
 
+            modelBuilder.Entity("Pixel.Attendance.Setting.RamadanDate", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("CreatorUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("DeleterUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FromDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("LastModifierUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("ToDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Year")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RamadanDates");
+                });
+
             modelBuilder.Entity("Pixel.Attendance.Setting.Shift", b =>
                 {
                     b.Property<int>("Id")
@@ -4024,6 +4076,9 @@ namespace Pixel.Attendance.Migrations
                     b.Property<bool>("IsDayRestCalculated")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsDayRestCalculatedWithFixedHours")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -4037,6 +4092,9 @@ namespace Pixel.Attendance.Migrations
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsOverTimeAllowed")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsPunchNextDay")
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsTwoFingerprint")

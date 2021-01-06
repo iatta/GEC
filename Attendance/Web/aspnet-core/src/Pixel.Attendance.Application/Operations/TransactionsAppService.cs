@@ -35,11 +35,15 @@ namespace Pixel.Attendance.Operations
     {
         private readonly IRepository<OrganizationLocation> _organizationLocationRepository;
         private readonly IRepository<LocationMachine> _locationMachineRepository;
+        private readonly IRepository<TransactionLog> _transactionLogRepository;
+        private readonly IRepository<RamadanDate> _ramadanDateRepository;
         private readonly IRepository<EmployeeTempTransfer> _employeeTempTransferRepository;
 
 
         private readonly IRepository<Transaction> _transactionRepository;
         private readonly IRepository<Shift> _shiftRepository;
+        private readonly IRepository<LeaveType> _leaveTypeRepository;
+        private readonly IRepository<OverrideShift> _overrideShiftRepository;
         private readonly IRepository<UserShift> _UserShiftRepository;
         private readonly IRepository<OrganizationUnitExtended, long> _organizationUnitRepository;
         private readonly IRepository<Project> _projectRepository;
@@ -54,8 +58,12 @@ namespace Pixel.Attendance.Operations
 
 
 
-        public TransactionsAppService(IRepository<EmployeeTempTransfer> employeeTempTransferRepository,IRepository<OrganizationLocation> organizationLocationRepository , IRepository<LocationMachine> locationMachineRepository,IRepository<UserDelegation> userDelegationRepository, IRepository<UserTimeSheetApprove> userTimeSheetApproveRepository, IRepository<EmployeeVacation> employeeVacation, IRepository<Shift> shiftRepository, IRepository<UserShift> userShiftRepository, IRepository<OrganizationUnitExtended, long> organizationUnit, IRepository<Transaction> transactionRepository, IRepository<Project> projectRepository, ITransactionsExcelExporter transactionsExcelExporter, UserManager userManager, IRepository<User, long> lookup_userRepository, IRepository<Machine, int> lookup_machineRepository)
+        public TransactionsAppService(IRepository<LeaveType> leaveTypeRepository, IRepository<RamadanDate> ramadanDateRepository, IRepository<OverrideShift> overrideShiftRepository, IRepository<TransactionLog> transactionLogRepository, IRepository<EmployeeTempTransfer> employeeTempTransferRepository, IRepository<OrganizationLocation> organizationLocationRepository, IRepository<LocationMachine> locationMachineRepository, IRepository<UserDelegation> userDelegationRepository, IRepository<UserTimeSheetApprove> userTimeSheetApproveRepository, IRepository<EmployeeVacation> employeeVacation, IRepository<Shift> shiftRepository, IRepository<UserShift> userShiftRepository, IRepository<OrganizationUnitExtended, long> organizationUnit, IRepository<Transaction> transactionRepository, IRepository<Project> projectRepository, ITransactionsExcelExporter transactionsExcelExporter, UserManager userManager, IRepository<User, long> lookup_userRepository, IRepository<Machine, int> lookup_machineRepository)
         {
+            _leaveTypeRepository = leaveTypeRepository;
+            _ramadanDateRepository = ramadanDateRepository;
+            _overrideShiftRepository = overrideShiftRepository;
+            _transactionLogRepository = transactionLogRepository;
             _employeeTempTransferRepository = employeeTempTransferRepository;
             _locationMachineRepository = locationMachineRepository;
             _organizationLocationRepository = organizationLocationRepository;
@@ -176,6 +184,16 @@ namespace Pixel.Attendance.Operations
 
             var transaction = ObjectMapper.Map<Transaction>(input);
             await _transactionRepository.InsertAsync(transaction);
+            await CurrentUnitOfWork.SaveChangesAsync();
+            //log 
+            var transacTionLog = new TransactionLog();
+            transacTionLog.ActionBy = GetCurrentUser().Id;
+            transacTionLog.OldValue = "";
+            transacTionLog.NewValue = transaction.Time;
+            transacTionLog.TransactionId = transaction.Id;
+
+            await _transactionLogRepository.InsertAsync(transacTionLog);
+
         }
 
         [AbpAuthorize(AppPermissions.Pages_ManualTransactions_Edit)]
@@ -186,7 +204,18 @@ namespace Pixel.Attendance.Operations
 
 
             var transaction = await _transactionRepository.FirstOrDefaultAsync((int)input.Id);
+            //log 
+            var transacTionLog = new TransactionLog();
+            transacTionLog.ActionBy = GetCurrentUser().Id;
+            transacTionLog.OldValue = transaction.Time;
+            transacTionLog.NewValue = input.Time;
+            transacTionLog.TransactionId = transaction.Id;
+
+            await _transactionLogRepository.InsertAsync(transacTionLog);
+
             ObjectMapper.Map(input, transaction);
+
+
         }
 
         [AbpAuthorize(AppPermissions.Pages_ManualTransactions_Delete)]
@@ -506,7 +535,87 @@ namespace Pixel.Attendance.Operations
                data
             );
         }
+        #region
+        public async Task<List<UserFlatDto>> GetUserByProject(ActualSummerizeInput input)
+        {
+            var output = new List<UserFlatDto>();
 
+            var project = await _projectRepository.FirstOrDefaultAsync(x => x.Id == input.ProjectId);
+            var userQuery = _userManager.Users.Where(x => x.OrganizationUnitId == project.OrganizationUnitId);
+            if (input.UserType.Value != 0)
+            {
+                var userType = ObjectMapper.Map<UserType>(input.UserType);
+                userQuery = userQuery.Where(x => x.UserType == userType);
+            }
+            var userList = userQuery.ToList();
+
+
+
+            var firstDayOfMonth = input.IsDateRange ? input.StartDate : new DateTime(input.Year, input.Month, 1);
+            var lastDayOfMonth = input.IsDateRange ? input.EndDate : firstDayOfMonth.AddMonths(1).AddDays(-1);
+
+            //get delegated users to this unit 
+            var delegatedUsers = _employeeTempTransferRepository.
+                                     GetAllIncluding(x => x.UserFk)
+                                     .Where(m => m.OrganizationUnitId == project.OrganizationUnitId)
+                                     .Where(x => x.FromDate.Date <= firstDayOfMonth.Date && x.ToDate.Date >= firstDayOfMonth.Date || x.FromDate.Date <= lastDayOfMonth.Date && x.ToDate.Date >= lastDayOfMonth.Date)
+                                     .Select(x => x.UserFk).ToList();
+
+            userList.AddRange(delegatedUsers);
+
+
+            return ObjectMapper.Map<List<UserFlatDto>>(userList);
+
+
+        }
+
+        public async Task<List<UserFlatDto>> GetUserByManagerUnit(ActualSummerizeInput input)
+        {
+            var units = new List<long>();
+            var output = new List<UserFlatDto>();
+
+            var project = await _projectRepository.FirstOrDefaultAsync(x => x.Id == input.ProjectId);
+            var curentUserUnits = await _organizationUnitRepository.GetAllIncluding(x => x.Children).Where(u => u.ManagerId == GetCurrentUser().Id).ToListAsync();
+            var userunitIds = curentUserUnits.Select(x => x.Id).ToList();
+            var allUnits = _organizationUnitRepository.GetAll().ToList();
+            units.AddRange(userunitIds);
+            foreach (var unit in curentUserUnits)
+            {
+                var childUnits = new List<long>();
+                childUnits = GetChildes(childUnits, unit, allUnits);
+                units.AddRange(childUnits);
+            }
+
+            
+
+            var userQuery = _userManager.Users.Where(x => units.Contains(x.OrganizationUnitId.Value));
+            if (input.UserType.Value != 0)
+            {
+                var userType = ObjectMapper.Map<UserType>(input.UserType);
+                userQuery = userQuery.Where(x => x.UserType == userType);
+            }
+            var userList = userQuery.ToList();
+
+            var firstDayOfMonth = input.IsDateRange ? input.StartDate : new DateTime(input.Year, input.Month, 1);
+            var lastDayOfMonth = input.IsDateRange ? input.EndDate : firstDayOfMonth.AddMonths(1).AddDays(-1);
+
+            //get delegated users to this unit 
+            var delegatedUsers = _employeeTempTransferRepository.
+                                     GetAllIncluding(x => x.UserFk)
+                                     .Where(m => m.OrganizationUnitId == project.OrganizationUnitId)
+                                     .Where(x => x.FromDate.Date <= firstDayOfMonth.Date && x.ToDate.Date >= firstDayOfMonth.Date || x.FromDate.Date <= lastDayOfMonth.Date && x.ToDate.Date >= lastDayOfMonth.Date)
+                                     .Select(x => x.UserFk).ToList();
+
+            userList.AddRange(delegatedUsers);
+
+
+            return ObjectMapper.Map<List<UserFlatDto>>(userList);
+
+
+        }
+
+
+        #endregion
         #region GEC Reports 
 
         //get unit transactions used for hr and manager
@@ -580,7 +689,7 @@ namespace Pixel.Attendance.Operations
                                 inTransaction = outTransactionTemp;
                                 outTransaction = inTransactionTemp;
                             }
-                                
+
 
 
                             var totalHours = outMinutes - inMinutes;
@@ -610,7 +719,7 @@ namespace Pixel.Attendance.Operations
 
                     }
                 }
-               
+
             }
 
             return output;
@@ -620,40 +729,62 @@ namespace Pixel.Attendance.Operations
         //project manager summarize report
         public async Task<ActualSummerizeTimeSheetOutput> GetActualSummerizeTimeSheet(ActualSummerizeInput input)
         {
+            //get project  
+            var project = await _projectRepository.FirstOrDefaultAsync(x => x.Id == input.ProjectId);
 
-            //get all project machines  
-            var project = await _projectRepository.GetAllIncluding(x => x.Locations).FirstOrDefaultAsync(x => x.Id == input.ProjectId);
+            //build transactions query 
+            var transactions = await BuildTransactionsQuery(input);
 
-            var projectLocationIds = project.Locations.Select(x => x.LocationId).ToList();
-            //get location machines 
+            //get all transactions
+            var alltransactions = transactions.ToList();
+            
 
-            var machines = _locationMachineRepository.GetAll().Where(x => projectLocationIds.Contains(x.LocationId)).Select(y => y.MachineId);
-
-            // get all transactions for these machines 
-            var transactions = _transactionRepository.GetAllIncluding(x => x.User)
-                               .Where(x => machines.Contains(x.MachineId))
-                               .Where(x => x.Transaction_Date.Month == input.Month && x.Transaction_Date.Year == input.Year);
-
+            //get user groups 
+            var users = new List<User>();
+            var usersQuery = _userManager.Users.Where(x => x.OrganizationUnitId == project.OrganizationUnitId);
             if (input.UserType.Value != 0)
             {
                 var userType = ObjectMapper.Map<UserType>(input.UserType);
-                transactions = transactions.Where(x => x.User.UserType == userType);
+                usersQuery = usersQuery.Where(x => x.UserType == userType);
             }
-            var alltransactions = transactions.ToList();
 
-            var users = alltransactions.GroupBy(x => x.User.Id).Select(x => x.First().User).ToList();
 
-            //users = users.Where(x => x.OrganizationUnitId == project.OrganizationUnitId).ToList();
+            if (input.UserIds.Length > 0)
+                //users = alltransactions.Where(x => input.UserIds.Contains(x.User.Id)).GroupBy(x => x.User.Id).Select(x => x.First().User).ToList();
+                users = usersQuery.Where(x => input.UserIds.Contains(x.Id)).ToList();
+            else
+                //users = alltransactions.GroupBy(x => x.User.Id).Select(x => x.First().User).ToList();
+                users = usersQuery.ToList();
 
-            var firstDayOfMonth = new DateTime(input.Year, input.Month, 1);
-            var lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
+
+            var firstDayOfMonth = input.IsDateRange ? input.StartDate : new DateTime(input.Year, input.Month, 1);
+            var lastDayOfMonth = input.IsDateRange ? input.EndDate : firstDayOfMonth.AddMonths(1).AddDays(-1);
+
+
+            //get delegated users to this unit 
+            var delegatedUsers = _employeeTempTransferRepository.
+                                     GetAllIncluding(x => x.UserFk)
+                                     .Where(m => m.OrganizationUnitId == project.OrganizationUnitId)
+                                     .Where(x => x.FromDate.Date <= firstDayOfMonth.Date && x.ToDate.Date >= firstDayOfMonth.Date || x.FromDate.Date <= lastDayOfMonth.Date && x.ToDate.Date >= lastDayOfMonth.Date)
+                                     .Select(x => x.UserFk).ToList();
+
+            users.AddRange(delegatedUsers);
             //generate the output
             var output = new ActualSummerizeTimeSheetOutput();
+            var projectOrganization = await _organizationUnitRepository.FirstOrDefaultAsync(x => x.Id == project.OrganizationUnitId);
+            var unitManger = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == projectOrganization.ManagerId);
+            var projectManager = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == project.ManagerId);
 
+            output.UnitManagerName = unitManger != null ? unitManger.Name : "";
+            output.ProjectManagerName = projectManager != null ? projectManager.Name : "";
+
+            output.FromDate = firstDayOfMonth;
+            output.ToDate = lastDayOfMonth;
 
             // add users
             foreach (var user in users)
             {
+
                 var summaryToAdd = new ActualSummerizeTimeSheetDto();
                 summaryToAdd.UserId = user.Id;
                 summaryToAdd.UserName = user.FullName;
@@ -661,148 +792,89 @@ namespace Pixel.Attendance.Operations
                 summaryToAdd.FingerCode = user.FingerCode;
 
                 var userIdObjToAdd = new UserTimeSheetInput() { UserId = user.Id };
-                
+
 
                 // add days to users 
                 for (var day = firstDayOfMonth.Date; day <= lastDayOfMonth.Date; day = day.AddDays(1))
                 {
+                    //get user shift in this day 
+                    var userShift = await GetUserShift(user, day);
+
+                    //check if we are in ramadan 
+                    var ramdanTime = await _ramadanDateRepository.FirstOrDefaultAsync(x => x.ToDate.Date.Date >= day.Date.Date && x.FromDate.Date <= day.Date.Date);
+                    var isRamadanDay = ramdanTime != null ? true : false;
+
+
                     var detailToAdd = new ActualSummerizeTimeSheetDetailDto();
                     detailToAdd.Day = day;
-                    //detailToAdd.UserId = user.Id;
 
-                    var userTransactions = alltransactions.Where(x => x.Pin == user.Id && x.Transaction_Date.Date == day.Date).ToList();
-                    var transCount = userTransactions.Count();
+                  
+
+                    if ((int)day.Date.DayOfWeek == (int)userShift.DayRest)
+                        detailToAdd.IsRest = true;
+
+                    if ((int)day.Date.DayOfWeek == (int)userShift.DayOff)
+                        detailToAdd.IsDayOff = true;
+
+                    if (detailToAdd.IsRest)
+                    {
+                        if (userShift.IsDayRestCalculatedWithFixedHours)
+                            detailToAdd.TotalMinutes = 8 * 60;
+                        else if (userShift.IsDayRestCalculated)
+                            detailToAdd = await CalculateTransactions(detailToAdd, user, userShift, isRamadanDay, project.OrganizationUnitId.Value, day, alltransactions);
+                        
+
+                        if (detailToAdd.CanApprove)
+                            userIdObjToAdd.DaysToApprove.Add(day);
+
+
+                        summaryToAdd.Details.Add(detailToAdd);
+                        continue;
+                    }
+
+
+                    if (detailToAdd.IsDayOff)
+                    {
+                        summaryToAdd.Details.Add(detailToAdd);
+                        continue;
+                    }
+
 
 
                     // if no trans check for another project
-                    if (transCount == 0)
-                    {
-                        //check if user transfared in this day 
-                        var userTransferedObj = await _employeeTempTransferRepository.FirstOrDefaultAsync(x => x.UserId == user.Id && x.ToDate.Date >= day.Date && x.FromDate <= day.Date);
-                        if (userTransferedObj != null)
-                        {
-                            //get unit projects 
-                            var unitProjects = _projectRepository.GetAllIncluding(x => x.Locations).Where(x => x.OrganizationUnitId == userTransferedObj.OrganizationUnitId).ToList();
-                            //var unitProjectsOrgUnitId = unitProjects.Select(x => x.OrganizationUnitId).ToList();
+                    detailToAdd = await CalculateTransactions(detailToAdd, user, userShift, isRamadanDay, project.OrganizationUnitId.Value,  day, alltransactions);
 
-                            var locationIds = new List<int?>();
-                            foreach (var unitProject in unitProjects)
-                            {
-                                locationIds.AddRange(unitProject.Locations.Select(x => x.LocationId).ToList());
-                            }
-
-                            var unitMachines = _locationMachineRepository.GetAll().Where(x => locationIds.Contains(x.LocationId)).Select(y => y.MachineId);
-
-                            userTransactions = _transactionRepository.GetAll()
-                                                .Where(x => unitMachines.Contains(x.MachineId))
-                                                .Where(x => x.Transaction_Date.Date == day.Date && x.Pin == user.Id).ToList();
+                    if (detailToAdd.CanApprove)
+                        userIdObjToAdd.DaysToApprove.Add(day);
 
 
-
-                              transCount = userTransactions.Count();
-                            if (transCount >= 2 || userTransferedObj.OrganizationUnitId != user.OrganizationUnitId)
-                                detailToAdd.IsWorkInAnotherProject = true;
-                            
-                        }
-                    }
-
-
-
-
-                    if (transCount == 0 || transCount == 1)
-                    {
-                        //check for vacation
-                        var hasVacation = _employeeVacation.FirstOrDefault(x => x.UserId == user.Id && day >= x.FromDate && day <= x.ToDate);
-                       
-                        if (hasVacation != null)
-                        {
-                            detailToAdd.IsLeave = true;
-                            summaryToAdd.TotalLeaveHours += 8;
-                            userIdObjToAdd.DaysToApprove.Add(day);
-                            
-                        }
-                        else if(project.OrganizationUnitId == user.OrganizationUnitId || user.OrganizationUnitId == null)
-                        {
-
-                            detailToAdd.IsAbsent = true;
-                            summaryToAdd.TotalaAbsenceHours += 8;
-                            userIdObjToAdd.DaysToApprove.Add(day);
-
-                        }
-                        else
-                        {
-                            detailToAdd.IsWorkInAnotherProject = true;
-                        }
-
-                    }
-                    else if (transCount >= 2)
-                    {
-                        double inMinutes = 0;
-                        double outMinutes = 0;
-                        //in transaction
-                        var inTransaction = userTransactions.FirstOrDefault();
-                        var inTransactionString = inTransaction.Time;
-                        if (!string.IsNullOrEmpty(inTransactionString))
-                            inMinutes = (Double.Parse(inTransactionString.Split(":")[0]) * 60) + (Double.Parse(inTransactionString.Split(":")[1]));
-
-
-                        detailToAdd.InTransactionId = inTransaction.Id;
-
-                        var outTransaction = userTransactions.Skip(transCount - 1).FirstOrDefault();
-                        var outTransactionString = outTransaction.Time;
-                        if (!string.IsNullOrEmpty(outTransactionString))
-                            outMinutes = (Double.Parse(outTransactionString.Split(":")[0]) * 60) + (Double.Parse(outTransactionString.Split(":")[1]));
-
-
-                        detailToAdd.OutTransactionId = outTransaction.Id;
-
-                        detailToAdd.TotalHours = outMinutes - inMinutes;
-                        detailToAdd.TotalHours = detailToAdd.TotalHours < 0 ? (detailToAdd.TotalHours * -1) : detailToAdd.TotalHours;
-
-                        summaryToAdd.TotalAttendance += detailToAdd.TotalHours;
-
-                        if (detailToAdd.TotalHours > 480 && user.IsOvertimeAllowed) // 8 hours
-                        {
-                            detailToAdd.Overtime = detailToAdd.TotalHours - 480; // 8 hours
-                            if (!user.IsFixedOverTimeAllowed)
-                            {
-                                // 4 hours 
-                                if (detailToAdd.Overtime > 240)
-                                {
-                                    var timeToDeduct = detailToAdd.Overtime - 240;
-                                    summaryToAdd.TotalDeductionHours += timeToDeduct;
-                                    detailToAdd.Overtime = detailToAdd.Overtime - timeToDeduct;
-                                }
-                            }
-                            summaryToAdd.TotalOverTimeNormal += detailToAdd.Overtime;
-
-
-                        }
-                        else if (detailToAdd.TotalHours < 480)
-                        {
-                            detailToAdd.IsDelay = true;
-                            detailToAdd.Delay = 480 - detailToAdd.TotalHours;
-                        }
-
-                        if (!detailToAdd.IsWorkInAnotherProject)
-                        {
-                            userIdObjToAdd.DaysToApprove.Add(day);
-                        }
-
-                    }
-                   
                     summaryToAdd.Details.Add(detailToAdd);
                 }
+
+
+
+                summaryToAdd.TotalAttendance = summaryToAdd.Details.Sum(x => x.TotalMinutes);
+                summaryToAdd.TotalDeductionMinutes = summaryToAdd.Details.Sum(x => x.DeductMinutes);
+                summaryToAdd.TotalLeaveMinutes = summaryToAdd.Details.Sum(x => x.LeaveMinutes);
+                summaryToAdd.TotalaAbsenceMinutes = summaryToAdd.Details.Sum(x => x.AbsenceMinutes);
+                summaryToAdd.TotalSickLeaveMinutes = output.Data.Sum(x => x.TotalSickLeaveMinutes);
 
                 output.UserIds.Add(userIdObjToAdd);
                 output.Data.Add(summaryToAdd);
             }
-            output.TotalLeaveDayHours = output.Data.Sum(x => x.TotalLeaveHours);
-            output.TotalDeductioneHours = output.Data.Sum(x => x.TotalDeductionHours);
-            output.TotalAttendanceHours = output.Data.Sum(x => x.TotalAttendance);
-            output.TotalAbsenceHours = output.Data.Sum(x => x.TotalaAbsenceHours);
+
+            output.TotalSickLeaveMinutes = output.Data.Sum(x => x.TotalSickLeaveMinutes);
+            output.TotalLeaveDayMinutes = output.Data.Sum(x => x.TotalLeaveMinutes);
+            output.TotalDeductioneMinutes = output.Data.Sum(x => x.TotalDeductionMinutes);
+            output.TotalAttendanceMinutes = output.Data.Sum(x => x.TotalAttendance);
+            output.TotalAbsenceMinutes = output.Data.Sum(x => x.TotalaAbsenceMinutes);
             output.TotalEmployee = output.UserIds.Count();
-            output.TotalOvertimeHours = output.Data.Sum(x => x.TotalOverTimeNormal);
+            output.TotalOvertimeMinutes = output.Data.Sum(x => x.TotalOverTimeNormal);
+
+
+            foreach (var trans in alltransactions)
+                trans.IsTaken = false;
+
             return output;
 
 
@@ -814,35 +886,20 @@ namespace Pixel.Attendance.Operations
             var output = new ActualSummerizeTimeSheetOutput();
             //get all project machines 
             var project = await _projectRepository.GetAllIncluding(x => x.Locations).FirstOrDefaultAsync(x => x.Id == input.ProjectId);
+            //build transactions query 
+            var transactions = await BuildTransactionsQuery(input);
 
-           
-            
-
-            var projectLocationIds = project.Locations.Select(x => x.LocationId).ToList();
-            var machines = _locationMachineRepository.GetAll().Where(x => projectLocationIds.Contains(x.LocationId)).Select(y => y.MachineId).ToList();
-
-            
-
-            // get all transactions for these machines 
-            var transactions = _transactionRepository.GetAllIncluding(x => x.User)
-                               .Where(x => machines.Contains(x.MachineId))
-                               .Where(x => x.Transaction_Date.Month == input.Month && x.Transaction_Date.Year == input.Year);
-
-            if (input.UserType.Value != 0)
-            {
-                var userType = ObjectMapper.Map<UserType>(input.UserType);
-                transactions = transactions.Where(x => x.User.UserType == userType);
-            }
+          
             var transactionsList = transactions.ToList();
             // get project unit .
             var projectUnit = await _organizationUnitRepository.FirstOrDefaultAsync(x => x.Id == project.OrganizationUnitId);
-            var currentUserUnits  = await _organizationUnitRepository.GetAllIncluding(x => x.Children).Where(x => x.ManagerId == GetCurrentUser().Id).ToListAsync(); // in case of current user is manager for multi units
+            var currentUserUnits = await _organizationUnitRepository.GetAllIncluding(x => x.Children).Where(x => x.ManagerId == GetCurrentUser().Id).ToListAsync(); // in case of current user is manager for multi units
             var currentUserUnitsIds = currentUserUnits.Select(x => x.Id).ToList();
             // get project Unit Parents That have to approve 
 
             var allUnits = _organizationUnitRepository.GetAll().ToList();
             var projectUnitParents = new List<long>();
-            projectUnitParents  = GetParents(projectUnitParents, projectUnit, allUnits);
+            projectUnitParents = GetParents(projectUnitParents, projectUnit, allUnits);
 
             var remainingUnits = new List<long>();
             if (projectUnit.HasApprove)
@@ -851,34 +908,54 @@ namespace Pixel.Attendance.Operations
             }
             remainingUnits.AddRange(projectUnitParents);
 
-            var temRemainingUnits = new List<long>(remainingUnits.Count) ;
+            var temRemainingUnits = new List<long>(remainingUnits.Count);
             remainingUnits.ForEach((item) =>
             {
                 temRemainingUnits.Add(item);
             });
+
+
             //
-            var users = transactionsList.GroupBy(x => x.User.Id).Select(x => x.First().User).ToList();
+            var usersQuery = _userManager.Users.Where(x => remainingUnits.Contains((long)x.OrganizationUnitId));
+            
             //var projectUnitUsers = users.Where(x => x.OrganizationUnitId.Value == projectUnit.Id).ToList();
 
+            if (input.UserType.Value != 0)
+            {
+                var userType = ObjectMapper.Map<UserType>(input.UserType);
+                usersQuery = usersQuery.Where(x => x.UserType == userType);
+            }
 
-            var firstDayOfMonth = new DateTime(input.Year, input.Month, 1);
-            var lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
+            var users = new List<User>();
+            if (input.UserIds.Length > 0)
+                //users = alltransactions.Where(x => input.UserIds.Contains(x.User.Id)).GroupBy(x => x.User.Id).Select(x => x.First().User).ToList();
+                users = usersQuery.Where(x => input.UserIds.Contains(x.Id)).ToList();
+            else
+                //users = alltransactions.GroupBy(x => x.User.Id).Select(x => x.First().User).ToList();
+                users = usersQuery.ToList();
+
+
+            var firstDayOfMonth = input.IsDateRange ? input.StartDate : new DateTime(input.Year, input.Month, 1);
+            var lastDayOfMonth = input.IsDateRange ? input.EndDate : firstDayOfMonth.AddMonths(1).AddDays(-1);
+
+            //get delegated users to this unit 
+            var delegatedUsers = _employeeTempTransferRepository.
+                                     GetAllIncluding(x => x.UserFk)
+                                     .Where(m => remainingUnits.Contains((long)m.OrganizationUnitId))
+                                     .Where(x => x.FromDate.Date <= firstDayOfMonth.Date && x.ToDate.Date >= firstDayOfMonth.Date || x.FromDate.Date <= lastDayOfMonth.Date && x.ToDate.Date >= lastDayOfMonth.Date)
+                                     .Select(x => x.UserFk).ToList();
+
+            users.AddRange(delegatedUsers);
+
             //generate the output
 
 
             // add users
             foreach (var user in users)
             {
-
-                //get user previous approved
-                
-          
-                //CHECK IF USER HAS DELEGATION 
-
-
                 var summaryToAdd = new ActualSummerizeTimeSheetDto();
                 summaryToAdd.UserId = user.Id;
-                summaryToAdd.UserName = user.Name;
+                summaryToAdd.UserName = user.FullName;
                 summaryToAdd.Code = user.Code;
                 summaryToAdd.FingerCode = user.FingerCode;
 
@@ -887,6 +964,13 @@ namespace Pixel.Attendance.Operations
                 // add days to users 
                 for (var day = firstDayOfMonth.Date; day <= lastDayOfMonth.Date; day = day.AddDays(1))
                 {
+                    //get user shift in this day 
+                    var userShift = await GetUserShift(user, day);
+
+                    //check if we are in ramadan 
+                    var ramdanTime = await _ramadanDateRepository.FirstOrDefaultAsync(x => x.ToDate.Date.Date >= day.Date.Date && x.FromDate.Date <= day.Date.Date);
+                    var isRamadanDay = ramdanTime != null ? true : false;
+
                     var detailToAdd = new ActualSummerizeTimeSheetDetailDto();
                     var userTimeSheet = _userTimeSheetApproveRepository.FirstOrDefault(x => x.UserId == user.Id && x.ProjectManagerApprove == true && x.Day.Value.Date == day.Date && x.ProjectId == input.ProjectId);
 
@@ -942,76 +1026,58 @@ namespace Pixel.Attendance.Operations
 
                         }
                     }
-                    else
-                    {
-                        //check if transfered 
-                        var userTransferedObj = await _employeeTempTransferRepository.FirstOrDefaultAsync(x => x.UserId == user.Id && x.ToDate.Date >= day.Date && x.FromDate <= day.Date);
-                        detailToAdd.IsTransferred = true;
+                   
 
-                    }
 
-                    
                     detailToAdd.Day = day;
 
-                    var userTransactions = transactionsList.Where(x => x.Pin == user.Id && x.Transaction_Date.Date == day.Date).Select(x => x.Time).ToList();
-                    var transCount = userTransactions.Count();
+                   
+                    if ((int)day.Date.DayOfWeek == (int)userShift.DayRest)
+                        detailToAdd.IsRest = true;
 
-                    if (transCount == 0)
+                    if ((int)day.Date.DayOfWeek == (int)userShift.DayOff)
+                        detailToAdd.IsDayOff = true;
+
+                    if (detailToAdd.IsRest)
                     {
-                        //check for vacation
-                        var hasVacation = _employeeVacation.FirstOrDefault(x => x.UserId == user.Id && day >= x.FromDate && day <= x.ToDate);
-                        if (hasVacation != null)
-                            detailToAdd.IsLeave = true;
-                        else
-                            detailToAdd.IsAbsent = true;
+                        if (userShift.IsDayRestCalculatedWithFixedHours)
+                            detailToAdd.TotalMinutes = 8 * 60;
+                        else if (userShift.IsDayRestCalculated)
+                            detailToAdd = await CalculateTransactions(detailToAdd, user, userShift, isRamadanDay, project.OrganizationUnitId.Value, day, transactionsList);
 
+
+                        if (detailToAdd.CanManagerApprove)
+                            UserIdToApproveObj.DaysToApprove.Add(day);
+
+                        summaryToAdd.Details.Add(detailToAdd);
+                        continue;
                     }
-                    else if (transCount >= 2)
+
+
+                    if (detailToAdd.IsDayOff)
                     {
-                        double inMinutes = 0;
-                        double outMinutes = 0;
-                        //in transaction
-                        var inTransaction = userTransactions.FirstOrDefault();
-                        if (!string.IsNullOrEmpty(inTransaction))
-                            inMinutes = (Double.Parse(inTransaction.Split(":")[0]) * 60) + (Double.Parse(inTransaction.Split(":")[1]));
-
-                        var outTransaction = userTransactions.Skip(transCount - 1).FirstOrDefault();
-                        if (!string.IsNullOrEmpty(outTransaction))
-                            outMinutes = (Double.Parse(outTransaction.Split(":")[0]) * 60) + (Double.Parse(outTransaction.Split(":")[1]));
-
-                        detailToAdd.TotalHours = outMinutes - inMinutes;
-                        detailToAdd.TotalHours = detailToAdd.TotalHours < 0 ? (detailToAdd.TotalHours * -1) : detailToAdd.TotalHours;
-                        summaryToAdd.TotalAttendance += detailToAdd.TotalHours;
-
-                        if (detailToAdd.TotalHours > 480 && user.IsOvertimeAllowed) // 8 hours
-                        {
-                            detailToAdd.Overtime = detailToAdd.TotalHours - 480; // 8 hours
-                            if (!user.IsFixedOverTimeAllowed)
-                            {
-                                // 4 hours 
-                                if (detailToAdd.Overtime > 240)
-                                {
-                                    var timeToDeduct = detailToAdd.Overtime - 240;
-                                    summaryToAdd.TotalDeductionHours += timeToDeduct;
-                                    detailToAdd.Overtime = detailToAdd.Overtime - timeToDeduct;
-                                }
-                                summaryToAdd.TotalOverTimeNormal += detailToAdd.Overtime;
-                            }
-                        }
-                        else if (detailToAdd.TotalHours < 480)
-                        {
-                            detailToAdd.IsDelay = true;
-                            detailToAdd.Delay = 480 - detailToAdd.TotalHours;
-                        }
-
+                        summaryToAdd.Details.Add(detailToAdd);
+                        continue;
                     }
+
+
+                    // if no trans check for another project
+                    detailToAdd = await CalculateTransactions(detailToAdd, user, userShift, isRamadanDay, project.OrganizationUnitId.Value, day, transactionsList);
+
+
 
                     if (detailToAdd.CanManagerApprove)
                         UserIdToApproveObj.DaysToApprove.Add(day);
-                    
+
 
                     summaryToAdd.Details.Add(detailToAdd);
                 }
+
+                summaryToAdd.TotalAttendance = summaryToAdd.Details.Sum(x => x.TotalMinutes);
+                summaryToAdd.TotalDeductionMinutes = summaryToAdd.Details.Sum(x => x.DeductMinutes);
+                summaryToAdd.TotalLeaveMinutes = summaryToAdd.Details.Sum(x => x.LeaveMinutes);
+                summaryToAdd.TotalaAbsenceMinutes = summaryToAdd.Details.Sum(x => x.AbsenceMinutes);
+                summaryToAdd.TotalSickLeaveMinutes = output.Data.Sum(x => x.TotalSickLeaveMinutes);
 
                 output.UserIdsToApprove.Add(UserIdToApproveObj);
                 output.Data.Add(summaryToAdd);
@@ -1024,18 +1090,273 @@ namespace Pixel.Attendance.Operations
             {
                 approveList.AddRange(item.Select(x => x.CanManagerApprove));
             }
-            
+
             output.CanApprove = approveList.Any(x => x == true);
 
-            output.TotalLeaveDayHours = output.Data.Sum(x => x.TotalLeaveHours);
-            output.TotalDeductioneHours = output.Data.Sum(x => x.TotalDeductionHours);
-            output.TotalAttendanceHours = output.Data.Sum(x => x.TotalAttendance);
-            output.TotalAbsenceHours = output.Data.Sum(x => x.TotalaAbsenceHours);
+            output.TotalSickLeaveMinutes = output.Data.Sum(x => x.TotalSickLeaveMinutes);
+            output.TotalLeaveDayMinutes = output.Data.Sum(x => x.TotalLeaveMinutes);
+            output.TotalDeductioneMinutes = output.Data.Sum(x => x.TotalDeductionMinutes);
+            output.TotalAttendanceMinutes = output.Data.Sum(x => x.TotalAttendance);
+            output.TotalAbsenceMinutes = output.Data.Sum(x => x.TotalaAbsenceMinutes);
             output.TotalEmployee = output.UserIds.Count();
-            output.TotalOvertimeHours = output.Data.Sum(x => x.TotalOverTimeNormal);
+            output.TotalOvertimeMinutes = output.Data.Sum(x => x.TotalOverTimeNormal);
             return output;
         }
 
+        public async Task<ActualSummerizeTimeSheetOutput> GetProjextUsersToApproveFromHR(ActualSummerizeInput input)
+        {
+            var output = new ActualSummerizeTimeSheetOutput();
+            //get all project machines 
+            var project = await _projectRepository.GetAllIncluding(x => x.Locations).FirstOrDefaultAsync(x => x.Id == input.ProjectId);
+            //build transactions query 
+            var transactions = await BuildTransactionsQuery(input);
+
+
+            var transactionsList = transactions.ToList();
+            // get project unit .
+            var projectUnit = await _organizationUnitRepository.FirstOrDefaultAsync(x => x.Id == project.OrganizationUnitId);
+            
+            //var currentUserUnits = await _organizationUnitRepository.GetAllIncluding(x => x.Children).Where(x => x.ManagerId == GetCurrentUser().Id).ToListAsync(); // in case of current user is manager for multi units
+            //var currentUserUnitsIds = currentUserUnits.Select(x => x.Id).ToList();
+            // get project Unit Parents That have to approve 
+
+            var allUnits = _organizationUnitRepository.GetAll().ToList();
+            var projectUnitParents = new List<long>();
+            projectUnitParents = GetParents(projectUnitParents, projectUnit, allUnits);
+
+            var remainingUnits = new List<long>();
+            if (projectUnit.HasApprove)
+            {
+                remainingUnits.Add(projectUnit.Id);
+            }
+            remainingUnits.AddRange(projectUnitParents);
+
+            var temRemainingUnits = new List<long>(remainingUnits.Count);
+            remainingUnits.ForEach((item) =>
+            {
+                temRemainingUnits.Add(item);
+            });
+
+
+            //
+            var usersQuery = _userManager.Users.Where(x => remainingUnits.Contains((long)x.OrganizationUnitId));
+
+            //var projectUnitUsers = users.Where(x => x.OrganizationUnitId.Value == projectUnit.Id).ToList();
+
+            if (input.UserType.Value != 0)
+            {
+                var userType = ObjectMapper.Map<UserType>(input.UserType);
+                usersQuery = usersQuery.Where(x => x.UserType == userType);
+            }
+
+            var users = new List<User>();
+            if (input.UserIds.Length > 0)
+                //users = alltransactions.Where(x => input.UserIds.Contains(x.User.Id)).GroupBy(x => x.User.Id).Select(x => x.First().User).ToList();
+                users = usersQuery.Where(x => input.UserIds.Contains(x.Id)).ToList();
+            else
+                //users = alltransactions.GroupBy(x => x.User.Id).Select(x => x.First().User).ToList();
+                users = usersQuery.ToList();
+
+
+            var firstDayOfMonth = input.IsDateRange ? input.StartDate : new DateTime(input.Year, input.Month, 1);
+            var lastDayOfMonth = input.IsDateRange ? input.EndDate : firstDayOfMonth.AddMonths(1).AddDays(-1);
+
+            //get delegated users to this unit 
+            var delegatedUsers = _employeeTempTransferRepository.
+                                     GetAllIncluding(x => x.UserFk)
+                                     .Where(m => remainingUnits.Contains((long)m.OrganizationUnitId))
+                                     .Where(x => x.FromDate.Date <= firstDayOfMonth.Date && x.ToDate.Date >= firstDayOfMonth.Date || x.FromDate.Date <= lastDayOfMonth.Date && x.ToDate.Date >= lastDayOfMonth.Date)
+                                     .Select(x => x.UserFk).ToList();
+
+            users.AddRange(delegatedUsers);
+
+            //generate the output
+
+
+            // add users
+            foreach (var user in users)
+            {
+                var summaryToAdd = new ActualSummerizeTimeSheetDto();
+                summaryToAdd.UserId = user.Id;
+                summaryToAdd.UserName = user.FullName;
+                summaryToAdd.Code = user.Code;
+                summaryToAdd.FingerCode = user.FingerCode;
+
+                var UserIdToApproveObj = new UserTimeSheetInput() { UserId = user.Id };
+                output.RemainingUnitsApprove = _organizationUnitRepository.GetAll().Where(x => temRemainingUnits.Contains(x.Id)).Select(x => x.DisplayName).ToList();
+                // add days to users 
+                for (var day = firstDayOfMonth.Date; day <= lastDayOfMonth.Date; day = day.AddDays(1))
+                {
+                    //get user shift in this day 
+                    var userShift = await GetUserShift(user, day);
+
+                    //check if we are in ramadan 
+                    var ramdanTime = await _ramadanDateRepository.FirstOrDefaultAsync(x => x.ToDate.Date.Date >= day.Date.Date && x.FromDate.Date <= day.Date.Date);
+                    var isRamadanDay = ramdanTime != null ? true : false;
+
+                    var detailToAdd = new ActualSummerizeTimeSheetDetailDto();
+                    var userTimeSheet = _userTimeSheetApproveRepository.FirstOrDefault(x => x.UserId == user.Id && x.ProjectManagerApprove == true && x.Day.Value.Date == day.Date && x.ProjectId == input.ProjectId);
+
+                    // check if project manager approve 
+                    if (userTimeSheet != null)
+                    {
+                        detailToAdd.IsProjectManagerApproved = true;
+                        var unitToApprove = 0;
+                        // check if there is pending approve
+                        if (string.IsNullOrEmpty(userTimeSheet.ApprovedUnits))
+                        {
+                            // no one approved so we have to check if for the next one 
+                            unitToApprove = (int)remainingUnits[0];
+                            output.UnitIdToApprove = unitToApprove;
+                        }
+                        else
+                        {
+                            var previousApprovedUnits = userTimeSheet.ApprovedUnits.Split(",").Select(long.Parse).ToList();
+                            //check for the next one 
+                            for (int i = 0; i < remainingUnits.Count; i++)
+                            {
+                                if (!previousApprovedUnits.Contains(remainingUnits[i]))
+                                {
+                                    unitToApprove = (int)remainingUnits[i];
+                                    output.UnitIdToApprove = unitToApprove;
+                                    break;
+                                }
+                                else
+                                {
+                                    temRemainingUnits.Remove(remainingUnits[i]);
+
+                                }
+                            }
+                        }
+
+
+                        if (temRemainingUnits.Count == 0)
+                        {
+                            detailToAdd.CanHrApprove = true;
+                            output.UserIds.Add(new UserTimeSheetInput() { UserId = user.Id, YesClose = detailToAdd.YesClose });
+                            UserIdToApproveObj.YesClose = detailToAdd.YesClose;
+                            //output.UserIdsToApprove.Add(new UserTimeSheetInput() { UserId = user.Id, YesClose = detailToAdd.YesClose });
+
+                        }
+                    }
+
+
+
+                    detailToAdd.Day = day;
+
+                    var userTransactions = transactionsList.Where(x => x.Pin == user.Id && x.Transaction_Date.Date == day.Date).ToList();
+                    var transCount = userTransactions.Count();
+                    //in transaction
+                    var inTransaction = userTransactions.Where(x => !x.IsTaken).FirstOrDefault();
+                    detailToAdd.InTransactionId = inTransaction.Id;
+
+                    //out transaction 
+                    var outTransaction = userTransactions.Where(x => !x.IsTaken).Skip(transCount - 1).FirstOrDefault();
+                    if (outTransaction == null)
+                    {
+                        //get transaction in the next day 
+                        var nextDay = day.AddDays(1);
+                        outTransaction = userTransactions.Where(x => !x.IsTaken).FirstOrDefault();
+                    }
+
+                    inTransaction.IsTaken = true;
+                    outTransaction.IsTaken = true;
+
+                    if ((int)day.Date.DayOfWeek == (int)userShift.DayRest)
+                        detailToAdd.IsRest = true;
+
+                    if ((int)day.Date.DayOfWeek == (int)userShift.DayOff)
+                        detailToAdd.IsDayOff = true;
+
+                    if (detailToAdd.IsRest)
+                    {
+                        if (userShift.IsDayRestCalculatedWithFixedHours)
+                            detailToAdd.TotalMinutes = 8 * 60;
+                        else if (userShift.IsDayRestCalculated)
+                            detailToAdd = await CalculateTransactions(detailToAdd, user, userShift, isRamadanDay, project.OrganizationUnitId.Value, day, transactionsList);
+
+
+                        if (detailToAdd.CanHrApprove)
+                            UserIdToApproveObj.DaysToApprove.Add(day);
+
+                        summaryToAdd.Details.Add(detailToAdd);
+                        continue;
+                    }
+
+
+                    if (detailToAdd.IsDayOff)
+                    {
+                        summaryToAdd.Details.Add(detailToAdd);
+                        continue;
+                    }
+
+
+                    // if no trans check for another project
+                    detailToAdd = await CalculateTransactions(detailToAdd, user, userShift, isRamadanDay, project.OrganizationUnitId.Value, day, transactionsList);
+
+
+
+                    if (detailToAdd.CanHrApprove)
+                        UserIdToApproveObj.DaysToApprove.Add(day);
+
+
+                    summaryToAdd.Details.Add(detailToAdd);
+                }
+
+                summaryToAdd.TotalAttendance = summaryToAdd.Details.Sum(x => x.TotalMinutes);
+                summaryToAdd.TotalDeductionMinutes = summaryToAdd.Details.Sum(x => x.DeductMinutes);
+                summaryToAdd.TotalLeaveMinutes = summaryToAdd.Details.Sum(x => x.LeaveMinutes);
+                summaryToAdd.TotalaAbsenceMinutes = summaryToAdd.Details.Sum(x => x.AbsenceMinutes);
+                summaryToAdd.TotalSickLeaveMinutes = output.Data.Sum(x => x.TotalSickLeaveMinutes);
+
+                output.UserIdsToApprove.Add(UserIdToApproveObj);
+                output.Data.Add(summaryToAdd);
+
+            }
+
+            var approveList = new List<bool>();
+            var details = output.Data.Select(x => x.Details).ToList();
+            foreach (var item in details)
+            {
+                approveList.AddRange(item.Select(x => x.CanHrApprove));
+            }
+
+            output.CanApprove = approveList.Any(x => x == true);
+
+            output.TotalSickLeaveMinutes = output.Data.Sum(x => x.TotalSickLeaveMinutes);
+            output.TotalLeaveDayMinutes = output.Data.Sum(x => x.TotalLeaveMinutes);
+            output.TotalDeductioneMinutes = output.Data.Sum(x => x.TotalDeductionMinutes);
+            output.TotalAttendanceMinutes = output.Data.Sum(x => x.TotalAttendance);
+            output.TotalAbsenceMinutes = output.Data.Sum(x => x.TotalaAbsenceMinutes);
+            output.TotalEmployee = output.UserIds.Count();
+            output.TotalOvertimeMinutes = output.Data.Sum(x => x.TotalOverTimeNormal);
+            return output;
+        }
+
+        public async Task HrApprove(ProjectManagerApproveInput input)
+        {
+            if (input.UserIds.Count > 0)
+            {
+                foreach (var user in input.UserIds)
+                {
+                    //approve each day 
+                    var firstDayOfMonth = new DateTime(input.Year, input.Month, 1);
+                    var lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
+
+                    foreach (var day in user.DaysToApprove)
+                    {
+                        var userTimeSheet = _userTimeSheetApproveRepository.FirstOrDefault(x => x.UserId == user.UserId && x.Day.Value.Date == day.Date && x.ProjectId == input.ProjectId);
+                        if (userTimeSheet != null)
+                        {
+                            userTimeSheet.HrApprove = true;
+                            await _userTimeSheetApproveRepository.UpdateAsync(userTimeSheet);
+                        }
+                    }
+
+                }
+            }
+
+        }
         public async Task PojectManagerApprove(ProjectManagerApproveInput input)
         {
             if (input.UserIds.Count > 0)
@@ -1069,7 +1390,7 @@ namespace Pixel.Attendance.Operations
 
                         }
                     }
-                   
+
                 }
             }
 
@@ -1106,11 +1427,11 @@ namespace Pixel.Attendance.Operations
 
         public async Task UnitManagerToApprove(ProjectManagerApproveInput input)
         {
-          
+
 
             foreach (var user in input.UserIds)
             {
-                
+
                 foreach (var day in user.DaysToApprove)
                 {
                     var approvedUnits = new List<long>();
@@ -1347,7 +1668,7 @@ namespace Pixel.Attendance.Operations
                         normalOvertimeObj.AttendanceDate = day;
                         var unit = await _organizationUnitRepository.FirstOrDefaultAsync(x => x.Id == user.OrganizationUnitId);
 
-                         //get project
+                        //get project
                         var project = _projectRepository.FirstOrDefault(x => x.Locations.FirstOrDefault(y => y.LocationFk.Machines.FirstOrDefault(z => z.LocationId == y.LocationId).MachineId == inTransaction.MachineId) != null);
 
                         normalOvertimeObj.BusinessUnit = unit.DisplayName;
@@ -1427,7 +1748,7 @@ namespace Pixel.Attendance.Operations
 
                         }
                     }
-                   
+
 
                 }
 
@@ -1448,7 +1769,7 @@ namespace Pixel.Attendance.Operations
             // get distincit users
             var users = transactions.GroupBy(x => x.User.Id).Select(x => x.First().User);
 
-           
+
 
             foreach (var user in users)
             {
@@ -1481,7 +1802,7 @@ namespace Pixel.Attendance.Operations
                         //Straight Time
                         var normalOvertimeObj1 = new NormalOverTimeReportOutput();
                         normalOvertimeObj1.AttendanceDate = day;
-                        
+
                         normalOvertimeObj1.BusinessUnit = unit.DisplayName;
                         normalOvertimeObj1.AttendanceDate = day;
                         normalOvertimeObj1.PersonName = user.Name;
@@ -1524,5 +1845,385 @@ namespace Pixel.Attendance.Operations
         #endregion
 
 
+        #region Helpers
+        private async Task<IQueryable<Transaction>> BuildTransactionsQuery(ActualSummerizeInput input)
+        {
+            //get all project machines  
+            var project = await _projectRepository.GetAllIncluding(x => x.Locations).FirstOrDefaultAsync(x => x.Id == input.ProjectId);
+
+            var projectLocationIds = project.Locations.Select(x => x.LocationId).ToList();
+            //get location machines 
+
+            var machines = _locationMachineRepository.GetAll().Where(x => projectLocationIds.Contains(x.LocationId)).Select(y => y.MachineId);
+
+            // get all transactions for these machines 
+            var transactions = _transactionRepository.GetAllIncluding(x => x.User)
+                               .Where(x => machines.Contains(x.MachineId));
+
+            if (input.IsDateRange)
+                transactions = transactions.Where(x => x.Transaction_Date.Date >= input.StartDate.Date && x.Transaction_Date.Date <= input.EndDate.Date);
+            else
+                transactions = transactions.Where(x => x.Transaction_Date.Month == input.Month && x.Transaction_Date.Year == input.Year);
+
+            return transactions;
+        }
+
+        private async Task<Shift> GetUserShift(User user, DateTime day)
+        {
+            var userShift = new Shift();
+            userShift = await _shiftRepository.FirstOrDefaultAsync(x => x.Id == user.ShiftId);
+            //chaeck if there is an override shift in this day
+            var overrideShift = await _overrideShiftRepository.FirstOrDefaultAsync(x => x.UserId.Value == user.Id && x.Day.Date == day.Date);
+            if (overrideShift != null)
+                userShift = await _shiftRepository.FirstOrDefaultAsync(x => x.Id == overrideShift.ShiftId);
+
+            if (userShift == null)
+                userShift = await _shiftRepository.FirstOrDefaultAsync(x => x.Code == "F8");
+
+
+
+            return userShift;
+
+        }
+        private async Task<bool> CheckIfUSerWorkInAnotherProject(User user, DateTime day, long projectUnitId)
+        {
+            var isWorkInAnotherProject = false;
+
+            var userTransferedObj = await _employeeTempTransferRepository.FirstOrDefaultAsync(x => x.UserId == user.Id && x.ToDate.Date >= day.Date && x.FromDate <= day.Date);
+            if (userTransferedObj != null)
+            {
+                if (userTransferedObj.OrganizationUnitId != projectUnitId)
+                    isWorkInAnotherProject = true;
+            }
+            else
+            {
+                if (user.OrganizationUnitId != projectUnitId)
+                    isWorkInAnotherProject = true;
+            }
+
+
+            return isWorkInAnotherProject;
+        }
+
+        private async Task<ActualSummerizeTimeSheetDetailDto> CalculateNoTrans(ActualSummerizeTimeSheetDetailDto detailToAdd, User user, DateTime day, Shift userShift, long projectUnitId , bool isRamadanDay)
+        {
+            detailToAdd.IsWorkInAnotherProject = await CheckIfUSerWorkInAnotherProject(user, day, projectUnitId);
+            if (detailToAdd.IsWorkInAnotherProject)
+                return detailToAdd;
+
+            //check for vacation
+            var hasVacation = _employeeVacation.FirstOrDefault(x => x.UserId == user.Id && day.Date >= x.FromDate.Date && day.Date <= x.ToDate.Date);
+
+            if (hasVacation != null)
+            {
+                var leaveType = await _leaveTypeRepository.FirstOrDefaultAsync(x => x.Id == hasVacation.LeaveTypeId);
+                if (leaveType.Code == "SL")
+                {
+                    detailToAdd.CanApprove = true;
+                    detailToAdd.IsSick = true;
+                    detailToAdd.SickMinutes = 8 * 60;
+                }
+                else
+                {
+                    detailToAdd.CanApprove = true;
+                    detailToAdd.IsLeave = true;
+                    detailToAdd.LeaveMinutes = 8 * 60;
+                }
+
+            }
+            else if (userShift.IsDayRestCalculated && (int)day.Date.DayOfWeek == (int)userShift.DayRest)
+            {
+                detailToAdd.TotalMinutes = isRamadanDay ? userShift.TotalHoursPerDayRamadan * 60  :  userShift.TotalHoursPerDay * 60;
+                detailToAdd.CanApprove = true;
+            }
+            else
+            {
+
+                detailToAdd.IsAbsent = true;
+                detailToAdd.AbsenceMinutes = 8 * 60;
+                detailToAdd.CanApprove = true;
+
+            }
+
+
+            return detailToAdd;
+        }
+
+        private ActualSummerizeTimeSheetDetailDto CalculateSummary(ActualSummerizeTimeSheetDetailDto detailToAdd, User user, Shift userShift, bool isRamadanDay,DateTime day, List<Transaction> alltransactions)
+        {
+
+            double inMinutes = 0;
+            double outMinutes = 0;
+
+            //get user transactions
+            var userTransactions = alltransactions.Where(x => x.Pin == user.Id && x.Transaction_Date.Date == day.Date).ToList();
+            var transCount = userTransactions.Count();
+
+            //in transaction
+            var inTransaction = userTransactions.Where(x => !x.IsTaken).FirstOrDefault();
+            detailToAdd.InTransactionId = inTransaction.Id;
+
+            //out transaction 
+            var outTransaction = userTransactions.Where(x => !x.IsTaken).Skip(transCount - 1).FirstOrDefault();
+            if (outTransaction == null)
+            {
+                //get transaction in the next day 
+                var nextDay = day.AddDays(1);
+                var userNextDayTransactions = alltransactions.Where(x => x.Pin == user.Id && x.Transaction_Date.Date == nextDay.Date).ToList();
+                outTransaction = userTransactions.FirstOrDefault();
+            }
+
+            inTransaction.IsTaken = true;
+            outTransaction.IsTaken = true;
+
+            var inTransactionString = inTransaction.Time;
+            var outTransactionString = outTransaction.Time;
+
+            if (!string.IsNullOrEmpty(inTransactionString))
+                inMinutes = (Double.Parse(inTransactionString.Split(":")[0]) * 60) + (Double.Parse(inTransactionString.Split(":")[1]));
+
+            if (!string.IsNullOrEmpty(outTransactionString))
+                outMinutes = (Double.Parse(outTransactionString.Split(":")[0]) * 60) + (Double.Parse(outTransactionString.Split(":")[1]));
+
+            detailToAdd.OutTransactionId = outTransaction.Id;
+
+            if (userShift.IsFlexible)
+                detailToAdd = CalculateFlexible(detailToAdd, user, userShift, outMinutes, inMinutes , isRamadanDay);
+
+            if (userShift.IsTwoFingerprint)
+                detailToAdd = CalculateTwoFingerPrint(detailToAdd, user, userShift, outMinutes, inMinutes, outTransaction, inTransaction, isRamadanDay);
+
+            if (userShift.IsOneFingerprint)
+                detailToAdd = CalculateOneFinger(detailToAdd, transCount);
+
+            if (userShift.IsInOutWithoutClculateHours)
+                detailToAdd = CalculateInOutWithoutCalculateHours(detailToAdd, transCount);
+
+
+
+            return detailToAdd;
+            
+        }
+
+         
+
+
+        private ActualSummerizeTimeSheetDetailDto CalculateFlexible(ActualSummerizeTimeSheetDetailDto detailToAdd, User user, Shift userShift, double outMinutes, double inMinutes , bool isRamadanDay)
+        {
+            //fixed time
+
+            detailToAdd.TotalMinutes = outMinutes - inMinutes;
+            detailToAdd.TotalMinutes = detailToAdd.TotalMinutes < 0 ? (detailToAdd.TotalMinutes * -1) : detailToAdd.TotalMinutes;
+
+            var totalHoursPerDay = isRamadanDay ? userShift.TotalHoursPerDayRamadan : userShift.TotalHoursPerDay;
+            if (detailToAdd.TotalMinutes >= (totalHoursPerDay * 60))
+            {
+
+                //has over time 
+
+                //check if he include in overtime 
+                
+                var totalOverTimeMinutes = detailToAdd.TotalMinutes - totalHoursPerDay * 60;
+
+                if (totalOverTimeMinutes < 240)
+                {
+                    if (user.IsOvertimeAllowed)
+                        detailToAdd.Overtime = totalOverTimeMinutes;
+                    else
+                    {
+                        if (detailToAdd.TotalMinutes > 480)
+                            detailToAdd.TotalMinutes = totalHoursPerDay * 60;
+                    }
+                }
+                else if (totalOverTimeMinutes >= 240)
+                {
+                    if (user.IsFixedOverTimeAllowed)
+                    {
+                        detailToAdd.Overtime = totalOverTimeMinutes;
+                    }
+                    else if (user.IsNormalOverTimeAllowed)
+                    {
+                        var timeToDeduct = totalOverTimeMinutes - 240;
+                        detailToAdd.Overtime = totalOverTimeMinutes - timeToDeduct;
+                    }
+                    else
+                    {
+                        if (user.IsOvertimeAllowed)
+                            detailToAdd.Overtime = totalOverTimeMinutes;
+                        else
+                        {
+                            if (detailToAdd.TotalMinutes > 480)
+                                detailToAdd.TotalMinutes = totalHoursPerDay * 60;
+                        }
+
+                    }
+                }
+
+            }
+            else
+            {
+                // has delay 
+                detailToAdd.IsDelay = true;
+                detailToAdd.Delay = (totalHoursPerDay * 60) - detailToAdd.TotalMinutes;
+                var allowedLate = isRamadanDay ? userShift.TotalLateMinutesPerMonthRamadan : userShift.TotalLateMinutesPerMonth;
+                if (detailToAdd.Delay > allowedLate)
+                {
+                    var timeToDeduct = detailToAdd.Delay - allowedLate;
+                    detailToAdd.DeductMinutes = timeToDeduct;
+                }
+
+
+
+            }
+
+            detailToAdd.CanApprove = true;
+            return detailToAdd;
+
+        }
+
+        private ActualSummerizeTimeSheetDetailDto CalculateTwoFingerPrint(ActualSummerizeTimeSheetDetailDto detailToAdd, User user, Shift userShift, double outMinutes, double inMinutes, Transaction outTransaction, Transaction inTransaction , bool isRamdanDay)
+        {
+
+
+
+            detailToAdd.TotalMinutes = outMinutes - inMinutes;
+
+            detailToAdd.TotalMinutes = detailToAdd.TotalMinutes < 0 ? (detailToAdd.TotalMinutes * -1) : detailToAdd.TotalMinutes;
+      
+            //summaryToAdd.TotalAttendance += detailToAdd.TotalMinutes;
+
+            //store in temp
+            var tempInMinutes = inMinutes;
+            var tempOutMinutes = outMinutes;
+            var outTransactionTemp = outTransaction;
+            var inTransactionTemp = inTransaction;
+
+            //check total
+            if (tempInMinutes > tempOutMinutes)
+            {
+                inMinutes = tempOutMinutes;
+                outMinutes = tempInMinutes;
+                inTransaction = outTransactionTemp;
+                outTransaction = inTransactionTemp;
+            }
+
+            detailToAdd.InTransactionId = inTransaction.Id;
+            detailToAdd.OutTransactionId = outTransaction.Id;
+
+            var timeIN = isRamdanDay ? userShift.TimeInRamadan : userShift.TimeIn;
+            var timeOut = isRamdanDay ? userShift.TimeOutRamadan : userShift.TimeOut;
+            var allowedLate = isRamdanDay ? userShift.TotalLateMinutesPerMonthRamadan : userShift.TotalLateMinutesPerMonth;
+            var totalShiftMinutes = timeOut - timeIN;
+            //delay in 
+            if (inMinutes > timeIN)
+            {
+                detailToAdd.IsDelay = true;
+                var delay = inMinutes - timeIN;
+                detailToAdd.Delay += delay;
+
+                if (detailToAdd.Delay > allowedLate)
+                {
+                    var timeToDeduct = detailToAdd.Delay - allowedLate;
+                    detailToAdd.DeductMinutes = timeToDeduct;
+                }
+
+                
+            }
+
+            //delay out
+            if (outMinutes < timeOut)
+            {
+
+                detailToAdd.IsDelay = true;
+                var delay = timeOut - outMinutes;
+                detailToAdd.Delay += delay;
+
+                if (detailToAdd.Delay > allowedLate)
+                {
+                    var timeToDeduct = detailToAdd.Delay - allowedLate;
+                    detailToAdd.DeductMinutes = timeToDeduct;
+                    detailToAdd.Delay = timeToDeduct;
+                }
+            }
+
+            detailToAdd.DeductMinutes = detailToAdd.Delay;
+            //claculate over time based on shift time 
+
+            if (outMinutes > timeOut)
+            {
+                //check if he include in overtime 
+                var totalOverTimeMinutes = outMinutes - timeOut;
+
+                if (totalOverTimeMinutes < 240)
+                {
+                    if (user.IsOvertimeAllowed)
+                        detailToAdd.Overtime = totalOverTimeMinutes;
+                    else
+                    {
+                        if (detailToAdd.TotalMinutes > totalShiftMinutes)
+                            detailToAdd.TotalMinutes = totalShiftMinutes;
+                    }
+                }
+                else if (totalOverTimeMinutes >= 240)
+                {
+                    if (user.IsFixedOverTimeAllowed)
+                    {
+                        detailToAdd.Overtime = totalOverTimeMinutes;
+                    }
+                    else if (user.IsNormalOverTimeAllowed || user.IsOvertimeAllowed)
+                    {
+                        var timeToDeduct = totalOverTimeMinutes - 240;
+                        detailToAdd.Overtime = totalOverTimeMinutes - timeToDeduct;
+                    }
+                    else
+                    {
+                        detailToAdd.TotalMinutes = totalShiftMinutes;
+                    }
+                }
+            }
+            detailToAdd.CanApprove = true;
+            return detailToAdd;
+        }
+
+        private ActualSummerizeTimeSheetDetailDto CalculateOneFinger(ActualSummerizeTimeSheetDetailDto detailToAdd, int transCount)
+        {
+            if (transCount > 0)
+                detailToAdd.TotalMinutes = 8 * 60;
+            else
+                detailToAdd.IsAbsent = true;
+
+            detailToAdd.CanApprove = true;
+
+            return detailToAdd;
+        }
+
+        private ActualSummerizeTimeSheetDetailDto CalculateInOutWithoutCalculateHours(ActualSummerizeTimeSheetDetailDto detailToAdd, int transCount)
+        {
+            if (transCount > 1)
+                detailToAdd.TotalMinutes = 8 * 60;
+            else
+                detailToAdd.IsAbsent = true;
+
+            detailToAdd.CanApprove = true;
+
+            return detailToAdd;
+        }
+        #endregion
+
+        private async Task<ActualSummerizeTimeSheetDetailDto> CalculateTransactions(ActualSummerizeTimeSheetDetailDto detailToAdd, User user, Shift userShift, bool isRamadanDay, long projectUnitId, DateTime day, List<Transaction> alltransactions)
+        {
+            var userTransactions = alltransactions.Where(x => x.Pin == user.Id && x.Transaction_Date.Date == day.Date).ToList();
+            var transCount = userTransactions.Count();
+
+            if (transCount == 0)
+                detailToAdd = await CalculateNoTrans(detailToAdd, user, day, userShift, projectUnitId , isRamadanDay);
+            else
+                detailToAdd = CalculateSummary(detailToAdd, user, userShift, isRamadanDay,day,alltransactions);
+
+            
+
+
+            return detailToAdd;
+        }
     }
 }

@@ -19775,6 +19775,411 @@ export class ProjectsServiceProxy {
 }
 
 @Injectable()
+export class RamadanDatesServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param yearFilter (optional) 
+     * @param maxFromDateFilter (optional) 
+     * @param minFromDateFilter (optional) 
+     * @param maxToDateFilter (optional) 
+     * @param minToDateFilter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
+     * @return Success
+     */
+    getAll(filter: string | undefined, yearFilter: string | undefined, maxFromDateFilter: moment.Moment | undefined, minFromDateFilter: moment.Moment | undefined, maxToDateFilter: moment.Moment | undefined, minToDateFilter: moment.Moment | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetRamadanDateForViewDto> {
+        let url_ = this.baseUrl + "/api/services/app/RamadanDates/GetAll?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (yearFilter === null)
+            throw new Error("The parameter 'yearFilter' cannot be null.");
+        else if (yearFilter !== undefined)
+            url_ += "YearFilter=" + encodeURIComponent("" + yearFilter) + "&"; 
+        if (maxFromDateFilter === null)
+            throw new Error("The parameter 'maxFromDateFilter' cannot be null.");
+        else if (maxFromDateFilter !== undefined)
+            url_ += "MaxFromDateFilter=" + encodeURIComponent(maxFromDateFilter ? "" + maxFromDateFilter.toJSON() : "") + "&"; 
+        if (minFromDateFilter === null)
+            throw new Error("The parameter 'minFromDateFilter' cannot be null.");
+        else if (minFromDateFilter !== undefined)
+            url_ += "MinFromDateFilter=" + encodeURIComponent(minFromDateFilter ? "" + minFromDateFilter.toJSON() : "") + "&"; 
+        if (maxToDateFilter === null)
+            throw new Error("The parameter 'maxToDateFilter' cannot be null.");
+        else if (maxToDateFilter !== undefined)
+            url_ += "MaxToDateFilter=" + encodeURIComponent(maxToDateFilter ? "" + maxToDateFilter.toJSON() : "") + "&"; 
+        if (minToDateFilter === null)
+            throw new Error("The parameter 'minToDateFilter' cannot be null.");
+        else if (minToDateFilter !== undefined)
+            url_ += "MinToDateFilter=" + encodeURIComponent(minToDateFilter ? "" + minToDateFilter.toJSON() : "") + "&"; 
+        if (sorting === null)
+            throw new Error("The parameter 'sorting' cannot be null.");
+        else if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (skipCount === null)
+            throw new Error("The parameter 'skipCount' cannot be null.");
+        else if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        if (maxResultCount === null)
+            throw new Error("The parameter 'maxResultCount' cannot be null.");
+        else if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAll(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfGetRamadanDateForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfGetRamadanDateForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfGetRamadanDateForViewDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = PagedResultDtoOfGetRamadanDateForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfGetRamadanDateForViewDto>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getRamadanDateForView(id: number | undefined): Observable<GetRamadanDateForViewDto> {
+        let url_ = this.baseUrl + "/api/services/app/RamadanDates/GetRamadanDateForView?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetRamadanDateForView(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetRamadanDateForView(<any>response_);
+                } catch (e) {
+                    return <Observable<GetRamadanDateForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetRamadanDateForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetRamadanDateForView(response: HttpResponseBase): Observable<GetRamadanDateForViewDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetRamadanDateForViewDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetRamadanDateForViewDto>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getRamadanDateForEdit(id: number | undefined): Observable<GetRamadanDateForEditOutput> {
+        let url_ = this.baseUrl + "/api/services/app/RamadanDates/GetRamadanDateForEdit?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetRamadanDateForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetRamadanDateForEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<GetRamadanDateForEditOutput>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetRamadanDateForEditOutput>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetRamadanDateForEdit(response: HttpResponseBase): Observable<GetRamadanDateForEditOutput> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = GetRamadanDateForEditOutput.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetRamadanDateForEditOutput>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    createOrEdit(body: CreateOrEditRamadanDateDto | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/RamadanDates/CreateOrEdit";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json", 
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOrEdit(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    delete(id: number | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/RamadanDates/Delete?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDelete(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDelete(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDelete(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param yearFilter (optional) 
+     * @param maxFromDateFilter (optional) 
+     * @param minFromDateFilter (optional) 
+     * @param maxToDateFilter (optional) 
+     * @param minToDateFilter (optional) 
+     * @return Success
+     */
+    getRamadanDatesToExcel(filter: string | undefined, yearFilter: string | undefined, maxFromDateFilter: moment.Moment | undefined, minFromDateFilter: moment.Moment | undefined, maxToDateFilter: moment.Moment | undefined, minToDateFilter: moment.Moment | undefined): Observable<FileDto> {
+        let url_ = this.baseUrl + "/api/services/app/RamadanDates/GetRamadanDatesToExcel?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (yearFilter === null)
+            throw new Error("The parameter 'yearFilter' cannot be null.");
+        else if (yearFilter !== undefined)
+            url_ += "YearFilter=" + encodeURIComponent("" + yearFilter) + "&"; 
+        if (maxFromDateFilter === null)
+            throw new Error("The parameter 'maxFromDateFilter' cannot be null.");
+        else if (maxFromDateFilter !== undefined)
+            url_ += "MaxFromDateFilter=" + encodeURIComponent(maxFromDateFilter ? "" + maxFromDateFilter.toJSON() : "") + "&"; 
+        if (minFromDateFilter === null)
+            throw new Error("The parameter 'minFromDateFilter' cannot be null.");
+        else if (minFromDateFilter !== undefined)
+            url_ += "MinFromDateFilter=" + encodeURIComponent(minFromDateFilter ? "" + minFromDateFilter.toJSON() : "") + "&"; 
+        if (maxToDateFilter === null)
+            throw new Error("The parameter 'maxToDateFilter' cannot be null.");
+        else if (maxToDateFilter !== undefined)
+            url_ += "MaxToDateFilter=" + encodeURIComponent(maxToDateFilter ? "" + maxToDateFilter.toJSON() : "") + "&"; 
+        if (minToDateFilter === null)
+            throw new Error("The parameter 'minToDateFilter' cannot be null.");
+        else if (minToDateFilter !== undefined)
+            url_ += "MinToDateFilter=" + encodeURIComponent(minToDateFilter ? "" + minToDateFilter.toJSON() : "") + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetRamadanDatesToExcel(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetRamadanDatesToExcel(<any>response_);
+                } catch (e) {
+                    return <Observable<FileDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<FileDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetRamadanDatesToExcel(response: HttpResponseBase): Observable<FileDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = FileDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<FileDto>(<any>null);
+    }
+}
+
+@Injectable()
 export class RoleServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -26353,6 +26758,71 @@ export class TransactionLogsServiceProxy {
     }
 
     /**
+     * @param inId (optional) 
+     * @param outId (optional) 
+     * @return Success
+     */
+    getTransactionLogByTransId(inId: number | undefined, outId: number | undefined): Observable<GetTransactionLogForViewDto[]> {
+        let url_ = this.baseUrl + "/api/services/app/TransactionLogs/GetTransactionLogByTransId?";
+        if (inId === null)
+            throw new Error("The parameter 'inId' cannot be null.");
+        else if (inId !== undefined)
+            url_ += "inId=" + encodeURIComponent("" + inId) + "&"; 
+        if (outId === null)
+            throw new Error("The parameter 'outId' cannot be null.");
+        else if (outId !== undefined)
+            url_ += "outId=" + encodeURIComponent("" + outId) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetTransactionLogByTransId(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetTransactionLogByTransId(<any>response_);
+                } catch (e) {
+                    return <Observable<GetTransactionLogForViewDto[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetTransactionLogForViewDto[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetTransactionLogByTransId(response: HttpResponseBase): Observable<GetTransactionLogForViewDto[]> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(GetTransactionLogForViewDto.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetTransactionLogForViewDto[]>(<any>null);
+    }
+
+    /**
      * @param filter (optional) 
      * @param oldValueFilter (optional) 
      * @param newValueFilter (optional) 
@@ -27611,6 +28081,206 @@ export class TransactionsServiceProxy {
     }
 
     /**
+     * @param projectId (optional) 
+     * @param startDate (optional) 
+     * @param endDate (optional) 
+     * @param month (optional) 
+     * @param year (optional) 
+     * @param userType (optional) 
+     * @param userIds (optional) 
+     * @param isMonth (optional) 
+     * @param isDateRange (optional) 
+     * @return Success
+     */
+    getUserByProject(projectId: number | undefined, startDate: moment.Moment | undefined, endDate: moment.Moment | undefined, month: number | undefined, year: number | undefined, userType: number | undefined, userIds: number[] | undefined, isMonth: boolean | undefined, isDateRange: boolean | undefined): Observable<UserFlatDto[]> {
+        let url_ = this.baseUrl + "/api/services/app/Transactions/GetUserByProject?";
+        if (projectId === null)
+            throw new Error("The parameter 'projectId' cannot be null.");
+        else if (projectId !== undefined)
+            url_ += "ProjectId=" + encodeURIComponent("" + projectId) + "&"; 
+        if (startDate === null)
+            throw new Error("The parameter 'startDate' cannot be null.");
+        else if (startDate !== undefined)
+            url_ += "StartDate=" + encodeURIComponent(startDate ? "" + startDate.toJSON() : "") + "&"; 
+        if (endDate === null)
+            throw new Error("The parameter 'endDate' cannot be null.");
+        else if (endDate !== undefined)
+            url_ += "EndDate=" + encodeURIComponent(endDate ? "" + endDate.toJSON() : "") + "&"; 
+        if (month === null)
+            throw new Error("The parameter 'month' cannot be null.");
+        else if (month !== undefined)
+            url_ += "Month=" + encodeURIComponent("" + month) + "&"; 
+        if (year === null)
+            throw new Error("The parameter 'year' cannot be null.");
+        else if (year !== undefined)
+            url_ += "Year=" + encodeURIComponent("" + year) + "&"; 
+        if (userType === null)
+            throw new Error("The parameter 'userType' cannot be null.");
+        else if (userType !== undefined)
+            url_ += "UserType=" + encodeURIComponent("" + userType) + "&"; 
+        if (userIds === null)
+            throw new Error("The parameter 'userIds' cannot be null.");
+        else if (userIds !== undefined)
+            userIds && userIds.forEach(item => { url_ += "UserIds=" + encodeURIComponent("" + item) + "&"; });
+        if (isMonth === null)
+            throw new Error("The parameter 'isMonth' cannot be null.");
+        else if (isMonth !== undefined)
+            url_ += "IsMonth=" + encodeURIComponent("" + isMonth) + "&"; 
+        if (isDateRange === null)
+            throw new Error("The parameter 'isDateRange' cannot be null.");
+        else if (isDateRange !== undefined)
+            url_ += "IsDateRange=" + encodeURIComponent("" + isDateRange) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetUserByProject(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetUserByProject(<any>response_);
+                } catch (e) {
+                    return <Observable<UserFlatDto[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<UserFlatDto[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetUserByProject(response: HttpResponseBase): Observable<UserFlatDto[]> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(UserFlatDto.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<UserFlatDto[]>(<any>null);
+    }
+
+    /**
+     * @param projectId (optional) 
+     * @param startDate (optional) 
+     * @param endDate (optional) 
+     * @param month (optional) 
+     * @param year (optional) 
+     * @param userType (optional) 
+     * @param userIds (optional) 
+     * @param isMonth (optional) 
+     * @param isDateRange (optional) 
+     * @return Success
+     */
+    getUserByManagerUnit(projectId: number | undefined, startDate: moment.Moment | undefined, endDate: moment.Moment | undefined, month: number | undefined, year: number | undefined, userType: number | undefined, userIds: number[] | undefined, isMonth: boolean | undefined, isDateRange: boolean | undefined): Observable<UserFlatDto[]> {
+        let url_ = this.baseUrl + "/api/services/app/Transactions/GetUserByManagerUnit?";
+        if (projectId === null)
+            throw new Error("The parameter 'projectId' cannot be null.");
+        else if (projectId !== undefined)
+            url_ += "ProjectId=" + encodeURIComponent("" + projectId) + "&"; 
+        if (startDate === null)
+            throw new Error("The parameter 'startDate' cannot be null.");
+        else if (startDate !== undefined)
+            url_ += "StartDate=" + encodeURIComponent(startDate ? "" + startDate.toJSON() : "") + "&"; 
+        if (endDate === null)
+            throw new Error("The parameter 'endDate' cannot be null.");
+        else if (endDate !== undefined)
+            url_ += "EndDate=" + encodeURIComponent(endDate ? "" + endDate.toJSON() : "") + "&"; 
+        if (month === null)
+            throw new Error("The parameter 'month' cannot be null.");
+        else if (month !== undefined)
+            url_ += "Month=" + encodeURIComponent("" + month) + "&"; 
+        if (year === null)
+            throw new Error("The parameter 'year' cannot be null.");
+        else if (year !== undefined)
+            url_ += "Year=" + encodeURIComponent("" + year) + "&"; 
+        if (userType === null)
+            throw new Error("The parameter 'userType' cannot be null.");
+        else if (userType !== undefined)
+            url_ += "UserType=" + encodeURIComponent("" + userType) + "&"; 
+        if (userIds === null)
+            throw new Error("The parameter 'userIds' cannot be null.");
+        else if (userIds !== undefined)
+            userIds && userIds.forEach(item => { url_ += "UserIds=" + encodeURIComponent("" + item) + "&"; });
+        if (isMonth === null)
+            throw new Error("The parameter 'isMonth' cannot be null.");
+        else if (isMonth !== undefined)
+            url_ += "IsMonth=" + encodeURIComponent("" + isMonth) + "&"; 
+        if (isDateRange === null)
+            throw new Error("The parameter 'isDateRange' cannot be null.");
+        else if (isDateRange !== undefined)
+            url_ += "IsDateRange=" + encodeURIComponent("" + isDateRange) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetUserByManagerUnit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetUserByManagerUnit(<any>response_);
+                } catch (e) {
+                    return <Observable<UserFlatDto[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<UserFlatDto[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetUserByManagerUnit(response: HttpResponseBase): Observable<UserFlatDto[]> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(UserFlatDto.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<UserFlatDto[]>(<any>null);
+    }
+
+    /**
      * @param organizationUnitId (optional) 
      * @param fromDate (optional) 
      * @param toDate (optional) 
@@ -27687,9 +28357,12 @@ export class TransactionsServiceProxy {
      * @param month (optional) 
      * @param year (optional) 
      * @param userType (optional) 
+     * @param userIds (optional) 
+     * @param isMonth (optional) 
+     * @param isDateRange (optional) 
      * @return Success
      */
-    getActualSummerizeTimeSheet(projectId: number | undefined, startDate: moment.Moment | undefined, endDate: moment.Moment | undefined, month: number | undefined, year: number | undefined, userType: number | undefined): Observable<ActualSummerizeTimeSheetOutput> {
+    getActualSummerizeTimeSheet(projectId: number | undefined, startDate: moment.Moment | undefined, endDate: moment.Moment | undefined, month: number | undefined, year: number | undefined, userType: number | undefined, userIds: number[] | undefined, isMonth: boolean | undefined, isDateRange: boolean | undefined): Observable<ActualSummerizeTimeSheetOutput> {
         let url_ = this.baseUrl + "/api/services/app/Transactions/GetActualSummerizeTimeSheet?";
         if (projectId === null)
             throw new Error("The parameter 'projectId' cannot be null.");
@@ -27715,6 +28388,18 @@ export class TransactionsServiceProxy {
             throw new Error("The parameter 'userType' cannot be null.");
         else if (userType !== undefined)
             url_ += "UserType=" + encodeURIComponent("" + userType) + "&"; 
+        if (userIds === null)
+            throw new Error("The parameter 'userIds' cannot be null.");
+        else if (userIds !== undefined)
+            userIds && userIds.forEach(item => { url_ += "UserIds=" + encodeURIComponent("" + item) + "&"; });
+        if (isMonth === null)
+            throw new Error("The parameter 'isMonth' cannot be null.");
+        else if (isMonth !== undefined)
+            url_ += "IsMonth=" + encodeURIComponent("" + isMonth) + "&"; 
+        if (isDateRange === null)
+            throw new Error("The parameter 'isDateRange' cannot be null.");
+        else if (isDateRange !== undefined)
+            url_ += "IsDateRange=" + encodeURIComponent("" + isDateRange) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -27768,9 +28453,12 @@ export class TransactionsServiceProxy {
      * @param month (optional) 
      * @param year (optional) 
      * @param userType (optional) 
+     * @param userIds (optional) 
+     * @param isMonth (optional) 
+     * @param isDateRange (optional) 
      * @return Success
      */
-    getMangerUsersToApprove(projectId: number | undefined, startDate: moment.Moment | undefined, endDate: moment.Moment | undefined, month: number | undefined, year: number | undefined, userType: number | undefined): Observable<ActualSummerizeTimeSheetOutput> {
+    getMangerUsersToApprove(projectId: number | undefined, startDate: moment.Moment | undefined, endDate: moment.Moment | undefined, month: number | undefined, year: number | undefined, userType: number | undefined, userIds: number[] | undefined, isMonth: boolean | undefined, isDateRange: boolean | undefined): Observable<ActualSummerizeTimeSheetOutput> {
         let url_ = this.baseUrl + "/api/services/app/Transactions/GetMangerUsersToApprove?";
         if (projectId === null)
             throw new Error("The parameter 'projectId' cannot be null.");
@@ -27796,6 +28484,18 @@ export class TransactionsServiceProxy {
             throw new Error("The parameter 'userType' cannot be null.");
         else if (userType !== undefined)
             url_ += "UserType=" + encodeURIComponent("" + userType) + "&"; 
+        if (userIds === null)
+            throw new Error("The parameter 'userIds' cannot be null.");
+        else if (userIds !== undefined)
+            userIds && userIds.forEach(item => { url_ += "UserIds=" + encodeURIComponent("" + item) + "&"; });
+        if (isMonth === null)
+            throw new Error("The parameter 'isMonth' cannot be null.");
+        else if (isMonth !== undefined)
+            url_ += "IsMonth=" + encodeURIComponent("" + isMonth) + "&"; 
+        if (isDateRange === null)
+            throw new Error("The parameter 'isDateRange' cannot be null.");
+        else if (isDateRange !== undefined)
+            url_ += "IsDateRange=" + encodeURIComponent("" + isDateRange) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -27840,6 +28540,154 @@ export class TransactionsServiceProxy {
             }));
         }
         return _observableOf<ActualSummerizeTimeSheetOutput>(<any>null);
+    }
+
+    /**
+     * @param projectId (optional) 
+     * @param startDate (optional) 
+     * @param endDate (optional) 
+     * @param month (optional) 
+     * @param year (optional) 
+     * @param userType (optional) 
+     * @param userIds (optional) 
+     * @param isMonth (optional) 
+     * @param isDateRange (optional) 
+     * @return Success
+     */
+    getProjextUsersToApproveFromHR(projectId: number | undefined, startDate: moment.Moment | undefined, endDate: moment.Moment | undefined, month: number | undefined, year: number | undefined, userType: number | undefined, userIds: number[] | undefined, isMonth: boolean | undefined, isDateRange: boolean | undefined): Observable<ActualSummerizeTimeSheetOutput> {
+        let url_ = this.baseUrl + "/api/services/app/Transactions/GetProjextUsersToApproveFromHR?";
+        if (projectId === null)
+            throw new Error("The parameter 'projectId' cannot be null.");
+        else if (projectId !== undefined)
+            url_ += "ProjectId=" + encodeURIComponent("" + projectId) + "&"; 
+        if (startDate === null)
+            throw new Error("The parameter 'startDate' cannot be null.");
+        else if (startDate !== undefined)
+            url_ += "StartDate=" + encodeURIComponent(startDate ? "" + startDate.toJSON() : "") + "&"; 
+        if (endDate === null)
+            throw new Error("The parameter 'endDate' cannot be null.");
+        else if (endDate !== undefined)
+            url_ += "EndDate=" + encodeURIComponent(endDate ? "" + endDate.toJSON() : "") + "&"; 
+        if (month === null)
+            throw new Error("The parameter 'month' cannot be null.");
+        else if (month !== undefined)
+            url_ += "Month=" + encodeURIComponent("" + month) + "&"; 
+        if (year === null)
+            throw new Error("The parameter 'year' cannot be null.");
+        else if (year !== undefined)
+            url_ += "Year=" + encodeURIComponent("" + year) + "&"; 
+        if (userType === null)
+            throw new Error("The parameter 'userType' cannot be null.");
+        else if (userType !== undefined)
+            url_ += "UserType=" + encodeURIComponent("" + userType) + "&"; 
+        if (userIds === null)
+            throw new Error("The parameter 'userIds' cannot be null.");
+        else if (userIds !== undefined)
+            userIds && userIds.forEach(item => { url_ += "UserIds=" + encodeURIComponent("" + item) + "&"; });
+        if (isMonth === null)
+            throw new Error("The parameter 'isMonth' cannot be null.");
+        else if (isMonth !== undefined)
+            url_ += "IsMonth=" + encodeURIComponent("" + isMonth) + "&"; 
+        if (isDateRange === null)
+            throw new Error("The parameter 'isDateRange' cannot be null.");
+        else if (isDateRange !== undefined)
+            url_ += "IsDateRange=" + encodeURIComponent("" + isDateRange) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetProjextUsersToApproveFromHR(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetProjextUsersToApproveFromHR(<any>response_);
+                } catch (e) {
+                    return <Observable<ActualSummerizeTimeSheetOutput>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ActualSummerizeTimeSheetOutput>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetProjextUsersToApproveFromHR(response: HttpResponseBase): Observable<ActualSummerizeTimeSheetOutput> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ActualSummerizeTimeSheetOutput.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ActualSummerizeTimeSheetOutput>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    hrApprove(body: ProjectManagerApproveInput | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Transactions/HrApprove";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json", 
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processHrApprove(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processHrApprove(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processHrApprove(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
     }
 
     /**
@@ -50010,13 +50858,13 @@ export interface IFindOrganizationUnitRolesInput {
 }
 
 export enum DayDto {
-    Starday = 1,
-    Sunday = 2,
-    Monday = 3,
-    Tuesday = 4,
-    Wednesday = 5,
-    Thursday = 6,
-    Friday = 7,
+    Monday = 1,
+    Tuesday = 2,
+    Wednesday = 3,
+    Thursday = 4,
+    Friday = 5,
+    Starday = 6,
+    Sunday = 7,
 }
 
 export enum ShiftTypeEnumDto {
@@ -50031,6 +50879,7 @@ export class ShiftDto implements IShiftDto {
     dayOff!: DayDto;
     dayRest!: DayDto;
     isDayRestCalculated!: boolean;
+    isDayRestCalculatedWithFixedHours!: boolean;
     totalHoursPerDay!: number;
     isInOutWithoutClculateHours!: boolean;
     isFlexible!: boolean;
@@ -50055,6 +50904,7 @@ export class ShiftDto implements IShiftDto {
     deductType!: number;
     isOverTimeAllowed!: boolean;
     shiftType!: ShiftTypeEnumDto;
+    isPunchNextDay!: boolean;
     id!: number;
 
     constructor(data?: IShiftDto) {
@@ -50074,6 +50924,7 @@ export class ShiftDto implements IShiftDto {
             this.dayOff = data["dayOff"];
             this.dayRest = data["dayRest"];
             this.isDayRestCalculated = data["isDayRestCalculated"];
+            this.isDayRestCalculatedWithFixedHours = data["isDayRestCalculatedWithFixedHours"];
             this.totalHoursPerDay = data["totalHoursPerDay"];
             this.isInOutWithoutClculateHours = data["isInOutWithoutClculateHours"];
             this.isFlexible = data["isFlexible"];
@@ -50098,6 +50949,7 @@ export class ShiftDto implements IShiftDto {
             this.deductType = data["deductType"];
             this.isOverTimeAllowed = data["isOverTimeAllowed"];
             this.shiftType = data["shiftType"];
+            this.isPunchNextDay = data["isPunchNextDay"];
             this.id = data["id"];
         }
     }
@@ -50117,6 +50969,7 @@ export class ShiftDto implements IShiftDto {
         data["dayOff"] = this.dayOff;
         data["dayRest"] = this.dayRest;
         data["isDayRestCalculated"] = this.isDayRestCalculated;
+        data["isDayRestCalculatedWithFixedHours"] = this.isDayRestCalculatedWithFixedHours;
         data["totalHoursPerDay"] = this.totalHoursPerDay;
         data["isInOutWithoutClculateHours"] = this.isInOutWithoutClculateHours;
         data["isFlexible"] = this.isFlexible;
@@ -50141,6 +50994,7 @@ export class ShiftDto implements IShiftDto {
         data["deductType"] = this.deductType;
         data["isOverTimeAllowed"] = this.isOverTimeAllowed;
         data["shiftType"] = this.shiftType;
+        data["isPunchNextDay"] = this.isPunchNextDay;
         data["id"] = this.id;
         return data; 
     }
@@ -50153,6 +51007,7 @@ export interface IShiftDto {
     dayOff: DayDto;
     dayRest: DayDto;
     isDayRestCalculated: boolean;
+    isDayRestCalculatedWithFixedHours: boolean;
     totalHoursPerDay: number;
     isInOutWithoutClculateHours: boolean;
     isFlexible: boolean;
@@ -50177,6 +51032,7 @@ export interface IShiftDto {
     deductType: number;
     isOverTimeAllowed: boolean;
     shiftType: ShiftTypeEnumDto;
+    isPunchNextDay: boolean;
     id: number;
 }
 
@@ -53183,6 +54039,222 @@ export interface IProjectMachineInputDto {
     projectId: number;
 }
 
+export class RamadanDateDto implements IRamadanDateDto {
+    year!: string | undefined;
+    fromDate!: moment.Moment;
+    toDate!: moment.Moment;
+    id!: number;
+
+    constructor(data?: IRamadanDateDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.year = data["year"];
+            this.fromDate = data["fromDate"] ? moment(data["fromDate"].toString()) : <any>undefined;
+            this.toDate = data["toDate"] ? moment(data["toDate"].toString()) : <any>undefined;
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): RamadanDateDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new RamadanDateDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["year"] = this.year;
+        data["fromDate"] = this.fromDate ? this.fromDate.toISOString() : <any>undefined;
+        data["toDate"] = this.toDate ? this.toDate.toISOString() : <any>undefined;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IRamadanDateDto {
+    year: string | undefined;
+    fromDate: moment.Moment;
+    toDate: moment.Moment;
+    id: number;
+}
+
+export class GetRamadanDateForViewDto implements IGetRamadanDateForViewDto {
+    ramadanDate!: RamadanDateDto | undefined;
+
+    constructor(data?: IGetRamadanDateForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.ramadanDate = data["ramadanDate"] ? RamadanDateDto.fromJS(data["ramadanDate"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): GetRamadanDateForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetRamadanDateForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["ramadanDate"] = this.ramadanDate ? this.ramadanDate.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IGetRamadanDateForViewDto {
+    ramadanDate: RamadanDateDto | undefined;
+}
+
+export class PagedResultDtoOfGetRamadanDateForViewDto implements IPagedResultDtoOfGetRamadanDateForViewDto {
+    totalCount!: number;
+    items!: GetRamadanDateForViewDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfGetRamadanDateForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (Array.isArray(data["items"])) {
+                this.items = [] as any;
+                for (let item of data["items"])
+                    this.items!.push(GetRamadanDateForViewDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfGetRamadanDateForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfGetRamadanDateForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfGetRamadanDateForViewDto {
+    totalCount: number;
+    items: GetRamadanDateForViewDto[] | undefined;
+}
+
+export class CreateOrEditRamadanDateDto implements ICreateOrEditRamadanDateDto {
+    year!: string;
+    fromDate!: moment.Moment;
+    toDate!: moment.Moment;
+    id!: number | undefined;
+
+    constructor(data?: ICreateOrEditRamadanDateDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.year = data["year"];
+            this.fromDate = data["fromDate"] ? moment(data["fromDate"].toString()) : <any>undefined;
+            this.toDate = data["toDate"] ? moment(data["toDate"].toString()) : <any>undefined;
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): CreateOrEditRamadanDateDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateOrEditRamadanDateDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["year"] = this.year;
+        data["fromDate"] = this.fromDate ? this.fromDate.toISOString() : <any>undefined;
+        data["toDate"] = this.toDate ? this.toDate.toISOString() : <any>undefined;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface ICreateOrEditRamadanDateDto {
+    year: string;
+    fromDate: moment.Moment;
+    toDate: moment.Moment;
+    id: number | undefined;
+}
+
+export class GetRamadanDateForEditOutput implements IGetRamadanDateForEditOutput {
+    ramadanDate!: CreateOrEditRamadanDateDto | undefined;
+
+    constructor(data?: IGetRamadanDateForEditOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.ramadanDate = data["ramadanDate"] ? CreateOrEditRamadanDateDto.fromJS(data["ramadanDate"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): GetRamadanDateForEditOutput {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetRamadanDateForEditOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["ramadanDate"] = this.ramadanDate ? this.ramadanDate.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IGetRamadanDateForEditOutput {
+    ramadanDate: CreateOrEditRamadanDateDto | undefined;
+}
+
 export class RoleListDto implements IRoleListDto {
     name!: string | undefined;
     displayName!: string | undefined;
@@ -54288,6 +55360,7 @@ export class CreateOrEditShiftDto implements ICreateOrEditShiftDto {
     dayOff!: DayDto;
     dayRest!: DayDto;
     isDayRestCalculated!: boolean;
+    isDayRestCalculatedWithFixedHours!: boolean;
     totalHoursPerDay!: number;
     isFlexible!: boolean;
     isOneFingerprint!: boolean;
@@ -54312,6 +55385,7 @@ export class CreateOrEditShiftDto implements ICreateOrEditShiftDto {
     deductType!: number;
     isOverTimeAllowed!: boolean;
     shiftType!: ShiftTypeEnumDto;
+    isPunchNextDay!: boolean;
     id!: number | undefined;
 
     constructor(data?: ICreateOrEditShiftDto) {
@@ -54331,6 +55405,7 @@ export class CreateOrEditShiftDto implements ICreateOrEditShiftDto {
             this.dayOff = data["dayOff"];
             this.dayRest = data["dayRest"];
             this.isDayRestCalculated = data["isDayRestCalculated"];
+            this.isDayRestCalculatedWithFixedHours = data["isDayRestCalculatedWithFixedHours"];
             this.totalHoursPerDay = data["totalHoursPerDay"];
             this.isFlexible = data["isFlexible"];
             this.isOneFingerprint = data["isOneFingerprint"];
@@ -54355,6 +55430,7 @@ export class CreateOrEditShiftDto implements ICreateOrEditShiftDto {
             this.deductType = data["deductType"];
             this.isOverTimeAllowed = data["isOverTimeAllowed"];
             this.shiftType = data["shiftType"];
+            this.isPunchNextDay = data["isPunchNextDay"];
             this.id = data["id"];
         }
     }
@@ -54374,6 +55450,7 @@ export class CreateOrEditShiftDto implements ICreateOrEditShiftDto {
         data["dayOff"] = this.dayOff;
         data["dayRest"] = this.dayRest;
         data["isDayRestCalculated"] = this.isDayRestCalculated;
+        data["isDayRestCalculatedWithFixedHours"] = this.isDayRestCalculatedWithFixedHours;
         data["totalHoursPerDay"] = this.totalHoursPerDay;
         data["isFlexible"] = this.isFlexible;
         data["isOneFingerprint"] = this.isOneFingerprint;
@@ -54398,6 +55475,7 @@ export class CreateOrEditShiftDto implements ICreateOrEditShiftDto {
         data["deductType"] = this.deductType;
         data["isOverTimeAllowed"] = this.isOverTimeAllowed;
         data["shiftType"] = this.shiftType;
+        data["isPunchNextDay"] = this.isPunchNextDay;
         data["id"] = this.id;
         return data; 
     }
@@ -54410,6 +55488,7 @@ export interface ICreateOrEditShiftDto {
     dayOff: DayDto;
     dayRest: DayDto;
     isDayRestCalculated: boolean;
+    isDayRestCalculatedWithFixedHours: boolean;
     totalHoursPerDay: number;
     isFlexible: boolean;
     isOneFingerprint: boolean;
@@ -54434,6 +55513,7 @@ export interface ICreateOrEditShiftDto {
     deductType: number;
     isOverTimeAllowed: boolean;
     shiftType: ShiftTypeEnumDto;
+    isPunchNextDay: boolean;
     id: number | undefined;
 }
 
@@ -59440,6 +60520,8 @@ export class TransactionLogDto implements ITransactionLogDto {
     newValue!: string | undefined;
     transactionId!: number | undefined;
     actionBy!: number | undefined;
+    creationTime!: moment.Moment;
+    hasDifferent!: boolean;
     id!: number;
 
     constructor(data?: ITransactionLogDto) {
@@ -59457,6 +60539,8 @@ export class TransactionLogDto implements ITransactionLogDto {
             this.newValue = data["newValue"];
             this.transactionId = data["transactionId"];
             this.actionBy = data["actionBy"];
+            this.creationTime = data["creationTime"] ? moment(data["creationTime"].toString()) : <any>undefined;
+            this.hasDifferent = data["hasDifferent"];
             this.id = data["id"];
         }
     }
@@ -59474,6 +60558,8 @@ export class TransactionLogDto implements ITransactionLogDto {
         data["newValue"] = this.newValue;
         data["transactionId"] = this.transactionId;
         data["actionBy"] = this.actionBy;
+        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
+        data["hasDifferent"] = this.hasDifferent;
         data["id"] = this.id;
         return data; 
     }
@@ -59484,6 +60570,8 @@ export interface ITransactionLogDto {
     newValue: string | undefined;
     transactionId: number | undefined;
     actionBy: number | undefined;
+    creationTime: moment.Moment;
+    hasDifferent: boolean;
     id: number;
 }
 
@@ -60303,6 +61391,50 @@ export interface IEntityExistDto {
     id: number | undefined;
 }
 
+export class UserFlatDto implements IUserFlatDto {
+    id!: number;
+    name!: string | undefined;
+    organizationUnitId!: number | undefined;
+
+    constructor(data?: IUserFlatDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"];
+            this.name = data["name"];
+            this.organizationUnitId = data["organizationUnitId"];
+        }
+    }
+
+    static fromJS(data: any): UserFlatDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new UserFlatDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["name"] = this.name;
+        data["organizationUnitId"] = this.organizationUnitId;
+        return data; 
+    }
+}
+
+export interface IUserFlatDto {
+    id: number;
+    name: string | undefined;
+    organizationUnitId: number | undefined;
+}
+
 export class NormalOverTimeReportOutput implements INormalOverTimeReportOutput {
     businessUnit!: string | undefined;
     documentEntry!: string | undefined;
@@ -60391,11 +61523,12 @@ export class ActualSummerizeTimeSheetDetailDto implements IActualSummerizeTimeSh
     day!: moment.Moment;
     inTransactionId!: number;
     outTransactionId!: number;
-    totalHours!: number;
+    totalMinutes!: number;
     isAbsent!: boolean;
     isSick!: boolean;
     isWorkInAnotherProject!: boolean;
     canManagerApprove!: boolean;
+    canHrApprove!: boolean;
     canProjectManagerReject!: boolean;
     waitForManagerToApprove!: boolean;
     isProjectManagerApproved!: boolean;
@@ -60410,6 +61543,13 @@ export class ActualSummerizeTimeSheetDetailDto implements IActualSummerizeTimeSh
     timeIn!: string | undefined;
     timeOut!: string | undefined;
     isTransferred!: boolean;
+    leaveMinutes!: number;
+    sickMinutes!: number;
+    canApprove!: boolean;
+    absenceMinutes!: number;
+    deductMinutes!: number;
+    isRest!: boolean;
+    isDayOff!: boolean;
 
     constructor(data?: IActualSummerizeTimeSheetDetailDto) {
         if (data) {
@@ -60425,11 +61565,12 @@ export class ActualSummerizeTimeSheetDetailDto implements IActualSummerizeTimeSh
             this.day = data["day"] ? moment(data["day"].toString()) : <any>undefined;
             this.inTransactionId = data["inTransactionId"];
             this.outTransactionId = data["outTransactionId"];
-            this.totalHours = data["totalHours"];
+            this.totalMinutes = data["totalMinutes"];
             this.isAbsent = data["isAbsent"];
             this.isSick = data["isSick"];
             this.isWorkInAnotherProject = data["isWorkInAnotherProject"];
             this.canManagerApprove = data["canManagerApprove"];
+            this.canHrApprove = data["canHrApprove"];
             this.canProjectManagerReject = data["canProjectManagerReject"];
             this.waitForManagerToApprove = data["waitForManagerToApprove"];
             this.isProjectManagerApproved = data["isProjectManagerApproved"];
@@ -60448,6 +61589,13 @@ export class ActualSummerizeTimeSheetDetailDto implements IActualSummerizeTimeSh
             this.timeIn = data["timeIn"];
             this.timeOut = data["timeOut"];
             this.isTransferred = data["isTransferred"];
+            this.leaveMinutes = data["leaveMinutes"];
+            this.sickMinutes = data["sickMinutes"];
+            this.canApprove = data["canApprove"];
+            this.absenceMinutes = data["absenceMinutes"];
+            this.deductMinutes = data["deductMinutes"];
+            this.isRest = data["isRest"];
+            this.isDayOff = data["isDayOff"];
         }
     }
 
@@ -60463,11 +61611,12 @@ export class ActualSummerizeTimeSheetDetailDto implements IActualSummerizeTimeSh
         data["day"] = this.day ? this.day.toISOString() : <any>undefined;
         data["inTransactionId"] = this.inTransactionId;
         data["outTransactionId"] = this.outTransactionId;
-        data["totalHours"] = this.totalHours;
+        data["totalMinutes"] = this.totalMinutes;
         data["isAbsent"] = this.isAbsent;
         data["isSick"] = this.isSick;
         data["isWorkInAnotherProject"] = this.isWorkInAnotherProject;
         data["canManagerApprove"] = this.canManagerApprove;
+        data["canHrApprove"] = this.canHrApprove;
         data["canProjectManagerReject"] = this.canProjectManagerReject;
         data["waitForManagerToApprove"] = this.waitForManagerToApprove;
         data["isProjectManagerApproved"] = this.isProjectManagerApproved;
@@ -60486,6 +61635,13 @@ export class ActualSummerizeTimeSheetDetailDto implements IActualSummerizeTimeSh
         data["timeIn"] = this.timeIn;
         data["timeOut"] = this.timeOut;
         data["isTransferred"] = this.isTransferred;
+        data["leaveMinutes"] = this.leaveMinutes;
+        data["sickMinutes"] = this.sickMinutes;
+        data["canApprove"] = this.canApprove;
+        data["absenceMinutes"] = this.absenceMinutes;
+        data["deductMinutes"] = this.deductMinutes;
+        data["isRest"] = this.isRest;
+        data["isDayOff"] = this.isDayOff;
         return data; 
     }
 }
@@ -60494,11 +61650,12 @@ export interface IActualSummerizeTimeSheetDetailDto {
     day: moment.Moment;
     inTransactionId: number;
     outTransactionId: number;
-    totalHours: number;
+    totalMinutes: number;
     isAbsent: boolean;
     isSick: boolean;
     isWorkInAnotherProject: boolean;
     canManagerApprove: boolean;
+    canHrApprove: boolean;
     canProjectManagerReject: boolean;
     waitForManagerToApprove: boolean;
     isProjectManagerApproved: boolean;
@@ -60513,6 +61670,13 @@ export interface IActualSummerizeTimeSheetDetailDto {
     timeIn: string | undefined;
     timeOut: string | undefined;
     isTransferred: boolean;
+    leaveMinutes: number;
+    sickMinutes: number;
+    canApprove: boolean;
+    absenceMinutes: number;
+    deductMinutes: number;
+    isRest: boolean;
+    isDayOff: boolean;
 }
 
 export class ActualSummerizeTimeSheetDto implements IActualSummerizeTimeSheetDto {
@@ -60521,10 +61685,10 @@ export class ActualSummerizeTimeSheetDto implements IActualSummerizeTimeSheetDto
     fingerCode!: string | undefined;
     userName!: string | undefined;
     totalAttendance!: number;
-    totalDeductionHours!: number;
-    totalSickLeaveHours!: number;
-    totalaAbsenceHours!: number;
-    totalLeaveHours!: number;
+    totalDeductionMinutes!: number;
+    totalSickLeaveMinutes!: number;
+    totalaAbsenceMinutes!: number;
+    totalLeaveMinutes!: number;
     totalOverTimeNormal!: number;
     totalOverTimeFriday!: number;
     totalOverTimeHolidays!: number;
@@ -60547,10 +61711,10 @@ export class ActualSummerizeTimeSheetDto implements IActualSummerizeTimeSheetDto
             this.fingerCode = data["fingerCode"];
             this.userName = data["userName"];
             this.totalAttendance = data["totalAttendance"];
-            this.totalDeductionHours = data["totalDeductionHours"];
-            this.totalSickLeaveHours = data["totalSickLeaveHours"];
-            this.totalaAbsenceHours = data["totalaAbsenceHours"];
-            this.totalLeaveHours = data["totalLeaveHours"];
+            this.totalDeductionMinutes = data["totalDeductionMinutes"];
+            this.totalSickLeaveMinutes = data["totalSickLeaveMinutes"];
+            this.totalaAbsenceMinutes = data["totalaAbsenceMinutes"];
+            this.totalLeaveMinutes = data["totalLeaveMinutes"];
             this.totalOverTimeNormal = data["totalOverTimeNormal"];
             this.totalOverTimeFriday = data["totalOverTimeFriday"];
             this.totalOverTimeHolidays = data["totalOverTimeHolidays"];
@@ -60577,10 +61741,10 @@ export class ActualSummerizeTimeSheetDto implements IActualSummerizeTimeSheetDto
         data["fingerCode"] = this.fingerCode;
         data["userName"] = this.userName;
         data["totalAttendance"] = this.totalAttendance;
-        data["totalDeductionHours"] = this.totalDeductionHours;
-        data["totalSickLeaveHours"] = this.totalSickLeaveHours;
-        data["totalaAbsenceHours"] = this.totalaAbsenceHours;
-        data["totalLeaveHours"] = this.totalLeaveHours;
+        data["totalDeductionMinutes"] = this.totalDeductionMinutes;
+        data["totalSickLeaveMinutes"] = this.totalSickLeaveMinutes;
+        data["totalaAbsenceMinutes"] = this.totalaAbsenceMinutes;
+        data["totalLeaveMinutes"] = this.totalLeaveMinutes;
         data["totalOverTimeNormal"] = this.totalOverTimeNormal;
         data["totalOverTimeFriday"] = this.totalOverTimeFriday;
         data["totalOverTimeHolidays"] = this.totalOverTimeHolidays;
@@ -60600,10 +61764,10 @@ export interface IActualSummerizeTimeSheetDto {
     fingerCode: string | undefined;
     userName: string | undefined;
     totalAttendance: number;
-    totalDeductionHours: number;
-    totalSickLeaveHours: number;
-    totalaAbsenceHours: number;
-    totalLeaveHours: number;
+    totalDeductionMinutes: number;
+    totalSickLeaveMinutes: number;
+    totalaAbsenceMinutes: number;
+    totalLeaveMinutes: number;
     totalOverTimeNormal: number;
     totalOverTimeFriday: number;
     totalOverTimeHolidays: number;
@@ -60673,16 +61837,20 @@ export class ActualSummerizeTimeSheetOutput implements IActualSummerizeTimeSheet
     totalApproved!: number;
     canApprove!: boolean;
     unitIdToApprove!: number;
-    totalAttendanceHours!: number;
-    totalDeductioneHours!: number;
+    totalAttendanceMinutes!: number;
+    totalDeductioneMinutes!: number;
     totalEmployee!: number;
-    totalSickLeaveHours!: number;
-    totalAbsenceHours!: number;
-    totalLeaveDayHours!: number;
-    totalOvertimeHours!: number;
+    totalSickLeaveMinutes!: number;
+    totalAbsenceMinutes!: number;
+    totalLeaveDayMinutes!: number;
+    totalOvertimeMinutes!: number;
     totalOvertimeFriday!: number;
     totalOvertimeHoliday!: number;
     totalFOT!: number;
+    projectManagerName!: string | undefined;
+    unitManagerName!: string | undefined;
+    fromDate!: moment.Moment;
+    toDate!: moment.Moment;
     userIdsToApprove!: UserTimeSheetInput[] | undefined;
 
     constructor(data?: IActualSummerizeTimeSheetOutput) {
@@ -60725,16 +61893,20 @@ export class ActualSummerizeTimeSheetOutput implements IActualSummerizeTimeSheet
             this.totalApproved = data["totalApproved"];
             this.canApprove = data["canApprove"];
             this.unitIdToApprove = data["unitIdToApprove"];
-            this.totalAttendanceHours = data["totalAttendanceHours"];
-            this.totalDeductioneHours = data["totalDeductioneHours"];
+            this.totalAttendanceMinutes = data["totalAttendanceMinutes"];
+            this.totalDeductioneMinutes = data["totalDeductioneMinutes"];
             this.totalEmployee = data["totalEmployee"];
-            this.totalSickLeaveHours = data["totalSickLeaveHours"];
-            this.totalAbsenceHours = data["totalAbsenceHours"];
-            this.totalLeaveDayHours = data["totalLeaveDayHours"];
-            this.totalOvertimeHours = data["totalOvertimeHours"];
+            this.totalSickLeaveMinutes = data["totalSickLeaveMinutes"];
+            this.totalAbsenceMinutes = data["totalAbsenceMinutes"];
+            this.totalLeaveDayMinutes = data["totalLeaveDayMinutes"];
+            this.totalOvertimeMinutes = data["totalOvertimeMinutes"];
             this.totalOvertimeFriday = data["totalOvertimeFriday"];
             this.totalOvertimeHoliday = data["totalOvertimeHoliday"];
             this.totalFOT = data["totalFOT"];
+            this.projectManagerName = data["projectManagerName"];
+            this.unitManagerName = data["unitManagerName"];
+            this.fromDate = data["fromDate"] ? moment(data["fromDate"].toString()) : <any>undefined;
+            this.toDate = data["toDate"] ? moment(data["toDate"].toString()) : <any>undefined;
             if (Array.isArray(data["userIdsToApprove"])) {
                 this.userIdsToApprove = [] as any;
                 for (let item of data["userIdsToApprove"])
@@ -60781,16 +61953,20 @@ export class ActualSummerizeTimeSheetOutput implements IActualSummerizeTimeSheet
         data["totalApproved"] = this.totalApproved;
         data["canApprove"] = this.canApprove;
         data["unitIdToApprove"] = this.unitIdToApprove;
-        data["totalAttendanceHours"] = this.totalAttendanceHours;
-        data["totalDeductioneHours"] = this.totalDeductioneHours;
+        data["totalAttendanceMinutes"] = this.totalAttendanceMinutes;
+        data["totalDeductioneMinutes"] = this.totalDeductioneMinutes;
         data["totalEmployee"] = this.totalEmployee;
-        data["totalSickLeaveHours"] = this.totalSickLeaveHours;
-        data["totalAbsenceHours"] = this.totalAbsenceHours;
-        data["totalLeaveDayHours"] = this.totalLeaveDayHours;
-        data["totalOvertimeHours"] = this.totalOvertimeHours;
+        data["totalSickLeaveMinutes"] = this.totalSickLeaveMinutes;
+        data["totalAbsenceMinutes"] = this.totalAbsenceMinutes;
+        data["totalLeaveDayMinutes"] = this.totalLeaveDayMinutes;
+        data["totalOvertimeMinutes"] = this.totalOvertimeMinutes;
         data["totalOvertimeFriday"] = this.totalOvertimeFriday;
         data["totalOvertimeHoliday"] = this.totalOvertimeHoliday;
         data["totalFOT"] = this.totalFOT;
+        data["projectManagerName"] = this.projectManagerName;
+        data["unitManagerName"] = this.unitManagerName;
+        data["fromDate"] = this.fromDate ? this.fromDate.toISOString() : <any>undefined;
+        data["toDate"] = this.toDate ? this.toDate.toISOString() : <any>undefined;
         if (Array.isArray(this.userIdsToApprove)) {
             data["userIdsToApprove"] = [];
             for (let item of this.userIdsToApprove)
@@ -60810,16 +61986,20 @@ export interface IActualSummerizeTimeSheetOutput {
     totalApproved: number;
     canApprove: boolean;
     unitIdToApprove: number;
-    totalAttendanceHours: number;
-    totalDeductioneHours: number;
+    totalAttendanceMinutes: number;
+    totalDeductioneMinutes: number;
     totalEmployee: number;
-    totalSickLeaveHours: number;
-    totalAbsenceHours: number;
-    totalLeaveDayHours: number;
-    totalOvertimeHours: number;
+    totalSickLeaveMinutes: number;
+    totalAbsenceMinutes: number;
+    totalLeaveDayMinutes: number;
+    totalOvertimeMinutes: number;
     totalOvertimeFriday: number;
     totalOvertimeHoliday: number;
     totalFOT: number;
+    projectManagerName: string | undefined;
+    unitManagerName: string | undefined;
+    fromDate: moment.Moment;
+    toDate: moment.Moment;
     userIdsToApprove: UserTimeSheetInput[] | undefined;
 }
 

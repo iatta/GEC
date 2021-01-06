@@ -138,6 +138,7 @@ export class ManageShiftComponent extends AppComponentBase implements OnInit {
             this.shift.isTwoFingerprint = false;
             this.shift.isInOutWithoutClculateHours = false;
             this.shift.isFlexible = false;
+            this.shift.isPunchNextDay = false;
         }
     }
 
@@ -146,6 +147,7 @@ export class ManageShiftComponent extends AppComponentBase implements OnInit {
             this.shift.isOneFingerprint = false;
             this.shift.isInOutWithoutClculateHours = false;
             this.shift.isFlexible = false;
+            this.shift.isPunchNextDay = false;
         }
     }
 
@@ -157,11 +159,19 @@ export class ManageShiftComponent extends AppComponentBase implements OnInit {
 
         }
     }
-
+    onIsDayRestCalculatedChanged(){
+        if(this.shift.isDayRestCalculated)
+            this.shift.isDayRestCalculatedWithFixedHours =  false;
+    }
+    onIsDayRestCalculatedWithFixedHoursChanged(){
+        if(this.shift.isDayRestCalculatedWithFixedHours)
+            this.shift.isDayRestCalculated = false;
+    }
     onInOutWithoutClculateHoursChanged(){
         if(this.shift.isInOutWithoutClculateHours){
             this.shift.isTwoFingerprint = false;
             this.shift.isFlexible = false;
+            this.shift.isPunchNextDay = false;
             this.shift.isOneFingerprint = false;
         }
     }

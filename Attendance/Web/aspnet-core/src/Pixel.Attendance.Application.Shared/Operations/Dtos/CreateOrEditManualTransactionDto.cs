@@ -17,7 +17,8 @@ namespace Pixel.Attendance.Operations.Dtos
 		 public long? UserId { get; set; }
 		 
 		 		 public int? MachineId { get; set; }
-		 
-		 
-    }
+		public string EditNote { get; set; }
+
+
+	}
 }

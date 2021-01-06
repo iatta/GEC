@@ -1,5 +1,6 @@
 ﻿import { OverrideUserShiftComponent } from './operations/userShifts/override-user-shift.component';
 import { ManagerReportComponent } from './operations/reports/manager-report.component';
+import { RamadanDatesComponent } from './setting/ramadanDates/ramadanDates.component';
 import { FixedOvertimeComponent } from './operations/reports/fixed-overtime.component';
 import { TransactionLogsComponent } from './operations/transactionLogs/transactionLogs.component';
 import { OverrideShiftsComponent } from './setting/overrideShifts/overrideShifts.component';
@@ -63,6 +64,7 @@ import { HrReportComponent } from './operations/reports/hr-report.component';
 import { RegularHoursComponent } from './operations/reports/regular-hours.component';
 import { FridayOvertimeComponent } from './operations/reports/friday-overtime.component';
 import { ProjectSheetComponent } from './operations/reports/project-sheet.component';
+import { HrLevelApproveComponent } from './operations/reports/hr-level-approve.component';
 
 @NgModule({
     imports: [
@@ -70,6 +72,7 @@ import { ProjectSheetComponent } from './operations/reports/project-sheet.compon
             {
                 path: '',
                 children: [
+                    { path: 'setting/ramadanDates', component: RamadanDatesComponent, data: { permission: 'Pages.RamadanDates' }  },
                     { path: 'operations/transactionLogs', component: TransactionLogsComponent, data: { permission: 'Pages.TransactionLogs' }  },
                     { path: 'setting/overrideShifts', component: OverrideShiftsComponent, data: { permission: 'Pages.OverrideShifts' }  },
                     { path: 'operations/employeeTempTransfers', component: EmployeeTempTransfersComponent, data: { permission: 'Pages.EmployeeTempTransfers' }  },
@@ -90,6 +93,8 @@ import { ProjectSheetComponent } from './operations/reports/project-sheet.compon
                     { path: 'operations/managerReportComponent', component: ManagerReportComponent, data: { permission: 'Pages.ManagerReport' }  },
                     { path: 'operations/hrReportComponent', component: HrReportComponent, data: { permission: 'Pages.HrReport' }  },
 
+
+                    { path: 'operations/hrLevelApprove', component: HrLevelApproveComponent, data: { permission: 'Pages.HrLevelApprove' }  },
                     { path: 'operations/summerizeReport', component: SummerizeReportComponent, data: { permission: 'Pages.SummerizeReport' }  },
                     { path: 'operations/beacons', component: BeaconsComponent, data: { permission: 'Pages.Beacons' }  },
                     { path: 'operations/manageUserShifts', component: ManageUserShiftComponent, data: { permission: 'Pages.ManageUserShifts' }  },

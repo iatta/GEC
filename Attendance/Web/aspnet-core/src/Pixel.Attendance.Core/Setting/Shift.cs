@@ -24,7 +24,8 @@ namespace Pixel.Attendance.Setting
 		
 		public virtual Day DayRest { get; set; }
         public virtual bool IsDayRestCalculated { get; set; }
-        public virtual int TotalHoursPerDay { get; set; }
+		public virtual bool IsDayRestCalculatedWithFixedHours { get; set; }
+		public virtual int TotalHoursPerDay { get; set; }
         public virtual bool IsFlexible { get; set; }
         public virtual bool IsOneFingerprint { get; set; }
 		public virtual bool IsTwoFingerprint { get; set; }
@@ -61,6 +62,7 @@ namespace Pixel.Attendance.Setting
 		public int DeductType { get; set; }
 		public bool IsOverTimeAllowed { get; set; }
 		public ShiftTypeEnum ShiftType { get; set; }
+        public bool IsPunchNextDay { get; set; }
 
-	}
+    }
 }

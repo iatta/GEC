@@ -535,11 +535,13 @@ export class ManageUserComponent extends AppComponentBase implements OnInit {
     }
 
     normalOvertimeChanged(val){
-        this.user.isFixedOverTimeAllowed =  !this.user.isNormalOverTimeAllowed;
+        if(this.user.isNormalOverTimeAllowed)
+            this.user.isFixedOverTimeAllowed =  false;
     }
 
     fixedOvertimeChanged(val){
-        this.user.isNormalOverTimeAllowed = !this.user.isFixedOverTimeAllowed;
+        if(this.user.isFixedOverTimeAllowed)
+            this.user.isNormalOverTimeAllowed =false;
     }
 
 }

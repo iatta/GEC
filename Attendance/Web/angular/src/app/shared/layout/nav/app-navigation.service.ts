@@ -40,7 +40,7 @@ export class AppNavigationService {
                 new AppMenuItem('LeaveTypes', 'Pages.LeaveTypes', 'flaticon2-contract', '/app/main/setting/leaveTypes'),
                 new AppMenuItem('EmployeeVacations', 'Pages.EmployeeVacations', 'flaticon-notes', '/app/main/operations/employeeVacations'),
 
-                new AppMenuItem('EmployeeAbsences', 'Pages.EmployeeAbsences', 'flaticon-close', '/app/main/operation/employeeAbsences'),
+                // new AppMenuItem('EmployeeAbsences', 'Pages.EmployeeAbsences', 'flaticon-close', '/app/main/operation/employeeAbsences'),
                 // new AppMenuItem('UploadEmpVacation', 'Pages.UploadEmpVacation', 'flaticon-file-1', '/app/main/operations/uploadEmpVacation'),
             ]),
 
@@ -92,14 +92,14 @@ export class AppNavigationService {
 
 
 
-            new AppMenuItem('Beacons', 'Pages.Beacons', 'flaticon-laptop', '/app/main/operations/beacons'),
+
 
 
             // new AppMenuItem('ManualTransactions', 'Pages.ManualTransactions', 'flaticon-more', '/app/main/operations/manualTransactions'),
 
             // new AppMenuItem('UserTimeSheetApproves', 'Pages.UserTimeSheetApproves', 'flaticon-more', '/app/main/operations/userTimeSheetApproves'),
 
-            new AppMenuItem('UserDelegations', 'Pages.UserDelegations', 'flaticon-rotate', '/app/main/operations/userDelegations'),
+
 
             // new AppMenuItem('LocationMachines', 'Pages.LocationMachines', 'flaticon-more', '/app/main/setting/locationMachines'),
 
@@ -107,14 +107,20 @@ export class AppNavigationService {
 
             // new AppMenuItem('OrganizationLocations', 'Pages.OrganizationLocations', 'flaticon-more', '/app/main/operations/organizationLocations'),
 
-            new AppMenuItem('EmployeeTempTransfers', 'Pages.EmployeeTempTransfers', 'flaticon-more', '/app/main/operations/employeeTempTransfers'),
+
 
             // new AppMenuItem('OverrideShifts', 'Pages.OverrideShifts', 'flaticon-more', '/app/main/setting/overrideShifts'),
 
             // new AppMenuItem('TransactionLogs', 'Pages.TransactionLogs', 'flaticon-more', '/app/main/operations/transactionLogs'),
+
+
              new AppMenuItem('Administration', '', 'flaticon-interface-8', '', [
+                new AppMenuItem('Beacons', 'Pages.Beacons', 'flaticon-laptop', '/app/main/operations/beacons'),
                 new AppMenuItem('OrganizationUnits', 'Pages.Administration.OrganizationUnits', 'flaticon-map', '/app/admin/organization-units'),
                 new AppMenuItem('JobTitles', 'Pages.JobTitles', 'flaticon2-list-3', '/app/main/setting/jobTitles'),
+                new AppMenuItem('RamadanDates', 'Pages.RamadanDates', 'flaticon-calendar-with-a-clock-time-tools', '/app/main/setting/ramadanDates'),
+                new AppMenuItem('EmployeeTempTransfers', 'Pages.EmployeeTempTransfers', 'flaticon-rotate', '/app/main/operations/employeeTempTransfers'),
+                new AppMenuItem('UserDelegations', 'Pages.UserDelegations', 'flaticon-rotate', '/app/main/operations/userDelegations'),
                 new AppMenuItem('Roles', 'Pages.Administration.Roles', 'flaticon-suitcase', '/app/admin/roles'),
                 new AppMenuItem('Users', 'Pages.Administration.Users', 'flaticon-users', '/app/admin/users'),
                 new AppMenuItem('DelegatedUsers', 'Pages.Administration.DelegatedUsers', 'flaticon-users', '/app/admin/delegatedUsers'),
@@ -142,6 +148,7 @@ export class AppNavigationService {
                 new AppMenuItem('ManagerReport', 'Pages.ManagerReport', 'flaticon-graph', '/app/main/operations/managerReportComponent'),
                 new AppMenuItem('SummerizeReport', 'Pages.SummerizeReport', 'flaticon-graph', '/app/main/operations/summerizeReport'),
                 new AppMenuItem('ManagerLevelApprove', 'Pages.ManagerLevelApprove', 'flaticon-profile', '/app/main/operations/managerLevelApprove'),
+                new AppMenuItem('HrLevelApprove', 'Pages.HrLevelApprove', 'flaticon-profile', '/app/main/operations/hrLevelApprove'),
                 new AppMenuItem('NormalOvertime', 'Pages.NormalOvertime', 'flaticon-time', '/app/main/operations/normalOvertime'),
                 new AppMenuItem('FixedOvertime', 'Pages.FixedOvertime', 'flaticon-time', '/app/main/operations/fixedOvertime'),
                 new AppMenuItem('RegularHours', 'Pages.FixedOvertime', 'flaticon-time', '/app/main/operations/regularHours'),

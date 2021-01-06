@@ -9,21 +9,49 @@
                 </div>
                 <div class="col-lg-12">
                     <div class="form-group row">
-                        <div class="col-lg-3">
+                        <div class="col-lg-2">
                             <label for="Project">{{l("Project")}}</label>
                             <p-dropdown styleClass="form-control" [options]="projectList" [(ngModel)]="selectedProject" name="selectedProject"  #selectedProjectInput="ngModel" placeholder="Select a Project" optionLabel="nameEn" [showClear]="true"></p-dropdown>
                         </div>
-                        <div class="col-lg-3">
+                        <div class="col-lg-2">
                             <label for="EmployeeType">{{l("EmployeeType")}}</label>
                             <p-dropdown styleClass="form-control" [options]="userTypes" [(ngModel)]="selectedUserType" name="selectedUserType"  #selectedUserTypeInput="ngModel" placeholder="Select Type" optionLabel="label" [showClear]="true"></p-dropdown>
                         </div>
-                        <div class="col-lg-3">
-                            <label for="TimeProfile_StartDate">{{l("Date")}}</label>
+                        <div class="col-lg-2" style="display: flex;justify-content: center;margin-top: 2rem;">
+
+                                <p-checkbox (onChange)="onisMonthChanged()"  [(ngModel)]="isMonth" name="isMonth" id="isMonth" binary="true"></p-checkbox>
+                                <label style="padding: 5px;" for="isMonth">{{l("isMonth")}}</label>
+
+
+
+                            <p-checkbox (onChange)="onisDateRangehanged()" [(ngModel)]="isDateRange" name="isDateRange" id="isDateRange" binary="true"></p-checkbox>
+                            <label style="padding: 5px;" for="isDateRange">{{l("isDateRange")}}</label>
+                        </div>
+                        <div class="col-lg-2" *ngIf="isMonth" >
+                            <label for="selectedDate">{{l("Date")}}</label>
                             <input required class="form-control" autocomplete="off" bsDatepicker  [bsConfig]="{ dateInputFormat: 'MM/YYYY',isAnimated: true }" [(ngModel)]="selectedDate" id="selectedDate" name="selectedDate" (onShown)="onOpenCalendar($event)">
                         </div>
-                        <div class="col-lg-3" style="margin-top: auto;">
+                        <div class="col-lg-2" *ngIf="isDateRange" >
+                            <label for="TimeProfile_SelectedFirstDate">{{l("StartDate")}}</label>
+                            <input required class="form-control" autocomplete="off" bsDatepicker  [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY',isAnimated: true }" [(ngModel)]="selectedFirstDate" id="selectedFirstDate" name="selectedFirstDate">
+                            <label for="TimeProfile_SelectedEndDate">{{l("EndDate")}}</label>
+                            <input required class="form-control" autocomplete="off" bsDatepicker  [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY',isAnimated: true }" [(ngModel)]="selectedEndDate" id="selectedEndDate" name="selectedEndDate">
+                        </div>
+
+                        <div class="col-lg-2" style="margin-top: auto;">
                             <button class="btn btn-success" type="button" (click)="generateReport()" >Generate</button>
                         </div>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div *ngIf="isLoadUser" class="col-lg-6">
+                        <label for="selectedUsers">{{l("Employee")}}</label>
+                        <p-multiSelect styleClass="form-control" optionLabel="label" #selectedUsersInput="ngModel"  [options]="usersList" name="userIds" [(ngModel)]="selectedUsers"></p-multiSelect>
+                    </div>
+
+                    <div class="col-lg-6" style="margin : 1rem;">
+                        <button class="btn btn-primary" *ngIf="!isLoadUser" type="button" (click)="loadUser()" >Load Users</button>
+                        <button class="btn btn-info" *ngIf="isLoadUser" type="button" (click)="resetUsers()" >All Users</button>
                     </div>
 
                 </div>
@@ -31,65 +59,36 @@
                     <div class="col-lg-12" style="margin-bottom: 20px;" *ngIf="dataLoaded">
 
                         <p-panel header="Informations" [toggleable]="true" [style]="{'margin-bottom':'20px'}">
-                            <div class="row">
-                                <div class="col-lg-2 row colCoror" style="margin-right: 4%;">
-                                    <div class="col-lg-1" style="margin-right: 5px;">
-                                        <div class="colorInfo late"></div>
-                                    </div>
-                                    <div class="col-lg-1">
-                                        <p>{{l('Late')}}</p>
-                                    </div>
+                            <div class="row" style="display:flex;justify-content: space-around;">
+                                <span class="colorInfo late"></span>
+                                <span>{{l('Late')}}</span>
 
+                                <span class="colorInfo overTime"></span>
+                                <span>{{l('Overtime')}}</span>
 
-                                </div>
-                                <div class="col-lg-2 row colCoror" style="margin-right: 4%;">
-                                    <div class="col-lg-1" style="margin-right: 5px;">
-                                        <div class="colorInfo overTime"></div>
-                                    </div>
-                                    <div class="col-lg-1">
-                                        <p>{{l('Overtime')}}</p>
-                                    </div>
+                                <span class="colorInfo sick"></span>
+                                <span>{{l('Sick')}}</span>
 
+                                <span class="colorInfo leave"></span>
+                                <span>{{l('Leave')}}</span>
+                                <span class="colorInfo rest"></span>
+                                <span>{{l('Rest')}}</span>
+                                <span class="colorInfo dayOff"></span>
+                                <span>{{l('DayOff')}}</span>
+                                <span class="colorInfo pendingProjectManager"></span>
+                                <span>{{l('WitingForProjectManager')}}</span>
 
-                                </div>
-                                <div class="col-lg-2 row colCoror" style="margin-right: 14%;">
-                                    <div class="col-lg-1" style="margin-right: 5px;">
-                                        <div class="colorInfo pendingProjectManager"></div>
-                                    </div>
-                                    <div class="col-lg-1">
-                                        <p>{{l('WitingForProjectManager')}}</p>
-                                    </div>
+                                <span class="colorInfo approved"></span>
+                                <span>{{l('approved')}}</span>
 
+                                <span class="colorInfo pendingManager"></span>
+                                <span>{{l('WitingForManager')}}</span>
 
-                                </div>
-                                <div class="col-lg-2 row colCoror" style="margin-right: 6%;">
-                                    <div class="col-lg-1" style="margin-right: 5px;">
-                                        <div class="colorInfo pendingManager"></div>
-                                    </div>
-                                    <div class="col-lg-1">
-                                        <p>{{l('WitingForManager')}}</p>
-                                    </div>
+                                <span class="colorInfo transferred"></span>
+                                <span>{{l('WitingForManager')}}</span>
 
-
-                                </div>
-                                <div class="col-lg-2 row colCoror" style="margin-right: 3%;">
-                                    <div class="col-lg-1" style="margin-right: 5px;">
-                                        <div class="colorInfo approved"></div>
-                                    </div>
-                                    <div class="col-lg-1">
-                                        <p>{{l('approved')}}</p>
-                                    </div>
-                                </div>
-                                <div class="col-lg-2 row colCoror" style="margin-right: 6%;">
-                                    <div class="col-lg-1" style="margin-right: 5px;">
-                                        <div class="colorInfo transferred"></div>
-                                    </div>
-                                    <div class="col-lg-1">
-                                        <p>{{l('transferred')}}</p>
-                                    </div>
-                                </div>
-                                <div class="col-lg-2 row">
-                                    <button type="button" [disabled]="!response.canApprove"  (click)="approve()"  class="btn btn-success mr-2">{{l('Approve')}}</button>
+                                <div class="col-lg-3 row">
+                                    <button type="button" [disabled]="!response.canApprove" (click)="approve()"  class="btn btn-success mr-2">{{l('Approve')}}</button>
                                     <!-- <button type="button" (click)="reject()" class="btn btn-danger mr-2">{{l('Reject')}}</button> -->
                                 </div>
                             </div>
@@ -116,7 +115,7 @@
                                         {{l('Attendance')}}
                                     </th>
                                     <th style="width:100px;background-color: #c5b3b3 !important;">
-                                        {{l('Hur. Deduction')}}
+                                        {{l('Hr.Deduction')}}
                                     </th>
                                     <th style="width:100px;background-color: #c5b3b3 !important;">
                                         {{l('Sick leave')}}
@@ -149,8 +148,8 @@
                                                 {{rowData[col.field]}}
                                             </ng-container>
                                             <ng-container *ngIf="isDate(col.field) ">
-                                                <div style="width: 100%;"  *ngIf="rowData.details[col.field]['totalHours'] > 0"  [ngClass]="{'late' :rowData.details[col.field]['isDelay'] == true,'overTime':rowData.details[col.field]['overtime'] >0 }">
-                                                    {{rowData.details[col.field]['totalHours'] | minutesToTime24}}
+                                                <div style="width: 100%;"  *ngIf="rowData.details[col.field]['totalMinutes'] > 0 && rowData.details[col.field]['isWorkInAnotherProject'] == false"  [ngClass]="{'late' :rowData.details[col.field]['isDelay'] == true,'overTime':rowData.details[col.field]['overtime'] >0 }">
+                                                    {{rowData.details[col.field]['totalMinutes'] | minutesToTime24}}
                                                     <ng-container *ngIf="rowData.details[col.field]['delay'] > 0">
                                                        <br> {{rowData.details[col.field]['delay'] | minutesToString}}
                                                     </ng-container>
@@ -158,24 +157,48 @@
                                                         <br> {{rowData.details[col.field]['overtime'] | minutesToString}}
                                                      </ng-container>
                                                      <div>
-                                                        <a style="margin-top: 10px;" type="button" class="btn btn-warning" (click)="openCreateOrEditTransaction(rowData.details[col.field]['inTransactionId'],rowData.details[col.field]['outTransactionId'],rowData.details[col.field]['day'],rowData.userId)" >{{l('Edit')}}</a>
+                                                        <a style="margin-top: 10px;" *ngIf="rowData.details[col.field]['isProjectManagerApproved'] == true && rowData.details[col.field]['isCurrentUnitApproved'] == false && rowData.details[col.field]['canManagerApprove'] == true"  type="button" class="btn btn-warning" (click)="openCreateOrEditTransaction(rowData.details[col.field]['inTransactionId'],rowData.details[col.field]['outTransactionId'],rowData.details[col.field]['day'],rowData.userId)" >{{l('Edit')}}</a>
+                                                     </div>
+                                                     <div>
+                                                        <a style="margin-top: 10px;" *ngIf="rowData.details[col.field]['isProjectManagerApproved'] == true && rowData.details[col.field]['isCurrentUnitApproved'] == false && rowData.details[col.field]['canManagerApprove'] == true" type="button" class="btn btn-info" (click)="openTransactionInfo(rowData.details[col.field]['inTransactionId'],rowData.details[col.field]['outTransactionId'])" >{{l('Info')}}</a>
                                                      </div>
 
                                                 </div>
-                                                <div style="display: grid;" *ngIf="rowData.details[col.field]['totalHours'] == 0 && rowData.details[col.field]['isTransferred'] == false">
+                                                <div style="display: grid;"  *ngIf="rowData.details[col.field]['totalMinutes'] == 0 && rowData.details[col.field]['isWorkInAnotherProject'] == false && rowData.details[col.field]['isDayOff'] == false && rowData.details[col.field]['isRest'] == false && rowData.details[col.field]['isSick'] == false && rowData.details[col.field]['isLeave'] == false">
                                                     {{l('A')}}
-                                                    <a style="margin-top: 10px;" type="button" class="btn btn-warning" (click)="openCreateOrEditTransaction(rowData.details[col.field]['inTransactionId'],rowData.details[col.field]['outTransactionId'],rowData.details[col.field]['day'],rowData.userId)">{{l('Add')}}</a>
+                                                    <a style="margin-top: 10px;" *ngIf="rowData.details[col.field]['isProjectManagerApproved'] == true && rowData.details[col.field]['isCurrentUnitApproved'] == false && rowData.details[col.field]['canManagerApprove'] == true" type="button" class="btn btn-warning" (click)="openCreateOrEditTransaction(rowData.details[col.field]['inTransactionId'],rowData.details[col.field]['outTransactionId'],rowData.details[col.field]['day'],rowData.userId)">{{l('Add')}}</a>
                                                 </div>
-                                                <p *ngIf="rowData.details[col.field]['isTransferred'] == true">
-                                                    {{l('Transferred')}}
+                                                <div style="display: grid;" class="dayOff" *ngIf="rowData.details[col.field]['isDayOff'] == true">
+                                                    <span>{{l('DayOff')}}</span>
+                                                    <!-- <a style="margin-top: 10px;" type="button" class="btn btn-warning" (click)="openCreateOrEditTransaction(rowData.details[col.field]['inTransactionId'],rowData.details[col.field]['outTransactionId'],rowData.details[col.field]['day'],rowData.userId)">{{l('Add')}}</a> -->
+                                                </div>
+
+                                                <div style="display: grid;" class="rest" *ngIf="rowData.details[col.field]['isRest'] == true">
+                                                    <span>{{l('Rest')}}</span>
+                                                    <!-- <a style="margin-top: 10px;" type="button" class="btn btn-warning" (click)="openCreateOrEditTransaction(rowData.details[col.field]['inTransactionId'],rowData.details[col.field]['outTransactionId'],rowData.details[col.field]['day'],rowData.userId)">{{l('Add')}}</a> -->
+                                                </div>
+
+                                                <p *ngIf="rowData.details[col.field]['isWorkInAnotherProject'] == true">
+                                                    {{l('Work In Another Project')}}
                                                 </p>
+
+                                                <div style="display: grid;" class="sick" *ngIf="rowData.details[col.field]['isSick'] == true">
+                                                    <span>{{l('S')}}</span>
+                                                    <!-- <a style="margin-top: 10px;" type="button" class="btn btn-warning" (click)="openCreateOrEditTransaction(rowData.details[col.field]['inTransactionId'],rowData.details[col.field]['outTransactionId'],rowData.details[col.field]['day'],rowData.userId)">{{l('Add')}}</a> -->
+                                                </div>
+
+                                                <div style="display: grid;" class="leave" *ngIf="rowData.details[col.field]['isLeave'] == true">
+                                                    <span>{{l('L')}}</span>
+                                                    <!-- <a style="margin-top: 10px;" type="button" class="btn btn-warning" (click)="openCreateOrEditTransaction(rowData.details[col.field]['inTransactionId'],rowData.details[col.field]['outTransactionId'],rowData.details[col.field]['day'],rowData.userId)">{{l('Add')}}</a> -->
+                                                </div>
+
                                             </ng-container>
                                         </td>
                                         <td style="background-color: #c5b3b3 !important;">{{rowData.totalAttendance | minutesToTime24}}</td>
-                                        <td style="background-color: #c5b3b3 !important;">{{rowData.totalDeductionHours | minutesToTime24}}</td>
-                                        <td style="background-color: #c5b3b3 !important;">{{rowData.totalSickLeaveHours }}</td>
-                                        <td style="background-color: #c5b3b3 !important;">{{rowData.totalaAbsenceHours }}</td>
-                                        <td style="background-color: #c5b3b3 !important;"> {{rowData.totalLeaveHours}}</td>
+                                        <td style="background-color: #c5b3b3 !important;">{{rowData.totalDeductionMinutes | minutesToTime24}}</td>
+                                        <td style="background-color: #c5b3b3 !important;">{{rowData.totalSickLeaveMinutes |minutesToTime24}}</td>
+                                        <td style="background-color: #c5b3b3 !important;">{{rowData.totalaAbsenceMinutes | minutesToTime24 }}</td>
+                                        <td style="background-color: #c5b3b3 !important;"> {{rowData.totalLeaveMinutes | minutesToTime24}}</td>
                                         <td style="background-color: #c5b3b3 !important;">{{rowData.totalOverTimeNormal | minutesToTime24}}</td>
                                         <td style="background-color: #c5b3b3 !important;">{{rowData.totalOverTimeFriday | minutesToTime24}}</td>
                                         <td style="background-color: #c5b3b3 !important;">{{rowData.totalOverTimeHolidays | minutesToTime24}}</td>
@@ -185,14 +208,14 @@
                             <ng-template pTemplate="footer">
                                 <tr style="text-align: center;">
                                     <td [attr.colspan]="summeryRowSpan">{{l('Total Summary')}}</td>
-                                    <td>{{response.totalAttendanceHours | minutesToTime24}}</td>
-                                    <td>{{response.totalDeductioneHours | minutesToTime24}}</td>
-                                    <td>{{response.totalSickLeaveHours}}</td>
-                                    <td>{{response.totalAbsenceHours}}</td>
-                                    <td>{{response.totalLeaveDayHours}}</td>
-                                    <td>{{response.totalOvertimeHours | minutesToTime24}}</td>
-                                    <td>{{response.totalOvertimeFriday }}</td>
-                                    <td>{{response.totalOvertimeHoliday}}</td>
+                                    <td>{{response.totalAttendanceMinutes | minutesToTime24}}</td>
+                                    <td>{{response.totalDeductioneMinutes | minutesToTime24}}</td>
+                                    <td>{{response.totalSickLeaveMinutes | minutesToTime24}}</td>
+                                    <td>{{response.totalAbsenceMinutes | minutesToTime24}}</td>
+                                    <td>{{response.totalLeaveDayMinutes | minutesToTime24}}</td>
+                                    <td>{{response.totalOvertimeMinutes | minutesToTime24}}</td>
+                                    <td>{{response.totalOvertimeFriday |minutesToTime24}}</td>
+                                    <td>{{response.totalOvertimeHoliday | minutesToTime24}}</td>
                                     <td>{{response.totalFOT}}</td>
                                 </tr>
                             </ng-template>
@@ -205,3 +228,5 @@
         </div>
     </div>
 </div>
+<createOrEditAttendanceModal #createOrEditAttendanceModal (modalSave)="generateReport()"></createOrEditAttendanceModal>
+<transactionInfoModal #transactionInfoModal></transactionInfoModal>

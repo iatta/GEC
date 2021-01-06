@@ -4,6 +4,7 @@ using Abp.Application.Services;
 using Abp.Application.Services.Dto;
 using Pixel.Attendance.Operations.Dtos;
 using Pixel.Attendance.Dto;
+using System.Collections.Generic;
 
 namespace Pixel.Attendance.Operations
 {
@@ -25,6 +26,7 @@ namespace Pixel.Attendance.Operations
 		Task<PagedResultDto<TransactionLogTransactionLookupTableDto>> GetAllTransactionForLookupTable(GetAllForLookupTableInput input);
 		
 		Task<PagedResultDto<TransactionLogUserLookupTableDto>> GetAllUserForLookupTable(GetAllForLookupTableInput input);
-		
-    }
+		Task<List<GetTransactionLogForViewDto>> GetTransactionLogByTransId(int inId, int outId);
+
+	}
 }

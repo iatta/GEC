@@ -1,6 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
-  <texts>    <text name="TransactionLog">Transaction log</text>
+  <texts>    <text name="RamadanDate">Ramadan date</text>
+    <text name="RamadanDatesHeaderInfo">Ramadan dates header info</text>
+    <text name="CreateNewRamadanDate">Create new ramadan date</text>
+    <text name="EditRamadanDate">Edit ramadan date</text>
+    <text name="DeleteRamadanDate">Delete ramadan date</text>
+    <text name="RamadanDates">Ramadan dates</text>
+    <text name="TransactionLog">Transaction log</text>
     <text name="OldValue">Old value</text>
     <text name="TransactionLogsHeaderInfo">Transaction logs header info</text>
     <text name="CreateNewTransactionLog">Create new transaction log</text>

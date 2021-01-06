@@ -1,6 +1,6 @@
 import { FilterUtils, SelectItem } from 'primeng/api';
-import { result } from 'lodash';
-import { ActualSummerizeTimeSheetDto, ProjectManagerApproveInput, UserTimeSheetInput, ActualSummerizeTimeSheetOutput } from './../../../../shared/service-proxies/service-proxies';
+import * as _ from 'lodash';
+import { ActualSummerizeTimeSheetDto, ProjectManagerApproveInput, UserTimeSheetInput, ActualSummerizeTimeSheetOutput, UserFlatDto } from './../../../../shared/service-proxies/service-proxies';
 import { TransactionsServiceProxy, ProjectDto, ProjectsServiceProxy } from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { Component, OnInit, Injector, ViewChild } from '@angular/core';
@@ -9,6 +9,7 @@ import * as moment from 'moment';
 import { start } from 'repl';
 import { rowsAnimation } from '@shared/animations/template.animations';
 import { CreateOrEditAttendanceModalComponent } from '../manualTransactions/create-or-edit-attendance-modal.component';
+import { TransactionInfoeModalComponent } from '../manualTransactions/transaction-info-modal.component';
 
 
 
@@ -21,6 +22,7 @@ import { CreateOrEditAttendanceModalComponent } from '../manualTransactions/crea
 
 export class SummerizeReportComponent extends AppComponentBase implements OnInit {
     @ViewChild('createOrEditAttendanceModal', { static: true }) createOrEditAttendanceModal: CreateOrEditAttendanceModalComponent;
+    @ViewChild('transactionInfoModal', { static: true }) transactionInfoModal: TransactionInfoeModalComponent;
 
     startDate:moment.Moment = moment().startOf('day');
     endDate:moment.Moment = moment().startOf('day');
@@ -35,12 +37,23 @@ export class SummerizeReportComponent extends AppComponentBase implements OnInit
     dataIsLoading = false;
     month:number;
     year:number;
-    selectedDate='';
+
+    isMonth:boolean;
+    isDateRange:boolean;
+    selectedUsers:SelectItem[]=[];
+    selectedUserIds:number[]=[];
+    selectedDate='08/2020';
+    selectedFirstDate='01/01/2020';
+    selectedEndDate='01/01/2020';
     userIds:UserTimeSheetInput[] = [];
     userTypes:SelectItem[]= [];
     selectedUserType:SelectItem;
     summeryRowSpan=0;
     response:ActualSummerizeTimeSheetOutput;
+
+    isLoadUser:boolean;
+    usersList: SelectItem[] = [];
+
     constructor(
         injector: Injector,
         private route: ActivatedRoute,
@@ -78,8 +91,13 @@ export class SummerizeReportComponent extends AppComponentBase implements OnInit
             valid = false;
             return valid;
         }
+        if(!this.isMonth && !this.isDateRange){
+            this.message.warn('Please Select Date Type');
+            valid = false;
+            return valid;
+        }
 
-        if(!this.selectedDate){
+        if(!this.selectedDate && this.isMonth){
             this.message.warn('Please Select Date');
             valid = false;
             return valid;
@@ -89,14 +107,21 @@ export class SummerizeReportComponent extends AppComponentBase implements OnInit
 
     generateReport(){
         if(this.validateForm()){
+            debugger
             this.data = [];
             this.dataLoaded = false;
-            let date = new Date(this.selectedDate);
+            this.selectedUserIds = _.map(this.selectedUsers, 'value');
+            let date = new Date("2020-08-01");
+            if(this.selectedDate != "08/2020")
+                date = new Date(this.selectedDate);
+
             this.month = date.getMonth() + 1;
             this.year = date.getFullYear();
             this.dataIsLoading=true;
             debugger
-            this._transactionService.getActualSummerizeTimeSheet(this.selectedProject.id,this.startDate,this.endDate,this.month,this.year,this.selectedUserType.value).subscribe((result) => {
+            this._transactionService.getActualSummerizeTimeSheet(this.selectedProject.id,
+                moment(this.selectedFirstDate),moment(this.selectedEndDate),this.month,
+                this.year,this.selectedUserType.value,this.selectedUserIds , this.isMonth,this.isDateRange).subscribe((result) => {
                console.log(result);
                 if(result.data.length > 0){
                     this.userIds = result.userIds;
@@ -108,8 +133,18 @@ export class SummerizeReportComponent extends AppComponentBase implements OnInit
                     let lastDay = new Date(this.year, this.month, 0);
                     console.log(lastDay);
 
-                    this.startDate = moment(firstDay);
-                    this.endDate = moment(lastDay);
+                    if(this.isMonth){
+                        this.startDate = moment(firstDay);
+                        this.endDate = moment(lastDay);
+                    }else{
+                        let dateStart = new Date(this.selectedFirstDate);
+                        let dateEnd = new Date(this.selectedEndDate);
+                        this.startDate = moment(dateStart);
+                         this.endDate = moment(dateEnd);
+                    }
+
+
+
 
                     for (let m = moment(this.startDate); m.diff(this.endDate, 'days') <= 0; m.add(1, 'days')) {
                         let dateHeader = m.format('DD/MM/YYYY');
@@ -174,10 +209,45 @@ export class SummerizeReportComponent extends AppComponentBase implements OnInit
     }
 
     openCreateOrEditTransaction(intransId:number,outTransId:number,transDate:moment.Moment,userId:number){
-        debugger
         this.createOrEditAttendanceModal.show(intransId,outTransId,transDate,userId);
     }
+    onisMonthChanged(){
+        this.isDateRange = !this.isMonth;
+    }
+    onisDateRangehanged(){
+        this.isMonth = !this.isDateRange;
+    }
+    loadUser(){
 
+        let date = new Date("2020-08-01");
+            if(this.selectedDate != "08/2020")
+                date = new Date(this.selectedDate);
+
+        this.month = date.getMonth() + 1;
+        this.year = date.getFullYear();
+        this.dataIsLoading=true;
+        if(this.validateForm()){
+        this._transactionService.getUserByProject(this.selectedProject.id,
+            this.startDate,this.endDate,this.month,
+            this.year,this.selectedUserType.value,this.selectedUserIds , this.isMonth,this.isDateRange).subscribe((result:UserFlatDto[]) => {
+                this.dataIsLoading=false;
+                this.isLoadUser = true;
+                result.forEach(element => {
+                   this.usersList.push({label:element.name, value:element.id})
+                });
+            });
+        }else{
+            this.dataIsLoading=false;
+        }
+
+    }
+    resetUsers(){
+        this.selectedUsers = [];
+        this.isLoadUser = false;
+    }
+    openTransactionInfo(intransId:number,outTransId:number){
+        this.transactionInfoModal.show(intransId,outTransId)
+    }
     // getRowClass(data:any,col:any){
     //     if(this.isDate(col.field)){
     //         if(data.details[col.field]['isProjectManagerApproved'] == true)

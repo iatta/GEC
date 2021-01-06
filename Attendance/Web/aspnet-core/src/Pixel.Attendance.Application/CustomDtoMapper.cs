@@ -57,6 +57,10 @@ namespace Pixel.Attendance
     {
         public static void CreateMappings(IMapperConfigurationExpression configuration)
         {
+            
+            configuration.CreateMap<UserFlatDto, User>().ReverseMap();
+            configuration.CreateMap<CreateOrEditRamadanDateDto, RamadanDate>().ReverseMap();
+            configuration.CreateMap<RamadanDateDto, RamadanDate>().ReverseMap();
             configuration.CreateMap<CreateOrEditTransactionLogDto, TransactionLog>().ReverseMap();
             configuration.CreateMap<TransactionLogDto, TransactionLog>().ReverseMap();
             configuration.CreateMap<CreateOrEditOverrideShiftDto, OverrideShift>().ReverseMap();

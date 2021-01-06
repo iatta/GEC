@@ -2,6 +2,10 @@
 import { ManagerReportComponent } from './operations/reports/manager-report.component';
 import { NormalOvertimeComponent } from './operations/reports/normal-overtime.component';
 import { FixedOvertimeComponent } from './operations/reports/fixed-overtime.component';
+import { RamadanDatesComponent } from './setting/ramadanDates/ramadanDates.component';
+import { ViewRamadanDateModalComponent } from './setting/ramadanDates/view-ramadanDate-modal.component';
+import { CreateOrEditRamadanDateModalComponent } from './setting/ramadanDates/create-or-edit-ramadanDate-modal.component';
+
 
 import { ManagerLevelApproveComponent } from './operations/reports/maneger-level-approve';
 import { TransactionLogsComponent } from './operations/transactionLogs/transactionLogs.component';
@@ -267,6 +271,8 @@ import { RegularHoursComponent } from './operations/reports/regular-hours.compon
 import { FridayOvertimeComponent } from './operations/reports/friday-overtime.component';
 import { ProjectSheetComponent } from './operations/reports/project-sheet.component';
 import { CreateOrEditAttendanceModalComponent } from './operations/manualTransactions/create-or-edit-attendance-modal.component';
+import { TransactionInfoeModalComponent } from './operations/manualTransactions/transaction-info-modal.component';
+import { HrLevelApproveComponent } from './operations/reports/hr-level-approve.component';
 
 NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
 
@@ -312,6 +318,8 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
           }),
     ],
     declarations: [
+		RamadanDatesComponent,
+		ViewRamadanDateModalComponent,		CreateOrEditRamadanDateModalComponent,
 		TransactionLogsComponent,
 		ViewTransactionLogModalComponent,		CreateOrEditTransactionLogModalComponent,
     TransactionLogTransactionLookupTableModalComponent,
@@ -459,10 +467,12 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
         HrReportComponent,
         ManagerUnitsModalComponent
         ,ManagerReportComponent,
+        HrLevelApproveComponent,
         RegularHoursComponent,
         FridayOvertimeComponent,
         ProjectSheetComponent,
-        CreateOrEditAttendanceModalComponent
+        CreateOrEditAttendanceModalComponent,
+        TransactionInfoeModalComponent
 
     ],
     providers: [

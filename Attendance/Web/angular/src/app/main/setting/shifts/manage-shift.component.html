@@ -42,19 +42,19 @@
                                     <label for="Shift_DayOff">{{l("DayOff")}}</label>
                                     <select class="form-control" name="DayOff" id="Shift_DayOff"  [ngClass]="{ 'is-invalid': shiftForm.submitted && dayOffInput.invalid}" #dayOffInput="ngModel"  [(ngModel)]="shift.dayOff" required>
                                         <validation-messages [formCtrl]="dayOffInput" [frm]="shiftForm"></validation-messages>
-                                    <option value="1">{{l('Satarday')}}</option>
+                                    <option value="6">{{l('Satarday')}}</option>
 
-                                    <option value="2">{{l('Sunday')}}</option>
+                                    <option value="7">{{l('Sunday')}}</option>
 
-                                    <option value="3">{{l('Monday')}}</option>
+                                    <option value="1">{{l('Monday')}}</option>
 
-                                    <option value="4">{{l('Tuesday')}}</option>
+                                    <option value="2">{{l('Tuesday')}}</option>
 
-                                    <option value="5">{{l('Wednesday')}}</option>
+                                    <option value="3">{{l('Wednesday')}}</option>
 
-                                    <option value="6">{{l('Thursday')}}</option>
+                                    <option value="4">{{l('Thursday')}}</option>
 
-                                    <option value="7">{{l('Friday')}}</option>
+                                    <option value="5">{{l('Friday')}}</option>
 
 
                                     </select>
@@ -63,19 +63,20 @@
                                     <label for="Shift_DayRest">{{l("DayRest")}}</label>
                                     <select class="form-control" name="DayRest" [ngClass]="{ 'is-invalid': shiftForm.submitted && dayRestInput.invalid}"  #dayRestInput="ngModel" id="Shift_DayRest" [(ngModel)]="shift.dayRest" required>
                                         <validation-messages [formCtrl]="dayRestInput" [frm]="shiftForm"></validation-messages>
-                                    <option value="1">{{l('Satarday')}}</option>
+                                  <option value="6">{{l('Satarday')}}</option>
 
-                                    <option value="2">{{l('Sunday')}}</option>
+                                    <option value="7">{{l('Sunday')}}</option>
 
-                                    <option value="3">{{l('Monday')}}</option>
+                                    <option value="1">{{l('Monday')}}</option>
 
-                                    <option value="4">{{l('Tuesday')}}</option>
+                                    <option value="2">{{l('Tuesday')}}</option>
 
-                                    <option value="5">{{l('Wednesday')}}</option>
+                                    <option value="3">{{l('Wednesday')}}</option>
 
-                                    <option value="6">{{l('Thursday')}}</option>
+                                    <option value="4">{{l('Thursday')}}</option>
 
-                                    <option value="7">{{l('Friday')}}</option>
+                                    <option value="5">{{l('Friday')}}</option>
+
 
 
                                     </select>
@@ -87,7 +88,10 @@
                                 </div>
                             </div>
                             <div class="from-group row">
-                            <p-checkbox [(ngModel)]="shift.isDayRestCalculated" name="IsDayRestCalculated" binary="true"></p-checkbox>
+                                <p-checkbox [(ngModel)]="shift.isDayRestCalculatedWithFixedHours" (onChange)="onIsDayRestCalculatedWithFixedHoursChanged()" name="IsDayRestCalculatedWithFixedHours" binary="true"></p-checkbox>
+                                <label style="padding: 5px;" for="IsDayRestCalculatedWithFixedHours">{{l("IsDayRestCalculatedWithFixedHours")}}</label>
+
+                            <p-checkbox [(ngModel)]="shift.isDayRestCalculated" (onChange)="onIsDayRestCalculatedChanged()"  name="IsDayRestCalculated" binary="true"></p-checkbox>
                                  <label style="padding: 5px;" for="IsDayRestCalculated">{{l("IsDayRestCalculated")}}</label>
 
                                     <p-checkbox (onChange)="onFlexibleChanged()" [(ngModel)]="shift.isFlexible" name="IsFlexible" id="IsFlexible" binary="true"></p-checkbox>
@@ -107,6 +111,9 @@
 
                                      <p-checkbox [(ngModel)]="shift.hasRamadanSetting" name="HasRamadanSetting" binary="true"></p-checkbox>
                                      <label style="padding: 5px;" for="HasRamadanSetting">{{l("HasRamadanSetting")}}</label>
+
+                                     <p-checkbox *ngIf="shift.isTwoFingerprint || shift.isFlexible"  [(ngModel)]="shift.isPunchNextDay" name="IsPunchNextDay" binary="true"></p-checkbox>
+                                     <label *ngIf="shift.isTwoFingerprint || shift.isFlexible" style="padding: 5px;" for="IsPunchNextDay">{{l("IsPunchNextDay")}}</label>
 
                             </div>
                             <div class="from-group row">

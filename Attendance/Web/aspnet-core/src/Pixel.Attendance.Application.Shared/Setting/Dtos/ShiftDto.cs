@@ -1,4 +1,5 @@
-﻿using Pixel.Attendance.Enums;
+﻿
+using Pixel.Attendance.Enums;
 using System;
 using Abp.Application.Services.Dto;
 using Pixel.Attendance.Dto;
@@ -16,6 +17,7 @@ namespace Pixel.Attendance.Setting.Dtos
 
 		public  DayDto DayRest { get; set; }
 		public  bool IsDayRestCalculated { get; set; }
+		public bool IsDayRestCalculatedWithFixedHours { get; set; }
 		public  int TotalHoursPerDay { get; set; }
 		public bool IsInOutWithoutClculateHours { get; set; }
 
@@ -51,6 +53,6 @@ namespace Pixel.Attendance.Setting.Dtos
 		public bool IsOverTimeAllowed { get; set; }
 		public ShiftTypeEnumDto ShiftType { get; set; }
 
-
+		public bool IsPunchNextDay { get; set; }
 	}
 }

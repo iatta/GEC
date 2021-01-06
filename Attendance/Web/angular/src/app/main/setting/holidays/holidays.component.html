@@ -59,9 +59,9 @@
                                 <div class="form-group">
 									<label  for="MinStartDateFilter">{{l("StartDateRange")}}</label>
 									<div class="input-group">
-                                        <input class="form-control m-input" id="MinStartDateFilter" name="MinStartDateFilter" type="datetime" bsDatepicker  placeholder="{{l('MinValue')}}" [(ngModel)]="minStartDateFilter">
+                                        <input class="form-control m-input" id="MinStartDateFilter" name="MinStartDateFilter" type="datetime" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY',isAnimated: true }"  placeholder="{{l('MinValue')}}" [(ngModel)]="minStartDateFilter">
 			                            <span style="line-height: 40px;padding: 0 15px 0 15px;"> &mdash; </span>
-                                        <input class="form-control m-input" id="MaxStartDateFilter" name="MaxStartDateFilter" type="datetime" bsDatepicker  placeholder="{{l('MaxValue')}}" [(ngModel)]="maxStartDateFilter">
+                                        <input class="form-control m-input" id="MaxStartDateFilter" name="MaxStartDateFilter" type="datetime" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY',isAnimated: true }"  placeholder="{{l('MaxValue')}}" [(ngModel)]="maxStartDateFilter">
 									</div>
                                 </div>
                             </div>

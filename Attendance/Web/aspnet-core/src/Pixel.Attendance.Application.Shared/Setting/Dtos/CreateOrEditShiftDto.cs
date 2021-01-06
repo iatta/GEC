@@ -26,6 +26,7 @@ namespace Pixel.Attendance.Setting.Dtos
 		
 		public DayDto DayRest { get; set; }
 		public  bool IsDayRestCalculated { get; set; }
+		public  bool IsDayRestCalculatedWithFixedHours { get; set; }
 		public  int TotalHoursPerDay { get; set; }
 		public  bool IsFlexible { get; set; }
 		public  bool IsOneFingerprint { get; set; }
@@ -69,5 +70,6 @@ namespace Pixel.Attendance.Setting.Dtos
 		public int DeductType { get; set; }
 		public bool IsOverTimeAllowed { get; set; }
 		public ShiftTypeEnumDto ShiftType { get; set; }
+		public bool IsPunchNextDay { get; set; }
 	}
 }

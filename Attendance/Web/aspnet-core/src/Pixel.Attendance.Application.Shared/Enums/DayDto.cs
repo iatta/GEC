@@ -6,12 +6,12 @@ namespace Pixel.Attendance.Enums
 {
     public enum DayDto
     {
-        Starday = 1,
-        Sunday = 2,
-        Monday = 3,
-        Tuesday = 4,
-        Wednesday = 5,
-        Thursday = 6,
-        Friday = 7
+        Starday = 6,
+        Sunday = 7,
+        Monday = 1,
+        Tuesday = 2,
+        Wednesday = 3,
+        Thursday = 4,
+        Friday = 5
     }
 }

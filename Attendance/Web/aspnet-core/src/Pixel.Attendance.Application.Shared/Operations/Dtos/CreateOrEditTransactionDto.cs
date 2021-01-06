@@ -58,7 +58,7 @@ namespace Pixel.Attendance.Operations.Dtos
 		public bool ProjectManagerApprove { get; set; }
 		public bool UnitManagerApprove { get; set; }
 		public int MachineId { get; set; }
-
+		public string EditNote { get; set; }
 
 	}
 }

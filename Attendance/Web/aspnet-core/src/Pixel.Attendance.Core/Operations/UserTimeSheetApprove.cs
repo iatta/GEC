@@ -28,7 +28,8 @@ namespace Pixel.Attendance.Operations
 		public virtual string ApprovedUnits { get; set; }
 		
 		public virtual bool ProjectManagerApprove { get; set; }
-		
+		public virtual bool HrApprove { get; set; }
+
 		public virtual bool IsClosed { get; set; }
 		
 

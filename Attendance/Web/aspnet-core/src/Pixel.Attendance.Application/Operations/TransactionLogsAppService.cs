@@ -20,7 +20,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Pixel.Attendance.Operations
 {
-	[AbpAuthorize(AppPermissions.Pages_TransactionLogs)]
+	//[AbpAuthorize(AppPermissions.Pages_TransactionLogs)]
     public class TransactionLogsAppService : AttendanceAppServiceBase, ITransactionLogsAppService
     {
 		 private readonly IRepository<TransactionLog> _transactionLogRepository;
@@ -37,6 +37,37 @@ namespace Pixel.Attendance.Operations
 		_lookup_userRepository = lookup_userRepository;
 		
 		  }
+
+        public async Task<List<GetTransactionLogForViewDto>> GetTransactionLogByTransId(int inId , int outId)
+        {
+            var output = new List<GetTransactionLogForViewDto>();
+
+            var transactionLogs = _transactionLogRepository.GetAll().Where(x => x.TransactionId == inId  || x.TransactionId == outId).ToList();
+            foreach (var transactionLog in transactionLogs)
+            {
+                var transactionToAdd = new GetTransactionLogForViewDto { TransactionLog = ObjectMapper.Map<TransactionLogDto>(transactionLog) };
+                if (transactionToAdd.TransactionLog.TransactionId != null)
+                {
+                    var _lookupTransaction = await _lookup_transactionRepository.FirstOrDefaultAsync((int)transactionToAdd.TransactionLog.TransactionId.Value);
+                    transactionToAdd.TransactionTransaction_Date = _lookupTransaction.Transaction_Date.ToString();
+                }
+
+                if (transactionToAdd.TransactionLog.ActionBy != null)
+                {
+                    var _lookupUser = await _lookup_userRepository.FirstOrDefaultAsync((long)transactionToAdd.TransactionLog.ActionBy);
+                    transactionToAdd.UserName = _lookupUser.Name.ToString();
+                }
+                if (transactionToAdd.TransactionLog.NewValue == transactionToAdd.TransactionLog.OldValue)
+                {
+                    transactionToAdd.TransactionLog.HasDifferent = true;
+                }
+                output.Add(transactionToAdd);
+            }
+
+            return output;
+
+            
+        }
 
 		 public async Task<PagedResultDto<GetTransactionLogForViewDto>> GetAll(GetAllTransactionLogsInput input)
          {
