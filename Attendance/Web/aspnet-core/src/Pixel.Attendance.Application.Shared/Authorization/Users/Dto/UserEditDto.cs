@@ -100,6 +100,9 @@ namespace Pixel.Attendance.Authorization.Users.Dto
         public List<GetOverrideShiftForViewDto> OverrideShifts { get; set; }
         public UserTypeDto UserType { get; set; }
         public bool IsOvertimeAllowed { get; set; }
+        public int MachineId { get; set; }
+        public string UserImage { get; set; }
+        public bool UploadUser { get; set; }
 
     }
 }

@@ -48,12 +48,15 @@ export class SummerizeReportComponent extends AppComponentBase implements OnInit
     userIds:UserTimeSheetInput[] = [];
     userTypes:SelectItem[]= [];
     selectedUserType:SelectItem;
-    summeryRowSpan=0;
+    summeryColSpan=0;
+    summeryRowSpanTemp=0;
+    footerCols:any[];
     response:ActualSummerizeTimeSheetOutput;
+    isApproveDisable=false;
 
     isLoadUser:boolean;
     usersList: SelectItem[] = [];
-
+    frozenCols:any[];
     constructor(
         injector: Injector,
         private route: ActivatedRoute,
@@ -125,7 +128,9 @@ export class SummerizeReportComponent extends AppComponentBase implements OnInit
                console.log(result);
                 if(result.data.length > 0){
                     this.userIds = result.userIds;
-                    this.cols = [
+                    this.cols = [];
+                    this.footerCols=[];
+                    this.frozenCols = [
                         { field: 'fingerCode', header: 'code' },
                         {field: 'userName', header: 'Employee' }
                     ];
@@ -154,7 +159,8 @@ export class SummerizeReportComponent extends AppComponentBase implements OnInit
                     }
                     debugger
                     console.log(this.cols);
-                    this.summeryRowSpan =  this.cols.length;
+                    this.summeryColSpan =  this.frozenCols.length + this.cols.length ;
+                    this.summeryRowSpanTemp =  this.cols.length ;
                     this.data = result.data;
                     this.response = result;
                     this.dataLoaded = true;
@@ -173,6 +179,7 @@ export class SummerizeReportComponent extends AppComponentBase implements OnInit
     }
 
     isDate(field:any): boolean{
+
         if(field == 'fingerCode' || field == 'userName')
             return false;
         else
@@ -183,10 +190,17 @@ export class SummerizeReportComponent extends AppComponentBase implements OnInit
         let modelToPass = new ProjectManagerApproveInput();
         modelToPass.userIds = this.userIds;
         modelToPass.projectId = this.selectedProject.id;
-        modelToPass.month = this.month;
-        modelToPass.year = this.year;
+        debugger
+        let date = new Date(this.selectedDate);
+        modelToPass.month = date.getMonth() + 1;
+        modelToPass.year = date.getFullYear();
+        modelToPass.isDateRange = this.isDateRange;
+        modelToPass.startDate = moment(this.startDate);
+        modelToPass.endDate = moment(this.endDate);
+        this.dataIsLoading=true;
         this._transactionService.pojectManagerApprove(modelToPass).subscribe((result) => {
             this.clearData();
+            this.dataIsLoading=false;
             this.message.success('Approved');
         });
 

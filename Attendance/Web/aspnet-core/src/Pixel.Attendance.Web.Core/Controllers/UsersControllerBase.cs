@@ -54,7 +54,9 @@ namespace Pixel.Attendance.Web.Controllers
                 var tenantId = AbpSession.TenantId;
                 var fileObject = new BinaryObject(tenantId, fileBytes);
 
-                await BinaryObjectManager.SaveAsync(fileObject);
+                
+                BinaryObjectManager.SaveAsync(fileObject);
+                CurrentUnitOfWork.SaveChanges();
 
                 await BackgroundJobManager.EnqueueAsync<ImportUsersToExcelJob, ImportUsersFromExcelJobArgs>(new ImportUsersFromExcelJobArgs
                 {

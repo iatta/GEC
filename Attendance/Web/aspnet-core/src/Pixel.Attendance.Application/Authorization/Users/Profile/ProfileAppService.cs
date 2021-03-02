@@ -235,7 +235,7 @@ namespace Pixel.Attendance.Authorization.Users.Profile
             }
 
             var storedFile = new BinaryObject(AbpSession.TenantId, byteArray);
-            await _binaryObjectManager.SaveAsync(storedFile);
+             _binaryObjectManager.SaveAsync(storedFile);
 
             user.ProfilePictureId = storedFile.Id;
         }

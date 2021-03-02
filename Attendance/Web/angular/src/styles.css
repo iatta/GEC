@@ -197,8 +197,30 @@ body .ui-table .ui-table-thead > tr > th{
     background:gray;
     animation:pulse 0.5s infinite alternate;
   }
-  
+
   @keyframes pulse {
     from { box-shadow:0px 0px 10px 3px #0066cc; }
     to { box-shadow:0px 0px 20px 5px #0066cc; }
   }
+  body .ui-dropdown .ui-dropdown-label{
+    display: inline !important;
+}
+
+
+body .ui-multiselect{
+    width: 100% !important;
+}
+
+/* .ui-table-scrollable-header-box{
+    height: 94px  !important;
+} */
+.btn-icon-report{
+    height: 2rem !important;
+    width: 2rem !important;
+    cursor: pointer;
+}
+.card-container{
+    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
+    border-radius: 10px;
+    padding: 5px;
+}

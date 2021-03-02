@@ -7,6 +7,7 @@
 		public string UserName { get; set;}
 
 		public string MachineNameEn { get; set;}
+        public string FingerCode { get; set; }
 
 
     }

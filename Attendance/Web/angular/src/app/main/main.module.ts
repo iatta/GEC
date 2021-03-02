@@ -1,4 +1,5 @@
-﻿import { OverrideUserShiftComponent } from './operations/userShifts/override-user-shift.component';
+﻿import { ManageMachineUsersComponent } from './setting/machines/manage-machine-users.component';
+import { OverrideUserShiftComponent } from './operations/userShifts/override-user-shift.component';
 import { ManagerReportComponent } from './operations/reports/manager-report.component';
 import { NormalOvertimeComponent } from './operations/reports/normal-overtime.component';
 import { FixedOvertimeComponent } from './operations/reports/fixed-overtime.component';
@@ -245,7 +246,6 @@ import { MinutesToTimePipe } from 'app/Custom/minutes.pipe';
 import {OrganizationChartModule} from 'primeng/organizationchart';
 import {RadioButtonModule} from 'primeng/radiobutton';
 import {MultiSelectModule} from 'primeng/multiselect';
-import {TabViewModule} from 'primeng/tabview';
 import {DropdownModule} from 'primeng/dropdown';
 import { TreeModule } from 'primeng/tree';
 import {CalendarModule} from 'primeng/calendar';
@@ -273,7 +273,7 @@ import { ProjectSheetComponent } from './operations/reports/project-sheet.compon
 import { CreateOrEditAttendanceModalComponent } from './operations/manualTransactions/create-or-edit-attendance-modal.component';
 import { TransactionInfoeModalComponent } from './operations/manualTransactions/transaction-info-modal.component';
 import { HrLevelApproveComponent } from './operations/reports/hr-level-approve.component';
-
+import {TabViewModule} from 'primeng/tabview';
 NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
 
 @NgModule({
@@ -472,7 +472,8 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
         FridayOvertimeComponent,
         ProjectSheetComponent,
         CreateOrEditAttendanceModalComponent,
-        TransactionInfoeModalComponent
+        TransactionInfoeModalComponent,
+        ManageMachineUsersComponent
 
     ],
     providers: [

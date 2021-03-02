@@ -63,6 +63,9 @@ namespace Pixel.Attendance.Setting
 		public bool IsOverTimeAllowed { get; set; }
 		public ShiftTypeEnum ShiftType { get; set; }
         public bool IsPunchNextDay { get; set; }
+        public bool NoRestrict { get; set; }
+		public bool HasBreak { get; set; }
+		public int BreakHours { get; set; }
 
-    }
+	}
 }

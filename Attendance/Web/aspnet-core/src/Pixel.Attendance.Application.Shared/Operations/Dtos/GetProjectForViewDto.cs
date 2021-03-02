@@ -1,4 +1,6 @@
-﻿namespace Pixel.Attendance.Operations.Dtos
+﻿using System.Collections.Generic;
+
+namespace Pixel.Attendance.Operations.Dtos
 {
     public class GetProjectForViewDto
     {
@@ -8,7 +10,9 @@
 
 		public string LocationTitleEn { get; set;}
 
-		public string OrganizationUnitDisplayName { get; set;}
+        public IEnumerable<string> LocationsTitles { get; set; }
+
+        public string OrganizationUnitDisplayName { get; set;}
 
 
     }

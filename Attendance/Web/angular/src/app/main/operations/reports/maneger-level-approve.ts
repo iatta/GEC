@@ -52,7 +52,12 @@ export class ManagerLevelApproveComponent extends AppComponentBase implements On
 
     isLoadUser:boolean;
     usersList: SelectItem[] = [];
-
+    summeryColSpan=0;
+    summeryRowSpanTemp=0;
+    footerCols:any[];
+    frozenCols:any[];
+    first = 0;
+    rows = 10;
     constructor(
         injector: Injector,
         private route: ActivatedRoute,
@@ -118,10 +123,13 @@ debugger
                     this.userIds = result.userIds;
                     this.userIdsToApprove = result.userIdsToApprove;
                     this.unitIdToApprove = result.unitIdToApprove;
-                    this.cols = [
+                    this.cols = [];
+                    this.footerCols=[];
+                    this.frozenCols = [
                         { field: 'fingerCode', header: 'code' },
                         {field: 'userName', header: 'Employee' }
                     ];
+
                     let firstDay = new Date(this.year, this.month - 1, 1);
                     let lastDay = new Date(this.year, this.month, 0);
                     console.log(lastDay);
@@ -143,7 +151,8 @@ debugger
                         this.cols.push({field: dateIndex, header:  dateHeader })
                     }
                     console.log(this.cols);
-                    this.summeryRowSpan =  this.cols.length;
+                    this.summeryColSpan =  this.frozenCols.length + this.cols.length ;
+                    this.summeryRowSpanTemp =  this.cols.length ;
                     this.data = result.data;
                     this.dataLoaded = true;
                     this.dataIsLoading=false;
@@ -226,11 +235,20 @@ debugger
         let modelToPass = new ProjectManagerApproveInput();
         modelToPass.userIds = this.userIdsToApprove;
         modelToPass.projectId = this.selectedProject.id;
-        modelToPass.month = this.month;
-        modelToPass.year = this.year;
+        let date = new Date(this.selectedDate);
+        modelToPass.month = date.getMonth() + 1;
+        modelToPass.year = date.getFullYear();
+
+        modelToPass.isDateRange = this.isDateRange;
+        modelToPass.startDate = moment(this.startDate);
+        modelToPass.endDate = moment(this.endDate);
+
         modelToPass.unitIdToApprove = this.unitIdToApprove;
+        this.dataIsLoading=true;
         this._transactionService.unitManagerToApprove(modelToPass).subscribe((result) => {
+
             this.clearData();
+            this.dataIsLoading=false;
             this.message.success('Approved');
         });
 
@@ -248,6 +266,26 @@ debugger
         this.dataLoaded = false;
         this.data = [];
 
+    }
+
+    next() {
+        this.first = this.first + this.rows;
+    }
+
+    prev() {
+        this.first = this.first - this.rows;
+    }
+
+    reset() {
+        this.first = 0;
+    }
+
+    isLastPage(): boolean {
+        return this.data ? this.first === (this.data.length - this.rows): true;
+    }
+
+    isFirstPage(): boolean {
+        return this.data ? this.first === 0 : true;
     }
 
 

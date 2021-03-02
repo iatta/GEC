@@ -1,5 +1,5 @@
 import { Table } from 'primeng/table';
-import { UserLocationDto, AssignedLocationDto, TimeProfileDetailDto ,ShiftDto } from './../../../shared/service-proxies/service-proxies';
+import { UserLocationDto, AssignedLocationDto, TimeProfileDetailDto ,ShiftDto, MachinesServiceProxy } from './../../../shared/service-proxies/service-proxies';
 import { NgForm } from '@angular/forms';
 import { OrganizationUnitsHorizontalTreeModalUserComponent } from './../shared/organization-horizontal-tree-modal-user.component';
 import { OrganizationUnitsHorizontalTreeModalComponent } from './../shared/organization-horizontal-tree-modal.component';
@@ -8,7 +8,7 @@ import { OrganizationUnitsHorizontalTreeComponent } from './../shared/organizati
 import { AfterViewChecked, Component, ElementRef, EventEmitter, Injector, Output, ViewChild, OnInit } from '@angular/core';
 import { AppConsts } from '@shared/AppConsts';
 import { AppComponentBase } from '@shared/common/app-component-base';
-import { JobTitleDto, JobTitleServiceProxy, CreateOrUpdateUserInput, OrganizationUnitDto, PasswordComplexitySetting, ProfileServiceProxy, UserEditDto, UserRoleDto, UserServiceProxy, GetShiftForViewDto, ShiftsServiceProxy, CreateOrEditTimeProfileDto, ShiftTypesServiceProxy, GetUserShiftForViewDto, UserShiftDto, OverrideShiftDto, GetOverrideShiftForViewDto } from '@shared/service-proxies/service-proxies';
+import { JobTitleDto, JobTitleServiceProxy, CreateOrUpdateUserInput, OrganizationUnitDto, PasswordComplexitySetting, ProfileServiceProxy, UserEditDto, UserRoleDto, UserServiceProxy, GetShiftForViewDto, ShiftsServiceProxy, CreateOrEditTimeProfileDto, ShiftTypesServiceProxy, GetUserShiftForViewDto, UserShiftDto, OverrideShiftDto, GetOverrideShiftForViewDto, MachineDto } from '@shared/service-proxies/service-proxies';
 import { ModalDirective, TabsetComponent } from 'ngx-bootstrap';
 import { IOrganizationUnitsHierarchicalTreeComponentData, OrganizationHierarchicalTreeComponent } from '../shared/organization-hierarchical-tree.component';
 import { IOrganizationUnitsTreeComponentData, OrganizationUnitsTreeComponent } from '../shared/organization-unit-tree.component';
@@ -95,7 +95,7 @@ export class ManageUserComponent extends AppComponentBase implements OnInit {
 
     startDate: moment.Moment = moment();
     endDate: moment.Moment = moment();
-
+     machines:MachineDto[]=[];
 
     cols: any[];
     rows = 10;
@@ -108,6 +108,7 @@ export class ManageUserComponent extends AppComponentBase implements OnInit {
         private _jobTitleServiceProxy: JobTitleServiceProxy,
         private _shiftsServiceProxy: ShiftsServiceProxy,
         private _shiftTypesServiceProxy:ShiftTypesServiceProxy,
+        private _machineServiceProxy:MachinesServiceProxy,
         private route: ActivatedRoute,
         private router: Router,
 
@@ -133,6 +134,10 @@ export class ManageUserComponent extends AppComponentBase implements OnInit {
         this._jobTitleServiceProxy.getAllFlat().subscribe(result => {
            this.jobTitles = result;
         });
+
+        this._machineServiceProxy.getAllFlat().subscribe((result)=>{
+            this.machines = result;
+        })
 
         this.route.params.subscribe((params: Params) => {
            this.userId = params['id'];
@@ -542,6 +547,16 @@ export class ManageUserComponent extends AppComponentBase implements OnInit {
     fixedOvertimeChanged(val){
         if(this.user.isFixedOverTimeAllowed)
             this.user.isNormalOverTimeAllowed =false;
+    }
+
+    iamgeChangeEcent(fileInput:any){
+        let file = fileInput.target.files[0];
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+            this.user.userImage = reader.result.toString();
+        };
+
     }
 
 }

@@ -1,4 +1,5 @@
-﻿import { OverrideUserShiftComponent } from './operations/userShifts/override-user-shift.component';
+﻿import { ManageMachineUsersComponent } from './setting/machines/manage-machine-users.component';
+import { OverrideUserShiftComponent } from './operations/userShifts/override-user-shift.component';
 import { ManagerReportComponent } from './operations/reports/manager-report.component';
 import { RamadanDatesComponent } from './setting/ramadanDates/ramadanDates.component';
 import { FixedOvertimeComponent } from './operations/reports/fixed-overtime.component';
@@ -125,6 +126,7 @@ import { HrLevelApproveComponent } from './operations/reports/hr-level-approve.c
                     { path: 'operations/employeeOfficialTaskDetails', component: EmployeeOfficialTaskDetailsComponent, data: { permission: 'Pages.EmployeeOfficialTaskDetails' }  },
                     { path: 'operations/transactions', component: TransactionsComponent, data: { permission: 'Pages.Transactions' }  },
                     { path: 'setting/machines', component: MachinesComponent, data: { permission: 'Pages.Machines' }  },
+                    { path: 'setting/manage-machines', component: ManageMachineUsersComponent, data: { permission: 'Pages.Machines' }  },
                     { path: 'operations/manageOfficialTask', component: ManageOfficialTaskComponent, data: { permission: 'Pages.EmployeeOfficialTasks' }  },
                     { path: 'operations/manageOfficialTask/:id', component: ManageOfficialTaskComponent, data: { permission: 'Pages.EmployeeOfficialTasks' }  },
                     { path: 'operations/employeeOfficialTasks', component: EmployeeOfficialTasksComponent, data: { permission: 'Pages.EmployeeOfficialTasks' }  },

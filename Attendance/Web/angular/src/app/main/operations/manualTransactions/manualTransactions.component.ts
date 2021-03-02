@@ -62,6 +62,10 @@ export class ManualTransactionsComponent extends AppComponentBase {
             this.filterText,
             this.maxTransTypeFilter == null ? this.maxTransTypeFilterEmpty: this.maxTransTypeFilter,
             this.minTransTypeFilter == null ? this.minTransTypeFilterEmpty: this.minTransTypeFilter,
+            this.userNameFilter,
+            this.maxTransDateFilter,
+            this.minTransDateFilter,
+            '',
             this.primengTableHelper.getSorting(this.dataTable),
             this.primengTableHelper.getSkipCount(this.paginator, event),
             this.primengTableHelper.getMaxResultCount(this.paginator, event)

@@ -72,8 +72,10 @@ namespace Pixel.Attendance.Authorization.Users.Dto
         [NotMapped]
         public List<GetUserShiftForViewDto> UserShifts { get; set; }
         public List<GetOverrideShiftForViewDto> OverrideShifts { get; set; }
-        
 
+        public int MachineId { get; set; }
+        public string UserImage { get; set; }
+        public bool UploadUser { get; set; }
         public CreateOrUpdateUserInput()
         {
             OrganizationUnits = new List<long>();

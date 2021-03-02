@@ -47,7 +47,8 @@ namespace Pixel.Attendance.Authorization.Users.Importing
                 user.FingerCode = worksheet.Cells[row, 8].Value?.ToString();
                 user.Code = worksheet.Cells[row, 9].Value?.ToString();
                 user.CivilId = worksheet.Cells[row, 10].Value?.ToString();
-                user.OrganizationUnitId =Convert.ToInt32(worksheet.Cells[row, 11].Value?.ToString());
+                user.Department =worksheet.Cells[row, 11].Value?.ToString();
+                user.ShiftName = worksheet.Cells[row, 12].Value?.ToString();
             }
             catch (System.Exception exception)
             {

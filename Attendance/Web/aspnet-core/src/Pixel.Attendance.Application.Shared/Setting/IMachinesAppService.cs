@@ -4,6 +4,7 @@ using Abp.Application.Services;
 using Abp.Application.Services.Dto;
 using Pixel.Attendance.Setting.Dtos;
 using Pixel.Attendance.Dto;
+using System.Collections.Generic;
 
 namespace Pixel.Attendance.Setting
 {
@@ -24,7 +25,7 @@ namespace Pixel.Attendance.Setting
 		
 		Task<PagedResultDto<MachineOrganizationUnitLookupTableDto>> GetAllOrganizationUnitForLookupTable(GetAllForLookupTableInput input);
 		Task<PagedResultDto<MachineLookupTableDto>> GetAllMachinesForLookupTable(GetAllForLookupTableInput input);
-
+		Task<List<MachineDto>> GetAllFlat();
 
 	}
 }

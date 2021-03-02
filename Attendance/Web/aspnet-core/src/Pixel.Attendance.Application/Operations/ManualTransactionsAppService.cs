@@ -50,7 +50,8 @@ namespace Pixel.Attendance.Operations
 						.WhereIf(input.MinTransDateFilter != null, e => e.TransDate >= input.MinTransDateFilter)
 						.WhereIf(input.MaxTransDateFilter != null, e => e.TransDate <= input.MaxTransDateFilter)
 						.WhereIf(!string.IsNullOrWhiteSpace(input.UserNameFilter), e => e.UserFk != null && e.UserFk.Name == input.UserNameFilter)
-						.WhereIf(!string.IsNullOrWhiteSpace(input.MachineNameEnFilter), e => e.MachineFk != null && e.MachineFk.NameEn == input.MachineNameEnFilter);
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.UserNameFilter), e => e.UserFk != null && e.UserFk.FingerCode == input.UserNameFilter)
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.MachineNameEnFilter), e => e.MachineFk != null && e.MachineFk.NameEn == input.MachineNameEnFilter);
 
 			var pagedAndFilteredManualTransactions = filteredManualTransactions
                 .OrderBy(input.Sorting ?? "id asc")
@@ -70,8 +71,9 @@ namespace Pixel.Attendance.Operations
                                 TransType = o.TransType,
                                 Id = o.Id
 							},
-                         	UserName = s1 == null ? "" : s1.Name.ToString(),
-                         	MachineNameEn = s2 == null ? "" : s2.NameEn.ToString()
+                         	 UserName = s1 == null ? "" : s1.Name.ToString(),
+                             FingerCode = s1 == null ? "" : s1.FingerCode.ToString(),
+                             MachineNameEn = s2 == null ? "" : s2.NameEn.ToString()
 						};
 
             var totalCount = await filteredManualTransactions.CountAsync();

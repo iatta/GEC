@@ -1586,9 +1586,10 @@
     <text name="IsFlexible"> Flexible </text>
     <text name="IsDayRestCalculated"> Calculate Day Rest </text>
     <text name="OverrideUserShift"> Assign Temp Shift </text>
-
+    <text name="IsDayRestCalculatedWithFixedHours">  Calculated DayRest With Fixed Hours </text>
+  
+    <text name="EmployeeType"> Employee Type </text>
     
-
 
   </texts>
 </localizationDictionary>

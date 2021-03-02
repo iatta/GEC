@@ -48,6 +48,9 @@ using iTextSharp.text.pdf;
 using Pixel.Attendance.Helper;
 using Pixel.Attendance.Setting.Dtos;
 using OfficeOpenXml.FormulaParsing.Excel.Functions.Logical;
+using System.Net.Http;
+using Microsoft.Extensions.Configuration;
+using Pixel.Attendance.Configuration;
 
 namespace Pixel.Attendance.Authorization.Users
 {
@@ -55,7 +58,7 @@ namespace Pixel.Attendance.Authorization.Users
     public class UserAppService : AttendanceAppServiceBase, IUserAppService
     {
         public IAppUrlService AppUrlService { get; set; }
-
+        private readonly IHttpClientFactory _clientFactory;
         private readonly RoleManager _roleManager;
         private readonly IUserEmailer _userEmailer;
         private readonly IUserListExcelExporter _userListExcelExporter;
@@ -85,13 +88,14 @@ namespace Pixel.Attendance.Authorization.Users
         private readonly IRepository<Shift> _shiftRepository;
         private readonly IRepository<Beacon> _beaconRepository;
         private readonly IRepository<UserDelegation> _userDelegationRepository;
-
-
-
-
+        private readonly IRepository<Machine> _machineRepository;
+        private readonly IConfigurationRoot _appConfiguration;
         private readonly IDbContextProvider<AttendanceDbContext> _dbCOntext;
+
         public UserAppService(
+            IAppConfigurationAccessor configurationAccessor,
             RoleManager roleManager,
+            IHttpClientFactory clientFactory,
             IUserEmailer userEmailer,
             IUserListExcelExporter userListExcelExporter,
             INotificationSubscriptionManager notificationSubscriptionManager,
@@ -107,6 +111,7 @@ namespace Pixel.Attendance.Authorization.Users
             IRepository<OrganizationUnit, long> organizationUnitRepository,
             IRoleManagementConfig roleManagementConfig,
             UserManager userManager,
+            IRepository<Machine> machineRepository,
             IRepository<UserOrganizationUnit, long> userOrganizationUnitRepository,
             IRepository<OrganizationUnitRole, long> organizationUnitRoleRepository,
             IRepository<TimeProfile> timeProfileRepository,
@@ -153,6 +158,9 @@ namespace Pixel.Attendance.Authorization.Users
             _userShiftRepository = userShift;
             _beaconRepository = beaconRepository;
             _userDelegationRepository = userDelegationRepository;
+            _machineRepository = machineRepository;
+            _clientFactory = clientFactory;
+            _appConfiguration = configurationAccessor.Configuration;
         }
 
         public async Task<PagedResultDto<UserListDto>> GetUsers(GetUsersInput input)
@@ -659,7 +667,10 @@ namespace Pixel.Attendance.Authorization.Users
             {
                 await _userPolicy.CheckMaxUserCountAsync(AbpSession.GetTenantId());
             }
-
+            var fingerCode = Convert.ToInt32(input.User.FingerCode);
+            var machineId = input.User.MachineId;
+            var uploadUser = input.User.UploadUser;
+            var userImage = input.User.UserImage;
             var user = ObjectMapper.Map<User>(input.User); //Passwords is not mapped (see mapping configuration)
             user.TenantId = AbpSession.TenantId;
 
@@ -733,6 +744,54 @@ namespace Pixel.Attendance.Authorization.Users
                 await _overrideShiftRepository.InsertAsync(ObjectMapper.Map<OverrideShift>(userShiftModel.OverrideShift));
             }
 
+            //add user to machine
+            var userToUpload = new UploadMachineUserInput();
+            userToUpload.Person = new Person();
+            userToUpload.MachineData = new MachineData();
+            userToUpload.Person.UserCode = fingerCode;
+            var machine = await _machineRepository.FirstOrDefaultAsync(x => x.Id == machineId);
+            userToUpload.MachineData.IP = machine.IpAddress;
+            userToUpload.MachineData.SN = machine.SubNet;
+            userToUpload.MachineData.Port = machine.Port;
+
+            var inputJson = new StringContent(
+                 System.Text.Json.JsonSerializer.Serialize(userToUpload, new System.Text.Json.JsonSerializerOptions()), System.Text.Encoding.UTF8, "application/json");
+            var client = _clientFactory.CreateClient();
+            var response = await client.PostAsync( _appConfiguration["Machine:uploadUserAPI"], inputJson);
+            if (response.IsSuccessStatusCode)
+            {
+                using (var responseStream = await response.Content.ReadAsStreamAsync())
+                {
+                    await System.Text.Json.JsonSerializer.DeserializeAsync<string>(responseStream);
+                }
+
+                var downloadImageInput = new DownloadImageInput();
+                var clearImage = userImage.Split(",").ToList<string>();
+                downloadImageInput.Datas = Convert.FromBase64String(clearImage[1]);
+                downloadImageInput.MachineData = userToUpload.MachineData;
+                downloadImageInput.UserCode = userToUpload.Person.UserCode;
+                await UploadImage(downloadImageInput);
+
+            }
+
+        }
+        [HttpPost]
+        public async Task<DownloadImageInput> UploadImage(DownloadImageInput input)
+        {
+            var output = new DownloadImageInput();
+            input.Image = Convert.ToBase64String(input.Datas);
+            var inputJson = new StringContent(System.Text.Json.JsonSerializer.Serialize(input, new System.Text.Json.JsonSerializerOptions()), System.Text.Encoding.UTF8, "application/json");
+            var client = _clientFactory.CreateClient();
+            var response = await client.PostAsync(_appConfiguration["Machine:uploadImageAPI"], inputJson);
+            if (response.IsSuccessStatusCode)
+            {
+                using (var responseStream = await response.Content.ReadAsStreamAsync())
+                {
+                    output = await System.Text.Json.JsonSerializer.DeserializeAsync<DownloadImageInput>(responseStream);
+                }
+            }
+
+            return output;
         }
 
         private async Task FillRoleNames(IReadOnlyCollection<UserListDto> userListDtos)

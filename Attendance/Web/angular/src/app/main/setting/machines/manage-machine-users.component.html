@@ -1,0 +1,134 @@
+<div [@routerTransition] [busyIf]="lodaing">
+    <div class="kt-content  kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor" *ngIf="show" >
+      <div class="kt-subheader kt-grid__item">
+        <div [class]="containerClass">
+          <div class="kt-subheader__main">
+              <h3 class="kt-subheader__title">
+                  <span>{{l("ManageMachines")}}</span>
+              </h3>
+              <span class="kt-subheader__separator kt-subheader__separator--v"></span>
+              <span class="kt-subheader__desc">
+                  <!-- {{l("MachinesHeaderInfo")}} -->
+              </span>
+          </div>
+
+        </div>
+      </div>
+      <div [class]="containerClass + ' kt-grid__item kt-grid__item--fluid'">
+          <div class="kt-portlet kt-portlet--mobile">
+              <div class="kt-portlet__body">
+                <p-tabView>
+                    <p-tabPanel header="Move Users">
+
+                      <div class="form-group row">
+                        <div class="col-lg-3">
+                          <label for="selectedSourceMachine">{{l("SourceMachine")}}</label>
+                          <!-- <p-dropdown  [options]="machines"  [(ngModel)]="selectedSourceMachine"  optionLabel="nameEn"></p-dropdown> -->
+                          <p-multiSelect [options]="machines" class="multiselect-custom" [(ngModel)]="selectedSourceMachine" optionLabel="nameEn"></p-multiSelect>
+
+                        </div>
+                        <div class="col-lg-3">
+                            <button class="btn btn-info" (click)="loadUsers()" style="margin-top: 2rem;height: 39px;width: 100px;">Load</button>
+                        </div>
+                        <div class="col-lg-3">
+                          <label for="selectedSourceMachine">{{l("DestinationMachine")}}</label>
+                          <p-multiSelect [options]="machines"  class="multiselect-custom" [(ngModel)]="selectedDestinationMachine" optionLabel="nameEn"></p-multiSelect>
+                          <!-- <p-dropdown [options]="machines" [(ngModel)]="selectedDestinationMachine" placeholder="Select Destination" optionLabel="nameEn" [showClear]="true"></p-dropdown> -->
+                        </div>
+                        <div class="col-lg-3">
+                            <button class="bt btn-success" (click)="moveUsers()" style="margin-top: 2rem;height: 39px;width: 100px;">{{l('Move')}}</button>
+                        </div>
+                        <div class="row" *ngIf="personList.length > 0" >
+                            <div class="col-lg-6">
+                               <p-table [value]="personList" dataKey="userCode"  [(selection)]="selectedUsers" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]">
+                                   <ng-template pTemplate="header">
+                                       <tr>
+                                           <th style="width: 3rem">
+                                               <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                                           </th>
+                                           <th>{{l('Name')}}</th>
+                                           <th>{{l('Job')}}</th>
+                                           <th>{{l('Code')}}</th>
+                                       </tr>
+                                   </ng-template>
+                                   <ng-template pTemplate="body" let-person>
+                                       <tr>
+                                           <td>
+                                               <p-tableCheckbox [value]="person"></p-tableCheckbox>
+                                           </td>
+                                           <td>{{person.pName}}</td>
+                                           <td>{{person.job}}</td>
+                                           <td>{{person.userCode}}</td>
+                                       </tr>
+                                   </ng-template>
+                                   <ng-template pTemplate="paginatorright">
+       
+                                   </ng-template>
+                               </p-table>
+                            </div>
+                            <div class="col-lg-6">
+       
+                            </div>
+       
+                        </div>
+
+                    </div>
+                    </p-tabPanel>
+                    <p-tabPanel header="Delete User">
+                        <div class="row">
+                            <div class="col-lg-3" style="margin-top: 2rem;">
+                                <p-dropdown [options]="machines" [(ngModel)]="selectedMachineToDelete" placeholder="Select Machine" optionLabel="nameEn" [showClear]="true"></p-dropdown>
+                                
+                            </div>
+                            <div class="col-lg-3">
+                                <button class="btn btn-info" (click)="loadUsersToDelete()" style="margin-top: 2rem;height: 39px;width: 100px;">Load</button>
+                            </div>
+                            <div class="col-lg-3">
+                                <button class="btn btn-danger" (click)="deleteUsers()" style="margin-top: 2rem;height: 39px;width: 100px;">Delete</button>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="personListToDelete.length > 0" >
+                            <div class="col-lg-6">
+                               <p-table [value]="personListToDelete" dataKey="userCode"  [(selection)]="selectedUsersToDelete" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]">
+                                   <ng-template pTemplate="header">
+                                       <tr>
+                                           <th style="width: 3rem">
+                                               <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                                           </th>
+                                           <th>{{l('Name')}}</th>
+                                           <th>{{l('Job')}}</th>
+                                           <th>{{l('Code')}}</th>
+                                       </tr>
+                                   </ng-template>
+                                   <ng-template pTemplate="body" let-person>
+                                       <tr>
+                                           <td>
+                                               <p-tableCheckbox [value]="person"></p-tableCheckbox>
+                                           </td>
+                                           <td>{{person.pName}}</td>
+                                           <td>{{person.job}}</td>
+                                           <td>{{person.userCode}}</td>
+                                       </tr>
+                                   </ng-template>
+                                   <ng-template pTemplate="paginatorright">
+       
+                                   </ng-template>
+                               </p-table>
+                            </div>
+                            <div class="col-lg-6">
+       
+                            </div>
+       
+                        </div>
+                    </p-tabPanel>
+                </p-tabView>
+
+
+                 
+
+              </div>
+          </div>
+      </div>
+
+    </div>
+  </div>

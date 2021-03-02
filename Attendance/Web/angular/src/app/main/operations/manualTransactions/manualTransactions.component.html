@@ -106,8 +106,8 @@
                                         <p-sortIcon field="manualTransaction.time"></p-sortIcon>
                                     </th>
                                     <th style="width: 150px" pSortableColumn="creationTime">
-                                        {{l('CreationTime')}}
-                                        <p-sortIcon field="manualTransaction.creationTime"></p-sortIcon>
+                                        {{l('Machine')}}
+                                        <p-sortIcon field="manualTransaction.machineNameEn"></p-sortIcon>
                                     </th>
 
                                 </tr>
@@ -154,7 +154,7 @@
                                                 </td>
                                                 <td style="width:150px">
                                                     <span class="ui-column-title"> {{l('CreationTime')}}</span>
-                                                    {{record.transaction.creationTime |  momentFormat:'L'}}
+                                                    {{record.machineNameEn}}
                                                 </td>
                                 </tr>
                             </ng-template>

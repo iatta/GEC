@@ -54,7 +54,7 @@ namespace Pixel.Attendance.Web.Areas.App.Controllers
                 }
 
                 var fileObject = new BinaryObject(AbpSession.TenantId, fileBytes);
-                await _binaryObjectManager.SaveAsync(fileObject);
+                 _binaryObjectManager.SaveAsync(fileObject);
 
                 return Json(new AjaxResponse(new
                 {

@@ -49,7 +49,7 @@ namespace Pixel.Attendance.Web.Controllers
                     }
 
                     var fileObject = new BinaryObject(AbpSession.TenantId, fileBytes);
-                    await _binaryObjectManager.SaveAsync(fileObject);
+                    _binaryObjectManager.SaveAsync(fileObject);
 
                     filesOutput.Add(new UploadFileOutput
                     {

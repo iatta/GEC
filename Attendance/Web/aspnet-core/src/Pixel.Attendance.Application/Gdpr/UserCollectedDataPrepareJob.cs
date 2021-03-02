@@ -67,7 +67,8 @@ namespace Pixel.Attendance.Gdpr
                     };
 
                     // Save zip file to object manager.
-                    AsyncHelper.RunSync(() => _binaryObjectManager.SaveAsync(zipFile));
+                    _binaryObjectManager.SaveAsync(zipFile);
+                    //AsyncHelper.RunSync(() => );
 
                     // Send notification to user.
                     AsyncHelper.RunSync(() => _appNotifier.GdprDataPrepared(args, zipFile.Id));

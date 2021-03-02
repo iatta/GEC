@@ -48,6 +48,10 @@
 												{{l('Name')}}
 												<p-sortIcon field="displayName"></p-sortIcon>
 											</th>
+                                            <th style="width: 150px" pSortableColumn="fingerCode">
+												{{l('PF')}}
+												<p-sortIcon field="fingerCode"></p-sortIcon>
+											</th>
 										</tr>
 									</ng-template>
 									<ng-template pTemplate="body" let-record="$implicit">
@@ -62,6 +66,10 @@
 											<td style="width:150px">
 												<span class="ui-column-title"> {{l('Name')}}</span>
 												{{record.displayName}}
+											</td>
+                                            <td style="width:150px">
+												<span class="ui-column-title"> {{l('PF')}}</span>
+												{{record.fingerCode}}
 											</td>
 										</tr>
 									</ng-template>

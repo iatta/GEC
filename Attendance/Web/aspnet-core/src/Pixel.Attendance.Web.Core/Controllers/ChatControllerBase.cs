@@ -14,7 +14,7 @@ namespace Pixel.Attendance.Web.Controllers
     {
         protected readonly IBinaryObjectManager BinaryObjectManager;
         protected readonly IChatMessageManager ChatMessageManager;
-
+        
         public ChatControllerBase(IBinaryObjectManager binaryObjectManager, IChatMessageManager chatMessageManager)
         {
             BinaryObjectManager = binaryObjectManager;
@@ -49,7 +49,7 @@ namespace Pixel.Attendance.Web.Controllers
                 var fileObject = new BinaryObject(null, fileBytes);
                 using (CurrentUnitOfWork.SetTenantId(null))
                 {
-                    await BinaryObjectManager.SaveAsync(fileObject);
+                    BinaryObjectManager.SaveAsync(fileObject);
                 }
 
                 return Json(new AjaxResponse(new

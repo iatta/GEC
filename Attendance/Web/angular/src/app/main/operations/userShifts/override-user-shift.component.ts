@@ -91,10 +91,12 @@ export class OverrideUserShiftComponent extends AppComponentBase implements OnIn
     }
 
     getUsers(unitId:number){
+
         this._userServiceProxy.getUsersFlatByUnitId(unitId).subscribe((result) => {
             this.usersList = [];
+            debugger
             result.forEach((user) => {
-                this.usersList.push({label:user.name, value:{id : user.id , name: user.name}});
+                this.usersList.push({label:user.name + '(' + user.fingerCode + ')', value:{id : user.id , name: user.name}});
             });
             this.unitGlow = false;
         });

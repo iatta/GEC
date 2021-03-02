@@ -15,9 +15,9 @@ namespace Pixel.Attendance.Setting.Dtos
 		public string SubNet { get; set; }
 
 		public bool Status { get; set; }
+        public string Port { get; set; }
 
-
-		 public long? OrganizationUnitId { get; set; }
+        public long? OrganizationUnitId { get; set; }
 
 		 
     }

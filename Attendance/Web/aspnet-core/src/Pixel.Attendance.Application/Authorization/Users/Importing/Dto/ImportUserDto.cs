@@ -1,4 +1,6 @@
-﻿namespace Pixel.Attendance.Authorization.Users.Importing.Dto
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Pixel.Attendance.Authorization.Users.Importing.Dto
 {
     public class ImportUserDto
     {
@@ -17,6 +19,10 @@
         public string Code { get; set; }
         public string CivilId { get; set; }
         public long? OrganizationUnitId { get; set; }
+        [NotMapped]
+        public string Department { get; set; }
+        [NotMapped]
+        public string ShiftName { get; set; }
 
         /// <summary>
         /// comma separated list

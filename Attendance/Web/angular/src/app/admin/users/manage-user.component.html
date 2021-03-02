@@ -372,6 +372,28 @@
                                 </div>
                             </div>
                         </tab>
+                        <tab heading="{{'Machine' | localize}}" name="six">
+                            <div class="row">
+                                <label  for="EditUser_uploadUser" class="kt-checkbox">
+                                    <input id="EditUser_uploadUser" type="checkbox" name="uploadUser" [(ngModel)]="user.uploadUser">
+                                    {{"UploadUser" | localize}}
+                                    <span></span>
+                                </label>
+                            </div>
+                            <div *ngIf="user.uploadUser"  class="row">
+                                <div class="col-lg-6">
+                                    <input type="file" (change)="iamgeChangeEcent($event)">
+                                </div>
+                                <div class="col-lg-6">
+                                    <label for="machineId">{{"Machine" | localize}}</label>
+                                    <select  required name="machineId" class="form-control bs-select" [(ngModel)]="user.machineId">
+                                        <option *ngFor="let machine of machines" [value]="machine.id">
+                                            {{machine.nameEn}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </tab>
                     </tabset>
                  </div>
                 <div class="kt-portlet__foot">

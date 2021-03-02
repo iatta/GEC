@@ -248,9 +248,10 @@ namespace Pixel.Attendance.Operations
 		[AbpAuthorize(AppPermissions.Pages_EmployeeVacations)]
          public async Task<PagedResultDto<EmployeeVacationUserLookupTableDto>> GetAllUserForLookupTable(GetAllForLookupTableInput input)
          {
-             var query = _lookup_userRepository.GetAll().WhereIf(
+             var query = _lookup_userRepository.GetAll()
+                .WhereIf(
                     !string.IsNullOrWhiteSpace(input.Filter),
-                   e=> e.Name.Contains(input.Filter)
+                   e=> e.Name.Contains(input.Filter) || e.FingerCode.Contains(input.Filter)
                 );
 
             var totalCount = await query.CountAsync();
@@ -264,7 +265,8 @@ namespace Pixel.Attendance.Operations
 				lookupTableDtoList.Add(new EmployeeVacationUserLookupTableDto
 				{
 					Id = user.Id,
-					DisplayName = user.Name?.ToString()
+					DisplayName = user.Name?.ToString(),
+                    FingerCode = user.FingerCode
 				});
 			}
 

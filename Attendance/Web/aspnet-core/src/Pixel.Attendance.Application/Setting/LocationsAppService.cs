@@ -104,16 +104,16 @@ namespace Pixel.Attendance.Setting
             var location = ObjectMapper.Map<Location>(input);
 
             location.Machines = new List<LocationMachine>();
-            location.LocationCredentials = new List<LocationCredential>();
+            //location.LocationCredentials = new List<LocationCredential>();
 
-            if (input.LocationCredentials.Count > 0)
-            {
-                foreach (var item in input.LocationCredentials)
-                {
-                    location.LocationCredentials.Add(ObjectMapper.Map<LocationCredential>(item));
-                }
+            //if (input.LocationCredentials.Count > 0)
+            //{
+            //    foreach (var item in input.LocationCredentials)
+            //    {
+            //        location.LocationCredentials.Add(ObjectMapper.Map<LocationCredential>(item));
+            //    }
 
-            }
+            //}
 
             if (input.Machines.Count > 0)
             {

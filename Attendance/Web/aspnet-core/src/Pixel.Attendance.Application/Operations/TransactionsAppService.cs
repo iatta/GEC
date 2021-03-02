@@ -85,8 +85,13 @@ namespace Pixel.Attendance.Operations
         {
 
             var filteredTransactions = _transactionRepository.GetAll()
-                        .Where(x => x.Manual == 1)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.Time.Contains(input.Filter) || e.Address.Contains(input.Filter) || e.Reason.Contains(input.Filter) || e.Remark.Contains(input.Filter))
+                        .Include(x => x.User)
+                        .Include(x => x.Machine)
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.Time.Contains(input.Filter) || e.Address.Contains(input.Filter) || e.Reason.Contains(input.Filter) || e.Remark.Contains(input.Filter) || e.User != null && e.User.FingerCode == input.UserNameFilter)
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.UserNameFilter) && input.MinTransDateFilter != null && input.MaxTransDateFilter != null, e => e.User != null && e.User.FingerCode == input.UserNameFilter && e.Transaction_Date >= input.MinTransDateFilter && e.Transaction_Date <= input.MaxTransDateFilter)
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.MachineNameEnFilter), e => e.Machine != null && e.Machine.NameEn == input.MachineNameEnFilter)
+                        .WhereIf(input.MinTransDateFilter != null, e => e.Transaction_Date.Date >= input.MinTransDateFilter)
+                        .WhereIf(input.MaxTransDateFilter != null, e => e.Transaction_Date.Date <= input.MaxTransDateFilter)
                         .WhereIf(input.MinTransTypeFilter != null, e => e.TransType >= input.MinTransTypeFilter)
                         .WhereIf(input.MaxTransTypeFilter != null, e => e.TransType <= input.MaxTransTypeFilter);
 
@@ -116,7 +121,7 @@ namespace Pixel.Attendance.Operations
                                        ProjectManagerApprove = o.ProjectManagerApprove,
                                        UnitManagerApprove = o.UnitManagerApprove
                                    },
-                                   UserName = s1 == null ? "" : s1.Name.ToString(),
+                                   UserName = s1 == null ? "" : s1.FingerCode.ToString(),
                                    MachineNameEn = s2 == null ? "" : s2.NameEn.ToString(),
                                    MachineId = s2.Id,
 
@@ -586,7 +591,7 @@ namespace Pixel.Attendance.Operations
                 units.AddRange(childUnits);
             }
 
-            
+
 
             var userQuery = _userManager.Users.Where(x => units.Contains(x.OrganizationUnitId.Value));
             if (input.UserType.Value != 0)
@@ -737,7 +742,7 @@ namespace Pixel.Attendance.Operations
 
             //get all transactions
             var alltransactions = transactions.ToList();
-            
+
 
             //get user groups 
             var users = new List<User>();
@@ -795,8 +800,10 @@ namespace Pixel.Attendance.Operations
 
 
                 // add days to users 
-                for (var day = firstDayOfMonth.Date; day <= lastDayOfMonth.Date; day = day.AddDays(1))
+                for (var day = firstDayOfMonth.Date.Date; day <= lastDayOfMonth.Date.Date; day = day.AddDays(1))
                 {
+
+
                     //get user shift in this day 
                     var userShift = await GetUserShift(user, day);
 
@@ -808,13 +815,21 @@ namespace Pixel.Attendance.Operations
                     var detailToAdd = new ActualSummerizeTimeSheetDetailDto();
                     detailToAdd.Day = day;
 
-                  
+
+                    var approvedObj = await _userTimeSheetApproveRepository.FirstOrDefaultAsync(x => x.Year == day.Year && x.Month == day.Month && x.Day.Value.Date == day.Date && x.ProjectId == project.Id);
+
+
+
 
                     if ((int)day.Date.DayOfWeek == (int)userShift.DayRest)
                         detailToAdd.IsRest = true;
 
                     if ((int)day.Date.DayOfWeek == (int)userShift.DayOff)
+                    {
                         detailToAdd.IsDayOff = true;
+                        detailToAdd.CanApprove = true;
+                    }
+
 
                     if (detailToAdd.IsRest)
                     {
@@ -822,11 +837,16 @@ namespace Pixel.Attendance.Operations
                             detailToAdd.TotalMinutes = 8 * 60;
                         else if (userShift.IsDayRestCalculated)
                             detailToAdd = await CalculateTransactions(detailToAdd, user, userShift, isRamadanDay, project.OrganizationUnitId.Value, day, alltransactions);
-                        
+                        else
+                            detailToAdd.CanApprove = true;
+
+
 
                         if (detailToAdd.CanApprove)
                             userIdObjToAdd.DaysToApprove.Add(day);
 
+                        if (!string.IsNullOrEmpty(approvedObj.ApprovedUnits))
+                            detailToAdd.CanApprove = false;
 
                         summaryToAdd.Details.Add(detailToAdd);
                         continue;
@@ -835,14 +855,25 @@ namespace Pixel.Attendance.Operations
 
                     if (detailToAdd.IsDayOff)
                     {
+                        if (!string.IsNullOrEmpty(approvedObj.ApprovedUnits))
+                            detailToAdd.CanApprove = false;
+
                         summaryToAdd.Details.Add(detailToAdd);
+                        userIdObjToAdd.DaysToApprove.Add(day);
                         continue;
+
+
                     }
 
 
 
                     // if no trans check for another project
-                    detailToAdd = await CalculateTransactions(detailToAdd, user, userShift, isRamadanDay, project.OrganizationUnitId.Value,  day, alltransactions);
+                    detailToAdd = await CalculateTransactions(detailToAdd, user, userShift, isRamadanDay, project.OrganizationUnitId.Value, day, alltransactions);
+                    if (approvedObj != null)
+                    {
+                        if (!string.IsNullOrEmpty(approvedObj.ApprovedUnits))
+                            detailToAdd.CanApprove = false;
+                    }
 
                     if (detailToAdd.CanApprove)
                         userIdObjToAdd.DaysToApprove.Add(day);
@@ -860,7 +891,8 @@ namespace Pixel.Attendance.Operations
                 summaryToAdd.TotalSickLeaveMinutes = output.Data.Sum(x => x.TotalSickLeaveMinutes);
 
                 output.UserIds.Add(userIdObjToAdd);
-                output.Data.Add(summaryToAdd);
+                if (summaryToAdd.Details.Any(x => x.CanApprove))
+                    output.Data.Add(summaryToAdd);
             }
 
             output.TotalSickLeaveMinutes = output.Data.Sum(x => x.TotalSickLeaveMinutes);
@@ -889,7 +921,7 @@ namespace Pixel.Attendance.Operations
             //build transactions query 
             var transactions = await BuildTransactionsQuery(input);
 
-          
+
             var transactionsList = transactions.ToList();
             // get project unit .
             var projectUnit = await _organizationUnitRepository.FirstOrDefaultAsync(x => x.Id == project.OrganizationUnitId);
@@ -917,7 +949,7 @@ namespace Pixel.Attendance.Operations
 
             //
             var usersQuery = _userManager.Users.Where(x => remainingUnits.Contains((long)x.OrganizationUnitId));
-            
+
             //var projectUnitUsers = users.Where(x => x.OrganizationUnitId.Value == projectUnit.Id).ToList();
 
             if (input.UserType.Value != 0)
@@ -1026,12 +1058,12 @@ namespace Pixel.Attendance.Operations
 
                         }
                     }
-                   
+
 
 
                     detailToAdd.Day = day;
 
-                   
+
                     if ((int)day.Date.DayOfWeek == (int)userShift.DayRest)
                         detailToAdd.IsRest = true;
 
@@ -1044,6 +1076,8 @@ namespace Pixel.Attendance.Operations
                             detailToAdd.TotalMinutes = 8 * 60;
                         else if (userShift.IsDayRestCalculated)
                             detailToAdd = await CalculateTransactions(detailToAdd, user, userShift, isRamadanDay, project.OrganizationUnitId.Value, day, transactionsList);
+                        else
+                            UserIdToApproveObj.DaysToApprove.Add(day);
 
 
                         if (detailToAdd.CanManagerApprove)
@@ -1056,7 +1090,9 @@ namespace Pixel.Attendance.Operations
 
                     if (detailToAdd.IsDayOff)
                     {
+                        
                         summaryToAdd.Details.Add(detailToAdd);
+                        UserIdToApproveObj.DaysToApprove.Add(day);
                         continue;
                     }
 
@@ -1100,8 +1136,14 @@ namespace Pixel.Attendance.Operations
             output.TotalAbsenceMinutes = output.Data.Sum(x => x.TotalaAbsenceMinutes);
             output.TotalEmployee = output.UserIds.Count();
             output.TotalOvertimeMinutes = output.Data.Sum(x => x.TotalOverTimeNormal);
+
+
+            foreach (var trans in transactionsList)
+                trans.IsTaken = false;
+
             return output;
         }
+
 
         public async Task<ActualSummerizeTimeSheetOutput> GetProjextUsersToApproveFromHR(ActualSummerizeInput input)
         {
@@ -1115,7 +1157,7 @@ namespace Pixel.Attendance.Operations
             var transactionsList = transactions.ToList();
             // get project unit .
             var projectUnit = await _organizationUnitRepository.FirstOrDefaultAsync(x => x.Id == project.OrganizationUnitId);
-            
+
             //var currentUserUnits = await _organizationUnitRepository.GetAllIncluding(x => x.Children).Where(x => x.ManagerId == GetCurrentUser().Id).ToListAsync(); // in case of current user is manager for multi units
             //var currentUserUnitsIds = currentUserUnits.Select(x => x.Id).ToList();
             // get project Unit Parents That have to approve 
@@ -1233,6 +1275,10 @@ namespace Pixel.Attendance.Operations
                         if (temRemainingUnits.Count == 0)
                         {
                             detailToAdd.CanHrApprove = true;
+                            detailToAdd.CanManagerApprove = true;
+                            if (userTimeSheet.IsClosed)
+                                detailToAdd.IsCurrentUnitApproved = true;
+
                             output.UserIds.Add(new UserTimeSheetInput() { UserId = user.Id, YesClose = detailToAdd.YesClose });
                             UserIdToApproveObj.YesClose = detailToAdd.YesClose;
                             //output.UserIdsToApprove.Add(new UserTimeSheetInput() { UserId = user.Id, YesClose = detailToAdd.YesClose });
@@ -1244,23 +1290,6 @@ namespace Pixel.Attendance.Operations
 
                     detailToAdd.Day = day;
 
-                    var userTransactions = transactionsList.Where(x => x.Pin == user.Id && x.Transaction_Date.Date == day.Date).ToList();
-                    var transCount = userTransactions.Count();
-                    //in transaction
-                    var inTransaction = userTransactions.Where(x => !x.IsTaken).FirstOrDefault();
-                    detailToAdd.InTransactionId = inTransaction.Id;
-
-                    //out transaction 
-                    var outTransaction = userTransactions.Where(x => !x.IsTaken).Skip(transCount - 1).FirstOrDefault();
-                    if (outTransaction == null)
-                    {
-                        //get transaction in the next day 
-                        var nextDay = day.AddDays(1);
-                        outTransaction = userTransactions.Where(x => !x.IsTaken).FirstOrDefault();
-                    }
-
-                    inTransaction.IsTaken = true;
-                    outTransaction.IsTaken = true;
 
                     if ((int)day.Date.DayOfWeek == (int)userShift.DayRest)
                         detailToAdd.IsRest = true;
@@ -1274,6 +1303,8 @@ namespace Pixel.Attendance.Operations
                             detailToAdd.TotalMinutes = 8 * 60;
                         else if (userShift.IsDayRestCalculated)
                             detailToAdd = await CalculateTransactions(detailToAdd, user, userShift, isRamadanDay, project.OrganizationUnitId.Value, day, transactionsList);
+                        else
+                            detailToAdd.CanHrApprove = true;
 
 
                         if (detailToAdd.CanHrApprove)
@@ -1286,6 +1317,8 @@ namespace Pixel.Attendance.Operations
 
                     if (detailToAdd.IsDayOff)
                     {
+                        detailToAdd.CanHrApprove = true;
+                        UserIdToApproveObj.DaysToApprove.Add(day);
                         summaryToAdd.Details.Add(detailToAdd);
                         continue;
                     }
@@ -1330,6 +1363,10 @@ namespace Pixel.Attendance.Operations
             output.TotalAbsenceMinutes = output.Data.Sum(x => x.TotalaAbsenceMinutes);
             output.TotalEmployee = output.UserIds.Count();
             output.TotalOvertimeMinutes = output.Data.Sum(x => x.TotalOverTimeNormal);
+
+            foreach (var trans in transactionsList)
+                trans.IsTaken = false;
+
             return output;
         }
 
@@ -1340,8 +1377,9 @@ namespace Pixel.Attendance.Operations
                 foreach (var user in input.UserIds)
                 {
                     //approve each day 
-                    var firstDayOfMonth = new DateTime(input.Year, input.Month, 1);
-                    var lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
+
+                    var firstDayOfMonth = input.IsDateRange ? input.StartDate : new DateTime(input.Year, input.Month, 1);
+                    var lastDayOfMonth = input.IsDateRange ? input.EndDate : firstDayOfMonth.AddMonths(1).AddDays(-1);
 
                     foreach (var day in user.DaysToApprove)
                     {
@@ -1349,6 +1387,7 @@ namespace Pixel.Attendance.Operations
                         if (userTimeSheet != null)
                         {
                             userTimeSheet.HrApprove = true;
+                            userTimeSheet.IsClosed = true;
                             await _userTimeSheetApproveRepository.UpdateAsync(userTimeSheet);
                         }
                     }
@@ -1364,8 +1403,9 @@ namespace Pixel.Attendance.Operations
                 foreach (var user in input.UserIds)
                 {
                     //approve each day 
-                    var firstDayOfMonth = new DateTime(input.Year, input.Month, 1);
-                    var lastDayOfMonth = firstDayOfMonth.AddMonths(1).AddDays(-1);
+
+                    var firstDayOfMonth = input.IsDateRange ? input.StartDate : new DateTime(input.Year, input.Month, 1);
+                    var lastDayOfMonth = input.IsDateRange ? input.EndDate : firstDayOfMonth.AddMonths(1).AddDays(-1);
 
                     foreach (var day in user.DaysToApprove)
                     {
@@ -1376,8 +1416,8 @@ namespace Pixel.Attendance.Operations
                             userTimeSheetToAdd.UserId = user.UserId;
                             userTimeSheetToAdd.ProjectId = input.ProjectId;
                             userTimeSheetToAdd.ProjectManagerApprove = true;
-                            userTimeSheetToAdd.Year = input.Year;
-                            userTimeSheetToAdd.Month = input.Month;
+                            userTimeSheetToAdd.Year = day.Year;
+                            userTimeSheetToAdd.Month = day.Month;
                             userTimeSheetToAdd.Day = day;
                             userTimeSheetToAdd.ProjectManagerId = GetCurrentUser().Id;
 
@@ -1905,7 +1945,7 @@ namespace Pixel.Attendance.Operations
             return isWorkInAnotherProject;
         }
 
-        private async Task<ActualSummerizeTimeSheetDetailDto> CalculateNoTrans(ActualSummerizeTimeSheetDetailDto detailToAdd, User user, DateTime day, Shift userShift, long projectUnitId , bool isRamadanDay)
+        private async Task<ActualSummerizeTimeSheetDetailDto> CalculateNoTrans(ActualSummerizeTimeSheetDetailDto detailToAdd, User user, DateTime day, Shift userShift, long projectUnitId, bool isRamadanDay)
         {
             detailToAdd.IsWorkInAnotherProject = await CheckIfUSerWorkInAnotherProject(user, day, projectUnitId);
             if (detailToAdd.IsWorkInAnotherProject)
@@ -1933,7 +1973,7 @@ namespace Pixel.Attendance.Operations
             }
             else if (userShift.IsDayRestCalculated && (int)day.Date.DayOfWeek == (int)userShift.DayRest)
             {
-                detailToAdd.TotalMinutes = isRamadanDay ? userShift.TotalHoursPerDayRamadan * 60  :  userShift.TotalHoursPerDay * 60;
+                detailToAdd.TotalMinutes = isRamadanDay ? userShift.TotalHoursPerDayRamadan * 60 : userShift.TotalHoursPerDay * 60;
                 detailToAdd.CanApprove = true;
             }
             else
@@ -1949,7 +1989,7 @@ namespace Pixel.Attendance.Operations
             return detailToAdd;
         }
 
-        private ActualSummerizeTimeSheetDetailDto CalculateSummary(ActualSummerizeTimeSheetDetailDto detailToAdd, User user, Shift userShift, bool isRamadanDay,DateTime day, List<Transaction> alltransactions)
+        private ActualSummerizeTimeSheetDetailDto CalculateSummary(ActualSummerizeTimeSheetDetailDto detailToAdd, User user, Shift userShift, bool isRamadanDay, DateTime day, List<Transaction> alltransactions)
         {
 
             double inMinutes = 0;
@@ -1959,19 +1999,30 @@ namespace Pixel.Attendance.Operations
             var userTransactions = alltransactions.Where(x => x.Pin == user.Id && x.Transaction_Date.Date == day.Date).ToList();
             var transCount = userTransactions.Count();
 
+
             //in transaction
             var inTransaction = userTransactions.Where(x => !x.IsTaken).FirstOrDefault();
             detailToAdd.InTransactionId = inTransaction.Id;
 
             //out transaction 
             var outTransaction = userTransactions.Where(x => !x.IsTaken).Skip(transCount - 1).FirstOrDefault();
-            if (outTransaction == null)
+
+
+            if (outTransaction == null && (userShift.IsPunchNextDay || userShift.NoRestrict))
             {
                 //get transaction in the next day 
                 var nextDay = day.AddDays(1);
                 var userNextDayTransactions = alltransactions.Where(x => x.Pin == user.Id && x.Transaction_Date.Date == nextDay.Date).ToList();
                 outTransaction = userTransactions.FirstOrDefault();
             }
+
+            if (outTransaction.Id == inTransaction.Id && !userShift.IsOneFingerprint)
+            {
+                detailToAdd.IsAbsent = true;
+                detailToAdd.CanApprove = true;
+                return detailToAdd;
+            }
+
 
             inTransaction.IsTaken = true;
             outTransaction.IsTaken = true;
@@ -1988,7 +2039,7 @@ namespace Pixel.Attendance.Operations
             detailToAdd.OutTransactionId = outTransaction.Id;
 
             if (userShift.IsFlexible)
-                detailToAdd = CalculateFlexible(detailToAdd, user, userShift, outMinutes, inMinutes , isRamadanDay);
+                detailToAdd = CalculateFlexible(detailToAdd, user, userShift, outMinutes, inMinutes, isRamadanDay);
 
             if (userShift.IsTwoFingerprint)
                 detailToAdd = CalculateTwoFingerPrint(detailToAdd, user, userShift, outMinutes, inMinutes, outTransaction, inTransaction, isRamadanDay);
@@ -2002,27 +2053,35 @@ namespace Pixel.Attendance.Operations
 
 
             return detailToAdd;
-            
+
         }
 
-         
 
 
-        private ActualSummerizeTimeSheetDetailDto CalculateFlexible(ActualSummerizeTimeSheetDetailDto detailToAdd, User user, Shift userShift, double outMinutes, double inMinutes , bool isRamadanDay)
+
+        private ActualSummerizeTimeSheetDetailDto CalculateFlexible(ActualSummerizeTimeSheetDetailDto detailToAdd, User user, Shift userShift, double outMinutes, double inMinutes, bool isRamadanDay)
         {
             //fixed time
 
             detailToAdd.TotalMinutes = outMinutes - inMinutes;
-            detailToAdd.TotalMinutes = detailToAdd.TotalMinutes < 0 ? (detailToAdd.TotalMinutes * -1) : detailToAdd.TotalMinutes;
 
+            detailToAdd.TotalMinutes = detailToAdd.TotalMinutes < 0 ? (detailToAdd.TotalMinutes * -1) : detailToAdd.TotalMinutes;
             var totalHoursPerDay = isRamadanDay ? userShift.TotalHoursPerDayRamadan : userShift.TotalHoursPerDay;
+
+            if (userShift.HasBreak)
+            {
+                detailToAdd.TotalMinutes = detailToAdd.TotalMinutes - userShift.BreakHours;
+                totalHoursPerDay = totalHoursPerDay - userShift.BreakHours;
+            }
+
+
             if (detailToAdd.TotalMinutes >= (totalHoursPerDay * 60))
             {
 
                 //has over time 
 
                 //check if he include in overtime 
-                
+
                 var totalOverTimeMinutes = detailToAdd.TotalMinutes - totalHoursPerDay * 60;
 
                 if (totalOverTimeMinutes < 240)
@@ -2081,15 +2140,18 @@ namespace Pixel.Attendance.Operations
 
         }
 
-        private ActualSummerizeTimeSheetDetailDto CalculateTwoFingerPrint(ActualSummerizeTimeSheetDetailDto detailToAdd, User user, Shift userShift, double outMinutes, double inMinutes, Transaction outTransaction, Transaction inTransaction , bool isRamdanDay)
+        private ActualSummerizeTimeSheetDetailDto CalculateTwoFingerPrint(ActualSummerizeTimeSheetDetailDto detailToAdd, User user, Shift userShift, double outMinutes, double inMinutes, Transaction outTransaction, Transaction inTransaction, bool isRamdanDay)
         {
 
 
 
             detailToAdd.TotalMinutes = outMinutes - inMinutes;
+            if (userShift.HasBreak)
+                detailToAdd.TotalMinutes = detailToAdd.TotalMinutes - (userShift.BreakHours * 60);
 
             detailToAdd.TotalMinutes = detailToAdd.TotalMinutes < 0 ? (detailToAdd.TotalMinutes * -1) : detailToAdd.TotalMinutes;
-      
+
+
             //summaryToAdd.TotalAttendance += detailToAdd.TotalMinutes;
 
             //store in temp
@@ -2114,6 +2176,10 @@ namespace Pixel.Attendance.Operations
             var timeOut = isRamdanDay ? userShift.TimeOutRamadan : userShift.TimeOut;
             var allowedLate = isRamdanDay ? userShift.TotalLateMinutesPerMonthRamadan : userShift.TotalLateMinutesPerMonth;
             var totalShiftMinutes = timeOut - timeIN;
+
+            if (userShift.HasBreak)
+                totalShiftMinutes = totalShiftMinutes - (userShift.BreakHours * 60);
+
             //delay in 
             if (inMinutes > timeIN)
             {
@@ -2127,7 +2193,7 @@ namespace Pixel.Attendance.Operations
                     detailToAdd.DeductMinutes = timeToDeduct;
                 }
 
-                
+
             }
 
             //delay out
@@ -2154,7 +2220,7 @@ namespace Pixel.Attendance.Operations
                 //check if he include in overtime 
                 var totalOverTimeMinutes = outMinutes - timeOut;
 
-                if (totalOverTimeMinutes < 240)
+                if (totalOverTimeMinutes < 240 && totalOverTimeMinutes > 60)
                 {
                     if (user.IsOvertimeAllowed)
                         detailToAdd.Overtime = totalOverTimeMinutes;
@@ -2216,11 +2282,11 @@ namespace Pixel.Attendance.Operations
             var transCount = userTransactions.Count();
 
             if (transCount == 0)
-                detailToAdd = await CalculateNoTrans(detailToAdd, user, day, userShift, projectUnitId , isRamadanDay);
+                detailToAdd = await CalculateNoTrans(detailToAdd, user, day, userShift, projectUnitId, isRamadanDay);
             else
-                detailToAdd = CalculateSummary(detailToAdd, user, userShift, isRamadanDay,day,alltransactions);
+                detailToAdd = CalculateSummary(detailToAdd, user, userShift, isRamadanDay, day, alltransactions);
 
-            
+
 
 
             return detailToAdd;

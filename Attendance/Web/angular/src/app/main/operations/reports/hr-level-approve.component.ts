@@ -52,7 +52,10 @@ export class HrLevelApproveComponent extends AppComponentBase implements OnInit 
 
     isLoadUser:boolean;
     usersList: SelectItem[] = [];
-
+    summeryColSpan=0;
+    summeryRowSpanTemp=0;
+    footerCols:any[];
+    frozenCols:any[];
     constructor(
         injector: Injector,
         private route: ActivatedRoute,
@@ -68,7 +71,7 @@ export class HrLevelApproveComponent extends AppComponentBase implements OnInit 
     ngOnInit(): void {
         this.userTypes.push({label: this.l('All'), value: 0},{label: this.l('Staff'), value: 1},{label: this.l('Labor'), value: 2});
 
-        this._projectServiceProxy.getAllFlatForOrganizationUnitManager().subscribe((result)=>{
+        this._projectServiceProxy.getAllFlatForHr().subscribe((result)=>{
             this.projectList = result;
             this.show = true;
             console.log(result);
@@ -98,7 +101,6 @@ export class HrLevelApproveComponent extends AppComponentBase implements OnInit 
     }
     generateReport(){
         if(this.validateForm()){
-debugger
             this.data = [];
             this.dataLoaded = false;
             this.selectedUserIds = _.map(this.selectedUsers, 'value');
@@ -110,7 +112,7 @@ debugger
             this.year = date.getFullYear();
             this.dataIsLoading=true;
 
-            this._transactionService.getMangerUsersToApprove(this.selectedProject.id,
+            this._transactionService.getProjextUsersToApproveFromHR(this.selectedProject.id,
                 moment(this.selectedFirstDate),moment(this.selectedEndDate),this.month,this.year,this.selectedUserType.value,this.selectedUserIds , this.isMonth,this.isDateRange).subscribe((result) => {
                 console.log(result);
                 this.response =result;
@@ -118,7 +120,8 @@ debugger
                     this.userIds = result.userIds;
                     this.userIdsToApprove = result.userIdsToApprove;
                     this.unitIdToApprove = result.unitIdToApprove;
-                    this.cols = [
+                    this.cols = [];
+                    this.frozenCols = [
                         { field: 'fingerCode', header: 'code' },
                         {field: 'userName', header: 'Employee' }
                     ];
@@ -143,7 +146,8 @@ debugger
                         this.cols.push({field: dateIndex, header:  dateHeader })
                     }
                     console.log(this.cols);
-                    this.summeryRowSpan =  this.cols.length;
+                    this.summeryColSpan =  this.frozenCols.length + this.cols.length ;
+                    this.summeryRowSpanTemp =  this.cols.length ;
                     this.data = result.data;
                     this.dataLoaded = true;
                     this.dataIsLoading=false;
@@ -229,7 +233,7 @@ debugger
         modelToPass.month = this.month;
         modelToPass.year = this.year;
         modelToPass.unitIdToApprove = this.unitIdToApprove;
-        this._transactionService.unitManagerToApprove(modelToPass).subscribe((result) => {
+        this._transactionService.hrApprove(modelToPass).subscribe((result) => {
             this.clearData();
             this.message.success('Approved');
         });

@@ -50,6 +50,7 @@ namespace Pixel.Attendance.Web.Startup
         private readonly IConfigurationRoot _appConfiguration;
         private readonly IWebHostEnvironment _hostingEnvironment;
 
+
         public Startup(IWebHostEnvironment env)
         {
             _hostingEnvironment = env;
@@ -191,6 +192,7 @@ namespace Pixel.Attendance.Web.Startup
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory, Microsoft.AspNetCore.Hosting.IHostingEnvironment envt)
         {
+           
 
             //Initializes ABP framework.
             app.UseAbp(options =>
@@ -223,15 +225,19 @@ namespace Pixel.Attendance.Web.Startup
                 app.UseIdentityServer();
             }
 
-            app.UseAuthorization();
-
             using (var scope = app.ApplicationServices.CreateScope())
             {
                 if (scope.ServiceProvider.GetService<DatabaseCheckHelper>().Exist(_appConfiguration["ConnectionStrings:Default"]))
                 {
-                    app.UseAbpRequestLocalization();
+                    app.UseAbpRequestLocalization(opts =>
+                    {
+                        opts.RequestCultureProviders.Insert(0, new PixelCultureProvider());
+                    });
                 }
             }
+
+            app.UseAuthorization();
+
 
             if (WebConsts.HangfireDashboardEnabled)
             {

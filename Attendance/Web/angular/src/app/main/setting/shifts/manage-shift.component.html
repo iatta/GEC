@@ -97,6 +97,12 @@
                                     <p-checkbox (onChange)="onFlexibleChanged()" [(ngModel)]="shift.isFlexible" name="IsFlexible" id="IsFlexible" binary="true"></p-checkbox>
                                    <label style="padding: 5px;" for="IsFlexible">{{l("IsFlexible")}}</label>
 
+                                   <p-checkbox (onChange)="onNoRestrictChanged()" [(ngModel)]="shift.noRestrict" name="NoRestrict" id="NoRestrict" binary="true"></p-checkbox>
+                                   <label style="padding: 5px;" for="NoRestrict">{{l("No Restrict")}}</label>
+
+                                   <p-checkbox [disabled]="disableBreak" [(ngModel)]="shift.hasBreak" name="HasBreak" id="HasBreak" binary="true"></p-checkbox>
+                                   <label style="padding: 5px;" for="HasBreak">{{l("Has Break")}}</label>
+
 
                                     <p-checkbox (onChange)="oneFingerprintChanged()"  [(ngModel)]="shift.isOneFingerprint" name="IsOneFingerprint" id="IsOneFingerprint" binary="true"></p-checkbox>
                                      <label style="padding: 5px;" for="IsOneFingerprint">{{l("IsOneFingerprint")}}</label>
@@ -113,7 +119,7 @@
                                      <label style="padding: 5px;" for="HasRamadanSetting">{{l("HasRamadanSetting")}}</label>
 
                                      <p-checkbox *ngIf="shift.isTwoFingerprint || shift.isFlexible"  [(ngModel)]="shift.isPunchNextDay" name="IsPunchNextDay" binary="true"></p-checkbox>
-                                     <label *ngIf="shift.isTwoFingerprint || shift.isFlexible" style="padding: 5px;" for="IsPunchNextDay">{{l("IsPunchNextDay")}}</label>
+                                     <label *ngIf="shift.isTwoFingerprint || shift.isFlexible" style="padding: 5px;" for="IsPunchNextDay">{{l("Punch Next Day")}}</label>
 
                             </div>
                             <div class="from-group row">
@@ -149,6 +155,11 @@
                                 <div class="col-lg-4" *ngIf="shift.isFlexible || shift.isTwoFingerprint">
                                     <label for="TotalLateMinutesPerMonth">{{l("TotalLateMinutesPerMonth")}} *</label>
                                     <input type="number" min="0" id="Shift_TotalLateMinutesPerMonth" class="form-control" [(ngModel)]="shift.totalLateMinutesPerMonth" name="TotalLateMinutesPerMonth"/>
+                                </div>
+
+                                <div class="col-lg-4" *ngIf="shift.hasBreak">
+                                    <label for="Shift_breakHours">{{l("Break Hours")}} *</label>
+                                    <input type="number" min="0" id="Shift_breakHours" class="form-control" [(ngModel)]="shift.breakHours" name="BreakHours"/>
                                 </div>
 
                                 <div class="col-lg-4" *ngIf="shift.isFlexible && shift.hasRamadanSetting">

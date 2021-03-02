@@ -214,7 +214,7 @@ namespace Pixel.Attendance.MultiTenancy.Demo
             {
                 //Save a random profile picture
                 var storedFile = new BinaryObject(user.TenantId, GetRandomProfilePictureBytes());
-                await _binaryObjectManager.SaveAsync(storedFile);
+                 _binaryObjectManager.SaveAsync(storedFile);
 
                 //Update new picture on the user
                 user.ProfilePictureId = storedFile.Id;

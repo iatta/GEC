@@ -34,8 +34,13 @@ namespace Pixel.Attendance.Setting
 			_lookup_organizationUnitRepository = lookup_organizationUnitRepository;
 		
 		  }
+        public async Task<List<MachineDto>> GetAllFlat()
+        {
+            var machines =await _machineRepository.GetAllListAsync();
+            return ObjectMapper.Map<List<MachineDto>>(machines);
+        }
 
-		 public async Task<PagedResultDto<GetMachineForViewDto>> GetAll(GetAllMachinesInput input)
+         public async Task<PagedResultDto<GetMachineForViewDto>> GetAll(GetAllMachinesInput input)
          {
 			
 			var filteredMachines = _machineRepository.GetAll()

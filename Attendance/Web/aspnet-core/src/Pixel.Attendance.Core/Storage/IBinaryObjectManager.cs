@@ -7,7 +7,7 @@ namespace Pixel.Attendance.Storage
     {
         Task<BinaryObject> GetOrNullAsync(Guid id);
         
-        Task SaveAsync(BinaryObject file);
+        void SaveAsync(BinaryObject file);
         
         Task DeleteAsync(Guid id);
     }

@@ -125,6 +125,7 @@ export class AppNavigationService {
                 new AppMenuItem('Users', 'Pages.Administration.Users', 'flaticon-users', '/app/admin/users'),
                 new AppMenuItem('DelegatedUsers', 'Pages.Administration.DelegatedUsers', 'flaticon-users', '/app/admin/delegatedUsers'),
                 new AppMenuItem('Machines', 'Pages.Machines', 'flaticon-delete-2', '/app/main/setting/machines'),
+                new AppMenuItem('ManageMachines', 'Pages.Machines', 'flaticon-delete-2', '/app/main/setting/manage-machines'),
                 new AppMenuItem('Projects', 'Pages.Projects', 'flaticon2-map', '/app/main/operations/projects'),
                 new AppMenuItem('Languages', 'Pages.Administration.Languages', 'flaticon-tabs', '/app/admin/languages'),
                 new AppMenuItem('AuditLogs', 'Pages.Administration.AuditLogs', 'flaticon-folder-1', '/app/admin/auditLogs'),

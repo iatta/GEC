@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Abp.Authorization.Users;
 using Abp.BackgroundJobs;
 using Abp.Dependency;
+using Abp.Domain.Repositories;
 using Abp.Domain.Uow;
 using Abp.Extensions;
 using Abp.IdentityFramework;
@@ -17,7 +18,9 @@ using Microsoft.AspNetCore.Identity;
 using Pixel.Attendance.Authorization.Roles;
 using Pixel.Attendance.Authorization.Users.Dto;
 using Pixel.Attendance.Authorization.Users.Importing.Dto;
+using Pixel.Attendance.Extended;
 using Pixel.Attendance.Notifications;
+using Pixel.Attendance.Setting;
 using Pixel.Attendance.Storage;
 
 namespace Pixel.Attendance.Authorization.Users.Importing
@@ -34,6 +37,9 @@ namespace Pixel.Attendance.Authorization.Users.Importing
         private readonly IBinaryObjectManager _binaryObjectManager;
         private readonly ILocalizationSource _localizationSource;
         private readonly IObjectMapper _objectMapper;
+        private readonly IRepository<Shift> _shiftRepository;
+        private readonly IRepository<User, long> _userRepository;
+        private readonly IRepository<OrganizationUnitExtended, long> _organizationUnitRepository;
 
         public UserManager UserManager { get; set; }
 
@@ -45,14 +51,20 @@ namespace Pixel.Attendance.Authorization.Users.Importing
             IEnumerable<IPasswordValidator<User>> passwordValidators,
             IPasswordHasher<User> passwordHasher,
             IAppNotifier appNotifier,
-            IBinaryObjectManager binaryObjectManager,
+             IRepository<Shift> shiftRepository,
+             IRepository<OrganizationUnitExtended, long> organizationUnitRepository,
+             IRepository<User, long> userRepository,
+        IBinaryObjectManager binaryObjectManager,
             ILocalizationManager localizationManager,
             IObjectMapper objectMapper)
         {
             _roleManager = roleManager;
+            _userRepository = userRepository;
             _userListExcelDataReader = userListExcelDataReader;
             _invalidUserExporter = invalidUserExporter;
             _userPolicy = userPolicy;
+            _organizationUnitRepository = organizationUnitRepository;
+            _shiftRepository = shiftRepository;
             _passwordValidators = passwordValidators;
             _passwordHasher = passwordHasher;
             _appNotifier = appNotifier;
@@ -130,8 +142,21 @@ namespace Pixel.Attendance.Authorization.Users.Importing
             {
                 await _userPolicy.CheckMaxUserCountAsync(tenantId.Value);
             }
+          
+               var  user = _objectMapper.Map<User>(input); //Passwords is not mapped (see mapping configuration)
 
-            var user = _objectMapper.Map<User>(input); //Passwords is not mapped (see mapping configuration)
+            //shift 
+            var shift = await _shiftRepository.FirstOrDefaultAsync(x => x.NameAr== input.ShiftName
+            || x.NameEn == input.ShiftName ||
+            x.Code == input.ShiftName);
+            if (shift != null)
+                user.ShiftId = shift.Id;
+
+            //unit
+            var unit = await _organizationUnitRepository.FirstOrDefaultAsync(x => x.DisplayName == input.Department);
+            if (unit != null)
+                user.OrganizationUnitId = (int)unit.Id;
+
             user.Password = input.Password;
             user.TenantId = tenantId;
 
@@ -156,7 +181,20 @@ namespace Pixel.Attendance.Authorization.Users.Importing
                 user.Roles.Add(new UserRole(tenantId, user.Id, role.Id));
             }
 
-            (await UserManager.CreateAsync(user)).CheckErrors();
+            var currentUser = await _userRepository.FirstOrDefaultAsync(x => x.CivilId == input.CivilId);
+            if (currentUser != null)
+            {
+                currentUser.ShiftId = user.ShiftId;
+                currentUser.OrganizationUnitId = user.OrganizationUnitId;
+                currentUser.FingerCode = user.FingerCode;
+                currentUser.Password = user.Password;
+
+                await UserManager.UpdateAsync(currentUser);
+                
+            }
+           
+            else
+                (await UserManager.CreateAsync(user)).CheckErrors();
         }
 
         private async Task ProcessImportUsersResultAsync(ImportUsersFromExcelJobArgs args, List<ImportUserDto> invalidUsers)

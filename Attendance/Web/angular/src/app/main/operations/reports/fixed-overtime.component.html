@@ -54,13 +54,13 @@
                                 <ng-template pTemplate="header">
                                     <tr>
                                         <th>{{l('BusinessUnit')}}</th>
-                                        
+
                                         <th>{{l('AttendanceDate')}}</th>
                                         <th>{{l('PersonName')}}</th>
                                         <th>{{l('PersonNumber')}}</th>
                                         <th>{{l('ProjectName')}}</th>
                                         <th>{{l('ProjectNumber')}}</th>
-                                        
+
                                         <th>{{l('ExpenditureType')}}</th>
                                         <th>{{l('Hours')}}</th>
                                     </tr>
@@ -68,15 +68,15 @@
                                 <ng-template pTemplate="body" let-record>
                                     <tr>
                                         <td>{{record.businessUnit}}</td>
-                                        
+
                                         <td>{{record.attendanceDate | momentFormat:'DD/MM/YYYY'}}</td>
                                         <td>{{record.personName}}</td>
                                         <td>{{record.personNumber}}</td>
                                         <td>{{record.projectName}}</td>
                                         <td>{{record.projectNumber}}</td>
-                                       
+
                                         <td>{{record.expenditureType}}</td>
-                                        <td>{{record.hours}}</td>
+                                        <td>{{record.hours |number : '1.2-2'}}</td>
                                     </tr>
                                 </ng-template>
                             </p-table>

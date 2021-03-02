@@ -31,17 +31,19 @@ namespace Pixel.Attendance.Operations
         private readonly IProjectsExcelExporter _projectsExcelExporter;
 		 private readonly IRepository<User,long> _lookup_userRepository;
 		 private readonly IRepository<Location,int> _lookup_locationRepository;
-		 private readonly IRepository<OrganizationUnitExtended,long> _lookup_organizationUnitRepository;
+        private readonly IRepository<ProjectLocation, int> _lookup_projectLocationRepository;
+        private readonly IRepository<OrganizationUnitExtended,long> _lookup_organizationUnitRepository;
         
 
 
-          public ProjectsAppService(IRepository<ProjectLocation> projectLocationRepository , IRepository<Project> projectRepository, IProjectsExcelExporter projectsExcelExporter , IRepository<User, long> lookup_userRepository, IRepository<Location, int> lookup_locationRepository, IRepository<OrganizationUnitExtended, long> lookup_organizationUnitRepository) 
+          public ProjectsAppService(IRepository<ProjectLocation, int> lookup_projectLocationRepository,IRepository<ProjectLocation> projectLocationRepository , IRepository<Project> projectRepository, IProjectsExcelExporter projectsExcelExporter , IRepository<User, long> lookup_userRepository, IRepository<Location, int> lookup_locationRepository, IRepository<OrganizationUnitExtended, long> lookup_organizationUnitRepository) 
 		  {
 			_projectRepository = projectRepository;
 			_projectsExcelExporter = projectsExcelExporter;
 			_lookup_userRepository = lookup_userRepository;
 		_lookup_locationRepository = lookup_locationRepository;
-		_lookup_organizationUnitRepository = lookup_organizationUnitRepository;
+            _lookup_projectLocationRepository = lookup_projectLocationRepository;
+        _lookup_organizationUnitRepository = lookup_organizationUnitRepository;
             _projectLocationRepository = projectLocationRepository;
 
 
@@ -96,41 +98,38 @@ namespace Pixel.Attendance.Operations
 			
 			var filteredProjects = _projectRepository.GetAll()
 						.Include( e => e.ManagerFk)
-						.Include( e => e.LocationFk)
+						.Include( e => e.Locations)
 						.Include( e => e.OrganizationUnitFk)
 						.WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false  || e.NameAr.Contains(input.Filter) || e.NameEn.Contains(input.Filter))
 						.WhereIf(!string.IsNullOrWhiteSpace(input.NameArFilter),  e => e.NameAr == input.NameArFilter)
 						.WhereIf(!string.IsNullOrWhiteSpace(input.NameEnFilter),  e => e.NameEn == input.NameEnFilter)
 						.WhereIf(!string.IsNullOrWhiteSpace(input.UserNameFilter), e => e.ManagerFk != null && e.ManagerFk.Name == input.UserNameFilter)
-						.WhereIf(!string.IsNullOrWhiteSpace(input.LocationTitleEnFilter), e => e.LocationFk != null && e.LocationFk.TitleEn == input.LocationTitleEnFilter)
+						.WhereIf(!string.IsNullOrWhiteSpace(input.LocationTitleEnFilter), e => e.Locations.Count != 0 && e.Locations.Any(x => x.LocationFk.TitleEn == input.LocationTitleEnFilter))
 						.WhereIf(!string.IsNullOrWhiteSpace(input.OrganizationUnitDisplayNameFilter), e => e.OrganizationUnitFk != null && e.OrganizationUnitFk.DisplayName == input.OrganizationUnitDisplayNameFilter);
 
 			var pagedAndFilteredProjects = filteredProjects
                 .OrderBy(input.Sorting ?? "id asc")
                 .PageBy(input);
 
-			var projects = from o in pagedAndFilteredProjects
-                         join o1 in _lookup_userRepository.GetAll() on o.ManagerId equals o1.Id into j1
-                         from s1 in j1.DefaultIfEmpty()
-                         
-                         join o2 in _lookup_locationRepository.GetAll() on o.LocationId equals o2.Id into j2
-                         from s2 in j2.DefaultIfEmpty()
-                         
-                         join o3 in _lookup_organizationUnitRepository.GetAll() on o.OrganizationUnitId equals o3.Id into j3
-                         from s3 in j3.DefaultIfEmpty()
-                         
-                         select new GetProjectForViewDto() {
-							Project = new ProjectDto
-							{
-                                NameAr = o.NameAr,
-                                NameEn = o.NameEn,
-                                Id = o.Id,
-                                Code = o.Code,
-                                Number = o.Number
-							},
-                         	UserName = s1 == null ? "" : s1.Name.ToString(),
-                         	LocationTitleEn = s2 == null ? "" : s2.TitleEn.ToString(),
-                         	OrganizationUnitDisplayName = s3 == null ? "" : s3.DisplayName.ToString()
+            var projects = from o in pagedAndFilteredProjects
+                           join o1 in _lookup_userRepository.GetAll() on o.ManagerId equals o1.Id into j1
+                           from s1 in j1.DefaultIfEmpty()
+
+                           join o3 in _lookup_organizationUnitRepository.GetAll() on o.OrganizationUnitId equals o3.Id into j3
+                           from s3 in j3.DefaultIfEmpty()
+
+                           select new GetProjectForViewDto() {
+                               Project = new ProjectDto
+                               {
+                                   NameAr = o.NameAr,
+                                   NameEn = o.NameEn,
+                                   Id = o.Id,
+                                   Code = o.Code,
+                                   Number = o.Number
+                               },
+                              UserName = s1 == null ? "" : s1.Name.ToString(),
+                             LocationsTitles = o.Locations.Select(x => x.LocationFk.TitleEn),
+                             OrganizationUnitDisplayName = s3 == null ? "" : s3.DisplayName.ToString()
 						};
 
             var totalCount = await filteredProjects.CountAsync();
@@ -195,7 +194,7 @@ namespace Pixel.Attendance.Operations
             }
             foreach (var projectLocation in output.Project.Locations)
             {
-                var location = _lookup_locationRepository.FirstOrDefault(x => x.Id == projectLocation.Id);
+                var location = _lookup_locationRepository.FirstOrDefault(x => x.Id == projectLocation.LocationId);
                 if(location != null)
                     projectLocation.LocationName =location.TitleEn;
 

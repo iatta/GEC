@@ -43,7 +43,7 @@ export class ManageShiftComponent extends AppComponentBase implements OnInit {
     TimeInRangeToObj: Date = new Date();
     TimeOutRangeFromObj: Date = new Date();
     TimeOutRangeToObj: Date = new Date();
-
+    disableBreak = false;
 
 
     constructor(
@@ -138,6 +138,10 @@ export class ManageShiftComponent extends AppComponentBase implements OnInit {
             this.shift.isTwoFingerprint = false;
             this.shift.isInOutWithoutClculateHours = false;
             this.shift.isFlexible = false;
+            this.shift.hasBreak = false;
+            this.disableBreak = true;
+            this.shift.breakHours = 0;
+            this.shift.noRestrict = false;
             this.shift.isPunchNextDay = false;
         }
     }
@@ -148,6 +152,7 @@ export class ManageShiftComponent extends AppComponentBase implements OnInit {
             this.shift.isInOutWithoutClculateHours = false;
             this.shift.isFlexible = false;
             this.shift.isPunchNextDay = false;
+            this.disableBreak = false;
         }
     }
 
@@ -155,7 +160,9 @@ export class ManageShiftComponent extends AppComponentBase implements OnInit {
         if(this.shift.isFlexible){
             this.shift.isTwoFingerprint = false;
             this.shift.isInOutWithoutClculateHours = false;
+            this.shift.noRestrict = false;
             this.shift.isOneFingerprint = false;
+            this.disableBreak = false;
 
         }
     }
@@ -172,7 +179,24 @@ export class ManageShiftComponent extends AppComponentBase implements OnInit {
             this.shift.isTwoFingerprint = false;
             this.shift.isFlexible = false;
             this.shift.isPunchNextDay = false;
+            this.shift.hasBreak = false;
+            this.disableBreak = true;
+            this.shift.breakHours = 0;
+            this.shift.noRestrict = false;
             this.shift.isOneFingerprint = false;
+        }
+    }
+
+    onNoRestrictChanged(){
+        if(this.shift.noRestrict){
+            this.shift.isTwoFingerprint = false;
+            this.shift.isFlexible = false;
+            this.shift.isPunchNextDay = false;
+            this.shift.hasBreak = false;
+            this.disableBreak = true;
+            this.shift.breakHours = 0;
+            this.shift.isOneFingerprint = false;
+            this.shift.isInOutWithoutClculateHours = false;
         }
     }
 
@@ -205,7 +229,6 @@ export class ManageShiftComponent extends AppComponentBase implements OnInit {
         }
 
     }
-
 
 
 

@@ -35,6 +35,10 @@
                         </div>
                     </div>
                     <input class="form-control" name="manualTransaction.machineId" [(ngModel)]="inManualTransaction.machineId" type="text"  hidden>
+                    <div class="form-group">
+                        <label for="editNote">{{l("Reason")}}*</label>
+                        <input class="form-control" id="editNote" name="editNote" [(ngModel)]="inManualTransaction.editNote" required>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button [disabled]="saving" type="button" class="btn btn-default" (click)="close()">{{l("Cancel")}}</button>

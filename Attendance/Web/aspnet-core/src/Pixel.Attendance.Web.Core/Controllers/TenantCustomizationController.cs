@@ -65,7 +65,7 @@ namespace Pixel.Attendance.Web.Controllers
                 }
 
                 var logoObject = new BinaryObject(AbpSession.GetTenantId(), fileBytes);
-                await _binaryObjectManager.SaveAsync(logoObject);
+                _binaryObjectManager.SaveAsync(logoObject);
 
                 var tenant = await _tenantManager.GetByIdAsync(AbpSession.GetTenantId());
                 tenant.LogoId = logoObject.Id;
@@ -105,7 +105,7 @@ namespace Pixel.Attendance.Web.Controllers
                 }
 
                 var cssFileObject = new BinaryObject(AbpSession.GetTenantId(), fileBytes);
-                await _binaryObjectManager.SaveAsync(cssFileObject);
+                _binaryObjectManager.SaveAsync(cssFileObject);
 
                 var tenant = await _tenantManager.GetByIdAsync(AbpSession.GetTenantId());
                 tenant.CustomCssId = cssFileObject.Id;

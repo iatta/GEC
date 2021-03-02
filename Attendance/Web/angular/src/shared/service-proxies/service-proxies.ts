@@ -10927,6 +10927,61 @@ export class MachinesServiceProxy {
     }
 
     /**
+     * @return Success
+     */
+    getAllFlat(): Observable<MachineDto[]> {
+        let url_ = this.baseUrl + "/api/services/app/Machines/GetAllFlat";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllFlat(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllFlat(<any>response_);
+                } catch (e) {
+                    return <Observable<MachineDto[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<MachineDto[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAllFlat(response: HttpResponseBase): Observable<MachineDto[]> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(MachineDto.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<MachineDto[]>(<any>null);
+    }
+
+    /**
      * @param filter (optional) 
      * @param nameArFilter (optional) 
      * @param nameEnFilter (optional) 
@@ -11469,6 +11524,352 @@ export class MachinesServiceProxy {
             }));
         }
         return _observableOf<PagedResultDtoOfMachineLookupTableDto>(<any>null);
+    }
+}
+
+@Injectable()
+export class MachineUsersServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    readAllUsers(body: UploadMachineUserInput[] | undefined): Observable<ReadAllUsersOutput[]> {
+        let url_ = this.baseUrl + "/api/MachineUsers/ReadAllUsers";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json", 
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processReadAllUsers(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processReadAllUsers(<any>response_);
+                } catch (e) {
+                    return <Observable<ReadAllUsersOutput[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ReadAllUsersOutput[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processReadAllUsers(response: HttpResponseBase): Observable<ReadAllUsersOutput[]> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(ReadAllUsersOutput.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ReadAllUsersOutput[]>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    uploadUsers(body: UploadMachineUserInput[] | undefined): Observable<boolean> {
+        let url_ = this.baseUrl + "/api/MachineUsers/UploadUsers";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json", 
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processUploadUsers(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processUploadUsers(<any>response_);
+                } catch (e) {
+                    return <Observable<boolean>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<boolean>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processUploadUsers(response: HttpResponseBase): Observable<boolean> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 !== undefined ? resultData200 : <any>null;
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<boolean>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    deleteUser(body: DownloadImageInput[] | undefined): Observable<boolean> {
+        let url_ = this.baseUrl + "/api/MachineUsers/DeleteUser";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json", 
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDeleteUser(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDeleteUser(<any>response_);
+                } catch (e) {
+                    return <Observable<boolean>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<boolean>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDeleteUser(response: HttpResponseBase): Observable<boolean> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 !== undefined ? resultData200 : <any>null;
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<boolean>(<any>null);
+    }
+
+    /**
+     * @param userCode (optional) 
+     * @param image (optional) 
+     * @param datas (optional) 
+     * @param machineData_IP (optional) 
+     * @param machineData_Port (optional) 
+     * @param machineData_SN (optional) 
+     * @return Success
+     */
+    downloadImage(userCode: number | undefined, image: string | undefined, datas: string | undefined, machineData_IP: string | undefined, machineData_Port: string | undefined, machineData_SN: string | undefined): Observable<DownloadImageInput> {
+        let url_ = this.baseUrl + "/api/MachineUsers/DownloadImage?";
+        if (userCode === null)
+            throw new Error("The parameter 'userCode' cannot be null.");
+        else if (userCode !== undefined)
+            url_ += "UserCode=" + encodeURIComponent("" + userCode) + "&"; 
+        if (image === null)
+            throw new Error("The parameter 'image' cannot be null.");
+        else if (image !== undefined)
+            url_ += "Image=" + encodeURIComponent("" + image) + "&"; 
+        if (datas === null)
+            throw new Error("The parameter 'datas' cannot be null.");
+        else if (datas !== undefined)
+            url_ += "Datas=" + encodeURIComponent("" + datas) + "&"; 
+        if (machineData_IP === null)
+            throw new Error("The parameter 'machineData_IP' cannot be null.");
+        else if (machineData_IP !== undefined)
+            url_ += "MachineData.IP=" + encodeURIComponent("" + machineData_IP) + "&"; 
+        if (machineData_Port === null)
+            throw new Error("The parameter 'machineData_Port' cannot be null.");
+        else if (machineData_Port !== undefined)
+            url_ += "MachineData.Port=" + encodeURIComponent("" + machineData_Port) + "&"; 
+        if (machineData_SN === null)
+            throw new Error("The parameter 'machineData_SN' cannot be null.");
+        else if (machineData_SN !== undefined)
+            url_ += "MachineData.SN=" + encodeURIComponent("" + machineData_SN) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDownloadImage(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDownloadImage(<any>response_);
+                } catch (e) {
+                    return <Observable<DownloadImageInput>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<DownloadImageInput>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDownloadImage(response: HttpResponseBase): Observable<DownloadImageInput> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = DownloadImageInput.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<DownloadImageInput>(<any>null);
+    }
+
+    /**
+     * @param userCode (optional) 
+     * @param image (optional) 
+     * @param datas (optional) 
+     * @param machineData_IP (optional) 
+     * @param machineData_Port (optional) 
+     * @param machineData_SN (optional) 
+     * @return Success
+     */
+    uploadImage(userCode: number | undefined, image: string | undefined, datas: string | undefined, machineData_IP: string | undefined, machineData_Port: string | undefined, machineData_SN: string | undefined): Observable<DownloadImageInput> {
+        let url_ = this.baseUrl + "/api/MachineUsers/UploadImage?";
+        if (userCode === null)
+            throw new Error("The parameter 'userCode' cannot be null.");
+        else if (userCode !== undefined)
+            url_ += "UserCode=" + encodeURIComponent("" + userCode) + "&"; 
+        if (image === null)
+            throw new Error("The parameter 'image' cannot be null.");
+        else if (image !== undefined)
+            url_ += "Image=" + encodeURIComponent("" + image) + "&"; 
+        if (datas === null)
+            throw new Error("The parameter 'datas' cannot be null.");
+        else if (datas !== undefined)
+            url_ += "Datas=" + encodeURIComponent("" + datas) + "&"; 
+        if (machineData_IP === null)
+            throw new Error("The parameter 'machineData_IP' cannot be null.");
+        else if (machineData_IP !== undefined)
+            url_ += "MachineData.IP=" + encodeURIComponent("" + machineData_IP) + "&"; 
+        if (machineData_Port === null)
+            throw new Error("The parameter 'machineData_Port' cannot be null.");
+        else if (machineData_Port !== undefined)
+            url_ += "MachineData.Port=" + encodeURIComponent("" + machineData_Port) + "&"; 
+        if (machineData_SN === null)
+            throw new Error("The parameter 'machineData_SN' cannot be null.");
+        else if (machineData_SN !== undefined)
+            url_ += "MachineData.SN=" + encodeURIComponent("" + machineData_SN) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processUploadImage(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processUploadImage(<any>response_);
+                } catch (e) {
+                    return <Observable<DownloadImageInput>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<DownloadImageInput>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processUploadImage(response: HttpResponseBase): Observable<DownloadImageInput> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = DownloadImageInput.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<DownloadImageInput>(<any>null);
     }
 }
 
@@ -27363,12 +27764,16 @@ export class TransactionsServiceProxy {
      * @param filter (optional) 
      * @param maxTransTypeFilter (optional) 
      * @param minTransTypeFilter (optional) 
+     * @param userNameFilter (optional) 
+     * @param maxTransDateFilter (optional) 
+     * @param minTransDateFilter (optional) 
+     * @param machineNameEnFilter (optional) 
      * @param sorting (optional) 
      * @param skipCount (optional) 
      * @param maxResultCount (optional) 
      * @return Success
      */
-    getAll(filter: string | undefined, maxTransTypeFilter: number | undefined, minTransTypeFilter: number | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetTransactionForViewDto> {
+    getAll(filter: string | undefined, maxTransTypeFilter: number | undefined, minTransTypeFilter: number | undefined, userNameFilter: string | undefined, maxTransDateFilter: moment.Moment | undefined, minTransDateFilter: moment.Moment | undefined, machineNameEnFilter: string | undefined, sorting: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<PagedResultDtoOfGetTransactionForViewDto> {
         let url_ = this.baseUrl + "/api/services/app/Transactions/GetAll?";
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
@@ -27382,6 +27787,22 @@ export class TransactionsServiceProxy {
             throw new Error("The parameter 'minTransTypeFilter' cannot be null.");
         else if (minTransTypeFilter !== undefined)
             url_ += "MinTransTypeFilter=" + encodeURIComponent("" + minTransTypeFilter) + "&"; 
+        if (userNameFilter === null)
+            throw new Error("The parameter 'userNameFilter' cannot be null.");
+        else if (userNameFilter !== undefined)
+            url_ += "UserNameFilter=" + encodeURIComponent("" + userNameFilter) + "&"; 
+        if (maxTransDateFilter === null)
+            throw new Error("The parameter 'maxTransDateFilter' cannot be null.");
+        else if (maxTransDateFilter !== undefined)
+            url_ += "MaxTransDateFilter=" + encodeURIComponent(maxTransDateFilter ? "" + maxTransDateFilter.toJSON() : "") + "&"; 
+        if (minTransDateFilter === null)
+            throw new Error("The parameter 'minTransDateFilter' cannot be null.");
+        else if (minTransDateFilter !== undefined)
+            url_ += "MinTransDateFilter=" + encodeURIComponent(minTransDateFilter ? "" + minTransDateFilter.toJSON() : "") + "&"; 
+        if (machineNameEnFilter === null)
+            throw new Error("The parameter 'machineNameEnFilter' cannot be null.");
+        else if (machineNameEnFilter !== undefined)
+            url_ += "MachineNameEnFilter=" + encodeURIComponent("" + machineNameEnFilter) + "&"; 
         if (sorting === null)
             throw new Error("The parameter 'sorting' cannot be null.");
         else if (sorting !== undefined)
@@ -30760,6 +31181,62 @@ export class UserServiceProxy {
             }));
         }
         return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return Success
+     */
+    uploadImage(body: DownloadImageInput | undefined): Observable<DownloadImageInput> {
+        let url_ = this.baseUrl + "/api/services/app/User/UploadImage";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json-patch+json", 
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processUploadImage(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processUploadImage(<any>response_);
+                } catch (e) {
+                    return <Observable<DownloadImageInput>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<DownloadImageInput>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processUploadImage(response: HttpResponseBase): Observable<DownloadImageInput> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = DownloadImageInput.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<DownloadImageInput>(<any>null);
     }
 
     /**
@@ -39996,6 +40473,7 @@ export interface IGetEmployeeVacationForEditOutput {
 export class EmployeeVacationUserLookupTableDto implements IEmployeeVacationUserLookupTableDto {
     id!: number;
     displayName!: string | undefined;
+    fingerCode!: string | undefined;
 
     constructor(data?: IEmployeeVacationUserLookupTableDto) {
         if (data) {
@@ -40010,6 +40488,7 @@ export class EmployeeVacationUserLookupTableDto implements IEmployeeVacationUser
         if (data) {
             this.id = data["id"];
             this.displayName = data["displayName"];
+            this.fingerCode = data["fingerCode"];
         }
     }
 
@@ -40024,6 +40503,7 @@ export class EmployeeVacationUserLookupTableDto implements IEmployeeVacationUser
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["displayName"] = this.displayName;
+        data["fingerCode"] = this.fingerCode;
         return data; 
     }
 }
@@ -40031,6 +40511,7 @@ export class EmployeeVacationUserLookupTableDto implements IEmployeeVacationUser
 export interface IEmployeeVacationUserLookupTableDto {
     id: number;
     displayName: string | undefined;
+    fingerCode: string | undefined;
 }
 
 export class PagedResultDtoOfEmployeeVacationUserLookupTableDto implements IPagedResultDtoOfEmployeeVacationUserLookupTableDto {
@@ -44271,6 +44752,7 @@ export class MachineDto implements IMachineDto {
     ipAddress!: string | undefined;
     subNet!: string | undefined;
     status!: boolean;
+    port!: string | undefined;
     organizationUnitId!: number | undefined;
     id!: number;
 
@@ -44290,6 +44772,7 @@ export class MachineDto implements IMachineDto {
             this.ipAddress = data["ipAddress"];
             this.subNet = data["subNet"];
             this.status = data["status"];
+            this.port = data["port"];
             this.organizationUnitId = data["organizationUnitId"];
             this.id = data["id"];
         }
@@ -44309,6 +44792,7 @@ export class MachineDto implements IMachineDto {
         data["ipAddress"] = this.ipAddress;
         data["subNet"] = this.subNet;
         data["status"] = this.status;
+        data["port"] = this.port;
         data["organizationUnitId"] = this.organizationUnitId;
         data["id"] = this.id;
         return data; 
@@ -44321,6 +44805,7 @@ export interface IMachineDto {
     ipAddress: string | undefined;
     subNet: string | undefined;
     status: boolean;
+    port: string | undefined;
     organizationUnitId: number | undefined;
     id: number;
 }
@@ -44705,6 +45190,290 @@ export interface IPagedResultDtoOfMachineLookupTableDto {
     items: MachineLookupTableDto[] | undefined;
 }
 
+export class Person implements IPerson {
+    userCode!: number;
+    cardData!: number;
+    pName!: string | undefined;
+    pCode!: string | undefined;
+    dept!: string | undefined;
+    job!: string | undefined;
+    password!: string | undefined;
+    expiry!: moment.Moment | undefined;
+    timeGroup!: number;
+    openTimes!: number;
+    identity!: number;
+    cardType!: number;
+    cardStatus!: number;
+    enterStatus!: number;
+    recordTime!: moment.Moment | undefined;
+    isFaceFeatureCode!: boolean;
+    holiday!: string | undefined;
+    fingerprintFeatureCodeCout!: number;
+
+    constructor(data?: IPerson) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.userCode = data["userCode"];
+            this.cardData = data["cardData"];
+            this.pName = data["pName"];
+            this.pCode = data["pCode"];
+            this.dept = data["dept"];
+            this.job = data["job"];
+            this.password = data["password"];
+            this.expiry = data["expiry"] ? moment(data["expiry"].toString()) : <any>undefined;
+            this.timeGroup = data["timeGroup"];
+            this.openTimes = data["openTimes"];
+            this.identity = data["identity"];
+            this.cardType = data["cardType"];
+            this.cardStatus = data["cardStatus"];
+            this.enterStatus = data["enterStatus"];
+            this.recordTime = data["recordTime"] ? moment(data["recordTime"].toString()) : <any>undefined;
+            this.isFaceFeatureCode = data["isFaceFeatureCode"];
+            this.holiday = data["holiday"];
+            this.fingerprintFeatureCodeCout = data["fingerprintFeatureCodeCout"];
+        }
+    }
+
+    static fromJS(data: any): Person {
+        data = typeof data === 'object' ? data : {};
+        let result = new Person();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["userCode"] = this.userCode;
+        data["cardData"] = this.cardData;
+        data["pName"] = this.pName;
+        data["pCode"] = this.pCode;
+        data["dept"] = this.dept;
+        data["job"] = this.job;
+        data["password"] = this.password;
+        data["expiry"] = this.expiry ? this.expiry.toISOString() : <any>undefined;
+        data["timeGroup"] = this.timeGroup;
+        data["openTimes"] = this.openTimes;
+        data["identity"] = this.identity;
+        data["cardType"] = this.cardType;
+        data["cardStatus"] = this.cardStatus;
+        data["enterStatus"] = this.enterStatus;
+        data["recordTime"] = this.recordTime ? this.recordTime.toISOString() : <any>undefined;
+        data["isFaceFeatureCode"] = this.isFaceFeatureCode;
+        data["holiday"] = this.holiday;
+        data["fingerprintFeatureCodeCout"] = this.fingerprintFeatureCodeCout;
+        return data; 
+    }
+}
+
+export interface IPerson {
+    userCode: number;
+    cardData: number;
+    pName: string | undefined;
+    pCode: string | undefined;
+    dept: string | undefined;
+    job: string | undefined;
+    password: string | undefined;
+    expiry: moment.Moment | undefined;
+    timeGroup: number;
+    openTimes: number;
+    identity: number;
+    cardType: number;
+    cardStatus: number;
+    enterStatus: number;
+    recordTime: moment.Moment | undefined;
+    isFaceFeatureCode: boolean;
+    holiday: string | undefined;
+    fingerprintFeatureCodeCout: number;
+}
+
+export class MachineData implements IMachineData {
+    ip!: string | undefined;
+    port!: string | undefined;
+    sn!: string | undefined;
+
+    constructor(data?: IMachineData) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.ip = data["ip"];
+            this.port = data["port"];
+            this.sn = data["sn"];
+        }
+    }
+
+    static fromJS(data: any): MachineData {
+        data = typeof data === 'object' ? data : {};
+        let result = new MachineData();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["ip"] = this.ip;
+        data["port"] = this.port;
+        data["sn"] = this.sn;
+        return data; 
+    }
+}
+
+export interface IMachineData {
+    ip: string | undefined;
+    port: string | undefined;
+    sn: string | undefined;
+}
+
+export class UploadMachineUserInput implements IUploadMachineUserInput {
+    person!: Person | undefined;
+    machineData!: MachineData | undefined;
+
+    constructor(data?: IUploadMachineUserInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.person = data["person"] ? Person.fromJS(data["person"]) : <any>undefined;
+            this.machineData = data["machineData"] ? MachineData.fromJS(data["machineData"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): UploadMachineUserInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new UploadMachineUserInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["person"] = this.person ? this.person.toJSON() : <any>undefined;
+        data["machineData"] = this.machineData ? this.machineData.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IUploadMachineUserInput {
+    person: Person | undefined;
+    machineData: MachineData | undefined;
+}
+
+export class ReadAllUsersOutput implements IReadAllUsersOutput {
+    personList!: Person[] | undefined;
+    dataBaseSize!: number;
+
+    constructor(data?: IReadAllUsersOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            if (Array.isArray(data["personList"])) {
+                this.personList = [] as any;
+                for (let item of data["personList"])
+                    this.personList!.push(Person.fromJS(item));
+            }
+            this.dataBaseSize = data["dataBaseSize"];
+        }
+    }
+
+    static fromJS(data: any): ReadAllUsersOutput {
+        data = typeof data === 'object' ? data : {};
+        let result = new ReadAllUsersOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.personList)) {
+            data["personList"] = [];
+            for (let item of this.personList)
+                data["personList"].push(item.toJSON());
+        }
+        data["dataBaseSize"] = this.dataBaseSize;
+        return data; 
+    }
+}
+
+export interface IReadAllUsersOutput {
+    personList: Person[] | undefined;
+    dataBaseSize: number;
+}
+
+export class DownloadImageInput implements IDownloadImageInput {
+    userCode!: number;
+    image!: string | undefined;
+    datas!: string | undefined;
+    machineData!: MachineData | undefined;
+
+    constructor(data?: IDownloadImageInput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.userCode = data["userCode"];
+            this.image = data["image"];
+            this.datas = data["datas"];
+            this.machineData = data["machineData"] ? MachineData.fromJS(data["machineData"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): DownloadImageInput {
+        data = typeof data === 'object' ? data : {};
+        let result = new DownloadImageInput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["userCode"] = this.userCode;
+        data["image"] = this.image;
+        data["datas"] = this.datas;
+        data["machineData"] = this.machineData ? this.machineData.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IDownloadImageInput {
+    userCode: number;
+    image: string | undefined;
+    datas: string | undefined;
+    machineData: MachineData | undefined;
+}
+
 export class ManualTransactionDto implements IManualTransactionDto {
     transDate!: moment.Moment;
     transType!: number;
@@ -44761,6 +45530,7 @@ export class GetManualTransactionForViewDto implements IGetManualTransactionForV
     manualTransaction!: ManualTransactionDto | undefined;
     userName!: string | undefined;
     machineNameEn!: string | undefined;
+    fingerCode!: string | undefined;
 
     constructor(data?: IGetManualTransactionForViewDto) {
         if (data) {
@@ -44776,6 +45546,7 @@ export class GetManualTransactionForViewDto implements IGetManualTransactionForV
             this.manualTransaction = data["manualTransaction"] ? ManualTransactionDto.fromJS(data["manualTransaction"]) : <any>undefined;
             this.userName = data["userName"];
             this.machineNameEn = data["machineNameEn"];
+            this.fingerCode = data["fingerCode"];
         }
     }
 
@@ -44791,6 +45562,7 @@ export class GetManualTransactionForViewDto implements IGetManualTransactionForV
         data["manualTransaction"] = this.manualTransaction ? this.manualTransaction.toJSON() : <any>undefined;
         data["userName"] = this.userName;
         data["machineNameEn"] = this.machineNameEn;
+        data["fingerCode"] = this.fingerCode;
         return data; 
     }
 }
@@ -44799,6 +45571,7 @@ export interface IGetManualTransactionForViewDto {
     manualTransaction: ManualTransactionDto | undefined;
     userName: string | undefined;
     machineNameEn: string | undefined;
+    fingerCode: string | undefined;
 }
 
 export class PagedResultDtoOfGetManualTransactionForViewDto implements IPagedResultDtoOfGetManualTransactionForViewDto {
@@ -44854,6 +45627,7 @@ export class CreateOrEditManualTransactionDto implements ICreateOrEditManualTran
     transType!: number;
     userId!: number | undefined;
     machineId!: number | undefined;
+    editNote!: string | undefined;
     id!: number | undefined;
 
     constructor(data?: ICreateOrEditManualTransactionDto) {
@@ -44871,6 +45645,7 @@ export class CreateOrEditManualTransactionDto implements ICreateOrEditManualTran
             this.transType = data["transType"];
             this.userId = data["userId"];
             this.machineId = data["machineId"];
+            this.editNote = data["editNote"];
             this.id = data["id"];
         }
     }
@@ -44888,6 +45663,7 @@ export class CreateOrEditManualTransactionDto implements ICreateOrEditManualTran
         data["transType"] = this.transType;
         data["userId"] = this.userId;
         data["machineId"] = this.machineId;
+        data["editNote"] = this.editNote;
         data["id"] = this.id;
         return data; 
     }
@@ -44898,6 +45674,7 @@ export interface ICreateOrEditManualTransactionDto {
     transType: number;
     userId: number | undefined;
     machineId: number | undefined;
+    editNote: string | undefined;
     id: number | undefined;
 }
 
@@ -50905,6 +51682,9 @@ export class ShiftDto implements IShiftDto {
     isOverTimeAllowed!: boolean;
     shiftType!: ShiftTypeEnumDto;
     isPunchNextDay!: boolean;
+    noRestrict!: boolean;
+    hasBreak!: boolean;
+    breakHours!: number;
     id!: number;
 
     constructor(data?: IShiftDto) {
@@ -50950,6 +51730,9 @@ export class ShiftDto implements IShiftDto {
             this.isOverTimeAllowed = data["isOverTimeAllowed"];
             this.shiftType = data["shiftType"];
             this.isPunchNextDay = data["isPunchNextDay"];
+            this.noRestrict = data["noRestrict"];
+            this.hasBreak = data["hasBreak"];
+            this.breakHours = data["breakHours"];
             this.id = data["id"];
         }
     }
@@ -50995,6 +51778,9 @@ export class ShiftDto implements IShiftDto {
         data["isOverTimeAllowed"] = this.isOverTimeAllowed;
         data["shiftType"] = this.shiftType;
         data["isPunchNextDay"] = this.isPunchNextDay;
+        data["noRestrict"] = this.noRestrict;
+        data["hasBreak"] = this.hasBreak;
+        data["breakHours"] = this.breakHours;
         data["id"] = this.id;
         return data; 
     }
@@ -51033,6 +51819,9 @@ export interface IShiftDto {
     isOverTimeAllowed: boolean;
     shiftType: ShiftTypeEnumDto;
     isPunchNextDay: boolean;
+    noRestrict: boolean;
+    hasBreak: boolean;
+    breakHours: number;
     id: number;
 }
 
@@ -53383,6 +54172,7 @@ export class GetProjectForViewDto implements IGetProjectForViewDto {
     project!: ProjectDto | undefined;
     userName!: string | undefined;
     locationTitleEn!: string | undefined;
+    locationsTitles!: string[] | undefined;
     organizationUnitDisplayName!: string | undefined;
 
     constructor(data?: IGetProjectForViewDto) {
@@ -53399,6 +54189,11 @@ export class GetProjectForViewDto implements IGetProjectForViewDto {
             this.project = data["project"] ? ProjectDto.fromJS(data["project"]) : <any>undefined;
             this.userName = data["userName"];
             this.locationTitleEn = data["locationTitleEn"];
+            if (Array.isArray(data["locationsTitles"])) {
+                this.locationsTitles = [] as any;
+                for (let item of data["locationsTitles"])
+                    this.locationsTitles!.push(item);
+            }
             this.organizationUnitDisplayName = data["organizationUnitDisplayName"];
         }
     }
@@ -53415,6 +54210,11 @@ export class GetProjectForViewDto implements IGetProjectForViewDto {
         data["project"] = this.project ? this.project.toJSON() : <any>undefined;
         data["userName"] = this.userName;
         data["locationTitleEn"] = this.locationTitleEn;
+        if (Array.isArray(this.locationsTitles)) {
+            data["locationsTitles"] = [];
+            for (let item of this.locationsTitles)
+                data["locationsTitles"].push(item);
+        }
         data["organizationUnitDisplayName"] = this.organizationUnitDisplayName;
         return data; 
     }
@@ -53424,6 +54224,7 @@ export interface IGetProjectForViewDto {
     project: ProjectDto | undefined;
     userName: string | undefined;
     locationTitleEn: string | undefined;
+    locationsTitles: string[] | undefined;
     organizationUnitDisplayName: string | undefined;
 }
 
@@ -55386,6 +56187,9 @@ export class CreateOrEditShiftDto implements ICreateOrEditShiftDto {
     isOverTimeAllowed!: boolean;
     shiftType!: ShiftTypeEnumDto;
     isPunchNextDay!: boolean;
+    noRestrict!: boolean;
+    hasBreak!: boolean;
+    breakHours!: number;
     id!: number | undefined;
 
     constructor(data?: ICreateOrEditShiftDto) {
@@ -55431,6 +56235,9 @@ export class CreateOrEditShiftDto implements ICreateOrEditShiftDto {
             this.isOverTimeAllowed = data["isOverTimeAllowed"];
             this.shiftType = data["shiftType"];
             this.isPunchNextDay = data["isPunchNextDay"];
+            this.noRestrict = data["noRestrict"];
+            this.hasBreak = data["hasBreak"];
+            this.breakHours = data["breakHours"];
             this.id = data["id"];
         }
     }
@@ -55476,6 +56283,9 @@ export class CreateOrEditShiftDto implements ICreateOrEditShiftDto {
         data["isOverTimeAllowed"] = this.isOverTimeAllowed;
         data["shiftType"] = this.shiftType;
         data["isPunchNextDay"] = this.isPunchNextDay;
+        data["noRestrict"] = this.noRestrict;
+        data["hasBreak"] = this.hasBreak;
+        data["breakHours"] = this.breakHours;
         data["id"] = this.id;
         return data; 
     }
@@ -55514,6 +56324,9 @@ export interface ICreateOrEditShiftDto {
     isOverTimeAllowed: boolean;
     shiftType: ShiftTypeEnumDto;
     isPunchNextDay: boolean;
+    noRestrict: boolean;
+    hasBreak: boolean;
+    breakHours: number;
     id: number | undefined;
 }
 
@@ -60950,6 +61763,7 @@ export class TransactionDto implements ITransactionDto {
     projectManagerApprove!: boolean;
     unitManagerApprove!: boolean;
     hrApprove!: boolean;
+    editNote!: string | undefined;
     id!: number;
 
     constructor(data?: ITransactionDto) {
@@ -60973,6 +61787,7 @@ export class TransactionDto implements ITransactionDto {
             this.projectManagerApprove = data["projectManagerApprove"];
             this.unitManagerApprove = data["unitManagerApprove"];
             this.hrApprove = data["hrApprove"];
+            this.editNote = data["editNote"];
             this.id = data["id"];
         }
     }
@@ -60996,6 +61811,7 @@ export class TransactionDto implements ITransactionDto {
         data["projectManagerApprove"] = this.projectManagerApprove;
         data["unitManagerApprove"] = this.unitManagerApprove;
         data["hrApprove"] = this.hrApprove;
+        data["editNote"] = this.editNote;
         data["id"] = this.id;
         return data; 
     }
@@ -61012,6 +61828,7 @@ export interface ITransactionDto {
     projectManagerApprove: boolean;
     unitManagerApprove: boolean;
     hrApprove: boolean;
+    editNote: string | undefined;
     id: number;
 }
 
@@ -61209,6 +62026,7 @@ export class CreateOrEditTransactionDto implements ICreateOrEditTransactionDto {
     projectManagerApprove!: boolean;
     unitManagerApprove!: boolean;
     machineId!: number;
+    editNote!: string | undefined;
     id!: number | undefined;
 
     constructor(data?: ICreateOrEditTransactionDto) {
@@ -61243,6 +62061,7 @@ export class CreateOrEditTransactionDto implements ICreateOrEditTransactionDto {
             this.projectManagerApprove = data["projectManagerApprove"];
             this.unitManagerApprove = data["unitManagerApprove"];
             this.machineId = data["machineId"];
+            this.editNote = data["editNote"];
             this.id = data["id"];
         }
     }
@@ -61277,6 +62096,7 @@ export class CreateOrEditTransactionDto implements ICreateOrEditTransactionDto {
         data["projectManagerApprove"] = this.projectManagerApprove;
         data["unitManagerApprove"] = this.unitManagerApprove;
         data["machineId"] = this.machineId;
+        data["editNote"] = this.editNote;
         data["id"] = this.id;
         return data; 
     }
@@ -61304,6 +62124,7 @@ export interface ICreateOrEditTransactionDto {
     projectManagerApprove: boolean;
     unitManagerApprove: boolean;
     machineId: number;
+    editNote: string | undefined;
     id: number | undefined;
 }
 
@@ -62009,6 +62830,10 @@ export class ProjectManagerApproveInput implements IProjectManagerApproveInput {
     month!: number;
     year!: number;
     unitIdToApprove!: number;
+    isMonth!: boolean;
+    isDateRange!: boolean;
+    startDate!: moment.Moment;
+    endDate!: moment.Moment;
 
     constructor(data?: IProjectManagerApproveInput) {
         if (data) {
@@ -62030,6 +62855,10 @@ export class ProjectManagerApproveInput implements IProjectManagerApproveInput {
             this.month = data["month"];
             this.year = data["year"];
             this.unitIdToApprove = data["unitIdToApprove"];
+            this.isMonth = data["isMonth"];
+            this.isDateRange = data["isDateRange"];
+            this.startDate = data["startDate"] ? moment(data["startDate"].toString()) : <any>undefined;
+            this.endDate = data["endDate"] ? moment(data["endDate"].toString()) : <any>undefined;
         }
     }
 
@@ -62051,6 +62880,10 @@ export class ProjectManagerApproveInput implements IProjectManagerApproveInput {
         data["month"] = this.month;
         data["year"] = this.year;
         data["unitIdToApprove"] = this.unitIdToApprove;
+        data["isMonth"] = this.isMonth;
+        data["isDateRange"] = this.isDateRange;
+        data["startDate"] = this.startDate ? this.startDate.toISOString() : <any>undefined;
+        data["endDate"] = this.endDate ? this.endDate.toISOString() : <any>undefined;
         return data; 
     }
 }
@@ -62061,6 +62894,10 @@ export interface IProjectManagerApproveInput {
     month: number;
     year: number;
     unitIdToApprove: number;
+    isMonth: boolean;
+    isDateRange: boolean;
+    startDate: moment.Moment;
+    endDate: moment.Moment;
 }
 
 export class TypesOfPermitDto implements ITypesOfPermitDto {
@@ -63045,6 +63882,9 @@ export class UserEditDto implements IUserEditDto {
     overrideShifts!: GetOverrideShiftForViewDto[] | undefined;
     userType!: UserTypeDto;
     isOvertimeAllowed!: boolean;
+    machineId!: number;
+    userImage!: string | undefined;
+    uploadUser!: boolean;
 
     constructor(data?: IUserEditDto) {
         if (data) {
@@ -63109,6 +63949,9 @@ export class UserEditDto implements IUserEditDto {
             }
             this.userType = data["userType"];
             this.isOvertimeAllowed = data["isOvertimeAllowed"];
+            this.machineId = data["machineId"];
+            this.userImage = data["userImage"];
+            this.uploadUser = data["uploadUser"];
         }
     }
 
@@ -63173,6 +64016,9 @@ export class UserEditDto implements IUserEditDto {
         }
         data["userType"] = this.userType;
         data["isOvertimeAllowed"] = this.isOvertimeAllowed;
+        data["machineId"] = this.machineId;
+        data["userImage"] = this.userImage;
+        data["uploadUser"] = this.uploadUser;
         return data; 
     }
 }
@@ -63222,6 +64068,9 @@ export interface IUserEditDto {
     overrideShifts: GetOverrideShiftForViewDto[] | undefined;
     userType: UserTypeDto;
     isOvertimeAllowed: boolean;
+    machineId: number;
+    userImage: string | undefined;
+    uploadUser: boolean;
 }
 
 export class UserRoleDto implements IUserRoleDto {
@@ -63784,6 +64633,9 @@ export class CreateOrUpdateUserInput implements ICreateOrUpdateUserInput {
     isNormalOverTimeAllowed!: boolean;
     userShifts!: GetUserShiftForViewDto[] | undefined;
     overrideShifts!: GetOverrideShiftForViewDto[] | undefined;
+    machineId!: number;
+    userImage!: string | undefined;
+    uploadUser!: boolean;
 
     constructor(data?: ICreateOrUpdateUserInput) {
         if (data) {
@@ -63856,6 +64708,9 @@ export class CreateOrUpdateUserInput implements ICreateOrUpdateUserInput {
                 for (let item of data["overrideShifts"])
                     this.overrideShifts!.push(GetOverrideShiftForViewDto.fromJS(item));
             }
+            this.machineId = data["machineId"];
+            this.userImage = data["userImage"];
+            this.uploadUser = data["uploadUser"];
         }
     }
 
@@ -63924,6 +64779,9 @@ export class CreateOrUpdateUserInput implements ICreateOrUpdateUserInput {
             for (let item of this.overrideShifts)
                 data["overrideShifts"].push(item.toJSON());
         }
+        data["machineId"] = this.machineId;
+        data["userImage"] = this.userImage;
+        data["uploadUser"] = this.uploadUser;
         return data; 
     }
 }
@@ -63965,6 +64823,9 @@ export interface ICreateOrUpdateUserInput {
     isNormalOverTimeAllowed: boolean;
     userShifts: GetUserShiftForViewDto[] | undefined;
     overrideShifts: GetOverrideShiftForViewDto[] | undefined;
+    machineId: number;
+    userImage: string | undefined;
+    uploadUser: boolean;
 }
 
 export class NotificaionInput implements INotificaionInput {

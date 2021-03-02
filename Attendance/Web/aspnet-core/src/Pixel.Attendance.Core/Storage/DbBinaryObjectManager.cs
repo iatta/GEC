@@ -19,9 +19,9 @@ namespace Pixel.Attendance.Storage
             return _binaryObjectRepository.FirstOrDefaultAsync(id);
         }
 
-        public Task SaveAsync(BinaryObject file)
+        public void SaveAsync(BinaryObject file)
         {
-            return _binaryObjectRepository.InsertAsync(file);
+             _binaryObjectRepository.Insert(file);
         }
 
         public Task DeleteAsync(Guid id)

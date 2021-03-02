@@ -6,7 +6,7 @@ namespace Pixel.Attendance.Operations.Dtos
     {
 		public TransactionDto Transaction { get; set; }
         public string UserName { get; set; }
-        public string ProjectName { get; set; }
+		public string ProjectName { get; set; }
         public string ShiftName { get; set; }
 		public DayDto DayOff { get; set; }
 
