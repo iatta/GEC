@@ -1,47 +1,46 @@
 ﻿import { Component, Injector, ViewEncapsulation, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { TransactionsServiceProxy, TransactionDto  } from '@shared/service-proxies/service-proxies';
+import { TaskTypesServiceProxy, TaskTypeDto  } from '@shared/service-proxies/service-proxies';
 import { NotifyService } from '@abp/notify/notify.service';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { TokenAuthServiceProxy } from '@shared/service-proxies/service-proxies';
-import { CreateOrEditManualTransactionModalComponent } from './create-or-edit-manualTransaction-modal.component';
-import { ViewManualTransactionModalComponent } from './view-manualTransaction-modal.component';
+import { CreateOrEditTaskTypeModalComponent } from './create-or-edit-taskType-modal.component';
+import { ViewTaskTypeModalComponent } from './view-taskType-modal.component';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
 import { Table } from 'primeng/components/table/table';
 import { Paginator } from 'primeng/components/paginator/paginator';
 import { LazyLoadEvent } from 'primeng/components/common/lazyloadevent';
 import { FileDownloadService } from '@shared/utils/file-download.service';
+import { EntityTypeHistoryModalComponent } from '@app/shared/common/entityHistory/entity-type-history-modal.component';
 import * as _ from 'lodash';
 import * as moment from 'moment';
 
 @Component({
-    templateUrl: './manualTransactions.component.html',
+    templateUrl: './taskTypes.component.html',
     encapsulation: ViewEncapsulation.None,
     animations: [appModuleAnimation()]
 })
-export class ManualTransactionsComponent extends AppComponentBase {
+export class TaskTypesComponent extends AppComponentBase {
 
-    @ViewChild('createOrEditManualTransactionModal', { static: true }) createOrEditManualTransactionModal: CreateOrEditManualTransactionModalComponent;
-    @ViewChild('viewManualTransactionModalComponent', { static: true }) viewManualTransactionModal: ViewManualTransactionModalComponent;
+    @ViewChild('createOrEditTaskTypeModal', { static: true }) createOrEditTaskTypeModal: CreateOrEditTaskTypeModalComponent;
+    @ViewChild('viewTaskTypeModalComponent', { static: true }) viewTaskTypeModal: ViewTaskTypeModalComponent;
+    @ViewChild('entityTypeHistoryModal', { static: true }) entityTypeHistoryModal: EntityTypeHistoryModalComponent;
     @ViewChild('dataTable', { static: true }) dataTable: Table;
     @ViewChild('paginator', { static: true }) paginator: Paginator;
 
     advancedFiltersAreShown = false;
     filterText = '';
-    maxTransDateFilter : moment.Moment;
-		minTransDateFilter : moment.Moment;
-        userNameFilter = '';
-        machineNameEnFilter = '';
-        maxTransTypeFilter : number;
-        maxTransTypeFilterEmpty : number;
-        minTransTypeFilter : number;
-        minTransTypeFilterEmpty : number;
+    nameArFilter = '';
+    nameEnFilter = '';
+    numberFilter = '';
 
 
+    _entityTypeFullName = 'Pixel.Attendance.Setting.TaskType';
+    entityHistoryEnabled = false;
 
     constructor(
         injector: Injector,
-        private _transactionsServiceProxy: TransactionsServiceProxy,
+        private _taskTypesServiceProxy: TaskTypesServiceProxy,
         private _notifyService: NotifyService,
         private _tokenAuth: TokenAuthServiceProxy,
         private _activatedRoute: ActivatedRoute,
@@ -50,7 +49,16 @@ export class ManualTransactionsComponent extends AppComponentBase {
         super(injector);
     }
 
-    getManualTransactions(event?: LazyLoadEvent) {
+    ngOnInit(): void {
+        this.entityHistoryEnabled = this.setIsEntityHistoryEnabled();
+    }
+
+    private setIsEntityHistoryEnabled(): boolean {
+        let customSettings = (abp as any).custom;
+        return customSettings.EntityHistory && customSettings.EntityHistory.isEnabled && _.filter(customSettings.EntityHistory.enabledEntities, entityType => entityType === this._entityTypeFullName).length === 1;
+    }
+
+    getTaskTypes(event?: LazyLoadEvent) {
         if (this.primengTableHelper.shouldResetPaging(event)) {
             this.paginator.changePage(0);
             return;
@@ -58,14 +66,11 @@ export class ManualTransactionsComponent extends AppComponentBase {
 
         this.primengTableHelper.showLoadingIndicator();
 
-        this._transactionsServiceProxy.getAll(
+        this._taskTypesServiceProxy.getAll(
             this.filterText,
-            this.maxTransTypeFilter == null ? this.maxTransTypeFilterEmpty: this.maxTransTypeFilter,
-            this.minTransTypeFilter == null ? this.minTransTypeFilterEmpty: this.minTransTypeFilter,
-            this.userNameFilter,
-            this.maxTransDateFilter,
-            this.minTransDateFilter,
-            this.machineNameEnFilter,
+            this.nameArFilter,
+            this.nameEnFilter,
+            this.numberFilter,
             this.primengTableHelper.getSorting(this.dataTable),
             this.primengTableHelper.getSkipCount(this.paginator, event),
             this.primengTableHelper.getMaxResultCount(this.paginator, event)
@@ -80,17 +85,25 @@ export class ManualTransactionsComponent extends AppComponentBase {
         this.paginator.changePage(this.paginator.getPage());
     }
 
-    createManualTransaction(): void {
-        this.createOrEditManualTransactionModal.show();
+    createTaskType(): void {
+        this.createOrEditTaskTypeModal.show();
     }
 
-    deleteManualTransaction(manualTransaction: TransactionDto): void {
+    showHistory(taskType: TaskTypeDto): void {
+        this.entityTypeHistoryModal.show({
+            entityId: taskType.id.toString(),
+            entityTypeFullName: this._entityTypeFullName,
+            entityTypeDescription: ''
+        });
+    }
+
+    deleteTaskType(taskType: TaskTypeDto): void {
         this.message.confirm(
             '',
             this.l('AreYouSure'),
             (isConfirmed) => {
                 if (isConfirmed) {
-                    this._transactionsServiceProxy.delete(manualTransaction.id)
+                    this._taskTypesServiceProxy.delete(taskType.id)
                         .subscribe(() => {
                             this.reloadPage();
                             this.notify.success(this.l('SuccessfullyDeleted'));
@@ -101,15 +114,14 @@ export class ManualTransactionsComponent extends AppComponentBase {
     }
 
     exportToExcel(): void {
-        this._transactionsServiceProxy.getTransactionsToExcel(
-       this.filterText,
-            this.maxTransTypeFilter == null ? this.maxTransTypeFilterEmpty: this.maxTransTypeFilter,
-            this.minTransTypeFilter == null ? this.minTransTypeFilterEmpty: this.minTransTypeFilter
+        this._taskTypesServiceProxy.getTaskTypesToExcel(
+        this.filterText,
+            this.nameArFilter,
+            this.nameEnFilter,
+            this.numberFilter,
         )
         .subscribe(result => {
             this._fileDownloadService.downloadTempFile(result);
          });
     }
-
-
 }

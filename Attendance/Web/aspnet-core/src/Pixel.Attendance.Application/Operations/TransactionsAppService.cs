@@ -34,6 +34,7 @@ namespace Pixel.Attendance.Operations
     public class TransactionsAppService : AttendanceAppServiceBase, ITransactionsAppService
     {
         private readonly IRepository<OrganizationLocation> _organizationLocationRepository;
+        private readonly IRepository<TaskType> _taskTypeRepository;
         private readonly IRepository<LocationMachine> _locationMachineRepository;
         private readonly IRepository<TransactionLog> _transactionLogRepository;
         private readonly IRepository<RamadanDate> _ramadanDateRepository;
@@ -58,7 +59,7 @@ namespace Pixel.Attendance.Operations
 
 
 
-        public TransactionsAppService(IRepository<LeaveType> leaveTypeRepository, IRepository<RamadanDate> ramadanDateRepository, IRepository<OverrideShift> overrideShiftRepository, IRepository<TransactionLog> transactionLogRepository, IRepository<EmployeeTempTransfer> employeeTempTransferRepository, IRepository<OrganizationLocation> organizationLocationRepository, IRepository<LocationMachine> locationMachineRepository, IRepository<UserDelegation> userDelegationRepository, IRepository<UserTimeSheetApprove> userTimeSheetApproveRepository, IRepository<EmployeeVacation> employeeVacation, IRepository<Shift> shiftRepository, IRepository<UserShift> userShiftRepository, IRepository<OrganizationUnitExtended, long> organizationUnit, IRepository<Transaction> transactionRepository, IRepository<Project> projectRepository, ITransactionsExcelExporter transactionsExcelExporter, UserManager userManager, IRepository<User, long> lookup_userRepository, IRepository<Machine, int> lookup_machineRepository)
+        public TransactionsAppService(IRepository<TaskType> taskTypeRepository ,IRepository<LeaveType> leaveTypeRepository, IRepository<RamadanDate> ramadanDateRepository, IRepository<OverrideShift> overrideShiftRepository, IRepository<TransactionLog> transactionLogRepository, IRepository<EmployeeTempTransfer> employeeTempTransferRepository, IRepository<OrganizationLocation> organizationLocationRepository, IRepository<LocationMachine> locationMachineRepository, IRepository<UserDelegation> userDelegationRepository, IRepository<UserTimeSheetApprove> userTimeSheetApproveRepository, IRepository<EmployeeVacation> employeeVacation, IRepository<Shift> shiftRepository, IRepository<UserShift> userShiftRepository, IRepository<OrganizationUnitExtended, long> organizationUnit, IRepository<Transaction> transactionRepository, IRepository<Project> projectRepository, ITransactionsExcelExporter transactionsExcelExporter, UserManager userManager, IRepository<User, long> lookup_userRepository, IRepository<Machine, int> lookup_machineRepository)
         {
             _leaveTypeRepository = leaveTypeRepository;
             _ramadanDateRepository = ramadanDateRepository;
@@ -79,6 +80,7 @@ namespace Pixel.Attendance.Operations
             _employeeVacation = employeeVacation;
             _userTimeSheetApproveRepository = userTimeSheetApproveRepository;
             _userDelegationRepository = userDelegationRepository;
+            _taskTypeRepository = taskTypeRepository;
         }
 
         public async Task<PagedResultDto<GetTransactionForViewDto>> GetAll(GetAllTransactionsInput input)
@@ -87,11 +89,13 @@ namespace Pixel.Attendance.Operations
             var filteredTransactions = _transactionRepository.GetAll()
                         .Include(x => x.User)
                         .Include(x => x.Machine)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.Time.Contains(input.Filter) || e.Address.Contains(input.Filter) || e.Reason.Contains(input.Filter) || e.Remark.Contains(input.Filter) || e.User != null && e.User.FingerCode == input.UserNameFilter)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.UserNameFilter) && input.MinTransDateFilter != null && input.MaxTransDateFilter != null, e => e.User != null && e.User.FingerCode == input.UserNameFilter && e.Transaction_Date >= input.MinTransDateFilter && e.Transaction_Date <= input.MaxTransDateFilter)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.MachineNameEnFilter), e => e.Machine != null && e.Machine.NameEn == input.MachineNameEnFilter)
-                        .WhereIf(input.MinTransDateFilter != null, e => e.Transaction_Date.Date >= input.MinTransDateFilter)
-                        .WhereIf(input.MaxTransDateFilter != null, e => e.Transaction_Date.Date <= input.MaxTransDateFilter)
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.Time.Contains(input.Filter) 
+                        || e.Address.Contains(input.Filter) || e.Reason.Contains(input.Filter) 
+                        || e.Remark.Contains(input.Filter) || e.User != null && e.User.FingerCode == input.Filter)
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.UserNameFilter) , e => e.User != null && e.User.FingerCode == input.UserNameFilter)
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.MachineNameEnFilter), e => e.Machine != null && e.Machine.NameEn.Contains(input.MachineNameEnFilter))
+                        .WhereIf(input.MinTransDateFilter != null, e => e.Transaction_Date.Date >= input.MinTransDateFilter.Value.Date)
+                        .WhereIf(input.MaxTransDateFilter != null, e => e.Transaction_Date.Date <= input.MaxTransDateFilter.Value.Date)
                         .WhereIf(input.MinTransTypeFilter != null, e => e.TransType >= input.MinTransTypeFilter)
                         .WhereIf(input.MaxTransTypeFilter != null, e => e.TransType <= input.MaxTransTypeFilter);
 
@@ -744,9 +748,20 @@ namespace Pixel.Attendance.Operations
             var alltransactions = transactions.ToList();
 
 
+            //get parent unit with childs
+            var unitList = new List<long>();
+
+            var projectUnit = await _organizationUnitRepository.GetAllIncluding(x => x.Children).Where(x => x.Id == project.OrganizationUnitId).FirstOrDefaultAsync();
+            unitList.Add(projectUnit.Id);
+            if (projectUnit.Children.Count > 0)
+                unitList.AddRange(projectUnit.Children.Select(x => x.Id).ToList());
+            
+
+        
+
             //get user groups 
             var users = new List<User>();
-            var usersQuery = _userManager.Users.Where(x => x.OrganizationUnitId == project.OrganizationUnitId);
+            var usersQuery = _userManager.Users.Where(x => unitList.Contains((long)x.OrganizationUnitId));
             if (input.UserType.Value != 0)
             {
                 var userType = ObjectMapper.Map<UserType>(input.UserType);
@@ -807,6 +822,9 @@ namespace Pixel.Attendance.Operations
                     //get user shift in this day 
                     var userShift = await GetUserShift(user, day);
 
+                    if (userShift == null)
+                        continue;
+                    
                     //check if we are in ramadan 
                     var ramdanTime = await _ramadanDateRepository.FirstOrDefaultAsync(x => x.ToDate.Date.Date >= day.Date.Date && x.FromDate.Date <= day.Date.Date);
                     var isRamadanDay = ramdanTime != null ? true : false;
@@ -845,7 +863,7 @@ namespace Pixel.Attendance.Operations
                         if (detailToAdd.CanApprove)
                             userIdObjToAdd.DaysToApprove.Add(day);
 
-                        if (!string.IsNullOrEmpty(approvedObj.ApprovedUnits))
+                        if (!string.IsNullOrEmpty(approvedObj?.ApprovedUnits))
                             detailToAdd.CanApprove = false;
 
                         summaryToAdd.Details.Add(detailToAdd);
@@ -855,7 +873,7 @@ namespace Pixel.Attendance.Operations
 
                     if (detailToAdd.IsDayOff)
                     {
-                        if (!string.IsNullOrEmpty(approvedObj.ApprovedUnits))
+                        if (!string.IsNullOrEmpty(approvedObj?.ApprovedUnits))
                             detailToAdd.CanApprove = false;
 
                         summaryToAdd.Details.Add(detailToAdd);
@@ -871,7 +889,7 @@ namespace Pixel.Attendance.Operations
                     detailToAdd = await CalculateTransactions(detailToAdd, user, userShift, isRamadanDay, project.OrganizationUnitId.Value, day, alltransactions);
                     if (approvedObj != null)
                     {
-                        if (!string.IsNullOrEmpty(approvedObj.ApprovedUnits))
+                        if (!string.IsNullOrEmpty(approvedObj?.ApprovedUnits))
                             detailToAdd.CanApprove = false;
                     }
 
@@ -998,6 +1016,8 @@ namespace Pixel.Attendance.Operations
                 {
                     //get user shift in this day 
                     var userShift = await GetUserShift(user, day);
+                    if (userShift == null)
+                        continue;
 
                     //check if we are in ramadan 
                     var ramdanTime = await _ramadanDateRepository.FirstOrDefaultAsync(x => x.ToDate.Date.Date >= day.Date.Date && x.FromDate.Date <= day.Date.Date);
@@ -1231,6 +1251,8 @@ namespace Pixel.Attendance.Operations
                 {
                     //get user shift in this day 
                     var userShift = await GetUserShift(user, day);
+                    if (userShift == null)
+                        continue;
 
                     //check if we are in ramadan 
                     var ramdanTime = await _ramadanDateRepository.FirstOrDefaultAsync(x => x.ToDate.Date.Date >= day.Date.Date && x.FromDate.Date <= day.Date.Date);
@@ -1581,10 +1603,18 @@ namespace Pixel.Attendance.Operations
                             var unit = await _organizationUnitRepository.FirstOrDefaultAsync(x => x.Id == user.OrganizationUnitId);
                             var project = _projectRepository.FirstOrDefault(x => x.Machines.FirstOrDefault(y => y.MachineId == inTransaction.MachineId) != null);
                             normalOvertimeObj.BusinessUnit = unit.DisplayName;
-                            normalOvertimeObj.ProjectName = project.NameEn;
-                            normalOvertimeObj.ProjectNumber = project.Number;
+                            normalOvertimeObj.ProjectName = project?.NameEn;
+                            normalOvertimeObj.ProjectNumber = project?.Number;
                             normalOvertimeObj.Hours = overtime / 60;
                             normalOvertimeObj.PersonName = user.Name;
+                            if (user.TaskTypeId != null)
+                            {
+                                var task = _taskTypeRepository.FirstOrDefault(x => x.Id == user.TaskTypeId);
+
+                                normalOvertimeObj.TaskName = task.NameEn;
+                                normalOvertimeObj.TaskNo = task.Number;
+                            }
+
                             normalOvertimeObj.PersonNumber = user.FingerCode;
                             normalOvertimeObj.DocumentEntry = "Overtime";
 
@@ -1651,7 +1681,15 @@ namespace Pixel.Attendance.Operations
                             normalOvertimeObj.PersonName = user.Name;
                             normalOvertimeObj.PersonNumber = user.FingerCode;
                             normalOvertimeObj.ProjectName = project.NameEn;
-                            normalOvertimeObj.ProjectNumber = project.Number;
+                            if (user.TaskTypeId != null)
+                            {
+                                var task = _taskTypeRepository.FirstOrDefault(x => x.Id == user.TaskTypeId);
+
+                                normalOvertimeObj.TaskName = task.NameEn;
+                                normalOvertimeObj.TaskNo = task.Number;
+                            }
+
+                            normalOvertimeObj.ProjectNumber = project?.Number;
                             normalOvertimeObj.ExpenditureType = "Fixed Overtime";
                             normalOvertimeObj.Hours = overtime / 60;
 
@@ -1715,8 +1753,17 @@ namespace Pixel.Attendance.Operations
                         normalOvertimeObj.AttendanceDate = day;
                         normalOvertimeObj.PersonName = user.Name;
                         normalOvertimeObj.PersonNumber = user.FingerCode;
-                        normalOvertimeObj.ProjectName = project.NameEn;
-                        normalOvertimeObj.ProjectNumber = project.Number;
+                        normalOvertimeObj.ProjectName = project?.NameEn;
+                        normalOvertimeObj.ProjectNumber = project?.Number;
+                        if (user.TaskTypeId != null)
+                        {
+                            var task = _taskTypeRepository.FirstOrDefault(x => x.Id == user.TaskTypeId);
+
+                            normalOvertimeObj.TaskName = task.NameEn;
+                            normalOvertimeObj.TaskNo = task.Number;
+                        }
+                        
+
                         normalOvertimeObj.ExpenditureType = "Regular Hours";
                         normalOvertimeObj.Hours = totalHours;
                         output.Add(normalOvertimeObj);
@@ -1779,8 +1826,16 @@ namespace Pixel.Attendance.Operations
                             normalOvertimeObj.AttendanceDate = day;
                             normalOvertimeObj.PersonName = user.Name;
                             normalOvertimeObj.PersonNumber = user.FingerCode;
-                            normalOvertimeObj.ProjectName = project.NameEn;
-                            normalOvertimeObj.ProjectNumber = project.Number;
+                            normalOvertimeObj.ProjectName = project?.NameEn;
+                            normalOvertimeObj.ProjectNumber = project?.Number;
+                            if (user.TaskTypeId != null)
+                            {
+                                var task = _taskTypeRepository.FirstOrDefault(x => x.Id == user.TaskTypeId);
+
+                                normalOvertimeObj.TaskName = task.NameEn;
+                                normalOvertimeObj.TaskNo = task.Number;
+                            }
+
                             normalOvertimeObj.ExpenditureType = "Overtime Friday 1.5";
                             normalOvertimeObj.Hours = overtime / 60;
                             output.Add(normalOvertimeObj);
@@ -1847,8 +1902,16 @@ namespace Pixel.Attendance.Operations
                         normalOvertimeObj1.AttendanceDate = day;
                         normalOvertimeObj1.PersonName = user.Name;
                         normalOvertimeObj1.PersonNumber = user.FingerCode;
-                        normalOvertimeObj1.ProjectName = project.NameEn;
-                        normalOvertimeObj1.ProjectNumber = project.Number;
+                        normalOvertimeObj1.ProjectName = project?.NameEn;
+                        normalOvertimeObj1.ProjectNumber = project?.Number;
+                        if (user.TaskTypeId != null)
+                        {
+                            var task = _taskTypeRepository.FirstOrDefault(x => x.Id == user.TaskTypeId);
+
+                            normalOvertimeObj1.TaskName = task.NameEn;
+                            normalOvertimeObj1.TaskNo = task.Number;
+                        }
+
                         normalOvertimeObj1.ExpenditureType = "Straight Time";
                         normalOvertimeObj1.Hours = totalHours;
 
@@ -1862,8 +1925,17 @@ namespace Pixel.Attendance.Operations
                             normalOvertimeObj.AttendanceDate = day;
                             normalOvertimeObj.PersonName = user.Name;
                             normalOvertimeObj.PersonNumber = user.FingerCode;
-                            normalOvertimeObj.ProjectName = project.NameEn;
-                            normalOvertimeObj.ProjectNumber = project.Number;
+                            normalOvertimeObj.ProjectName = project?.NameEn;
+                            if (user.TaskTypeId != null)
+                            {
+                                var task = _taskTypeRepository.FirstOrDefault(x => x.Id == user.TaskTypeId);
+
+                                normalOvertimeObj.TaskName = task.NameEn;
+                                normalOvertimeObj.TaskNo = task.Number;
+                            }
+
+
+                            normalOvertimeObj.ProjectNumber = project?.Number;
                             normalOvertimeObj.ExpenditureType = "Overtime";
                             normalOvertimeObj.Hours = overtime / 60;
 

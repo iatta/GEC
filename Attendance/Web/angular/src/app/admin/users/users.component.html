@@ -138,9 +138,9 @@
                                             {{'Name' | localize}}
                                             <p-sortIcon field="name"></p-sortIcon>
                                         </th>
-                                        <th style="width: 130px" pSortableColumn="surname">
-                                            {{'Surname' | localize}}
-                                            <p-sortIcon field="surname"></p-sortIcon>
+                                        <th style="width: 130px" pSortableColumn="PFNumber">
+                                            {{'PF' | localize}}
+                                            <p-sortIcon field="PFNumber"></p-sortIcon>
                                         </th>
                                         <th style="width: 130px" pSortableColumn="civilId">
                                             {{'CivilId' | localize}}
@@ -220,8 +220,9 @@
                                             {{record.name}}
                                         </td>
                                         <td style="width: 130px">
-                                            <span class="ui-column-title"> {{'Surname' | localize}}</span>
-                                            {{record.surname}}
+                                            <span class="ui-column-title"> {{'PFNumber' | localize}}</span>
+
+                                            {{record.fingerCode}}
                                         </td>
                                         <td style="width: 130px">
                                             <span class="ui-column-title"> {{'civilId' | localize}}</span>

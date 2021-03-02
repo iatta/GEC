@@ -1,6 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
-  <texts>    <text name="RamadanDate">Ramadan date</text>
+  <texts>    <text name="TaskType">Task type</text>
+    <text name="Number">Number</text>
+    <text name="TaskTypesHeaderInfo">Task types header info</text>
+    <text name="CreateNewTaskType">Create new task type</text>
+    <text name="EditTaskType">Edit task type</text>
+    <text name="DeleteTaskType">Delete task type</text>
+    <text name="TaskTypes">Task types</text>
+    <text name="RamadanDate">Ramadan date</text>
     <text name="RamadanDatesHeaderInfo">Ramadan dates header info</text>
     <text name="CreateNewRamadanDate">Create new ramadan date</text>
     <text name="EditRamadanDate">Edit ramadan date</text>

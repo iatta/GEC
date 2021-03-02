@@ -10,7 +10,8 @@ namespace Pixel.Attendance.Operations.Dtos
 
 		public string UserName { get; set;}
 
-		public string LocationTitleEn { get; set;}
+        public string AssistantUserName { get; set; }
+        public string LocationTitleEn { get; set;}
 
 		public string OrganizationUnitDisplayName { get; set;}
 

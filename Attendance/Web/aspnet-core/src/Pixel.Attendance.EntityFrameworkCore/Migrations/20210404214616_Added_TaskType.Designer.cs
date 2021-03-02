@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Pixel.Attendance.EntityFrameworkCore;
 
 namespace Pixel.Attendance.Migrations
 {
     [DbContext(typeof(AttendanceDbContext))]
-    partial class AttendanceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210404214616_Added_TaskType")]
+    partial class Added_TaskType
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1651,9 +1653,6 @@ namespace Pixel.Attendance.Migrations
                         .HasColumnType("nvarchar(64)")
                         .HasMaxLength(64);
 
-                    b.Property<int?>("TaskTypeId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Telephone_1")
                         .HasColumnType("nvarchar(max)");
 
@@ -1693,8 +1692,6 @@ namespace Pixel.Attendance.Migrations
                     b.HasIndex("NationalityId");
 
                     b.HasIndex("ShiftId");
-
-                    b.HasIndex("TaskTypeId");
 
                     b.HasIndex("TenantId", "NormalizedEmailAddress");
 
@@ -2559,9 +2556,6 @@ namespace Pixel.Attendance.Migrations
                     b.Property<int?>("LocationId")
                         .HasColumnType("int");
 
-                    b.Property<long?>("ManagerAssistantId")
-                        .HasColumnType("bigint");
-
                     b.Property<long?>("ManagerId")
                         .HasColumnType("bigint");
 
@@ -2580,8 +2574,6 @@ namespace Pixel.Attendance.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("LocationId");
-
-                    b.HasIndex("ManagerAssistantId");
 
                     b.HasIndex("ManagerId");
 
@@ -4863,10 +4855,6 @@ namespace Pixel.Attendance.Migrations
                     b.HasOne("Pixel.Attendance.Setting.Shift", "Shift")
                         .WithMany()
                         .HasForeignKey("ShiftId");
-
-                    b.HasOne("Pixel.Attendance.Setting.TaskType", "TaskType")
-                        .WithMany()
-                        .HasForeignKey("TaskTypeId");
                 });
 
             modelBuilder.Entity("Pixel.Attendance.Authorization.Users.UserLocation", b =>
@@ -5016,10 +5004,6 @@ namespace Pixel.Attendance.Migrations
                     b.HasOne("Pixel.Attendance.Setting.Location", "LocationFk")
                         .WithMany()
                         .HasForeignKey("LocationId");
-
-                    b.HasOne("Pixel.Attendance.Authorization.Users.User", "ManagerAssistant")
-                        .WithMany()
-                        .HasForeignKey("ManagerAssistantId");
 
                     b.HasOne("Pixel.Attendance.Authorization.Users.User", "ManagerFk")
                         .WithMany()

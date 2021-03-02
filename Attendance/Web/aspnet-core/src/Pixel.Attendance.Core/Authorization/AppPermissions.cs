@@ -6,6 +6,11 @@
     /// </summary>
     public static class AppPermissions
     {
+        public const string Pages_TaskTypes = "Pages.TaskTypes";
+        public const string Pages_TaskTypes_Create = "Pages.TaskTypes.Create";
+        public const string Pages_TaskTypes_Edit = "Pages.TaskTypes.Edit";
+        public const string Pages_TaskTypes_Delete = "Pages.TaskTypes.Delete";
+
         public const string Pages_RamadanDates = "Pages.RamadanDates";
         public const string Pages_RamadanDates_Create = "Pages.RamadanDates.Create";
         public const string Pages_RamadanDates_Edit = "Pages.RamadanDates.Edit";

@@ -1,0 +1,43 @@
+﻿<div bsModal #createOrEditModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="createOrEditModal" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form *ngIf="active" #taskTypeForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="taskType.id">{{l("EditTaskType")}}</span>
+                        <span *ngIf="!taskType.id">{{l("CreateNewTaskType")}}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="close()" aria-label="Close" [disabled]="saving">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                 
+
+
+								<div class="form-group">
+									<label for="TaskType_NameAr">{{l("NameAr")}} *</label>
+									<input type="text" id="TaskType_NameAr" class="form-control" [(ngModel)]="taskType.nameAr" name="NameAr"     required/>
+								</div>
+					
+								<div class="form-group">
+									<label for="TaskType_NameEn">{{l("NameEn")}} *</label>
+									<input type="text" id="TaskType_NameEn" class="form-control" [(ngModel)]="taskType.nameEn" name="NameEn"     required/>
+								</div>
+					
+								<div class="form-group">
+									<label for="TaskType_Number">{{l("Number")}} *</label>
+									<input type="text" id="TaskType_Number" class="form-control" [(ngModel)]="taskType.number" name="Number"     required/>
+								</div>
+					
+
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-default" (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!taskTypeForm.form.valid" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i> <span>{{l("Save")}}</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>

@@ -1,5 +1,6 @@
 ﻿import { ManageMachineUsersComponent } from './setting/machines/manage-machine-users.component';
 import { OverrideUserShiftComponent } from './operations/userShifts/override-user-shift.component';
+import { TaskTypesComponent } from './setting/taskTypes/taskTypes.component';
 import { ManagerReportComponent } from './operations/reports/manager-report.component';
 import { RamadanDatesComponent } from './setting/ramadanDates/ramadanDates.component';
 import { FixedOvertimeComponent } from './operations/reports/fixed-overtime.component';
@@ -73,6 +74,7 @@ import { HrLevelApproveComponent } from './operations/reports/hr-level-approve.c
             {
                 path: '',
                 children: [
+                    { path: 'setting/taskTypes', component: TaskTypesComponent, data: { permission: 'Pages.TaskTypes' }  },
                     { path: 'setting/ramadanDates', component: RamadanDatesComponent, data: { permission: 'Pages.RamadanDates' }  },
                     { path: 'operations/transactionLogs', component: TransactionLogsComponent, data: { permission: 'Pages.TransactionLogs' }  },
                     { path: 'setting/overrideShifts', component: OverrideShiftsComponent, data: { permission: 'Pages.OverrideShifts' }  },

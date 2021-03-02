@@ -8,7 +8,7 @@ import { OrganizationUnitsHorizontalTreeComponent } from './../shared/organizati
 import { AfterViewChecked, Component, ElementRef, EventEmitter, Injector, Output, ViewChild, OnInit } from '@angular/core';
 import { AppConsts } from '@shared/AppConsts';
 import { AppComponentBase } from '@shared/common/app-component-base';
-import { JobTitleDto, JobTitleServiceProxy, CreateOrUpdateUserInput, OrganizationUnitDto, PasswordComplexitySetting, ProfileServiceProxy, UserEditDto, UserRoleDto, UserServiceProxy, GetShiftForViewDto, ShiftsServiceProxy, CreateOrEditTimeProfileDto, ShiftTypesServiceProxy, GetUserShiftForViewDto, UserShiftDto, OverrideShiftDto, GetOverrideShiftForViewDto, MachineDto } from '@shared/service-proxies/service-proxies';
+import { JobTitleDto, JobTitleServiceProxy, CreateOrUpdateUserInput, OrganizationUnitDto, PasswordComplexitySetting, ProfileServiceProxy, UserEditDto, UserRoleDto, UserServiceProxy, GetShiftForViewDto, ShiftsServiceProxy, CreateOrEditTimeProfileDto, ShiftTypesServiceProxy, GetUserShiftForViewDto, UserShiftDto, OverrideShiftDto, GetOverrideShiftForViewDto, MachineDto, TaskTypeDto, TaskTypesServiceProxy } from '@shared/service-proxies/service-proxies';
 import { ModalDirective, TabsetComponent } from 'ngx-bootstrap';
 import { IOrganizationUnitsHierarchicalTreeComponentData, OrganizationHierarchicalTreeComponent } from '../shared/organization-hierarchical-tree.component';
 import { IOrganizationUnitsTreeComponentData, OrganizationUnitsTreeComponent } from '../shared/organization-unit-tree.component';
@@ -101,6 +101,7 @@ export class ManageUserComponent extends AppComponentBase implements OnInit {
     rows = 10;
     first = 0;
 
+    taskTypes:TaskTypeDto[] = [];
     constructor(
         injector: Injector,
         private _userService: UserServiceProxy,
@@ -111,6 +112,7 @@ export class ManageUserComponent extends AppComponentBase implements OnInit {
         private _machineServiceProxy:MachinesServiceProxy,
         private route: ActivatedRoute,
         private router: Router,
+        private taskTypeService:TaskTypesServiceProxy
 
     ) {
         super(injector);
@@ -137,6 +139,10 @@ export class ManageUserComponent extends AppComponentBase implements OnInit {
 
         this._machineServiceProxy.getAllFlat().subscribe((result)=>{
             this.machines = result;
+        })
+
+        this.taskTypeService.getAllFlat().subscribe((result)=>{
+            this.taskTypes = result;
         })
 
         this.route.params.subscribe((params: Params) => {

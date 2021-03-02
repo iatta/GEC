@@ -27,7 +27,9 @@ namespace Pixel.Attendance.Operations
     {
         
         private readonly IRepository<Project> _projectRepository;
+        private readonly IRepository<Machine> _machineRepository;
         private readonly IRepository<ProjectLocation> _projectLocationRepository;
+        private readonly IRepository<LocationMachine> _locationMachineRepository;
         private readonly IProjectsExcelExporter _projectsExcelExporter;
 		 private readonly IRepository<User,long> _lookup_userRepository;
 		 private readonly IRepository<Location,int> _lookup_locationRepository;
@@ -36,7 +38,7 @@ namespace Pixel.Attendance.Operations
         
 
 
-          public ProjectsAppService(IRepository<ProjectLocation, int> lookup_projectLocationRepository,IRepository<ProjectLocation> projectLocationRepository , IRepository<Project> projectRepository, IProjectsExcelExporter projectsExcelExporter , IRepository<User, long> lookup_userRepository, IRepository<Location, int> lookup_locationRepository, IRepository<OrganizationUnitExtended, long> lookup_organizationUnitRepository) 
+          public ProjectsAppService(IRepository<Machine> machineRepository, IRepository<LocationMachine> locationMachineRepository ,IRepository<ProjectLocation, int> lookup_projectLocationRepository,IRepository<ProjectLocation> projectLocationRepository , IRepository<Project> projectRepository, IProjectsExcelExporter projectsExcelExporter , IRepository<User, long> lookup_userRepository, IRepository<Location, int> lookup_locationRepository, IRepository<OrganizationUnitExtended, long> lookup_organizationUnitRepository) 
 		  {
 			_projectRepository = projectRepository;
 			_projectsExcelExporter = projectsExcelExporter;
@@ -45,6 +47,8 @@ namespace Pixel.Attendance.Operations
             _lookup_projectLocationRepository = lookup_projectLocationRepository;
         _lookup_organizationUnitRepository = lookup_organizationUnitRepository;
             _projectLocationRepository = projectLocationRepository;
+            _locationMachineRepository = locationMachineRepository;
+            _machineRepository = machineRepository;
 
 
           }
@@ -59,7 +63,7 @@ namespace Pixel.Attendance.Operations
         public async Task<List<ProjectDto>> GetAllFlatForProjectManager()
         {
 
-            var data = await _projectRepository.GetAll().Where(x => x.ManagerId == GetCurrentUser().Id).ToListAsync();
+            var data = await _projectRepository.GetAll().Where(x => x.ManagerId == GetCurrentUser().Id || x.ManagerAssistantId == GetCurrentUser().Id).ToListAsync();
 
             return ObjectMapper.Map<List<ProjectDto>>(data);
         }
@@ -129,14 +133,28 @@ namespace Pixel.Attendance.Operations
                                },
                               UserName = s1 == null ? "" : s1.Name.ToString(),
                              LocationsTitles = o.Locations.Select(x => x.LocationFk.TitleEn),
+                             
                              OrganizationUnitDisplayName = s3 == null ? "" : s3.DisplayName.ToString()
 						};
 
             var totalCount = await filteredProjects.CountAsync();
+            var projectList = projects.ToList();
+            foreach (var obj in projectList)
+            {
+                var locationIds = _lookup_projectLocationRepository.GetAllList(x => x.ProjectId == obj.Project.Id)?.Select(y => y.LocationId)?.ToList();
+                if (locationIds.Count > 0)
+                {
+                    var locationMachineIds = _locationMachineRepository.GetAllList(x => locationIds.Contains(x.LocationId.Value))?.Select(y => y.MachineId)?.ToList();
+                    if (locationMachineIds.Count > 0)
+                        obj.MachinesNames = _machineRepository.GetAllList(x => locationMachineIds.Contains(x.Id))?.Select(y => y.NameEn);
+                    
+                }
+
+            }
 
             return new PagedResultDto<GetProjectForViewDto>(
                 totalCount,
-                await projects.ToListAsync()
+                projectList
             );
          }
 		 
@@ -152,7 +170,13 @@ namespace Pixel.Attendance.Operations
                 output.UserName = _lookupUser.Name.ToString();
             }
 
-		    if (output.Project.LocationId != null)
+            if (output.Project.ManagerAssistantId != null)
+            {
+                var _lookupUser = await _lookup_userRepository.FirstOrDefaultAsync((long)output.Project.ManagerAssistantId);
+                output.AssistantUserName = _lookupUser.Name.ToString();
+            }
+
+            if (output.Project.LocationId != null)
             {
                 var _lookupLocation = await _lookup_locationRepository.FirstOrDefaultAsync((int)output.Project.LocationId);
                 output.LocationTitleEn = _lookupLocation.TitleEn.ToString();
@@ -181,7 +205,14 @@ namespace Pixel.Attendance.Operations
                 output.UserName = _lookupUser.Name.ToString();
             }
 
-		    if (output.Project.LocationId != null)
+
+            if (output.Project.ManagerAssistantId != null)
+            {
+                var _lookupUser = await _lookup_userRepository.FirstOrDefaultAsync((long)output.Project.ManagerAssistantId);
+                output.AssistantUserName = _lookupUser.Name.ToString();
+            }
+
+            if (output.Project.LocationId != null)
             {
                 var _lookupLocation = await _lookup_locationRepository.FirstOrDefaultAsync((int)output.Project.LocationId);
                 output.LocationTitleEn = _lookupLocation.TitleEn.ToString();
@@ -324,7 +355,7 @@ namespace Pixel.Attendance.Operations
             var query = _lookup_userRepository.GetAll();
             if (!string.IsNullOrEmpty(input.Filter))
             {
-                query = query.Where(x => x.Name.ToLower().Contains(input.Filter.ToLower()));
+                query = query.Where(x => x.Name.ToLower().Contains(input.Filter.ToLower()) || x.FingerCode.ToLower().Contains(input.Filter.ToLower()));
             }
 
             var totalCount = await query.CountAsync();
@@ -338,7 +369,8 @@ namespace Pixel.Attendance.Operations
 				lookupTableDtoList.Add(new ProjectUserLookupTableDto
 				{
 					Id = user.Id,
-					DisplayName = user.Name?.ToString()
+					DisplayName = user.Name?.ToString(),
+                    FingerCode = user.FingerCode.ToString()
 				});
 			}
 

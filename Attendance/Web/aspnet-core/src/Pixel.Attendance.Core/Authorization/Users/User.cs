@@ -92,7 +92,11 @@ namespace Pixel.Attendance.Authorization.Users
         public ICollection<ProjectUser> Projects { get; set; }
 
         public UserType UserType { get; set; }
-        
+        public int? TaskTypeId { get; set; }
+
+        [ForeignKey("TaskTypeId")]
+        public TaskType TaskType { get; set; }
+
 
         //Can add application specific user properties here
 

@@ -59,7 +59,7 @@
 
                                     </select>
                                 </div>
-                                <div class="col-lg-4">
+                                <div class="col-lg-4" [hidden]="!shift.isDayRestCalculated">
                                     <label for="Shift_DayRest">{{l("DayRest")}}</label>
                                     <select class="form-control" name="DayRest" [ngClass]="{ 'is-invalid': shiftForm.submitted && dayRestInput.invalid}"  #dayRestInput="ngModel" id="Shift_DayRest" [(ngModel)]="shift.dayRest" required>
                                         <validation-messages [formCtrl]="dayRestInput" [frm]="shiftForm"></validation-messages>

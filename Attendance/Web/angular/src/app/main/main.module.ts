@@ -2,6 +2,10 @@
 import { OverrideUserShiftComponent } from './operations/userShifts/override-user-shift.component';
 import { ManagerReportComponent } from './operations/reports/manager-report.component';
 import { NormalOvertimeComponent } from './operations/reports/normal-overtime.component';
+import { TaskTypesComponent } from './setting/taskTypes/taskTypes.component';
+import { ViewTaskTypeModalComponent } from './setting/taskTypes/view-taskType-modal.component';
+import { CreateOrEditTaskTypeModalComponent } from './setting/taskTypes/create-or-edit-taskType-modal.component';
+
 import { FixedOvertimeComponent } from './operations/reports/fixed-overtime.component';
 import { RamadanDatesComponent } from './setting/ramadanDates/ramadanDates.component';
 import { ViewRamadanDateModalComponent } from './setting/ramadanDates/view-ramadanDate-modal.component';
@@ -318,6 +322,8 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
           }),
     ],
     declarations: [
+		TaskTypesComponent,
+		ViewTaskTypeModalComponent,		CreateOrEditTaskTypeModalComponent,
 		RamadanDatesComponent,
 		ViewRamadanDateModalComponent,		CreateOrEditRamadanDateModalComponent,
 		TransactionLogsComponent,

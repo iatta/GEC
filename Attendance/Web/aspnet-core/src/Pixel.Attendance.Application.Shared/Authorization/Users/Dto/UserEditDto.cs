@@ -103,6 +103,7 @@ namespace Pixel.Attendance.Authorization.Users.Dto
         public int MachineId { get; set; }
         public string UserImage { get; set; }
         public bool UploadUser { get; set; }
+        public int? TaskTypeId { get; set; }
 
     }
 }

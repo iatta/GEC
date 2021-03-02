@@ -18,6 +18,7 @@ export class CreateOrEditProjectModalComponent extends AppComponentBase {
 
     @ViewChild('createOrEditModal', { static: true }) modal: ModalDirective;
     @ViewChild('projectUserLookupTableModal', { static: true }) projectUserLookupTableModal: ProjectUserLookupTableModalComponent;
+    @ViewChild('projectUserAssistantLookupTableModal', { static: true }) projectUserAsistantLookupTableModal: ProjectUserLookupTableModalComponent;
     @ViewChild('projectLocationLookupTableModal', { static: true }) projectLocationLookupTableModal: ProjectLocationLookupTableModalComponent;
     @ViewChild('projectOrganizationUnitLookupTableModal', { static: true }) projectOrganizationUnitLookupTableModal: ProjectOrganizationUnitLookupTableModalComponent;
     @ViewChild('organizationUnitsHorizontalTreeModal', { static: true }) organizationUnitsHorizontalTreeModal: OrganizationUnitsHorizontalTreeModalComponent;
@@ -28,7 +29,7 @@ export class CreateOrEditProjectModalComponent extends AppComponentBase {
     saving = false;
 
     project: CreateOrEditProjectDto = new CreateOrEditProjectDto();
-
+    assistantUserName = '';
     userName = '';
     locationTitleEn = '';
     organizationUnitDisplayName = '';
@@ -48,6 +49,7 @@ export class CreateOrEditProjectModalComponent extends AppComponentBase {
             this.project.id = projectId;
             this.project.locations = [];
             this.userName = '';
+            this.assistantUserName = '';
             this.locationTitleEn = '';
             this.organizationUnitDisplayName = '';
 
@@ -60,6 +62,7 @@ export class CreateOrEditProjectModalComponent extends AppComponentBase {
                     this.project.locations = [];
 
                 this.userName = result.userName;
+                this.assistantUserName = result.assistantUserName;
                 this.locationTitleEn = result.locationTitleEn;
                 this.organizationUnitDisplayName = result.organizationUnitDisplayName;
 
@@ -87,6 +90,12 @@ export class CreateOrEditProjectModalComponent extends AppComponentBase {
         this.projectUserLookupTableModal.displayName = this.userName;
         this.projectUserLookupTableModal.show();
     }
+
+    openSelectUserAssistantModal(){
+        this.projectUserAsistantLookupTableModal.id = this.project.managerAssistantId;
+        this.projectUserAsistantLookupTableModal.displayName = this.assistantUserName;
+        this.projectUserAsistantLookupTableModal.show();
+    }
     openSelectLocationModal() {
         this.projectLocationLookupTableModal.id = this.project.locationId;
         this.projectLocationLookupTableModal.displayName = this.locationTitleEn;
@@ -110,6 +119,11 @@ export class CreateOrEditProjectModalComponent extends AppComponentBase {
         this.project.managerId = null;
         this.userName = '';
     }
+
+    setManagerAssistantIdNull() {
+        this.project.managerAssistantId = null;
+        this.assistantUserName = '';
+    }
     setLocationIdNull() {
         this.project.locationId = null;
         this.locationTitleEn = '';
@@ -123,6 +137,11 @@ export class CreateOrEditProjectModalComponent extends AppComponentBase {
     getNewManagerId() {
         this.project.managerId = this.projectUserLookupTableModal.id;
         this.userName = this.projectUserLookupTableModal.displayName;
+    }
+
+    getNewManagerAssistantId(){
+        this.project.managerAssistantId = this.projectUserAsistantLookupTableModal.id;
+        this.assistantUserName = this.projectUserAsistantLookupTableModal.displayName;
     }
 
     getNewLocationId() {

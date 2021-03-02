@@ -30,6 +30,13 @@ namespace Pixel.Attendance.Authorization
 
             var pages = context.GetPermissionOrNull(AppPermissions.Pages) ?? context.CreatePermission(AppPermissions.Pages, L("Pages"));
 
+            var taskTypes = pages.CreateChildPermission(AppPermissions.Pages_TaskTypes, L("TaskTypes"));
+            taskTypes.CreateChildPermission(AppPermissions.Pages_TaskTypes_Create, L("CreateNewTaskType"));
+            taskTypes.CreateChildPermission(AppPermissions.Pages_TaskTypes_Edit, L("EditTaskType"));
+            taskTypes.CreateChildPermission(AppPermissions.Pages_TaskTypes_Delete, L("DeleteTaskType"));
+
+
+
             var ramadanDates = pages.CreateChildPermission(AppPermissions.Pages_RamadanDates, L("RamadanDates"));
             ramadanDates.CreateChildPermission(AppPermissions.Pages_RamadanDates_Create, L("CreateNewRamadanDate"));
             ramadanDates.CreateChildPermission(AppPermissions.Pages_RamadanDates_Edit, L("EditRamadanDate"));

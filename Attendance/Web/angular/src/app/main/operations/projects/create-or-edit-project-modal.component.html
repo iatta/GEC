@@ -30,6 +30,18 @@
         <input class="form-control" name="project.managerId" [(ngModel)]="project.managerId" type="text"  hidden>
 
 
+        <div class="form-group m-form__group">
+            <label for="UserName">{{l("Project Manager Assistant")}}</label>
+            <div class="input-group">
+                <input class="form-control" id="assistantUserName" name="assistantUserName" [(ngModel)]="assistantUserName" type="text" disabled>
+                <div class="input-group-append">
+                    <button class="btn btn-primary blue" (click)="openSelectUserAssistantModal()" type="button"><i class="fa fa-search"></i> {{l("Pick")}}</button>
+                </div> <div class="input-group-prepend">
+                    <button class="btn btn-danger btn-icon" type="button" (click)="setManagerAssistantIdNull()"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+        </div>
+        <input class="form-control" name="project.managerAssistantId" [(ngModel)]="project.managerAssistantId" type="text"  hidden>
 
         <div class="form-group m-form__group">
             <label for="OrganizationUnitDisplayName">{{l("OrganizationUnit")}}</label>
@@ -114,6 +126,7 @@
         </div>
     </div>
 <projectUserLookupTableModal #projectUserLookupTableModal (modalSave)="getNewManagerId()"></projectUserLookupTableModal>
+<projectUserLookupTableModal #projectUserAssistantLookupTableModal (modalSave)="getNewManagerAssistantId()"></projectUserLookupTableModal>
 		 <projectLocationLookupTableModal #projectLocationLookupTableModal (modalSave)="getNewLocationId()"></projectLocationLookupTableModal>
          <projectOrganizationUnitLookupTableModal #projectOrganizationUnitLookupTableModal (modalSave)="getNewOrganizationUnitId()"></projectOrganizationUnitLookupTableModal>
          <organizationUnitsHorizontalTreeModal  #organizationUnitsHorizontalTreeModal    (ouSelected)="ouSelected($event)"></organizationUnitsHorizontalTreeModal>

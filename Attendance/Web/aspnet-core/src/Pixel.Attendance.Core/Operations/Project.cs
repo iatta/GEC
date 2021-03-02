@@ -28,6 +28,10 @@ namespace Pixel.Attendance.Operations
 
 		public virtual string Code { get; set; }
 		public virtual string Number { get; set; }
+		public virtual long? ManagerAssistantId { get; set; }
+		
+		[ForeignKey("ManagerAssistantId")]
+		public User ManagerAssistant { get; set; }
 		public virtual long? ManagerId { get; set; }
 		
         [ForeignKey("ManagerId")]

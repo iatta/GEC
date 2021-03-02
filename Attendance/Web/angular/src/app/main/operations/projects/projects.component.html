@@ -113,9 +113,9 @@
                                         {{l('Unit')}}
                                         <p-sortIcon field="organizationUnitDisplayName"></p-sortIcon>
                                     </th>
-                                    <th style="width: 150px" pSortableColumn="nameAr">
-                                        {{l('ProjectNameAr')}}
-                                        <p-sortIcon field="project.nameAr"></p-sortIcon>
+                                    <th style="width: 150px" pSortableColumn="machines">
+                                        {{l('Machines')}}
+                                        <p-sortIcon field="machines"></p-sortIcon>
                                     </th>
                                     <th style="width: 150px" pSortableColumn="nameEn">
                                         {{l('ProjectNameEn')}}
@@ -182,8 +182,8 @@
 												{{record.organizationUnitDisplayName}}
 											</td>
                                     <td style="width:150px">
-											<span class="ui-column-title"> {{l('NameAr')}}</span>
-											{{record.project.nameAr}}
+											<span class="ui-column-title"> {{l('machines')}}</span>
+                                            {{record.machinesNames.join(',') }}
 										</td>
                                     <td style="width:150px">
 											<span class="ui-column-title"> {{l('NameEn')}}</span>

@@ -114,9 +114,12 @@ export class AppNavigationService {
             // new AppMenuItem('TransactionLogs', 'Pages.TransactionLogs', 'flaticon-more', '/app/main/operations/transactionLogs'),
 
 
+
+
              new AppMenuItem('Administration', '', 'flaticon-interface-8', '', [
                 new AppMenuItem('Beacons', 'Pages.Beacons', 'flaticon-laptop', '/app/main/operations/beacons'),
                 new AppMenuItem('OrganizationUnits', 'Pages.Administration.OrganizationUnits', 'flaticon-map', '/app/admin/organization-units'),
+                new AppMenuItem('TaskTypes', 'Pages.TaskTypes', 'flaticon2-pen', '/app/main/setting/taskTypes'),
                 new AppMenuItem('JobTitles', 'Pages.JobTitles', 'flaticon2-list-3', '/app/main/setting/jobTitles'),
                 new AppMenuItem('RamadanDates', 'Pages.RamadanDates', 'flaticon-calendar-with-a-clock-time-tools', '/app/main/setting/ramadanDates'),
                 new AppMenuItem('EmployeeTempTransfers', 'Pages.EmployeeTempTransfers', 'flaticon-rotate', '/app/main/operations/employeeTempTransfers'),

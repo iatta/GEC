@@ -14,8 +14,9 @@ namespace Pixel.Attendance.Operations.Dtos
 
 
 		public long? ManagerId { get; set; }
+		public  long? ManagerAssistantId { get; set; }
 
-		 		 public int? LocationId { get; set; }
+		public int? LocationId { get; set; }
 
 		 		 public long? OrganizationUnitId { get; set; }
 
