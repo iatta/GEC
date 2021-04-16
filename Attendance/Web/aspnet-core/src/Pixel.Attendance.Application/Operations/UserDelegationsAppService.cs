@@ -89,13 +89,13 @@ namespace Pixel.Attendance.Operations
 		    if (output.UserDelegation.UserId != null)
             {
                 var _lookupUser = await _lookup_userRepository.FirstOrDefaultAsync((long)output.UserDelegation.UserId);
-                output.UserName = _lookupUser.Name.ToString();
+                output.UserName = _lookupUser?.Name.ToString();
             }
 
 		    if (output.UserDelegation.DelegatedUserId != null)
             {
                 var _lookupUser = await _lookup_userRepository.FirstOrDefaultAsync((long)output.UserDelegation.DelegatedUserId);
-                output.UserName2 = _lookupUser.Name.ToString();
+                output.UserName2 = _lookupUser?.Name.ToString();
             }
 			
             return output;
@@ -111,13 +111,13 @@ namespace Pixel.Attendance.Operations
 		    if (output.UserDelegation.UserId != null)
             {
                 var _lookupUser = await _lookup_userRepository.FirstOrDefaultAsync((long)output.UserDelegation.UserId);
-                output.UserName = _lookupUser.Name.ToString();
+                output.UserName = _lookupUser?.Name.ToString();
             }
 
 		    if (output.UserDelegation.DelegatedUserId != null)
             {
                 var _lookupUser = await _lookup_userRepository.FirstOrDefaultAsync((long)output.UserDelegation.DelegatedUserId);
-                output.UserName2 = _lookupUser.Name.ToString();
+                output.UserName2 = _lookupUser?.Name.ToString();
             }
 			
             return output;

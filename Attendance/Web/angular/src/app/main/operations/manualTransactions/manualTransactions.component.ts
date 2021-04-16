@@ -26,6 +26,7 @@ export class ManualTransactionsComponent extends AppComponentBase {
     @ViewChild('dataTable', { static: true }) dataTable: Table;
     @ViewChild('paginator', { static: true }) paginator: Paginator;
 
+    loading = false;
     advancedFiltersAreShown = false;
     filterText = '';
     maxTransDateFilter : moment.Moment;
@@ -101,12 +102,18 @@ export class ManualTransactionsComponent extends AppComponentBase {
     }
 
     exportToExcel(): void {
+        this.loading = true;
         this._transactionsServiceProxy.getTransactionsToExcel(
-       this.filterText,
+            this.filterText,
             this.maxTransTypeFilter == null ? this.maxTransTypeFilterEmpty: this.maxTransTypeFilter,
-            this.minTransTypeFilter == null ? this.minTransTypeFilterEmpty: this.minTransTypeFilter
+            this.minTransTypeFilter == null ? this.minTransTypeFilterEmpty: this.minTransTypeFilter,
+            this.userNameFilter,
+            this.maxTransDateFilter,
+            this.minTransDateFilter,
+            this.machineNameEnFilter
         )
         .subscribe(result => {
+            this.loading = false;
             this._fileDownloadService.downloadTempFile(result);
          });
     }

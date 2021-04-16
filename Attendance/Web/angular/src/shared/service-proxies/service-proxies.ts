@@ -28521,9 +28521,13 @@ export class TransactionsServiceProxy {
      * @param filter (optional) 
      * @param maxTransTypeFilter (optional) 
      * @param minTransTypeFilter (optional) 
+     * @param userNameFilter (optional) 
+     * @param maxTransDateFilter (optional) 
+     * @param minTransDateFilter (optional) 
+     * @param machineNameEnFilter (optional) 
      * @return Success
      */
-    getTransactionsToExcel(filter: string | undefined, maxTransTypeFilter: number | undefined, minTransTypeFilter: number | undefined): Observable<FileDto> {
+    getTransactionsToExcel(filter: string | undefined, maxTransTypeFilter: number | undefined, minTransTypeFilter: number | undefined, userNameFilter: string | undefined, maxTransDateFilter: moment.Moment | undefined, minTransDateFilter: moment.Moment | undefined, machineNameEnFilter: string | undefined): Observable<FileDto> {
         let url_ = this.baseUrl + "/api/services/app/Transactions/GetTransactionsToExcel?";
         if (filter === null)
             throw new Error("The parameter 'filter' cannot be null.");
@@ -28537,6 +28541,22 @@ export class TransactionsServiceProxy {
             throw new Error("The parameter 'minTransTypeFilter' cannot be null.");
         else if (minTransTypeFilter !== undefined)
             url_ += "MinTransTypeFilter=" + encodeURIComponent("" + minTransTypeFilter) + "&"; 
+        if (userNameFilter === null)
+            throw new Error("The parameter 'userNameFilter' cannot be null.");
+        else if (userNameFilter !== undefined)
+            url_ += "UserNameFilter=" + encodeURIComponent("" + userNameFilter) + "&"; 
+        if (maxTransDateFilter === null)
+            throw new Error("The parameter 'maxTransDateFilter' cannot be null.");
+        else if (maxTransDateFilter !== undefined)
+            url_ += "MaxTransDateFilter=" + encodeURIComponent(maxTransDateFilter ? "" + maxTransDateFilter.toJSON() : "") + "&"; 
+        if (minTransDateFilter === null)
+            throw new Error("The parameter 'minTransDateFilter' cannot be null.");
+        else if (minTransDateFilter !== undefined)
+            url_ += "MinTransDateFilter=" + encodeURIComponent(minTransDateFilter ? "" + minTransDateFilter.toJSON() : "") + "&"; 
+        if (machineNameEnFilter === null)
+            throw new Error("The parameter 'machineNameEnFilter' cannot be null.");
+        else if (machineNameEnFilter !== undefined)
+            url_ += "MachineNameEnFilter=" + encodeURIComponent("" + machineNameEnFilter) + "&"; 
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -54550,6 +54570,7 @@ export class ProjectDto implements IProjectDto {
     code!: string | undefined;
     number!: string | undefined;
     managerId!: number | undefined;
+    managerAssistantId!: number | undefined;
     locationId!: number | undefined;
     organizationUnitId!: number | undefined;
     id!: number;
@@ -54570,6 +54591,7 @@ export class ProjectDto implements IProjectDto {
             this.code = data["code"];
             this.number = data["number"];
             this.managerId = data["managerId"];
+            this.managerAssistantId = data["managerAssistantId"];
             this.locationId = data["locationId"];
             this.organizationUnitId = data["organizationUnitId"];
             this.id = data["id"];
@@ -54590,6 +54612,7 @@ export class ProjectDto implements IProjectDto {
         data["code"] = this.code;
         data["number"] = this.number;
         data["managerId"] = this.managerId;
+        data["managerAssistantId"] = this.managerAssistantId;
         data["locationId"] = this.locationId;
         data["organizationUnitId"] = this.organizationUnitId;
         data["id"] = this.id;
@@ -54603,6 +54626,7 @@ export interface IProjectDto {
     code: string | undefined;
     number: string | undefined;
     managerId: number | undefined;
+    managerAssistantId: number | undefined;
     locationId: number | undefined;
     organizationUnitId: number | undefined;
     id: number;
@@ -54611,6 +54635,7 @@ export interface IProjectDto {
 export class GetProjectForViewDto implements IGetProjectForViewDto {
     project!: ProjectDto | undefined;
     userName!: string | undefined;
+    assistantUserName!: string | undefined;
     locationTitleEn!: string | undefined;
     locationsTitles!: string[] | undefined;
     machinesNames!: string[] | undefined;
@@ -54629,6 +54654,7 @@ export class GetProjectForViewDto implements IGetProjectForViewDto {
         if (data) {
             this.project = data["project"] ? ProjectDto.fromJS(data["project"]) : <any>undefined;
             this.userName = data["userName"];
+            this.assistantUserName = data["assistantUserName"];
             this.locationTitleEn = data["locationTitleEn"];
             if (Array.isArray(data["locationsTitles"])) {
                 this.locationsTitles = [] as any;
@@ -54655,6 +54681,7 @@ export class GetProjectForViewDto implements IGetProjectForViewDto {
         data = typeof data === 'object' ? data : {};
         data["project"] = this.project ? this.project.toJSON() : <any>undefined;
         data["userName"] = this.userName;
+        data["assistantUserName"] = this.assistantUserName;
         data["locationTitleEn"] = this.locationTitleEn;
         if (Array.isArray(this.locationsTitles)) {
             data["locationsTitles"] = [];
@@ -54674,6 +54701,7 @@ export class GetProjectForViewDto implements IGetProjectForViewDto {
 export interface IGetProjectForViewDto {
     project: ProjectDto | undefined;
     userName: string | undefined;
+    assistantUserName: string | undefined;
     locationTitleEn: string | undefined;
     locationsTitles: string[] | undefined;
     machinesNames: string[] | undefined;

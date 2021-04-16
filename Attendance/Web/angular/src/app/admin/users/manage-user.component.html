@@ -179,7 +179,7 @@
                             <div class="form-group row">
                                 <div class="col-lg-6">
                                     <label for="civilId">{{"CivilId" | localize}}</label>
-                                <input OnlyNumber="true"  [ngClass]="{ 'is-invalid': userForm.submitted && nationalityInput.invalid}" #nationalityInput="ngModel" required   id="civilId" type="text" name="civilId" class="form-control" [(ngModel)]="user.civilId" minlength="12" maxlength="12">
+                                <input OnlyNumber="true"  [ngClass]="{ 'is-invalid': userForm.submitted && nationalityInput.invalid}" #nationalityInput="ngModel" required   id="civilId" type="text" name="civilId" class="form-control" [(ngModel)]="user.civilId" minlength="13" maxlength="13">
                                 </div>
                                 <div class="col-lg-6">
                                     <label for="address">{{"Address" | localize}}</label>
@@ -194,7 +194,7 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <label for="JobTitleId">{{"JobTitle" | localize}}</label>
-                                    <select [ngClass]="{ 'is-invalid': userForm.submitted && jobTitleIdInput.invalid}" required #jobTitleIdInput="ngModel" name="jobTitleId" class="form-control bs-select" [(ngModel)]="user.jobTitleId">
+                                    <select [ngClass]="{ 'is-invalid': userForm.submitted && jobTitleIdInput.invalid}" #jobTitleIdInput="ngModel" name="jobTitleId" class="form-control bs-select" [(ngModel)]="user.jobTitleId">
                                         <option *ngFor="let jobTitle of jobTitles" [value]="jobTitle.id">
                                             {{jobTitle.nameAr}}
                                         </option>

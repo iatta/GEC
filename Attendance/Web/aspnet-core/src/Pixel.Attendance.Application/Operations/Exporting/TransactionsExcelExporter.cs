@@ -35,12 +35,18 @@ namespace Pixel.Attendance.Operations.Exporting
 
                     AddHeader(
                         sheet,
-                        L("TransType")
+                        L("Employee"),
+                        L("Date"),
+                        L("Time"),
+                        L("Machine")
                         );
 
                     AddObjects(
                         sheet, 2, transactions,
-                        _ => _.Transaction.TransType
+                        _ => _.UserName,
+                        _ => _.Transaction.Transaction_Date.ToShortDateString(),
+                        _ => _.Transaction.Time.Substring(0,5),
+                        _ => _.MachineNameEn
                         );
 
 					

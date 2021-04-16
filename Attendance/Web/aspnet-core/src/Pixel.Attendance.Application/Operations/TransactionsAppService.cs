@@ -59,7 +59,7 @@ namespace Pixel.Attendance.Operations
 
 
 
-        public TransactionsAppService(IRepository<TaskType> taskTypeRepository ,IRepository<LeaveType> leaveTypeRepository, IRepository<RamadanDate> ramadanDateRepository, IRepository<OverrideShift> overrideShiftRepository, IRepository<TransactionLog> transactionLogRepository, IRepository<EmployeeTempTransfer> employeeTempTransferRepository, IRepository<OrganizationLocation> organizationLocationRepository, IRepository<LocationMachine> locationMachineRepository, IRepository<UserDelegation> userDelegationRepository, IRepository<UserTimeSheetApprove> userTimeSheetApproveRepository, IRepository<EmployeeVacation> employeeVacation, IRepository<Shift> shiftRepository, IRepository<UserShift> userShiftRepository, IRepository<OrganizationUnitExtended, long> organizationUnit, IRepository<Transaction> transactionRepository, IRepository<Project> projectRepository, ITransactionsExcelExporter transactionsExcelExporter, UserManager userManager, IRepository<User, long> lookup_userRepository, IRepository<Machine, int> lookup_machineRepository)
+        public TransactionsAppService(IRepository<TaskType> taskTypeRepository, IRepository<LeaveType> leaveTypeRepository, IRepository<RamadanDate> ramadanDateRepository, IRepository<OverrideShift> overrideShiftRepository, IRepository<TransactionLog> transactionLogRepository, IRepository<EmployeeTempTransfer> employeeTempTransferRepository, IRepository<OrganizationLocation> organizationLocationRepository, IRepository<LocationMachine> locationMachineRepository, IRepository<UserDelegation> userDelegationRepository, IRepository<UserTimeSheetApprove> userTimeSheetApproveRepository, IRepository<EmployeeVacation> employeeVacation, IRepository<Shift> shiftRepository, IRepository<UserShift> userShiftRepository, IRepository<OrganizationUnitExtended, long> organizationUnit, IRepository<Transaction> transactionRepository, IRepository<Project> projectRepository, ITransactionsExcelExporter transactionsExcelExporter, UserManager userManager, IRepository<User, long> lookup_userRepository, IRepository<Machine, int> lookup_machineRepository)
         {
             _leaveTypeRepository = leaveTypeRepository;
             _ramadanDateRepository = ramadanDateRepository;
@@ -89,10 +89,10 @@ namespace Pixel.Attendance.Operations
             var filteredTransactions = _transactionRepository.GetAll()
                         .Include(x => x.User)
                         .Include(x => x.Machine)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.Time.Contains(input.Filter) 
-                        || e.Address.Contains(input.Filter) || e.Reason.Contains(input.Filter) 
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.Time.Contains(input.Filter)
+                        || e.Address.Contains(input.Filter) || e.Reason.Contains(input.Filter)
                         || e.Remark.Contains(input.Filter) || e.User != null && e.User.FingerCode == input.Filter)
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.UserNameFilter) , e => e.User != null && e.User.FingerCode == input.UserNameFilter)
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.UserNameFilter), e => e.User != null && e.User.FingerCode == input.UserNameFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.MachineNameEnFilter), e => e.Machine != null && e.Machine.NameEn.Contains(input.MachineNameEnFilter))
                         .WhereIf(input.MinTransDateFilter != null, e => e.Transaction_Date.Date >= input.MinTransDateFilter.Value.Date)
                         .WhereIf(input.MaxTransDateFilter != null, e => e.Transaction_Date.Date <= input.MaxTransDateFilter.Value.Date)
@@ -237,18 +237,43 @@ namespace Pixel.Attendance.Operations
         {
 
             var filteredTransactions = _transactionRepository.GetAll()
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.Time.Contains(input.Filter) || e.Address.Contains(input.Filter) || e.Reason.Contains(input.Filter) || e.Remark.Contains(input.Filter))
-                        .WhereIf(input.MinTransTypeFilter != null, e => e.TransType >= input.MinTransTypeFilter)
-                        .WhereIf(input.MaxTransTypeFilter != null, e => e.TransType <= input.MaxTransTypeFilter);
+                         .Include(x => x.User)
+                         .Include(x => x.Machine)
+                         .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.Time.Contains(input.Filter)
+                         || e.Address.Contains(input.Filter) || e.Reason.Contains(input.Filter)
+                         || e.Remark.Contains(input.Filter) || e.User != null && e.User.FingerCode == input.Filter)
+                         .WhereIf(!string.IsNullOrWhiteSpace(input.UserNameFilter), e => e.User != null && e.User.FingerCode == input.UserNameFilter)
+                         .WhereIf(!string.IsNullOrWhiteSpace(input.MachineNameEnFilter), e => e.Machine != null && e.Machine.NameEn.Contains(input.MachineNameEnFilter))
+                         .WhereIf(input.MinTransDateFilter != null, e => e.Transaction_Date.Date >= input.MinTransDateFilter.Value.Date)
+                         .WhereIf(input.MaxTransDateFilter != null, e => e.Transaction_Date.Date <= input.MaxTransDateFilter.Value.Date)
+                         .WhereIf(input.MinTransTypeFilter != null, e => e.TransType >= input.MinTransTypeFilter)
+                         .WhereIf(input.MaxTransTypeFilter != null, e => e.TransType <= input.MaxTransTypeFilter);
+
 
             var query = (from o in filteredTransactions
+                         join o1 in _lookup_userRepository.GetAll() on o.Pin equals o1.Id into j1
+                         from s1 in j1.DefaultIfEmpty()
+
+                         join o2 in _lookup_machineRepository.GetAll() on o.MachineId equals o2.Id into j2
+                         from s2 in j2.DefaultIfEmpty()
                          select new GetTransactionForViewDto()
                          {
                              Transaction = new TransactionDto
                              {
                                  TransType = o.TransType,
-                                 Id = o.Id
-                             }
+                                 KeyType = o.KeyType,
+                                 CreationTime = o.CreationTime,
+                                 Transaction_Date = o.Transaction_Date,
+                                 Pin = o.Pin,
+                                 Time = o.Time,
+                                 Id = o.Id,
+                                 ProjectManagerApprove = o.ProjectManagerApprove,
+                                 UnitManagerApprove = o.UnitManagerApprove
+                             },
+                             UserName = s1 == null ? "" : s1.FingerCode.ToString(),
+                             MachineNameEn = s2 == null ? "" : s2.NameEn.ToString(),
+                             MachineId = s2.Id,
+
                          });
 
 
@@ -755,9 +780,9 @@ namespace Pixel.Attendance.Operations
             unitList.Add(projectUnit.Id);
             if (projectUnit.Children.Count > 0)
                 unitList.AddRange(projectUnit.Children.Select(x => x.Id).ToList());
-            
 
-        
+
+
 
             //get user groups 
             var users = new List<User>();
@@ -824,7 +849,7 @@ namespace Pixel.Attendance.Operations
 
                     if (userShift == null)
                         continue;
-                    
+
                     //check if we are in ramadan 
                     var ramdanTime = await _ramadanDateRepository.FirstOrDefaultAsync(x => x.ToDate.Date.Date >= day.Date.Date && x.FromDate.Date <= day.Date.Date);
                     var isRamadanDay = ramdanTime != null ? true : false;
@@ -1110,7 +1135,7 @@ namespace Pixel.Attendance.Operations
 
                     if (detailToAdd.IsDayOff)
                     {
-                        
+
                         summaryToAdd.Details.Add(detailToAdd);
                         UserIdToApproveObj.DaysToApprove.Add(day);
                         continue;
@@ -1762,7 +1787,7 @@ namespace Pixel.Attendance.Operations
                             normalOvertimeObj.TaskName = task.NameEn;
                             normalOvertimeObj.TaskNo = task.Number;
                         }
-                        
+
 
                         normalOvertimeObj.ExpenditureType = "Regular Hours";
                         normalOvertimeObj.Hours = totalHours;
