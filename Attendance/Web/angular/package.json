@@ -74,7 +74,7 @@
     "sweetalert2": "^8.18.6",
     "text-mask-addons": "^3.8.0",
     "webdriver-manager": "^12.1.7",
-    "xlsx": "^0.15.6",
+    "xlsx": "^0.17.0",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
